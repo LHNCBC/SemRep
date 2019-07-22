@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.2.0 New Features</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.2.0 New Features">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.2.0 New Features">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e2_002e0-Changes.html#g_t4_002e2_002e0-Changes" rel="up" title="4.2.0 Changes">
+<link href="4_002e2_002e0-Bugs-Fixed.html#g_t4_002e2_002e0-Bugs-Fixed" rel="next" title="4.2.0 Bugs Fixed">
+<link href="4_002e2_002e0-Changes.html#g_t4_002e2_002e0-Changes" rel="prev" title="4.2.0 Changes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e2_002e0-New-Features"></a>
+<hr>
+<a name="New-Features-9"></a>
+<h4 class="subsection">14.16.1 New Features</h4>
+
+<ul>
+<li> If the Prolog flag <code>source_info</code> is on at compile time, then 
+more information from the source code is kept around at runtime,
+with improved functionality including:
+<ul class="no-bullet">
+<li>- The debugger can show variable bindings for the current clause and its
+ancestors.
+</li><li>- The Emacs interface offers a variable bindings window that is updated on
+every debugger port interaction.
+</li><li>- <code>listing/[0,1]</code> displays the clauses with their source code
+variable names.
+</li><li>- PO files and saved-states retain information about variable names and
+line numbers.
+</li><li>- The SICStus Prolog IDE (SPIDER) also takes advantage of the improved
+debugging information, e.g. the variable bindings view in SPIDER now has
+information for more variables than in earlier releases.
+</li><li>- Generic runtime systems are now available on all platforms, not only on
+Windows. See <a href="../sicstus/Generic-Runtime-Systems.html#Generic-Runtime-Systems">Generic Runtime Systems</a> in <cite>the SICStus Prolog
+Manual</cite> for details.
+</li></ul>
+
+</li><li> Execution profiling has been reengineered:
+<ul class="no-bullet">
+<li>- The execution profile can be printed in a format similar to <code>gprof(1)</code>.
+</li><li>- There is no longer any need to specially instrument code for profiling.
+</li><li>- Execution profiling is available for compiled as well as interpreted code.
+</li><li>- Execution profiling is either globally <em>on</em> or globally <em>off</em>,
+reflected by the value of the new <code>profiling</code> Prolog flag.
+</li><li>- The new scheme keeps track of the number of calls per caller-callee pair.
+</li><li>- The new scheme detects calls that succeed nondeterminately.
+</li><li>- No clause level data is maintained, all data is per predicate.
+</li><li>- The <code>profiledcode</code> value of the <code>compiling</code> Prolog flag has
+been dropped.
+</li><li>- PO files do not store any profiling data.
+</li><li>- The built-in predicates 
+<code>profile_data/4</code> and
+<code>profile_reset/1</code> have been replaced by
+<code>profile_reset/0</code>, 
+<code>profile_data/1</code>,
+<code>print_profile/[0,1]</code>,
+<code>coverage_data/1</code>, and
+<code>print_coverage/[0,1]</code>.
+</li><li>- SPIDER can present the profile information.
+</li></ul>
+
+</li><li> Improved performance on Linux Intel, 32 and 64 bits.
+
+</li><li> Coverage analysis is now available, for compiled as well as interpreted code:
+<ul class="no-bullet">
+<li>- It uses the same infrastructure as execution profiling.
+</li><li>- Code coverage can be reported textually in a hierarchical format,
+or alternatively by highlighting the relevant lines of code in the
+relevant Emacs buffers and in SPIDER.
+</li></ul>
+
+</li><li> It is now possible to debug runtime systems, e.g. when SICStus is
+embedded in some other applications, such as Java. It is also possible
+to attach to a runtime system from SPIDER. See <a href="../sicstus/Debugging-Runtime-Systems.html#Debugging-Runtime-Systems">Debugging Runtime Systems</a> in <cite>the SICStus Prolog Manual</cite>.
+
+</li><li> The <code>meta_predicate/1</code> predicate property will retrieve the
+specifications used in the original meta-predicate declaration, which
+can be integers or the atoms <code>:</code>, <code>*</code>, <code>+</code>, <code>-</code>, or <code>?</code>.
+Previously, only the atoms <code>:</code> or <code>?</code> would be retrieved.
+<strong>Please note</strong>: This is an incompatible change.  Code that
+inspects this predicate property may need to be updated.
+
+</li><li> A new stream property, <code>id</code>, has been added. This property provides
+a unique identity that is never re-used, even after the stream has been
+closed.
+See <a href="../sicstus/mpg_002dref_002dstream_005fproperty.html#mpg_002dref_002dstream_005fproperty"><code>stream_property/2</code></a> in <cite>the SICStus Prolog Manual</cite>.
+
+</li><li> CLPFD:
+<ul class="no-bullet">
+<li>- The <code>case/[3,4]</code> constraint has been extended to take linear inequalities
+into account in addition to the DAG.
+</li><li>- The new constraint <code>smt/1</code> provides a front-end to the extended
+<code>case/[3,4]</code> constraint.
+</li><li>- Reified constraints can be used as terms in arithmetic expressions.
+</li></ul>
+
+</li><li> <code>library(zinc)</code>: upgraded to FlatZinc version 1.2.
+
+</li><li> Changes to <code>library(odbc)</code>:
+<ul class="no-bullet">
+<li>- New predicates:
+
+<dl compact="compact">
+<dt><code>odbc_current_table/[2,3]</code></dt>
+<dd><p>Enumerate tables and their attributes.
+</p></dd>
+<dt><code>odbc_table_column/[3,4]</code></dt>
+<dd><p>Enumerate table columns and their attributes.
+</p></dd>
+</dl>
+
+</li><li>- <code>odbc:odbc_query_close/1</code> can now close both result sets and
+statement handles.
+
+</li><li>- The format has changed for some odbc exceptions.
+Now all odbc-related exceptions have the same basic structure.
+</li></ul>
+
+</li><li> When SICStus is started from Emacs, using <kbd>M-x run-prolog</kbd>, or from
+the launcher script in the <samp>Applications</samp> folder, the system
+property <code>SP_ULIMIT_DATA_SEGMENT_SIZE</code> is set to
+<code>unlimited</code>. This ensures that overly restrictive default limits on
+process memory usage do not affect SICStus. This is primarily an issue
+on Mac OS X. Previously, this setting was only applied when SICStus was
+invoked from the SICStus Prolog IDE (SPIDER).
+
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e2_002e0-Bugs-Fixed.html#g_t4_002e2_002e0-Bugs-Fixed" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e2_002e0-Changes.html#g_t4_002e2_002e0-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e0-New-Features.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e0-New-Features.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

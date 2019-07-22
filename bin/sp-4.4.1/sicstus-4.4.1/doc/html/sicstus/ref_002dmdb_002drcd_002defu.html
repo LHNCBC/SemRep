@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mdb-rcd-efu</title>
+
+<meta name="description" content="SICStus Prolog: ref-mdb-rcd-efu">
+<meta name="keywords" content="SICStus Prolog: ref-mdb-rcd-efu">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmdb_002drcd.html#ref_002dmdb_002drcd" rel="up" title="ref-mdb-rcd">
+<link href="ref_002dmdb_002dacl.html#ref_002dmdb_002dacl" rel="next" title="ref-mdb-acl">
+<link href="ref_002dmdb_002drcd.html#ref_002dmdb_002drcd" rel="prev" title="ref-mdb-rcd">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmdb_002drcd_002defu"></a>
+<hr>
+<a name="A-Note-on-Efficient-Use-of-retract_002f1"></a>
+<h4 class="subsubsection">4.12.5.1 A Note on Efficient Use of <code>retract/1</code></h4>
+
+<p><em>WARNING:</em> <code>retract/1</code> is a nondeterminate procedure.  Thus, we can use
+</p><div class="example">
+<pre class="example">| ?- <kbd>retract((foo(X) :- Body)), fail</kbd>.
+</pre></div>
+
+
+<p>to retract all clauses for <code>foo/1</code>.  A nondeterminate procedure
+in SICStus Prolog uses a <em>choicepoint</em>, a data  structure kept
+on an internal stack, to implement backtracking.  This applies to
+user-defined procedures as well as to built-in and library procedures.
+In a simple model,
+a choicepoint is created for each call to a nondeterminate procedure,
+and is deleted on determinate success or failure of that call, when
+backtracking is no longer possible.
+In fact, SICStus Prolog improves upon this simple model by recognizing
+certain contexts in which choicepoints 
+can be avoided, or are no longer needed.
+</p>
+<p>The Prolog <em>cut</em> (&lsquo;<samp>!</samp>&rsquo;) works by removing choicepoints, disabling 
+the potential backtracking they represented.  A choicepoint
+can thus be viewed as an &ldquo;outstanding call&rdquo;, and a 
+<em>cut</em> as deleting outstanding calls.
+</p>
+<p>To avoid leaving inconsistencies between the Prolog database and
+outstanding calls, a retracted clause is reclaimed only when the
+system determines that there are no choicepoints on the stack that
+could allow backtracking to the clause.  Thus, the existence of a
+single choicepoint on the stack can disable reclamation of retracted
+clauses for the procedure whose call created the choicepoint.  Space
+is recovered only when the choicepoint is deleted.
+</p>
+<p>Often <code>retract/1</code> is used determinately; for example, to retract a single 
+clause, as in
+</p><div class="example">
+<pre class="example">| ?- &lt;do some stuff&gt;
+      <kbd>retract(Clause)</kbd>,
+     &lt;do more stuff without backtracking&gt;.
+</pre></div>
+
+
+<p>No backtracking by <code>retract/1</code> is intended.  Nonetheless, if
+Clause may match more than one clause in its procedure, then a choicepoint
+will be created by <code>retract/1</code>.  While executing &ldquo;&lt;do more stuff
+without backtracking&gt;&rdquo;, that choicepoint will remain on the stack,
+making it impossible to reclaim the retracted Clause.  Such
+choicepoints can also disable tail recursion optimization.  If not cut
+away, then the choicepoint can also lead to runaway retraction on the
+unexpected failure of a subsequent goal.  This can be avoided by
+simply cutting away the choicepoint with an explicit <code>cut</code> or a
+local cut (&lsquo;<samp>-&gt;</samp>&rsquo;).  Thus, in the previous example, it is
+preferable to write either
+</p><div class="example">
+<pre class="example">| ?- &lt;do some stuff&gt;
+      <kbd>retract(Clause),</kbd>
+      <kbd>!,</kbd>
+     &lt;do more stuff without backtracking&gt;.
+</pre></div>
+
+
+<p>or
+</p>
+<div class="example">
+<pre class="example">| ?- &lt;do some stuff&gt;
+     <kbd>( retract(Clause) -&gt; true ),</kbd>
+     &lt;do more stuff without backtracking&gt;.
+</pre></div>
+
+
+<p>This will reduce stack size and allow the earliest possible reclamation 
+of retracted clauses.  
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmdb_002drcd.html#ref_002dmdb_002drcd" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmdb_002drcd_002defu.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmdb_002drcd_002defu.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

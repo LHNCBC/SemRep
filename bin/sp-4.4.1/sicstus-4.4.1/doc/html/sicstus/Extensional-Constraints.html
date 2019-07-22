@@ -1,0 +1,390 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Extensional Constraints</title>
+
+<meta name="description" content="SICStus Prolog: Extensional Constraints">
+<meta name="keywords" content="SICStus Prolog: Extensional Constraints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Available-Constraints.html#Available-Constraints" rel="up" title="Available Constraints">
+<link href="Graph-Constraints.html#Graph-Constraints" rel="next" title="Graph Constraints">
+<link href="Arithmetic_002dLogical-Constraints.html#Arithmetic_002dLogical-Constraints" rel="prev" title="Arithmetic-Logical Constraints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Extensional-Constraints"></a>
+<hr>
+<a name="Extensional-Constraints-1"></a>
+<h4 class="subsubsection">10.10.4.5 Extensional Constraints</h4>
+
+<dl compact="compact">
+<dt><code>element(<var>?X</var>,<var>+List</var>,<var>?Y</var>)</code></dt>
+<dd>
+<a name="index-element_002f3-_0028clpfd_0029-1"></a>
+<a name="index-element_002f3-_0028clpfd_0029"></a>
+
+<p>where <var>X</var> and <var>Y</var> are domain variables and <var>List</var> is a list
+of domain variables.  True if the <var>X</var>:th element of <var>List</var> is
+<var>Y</var>.  Operationally, the domains of <var>X</var> and <var>Y</var> are
+constrained so that for every element in the domain of <var>X</var>, there is
+a compatible element in the domain of <var>Y</var>, and vice versa.
+</p>
+<p>Maintains domain consistency in <var>X</var> and bounds consistency in
+<var>List</var> and <var>Y</var>.  Corresponds to <code>nth1/3</code> in
+<code>library(lists)</code> and to <code>element/3</code> and <code>member/2</code> in MiniZinc<!-- /@w -->.
+</p>
+
+</dd>
+<dt><code>relation(<var>?X</var>,<var>+MapList</var>,<var>?Y</var>) &nbsp;<!-- /@w --> <i>since release 4.0.5</i>,<i>deprecated</i></code></dt>
+<dd>
+<a name="index-relation_002f3-_0028clpfd_0029-1"></a>
+<a name="index-relation_002f3-_0028clpfd_0029"></a>
+
+<p>where <var>X</var> and <var>Y</var> are domain variables and <var>MapList</var> is a
+list of <code><var>integer</var>-<var>ConstantRange</var></code> pairs, where the
+integer keys occur uniquely (see <a href="Syntax-of-Indexicals.html#Syntax-of-Indexicals">Syntax of Indexicals</a>).  True if
+<var>MapList</var> contains a pair <code><var>X</var>-<var>R</var></code> and <var>Y</var> is in
+the range denoted by <var>R</var>.  Maintains domain consistency.
+</p>
+<p>An arbitrary binary constraint can be defined with <code>relation/3</code>.
+<code>relation/3</code> is implemented by straightforward transformation to
+the following, more general constraint, with which arbitrary relations
+can be defined compactly:
+</p>
+</dd>
+<dt><code>table(<var>+Tuples</var>,<var>+Extension</var>)</code></dt>
+<dt><code>table(<var>+Tuples</var>,<var>+Extension</var>,<var>+Options</var>)</code></dt>
+<dd>
+<a name="index-table_002f_005b2_002c3_005d-_0028clpfd_0029-1"></a>
+<a name="index-table_002f_005b2_002c3_005d-_0028clpfd_0029"></a>
+
+<p>Defines an <var>n</var>-ary constraint by extension.  <var>Extension</var> should
+be a list of lists of integers, each of length <var>n</var>.  <var>Tuples</var>
+should be a list of lists of domain variables, each also of length
+<var>n</var>.  The constraint holds if every <var>Tuple</var> in <var>Tuples</var>
+occurs in the <var>Extension</var>.  The constraint will maintain
+domain consistency.
+</p>
+<p>Corresponds to <code>table/2</code> in MiniZinc<!-- /@w -->.
+</p>
+<p>For convenience, <var>Extension</var> may contain <var>ConstantRange</var>
+(see <a href="Syntax-of-Indexicals.html#Syntax-of-Indexicals">Syntax of Indexicals</a>) expressions in addition to integers.
+</p>
+<p><var>Options</var> is a list of zero or more of the following:
+</p>
+<dl compact="compact">
+<dt><code>order(<var>Order</var>) &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-order_002f1-_0028table_002f3-option_0029"></a>
+<p>Determines the variable order used internally.  The following values are valid:
+</p><dl compact="compact">
+<dt><code>leftmost</code></dt>
+<dd><a name="index-leftmost-_0028table_002f3-order_002f1-value_0029"></a>
+<p>The order is the one given in the arguments (the default).
+</p></dd>
+<dt><code>id3</code></dt>
+<dd><a name="index-id3-_0028table_002f3-order_002f1-value_0029"></a>
+<p>Each tuple, and the columns of the extension, is permuted according to
+the heuristic that more discriminating columns should precede less
+discriminating ones.
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>method(<var>Method</var>) &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-method_002f1-_0028table_002f3-option_0029"></a>
+<p>Controls the choice of internal data structure and algorithm.
+The following values are valid:
+</p><dl compact="compact">
+<dt><code>default &nbsp;<!-- /@w --> <i>since release 4.4</i></code></dt>
+<dd><a name="index-default-_0028table_002f3-method_002f1-value_0029"></a>
+<p>SICStus choice handles propagation as it sees fit (the default).
+</p></dd>
+<dt><code>noaux</code></dt>
+<dd><a name="index-noaux-_0028table_002f3-method_002f1-value_0029"></a>
+<p>SICStus handles propagation with the <code>case/[3,4]</code> constraint, see below,
+converting the extension to a DAG.
+</p></dd>
+<dt><code>aux</code></dt>
+<dd><a name="index-aux-_0028table_002f3-method_002f1-value_0029"></a>
+<p>SICStus handles propagation with the <code>case/[3,4]</code> constraint, see
+below.  Before converting the extension to a DAG, an auxiliary, first
+variable is introduced, denoting extension row number.
+</p></dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<p><code>table/[2,3]</code> can be implemented in terms of the following, more
+general constraint, which allows a compact representation of arbitrary relations:
+</p>
+<dl compact="compact">
+<dt><code>case(<var>+Template</var>, <var>+Tuples</var>, <var>+Dag</var>)</code></dt>
+<dt><code>case(<var>+Template</var>, <var>+Tuples</var>, <var>+Dag</var>, <var>+Options</var>)</code></dt>
+<dd>
+<a name="index-case_002f_005b3_002c4_005d-_0028clpfd_0029-1"></a>
+<a name="index-case_002f_005b3_002c4_005d-_0028clpfd_0029"></a>
+
+
+<p>This constraint encodes an <var>n</var>-ary constraint, defined by extension
+and/or linear inequalities.  It uses a DAG-shaped data structure where
+nodes corresponds to variables and every arc is labeled by an admissible
+interval for the node above it and optionally by linear inequalities.
+The variable order is fixed: every path from the root node to a leaf
+node should visit every variable exactly once, in the order in which
+they occur lexically in <var>Template</var>.  The constraint is true for a
+single ground tuple if there is a path from the root node to a leaf node
+such that (a) each tuple element is contained in the corresponding
+<var>Min..Max</var> interval on the path, and (b) any encountered linear
+inequalities along the path are true.  The constraint is true for a set
+of ground tuples if it is true for each tuple of the set. The details
+are given below.
+</p>
+<p><var>Template</var> is a nonground Prolog term, each variable of which should
+occur exactly once.  Its variables are merely place-holders; they should
+not occur outside the constraint nor inside <var>Tuples</var>.
+</p>
+<p><var>Tuples</var> is a list of terms of the same shape as <var>Template</var>.
+They should not share any variables with <var>Template</var>.
+</p>
+<p><var>Dag</var> is a list of <em>nodes</em> of the form
+<code>node(<var>ID</var>,<var>X</var>,<var>Children</var>)</code>, where <var>X</var> is a
+template variable, and <var>ID</var> should be an integer, uniquely
+identifying each node.  The first node in the list is the <em>root
+node</em>.  </p>
+<p>Nodes are either <var>internal nodes</var> or <var>leaf nodes</var>.  For an
+internal node, <var>Children</var> is a list of terms
+<code>(<var>Min</var>..<var>Max</var>)-<var>ID2</var></code> or
+<code>(<var>Min</var>..<var>Max</var>)-<var>SideConstraints</var>-<var>ID2</var></code>, where
+<var>ID2</var> is the ID of a child node, <var>Min</var> is an integer or the atom
+<code>inf</code> (minus infinity), and <var>Max</var> is an integer or the atom
+<code>sup</code> (plus infinity).  For a leaf node, <var>Children</var> is a list
+of terms <code>(<var>Min</var>..<var>Max</var>)</code> or
+<code>(<var>Min</var>..<var>Max</var>)-<var>SideConstraints</var></code>.
+</p>
+<p><var>SideConstraints</var> is a list of side constraints of the form
+<code>scalar_product(<var>Coeffs</var>, <var>Xs</var>, #=&lt;, <var>Bound</var>)</code>, where
+<var>Coeffs</var> is a list of length <var>k</var> of integers, <var>Xs</var> is a list
+of length <var>k</var> of template variables, and <var>Bound</var> is an integer.
+</p>
+<p>Variables in <var>Tuples</var> for which their template variable counterparts
+are constrained by side constraints, must have bounded domains.  In the
+absence of side constraint, the constraint maintains domain consistency.
+</p>
+<p><var>Options</var> is a list of zero or more of the following:
+</p>
+<dl compact="compact">
+<dt><code>scalar_product(<var>Coeffs</var>, <var>Xs</var>, #=&lt;, <var>Bound</var>) &nbsp;<!-- /@w --> <i>since release 4.2</i></code></dt>
+<dd><a name="index-scalar_005fproduct_002f4-_0028case_002f4-option_0029"></a>
+<p>A side constraint located at the root of the DAG.
+</p></dd>
+</dl>
+
+<p>For example, recall that <code>element(<var>X</var>,<var>L</var>,<var>Y</var>)</code> wakes
+up when the domain of <var>X</var> or the lower or upper bound of <var>Y</var> has
+changed, performs full pruning of <var>X</var>, but only prunes the bounds of
+<var>Y</var>.  The following two constraints:
+</p>
+<div class="example">
+<pre class="example">element(X, [1,1,1,1,2,2,2,2], Y),
+element(X, [10,10,20,20,10,10,30,30], Z)
+</pre></div>
+
+<p>can be replaced by the following single constraint, which is equivalent
+declaratively, but which maintains domain consistency:
+</p>
+<div class="example">
+<pre class="example">elts(X, Y, Z) :-
+    case(f(A,B,C), [f(X,Y,Z)], 
+         [node(0, A,[(1..2)-1,(3..4)-2,(5..6)-3,(7..8)-4]),
+          node(1, B,[(1..1)-5]),
+          node(2, B,[(1..1)-6]),
+          node(3, B,[(2..2)-5]),
+          node(4, B,[(2..2)-7]),
+          node(5, C,[(10..10)]),
+          node(6, C,[(20..20)]),
+          node(7, C,[(30..30)])]).
+</pre></div>
+
+<p>The DAG of the previous example has the following shape:
+</p>
+<br>
+<img src="images/clpfd1.png" alt="images/clpfd1">
+<div align="center">DAG corresponding to <code>elts/3</code>.
+</div>
+<p>A couple of sample queries:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>elts(X, Y, Z).</kbd>
+X in 1..8,
+Y in 1..2,
+Z in {10}\/{20}\/{30}
+
+| ?- <kbd>elts(X, Y, Z), Z #&gt;= 15.</kbd>
+X in(3..4)\/(7..8),
+Y in 1..2,
+Z in {20}\/{30}
+
+| ?- <kbd>elts(X, Y, Z), Y = 1.</kbd>
+Y = 1,
+X in 1..4,
+Z in {10}\/{20}
+
+</pre></div>
+
+<p>As an example with side constraints, consider assigning tasks to
+machines with given unavailibility periods. In this case, one can use a
+<em>calendar</em> constraint [CHIP 03, Beldiceanu, Carlsson &amp; Rampon 05] to
+link the real origins of the tasks (taking the unavailibility periods
+into account) with virtual origins of the tasks (not taking the
+unavailibility periods into account). One can then state machine
+resource constraints using the virtual origins, and temporal constraints
+between the tasks using the real origins.
+</p>
+<p>Assume, for example, three machines with unavailibility periods given by
+the following table:
+</p><br>
+<div align="center"><img src="images/clpfd3.png" alt="images/clpfd3">
+</div><div align="center">Unavailibility periods for three machines.
+</div>
+<p>Machine <code>1</code> is not available during (real) time periods <code>1-2</code>
+and <code>6-6</code>, machine <code>2</code> is not available during (real) time
+periods <code>3-4</code> and <code>7-7</code>, and machine <code>3</code> is always
+available.
+</p>
+<p>The following can then be used to express a calendar constraint for a
+given task scheduled on machine <code><var>M</var> in 1..3</code>, with virtual
+origin <code><var>V</var> in 1..8</code>, and real origin <code><var>R</var> in 1..8</code>:
+</p>
+<div class="example">
+<pre class="example">calendar(M, V, R) :-
+        M in 1..3,
+        V in 1..8,
+        R in 1..8,
+        smt((M#=1 #/\ V in 1..3 #/\ R#=V+2) #\/
+            (M#=1 #/\ V in 4..5 #/\ R#=V+3) #\/
+            (M#=2 #/\ V in 1..2 #/\ R#=V) #\/
+            (M#=2 #/\ V in 3..4 #/\ R#=V+2) #\/
+            (M#=2 #/\ V in 5..5 #/\ R#=V+3) #\/
+            (M#=3               #/\ R#=V)).
+</pre></div>
+
+<p>or equivalently as:
+</p>
+<div class="example">
+<pre class="example">calendar(M, V, R) :-
+    case(f(A,B,C), 
+         [f(M,V,R)],
+         [node(0, A, [(1..1)-1, (2..2)-2, (3..3)-3]),
+          node(1, B, [(1..3)-[scalar_product([1,-1],[B,C],#=&lt;,-2),
+                              scalar_product([1,-1],[C,B],#=&lt;, 2)]-4, 
+                      (4..5)-[scalar_product([1,-1],[B,C],#=&lt;,-3),
+                              scalar_product([1,-1],[C,B],#=&lt;, 3)]-4]),
+          node(2, B, [(1..2)-[scalar_product([1,-1],[B,C],#=&lt;, 0),
+                              scalar_product([1,-1],[C,B],#=&lt;, 0)]-4, 
+                      (3..4)-[scalar_product([1,-1],[B,C],#=&lt;,-2),
+                              scalar_product([1,-1],[C,B],#=&lt;, 2)]-4, 
+                      (5..5)-[scalar_product([1,-1],[B,C],#=&lt;,-3),
+                              scalar_product([1,-1],[C,B],#=&lt;, 3)]-4]),
+          node(3, B, [(1..8)-[scalar_product([1,-1],[B,C],#=&lt;, 0),
+                              scalar_product([1,-1],[C,B],#=&lt;, 0)]-4]),
+          node(4, C, [(1..8)])]).
+</pre></div>
+
+<p>Note that equality must be modeled as the conjunction of inequalities,
+as only constraints of the form <code>scalar_product(<var>+Coeffs</var>,
+<var>+Xs</var>, #=&lt;, <var>+Bound</var>)</code> are allowed as side constraints.
+</p>
+<p>The DAG of the calendar constraint has the following shape:
+</p>
+<br>
+<img src="images/clpfd2.png" alt="images/clpfd2">
+<div align="center">DAG corresponding to <code>calendar/3</code>.
+</div>
+<p>A couple of sample queries:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>M in 1..3, V in 1..8, R in 1..8,</kbd>
+     <kbd>calendar(M, V, R).</kbd>
+M in 1..3,
+V in 1..8,
+R in 1..8
+
+| ?- <kbd>M in 1..3, V in 1..8, R in 1..8,</kbd>
+     <kbd>calendar(M, V, R), M #= 1.</kbd>
+M = 1,
+V in 1..5,
+R in 1..8
+
+| ?- <kbd>M in 1..3, V in 1..8, R in 1..8,</kbd>
+     <kbd>calendar(M, V, R), M #= 2, V #&gt; 4.</kbd>
+M = 2,
+V = 5,
+R = 8
+
+</pre></div>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Graph-Constraints.html#Graph-Constraints" accesskey="n" rel="next">Next</a>
+<li><a href="Arithmetic_002dLogical-Constraints.html#Arithmetic_002dLogical-Constraints" accesskey="p" rel="prev">Previous</a>
+<li><a href="Available-Constraints.html#Available-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Extensional-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Extensional-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

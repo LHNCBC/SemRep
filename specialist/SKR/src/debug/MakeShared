@@ -1,0 +1,98 @@
+
+#############################################################################
+#
+#                          PUBLIC DOMAIN NOTICE                         
+#         Lister Hill National Center for Biomedical Communications
+#                      National Library of Medicine
+#                      National Institues of Health
+#           United States Department of Health and Human Services
+#                                                                         
+#  This software is a United States Government Work under the terms of the
+#  United States Copyright Act. It was written as part of the authors'
+#  official duties as United States Government employees and contractors
+#  and thus cannot be copyrighted. This software is freely available
+#  to the public for use. The National Library of Medicine and the
+#  United States Government have not placed any restriction on its
+#  use or reproduction.
+#                                                                        
+#  Although all reasonable efforts have been taken to ensure the accuracy 
+#  and reliability of the software and data, the National Library of Medicine
+#  and the United States Government do not and cannot warrant the performance
+#  or results that may be obtained by using this software or data.
+#  The National Library of Medicine and the U.S. Government disclaim all
+#  warranties, expressed or implied, including warranties of performance,
+#  merchantability or fitness for any particular purpose.
+#                                                                         
+#  For full details, please see the MetaMap Terms & Conditions, available at
+#  http://metamap.nlm.nih.gov/MMTnCs.shtml.
+#
+############################################################################
+
+#/*==========================================================
+#
+#%SOURCE FILE
+#	Makefile
+#
+#%DESCRIPTION OF FILE
+#	Make file.
+#
+#%REVISED
+#	29Aug95 divita -- Initial Version
+#
+#%SCCS:	@(#)MakeShared	1.1 09/15/06
+#==========================================================*/
+
+#-----------------------------
+# CSCI
+#-----------------------------
+CSCI = d
+
+#-----------------------------
+# CSC
+#-----------------------------
+CSC = debug
+
+#-----------------------------
+# Library to make
+#-----------------------------
+LIBRARY = $(CSC).so
+COMMON = N
+
+#OPTIMIZE = -xO3
+#MAKE_SHARED_LIB = -dy -G -z text -KPIC 
+
+#-----------------------------
+# Public header 
+#-----------------------------
+#HEADER = $(CSC).h
+#HEADERS = $(INC)/debug.h $(INC)/derrno.h $(INC)/useful.h $(INC)/debug_p.h
+HEADERS = debug.h derrno.h useful.h debug_p.h
+
+#-----------------------------
+# Include paths
+#-----------------------------
+INCLUDES = -I . -I$(INC) 
+
+#
+#.............. DO NOT EDIT BELOW THIS LINE; USE "mkmake -u" ...................
+#
+
+#-----------------------------
+# Header files
+#-----------------------------
+HDR = debug.h debug_p.h derrno.h messages.h useful.h
+
+#-----------------------------
+# Source files
+#-----------------------------
+SRC = add_str.c cfg_util.c debug.c get_val.c is_null.c llip.c luip.c messages.c strcmp.c strip.c utils.c
+
+#-----------------------------
+# Object modules
+#-----------------------------
+OBJ = $(LIBRARY)(add_str.o) $(LIBRARY)(cfg_util.o) $(LIBRARY)(debug.o) $(LIBRARY)(get_val.o) $(LIBRARY)(is_null.o) $(LIBRARY)(llip.o) $(LIBRARY)(luip.o) $(LIBRARY)(messages.o) $(LIBRARY)(strcmp.o) $(LIBRARY)(strip.o) $(LIBRARY)(utils.o) 
+
+#-----------------------------
+# Static section
+#-----------------------------
+include $(NLS)/etc/makedll

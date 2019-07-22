@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Start</title>
+
+<meta name="description" content="SICStus Prolog: Start">
+<meta name="keywords" content="SICStus Prolog: Start">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Run-Intro.html#Run-Intro" rel="up" title="Run Intro">
+<link href="Reading-In.html#Reading-In" rel="next" title="Reading In">
+<link href="Run-Intro.html#Run-Intro" rel="prev" title="Run Intro">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Start"></a>
+<hr>
+<a name="Getting-Started-1"></a>
+<h3 class="section">3.1 Getting Started</h3>
+<a name="index-running"></a>
+<a name="index-command_002dline-arguments"></a>
+<a name="index-arguments_002c-command_002dline"></a>
+
+<p>Under UNIX, SICStus Prolog can be started from one of the shells.
+On other platforms, it is normally started by clicking on an icon.
+However, it is often convenient to run SICStus Prolog under GNU Emacs
+or the SPIDER IDE (see <a href="SPIDER.html#SPIDER">SPIDER</a>),
+instead.  A GNU Emacs interface for SICStus Prolog is described later
+(see <a href="Emacs-Interface.html#Emacs-Interface">Emacs Interface</a>).  From a UNIX or Windows shell, SICStus Prolog
+can be
+started by invoking the <code>sicstus</code> command-line tool, 
+using the full path to <code>sicstus</code> unless its location has been
+added to the shell&rsquo;s path.
+</p>
+<p>Under UNIX, a saved-state <var>file</var> can be executed directly by
+typing:
+</p>
+<div class="example">
+<pre class="example">% <kbd><var>file</var> <var>argument&hellip;</var></kbd>
+</pre></div>
+
+<p>This is equivalent to:
+</p>
+<div class="example">
+<pre class="example">% <kbd>sicstus -r <var>file</var> [-- <var>argument&hellip;</var>]</kbd>
+</pre></div>
+
+<blockquote>
+<p><strong>Please note</strong>: Saved-states do not store the complete
+path of the binary <code>sicstus</code>. Instead, they call the main executable
+using the version specific name 
+<code>sicstus-4.4.1</code>,
+which is assumed to be found in the shell&rsquo;s path. If
+there are several versions of SICStus installed, then it is up to the user to
+make sure that the correct start-script is found.
+</p></blockquote>
+
+<p>Notice that the flags are not available when executing
+saved-states&mdash;all the command-line arguments are treated as
+Prolog arguments.
+</p>
+<p>The development system checks that a valid SICStus license
+exists and, unless the <samp>--nologo</samp> option was used, responds
+with a message of identification and the prompt &lsquo;<samp>|&nbsp;<span class="nolinebreak">?-</span>&nbsp;</samp>&rsquo;<!-- /@w --> as
+soon as it is ready to accept input, thus:
+</p>
+<div class="example">
+<pre class="example">SICStus 4.4.1 &hellip;
+Licensed to SICS
+| ?- 
+</pre></div>
+
+<a name="index-top_002dlevel"></a>
+<a name="index-directive"></a>
+<a name="index-query"></a>
+
+<p>At this point the top-level is expecting input of a <em>query</em>.  You
+cannot type in clauses or directives immediately
+(see <a href="Inserting-Clauses.html#Inserting-Clauses">Inserting Clauses</a>).  While typing in a query, the prompt
+(on following lines) becomes &lsquo;<samp>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</samp>&rsquo;.  That is, the
+&lsquo;<samp>|&nbsp;<span class="nolinebreak">?-</span>&nbsp;</samp>&rsquo;<!-- /@w --> appears only for the first line of the query,
+and subsequent lines are indented.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Reading-In.html#Reading-In" accesskey="n" rel="next">Next</a>
+<li><a href="Run-Intro.html#Run-Intro" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Start.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Start.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

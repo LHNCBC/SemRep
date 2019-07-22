@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-ere-sum</title>
+
+<meta name="description" content="SICStus Prolog: ref-ere-sum">
+<meta name="keywords" content="SICStus Prolog: ref-ere-sum">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dere.html#ref_002dere" rel="up" title="ref-ere">
+<link href="ref_002dmsg.html#ref_002dmsg" rel="next" title="ref-msg">
+<link href="ref_002dere_002dint.html#ref_002dere_002dint" rel="prev" title="ref-ere-int">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dere_002dsum"></a>
+<hr>
+<a name="Summary-of-Predicates-5"></a>
+<h4 class="subsection">4.15.8 Summary of Predicates</h4>
+
+
+<a name="index-execution-state_002c-predicates-for"></a>
+<a name="index-predicates-for-execution-state"></a>
+
+<dl compact="compact">
+<dt><code>abort</code></dt>
+<dd><p>abort execution of the program; return to current break level
+</p>
+</dd>
+<dt><code>break</code></dt>
+<dd><p>start a new break-level to interpret commands from the user
+</p>
+</dd>
+<dt><code>catch(<var>:P</var>,<var>?E</var>,<var>:H</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>specify a handler <var>H</var> for any exception <var>E</var> arising in the 
+execution of the goal <var>P</var>
+</p>
+</dd>
+<dt><code>user:error_exception(<var>+Exception</var>) &nbsp;<!-- /@w --> <i>hook</i>,<i>development</i></code></dt>
+<dd><p><var>Exception</var> is an exception that traps to the debugger if it is
+switched on.
+</p>
+</dd>
+<dt><code>goal_source_info(<var>+AGoal</var>, <var>-Goal</var>, <var>-SourceInfo</var>)</code></dt>
+<dd><p>Decomposes the annotated goal <var>AGoal</var> into a <var>Goal</var> proper
+and the <var>SourceInfo</var> descriptor term, indicating the source
+position of the goal.
+</p>
+</dd>
+<dt><code>halt &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>halt(C) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>exit from Prolog with exit code <var>C</var>
+</p>
+</dd>
+<dt><code>on_exception(<var>?E</var>,<var>:P</var>,<var>:H</var>)</code></dt>
+<dd><p>specify a handler <var>H</var> for any exception <var>E</var> arising in the 
+execution of the goal <var>P</var>
+</p>
+</dd>
+<dt><code>raise_exception(<var>+E</var>)</code></dt>
+<dd><p>raise exception <var>E</var>
+</p>
+</dd>
+<dt><code>throw(<var>+E</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>raise exception <var>E</var>
+</p>
+</dd>
+<dt><code>unknown(<var>?OldValue</var>, <var>?NewValue</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>access the <code>unknown</code> Prolog flag and print a message
+</p>
+</dd>
+<dt><code>user:unknown_predicate_handler(<var>+Goal</var>, <var>+Module</var>, <var>-NewGoal</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>tell Prolog to call <code><var>Module</var>:<var>NewGoal</var></code> if <code><var>Module</var>:<var>Goal</var></code>
+is undefined
+</p>
+</dd>
+</dl>
+
+
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dere_002dint.html#ref_002dere_002dint" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dere.html#ref_002dere" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002dsum.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002dsum.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

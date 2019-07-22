@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: str-etr</title>
+
+<meta name="description" content="SICStus Prolog: str-etr">
+<meta name="keywords" content="SICStus Prolog: str-etr">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dstructs.html#lib_002dstructs" rel="up" title="lib-structs">
+<link href="str_002dtip.html#str_002dtip" rel="next" title="str-tip">
+<link href="str_002difc.html#str_002difc" rel="prev" title="str-ifc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="str_002detr"></a>
+<hr>
+<a name="Examining-Type-Definitions-at-Runtime"></a>
+<h4 class="subsection">10.37.8 Examining Type Definitions at Runtime</h4>
+
+
+<p>The above described procedures should be sufficient for most needs.
+This module does, however, provide a few procedures to allow
+programmers to access type definitions.  These may be a convenience
+for debugging, or in writing tools to manipulate type definitions.
+</p>
+
+<a name="index-type_005fdefinition_002f_005b2_002c3_005d-_0028structs_0029-1"></a>
+<a name="index-type_005fdefinition_002f_005b2_002c3_005d-_0028structs_0029"></a>
+
+
+<p>The following procedures allow programmers to find the definition
+of a given type:
+</p><div class="example">
+<pre class="example">type_definition(<var>?Type</var>, <var>?Definition</var>)
+type_definition(<var>?Type</var>, <var>?Definition</var>, <var>?Size</var>)
+</pre></div>
+
+
+<p>where <var>Type</var> is an atom naming a type, <var>Definition</var> is the definition of that
+type, and <var>Size</var> is the number of bytes occupied by a foreign term of
+this type.  <var>Size</var> will be the atom <code>unknown</code> if the size of an object of
+that type is not known.  Such types may not be used as fields in
+structs or unions, or in arrays.  However, pointers to them may be
+created.  If <var>Type</var> is not bound at call time, then these procedures will
+backtrack through all current type definitions.
+</p>
+<p>A definition looks much like the definition given when the type was
+defined with <code>type/1</code>, except that it has been simplified.  Firstly,
+intermediate type names have been elided.  For example, if <code>foo</code> is
+defined as <code>foo=integer</code>, and <code>bar</code> as <code>bar=foo</code>, then
+<code>type_definition(bar, integer)</code> would hold.  Also, in the definition
+of a compound type, types of parts are always defined by type names,
+rather than complex specifications.  So if the type of a field in a
+struct was defined as <code>pointer(fred)</code>, then it will show up in the
+definition as <code>'$fred'</code>.  Of course, <code>type_definition('$fred', pointer(fred))</code> would hold, also.
+</p>
+
+<a name="index-atomic_005ftype_002f_005b1_002c2_002c3_005d-_0028structs_0029-1"></a>
+<a name="index-atomic_005ftype_002f_005b1_002c2_002c3_005d-_0028structs_0029"></a>
+
+
+<p>The following predicates allow the programmer to determine whether
+or not a given type is atomic:
+</p><div class="example">
+<pre class="example">atomic_type(<var>?Type</var>)
+
+atomic_type(<var>?Type</var>, <var>?Primitive_type</var>)
+
+atomic_type(<var>?Type</var>, <var>?Primitive_type</var>, <var>?Size</var>)
+</pre></div>
+
+
+<p>where <var>Type</var> is an atomic type.  See <a href="str_002dfty.html#str_002dfty">str-fty</a> for the definition
+of an atomic type.  <var>Primitive_type</var> is the primitive type that
+<var>Type</var> is defined in terms of.  <var>Size</var> is the number of bytes
+occupied by an object of type <var>Type</var>, or the atom <code>unknown</code>, as
+above.  If <var>Type</var> is unbound at call time, then these predicates will
+backtrack through all the currently defined atomic types.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="str_002dtip.html#str_002dtip" accesskey="n" rel="next">Next</a>
+<li><a href="str_002difc.html#str_002difc" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dstructs.html#lib_002dstructs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002detr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002detr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

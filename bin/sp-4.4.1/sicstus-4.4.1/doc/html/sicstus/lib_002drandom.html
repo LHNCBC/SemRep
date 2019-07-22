@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-random</title>
+
+<meta name="description" content="SICStus Prolog: lib-random">
+<meta name="keywords" content="SICStus Prolog: lib-random">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002drem.html#lib_002drem" rel="next" title="lib-rem">
+<link href="lib_002dqueues.html#lib_002dqueues" rel="prev" title="lib-queues">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002drandom"></a>
+<hr>
+<a name="Random-Number-Generator_002d_002d_002dlibrary_0028random_0029"></a>
+<h3 class="section">10.31 Random Number Generator&mdash;<code>library(random)</code></h3>
+<p>This library module provides a random number generator using
+algorithm AS 183 from the Journal of Applied Statistics
+as the basic algorithm.
+</p>
+<p>The state of the random number generator corresponds to a term
+<code>random(<var>X</var>,<var>Y</var>,<var>Z</var>,<var>B</var>)</code> where 
+<var>X</var> is an integer in the range [1,30268],
+<var>Y</var> is an integer in the range [1,30306],
+<var>Z</var> is an integer in the range [1,30322], and
+<var>B</var> is a nonzero integer.
+</p>
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>getrand(<var>-RandomState</var>)</code></dt>
+<dd>
+<a name="index-getrand_002f1-_0028random_0029-1"></a>
+<a name="index-getrand_002f1-_0028random_0029"></a>
+
+<p>returns the random number generator&rsquo;s current state
+</p></dd>
+<dt><code>setrand(<var>+RandomState</var>)</code></dt>
+<dd>
+<a name="index-setrand_002f1-_0028random_0029-1"></a>
+<a name="index-setrand_002f1-_0028random_0029"></a>
+
+<p>sets the random number generator&rsquo;s state to <var>RandomState</var>.
+<var>RandomState</var> can either be a random state previously obtained
+with <code>getrand/1</code>, or an arbitrary integer. The latter is
+useful when you want to initialize the random state to a fresh
+value.
+If <var>RandomState</var> is not an integer or a valid random state, it
+raises an error.
+</p></dd>
+<dt><code>maybe</code></dt>
+<dd>
+<a name="index-maybe_002f_005b0_002c1_002c2_005d-_0028random_0029-1"></a>
+<a name="index-maybe_002f_005b0_002c1_002c2_005d-_0028random_0029"></a>
+
+<p>succeeds determinately with probability 1/2,
+fails with probability 1/2.  We use a separate &quot;random bit&quot;
+generator for this test to avoid doing much arithmetic.
+</p></dd>
+<dt><code>maybe(<var>+Probability</var>)</code></dt>
+<dd><p>succeeds determinately with probability Probability,
+fails with probability <var>1-Probability</var>.
+Arguments =&lt; 0 always fail, &gt;= 1 always succeed.
+</p></dd>
+<dt><code>maybe(<var>+P</var>, <var>+N</var>)</code></dt>
+<dd><p>succeeds determinately with probability <var>P/N</var>,
+where <var>0 =&lt; P =&lt; N</var> and <var>P</var> and <var>N</var> are integers.
+If this condition is not met, it fails.
+It is equivalent to <code>random(0, N, X), X &lt; P</code>, but is somewhat faster.
+</p></dd>
+<dt><code>random(<var>-Uniform</var>)</code></dt>
+<dd>
+<a name="index-random_002f_005b1_002c3_005d-_0028random_0029-1"></a>
+<a name="index-random_002f_005b1_002c3_005d-_0028random_0029"></a>
+
+<p>unifies <var>Uniform</var> with a new random number in [0.0,1.0)
+</p></dd>
+<dt><code>random(<var>+L</var>, <var>+U</var>, <var>-R</var>)</code></dt>
+<dd><p>unifies <var>R</var> with a random integer in <var>[L,U)</var>
+when <var>L</var> and <var>U</var> are integers (note that <var>U</var> will <em>never</em> be generated),
+or to a random floating number in <var>[L,U)</var> otherwise.
+</p></dd>
+<dt><code>random_member(<var>-Elem</var>, <var>+List</var>)</code></dt>
+<dd>
+<a name="index-random_005fmember_002f2-_0028random_0029-1"></a>
+<a name="index-random_005fmember_002f2-_0028random_0029"></a>
+
+<p>unifies <var>Elem</var> with a random element of <var>List</var>, which must be proper.
+Takes <var>O(N)</var> time (average and best case).
+</p></dd>
+<dt><code>random_select(<var>?Elem</var>, <var>?List</var>, <var>?Rest</var>)</code></dt>
+<dd>
+<a name="index-random_005fselect_002f3-_0028random_0029-1"></a>
+<a name="index-random_005fselect_002f3-_0028random_0029"></a>
+
+<p>unifies <var>Elem</var> with a random element of <var>List</var> and <var>Rest</var> with all the
+other elements of <var>List</var> (in order).  Either <var>List</var> or <var>Rest</var> should
+be proper, and <var>List</var> should/will have one more element than <var>Rest</var>.
+Takes <var>O(N</var>) time (average and best case).
+</p></dd>
+<dt><code>random_subseq(<var>+List</var>, <var>-Sbsq</var>, <var>-Cmpl</var>)</code></dt>
+<dd>
+<a name="index-random_005fsubseq_002f3-_0028random_0029-1"></a>
+<a name="index-random_005fsubseq_002f3-_0028random_0029"></a>
+
+<p>unifies <var>Sbsq</var> with a random sub-sequence of <var>List</var>, and <var>Cmpl</var> with its
+complement.  After this, <code>subseq(List, Sbsq, Cmpl)</code> will be true.
+Each of the <var>2**|List|</var> solutions is equally likely.  Like its
+name-sake <code>subseq/3</code>, if you supply <var>Sbsq</var> and <var>Cmpl</var> it will interleave
+them to find <var>List</var>.  Takes <var>O(N)</var> time.  <var>List</var> should be proper.
+</p></dd>
+<dt><code>random_permutation(<var>?List</var>, <var>?Perm</var>)</code></dt>
+<dd>
+<a name="index-random_005fpermutation_002f2-_0028random_0029-1"></a>
+<a name="index-random_005fpermutation_002f2-_0028random_0029"></a>
+
+<p>unifies <var>Perm</var> with a random permutation of <var>List</var>.  Either <var>List</var> or <var>Perm</var>
+should be proper, and they should/will have the same length. Each of
+the <var>N!</var> permutations is equally likely, where <code>length(List, N)</code>.
+This takes <var>O(N lg N)</var> time and is bidirectional.
+</p></dd>
+<dt><code>random_perm2(<var>A</var>,<var>B</var>, <var>X</var>,<var>Y</var>)</code></dt>
+<dd>
+<a name="index-random_005fperm2_002f4-_0028random_0029-1"></a>
+<a name="index-random_005fperm2_002f4-_0028random_0029"></a>
+
+<p>unifies <var>X,Y = A,B</var> or <var>X,Y = B,A</var>, making the choice at random,
+each choice being equally likely.  It is equivalent to
+<code>random_permutation([A,B], [X,Y])</code>.
+</p></dd>
+<dt><code>random_numlist(<var>+P</var>, <var>+L</var>, <var>+U</var>, <var>-List</var>)</code></dt>
+<dd>
+<a name="index-random_005fnumlist_002f4-_0028random_0029-1"></a>
+<a name="index-random_005fnumlist_002f4-_0028random_0029"></a>
+
+<p>where <var>P</var> is a probability (0..1) and <var>L=&lt;U</var> are integers
+unifies <var>List</var> with a random subsequence of the integers <var>L..U</var>,
+each integer being included with probability <var>P</var>.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002drem.html#lib_002drem" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dqueues.html#lib_002dqueues" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002drandom.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002drandom.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

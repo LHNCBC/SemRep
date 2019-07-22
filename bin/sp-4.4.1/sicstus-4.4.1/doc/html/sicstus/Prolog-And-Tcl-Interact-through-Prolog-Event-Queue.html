@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Prolog And Tcl Interact through Prolog Event Queue</title>
+
+<meta name="description" content="SICStus Prolog: Prolog And Tcl Interact through Prolog Event Queue">
+<meta name="keywords" content="SICStus Prolog: Prolog And Tcl Interact through Prolog Event Queue">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Putting-It-All-Together.html#Putting-It-All-Together" rel="up" title="Putting It All Together">
+<link href="The-Whole-8_002dQueens-Example.html#The-Whole-8_002dQueens-Example" rel="next" title="The Whole 8-Queens Example">
+<link href="Prolog-The-Master.html#Prolog-The-Master" rel="prev" title="Prolog The Master">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Prolog-And-Tcl-Interact-through-Prolog-Event-Queue"></a>
+<hr>
+<a name="Prolog-And-Tcl-Interact-through-Prolog-Event-Queue-1"></a>
+<h4 class="subsubsection">10.39.5.3 Prolog And Tcl Interact through Prolog Event Queue</h4>
+
+<p>In the previous two methods, one of the language systems was the master
+and the other slave, the master called the slave to perform some action
+or calculation, the slave sits waiting until the master calls it.  We
+have seen that this has disadvantages when Prolog is the slave in that
+the state of the Prolog call is lost. Each Prolog call starts from the
+beginning unless we save the state using message database
+manipulation through calls to <code>assert</code> and <code>retract</code>.
+</p>
+<p>Using the Prolog event queue, however, it is possible to get a more
+balanced model where the two language systems cooperate without
+either really being the master or the slave.
+</p>
+<p>One way to do this is the following:
+</p>
+<ul>
+<li> Prolog is started
+</li><li> load Tcl/Tk library
+</li><li> load and set up the Tcl side of the program
+</li><li> Prolog starts a processing loop
+</li><li> it periodically checks for a Prolog event and processes it
+</li><li> Prolog updates the Tcl display through <code>tcl_eval</code> calls
+</li></ul>
+
+<p>What can processing a Prolog event mean? Well, for example, a button
+press from Tk could tell the Prolog program to finish or to start
+processing something else.  The Tcl program is not making an
+explicit call to the Prolog system but sending a message to Prolog. The
+Prolog system can pick up the message and process it when it chooses, in
+the meantime keeping its run state and variables intact.
+</p>
+<p>To illustrate this, we return to the 8-queens example.  If Tcl/Tk is the
+master and Prolog the slave, then we have shown that using a callback to
+Prolog, we can imagine that we hit a button, call Prolog to get a
+solution and then display it. But how do we get the next solution?
+We could get all the solutions, and then use Tcl/Tk code to step
+through them, but that does not seem satisfactory.
+If we use the Prolog is the master and Tcl/Tk is the slave model, then 
+we have shown how we can use Tcl/Tk to display the solutions
+generate from the Prolog side: Prolog just make a call to the Tcl side
+when it has a solution. But in this model Tcl/Tk widgets do not
+interact with the Prolog side; Tcl/Tk is mearly an add-on display
+to Prolog.
+</p>
+<p>But using the Prolog event queue we can get the best of both worlds:
+Prolog can generate each solution in turn as Tcl/Tk asks for it.
+</p>
+<p>Here is the code on the Prolog side that does this.  (We have left out
+parts of the code that have not changed from our previous example,
+see <a href="Queens-Display.html#Queens-Display">Queens Display</a>).
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(tcltk)).
+:- use_module(library(lists)).
+
+setup :- 
+    tk_new([name('SICStus+Tcl/Tk - Queens')], Tcl),
+    tcl_eval(Tcl, 'source queens2.tcl', _),
+    tk_next_event(Tcl, Event),
+    (   Event = next -&gt; go(Tcl)
+    ;   closedown(Tcl)
+    ).
+
+closedown(Tcl) :-
+    tcl_delete(Tcl).
+
+go(Tcl) :- 
+    tcl_eval(Tcl, 'clear_board', _),
+    queens(8, Qs),
+    show_solution(Qs),
+    tk_next_event(Tcl, Event),
+    (   Event = next -&gt; fail
+    ;   closedown(Tcl)
+    ).
+go(Tcl) :- 
+    tcl_eval(Tcl, 'disable_next', _),
+    tcl_eval(Tcl, 'clear_board', _),
+    tk_next_event(Tcl, _Event),
+    closedown(Tcl).
+
+show_solution(Tcl, L) :-
+    tcl(Tcl),
+    reverse(L, LR),
+    tcl_eval(Tcl, [show_solution, br(LR)], _),
+    tk_do_all_events.
+</pre></div>
+
+<p>Notice here that we have used <code>tk_next_event/2</code> in several places.
+The code is executed by calling <code>setup/0</code>.  As usual, this loads in
+the Tcl part of the program, but then Prolog waits for a message
+from the Tcl side.  This message can either be <code>next</code>, indicating
+that we want to show the next solution, or <code>stop</code>, indicating that
+we want to stop the program.
+</p>
+<p>If <code>next</code> is received, then the program goes on to execute
+<code>go/1</code>.  What this does it to first calculate a solution to the
+8-queens problem, displays the solution through <code>show_solution/2</code>,
+and then waits for another message from Tcl/Tk.  Again this can be
+either <code>next</code> or <code>stop</code>. If <code>next</code>, then the program
+goes into the failure part of a failure driven loop and generates and
+displays the next solution.
+</p>
+<p>If at any time <code>stop</code> is received, then the program terminates
+gracefully, cleaning up the Tcl interpreter.
+</p>
+<p>On the Tcl/Tk side all we need are a couple of buttons:
+one for sending the <code>next</code> message, and the other for sending the
+<code>stop</code> message.
+</p>
+<div class="example">
+<pre class="example">button .next -text next -command {prolog_event next}
+pack .next 
+
+button .stop -text stop -command {prolog_event stop}
+pack .stop
+</pre></div>
+
+<p>(We could get more sophisticated. We might want it so that when the
+button it is depressed until Prolog has finished processing the last
+message, when the button is allowed to pop back up. This would avoid the
+problem of the user pressing the button many times while the
+program is still processing the last request. We leave this as an
+exercise for the reader.)
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="The-Whole-8_002dQueens-Example.html#The-Whole-8_002dQueens-Example" accesskey="n" rel="next">Next</a>
+<li><a href="Prolog-The-Master.html#Prolog-The-Master" accesskey="p" rel="prev">Previous</a>
+<li><a href="Putting-It-All-Together.html#Putting-It-All-Together" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Prolog-And-Tcl-Interact-through-Prolog-Event-Queue.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Prolog-And-Tcl-Interact-through-Prolog-Event-Queue.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

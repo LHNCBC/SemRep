@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-all-cse</title>
+
+<meta name="description" content="SICStus Prolog: ref-all-cse">
+<meta name="keywords" content="SICStus Prolog: ref-all-cse">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dall.html#ref_002dall" rel="up" title="ref-all">
+<link href="ref_002dall_002dcse_002dequ.html#ref_002dall_002dcse_002dequ" rel="next" title="ref-all-cse-equ">
+<link href="ref_002dall_002dbas.html#ref_002dall_002dbas" rel="prev" title="ref-all-bas">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dall_002dcse"></a>
+<hr>
+<a name="Collecting-a-Sorted-List"></a>
+<h4 class="subsection">4.13.2 Collecting a Sorted List</h4>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002dall_002dcse_002dequ.html#ref_002dall_002dcse_002dequ" accesskey="1">ref-all-cse-equ</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Existential Quantifier
+</td></tr>
+</table>
+
+
+<a name="index-setof_002f3-_0028built_002din_0029-1"></a>
+<a name="index-setof_002f3-_0028built_002din_0029"></a>
+
+
+<a name="index-enumerating-solutions-to-a-goal"></a>
+
+<a name="index-goals_002c-enumerating-solutions"></a>
+
+<p><code>setof(<var>Template</var>, <var>Generator</var>, <var>Set</var>)</code>
+returns the set <var>Set</var> of all instances of <var>Template</var>
+such that <var>Generator</var> is provable, where that set is non-empty.  The term
+<var>Generator</var> specifies a goal to be called as if by <code>call/1</code>.
+<var>Set</var> is a set of terms represented as a list of those terms, without
+duplicates,  in the standard order for terms (see <a href="ref_002dlte_002dcte.html#ref_002dlte_002dcte">ref-lte-cte</a>).
+</p>
+
+<p>Obviously, the set to be enumerated should be finite, and should be
+enumerable by Prolog in finite time.  It is possible for the provable
+instances to contain variables, but in this case <var>Set</var> will
+only provide an imperfect representation of what is in reality an infinite
+set.
+</p>
+<p>If <var>Generator</var> is instantiated, but contains uninstantiated
+variables that do not also appear in <var>Template</var>, then
+<code>setof/3</code> can succeed nondeterminately, generating alternative
+values for <var>Set</var> corresponding to different instantiations of the
+free variables of <var>Generator</var>.  (It is to allow for such usage
+that <var>Set</var> is constrained to be non-empty.)  For example, if
+your program contained the clauses
+</p><div class="example">
+<pre class="example">likes(tom, beer).       
+likes(dick, beer).      
+likes(harry, beer).     
+likes(bill, cider).
+likes(jan, cider).
+likes(tom, cider).
+</pre></div>
+
+<p>then the call
+</p><div class="example">
+<pre class="example">| ?- <kbd>setof(X, likes(X,Y), S).</kbd>
+</pre></div>
+        
+<p>might produce two alternative solutions via backtracking:
+</p><div class="example">
+<pre class="example">Y = beer,
+S = [dick,harry,tom] <kbd>;</kbd>
+Y = cider,
+S = [bill,jan,tom] <kbd>;</kbd>
+no
+</pre></div>
+
+<p>The call
+</p><div class="example">
+<pre class="example">| ?- <kbd>setof((Y,S), setof(X,likes(X,Y),S), SS).</kbd>
+</pre></div>
+
+<p>would then produce
+</p><div class="example">
+<pre class="example">SS = [(beer,[dick,harry,tom]),(cider,[bill,jan,tom])] <kbd>;</kbd>
+no
+</pre></div>
+<p>See <a href="mpg_002dref_002dsetof.html#mpg_002dref_002dsetof">mpg-ref-setof</a>.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dall_002dcba.html#ref_002dall_002dcba" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dall_002dbas.html#ref_002dall_002dbas" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dall.html#ref_002dall" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dall_002dcse.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dall_002dcse.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

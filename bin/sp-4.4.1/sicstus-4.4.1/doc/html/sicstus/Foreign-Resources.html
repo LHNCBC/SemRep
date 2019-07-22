@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Foreign Resources</title>
+
+<meta name="description" content="SICStus Prolog: Foreign Resources">
+<meta name="keywords" content="SICStus Prolog: Foreign Resources">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" rel="up" title="Calling C from Prolog">
+<link href="Conversion-Declarations.html#Conversion-Declarations" rel="next" title="Conversion Declarations">
+<link href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" rel="prev" title="Calling C from Prolog">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Foreign-Resources"></a>
+<hr>
+<a name="Foreign-Resources-1"></a>
+<h4 class="subsection">6.2.1 Foreign Resources</h4>
+
+<a name="index-foreign-resource"></a>
+<a name="index-resource_002c-foreign"></a>
+<a name="index-linked-foreign-resource"></a>
+<a name="index-foreign-resource_002c-linked"></a>
+<p>A <em>foreign resource</em> is a set of C functions, defined in one or more
+files, installed as an atomic operation.  The name of a foreign
+resource, the <em>resource name</em>, is an atom, which should
+uniquely identify the resource.  Thus, two foreign resources with
+the same name cannot be installed at the same time, even if they
+correspond to different files.
+</p>
+<p>The resource name of a foreign resource is derived from its file
+name by deleting any leading path and the suffix. Therefore the resource
+name is not the same as the absolute file name.  For example, the
+resource name of both <samp>~john/foo/bar.so</samp> and
+<samp>~ringo/blip/bar.so</samp> is <code>bar</code>. If
+<code>load_foreign_resource('~john/foo/bar')</code> has been done, then
+<samp>~john/foo/bar.so</samp> will be unloaded if either
+<code>load_foreign_resource('~john/foo/bar')</code> or
+<code>load_foreign_resource('~ringo/blip/bar')</code> is subsequently called.
+</p>
+<p>It is recommended that a resource name be all lowercase, starting with
+&lsquo;<samp>a</samp>&rsquo; to &lsquo;<samp>z</samp>&rsquo; followed by a sequence consisting of &lsquo;<samp>a</samp>&rsquo; to
+&lsquo;<samp>z</samp>&rsquo;, underscore (&lsquo;<samp>_</samp>&rsquo;), and digits.  The resource name is used
+to construct the file name containing the foreign resource.
+</p>
+<p>For each foreign resource, a <code>foreign_resource/2</code> fact
+is used to declare the interfaced functions. For each of these
+functions, a <code>foreign/[2,3]</code> fact is used to specify
+conversions between predicate arguments and C-types.  These
+conversion declarations are used for creating the necessary interface
+between Prolog and C.
+</p>
+<a name="index-dynamic-resource"></a>
+<a name="index-resource_002c-dynamic"></a>
+<a name="index-static-resource"></a>
+<a name="index-resource_002c-static"></a>
+<p>The functions making up the foreign resource, the automatically
+generated glue code, and any libraries, are compiled and linked,
+using the <code>splfr</code> tool (see <a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>),
+to form a
+<em>linked foreign resource</em>. A linked foreign resource can be either
+<em>static</em> or <em>dynamic</em>. A static resource is
+simply a relocatable object file containing the foreign code. A dynamic
+resource is a shared library (&lsquo;<samp>.so</samp>&rsquo; under most UNIX dialects,
+&lsquo;<samp>.dll</samp>&rsquo; under Windows), which is loaded into the Prolog executable at
+runtime.
+</p>
+<a name="index-resource_002c-prelinked"></a>
+<a name="index-prelinked-resource"></a>
+<p>Foreign resources can be linked into the Prolog executable either
+when the executable is built (<em>prelinked</em>), or at runtime.
+Prelinking can only be done using static resources.
+Runtime-linking can only be done using dynamic resources. Dynamic
+resources can also be unlinked.
+</p>
+<p>In all cases, the declared predicates are installed by the
+built-in predicate <code>load_foreign_resource/1</code>.
+If the resource was prelinked, then only the predicate
+names are bound; otherwise, runtime-linking is attempted (using
+<code>dlopen()</code>, <code>LoadLibrary()</code>, or similar).
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Conversion-Declarations.html#Conversion-Declarations" accesskey="n" rel="next">Next</a>
+<li><a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Foreign-Resources.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Foreign-Resources.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

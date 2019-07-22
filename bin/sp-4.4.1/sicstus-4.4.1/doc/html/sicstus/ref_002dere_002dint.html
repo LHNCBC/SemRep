@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-ere-int</title>
+
+<meta name="description" content="SICStus Prolog: ref-ere-int">
+<meta name="keywords" content="SICStus Prolog: ref-ere-int">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dere.html#ref_002dere" rel="up" title="ref-ere">
+<link href="ref_002dere_002dsum.html#ref_002dere_002dsum" rel="next" title="ref-ere-sum">
+<link href="ref_002dere_002dleg.html#ref_002dere_002dleg" rel="prev" title="ref-ere-leg">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dere_002dint"></a>
+<hr>
+<a name="Interrupting-Execution"></a>
+<h4 class="subsection">4.15.7 Interrupting Execution</h4>
+
+<p>There exist more drastic means of interrupting the normal control
+flow.  To invoke a recursive top-level, use:
+</p>
+
+<a name="index-break_002f0-_0028built_002din_0029-5"></a>
+<a name="index-break_002f0-_0028built_002din_0029-2"></a>
+
+<div class="example">
+<pre class="example">?- <kbd>break.</kbd>
+</pre></div>
+<p>See <a href="mpg_002dref_002dbreak.html#mpg_002dref_002dbreak">mpg-ref-break</a>.
+</p>
+
+<a name="index-halt_002f_005b0_002c1_005d-_0028built_002din_0029-1"></a>
+<a name="index-halt_002f_005b0_002c1_005d-_0028built_002din_0029"></a>
+
+
+<p>To exit from Prolog, use:
+</p>
+<div class="example">
+<pre class="example">?- <kbd>halt.</kbd>
+</pre></div>
+
+<p>To exit
+from Prolog
+with return code <var>Code</var>, use:
+</p>
+<div class="example">
+<pre class="example">?- <kbd>halt(<var>Code</var>).</kbd>
+</pre></div>
+<p>See <a href="mpg_002dref_002dhalt.html#mpg_002dref_002dhalt">mpg-ref-halt</a>.
+</p>
+
+<a name="index-abort_002f0-_0028built_002din_0029-1"></a>
+<a name="index-abort_002f0-_0028built_002din_0029"></a>
+
+<p>To abort the execution of the current query and return to the
+top-level, use:
+</p>
+<div class="example">
+<pre class="example">?- <kbd>abort.</kbd>
+</pre></div>
+<p>See <a href="mpg_002dref_002dabort.html#mpg_002dref_002dabort">mpg-ref-abort</a>.
+</p>
+<blockquote>
+<p><strong>Please note:</strong> 
+<code>halt/[0,1]</code> and <code>abort/0</code> are implemented by throwing a reserved
+exception, which has a handler at the top-level of development systems
+and executables built with the <code>spld</code> tool. Thus they give the
+opportunity for cleanup goals (see <code>call_cleanup/2</code>) to run.
+</p>
+
+
+
+
+</blockquote>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dere_002dsum.html#ref_002dere_002dsum" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dere_002dleg.html#ref_002dere_002dleg" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dere.html#ref_002dere" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002dint.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002dint.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-terms</title>
+
+<meta name="description" content="SICStus Prolog: lib-terms">
+<meta name="keywords" content="SICStus Prolog: lib-terms">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dtimeout.html#lib_002dtimeout" rel="next" title="lib-timeout">
+<link href="TclTk-Manual-Pages.html#TclTk-Manual-Pages" rel="prev" title="TclTk Manual Pages">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dterms"></a>
+<hr>
+<a name="Term-Utilities_002d_002d_002dlibrary_0028terms_0029"></a>
+<h3 class="section">10.40 Term Utilities&mdash;<code>library(terms)</code></h3>
+<p>This library module provides miscellaneous operations on terms.
+Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>subsumeschk(<var>+General</var>, <var>+Specific</var>)</code></dt>
+<dd>
+<a name="index-subsumeschk_002f2-_0028terms_0029-1"></a>
+<a name="index-subsumeschk_002f2-_0028terms_0029"></a>
+
+<p>is true when <var>Specific</var> is an instance of <var>General</var>.  It
+does not bind any variables.
+</p>
+<p>This predicate is identical to the built-in <code>subsumes_term/2</code>
+and it is only present for backwards compatibility.
+</p>
+</dd>
+<dt><code>subsumes(<var>+General</var>, <var>+Specific</var>)</code></dt>
+<dd>
+<a name="index-subsumes_002f2-_0028terms_0029-1"></a>
+<a name="index-subsumes_002f2-_0028terms_0029"></a>
+
+<p>is true when <var>Specific</var> is an instance of <var>General</var>.  It will bind
+variables in <var>General</var> (but not those in <var>Specific</var>,
+except when <var>+General</var> and <var>+Specific</var> share variables) so that <var>General</var>
+becomes identical to <var>Specific</var>.
+</p>
+<p>In many cases, binding variable is not really desirable, in which case
+<code>subsumes_term/2</code> should be used instead.
+If unification is in fact wanted, it may be better to make this explicit in your code by
+using <code>subsumes_term/2</code> followed by an explicit unification, e.g. <code>subsumes_term(G,S), G=S</code>.
+</p></dd>
+<dt><code>variant(<var>+Term</var>, <var>+Variant</var>)</code></dt>
+<dd>
+<a name="index-variant_002f2-_0028terms_0029-1"></a>
+<a name="index-variant_002f2-_0028terms_0029"></a>
+
+<p>is true when <var>Term</var> and <var>Variant</var> are identical modulo renaming of variables,
+provided <var>Term</var> and <var>Variant</var> have no variables in common.
+</p></dd>
+<dt><code>term_subsumer(<var>+Term1</var>, <var>+Term2</var>, <var>-Term</var>)</code></dt>
+<dd>
+<a name="index-term_005fsubsumer_002f3-_0028terms_0029-1"></a>
+<a name="index-term_005fsubsumer_002f3-_0028terms_0029"></a>
+
+<p>binds <var>Term</var> to a most specific generalisation of <var>Term1</var> and <var>Term2</var>.
+Using Plotkin&rsquo;s algorithm [Machine Intelligence 5, 1970], extended
+by Dan Sahlin to handle cyclic structures.
+</p></dd>
+<dt><code>term_hash(<var>+Term</var>, <var>-Hash</var>)</code></dt>
+<dd>
+<a name="index-term_005fhash_002f_005b2_002c3_002c4_005d-_0028terms_0029-1"></a>
+<a name="index-term_005fhash_002f_005b2_002c3_002c4_005d-_0028terms_0029"></a>
+
+<p>Equivalent to <code>term_hash(Term, [], Hash)</code>.
+</p></dd>
+<dt><code>term_hash(<var>+Term</var>, <var>+Options</var>, <var>-Hash</var>)</code></dt>
+<dd><p><var>Options</var> is a list of options,
+</p>
+<dl compact="compact">
+<dt><code>algorithm(<var>Algorithm</var>)</code></dt>
+<dd>
+<p><var>Algorithm</var> specifies which hash function to use. An atom, one
+of,
+</p>
+<dl compact="compact">
+<dt><code>default</code></dt>
+<dd>
+<p>This is currently the same as <code>jenkins</code>. This is the
+default. If we ever see a need to change the default hash
+algorithm again then the algorithm denoted by <code>default</code> may
+change but the algorithm denoted by the other names, like
+<code>'sicstus-4.0.5'</code>, will not change.
+</p>
+</dd>
+<dt><code>jenkins</code></dt>
+<dd>
+<p>Based on the algorithm &ldquo;lookup3&rdquo; by Bob Jenkins, see
+<a href="http://burtleburtle.net/bob/hash/doobs.html">http://burtleburtle.net/bob/hash/doobs.html</a>.
+</p>
+</dd>
+<dt><code>hsieh</code></dt>
+<dd>
+<p>Based on the algorithm &ldquo;SuperFastHash&rdquo; by Paul Hsieh, see
+<a href="http://www.azillionmonkeys.com/qed/hash.html">http://www.azillionmonkeys.com/qed/hash.html</a>. Despite the
+name neither this nor any other choice of algorithm significantly
+affects the speed of <code>term_hash/3</code>.
+</p>
+</dd>
+<dt><code>sdbm</code></dt>
+<dd>
+<p>Based on the well known algorithm &ldquo;sdbm&rdquo;.
+</p>
+</dd>
+<dt><code>'sicstus-4.0.4'</code></dt>
+<dd>
+<p>This is the algorithm used up to SICStus Prolog 4.0.4
+(inclusive). It is only present to provide backwards
+compatibility. It is not as good as any of the above
+algorithms. Note that this atom needs to be quoted.
+</p>
+<p>This algorithm produces hash values that may differ
+between platforms.
+</p>
+</dd>
+<dt><code>'sicstus-4.0.5'</code></dt>
+<dd>
+<p>This is the same as <code>jenkins</code>. I.e. the default since
+SICStus Prolog 4.0.5. Note that this atom needs to be quoted.
+</p>
+</dd>
+</dl>
+
+<p>there are some other (not as good) algorithms available
+for the curious, see the source for detail.
+</p>
+<p>Unless otherwise noted, the hash value will be identical across
+runs and platforms.
+</p>
+</dd>
+<dt><code>range(<var>Range</var>)</code></dt>
+<dd>
+<p>The resulting hash value will be non-negative and less than the
+upper bound specified by <var>Range</var>. <var>Range</var> should be either
+a positive integer, or an atom, one of,
+</p>
+<dl compact="compact">
+<dt><code>infinite</code></dt>
+<dd>
+<p>Do not constrain the hash value. Currently all hash algorithms
+produce an unsigned 32-bit integer.
+</p>
+</dd>
+<dt><code>smallint</code></dt>
+<dd>
+<p>Ensure the resulting hash value is a small integer.
+This is the same as
+specifying a range of <code>2^28</code> on 32-bit platforms and
+<code>2^60</code> on 64-bit platforms.
+</p>
+</dd>
+<dt><code>smallint32</code></dt>
+<dd>
+<p>Ensure the resulting hash value is in the 32-bit platform range
+of small integers, i.e. the same as a range of <code>2^28</code>.
+</p>
+
+</dd>
+<dt><code>default</code></dt>
+<dd>
+<p>The same as <code>smallint32</code>. This is the default. This ensures
+that, by default, the same hash value is computed for the same
+term on both 32-bit and 64-bit platforms.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>depth(<var>Depth</var>)</code></dt>
+<dd><p>Specifies how deep to descend into the term when calculating the
+hash value.
+If <code>Depth</code> is a non-negative integer the subterms up to depth
+<var>Depth</var> of <var>Term</var> are used in the
+computation. Alternatively, if <code>Depth</code> is the atom
+<code>infinite</code>, all subterms of <var>Term</var> are relevant in
+computing <var>Hash</var>. In the latter case <var>Term</var> must be
+acyclic.
+In this context the <em>depth</em> of a term is defined as
+follows: the (principal functor of) the term itself
+has depth 1, and an argument of a term with depth
+<var>i</var> has depth <var>i+1</var>. Note that this is similar to, but not
+the same as, the value computed by <code>term_depth/2</code>.
+For legacy reasons a <var>Depth</var> of -1 is treated the same a
+<code>infinite</code>.
+</p>
+</dd>
+<dt><code>if_var(<var>IfVar</var>)</code></dt>
+<dd>
+<p>Specifies what to do if a variable is encountered in the term
+(i.e. to the specified depth). <var>IfVar</var> should be an atom, one of,
+</p>
+<dl compact="compact">
+<dt><code>error</code></dt>
+<dd>
+<p>An instantiation error is thrown.
+</p>
+</dd>
+<dt><code>ignore</code></dt>
+<dd>
+<p>The variable is ignored and the hash algorithm continues with the
+other parts of the term.
+</p>
+</dd>
+<dt><code>value(Value)</code></dt>
+<dd>
+<p>The hash algorithm stops, the intermediate hash result is
+discarded and <code>Hash</code> is bound to <code>Value</code>. There is no
+restrictions on <code>Value</code>, it need not be an integer or even be
+ground.
+</p></dd>
+<dt><code>default</code></dt>
+<dd><p>This is the same as <code>value(_)</code>, i.e. <code>term_hash/3</code>
+just succeeds without binding <code>Hash</code>. This is the default.
+This is useful when the hash value us used for first-argument
+indexing. This ensures that if the (possibly variable-valued) hash
+values for <var>Term1</var> and <var>Term2</var> are <var>Hash1</var> and
+<var>Hash2</var>, respectively, then if <var>Term1</var> and <var>Term2</var> are
+unifiable (to the specified depth) then so are <var>Hash1</var> and
+<var>Hash2</var>.
+For other use cases it is probably more appropriate to specify
+<code>if_var(error)</code>.
+</p></dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt><code>term_hash(<var>+Term</var>, <var>+Depth</var>, <var>+Range</var>, <var>-Hash</var>)</code></dt>
+<dd><p>Equivalent to <code>term_hash(Term, [depth(<var>Depth</var>), range(<var>Range</var>)], Hash)</code>.
+<code>term_hash/[2,3,4]</code> is provided primarily as a tool for the
+construction of sophisticated Prolog clause access schemes.	 Its
+intended use is to generate hash values for terms that will be
+used with first argument clause indexing, yielding compact and
+efficient multi-argument or deep argument indexing.
+</p></dd>
+<dt><code>term_variables_set(<var>+Term</var>, <var>-Variables</var>) &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd>
+<a name="index-term_005fvariables_005fset_002f2-_0028terms_0029-1"></a>
+<a name="index-term_005fvariables_005fset_002f2-_0028terms_0029"></a>
+
+<p>True if <var>Variables</var> is the (ordered) set of variables occurring in <var>Term</var>.
+</p>
+<p>This was called <code>term_variables/2</code> prior to SICStus Prolog
+4.3 but now <code>term_variables/2</code> is a built-in with different
+meaning, due to alignment with the ISO Prolog standard.
+</p></dd>
+<dt><code>term_variables_bag(<var>+Term</var>, <var>-Variables</var>)</code></dt>
+<dd>
+<a name="index-term_005fvariables_005fbag_002f2-_0028terms_0029-1"></a>
+<a name="index-term_005fvariables_005fbag_002f2-_0028terms_0029"></a>
+
+<p>True if <var>Variables</var> is the list of variables occurring in <var>Term</var>,
+in first occurrence order.
+</p>
+<p>This predicate has been superseeded by the built-in
+<code>term_variables/2</code> and it is only present for backwards compatibility.
+</p>
+<p>The name is an historical accident, the result is not really a bag (i.e. multiset).
+</p></dd>
+<dt><code>cyclic_term(<var>+X</var>)</code></dt>
+<dd>
+<a name="index-cyclic_005fterm_002f1-_0028terms_0029-1"></a>
+<a name="index-cyclic_005fterm_002f1-_0028terms_0029"></a>
+
+<p>True if <var>X</var> is infinite (cyclic).  Runs in linear time.
+</p></dd>
+<dt><code>term_order(<var>+X</var>, <var>+Y</var>, <var>-R</var>)</code></dt>
+<dd>
+<a name="index-term_005forder_002f3-_0028terms_0029-1"></a>
+<a name="index-term_005forder_002f3-_0028terms_0029"></a>
+
+<p>is true when <var>X</var> and <var>Y</var> are arbitrary terms, and <var>R</var> is <code>&lt;</code>, <code>=</code>, or <code>&gt;</code> according
+as <var>X @&lt; Y</var>, <var>X == Y</var>, or <var>X @&gt; Y</var>.  This is the same as <code>compare/3</code>, except
+for the argument order.
+</p></dd>
+<dt><code>contains_term(<var>+Kernel</var>, <var>+Expression</var>)</code></dt>
+<dd>
+<a name="index-contains_005fterm_002f2-_0028terms_0029-1"></a>
+<a name="index-contains_005fterm_002f2-_0028terms_0029"></a>
+
+<p>is true when the given <var>Kernel</var> occurs somewhere in the <var>Expression</var>.
+It can only be used as a test; to generate sub-terms use <code>sub_term/2</code>.
+</p></dd>
+<dt><code>free_of_term(<var>+Kernel</var>, <var>+Expression</var>)</code></dt>
+<dd>
+<a name="index-free_005fof_005fterm_002f2-_0028terms_0029-1"></a>
+<a name="index-free_005fof_005fterm_002f2-_0028terms_0029"></a>
+
+<p>is true when the given <var>Kernel</var> does not occur anywhere in the
+<var>Expression</var>.  NB: if the <var>Expression</var> contains an unbound variable,
+this must fail, as the <var>Kernel</var> might occur there.  Since there are
+infinitely many <var>Kernels</var> not contained in any <var>Expression</var>, and also
+infinitely many <var>Expressions</var> not containing any <var>Kernel</var>, it doesn&rsquo;t
+make sense to use this except as a test.
+</p></dd>
+<dt><code>occurrences_of_term(<var>+Kernel</var>, <var>+Expression</var>, <var>-Tally</var>)</code></dt>
+<dd>
+<a name="index-occurrences_005fof_005fterm_002f3-_0028terms_0029-1"></a>
+<a name="index-occurrences_005fof_005fterm_002f3-_0028terms_0029"></a>
+
+<p>is true when the given <var>Kernel</var> occurs exactly <var>Tally</var> times in
+<var>Expression</var>.  It can only be used to calculate or test <var>Tally</var>;
+to enumerate <var>Kernels</var> you&rsquo;ll have to use <code>sub_term/2</code> and then
+test them with this routine.  If you just want to find out
+whether <var>Kernel</var> occurs in <var>Expression</var> or not, use <code>contains_term/2</code>
+or <code>free_of_term/2</code>.
+</p></dd>
+<dt><code>contains_var(<var>+Variable</var>, <var>+Term</var>)</code></dt>
+<dd>
+<a name="index-contains_005fvar_002f2-_0028terms_0029-1"></a>
+<a name="index-contains_005fvar_002f2-_0028terms_0029"></a>
+
+<p>is true when the given <var>Term</var> contains at least one sub-term which
+is identical to the given <var>Variable</var>.  We use <code>==</code> to check for
+the variable (<code>contains_term/2</code> uses <code>=</code>) so it can be used to check
+for arbitrary terms, not just variables.
+</p></dd>
+<dt><code>free_of_var(<var>+Variable</var>, <var>+Term</var>)</code></dt>
+<dd>
+<a name="index-free_005fof_005fvar_002f2-_0028terms_0029-1"></a>
+<a name="index-free_005fof_005fvar_002f2-_0028terms_0029"></a>
+
+<p>is true when the given <var>Term</var> contains no sub-term identical to the
+given <var>Variable</var> (which may actually be any term, not just a var).
+For variables, this is precisely the &quot;occurs check&quot; which is
+needed for sound unification.
+</p></dd>
+<dt><code>occurrences_of_var(<var>+Term</var>, <var>+Variable</var>, <var>-Tally</var>)</code></dt>
+<dd>
+<a name="index-occurrences_005fof_005fvar_002f3-_0028terms_0029-1"></a>
+<a name="index-occurrences_005fof_005fvar_002f3-_0028terms_0029"></a>
+
+<p>is true when the given <var>Variable</var> occurs exactly <var>Tally</var> times in
+<var>Term</var>.	 It can only be used to calculate or test <var>Tally</var>;
+to enumerate Variables you&rsquo;ll have to use <code>sub_term/2</code> and then
+test them with this routine.  If you just want to find out
+whether <var>Variable</var> occurs in <var>Term</var> or not, use <code>contains_var/2</code>
+or <code>free_of_var/2</code>.
+</p></dd>
+<dt><code>sub_term(<var>?Kernel</var>, <var>+Term</var>)</code></dt>
+<dd>
+<a name="index-sub_005fterm_002f2-_0028terms_0029-1"></a>
+<a name="index-sub_005fterm_002f2-_0028terms_0029"></a>
+
+<p>is true when <var>Kernel</var> is a sub-term of <var>Term</var>.  It enumerates the
+sub-terms of <var>Term</var> in an arbitrary order.  Well, it is defined
+that a sub-term of <var>Term</var> will be enumerated before its own
+sub-terms are (but of course some of those sub-terms might be
+elsewhere in <var>Term</var> as well).
+</p></dd>
+<dt><code>depth_bound(<var>+Term</var>, <var>+Bound</var>)</code></dt>
+<dd>
+<a name="index-depth_005fbound_002f2-_0028terms_0029-1"></a>
+<a name="index-depth_005fbound_002f2-_0028terms_0029"></a>
+
+<p>is true when the term depth of <var>Term</var> is no greater than <var>Bound</var>,
+that is, when constructor functions are nested no more than <var>Bound</var> deep.
+Later variable bindings may invalidate this bound.	To find the
+(current) depth, use <code>term_depth/2</code>.
+</p></dd>
+<dt><code>length_bound(<var>?List</var>, <var>+Bound</var>)</code></dt>
+<dd>
+<a name="index-length_005fbound_002f2-_0028terms_0029-1"></a>
+<a name="index-length_005fbound_002f2-_0028terms_0029"></a>
+
+<p>is true when the length of <var>List</var> is no greater than <var>Bound</var>.  It can be
+used to enumerate Lists up to the bound.  
+</p></dd>
+<dt><code>size_bound(<var>+Term</var>, <var>+Bound</var>)</code></dt>
+<dd>
+<a name="index-size_005fbound_002f2-_0028terms_0029-1"></a>
+<a name="index-size_005fbound_002f2-_0028terms_0029"></a>
+
+<p>is true when the number of constant and function symbols in <var>Term</var> is
+(currently) at most <var>Bound</var>.  If <var>Term</var> is non-ground, later variable
+bindings may invalidate this bound.	 To find the (current) size, use
+<code>term_size/2</code>.
+</p></dd>
+<dt><code>term_depth(<var>+Term</var>, <var>-Depth</var>)</code></dt>
+<dd>
+<a name="index-term_005fdepth_002f2-_0028terms_0029-1"></a>
+<a name="index-term_005fdepth_002f2-_0028terms_0029"></a>
+
+<p>calculates the Depth of a Term, using the definition
+</p><div class="example">
+<pre class="example">term_depth(Var) = 0
+term_depth(Const) = 0
+term_depth(F(T1,...,Tn)) = 1+max(term_depth(T1),...,term_depth(Tn))
+</pre></div>
+<p>Could be defined as:
+</p>
+<div class="example">
+<pre class="example">term_depth(X, Depth) :-
+simple(X), !, Depth = 0.
+term_depth(X, Depth) :-
+(   foreacharg(A,X),
+fromto(0,D0,D,Depth0)
+do  term_depth(A, D1),
+D is max(D0,D1)
+),
+Depth is Depth0+1.
+</pre></div>
+</dd>
+<dt><code>term_size(<var>+Term</var>, <var>-Size</var>)</code></dt>
+<dd>
+<a name="index-term_005fsize_002f2-_0028terms_0029-1"></a>
+<a name="index-term_005fsize_002f2-_0028terms_0029"></a>
+
+<p>calculates the <var>Size</var> of a <var>Term</var>, defined to be the number of constant and
+function symbol occurrences in it.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">term_size(X, Size) :-
+var(X), !, Size = 0.
+term_size(X, Size) :-
+simple(X), !, Size = 1.
+term_size(X, Size) :-
+(   foreacharg(A,X),
+fromto(1,S0,S,Size)
+do  term_size(A, S1),
+S is S0+S1
+).
+</pre></div>
+</dd>
+<dt><code>same_functor(<var>?T1</var>, <var>?T2</var>)</code></dt>
+<dd>
+<a name="index-same_005ffunctor_002f_005b2_002c3_002c4_005d-_0028terms_0029-1"></a>
+<a name="index-same_005ffunctor_002f_005b2_002c3_002c4_005d-_0028terms_0029"></a>
+
+<p>is true when <var>T1</var> and <var>T2</var> have the same principal functor.	 If one of
+the terms is a variable, it will be instantiated to a new term
+with the same principal functor as the other term (which should be
+instantiated) and with arguments being new distinct variables.  If
+both terms are variables, an error is reported.
+</p></dd>
+<dt><code>same_functor(<var>?T1</var>, <var>?T2</var>, <var>?N</var>)</code></dt>
+<dd><p>is true when <var>T1</var> and <var>T2</var> have the same principal functor, and their
+common arity is <var>N</var>. Like <code>same_functor/3</code>, at least one of <var>T1</var> and <var>T2</var>
+must be bound, or an error will be reported.  
+</p></dd>
+<dt><code>same_functor(<var>?T1</var>, <var>?T2</var>, <var>?F</var>, <var>?N</var>)</code></dt>
+<dd><p>is true when <var>T1</var> and <var>T2</var> have the same principal functor, and their
+common functor is <var>F/N</var>. Given <var>T1</var> (or <var>T2</var>) the remaining arguments
+can be computed.  Given <var>F</var> and <var>N</var>, the remaining arguments can be
+computed.  If too many arguments are unbound, an error is reported.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dtimeout.html#lib_002dtimeout" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dtcltk.html#lib_002dtcltk" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dterms.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dterms.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

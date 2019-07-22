@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mdb-rcd</title>
+
+<meta name="description" content="SICStus Prolog: ref-mdb-rcd">
+<meta name="keywords" content="SICStus Prolog: ref-mdb-rcd">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmdb.html#ref_002dmdb" rel="up" title="ref-mdb">
+<link href="ref_002dmdb_002drcd_002defu.html#ref_002dmdb_002drcd_002defu" rel="next" title="ref-mdb-rcd-efu">
+<link href="ref_002dmdb_002dacd.html#ref_002dmdb_002dacd" rel="prev" title="ref-mdb-acd">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmdb_002drcd"></a>
+<hr>
+<a name="Removing-Clauses-from-the-Database"></a>
+<h4 class="subsection">4.12.5 Removing Clauses from the Database</h4>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmdb_002drcd_002defu.html#ref_002dmdb_002drcd_002defu" accesskey="1">ref-mdb-rcd-efu</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">A Note on Efficient Use of retract/1
+</td></tr>
+</table>
+
+
+
+<p>This section briefly describes the predicates used to remove the clauses and/or
+properties of a predicate from the system.
+</p>
+<blockquote>
+
+<p><strong>Please note:</strong>  Removing all of a predicate&rsquo;s clauses by <code>retract/1</code> and/or
+<code>erase/1</code> (see <a href="ref_002dmdb_002drcd_002defu.html#ref_002dmdb_002drcd_002defu">ref-mdb-rcd-efu</a>) does not remove the predicate&rsquo;s
+properties (and hence its definition) from the system.  The only way to
+completely remove a predicate&rsquo;s clauses <em>and</em> properties is to use
+<code>abolish/[1,2]</code>.
+</p></blockquote>
+
+
+
+<a name="index-retract_002f1-_0028built_002din_0029-1"></a>
+<a name="index-retract_002f1-_0028built_002din_0029"></a>
+
+
+
+<a name="index-retractall_002f1-_0028built_002din_0029-1"></a>
+<a name="index-retractall_002f1-_0028built_002din_0029"></a>
+
+
+
+<a name="index-abolish_002f_005b1_002c2_005d-_0028built_002din_0029-1"></a>
+<a name="index-abolish_002f_005b1_002c2_005d-_0028built_002din_0029"></a>
+
+
+
+<a name="index-erase_002f1-_0028built_002din_0029-1"></a>
+<a name="index-erase_002f1-_0028built_002din_0029"></a>
+
+
+
+<dl compact="compact">
+<dt><code>retract(<var>:C</var>)</code></dt>
+<dd><p>erase the first dynamic clause that matches <var>C</var>
+</p>
+</dd>
+<dt><code>retractall(<var>:H</var>)</code></dt>
+<dd><p>erase every clause whose head matches <var>H</var>
+</p>
+</dd>
+<dt><code>abolish(<var>:F</var>)</code></dt>
+<dd><p>abolish the predicate(s) specified by <var>F</var>
+</p>
+</dd>
+<dt><code>abolish(<var>:F</var>,<var>+O</var>)</code></dt>
+<dd><p>abolish the predicate(s) specified by <var>F</var> with options <var>O</var>
+</p>
+</dd>
+<dt><code>erase(<var>+R</var>)</code></dt>
+<dd><p>erase the clause or recorded term (see
+<a href="ref_002dmdb_002didb.html#ref_002dmdb_002didb">ref-mdb-idb</a>) with reference <var>R</var>
+</p></dd>
+</dl>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmdb_002dacl.html#ref_002dmdb_002dacl" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmdb_002dacd.html#ref_002dmdb_002dacd" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmdb.html#ref_002dmdb" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmdb_002drcd.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmdb_002drcd.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

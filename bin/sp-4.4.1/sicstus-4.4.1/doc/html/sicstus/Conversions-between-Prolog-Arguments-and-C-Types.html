@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Conversions between Prolog Arguments and C Types</title>
+
+<meta name="description" content="SICStus Prolog: Conversions between Prolog Arguments and C Types">
+<meta name="keywords" content="SICStus Prolog: Conversions between Prolog Arguments and C Types">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" rel="up" title="Calling C from Prolog">
+<link href="Interface-Predicates.html#Interface-Predicates" rel="next" title="Interface Predicates">
+<link href="Conversion-Declarations.html#Conversion-Declarations" rel="prev" title="Conversion Declarations">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Conversions-between-Prolog-Arguments-and-C-Types"></a>
+<hr>
+<a name="Conversions-between-Prolog-Arguments-and-C-Types-1"></a>
+<h4 class="subsection">6.2.3 Conversions between Prolog Arguments and C Types</h4>
+
+<p>The following table lists the possible values for the arguments in
+the predicate specification of <code>foreign/[2,3]</code>. The value
+declares which conversion between corresponding Prolog argument
+and C type will take place.
+</p>
+
+<dl compact="compact">
+<dt><code>Prolog: +integer</code></dt>
+<dt><code>C:      SP_integer</code></dt>
+<dd><p>The argument should be a number.  It is converted to a C
+<code>SP_integer</code> and passed to the C function.
+If the number does not fit in a <code>SP_integer</code>, an exception is thrown.
+</p></dd>
+<dt><code>Prolog: +float</code></dt>
+<dt><code>C:      double</code></dt>
+<dd><p>The argument should be a number.  It is converted to a C <code>double</code> and
+passed to the C function.
+If the number is a large integer that does not fit in a <code>double</code>, then
+an exception is thrown.
+</p>
+</dd>
+<dt><code>Prolog: +atom</code></dt>
+<dt><code>C:      SP_atom</code></dt>
+<dd><p>The argument should be an atom.
+Its canonical representation is passed to the C function.
+</p>
+</dd>
+<dt><code>Prolog: +codes</code></dt>
+<dt><code>C:      char const *</code></dt>
+<dd><p>The argument should be a code-list.  The C function will be
+passed the address of an array with the encoded string
+representation of these characters.  The array is subject to reuse by
+other support functions, so if the value is going to be used on a more
+than temporary basis, then it must be moved elsewhere.
+</p>
+</dd>
+<dt><code>Prolog: +string</code></dt>
+<dt><code>C:      char const *</code></dt>
+<dd><p>The argument should be an atom.  The C function will be
+passed the address of an encoded string representing the
+characters of the atom.  <strong>Please note</strong>: The C function must not
+overwrite the string.
+</p></dd>
+<dt><code>Prolog: +address</code></dt>
+<dt><code>C:      void *</code></dt>
+<dd><p>The value passed will be a <code>void *</code> pointer.
+</p>
+</dd>
+<dt><code>Prolog: +address(<var>TypeName</var>)</code></dt>
+<dt><code>C:      <var>TypeName</var> *</code></dt>
+<dd><p>The value passed will be a <code><var>TypeName</var> *</code> pointer.
+</p></dd>
+<dt><code>Prolog: +term</code></dt>
+<dt><code>C:      SP_term_ref</code></dt>
+<dd><p>The argument could be any term. The value passed will be the internal
+representation of the term.
+</p></dd>
+<dt><code>Prolog: -integer</code></dt>
+<dt><code>C:      SP_integer *</code></dt>
+<dd><p>The C function is passed a reference to an uninitialized <code>SP_integer</code>.
+The value returned will be converted to a Prolog integer. 
+</p></dd>
+<dt><code>Prolog: -float</code></dt>
+<dt><code>C:      double *</code></dt>
+<dd><p>The C function is passed a reference to an uninitialized <code>double</code>.
+The value returned will be converted to a Prolog float.
+If the value returned is not finite, i.e. it is infinite or NaN, then an
+exception is thrown.
+</p></dd>
+<dt><code>Prolog: -atom</code></dt>
+<dt><code>C:      SP_atom *</code></dt>
+<dd><p>The C function is passed a reference to an uninitialized <code>SP_atom</code>.
+The value returned should be the canonical representation of a
+Prolog atom.  
+</p></dd>
+<dt><code>Prolog: -codes</code></dt>
+<dt><code>C:      char const **</code></dt>
+<dd><p>The C function is passed the address of an uninitialized <code>char *</code>.
+The returned encoded string will be converted to a Prolog code-list.  
+</p></dd>
+<dt><code>Prolog: -string</code></dt>
+<dt><code>C:      char const **</code></dt>
+<dd><p>The C function is passed the address of an uninitialized <code>char *</code>.
+The returned encoded string will be converted to a Prolog atom.  Prolog
+will copy the string to a safe place, so the memory occupied by the
+returned string may be reused during subsequent calls to foreign
+code. 
+</p>
+</dd>
+<dt><code>Prolog: -address</code></dt>
+<dt><code>C:      void **</code></dt>
+<dd><p>The C function is passed the address of an uninitialized <code>void *</code>.
+</p>
+</dd>
+<dt><code>Prolog: -address(<var>TypeName</var>)</code></dt>
+<dt><code>C:      <var>TypeName</var> **</code></dt>
+<dd><p>The C function is passed the address of an uninitialized
+<code><var>TypeName</var> *</code>.
+</p>
+</dd>
+<dt><code>Prolog: -term</code></dt>
+<dt><code>C:      SP_term_ref</code></dt>
+<dd><p>The C function is passed a new SP_term_ref, and is expected to set
+its value to a suitable Prolog term.  Prolog will try to
+unify the value with the actual argument.
+</p></dd>
+<dt><code>Prolog: [-integer]</code></dt>
+<dt><code>C:      SP_integer <var>F</var>()</code></dt>
+<dd><p>The C function should return an <code>SP_integer</code>.  The value returned will be
+converted to a Prolog integer. 
+</p></dd>
+<dt><code>Prolog: [-float]</code></dt>
+<dt><code>C:      double <var>F</var>()</code></dt>
+<dd><p>The C function should return a <code>double</code>.  The value returned will
+be converted to a Prolog float.
+If the value returned is not finite, i.e. it is infinite or NaN, then an
+exception is thrown.
+</p></dd>
+<dt><code>Prolog: [-atom]</code></dt>
+<dt><code>C:      SP_atom <var>F</var>()</code></dt>
+<dd><p>The C function should return an <code>SP_atom</code>.  The value
+returned must be the canonical representation of a Prolog atom. 
+</p></dd>
+<dt><code>Prolog: [-codes]</code></dt>
+<dt><code>C:      char const *<var>F</var>()</code></dt>
+<dd><p>The C function should return a <code>char *</code>.  The returned encoded
+string will be converted to a Prolog code-list.  
+</p></dd>
+<dt><code>Prolog: [-string]</code></dt>
+<dt><code>C:      char const *<var>F</var>()</code></dt>
+<dd><p>The C function should return a <code>char *</code>.  The returned encoded
+string will be converted to a Prolog atom.  Prolog will copy the string
+to a safe place, so the memory occupied by the returned string may be
+reused during subsequent calls to foreign code. 
+</p></dd>
+<dt><code>Prolog: [-address]</code></dt>
+<dt><code>C:      void *<var>F</var>()</code></dt>
+<dd><p>The C function should return a <code>void *</code>, which will be converted to a Prolog integer. 
+</p></dd>
+<dt><code>Prolog: [-address(<var>TypeName</var>)]</code></dt>
+<dt><code>C:      <var>TypeName</var> *<var>F</var>()</code></dt>
+<dd><p>The C function should return a <code><var>TypeName</var> *</code>.
+</p>
+</dd>
+<dt><code>Prolog: [-term]</code></dt>
+<dt><code>C:      SP_term_ref <var>F</var>()</code></dt>
+<dd><p>The C function should return an SP_term_ref.  Prolog will try to
+unify its value with the actual argument.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Interface-Predicates.html#Interface-Predicates" accesskey="n" rel="next">Next</a>
+<li><a href="Conversion-Declarations.html#Conversion-Declarations" accesskey="p" rel="prev">Previous</a>
+<li><a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Conversions-between-Prolog-Arguments-and-C-Types.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Conversions-between-Prolog-Arguments-and-C-Types.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

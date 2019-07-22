@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPQR Unification</title>
+
+<meta name="description" content="SICStus Prolog: CLPQR Unification">
+<meta name="keywords" content="SICStus Prolog: CLPQR Unification">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CLPQR-Interface.html#CLPQR-Interface" rel="up" title="CLPQR Interface">
+<link href="CLPQR-Feedback.html#CLPQR-Feedback" rel="next" title="CLPQR Feedback">
+<link href="CLPQR-Solver-Predicates.html#CLPQR-Solver-Predicates" rel="prev" title="CLPQR Solver Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPQR-Unification"></a>
+<hr>
+<a name="Unification-1"></a>
+<h4 class="subsubsection">10.11.2.3 Unification</h4>
+<p>Equality constraints are added to the store implicitly each time
+variables that have been mentioned in explicit constraints are
+bound&mdash;either to another such variable or to a number.
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>{2*A+3*B=C/2}, C=10.0, A=B.</kbd>
+
+A = 1.0,
+B = 1.0,
+C = 10.0 
+</pre></div>
+<p>Is equivalent modulo rounding errors to
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>{2*A+3*B=C/2, C=10, A=B}.</kbd>
+
+A = 1.0,
+B = 0.9999999999999999,
+C = 10.0
+</pre></div>
+<p>The shortcut bypassing the use of <code>{}/1</code> is allowed and makes
+sense because the interpretation of this equality in Prolog and clp(R)
+coincides.  In general, equations involving interpreted functors,
+<code>+/2</code> in this case, must be fed to the solver explicitly:
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>X=3.0+1.0, X=4.0.</kbd>
+
+no
+</pre></div>
+
+<p>Moreover, variables known by clp(R) may be bound directly to
+floats only.  Likewise, variables known by clp(Q) may be
+bound directly to rational numbers only;
+see <a href="CLPQR-Fragments-and-Bits.html#CLPQR-Fragments-and-Bits">CLPQR Fragments and Bits</a>. Failing to do so is rewarded with an exception:
+</p><div class="example">
+<pre class="example">clp(q) ?- <kbd>{2*A+3*B=C/2}, C=10.0, A=B.</kbd>
+! Type error in argument 2 of = /2
+! 'a rational number' expected, but 10.0 found
+! goal:  _254=10.0
+</pre></div>
+
+<p>This is because <code>10.0</code> is not a rational constant. To make clp(Q) happy
+you have to say:
+</p><div class="example">
+<pre class="example">clp(q) ?- <kbd>{2*A+3*B=C/2}, C=rat(10,1), A=B.</kbd>
+
+A = 1,
+B = 1,
+C = 10
+</pre></div>
+
+<p>If you use <code>{}/1</code>, then you do not have to worry about such details.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPQR-Feedback.html#CLPQR-Feedback" accesskey="n" rel="next">Next</a>
+<li><a href="CLPQR-Solver-Predicates.html#CLPQR-Solver-Predicates" accesskey="p" rel="prev">Previous</a>
+<li><a href="CLPQR-Interface.html#CLPQR-Interface" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Unification.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Unification.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

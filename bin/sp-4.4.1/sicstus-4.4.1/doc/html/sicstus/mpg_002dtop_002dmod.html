@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-top-mod</title>
+
+<meta name="description" content="SICStus Prolog: mpg-top-mod">
+<meta name="keywords" content="SICStus Prolog: mpg-top-mod">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dtop.html#mpg_002dtop" rel="up" title="mpg-top">
+<link href="mpg_002dtop_002dsta.html#mpg_002dtop_002dsta" rel="next" title="mpg-top-sta">
+<link href="mpg_002dtop_002dmsg.html#mpg_002dtop_002dmsg" rel="prev" title="mpg-top-msg">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dtop_002dmod"></a>
+<hr>
+<a name="Modules-1"></a>
+<h4 class="subsection">11.2.17 Modules</h4>
+
+
+<a name="index-modules_002c-predicates-for-1"></a>
+<a name="index-predicates-for-modules-1"></a>
+
+<dl compact="compact">
+<dt><code>current_module(<var>?M</var>)</code></dt>
+<dd><p><var>M</var> is the name of a current module
+</p>
+</dd>
+<dt><code>current_module(<var>?M</var>,<var>?F</var>)</code></dt>
+<dd><p><var>F</var> is the name of the file in which <var>M</var>&rsquo;s module
+declaration appears
+</p>
+</dd>
+<dt><code>meta_predicate <var>:P</var> &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>declares predicates <var>P</var> that are dependent on
+the module from which they are called
+</p>
+</dd>
+<dt><code>module(<var>+M</var>,<var>+L</var>) &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dt><code>module(<var>+M</var>,<var>+L</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>declaration that module <var>M</var> exports predicates in <var>L</var>, options <var>O</var>
+</p>
+</dd>
+<dt><code>save_modules(<var>+L</var>,<var>+F</var>)</code></dt>
+<dd><p>save the modules specifed in <var>L</var> into file <var>F</var>
+</p>
+</dd>
+<dt><code>set_module(<var>+M</var>)</code></dt>
+<dd><p>make <var>M</var> the type-in module
+</p>
+</dd>
+<dt><code>use_module(<var>:F</var>)</code></dt>
+<dd><p>import the module-file(s) <var>F</var>, loading them if necessary
+</p>
+</dd>
+<dt><code>use_module(<var>:F</var>,<var>+I</var>)</code></dt>
+<dd><p>import the procedure(s) <var>I</var> from the module-file <var>F</var>
+</p>
+</dd>
+<dt><code>use_module(<var>?M</var>,<var>:F</var>,<var>+I</var>)</code></dt>
+<dd><p>import <var>I</var> from module <var>M</var>, loading
+module-file <var>F</var> if necessary
+</p>
+</dd>
+</dl>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dtop_002dsta.html#mpg_002dtop_002dsta" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dtop_002dmsg.html#mpg_002dtop_002dmsg" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dtop.html#mpg_002dtop" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dmod.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dmod.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Finding One Solution of a Call</title>
+
+<meta name="description" content="SICStus Prolog: Finding One Solution of a Call">
+<meta name="keywords" content="SICStus Prolog: Finding One Solution of a Call">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" rel="up" title="Calling Prolog from C">
+<link href="Finding-Multiple-Solutions-of-a-Call.html#Finding-Multiple-Solutions-of-a-Call" rel="next" title="Finding Multiple Solutions of a Call">
+<link href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" rel="prev" title="Calling Prolog from C">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Finding-One-Solution-of-a-Call"></a>
+<hr>
+<a name="Finding-One-Solution-of-a-Call-1"></a>
+<h4 class="subsection">6.5.1 Finding One Solution of a Call</h4>
+
+<a name="index-SP_005fquery_0028_0029-_0028C-function_0029"></a>
+<p>The easiest way to call a predicate if you are only interested in the
+first solution is to call the function <code>SP_query()</code>.  It will
+create a goal from the predicate definition and the arguments, call
+it, and commit to the first solution found, if any.
+</p>
+<a name="index-SP_005fquery_005fcut_005ffail_0028_0029-_0028C-function_0029"></a>
+<p>If you are only interested in the side-effects of a
+predicate, then you can call <code>SP_query_cut_fail()</code>.  It will try to
+prove the predicate, cut away the rest of the solutions, and
+finally fail.  This will reclaim any memory used after the call, and
+throw away any solution found. 
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Finding-Multiple-Solutions-of-a-Call.html#Finding-Multiple-Solutions-of-a-Call" accesskey="n" rel="next">Next</a>
+<li><a href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Finding-One-Solution-of-a-Call.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Finding-One-Solution-of-a-Call.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

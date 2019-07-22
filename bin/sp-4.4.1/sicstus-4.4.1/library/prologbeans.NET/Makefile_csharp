@@ -1,0 +1,237 @@
+# -*- Mode:makefile -*-
+#
+# Copyright (C) 2004 Swedish Institute of Computer Science.
+#
+# NOTE: This Makefile requires GNU make.
+#
+
+SRCDIR=.
+SRCROOT = $(SRCDIR)/../..
+
+.PHONY: default
+default: all
+
+# Include common Makefile parts.
+include $(SRCROOT)/Common
+
+
+ifeq ($(ENABLE_DOTNETCSHARP),yes)
+
+# basename and extension of the DLL.
+#
+# [PM] 4.3.2 To preserve binary compatibilit with the J# version it
+# must be called prologbeans.dll when CSC builds it (this ensures that
+# "prologbeans" is the name used in the MANIFEST). The proper way to
+# handle this is to explicitly specify name and version, but we do not
+# do that yet.
+PROLOGBEANSSHARP_DLL_BUILD_NAME := prologbeans.dll
+# [PM] 4.3.2 This is the base name of the file that will be loaded at runtime.
+#
+# It turns out that it must have the same name as the assembly-name in
+# the MANIFEST (since the runtime linker will look for a file with the
+# name ASSEMBLY_NAME.dll).
+#
+# This means that we can not both have binary compatibility with J#
+# (assembly name "prologbeans") and place it in a the global bin/
+# folder (since the J#-version of prologbeans.dll would be
+# overwritten).
+#
+# Instead we just call it (and its assembly) prologbeans and do not make it globally available (until some future date when the J#-version is no more).
+#
+# See Utils/Makefile library-post target for more on this.
+#
+# So, this does not work as I had hoped: PROLOGBEANSSHARP_DLL_RUNTIME_NAME := prologbeanssharp.dll
+#
+PROLOGBEANSSHARP_DLL_RUNTIME_NAME := prologbeans.dll
+
+SP_ROOTLIBDIR=$(SP_BINDIR)
+
+PBDLL := 
+# PBDLL=$(SP_ROOTLIBDIR)/$(PROLOGBEANSSHARP_DLL)
+
+.PHONY: all
+all:  $(PBDLL) prologbeanscsharp.dll examples
+
+# [PM] 4.3.2 not used (for a long time)
+# # [PM] 4.3.2 called from Utils/Makefile library-post (with PBDLL possibly having another basename than $(PROLOGBEANSSHARP_DLL))
+# $(PBDLL): $(PROLOGBEANSSHARP_DLL)
+# 	$(INSTALL) "$<" "$@"
+# GENERATED_FILES += $(PBDLL)
+
+
+ifeq ($(WIN32),yes)
+using_mono := no
+else
+using_mono := yes
+endif
+
+ifeq ($(using_mono),yes)
+
+SOURCE_ENV7 := # empty
+# CSC_DOTNET_PKG_FLAGS += /reference:/Library/Frameworks/Mono.framework/Libraries/mono/4.5/System.Numerics.dll
+CSC_DOTNET_PKG_FLAGS += /reference:System.Numerics.dll
+CSC_DOTNET_PKG_FLAGS += -pkg:dotnet
+
+else # not Mono. Assume Microsoft .NET implementation
+
+# SOURCE_ENV7 := . ../../Distrib/Win32/env7.sh && 
+SOURCE_ENV7 := # empty
+
+CSC_DOTNET_PKG_FLAGS += /reference:System.Numerics.dll
+
+endif # not Mono.
+
+CSC7 = $(SOURCE_ENV7) $(CSC)
+
+OutputDirectoryRoot = ./docs
+GENERATED_FILES += $(OutputDirectoryRoot)
+
+HtmlHelp2OutputDirectory = $(OutputDirectoryRoot)/HtmlHelp2
+GENERATED_FILES += $(HtmlHelp2OutputDirectory)
+JavaDocOutputDirectory = $(OutputDirectoryRoot)/JavaDoc
+GENERATED_FILES += $(JavaDocOutputDirectory)
+
+PROLOGBEANS_SOURCES =
+PROLOGBEANS_SOURCES += Bindings.cs
+PROLOGBEANS_SOURCES += FastParser.cs
+PROLOGBEANS_SOURCES += FastWriter.cs
+PROLOGBEANS_SOURCES += PBAtom.cs
+PROLOGBEANS_SOURCES += PBAtomic.cs
+PROLOGBEANS_SOURCES += PBBignum.cs
+PROLOGBEANS_SOURCES += PBCompound.cs
+PROLOGBEANS_SOURCES += PBFloat.cs
+PROLOGBEANS_SOURCES += PBInteger.cs
+PROLOGBEANS_SOURCES += PBListCell.cs
+PROLOGBEANS_SOURCES += PBMonitor.cs
+PROLOGBEANS_SOURCES += PBNil.cs
+PROLOGBEANS_SOURCES += PBTerm.cs
+PROLOGBEANS_SOURCES += PBVariable.cs
+PROLOGBEANS_SOURCES += PrologSession.cs
+PROLOGBEANS_SOURCES += QueryAnswer.cs
+
+# [PM] 4.3.2 temporary build directory. Will be removed on clean
+#      Empty or a relative path ending in slash
+CSHARP_DLL_OUTPUT_TMP_DIR_PREFIX = csharp_bin/
+GENERATED_FILES += $(CSHARP_DLL_OUTPUT_TMP_DIR_PREFIX)
+
+# [PM] 4.3.2 Where to build the DLL. Empty or a relative path ending in slash
+CSHARP_DLL_OUTPUT_DIR_PREFIX = $(CSHARP_DLL_OUTPUT_TMP_DIR_PREFIX)
+
+$(CSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.dll: $(PROLOGBEANS_SOURCES)
+	mkdir -p '$(@D)';
+	$(CSC7) $(CSCFLAGS) $(CSC_DOTNET_PKG_FLAGS) \
+               '/out:$(call NATIVEPATHBACKSLASH, $@)' \
+		$(cscflags_extra) \
+               /doc:prologbeans.NET.xml \
+               /target:library \
+               $(patsubst %, '%', $(foreach file,$^,$(call NATIVEPATHBACKSLASH, $(file))))
+GENERATED_FILES += $(CSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.dll
+GENERATED_FILES += $(CSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.pdb
+GENERATED_FILES += $(CSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.NET.xml
+
+prologbeanscsharp.dll: $(CSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.dll
+	$(CP) $< $@
+GENERATED_FILES += prologbeanscsharp.dll
+
+# [PM] 4.3.2. See above for why PROLOGBEANSSHARP_DLL_RUNTIME_NAME can not differ from PROLOGBEANSSHARP_DLL_BUILD_NAME
+# $(PROLOGBEANSSHARP_DLL_RUNTIME_NAME): $(PROLOGBEANSSHARP_DLL_BUILD_NAME)
+# 	rm -f '$@'
+# 	cp '$<' '$@'
+# GENERATED_FILES += $(PROLOGBEANSSHARP_DLL_RUNTIME_NAME)
+
+
+
+# # [PM] 3.11.3 Set this to VS.NET 2003 with NDOC 1.3, HtmlHelp2 with NDOC 1.2
+NDOCHELPDOCUMENTER ?= $(error NDOCHELPDOCUMENTER should be set in Common)
+
+DOCTYPES = javadoc
+
+ifeq ($(ENABLE_HtmlHelp2), yes)
+DOCTYPES += htmlhelp2
+endif				# ENABLE_HtmlHelp2
+
+.PHONY: doc
+doc: $(addsuffix _doc, $(DOCTYPES))
+
+# NDOCFLAGS = -verbose
+
+# [PM] 3.11.3 NOTE: For some reason you cannot build the HtmlHelp2
+# docs via Cygwin sshd. You get a
+# System.UnauthorizedAccessException. Probably somthing to do with the
+# hxconv COM objects.
+
+.PHONY: htmlhelp2_doc
+htmlhelp2_doc: prologbeans.NET.HtmlHelp2.ndoc $(PROLOGBEANSSHARP_DLL_BUILD_NAME)
+	mkdir -p $(HtmlHelp2OutputDirectory)
+	$(NDOC) $(NDOCFLAGS) -documenter='$(NDOCHELPDOCUMENTER)' -project=$<
+	rm -f $(HtmlHelp2OutputDirectory)/*.log
+
+.PHONY: javadoc_doc
+javadoc_doc: prologbeans.NET.JavaDoc.ndoc $(PROLOGBEANSSHARP_DLL_BUILD_NAME)
+	mkdir -p $(JavaDocOutputDirectory)
+	$(NDOC) $(NDOCFLAGS) -documenter=JavaDoc -project=$<
+
+.PHONY: install_docs
+install_docs: HtmlHelp2OutputDirectory = $(HtmlHelp2DOCSDIR)
+install_docs: JavaDocOutputDirectory = $(JavaDocDOCSDIR)
+install_docs: doc
+
+
+prologbeans.NET.JavaDoc.ndoc prologbeans.NET.HtmlHelp2.ndoc: prologbeans.NET.ndoc.in
+	sed -e 's,@HtmlHelp2OutputDirectory@,$(subst \,\\,$(call NATIVEPATHBACKSLASH, $(HtmlHelp2OutputDirectory))),g' \
+	    -e 's,@JavaDocOutputDirectory@,$(subst \,\\,$(call NATIVEPATHBACKSLASH, $(JavaDocOutputDirectory))),g' < "$<" > "$@"
+GENERATED_FILES += prologbeans.NET.JavaDoc.ndoc prologbeans.NET.HtmlHelp2.ndoc
+
+CSHARP_EXAMPLES_DIR = examples
+
+EXAMPLE_EXES := $(CSHARP_EXAMPLES_DIR)/evaluate.NET/EvaluateGUI.exe $(CSHARP_EXAMPLES_DIR)/pbtest.NET/PBTest.exe
+
+ifeq ($(ENABLE_DOTNETJSHARP),yes)
+# [PM] 4.3.2 32-bit versions for J# libraries.
+EXAMPLE_EXES32 += $(CSHARP_EXAMPLES_DIR)/evaluate.NET/EvaluateGUI32.exe
+EXAMPLE_EXES32 += $(CSHARP_EXAMPLES_DIR)/pbtest.NET/PBTest32.exe
+endif # ifeq ($(ENABLE_DOTNETJSHARP),yes)
+
+
+.PHONY: examples
+examples: $(EXAMPLE_EXES) $(EXAMPLE_EXES32)
+
+$(EXAMPLE_EXES): %.exe: $(CSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.dll %.cs
+	$(CSC7) $(CSCFLAGS) $(CSC_DOTNET_PKG_FLAGS) \
+                '/reference:$(call NATIVEPATHBACKSLASH, $<)' \
+		$(cscflags_extra) \
+                '/out:$(call NATIVEPATHBACKSLASH, $@)' \
+                $(patsubst %, '%', $(foreach file,$(filter %.cs, $^),$(call NATIVEPATHBACKSLASH, $(file))))
+GENERATED_FILES += $(EXAMPLE_EXES)
+
+$(EXAMPLE_EXES32): %32.exe : %.exe
+	rm -f '$@' '$@'_corflags_tmp
+	cp '$<' '$@'_corflags_tmp
+	corflags '$@'_corflags_tmp /32BIT+
+	mv '$@'_corflags_tmp '$@'
+GENERATED_FILES += $(EXAMPLE_EXES32)
+GENERATED_FILES += *_corflags_tmp
+
+.PHONY: clean distclean mostlyclean
+clean distclean mostlyclean:
+	rm -rf $(GENERATED_FILES)
+	find . -name '$(PROLOGBEANSSHARP_DLL_BUILD_NAME)' -print -exec rm {} \;
+	find . -name '$(PROLOGBEANSSHARP_DLL_RUNTIME_NAME)' -print -exec rm {} \;
+	find . -name '*.pdb' -print -exec rm {} \;
+
+.PHONY:  maintainerclean
+maintainerclean: clean
+	rm -f $(CSHARP_EXAMPLES_DIR)/pbtest.NET/pbtest.exe.config
+
+else # NOT ifeq ($(ENABLE_DOTNETCSHARP),yes)
+
+.PHONY: all
+all:
+
+.PHONY: clean distclean mostlyclean
+clean distclean mostlyclean:
+
+.PHONY:  maintainerclean
+maintainerclean: clean
+
+endif # NOT ifeq ($(ENABLE_DOTNETCSHARP),yes)

@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Built-in Predicates for Breakpoint Handling</title>
+
+<meta name="description" content="SICStus Prolog: Built-in Predicates for Breakpoint Handling">
+<meta name="keywords" content="SICStus Prolog: Built-in Predicates for Breakpoint Handling">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="up" title="Advanced Debugging">
+<link href="Accessing-Past-Debugger-States.html#Accessing-Past-Debugger-States" rel="next" title="Accessing Past Debugger States">
+<link href="Advice_002dpoints.html#Advice_002dpoints" rel="prev" title="Advice-points">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Built_002din-Predicates-for-Breakpoint-Handling"></a>
+<hr>
+<a name="Built_002din-Predicates-for-Breakpoint-Handling-1"></a>
+<h4 class="subsection">5.6.7 Built-in Predicates for Breakpoint Handling</h4>
+
+<p>This section introduces built-in predicates for evaluating
+breakpoint conditions, and for retrieving, deleting, disabling and
+enabling breakpoints.
+</p>
+<p>The breakpoint spec of the last advice-point example was
+quite complex. And, to be practical, it should be improved to assert
+only line numbers not recorded so far. For this you will write a Prolog
+predicate for the conditional assertion of file/line information,
+<code>assert_line_reached(File,Line)</code>, and use it instead of the
+<code>assert(line_reached(F,L))</code> condition.
+</p>
+
+<a name="index-execution_005fstate_002f_005b1_002c2_005d-_0028built_002din_0029-3"></a>
+<a name="index-execution_005fstate_002f_005b1_002c2_005d-_0028built_002din_0029"></a>
+
+<p>Because of the complexity of the breakpoint spec, it looks like a
+good idea to move the if-then-else condition into Prolog code. This
+requires that we test the <code>line(F,L)</code> condition from Prolog.  The
+built-in predicate <code>execution_state/1</code> serves for this
+purpose. It takes a simple or a composite breakpoint condition as
+its argument and evaluates it, as if in the test part of a
+breakpoint spec. The predicate will succeed if and only if the
+breakpoint condition evaluates successfully. Thus
+<code>execution_state/1</code> allows you to access debugging information from
+within Prolog code. For example, you can write a Prolog predicate,
+<code>assert_line_reached/0</code>, which queries the debugger for the current
+line information and then processes the line number:
+</p>
+<div class="example">
+<pre class="example">assert_line_reached :-
+        (   execution_state(line(F,L)) -&gt; assert_line_reached(F,L).
+        ;   true
+        ).
+
+| ?- <kbd>add_breakpoint([advice,call]-[true(assert_line_reached),flit], _).</kbd>
+</pre></div>
+
+<p>Arbitrary tests can be used in <code>execution_state/1</code>, if it is called
+from within a <code>true</code> condition. It can also be called from outside
+the debugger, but then only a subset of conditions is available.
+Furthermore, the built-in predicate <code>execution_state/2</code>
+allows accessing information from past debugger states (see <a href="Accessing-Past-Debugger-States.html#Accessing-Past-Debugger-States">Accessing Past Debugger States</a>).
+See <a href="mpg_002dref_002dexecution_005fstate.html#mpg_002dref_002dexecution_005fstate">mpg-ref-execution_state</a>.
+</p>
+
+<a name="index-remove_005fbreakpoints_002f1-_0028built_002din_0029-2"></a>
+<a name="index-remove_005fbreakpoints_002f1-_0028built_002din_0029"></a>
+
+<p>The built-in predicates <code>remove_breakpoints(<var>BIDs</var>)</code>,
+<code>disable_breakpoints(<var>BIDs</var>)</code> and
+<code>enable_breakpoints(<var>BIDs</var>)</code> serve for removing, disabling and
+enabling the given breakpoints. Here <var>BIDs</var> can be a single
+breakpoint identifier, a list of these, or one of the
+atoms <code>all</code>, <code>advice</code>, <code>debugger</code>.
+</p>
+<p>We now show an application of <code>remove_breakpoints/1</code> for
+implementing one-off breakpoints, i.e. breakpoints that
+are removed when first activated.
+</p>
+<a name="index-bid_002f1-_0028debugger-condition_0029"></a>
+<p>For this we need to get hold of the currently selected breakpoint
+identifier.  The <code>bid(BID)</code> condition serves for this purpose: it
+unifies its argument with the identifier of the
+breakpoint being processed. The following is an example of a
+one-off breakpoint.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2, -[bid(BID),true(remove_breakpoints(BID)),leash]).</kbd>
+% Conditional spypoint for user:foo/2 added, BID=1
+% zip
+| ?- <kbd>foo(2, X).</kbd>
+% Conditional spypoint for user:foo/2, BID=1, removed (last)
+        1      1 Call: foo(2,_402) ? <kbd>z</kbd>
+X = 1
+</pre></div>
+
+<p>The action part of the above breakpoint calls the <code>bid</code> test
+to obtain the breakpoint identifier. It then uses this number as
+the argument to the built-in predicate
+<code>remove_breakpoints/1</code>, which removes the activated
+breakpoint.
+See <a href="mpg_002dref_002dremove_005fbreakpoints.html#mpg_002dref_002dremove_005fbreakpoints">mpg-ref-remove_breakpoints</a>.
+</p>
+
+<a name="index-current_005fbreakpoint_002f5-_0028built_002din_0029-2"></a>
+<a name="index-current_005fbreakpoint_002f5-_0028built_002din_0029"></a>
+
+<p>The built-in predicate <code>current_breakpoint(<var>Spec</var>,
+<var>BID</var>, <var>Status</var>, <var>Kind</var>, <var>Type</var>)</code> enumerates all
+breakpoints present in the debugger. For example, if we call
+<code>current_breakpoint/5</code> before the invocation of <code>foo/2</code> in the
+last example, then we get this:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>current_breakpoint(Spec, BID, Status, Kind, Type).</kbd>
+Spec = [pred(user:foo/2)]-[bid(_A),true(remove_breakpoints(_A)),leash],
+BID = 1,
+Status = on,
+Kind = conditional(user:foo/2),
+Type = debugger
+</pre></div>
+
+<p>Here <var>Spec</var> is the breakpoint spec of the breakpoint
+with identifier <var>BID</var>. <var>Status</var> is <code>on</code> for enabled
+breakpoints and <code>off</code> for disabled ones. <var>Kind</var> is one of
+<code>plain(<var>MFunc</var>)</code>, <code>conditional(<var>MFunc</var>)</code> or
+<code>generic</code>, where <var>MFunc</var> is the module qualified
+functor of the specific breakpoint. Finally <var>Type</var> is
+the breakpoint type: <code>debugger</code> or <code>advice</code>.
+</p>
+<p>The <var>Spec</var> returned by <code>current_breakpoint/5</code> is exactly the
+same as the one given in <code>add_breakpoint/2</code>. If the
+breakpoint was created by <code>spy/2</code>, then the test part is
+extended by a <code>pred</code> condition, as exemplified above.  Earlier we
+described some preprocessing steps that the spec goes through, such as
+moving the module qualification of the spec to certain
+conditions. These transformations are performed on the copy of the
+breakpoint used for testing. Independently of this, the debugger
+also stores the original breakpoint, which is returned by
+<code>current_breakpoint/5</code>.
+See <a href="mpg_002dref_002dcurrent_005fbreakpoint.html#mpg_002dref_002dcurrent_005fbreakpoint">mpg-ref-current_breakpoint</a>.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Accessing-Past-Debugger-States.html#Accessing-Past-Debugger-States" accesskey="n" rel="next">Next</a>
+<li><a href="Advice_002dpoints.html#Advice_002dpoints" accesskey="p" rel="prev">Previous</a>
+<li><a href="Advanced-Debugging.html#Advanced-Debugging" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Built_002din-Predicates-for-Breakpoint-Handling.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Built_002din-Predicates-for-Breakpoint-Handling.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

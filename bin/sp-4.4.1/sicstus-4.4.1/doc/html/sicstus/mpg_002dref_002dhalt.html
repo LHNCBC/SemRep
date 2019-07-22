@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-halt</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-halt">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-halt">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dif.html#mpg_002dref_002dif" rel="next" title="mpg-ref-if">
+<link href="mpg_002dref_002dground.html#mpg_002dref_002dground" rel="prev" title="mpg-ref-ground">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dhalt"></a>
+<hr>
+<a name="halt_002f_005b0_002c1_005d---ISO"></a>
+<h4 class="subsection">11.3.101 <code>halt/[0,1]</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-halt_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-halt_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-126"></a>
+<h4 class="subheading">Synopsis</h4>
+<p><code>halt</code>
+</p>
+
+<p><code>halt(<var>+ExitCode</var>)</code>
+</p>
+<p>Causes an exit from the running process.
+</p>
+<a name="Arguments-115"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>ExitCode</var></dt>
+<dd><p><em>integer</em>, must be nonvar
+</p>
+<p>Exit status code. Only the lower 8 bits of this value is used.
+</p>
+</dd>
+</dl>
+
+<a name="Description-94"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Causes an exit from the running process with exit code
+<var>ExitCode</var>. <var>ExitCode</var> defaults to zero which, by convention,
+signifies a successful exit from the process.
+</p>
+
+
+<p><code>halt/[0,1]</code> is implemented by raising a reserved exception, which is handled
+at the top level; see <a href="ref_002dere_002dint.html#ref_002dere_002dint">ref-ere-int</a>.
+</p>
+
+<a name="Exceptions-117"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>ExitCode</var> is uninstantiated.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>ExitCode</var> is not an integer.
+</p></dd>
+</dl>
+
+<a name="See-Also-123"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>abort/0</code>, <code>break/0</code>, <code>runtime_entry/1</code>, <a href="ref_002dere_002dint.html#ref_002dere_002dint">ref-ere-int</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dif.html#mpg_002dref_002dif" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dground.html#mpg_002dref_002dground" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dhalt.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dhalt.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

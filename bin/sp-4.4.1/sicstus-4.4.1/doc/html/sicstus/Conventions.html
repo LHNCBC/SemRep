@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Conventions</title>
+
+<meta name="description" content="SICStus Prolog: Conventions">
+<meta name="keywords" content="SICStus Prolog: Conventions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Predicates.html#Predicates" rel="up" title="Predicates">
+<link href="The-Environment.html#The-Environment" rel="next" title="The Environment">
+<link href="Predicates.html#Predicates" rel="prev" title="Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Conventions"></a>
+<hr>
+<a name="Conventions-1"></a>
+<h4 class="subsubsection">10.6.5.1 Conventions</h4>
+<p>The following conventions are used in the predicate descriptions
+below.
+</p><ul>
+<li> <var>Mode</var> is either <code>update</code> or <code>read</code> or <code>enumerate</code>.
+In mode <code>read</code> no updates can be made.  Mode <code>enumerate</code> is
+like mode <code>read</code>, but indexing cannot be used, i.e. you can
+only sequentially enumerate the items in the database.  In mode
+<code>enumerate</code> only the file storing the terms along with their
+references is used.
+
+</li><li> <var>EnvRef</var> is a reference to an open database environment.  The
+environment is returned when it is opened.  The reference becomes
+invalid after the environment has been closed.
+
+</li><li> <var>DBRef</var> is a reference to an open database.  The reference is
+returned when the database is opened.  The reference becomes
+invalid after the database has been closed.
+
+</li><li> <var>TermRef</var> is a reference to a term in a given database.
+The reference is returned when a term is stored.  The reference
+stays valid even after the database has been closed and hence can
+be stored permanently as part of another term.  However, if such
+references are stored in the database, automatic compression of
+the database (using <code>db_compress/[2,3]</code>) is not possible, in
+that case the user has to write her own compressing predicate.
+
+</li><li> <var>SpecList</var> is a description of the indexing scheme;
+see <a href="The-DB_002dSpec.html#The-DB_002dSpec">The DB-Spec</a>.
+
+</li><li> <var>Term</var> is any Prolog term.
+
+</li><li> <var>Iterator</var> is a non-backtrackable mutable object.  It can be
+used to iterate through a set of terms stored in a database.
+The iterators are unidirectional.
+</li></ul>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="The-Environment.html#The-Environment" accesskey="n" rel="next">Next</a>
+<li><a href="Predicates.html#Predicates" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Conventions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Conventions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

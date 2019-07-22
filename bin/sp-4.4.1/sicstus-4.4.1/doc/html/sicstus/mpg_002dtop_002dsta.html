@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-top-sta</title>
+
+<meta name="description" content="SICStus Prolog: mpg-top-sta">
+<meta name="keywords" content="SICStus Prolog: mpg-top-sta">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dtop.html#mpg_002dtop" rel="up" title="mpg-top">
+<link href="mpg_002dtop_002deqs.html#mpg_002dtop_002deqs" rel="next" title="mpg-top-eqs">
+<link href="mpg_002dtop_002dmod.html#mpg_002dtop_002dmod" rel="prev" title="mpg-top-mod">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dtop_002dsta"></a>
+<hr>
+<a name="Program-State"></a>
+<h4 class="subsection">11.2.18 Program State</h4>
+
+
+<a name="index-program-state_002c-predicates-for-1"></a>
+<a name="index-predicates-for-program-state-1"></a>
+
+<dl compact="compact">
+<dt><code>current_atom(<var>?A</var>)</code></dt>
+<dd><p>backtrack through all atoms
+</p>
+</dd>
+<dt><code>current_module(<var>?M</var>)</code></dt>
+<dd><p><var>M</var> is the name of a current module
+</p>
+</dd>
+<dt><code>current_module(<var>?M</var>,<var>?F</var>)</code></dt>
+<dd><p><var>F</var> is the name of the file in which <var>M</var>&rsquo;s module
+declaration appears
+</p>
+</dd>
+<dt><code>current_predicate(<var>:A</var>/<var>?N</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>current_predicate(<var>?A</var>,<var>:P</var>)</code></dt>
+<dd><p><var>A</var> is the name of a predicate with most general goal <var>P</var>
+and arity <var>N</var>
+</p>
+</dd>
+<dt><code>current_prolog_flag(<var>?F</var>,<var>?V</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>V</var> is the current value of Prolog flag <var>F</var>
+</p>
+</dd>
+<dt><code>listing</code></dt>
+<dd><p>list all dynamic procedures in the type-in module
+</p>
+</dd>
+<dt><code>listing(<var>:P</var>)</code></dt>
+<dd><p>list the dynamic procedure(s) specified by <var>P</var>
+</p>
+</dd>
+<dt><code>predicate_property(<var>:P</var>,<var>?Prop</var>)</code></dt>
+<dd><p><var>Prop</var> is a property of the loaded predicate <var>P</var>
+</p>
+</dd>
+<dt><code>prolog_flag(<var>?F</var>,<var>?V</var>)</code></dt>
+<dd><p><var>V</var> is the current value of Prolog flag <var>F</var>
+</p>
+</dd>
+<dt><code>prolog_flag(<var>+F</var>,<var>=O</var>,<var>+N</var>)</code></dt>
+<dd><p><var>O</var> is the old value of Prolog flag <var>F</var>; <var>N</var> is the new
+value
+</p>
+</dd>
+<dt><code>prolog_load_context(<var>?K</var>,<var>?V</var>)</code></dt>
+<dd><p>find out the context of the current load
+</p>
+</dd>
+<dt><code>set_module(<var>+M</var>)</code></dt>
+<dd><p>make <var>M</var> the type-in module
+</p>
+</dd>
+<dt><code>set_prolog_flag(<var>+F</var>,<var>+N</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>N</var> is the new value of Prolog flag <var>F</var>
+</p>
+</dd>
+<dt><code>source_file(<var>?F</var>)</code></dt>
+<dd><p><var>F</var> is a source file that has been loaded into the database
+</p>
+</dd>
+<dt><code>source_file(<var>:P</var>,<var>?F</var>)</code></dt>
+<dd><p><var>P</var> is a predicate defined in the loaded file <var>F</var>
+</p>
+</dd>
+<dt><code>unknown(<var>-O</var>,<var>+N</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>Changes action on undefined predicates from <var>O</var> to <var>N</var>.
+</p>
+</dd>
+</dl>
+
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dtop_002deqs.html#mpg_002dtop_002deqs" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dtop_002dmod.html#mpg_002dtop_002dmod" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dtop.html#mpg_002dtop" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dsta.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dsta.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

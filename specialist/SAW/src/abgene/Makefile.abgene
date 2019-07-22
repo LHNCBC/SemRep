@@ -1,0 +1,91 @@
+#CFLAGS=${DEFAULT_CFLAGS}  -fPIC
+CFLAGS=${DEFAULT_CFLAGS} -c
+#CXXFLAGS=-g -w -fPIC
+CXXFLAGS=${DEFAULT_CFLAGS}
+
+O_SYSTEM = $(shell uname)
+
+ifeq '$(O_SYSTEM)' "SunOS"
+  LIBS=-lpthread -lposix4
+  PCRE_LIB=./lib/SunOS
+else
+  ifeq '$(O_SYSTEM)' "Linux"
+    LIBS=-lpthread
+    # 32-bit
+    #PCRE_LIB=./lib/Linux-i686
+    # 64-bit
+    PCRE_LIB=./lib/Linux-x86_64
+  endif
+endif
+
+SICSTUS_INC=${SICSTUS_HOME}/include/sicstus
+ALT_LIBPATH=./src
+ALT_INCPATH=./include
+
+SPLFR_BASIC_FLAGS = --verbose --keep
+SPLFR_DYNAMIC_FLAGS = ${SPLFR_BASIC_FLAGS} ${LINKFLAGS}
+SPLFR_STATIC_FLAGS = ${SPLFR_BASIC_FLAGS} --static
+
+INCLUDES = -I${SICSTUS_INC} -I${ALT_INCPATH}
+
+# SPLFR is set in SAWenv
+DO_SPLFR = ${SPLFR} --conf CC="${CC}" --cflag="${INCLUDES}" ${addprefix --cflag=, ${CFLAGS}}
+
+all: abgene.o abgene_test.o Process.o abgene_test abgene.so splfr_STATIC splfr_DYNAMIC move
+
+splfr_DYNAMIC:
+	${DO_SPLFR} ${SPLFR_DYNAMIC_FLAGS} ${ABGENEMOD_DIR}/abgenemod.pl abgene.c Process.o  -L${ALT_LIBPATH} -L${PCRE_LIB}  ${LIBS} -lops -lpcre -lstdc++ -lgcc_s -lz
+
+splfr_STATIC:
+	${DO_SPLFR} ${SPLFR_STATIC_FLAGS} ${ABGENEMOD_DIR}/abgenemod.pl abgene.c Process.o -L${ALT_LIBPATH} -lops
+
+abgene_test : abgene_test.o abgene.o Process.o
+	${CXX} ${DEFAULT_CFLAGS} -o abgene_test abgene_test.o abgene.o Process.o -I${ALT_INCPATH} -L${ALT_LIBPATH} -L${PCRE_LIB}  -lops -lpcre ${LIBS}
+
+abgene.so : abgene.o Process.o 
+	${ABGENE_LD} ${LINKFLAGS} -o abgene.so abgene.o Process.o -L${ALT_LIBPATH} -L${PCRE_LIB}  -lops -lpcre  ${LIBS} 
+
+abgene_test.o : abgene_test.c
+	${CC} ${CFLAGS} -c abgene_test.c -I${ALT_INCPATH}
+
+abgene.o : abgene.c
+	${CC} ${CFLAGS} -c abgene.c -I${ALT_INCPATH}	 
+
+Process.o : Process.C 
+	${CXX} ${CFLAGS} -c Process.C  -I${ALT_INCPATH}
+
+clean:
+	rm abgene*glue* abgene.so abgene.o Process.o abgene_test.o abgenemod.so
+
+move: 
+	cp abgenemod.s* ${ABGENEMOD_DIR}
+	cp abgenemod_s* ${ABGENEMOD_DIR}
+	cp abgenemod_glue* ${ABGENEMOD_DIR}
+
+#OBJS = abgene_test abgene_test.o abgene.a abgene.so abgene.o Process.o
+
+#all:	${OBJS}
+
+#clean:
+#	rm -f ${OBJS}
+
+#abgene_test : abgene_test.o abgene.o Process.o
+#	${CXX} ${DEFAULT_CFLAGS} -o abgene_test abgene_test.o abgene.o Process.o -I${ALT_INCPATH} -L${ALT_LIBPATH} -L${PCRE_LIB}  -lops -lpcre ${LIBS} 
+
+
+#abgene_test.o : abgene_test.c
+#	${CC} ${CFLAGS} -c abgene_test.c -I${ALT_INCPATH}
+
+#abgene.a: abgene.o Process.o 
+#	${AR} $@ $?
+
+#abgene.so : abgene.o Process.o 
+#	${ABGENE_LD} ${LINKFLAGS} -o abgene.so abgene.o Process.o -L${ALT_LIBPATH} -L${PCRE_LIB}  -lops -lpcre  ${LIBS} 
+
+#abgene.o : abgene.c 
+#	${CC} ${CFLAGS} -c abgene.c  -I${ALT_INCPATH}
+
+#Process.o : Process.C 
+#	${CXX} ${CFLAGS} -c Process.C  -I${ALT_INCPATH}
+
+

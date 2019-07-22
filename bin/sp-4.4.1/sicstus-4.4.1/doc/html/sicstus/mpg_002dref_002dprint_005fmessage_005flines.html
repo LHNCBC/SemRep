@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-print_message_lines</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-print_message_lines">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-print_message_lines">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dprint_005fprofile.html#mpg_002dref_002dprint_005fprofile" rel="next" title="mpg-ref-print_profile">
+<link href="mpg_002dref_002dprint_005fmessage.html#mpg_002dref_002dprint_005fmessage" rel="prev" title="mpg-ref-print_message">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dprint_005fmessage_005flines"></a>
+<hr>
+<a name="print_005fmessage_005flines_002f3"></a>
+<h4 class="subsection">11.3.163 <code>print_message_lines/3</code></h4>
+<a name="index-print_005fmessage_005flines_002f3-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-print_005fmessage_005flines_002f3-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-188"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>print_message_lines(<var>+Stream</var>, <var>+Severity</var>, <var>+Lines</var>)</code>
+</p>
+<p>Print the <var>Lines</var> to <var>Stream</var>, preceding each line with a
+prefix corresponding to <var>Severity</var>.
+</p>
+<a name="Arguments-172"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Stream</var></dt>
+<dd><p><em>stream_object</em>, must be ground
+</p>
+<p>Any valid output stream.
+</p>
+</dd>
+<dt><var>Severity</var></dt>
+<dd><p><em>one of <code>[query,help,informational,warning,error,silent,<em>term</em>]</code></em>
+</p>
+</dd>
+<dt><var>Lines</var></dt>
+<dd><p><em>list of list of pair</em>
+</p>
+<p>Must be of the form <code>[<var>Line1</var>, <var>Line2</var>, &hellip;]</code>, where each
+<var>Linei</var> must be of the form
+<code>[<var>Control_1-Args_1</var>,<var>Control_2-Args_2</var>, &hellip;]</code>.
+</p></dd>
+</dl>
+
+<a name="Description-138"></a>
+<h4 class="subheading">Description</h4>
+
+<p>If <var>Severity</var> is a valid severity, then the prefix will be as described
+for <code>print_message/2</code>, otherwise <var>Severity</var> itself will be
+used as the prefix.  If <var>Severity</var> is <code>query</code>, then no newline is
+written after the last line (otherwise, a newline is written).
+</p>
+
+<p>This predicate is intended to be used in conjunction with
+<code>user:message_hook/3</code>.  After a message is intercepted using
+<code>user:message_hook/3</code>, this command is used to print the lines.
+If the hook has not been defined, then the arguments are those provided by
+the system.
+</p>
+<a name="Exceptions-179"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+</p>
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dt><code>type_error</code></dt>
+<dd><p>in <var>Lines</var>.
+</p></dd>
+</dl>
+
+<a name="Examples-73"></a>
+<h4 class="subheading">Examples</h4>
+
+<p>Suppose you want to intercept messages and force them to go to a different stream:
+</p>
+<div class="example">
+<pre class="example">user:message_hook(Severity, Message, Lines):-
+    my_stream(MyStream),
+    print_message_lines(MyStream, Severity, Lines).
+</pre></div>
+
+<a name="See-Also-185"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dprint_005fprofile.html#mpg_002dref_002dprint_005fprofile" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dprint_005fmessage.html#mpg_002dref_002dprint_005fmessage" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dprint_005fmessage_005flines.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dprint_005fmessage_005flines.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

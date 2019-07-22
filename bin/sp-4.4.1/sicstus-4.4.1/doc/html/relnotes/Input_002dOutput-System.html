@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: Input-Output System</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: Input-Output System">
+<meta name="keywords" content="SICStus Prolog Release Notes: Input-Output System">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4" rel="up" title="What Is New In Release 4">
+<link href="Foreign-Language-APIs.html#Foreign-Language-APIs" rel="next" title="Foreign Language APIs">
+<link href="Library-Modules.html#Library-Modules" rel="prev" title="Library Modules">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Input_002dOutput-System"></a>
+<hr>
+<a name="Input_002dOutput-System-1"></a>
+<h4 class="subsection">14.1.4 Input-Output System</h4>
+
+<p>The internals of the I/O subsystem have been completely
+redesigned. The new version should be faster while at the same time
+providing more functionality and more consistent behavior between
+operating systems and between stream types.
+</p>
+<p>The semantics of character codes has been fixed as (a superset of)
+Unicode. Redefining the meaning of character codes is no longer
+supported.
+</p>
+<p>New features and changes to the SICStus streams (<code>SP_stream</code>)
+include:
+</p>
+<ul>
+<li> Streams are binary or text also at the lowest level, e.g. in the C
+API, and there are separate operations for performing I/O of bytes and
+characters.
+
+</li><li> Streams have a layered design. This makes it possible to add character
+set translation and other transformations (compression, encryption,
+automatic character set detection, &hellip;) to any stream.
+
+</li><li> All streams provide non-blocking operations and are interruptible,
+e.g. with <kbd>^C</kbd> (&lsquo;<samp>SIGINT</samp>&rsquo;). This is also true for file
+streams and under Windows.
+
+</li><li> Subject to OS limitations, file names can use Unicode and be of
+arbitrary length. In particular, under Windows, the Unicode API is used
+for all operations.
+
+</li><li> Limits on file size, file time stamps etc have been removed.
+
+</li><li> Error handling has been simplified and made more consistent. In the C
+API all I/O operations return an error code from a rich set of error
+codes. Errors during write and close operations are no longer ignored.
+
+</li><li> It is possible to wait for I/O ready (both for read and write) on any
+type of stream. This works for all platforms, including
+Windows. Select operations wait for the appropriate item type, e.g.
+until a whole (possibly multi-byte) character can be transferred on a
+text stream.
+</li></ul>
+
+<p>Other minor changes:
+</p>
+<ul>
+<li> Now <code>byte_count/2</code> can be called only on binary streams.
+</li><li> <code>at_end_of_stream/[0,1]</code> never blocks. Instead it will fail, i.e.
+behave as if the stream is not at its end, if the operation would
+otherwise block. See <a href="../sicstus/mpg_002dref_002dat_005fend_005fof_005fstream.html#mpg_002dref_002dat_005fend_005fof_005fstream"><code>at_end_of_stream/[0,1]</code></a> in <cite>the SICStus Prolog Manual</cite>.
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Foreign-Language-APIs.html#Foreign-Language-APIs" accesskey="n" rel="next">Next</a>
+<li><a href="Library-Modules.html#Library-Modules" accesskey="p" rel="prev">Previous</a>
+<li><a href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Input_002dOutput-System.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Input_002dOutput-System.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

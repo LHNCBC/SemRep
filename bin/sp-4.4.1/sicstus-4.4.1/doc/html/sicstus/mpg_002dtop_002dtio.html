@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-top-tio</title>
+
+<meta name="description" content="SICStus Prolog: mpg-top-tio">
+<meta name="keywords" content="SICStus Prolog: mpg-top-tio">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dtop.html#mpg_002dtop" rel="up" title="mpg-top">
+<link href="mpg_002dtop_002dtyp.html#mpg_002dtop_002dtyp" rel="next" title="mpg-top-typ">
+<link href="mpg_002dtop_002dtha.html#mpg_002dtop_002dtha" rel="prev" title="mpg-top-tha">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dtop_002dtio"></a>
+<hr>
+<a name="Term-I_002fO"></a>
+<h4 class="subsection">11.2.22 Term I/O</h4>
+
+
+<a name="index-term-I_002fO_002c-predicates-for-1"></a>
+<a name="index-predicates-for-term-I_002fO-1"></a>
+
+
+<dl compact="compact">
+<dt><code>char_conversion(<var>+InChar</var>, <var>+OutChar</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>The mapping of <var>InChar</var> to <var>OutChar</var> is added to the
+character-conversion mapping.
+</p>
+</dd>
+<dt><code>current_char_conversion(<var>?InChar</var>, <var>?OutChar</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>InChar</var> is mapped to <var>OutChar</var> in the current
+character-conversion mapping.
+</p>
+</dd>
+<dt><code>current_op(<var>?P</var>,<var>?T</var>,<var>?A</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>atom <var>A</var> is an operator of type <var>T</var> with precedence <var>P</var>
+</p>
+</dd>
+<dt><code>display(<var>+T</var>)</code></dt>
+<dd><p>write term <var>T</var> to the user output stream in functional notation
+</p>
+</dd>
+<dt><code>format(<var>+C</var>,<var>:A</var>)</code></dt>
+<dt><code>format(<var>+S</var>,<var>+C</var>,<var>:A</var>)</code></dt>
+<dd><p>write arguments <var>A</var> on stream <var>S</var> according to control
+string <var>C</var>
+</p>
+</dd>
+<dt><code>op(<var>+P</var>,<var>+T</var>,<var>+A</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>make atom <var>A</var> an operator of type <var>T</var> with precedence <var>P</var>
+</p>
+</dd>
+<dt><code>user:portray(<var>+T</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>tell <code>print/[1,2]</code> and <code>write_term/[2,3]</code> what to do
+</p>
+</dd>
+<dt><code>portray_clause(<var>+C</var>)</code></dt>
+<dt><code>portray_clause(<var>+S</var>,<var>+C</var>)</code></dt>
+<dd><p>write clause <var>C</var> to the stream <var>S</var>
+</p>
+</dd>
+<dt><code>print(<var>+T</var>) &nbsp;<!-- /@w --> <i>hookable</i></code></dt>
+<dt><code>print(<var>+S</var>,<var>+T</var>) &nbsp;<!-- /@w --> <i>hookable</i></code></dt>
+<dd><p>display the term <var>T</var> on stream <var>S</var>
+using <code>user:portray/1</code> or <code>write/2</code>
+</p>
+</dd>
+<dt><code>read(<var>-T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>read(<var>+S</var>,<var>-T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>read term <var>T</var> from stream <var>S</var>
+</p>
+</dd>
+<dt><code>read_term(<var>-T</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>read_term(<var>+S</var>,<var>-T</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>read <var>T</var> from stream <var>S</var> according to options <var>O</var>
+</p>
+</dd>
+<dt><code>write(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>write(<var>+S</var>,<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write term <var>T</var> on stream <var>S</var>
+</p>
+</dd>
+<dt><code>write_canonical(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>write_canonical(<var>+S</var>,<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write term <var>T</var> on stream <var>S</var> so that it can be read
+back by <code>read/[1,2]</code>
+</p>
+</dd>
+<dt><code>writeq(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>writeq(<var>+S</var>,<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write term <var>T</var> on stream <var>S</var>, quoting atoms where necessary
+</p>
+</dd>
+<dt><code>write_term(<var>+T</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>hookable</i>,<i>ISO</i></code></dt>
+<dt><code>write_term(<var>+S</var>,<var>+T</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>hookable</i>,<i>ISO</i></code></dt>
+<dd><p>writes <var>T</var> to <var>S</var> according to options <var>O</var>
+</p></dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dtop_002dtyp.html#mpg_002dtop_002dtyp" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dtop_002dtha.html#mpg_002dtop_002dtha" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dtop.html#mpg_002dtop" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dtio.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dtio.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

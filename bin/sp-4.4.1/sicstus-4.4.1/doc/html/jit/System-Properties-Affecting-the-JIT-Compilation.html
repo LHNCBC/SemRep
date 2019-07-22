@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: System Properties Affecting the JIT Compilation</title>
+
+<meta name="description" content="SICStus JIT White Paper: System Properties Affecting the JIT Compilation">
+<meta name="keywords" content="SICStus JIT White Paper: System Properties Affecting the JIT Compilation">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Options-Affecting-Jitting.html#Options-Affecting-Jitting" rel="up" title="Options Affecting Jitting">
+<link href="Configuration-Options-Affecting-the-JIT-Compilation.html#Configuration-Options-Affecting-the-JIT-Compilation" rel="next" title="Configuration Options Affecting the JIT Compilation">
+<link href="Options-Affecting-Jitting.html#Options-Affecting-Jitting" rel="prev" title="Options Affecting Jitting">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="System-Properties-Affecting-the-JIT-Compilation"></a>
+<hr>
+<a name="System-Properties-Affecting-the-JIT-Compilation-1"></a>
+<h4 class="subsection">6.1.1 System Properties Affecting the JIT Compilation</h4>
+
+<dl compact="compact">
+<dt>SP_USE_SHADOW_KERNEL (default <code>yes</code>)</dt>
+<dd>
+<p><code>sicstus -DSP_USE_SHADOW_KERNEL=no</code> turns off the use of &ldquo;shadow&rdquo; kernel, i.e. the copies of the real kernel. Turning it off is useful if you want to set breakpoints in gdb etc. POWER only.
+</p>
+</dd>
+<dt><code>SP_USE_XER</code> (default <code>no</code>)</dt>
+<dd>
+<p>The default value for <code></code>, <code></code> and <code></code>. POWER only.
+</p>
+</dd>
+<dt><code>SP_USE_XER_ADDO</code></dt>
+<dd>
+<p>Whether the XER register should be used for overflow detection of <code>addo</code> IR-instruction on POWER.
+</p>
+</dd>
+<dt><code>SP_USE_XER_SUBO</code></dt>
+<dd>
+<p>Whether the XER register should be used for overflow detection of <code>subo</code> IR-instruction on POWER.
+</p>
+</dd>
+<dt><code>SP_USE_XER_MULO</code></dt>
+<dd>
+<p>Whether the XER register should be used for overflow detection of <code>mulo</code> IR-instruction on POWER.
+</p>
+</dd>
+<dt><code>SP_DEBUG_TOC_LINK</code> (default <code>no</code>)</dt>
+<dd>
+<p>Whether to print debug info about code/toc patching. Ignored in release builds. POWER only.
+</p>
+</dd>
+<dt><code>SP_JIT_HUGE_BLOCK</code> (default <code>yes</code>)</dt>
+<dd>
+<p>Whether a huge block, with a shadow kernel in the middle, should
+      be pre-allocated for jitted code. This is so that kernel calls
+      from jitted code can use direct branches.
+</p>
+<p>The shadow kernel in the huge block will not be used if <code>SP_USE_SHADOW_KERNEL</code> is off.
+</p>
+</dd>
+<dt><code>SP_JIT_STATS</code> (default <code>no</code>)</dt>
+<dd>
+<p>Whether to ensure that <code>prolog:'$jit_print_stats'/0</code> prints
+      accurate statistics about emitted IR instructions.
+</p>
+<p>Turning it on will prevent re-use of jitted code between
+      iterations. This is why it is not enabled by default for debug
+      builds.
+</p>
+</dd>
+<dt><code>SP_JIT_ALIGN2</code> (default <code>yes</code>)</dt>
+<dd>
+<p>Whether <code>align 2</code> should align to a multiple of 32 (instead of being a no-op). POWER only.
+</p>
+</dd>
+<dt><code>SP_JIT_ALIGN3</code> (default <code>no</code>)</dt>
+<dd>
+<p>Whether <code>align 3</code> should align to 24 (modulo 32) (instead of aligning to 0 (modulo 8)). POWER only.
+</p>
+<p>Do <strong>not</strong> turn it on, it will crash the system.
+</p>
+</dd>
+<dt><code>SP_QUIET_JIT_FAIL</code> (default <code>yes</code>)</dt>
+<dd>
+<p><code>sicstus -DSP_QUIET_JIT_FAIL=no</code> will cause an assertion to trigger if jitting needs too many iterations (e.g. it would not terminate).
+</p>
+</dd>
+<dt><code>SP_SPTI_PATH=OPTION</code></dt>
+<dd>      
+<p>Whether to load code that gets informed about jitting events.
+</p>
+<p><code>sicstus -DSP_SPTI_PATH=perf</code> is allowed if
+      <samp>--enable-perf</samp> was specified when configuring. It will
+      cause <code>perf</code> data to be emitted. This is enabled by
+      default if <code>sicstus</code> detects that it is started under
+      <code>perf</code>.
+</p>      
+<p>The automatic enablement can be turned off <code>sicstus -DSP_SPTI_PATH=none</code>.
+</p>
+<p><code>sicstus -DSP_SPTI_PATH=opdis</code> is also possible, if <samp>--enable-oprofile</samp> was specified when configuring.
+</p>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Configuration-Options-Affecting-the-JIT-Compilation.html#Configuration-Options-Affecting-the-JIT-Compilation" accesskey="n" rel="next">Next</a>
+<li><a href="Options-Affecting-Jitting.html#Options-Affecting-Jitting" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/System-Properties-Affecting-the-JIT-Compilation.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/System-Properties-Affecting-the-JIT-Compilation.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

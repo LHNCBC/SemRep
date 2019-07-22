@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Syntax Errors</title>
+
+<meta name="description" content="SICStus Prolog: Syntax Errors">
+<meta name="keywords" content="SICStus Prolog: Syntax Errors">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Run-Intro.html#Run-Intro" rel="up" title="Run Intro">
+<link href="Undefined-Predicates.html#Undefined-Predicates" rel="next" title="Undefined Predicates">
+<link href="Directives.html#Directives" rel="prev" title="Directives">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Syntax-Errors"></a>
+<hr>
+<a name="Syntax-Errors-1"></a>
+<h3 class="section">3.5 Syntax Errors</h3>
+<a name="index-syntax-error"></a>
+<a name="index-error_002c-syntax"></a>
+
+<p>Syntax errors are detected during reading<a name="DOCF1" href="#FOOT1"><sup>1</sup></a>.
+Each clause,
+directive or, in general, any term read in by the
+built-in predicate <code>read/1</code> that fails to comply with
+syntax requirements is displayed on the standard error
+stream as soon as it is read, along with its position in the input
+stream and a mark indicating the point in the string of symbols
+where the parser has failed to continue analysis, e.g.:
+</p>
+<div class="example">
+<pre class="example">| memb(X, X$L).
+! Syntax error
+! , or ) expected in arguments
+! in line 5
+! memb ( X , X 
+! &lt;&lt;here&gt;&gt;
+! $ L ) . 
+</pre></div>
+
+<p>if &lsquo;<samp>$</samp>&rsquo; has not been declared as an infix operator.
+</p>
+<p>Note that any comments in the faulty line are not displayed with the
+error message.  If you are in doubt about which clause was wrong, then 
+you can use
+<code>consult/1</code><a name="DOCF2" href="#FOOT2"><sup>2</sup></a>
+to load the code and then use
+the <code>listing/1</code> predicate to list all the
+clauses that were successfully read in, e.g.:
+</p>
+
+<a name="index-listing_002f_005b0_002c1_005d-_0028built_002din_0029-2"></a>
+<a name="index-listing_002f_005b0_002c1_005d-_0028built_002din_0029"></a>
+
+<div class="example">
+<pre class="example">| ?- <kbd>listing(memb/2).</kbd>
+</pre></div>
+
+<blockquote>
+<p><strong>Please note</strong>: The built-in predicates <code>read/[1,2]</code> normally raise an
+exception on syntax errors (see <a href="ref_002dere.html#ref_002dere">ref-ere</a>). The behavior is
+controlled by the Prolog flag <code>syntax_errors</code>.
+<a name="index-syntax_005ferrors-_0028prolog-flag_0029"></a>
+</p></blockquote>
+
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT1" href="#DOCF1">(1)</a></h3>
+<p>The SICStus Prolog IDE (see <a href="SPIDER.html#SPIDER">SPIDER</a>)
+will show syntax errors and many other programming errors directly in the editor,
+while the code is written, without loading the code.</p>
+<h3><a name="FOOT2" href="#DOCF2">(2)</a></h3>
+<p>By default, e.g. when using <code>[myprog]</code>, code is <em>compiled</em>.
+Compiled code can not be listed with <code>listing/1</code>.
+Using <code>consult([myprog])</code> ensures that the code is <em>interpreted</em>, making it available for listing with <code>listing/1</code>.</p>
+</div>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Undefined-Predicates.html#Undefined-Predicates" accesskey="n" rel="next">Next</a>
+<li><a href="Queries-and-Directives.html#Queries-and-Directives" accesskey="p" rel="prev">Previous</a>
+<li><a href="Run-Intro.html#Run-Intro" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Syntax-Errors.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Syntax-Errors.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

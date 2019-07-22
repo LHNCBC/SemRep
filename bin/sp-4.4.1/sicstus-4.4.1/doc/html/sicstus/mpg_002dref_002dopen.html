@@ -1,0 +1,445 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-open</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-open">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-open">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dopen_005fnull_005fstream.html#mpg_002dref_002dopen_005fnull_005fstream" rel="next" title="mpg-ref-open_null_stream">
+<link href="mpg_002dref_002dop.html#mpg_002dref_002dop" rel="prev" title="mpg-ref-op">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dopen"></a>
+<hr>
+<a name="open_002f_005b3_002c4_005d---ISO"></a>
+<h4 class="subsection">11.3.148 <code>open/[3,4]</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-open_002f_005b3_002c4_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-open_002f_005b3_002c4_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-173"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>open(<var>+FileSpec</var>, <var>+Mode</var>, <var>-Stream</var>)</code>
+</p>
+<p><code>open(<var>+FileSpec</var>, <var>+Mode</var>, <var>-Stream</var>, <var>+Options</var>)</code>
+</p>
+<p>Creates a Prolog stream by opening the file <var>FileSpec</var>
+in mode <var>Mode</var> with options <var>Options</var>.
+</p>
+<a name="Arguments-158"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>FileSpec</var></dt>
+<dd><p><em>file_spec</em>, must be ground
+</p>
+
+<p>A file specification.
+</p>
+</dd>
+<dt><var>Mode</var></dt>
+<dd><p><em>one of <code>[read,write,append]</code></em>, must be nonvar
+</p>
+<p>An atom specifying the open mode of the target file.
+One of:
+</p>
+<dl compact="compact">
+<dd><a name="index-read-_0028open_002f_005b3_002c4_005d-mode_0029"></a>
+</dd>
+<dt><code>read</code></dt>
+<dd><p>open <var>FileSpec</var> for input.
+</p>
+<a name="index-write-_0028open_002f_005b3_002c4_005d-mode_0029"></a>
+</dd>
+<dt><code>write</code></dt>
+<dd><p>open <var>FileSpec</var> for output.
+A new file is created if <var>FileSpec</var> does not exist. If the file already
+exists, then it is set to empty and its previous contents are lost.
+</p>
+<a name="index-append-_0028open_002f_005b3_002c4_005d-mode_0029"></a>
+</dd>
+<dt><code>append</code></dt>
+<dd><p>opens <var>FileSpec</var> for output.  If <var>FileSpec</var>
+already exists, then it adds output to the end of it.  If not, then a new file is created,
+as for the <code>write</code> mode.
+</p></dd>
+</dl>
+
+</dd>
+<dt><var>Options</var></dt>
+<dd><p><em>list of term</em>, must be ground
+</p>
+<p>A list of zero or more of the following.
+</p>
+<dl compact="compact">
+<dt><code>type(<var>+T</var>)</code></dt>
+<dd><a name="index-type_002f1-_0028open_002f4-option_0029"></a>
+<p>Specifies whether the stream is a <code>text</code> or <code>binary</code>
+stream. Default is <code>text</code>.
+</p>
+</dd>
+<dt><code>reposition(<var>+Boolean</var>)</code></dt>
+<dd><a name="index-reposition_002f1-_0028open_002f4-option_0029"></a>
+<p>Specifies whether repositioning is required for the stream
+(<code>true</code>), or not (<code>false</code>). The latter is the default.
+</p>
+<p>For text streams <code>reposition(true)</code> affects the default
+<code>eol/1</code> and <code>encoding_signature/1</code> options, see below. Also, not all encodings supports this
+option (see <a href="ref_002diou_002dsfh_002denc.html#ref_002diou_002dsfh_002denc">ref-iou-sfh-enc</a>).
+</p>
+</dd>
+<dt><code>alias(<var>+A</var>)</code></dt>
+<dd><a name="index-alias_002f1-_0028open_002f4-option_0029-1"></a>
+<p>Specifies that the atom <var>A</var> is to be an alias for the
+stream.
+</p>
+
+</dd>
+<dt><code>eof_action(<var>+Action</var>)</code></dt>
+<dd><a name="index-eof_005faction_002f1-_0028open_002f4-option_0029"></a>
+<p>Specifies what action is to be taken when the end of stream has
+already been reported (by returning -1 or <code>end_of_file</code>), and a
+further attempt to input is made. <var>Action</var> can have the following
+values:
+</p>
+<dl compact="compact">
+<dt><code>error</code></dt>
+<dd><a name="index-error-_0028open_002f4-eof_005faction-value_0029"></a>
+<p>An exception is raised. This is the default.
+</p>
+</dd>
+<dt><code>eof_code</code></dt>
+<dd><a name="index-eof_005fcode-_0028open_002f4-eof_005faction-value_0029"></a>
+<p>An end of stream indicator (-1 or <code>end_of_file</code>) is returned
+again.
+</p>
+</dd>
+<dt><code>reset</code></dt>
+<dd><a name="index-reset-_0028open_002f4-eof_005faction-value_0029"></a>
+<p>The stream is considered not to be past end of stream and
+another attempt is made to input from it.
+</p></dd>
+</dl>
+
+
+</dd>
+<dt><code>encoding(<var>Encoding</var>)</code></dt>
+<dd><a name="index-encoding_002f1-_0028open_002f4-option_0029"></a>
+
+<p>Specifies the encoding to use if the stream is opened in text mode, as
+an atom. The default is <code>'ISO-8859-1'</code>, the 8 bit subset of
+UNICODE, i.e. <span class="nolinebreak">&ldquo;ISO-8859-1&rdquo;</span><!-- /@w --> (Latin&nbsp;1<!-- /@w -->) (see <a href="ref_002diou_002dsfh_002denc.html#ref_002diou_002dsfh_002denc">ref-iou-sfh-enc</a>).
+</p>
+<p>Overridden by the <code>encoding_signature/1</code> option, see below.
+</p>
+
+</dd>
+<dt><code>encoding_signature(<var>+Boolean</var>)</code></dt>
+<dd><a name="index-encoding_005fsignature_002f1-_0028open_002f4-option_0029"></a>
+
+<p>Specifies whether an encoding signature should be used (<code>true</code>),
+or not (<code>false</code>). An encoding signature is a special byte
+sequence that identifies the encoding used in the file. The most
+common case is one of the Unicode signatures, often called &ldquo;byte
+order mark&rdquo; (BOM).
+</p>
+<p>A Unicode signature is a special byte sequence that can be used to
+distinguish between several UTF encoding variants, such as &ldquo;UTF-8&rdquo;,
+&ldquo;UTF-16-BE&rdquo; and &ldquo;UTF-16-LE&rdquo;.
+</p>
+<p>If <code>reposition(true)</code> is specified, then
+<code>encoding_signature/1</code> defaults to <code>false</code> for both streams
+opened in write mode and streams opened in read mode.
+</p>
+<p>If <code>reposition(true)</code> is not specified, and
+if the file is opened in mode read, then <code>encoding_signature/1</code>
+defaults to <code>true</code>.
+</p>
+<p>When <code>encoding_signature/1</code> option is
+<code>true</code> additional heuristics will be used if no Unicode signature
+is detected. Only if neither a Unicode signature nor these heuristics
+specifies a character encoding will the <code>encoding/1</code> option, if
+any, be used.
+</p>
+<p>The method used for selecting character encoding when a text file is
+opened in mode <code>read</code> is the first applicable item in the
+following list:
+</p>
+<ol>
+<li> If the <code>encoding_signature/1</code> option is <code>true</code>:
+If a byte order mark is detected, then it will be used to select
+between the encodings &ldquo;UTF-8&rdquo;, &ldquo;UTF-16&rdquo; or &ldquo;UTF-32&rdquo; with
+suitable endianess.
+
+</li><li> If the <code>encoding_signature/1</code> option is <code>true</code>:
+If an Emacs style &lsquo;<samp><span class="nolinebreak">-*-</span>&nbsp;coding:&nbsp;<var><span class="nolinebreak">coding-system</span></var><span class="nolinebreak">-*-</span></samp>&rsquo;<!-- /@w --> is present on the first non-empty line of the
+file, then it will be used.
+
+</li><li> If an option <code>encoding(<var>ENCODING</var>)</code> Is supplied, then the specified encoding will be used.
+
+</li><li> As a final fallback, <span class="nolinebreak">&ldquo;ISO-8859-1&rdquo;</span><!-- /@w --> (Latin&nbsp;1<!-- /@w -->) will be used.
+
+</li></ol>
+
+<p>the character encoding selected in this way will be used if it is
+recognized, otherwise an error exception is raised.
+</p>
+
+<p>If <code>reposition(true)</code> is not specified, and
+if the file is opened in mode write, then it depends on the character
+encoding whether an encoding signature will be output by default or not. If you want
+to force an encoding signature to be output for those encodings that supports it, then you
+can specify <code>encoding_signature(true)</code>.  Conversely, if you want to prevent an
+encoding signature from being output, then you can explicitly specify <code>encoding_signature(false)</code>.
+</p>
+<p>All UTF encodings supports an encoding signature in the form of a BOM. &ldquo;UTF-8&rdquo; does not write a BOM unless
+you explicitly specify <code>encoding_signature(true)</code>, the 16 and 32 bit UTF
+encodings, e.g. &ldquo;UTF-16 BE&rdquo;, &ldquo;UTF-32 LE&rdquo; writes a BOM unless
+explicitly requested not to with <code>encoding_signature(false)</code>.
+</p>
+<p>If the file is opened in mode append, then <code>encoding_signature/1</code> defaults to
+<code>false</code>.
+</p>
+</dd>
+<dt><code>eol(<var>Eol</var>)</code></dt>
+<dd><a name="index-eol_002f1-_0028open_002f4-option_0029"></a>
+<p>Specifies how line endings in the file should be handled if the stream
+is opened in text mode.
+</p>
+<p>In Prolog code, end of line is always represented by the character
+<code>'\n'</code>, which has character code 10, i.e. the same as ASCII Line
+Feed (<tt class="key">LFD</tt>). The representation in the file may be different, however.
+</p>
+<p><var>Eol</var> can have the following values:
+</p>
+<dl compact="compact">
+<dt><code>lf</code></dt>
+<dd><p>Line Feed (<code>LF</code>, character code 10) is used to specify a end of line.
+This can be used for both read mode and write mode streams.
+</p>
+</dd>
+<dt><code>crlf</code></dt>
+<dd><p>A two character sequence Carriage Return (<code>CR</code>, character code 13) followed
+by Line Feed (<code>LF</code>, character code 10) is used to specify a end of
+line.
+This can be used for both read mode and write mode streams.
+</p>
+</dd>
+<dt><code>auto</code></dt>
+<dd><p>Translate both the two character sequence <code>CR</code> <code>LF</code> and single
+<code>CR</code> or <code>LF</code> into an end of line character.
+This can be used only for read mode streams.
+</p>
+</dd>
+<dt><code>default</code></dt>
+<dd><p>Use a default end of line convention. This is the default.
+</p>
+<p>If <code>reposition(true)</code> is specified, then this uses <code>lf</code> for
+both streams opened in write mode and streams opened in read mode, on
+all platforms. 
+</p>
+<p>If <code>reposition(true)</code> is not specified, then under
+UNIX, this uses <code>lf</code> for streams opened in write mode and
+<code>auto</code> for streams opened in read mode. Under Windows, this uses
+<code>crlf</code> for streams opened in write mode and <code>auto</code> for
+streams opened in read mode.
+This can be used for both read mode and write mode streams.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>if_exists(<var>+Action</var>)</code></dt>
+<dd><a name="index-if_005fexists_002f1-_0028open_002f4-option_0029"></a>
+<p>Specifies what should happen if the file already exists. Only valid if
+<var>Mode</var> is <code>write</code> or <code>append</code>. <var>Action</var> can have the
+following values:
+</p>
+<dl compact="compact">
+<dt><code>default</code></dt>
+<dd><a name="index-default-_0028open_002f4-if_005fexists-value_0029"></a>
+<p>The file is overwritten or appended to, according to the <var>Mode</var> argument. This is the default.
+</p>
+</dd>
+<dt><code>error</code></dt>
+<dd><a name="index-error-_0028open_002f4-if_005fexists-value_0029"></a>
+<p>An exception is raised.
+</p>
+</dd>
+<dt><code>generate_unique_name</code></dt>
+<dd><a name="index-generate_005funique_005fname-_0028open_002f4-if_005fexists-value_0029"></a>
+<p>If a file named <var>FileSpec</var> already exists, then <var>FileSpec</var> is
+rewritten so that it refers to a non-existing file. <var>FileSpec</var> is
+rewritten by adding digits at the end of the file name (but before any
+extension). The generated name, <var>RealName</var> can be obtained by using
+<code>stream_property(<var>Stream</var>, file_name(RealName))</code> on the
+resulting stream. See the example below.
+</p>
+<p>With this option <code>open/4</code> will never open an existing file but it
+may still fail to find a unique name. <code>open/4</code> may fail to find a
+unique name if there are thousands of files with similar names. In
+that case <code>open/4</code> behaves as if <code>if_exists(error)</code> had been
+passed.
+</p>
+
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<a name="Description-125"></a>
+<h4 class="subheading">Description</h4>
+
+<p>If <var>FileSpec</var> is a valid file specification, then the file that it
+denotes is opened in mode <var>Mode</var>.
+</p>
+<p>The
+resulting stream is
+unified with <var>Stream</var>.
+</p>
+<p><var>Stream</var> is used as an argument to Prolog input and output
+predicates.
+</p>
+<p><var>Stream</var> can also be converted to the corresponding foreign
+representation through <code>stream_code/2</code> and used in foreign code to
+perform input/output operations.
+</p>
+<p>On Windows, where file names are usually subject to
+case-normalization, the file will be created with the same case
+as in <var>FileSpec</var>. As an example,
+<code>open('HelloWorld.txt', write, S), stream_property(S,file_name(Name)),close(S).</code>
+will create a file with the mixed case name <samp>HelloWorld.txt</samp>
+whereas the stream property will reflect the case-normalized
+name <samp>.../helloworld.txt</samp>. Prior to release 4.3 the file would
+have been created in the file system with the case-normalized
+name <samp>helloworld.txt</samp>.
+</p>
+<a name="Exceptions-164"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>FileSpec</var> or <var>Mode</var> is not instantiated.
+<var>Options</var> argument is not instantiated enough.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>FileSpec</var> or <var>Mode</var> is not an atom type.
+<var>Options</var> is not a list type or an element in <var>Options</var>
+is not a correct type for open options or
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p><var>Mode</var> is not one of <code>read</code>, <code>write</code> or <code>append</code>.
+<var>Options</var> has an undefined option or an element in <var>Options</var>
+is out of the domain of the option.
+</p>
+</dd>
+<dt><code>uninstantiation_error</code></dt>
+<dd><p><var>Stream</var> is not a variable
+</p>
+</dd>
+<dt><code>existence_error</code></dt>
+<dd><p>The specified <var>FileSpec</var> does not exist.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>Cannot open <var>FileSpec</var> with specified <var>Mode</var> and <var>Options</var>.
+</p>
+</dd>
+<dt><code>system_error</code></dt>
+<dd><p>Unexpected error detected by the operating system
+</p></dd>
+</dl>
+
+<a name="Examples-69"></a>
+<h4 class="subheading">Examples</h4>
+
+<p>The following example creates two log files, both based on the
+base name <samp>my.log</samp>. The files will be written to a directory
+suitable for temporary files (see <a href="ref_002dfdi_002dfsp_002dpre.html#ref_002dfdi_002dfsp_002dpre">ref-fdi-fsp-pre</a>).
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>open(temp('my.log'), write, S1, [if_exists(generate_unique_name)]),</kbd>
+     <kbd>open(temp('my.log'), write, S2, [if_exists(generate_unique_name)]),</kbd>
+     <kbd>stream_property(S1, file_name(N1)),</kbd>
+     <kbd>stream_property(S2, file_name(N2)),</kbd>
+     <kbd>format('Logging to ~a and ~a~n', [N1, N2]),</kbd>
+     <kbd>&hellip;</kbd>
+</pre></div>
+
+<p>Under UNIX this would produce something like:
+</p>
+<div class="example">
+<pre class="example">Logging to /tmp/my.log and /tmp/my1886415233.log
+</pre></div>
+
+<a name="See-Also-170"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dopen_005fnull_005fstream.html#mpg_002dref_002dopen_005fnull_005fstream" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dop.html#mpg_002dref_002dop" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dopen.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dopen.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

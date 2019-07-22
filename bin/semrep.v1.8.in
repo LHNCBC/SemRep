@@ -1,0 +1,88 @@
+#!/bin/sh
+
+BASEDIR=@@basedir@@
+BINDIR=$BASEDIR/bin
+
+ARCHITECTURE=`uname`
+
+case $ARCHITECTURE in
+    CYGWIN_NT*)
+	ARCHITECTURE=x86-win32-nt-4
+	;;
+    MINGW*)
+	ARCHITECTURE=x86-win32-nt-4
+	;;
+esac
+
+case $ARCHITECTURE in
+    Darwin*)
+	DYLD_LIBRARY_PATH=$BASEDIR/lib:${DYLD_LIBRARY_PATH}
+	export DYLD_LIBRARY_PATH
+	;;
+    *)
+	LD_LIBRARY_PATH=$BASEDIR/lib:${LD_LIBRARY_PATH}
+	export LD_LIBRARY_PATH
+	;;
+esac
+
+VERSION=v1.8
+DEFAULT_DATA_YEAR=2006AA
+DEFAULT_LEXICON_YEAR=2006
+USER_ARGS=
+
+while [ $# -gt 0 ]
+do
+    case $1 in
+        -B) OVERRIDE_BINARY=$2
+            echo "##### WARNING: Using binary $BINARY"
+	    shift 2;;
+        -L) LEXICON_YEAR=$2
+	    shift 2;;
+        -Z) if [ "$DATA_YEAR" != $2 ]
+	    then
+	       DATA_YEAR=$2
+	    fi
+	    shift 2;;
+         *) USER_ARGS="$USER_ARGS $1";
+	    shift;;
+    esac
+done
+
+case $LEXICON_YEAR in
+                201[4-9]A[AB]) LEXICON_YEAR=2018 ;;
+                  1[4-9]A[AB]) LEXICON_YEAR=2018 ;;
+                     201[4-9]) LEXICON_YEAR=2018 ;;
+                       1[4-9]) LEXICON_YEAR=2018 ;;
+                            *) LEXICON_YEAR=$DEFAULT_LEXICON_YEAR ;;
+esac
+
+# echo LEXICON_YEAR = $LEXICON_YEAR
+echo "LEXICON_YEAR = >$LEXICON_YEAR<"
+
+case $DATA_YEAR in
+                201[4-9]A[AB]) DATA_YEAR=2018AA ;;
+                  1[4-9]A[AB]) DATA_YEAR=2018AA ;;
+                     201[4-9]) DATA_YEAR=2018AA ;;
+                       1[4-9]) DATA_YEAR=2018AA ;;
+                            *) DATA_YEAR=$DEFAULT_DATA_YEAR ;;
+esac
+
+echo "DATA_YEAR = >$DATA_YEAR<"
+
+DATA_ARGS="-Z $DATA_YEAR"
+LEXICON_ARGS="-L $LEXICON_YEAR"
+
+SEMREPrun=$BINDIR/SEMREPrun.${VERSION}
+BINARY=$BINDIR/semrep.${VERSION}.BINARY.${ARCHITECTURE}
+
+if [ "$OVERRIDE_BINARY" != "" ]
+then
+   BINARY=$OVERRIDE_BINARY
+fi
+
+COMMAND="$SEMREPrun $BINARY -DS $LEXICON_ARGS $DATA_ARGS $USER_ARGS"
+
+echo $COMMAND
+
+$COMMAND
+

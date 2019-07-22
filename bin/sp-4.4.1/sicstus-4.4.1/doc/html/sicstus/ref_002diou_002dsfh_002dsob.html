@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-sfh-sob</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-sfh-sob">
+<meta name="keywords" content="SICStus Prolog: ref-iou-sfh-sob">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" rel="up" title="ref-iou-sfh">
+<link href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest" rel="next" title="ref-iou-sfh-est">
+<link href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" rel="prev" title="ref-iou-sfh">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002dsfh_002dsob"></a>
+<hr>
+<a name="Stream-Objects"></a>
+<h4 class="subsubsection">4.6.7.1 Stream Objects</h4>
+
+<a name="index-stream-object"></a>
+<a name="index-object_002c-stream"></a>
+
+<p>Each input and output stream is represented by a unique Prolog term, a
+<em>stream object</em>.  In general, this term is of the form
+</p>
+<dl compact="compact">
+<dt><code>user</code></dt>
+<dd><p>Stands for the standard input or output stream, depending on context.
+</p>
+</dd>
+<dt><code>'$stream'(<var>X</var>)</code></dt>
+<dd><p>A stream connected to some file.  <var>X</var> is an integer.
+</p>
+</dd>
+<dt><var>Atom</var></dt>
+<dd><a name="index-alias_002f1-_0028open_002f4-option_0029"></a>
+<p>A stream alias. Aliases can be associated with
+streams using the <code>alias(<var>Atom</var>)</code> option of
+<code>open/4</code>. There are also three predefined aliases:
+</p><dl compact="compact">
+<dt><code>user_input</code></dt>
+<dd><a name="index-user_005finput-_0028stream-alias_0029"></a>
+<a name="index-user_005finput-_0028prolog-flag_0029"></a>
+<p>An alias initially referring to the UNIX <code>stdin</code>
+stream.  The alias can be changed with <code>prolog_flag/3</code>
+and accessed by the C variable <code>SP_stdin</code>.
+</p>
+</dd>
+<dt><code>user_output</code></dt>
+<dd><a name="index-user_005foutput-_0028stream-alias_0029"></a>
+<a name="index-user_005foutput-_0028prolog-flag_0029"></a>
+<p>An alias initially referring to the UNIX <code>stdout</code>
+stream.  The alias can be changed with <code>prolog_flag/3</code>
+and accessed by the C variable <code>SP_stdout</code>.
+</p>
+</dd>
+<dt><code>user_error</code></dt>
+<dd><a name="index-user_005ferror-_0028stream-alias_0029"></a>
+<a name="index-user_005ferror-_0028prolog-flag_0029"></a>
+<p>An alias initially referring to the UNIX <code>stderr</code>
+stream.  The alias can be changed with <code>prolog_flag/3</code>
+and accessed by the C variable <code>SP_stderr</code>.
+This stream is used by the Prolog top-level and debugger, and
+for all unsolicited messages by built-in predicates.
+</p></dd>
+</dl>
+<a name="index-alias_002c-of-a-stream"></a>
+<a name="index-stream-alias"></a>
+</dd>
+</dl>
+
+<a name="index-current-input-stream"></a>
+<a name="index-current-output-stream"></a>
+<a name="index-input-stream_002c-current"></a>
+<a name="index-output-stream_002c-current"></a>
+
+<a name="index-stream_005fcode_002f2-_0028built_002din_0029-2"></a>
+<a name="index-stream_005fcode_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-open_002f_005b3_002c4_005d-_0028built_002din_0029-2"></a>
+<a name="index-open_002f_005b3_002c4_005d-_0028built_002din_0029"></a>
+
+
+
+<p>Stream objects are created by the predicate <code>open/[3,4]</code>
+<a href="ref_002diou_002dsfh_002dopn.html#ref_002diou_002dsfh_002dopn">ref-iou-sfh-opn</a> and passed as arguments to
+those predicates that need them.
+Representation for stream objects to be used in C code is different.
+Use <code>stream_code/2</code> to convert from one to the other when
+appropriate.
+See <a href="mpg_002dref_002dstream_005fcode.html#mpg_002dref_002dstream_005fcode">mpg-ref-stream_code</a>.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh_002dsob.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh_002dsob.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Miscellaneous</title>
+
+<meta name="description" content="SICStus Prolog: Miscellaneous">
+<meta name="keywords" content="SICStus Prolog: Miscellaneous">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tk.html#Tk" rel="up" title="Tk">
+<link href="What-We-Have-Left-Out-_0028Tk_0029.html#What-We-Have-Left-Out-_0028Tk_0029" rel="next" title="What We Have Left Out (Tk)">
+<link href="Event-Handling.html#Event-Handling" rel="prev" title="Event Handling">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Miscellaneous"></a>
+<hr>
+<a name="Miscellaneous-1"></a>
+<h4 class="subsubsection">10.39.3.7 Miscellaneous</h4>
+
+<p>There are a couple of other Tk commands that we ought to mention:
+<code>destroy</code> and <code>update</code>.
+</p>
+<p>The <code>destroy</code> command is used to destroy a widget, i.e. remove it
+from the Tk interpreter entirely and so from the display.
+Any children that the widget may have are also <code>destroy</code>-ed.
+Anything connected to the destroyed widget, such as bindings,
+are also cleaned up automatically.
+</p>
+<p>For example, to create a window containing a button that is destroyed when
+the button is pressed:
+</p>
+<div class="example">
+<pre class="example">button .b -text &quot;Die!&quot; -command { destroy . }
+pack .b
+</pre></div>
+
+<p>creates a button <code>.b</code> displaying the text &lsquo;<samp>Die!</samp>&rsquo;, which runs
+the command <code>destroy .</code> when it is pressed. Because the widget
+<code>.</code> is the main toplevel widget or window, running that command will
+kill the entire application associated with that button.
+</p>
+<p>The command <code>update</code> is used to process any pending Tk events.  An
+event is not just such things as moving the mouse but also updating the
+display for newly created and displayed widgets.  This may be necessary
+in that usually Tk draws widgets only when it is idle. Using the
+<code>update</code> command forces Tk to stop and handle any outstanding
+events including updating the display to its actually current state,
+i.e. flushing out the pending display of any widgets.  (This is
+analogous to the <code>fflush</code> command in C that flushes writes on a
+stream to disk. In Tk displaying of widgets is &ldquo;buffered&rdquo;;
+calling the <code>update</code> command flushes the buffer.)
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="What-We-Have-Left-Out-_0028Tk_0029.html#What-We-Have-Left-Out-_0028Tk_0029" accesskey="n" rel="next">Next</a>
+<li><a href="Event-Handling.html#Event-Handling" accesskey="p" rel="prev">Previous</a>
+<li><a href="Tk.html#Tk" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Miscellaneous.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Miscellaneous.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

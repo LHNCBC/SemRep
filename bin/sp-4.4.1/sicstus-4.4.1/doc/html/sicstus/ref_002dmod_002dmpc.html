@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-mpc</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-mpc">
+<meta name="keywords" content="SICStus Prolog: ref-mod-mpc">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002dmpc_002dcmo.html#ref_002dmod_002dmpc_002dcmo" rel="next" title="ref-mod-mpc-cmo">
+<link href="ref_002dmod_002ddmo.html#ref_002dmod_002ddmo" rel="prev" title="ref-mod-dmo">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dmpc"></a>
+<hr>
+<a name="Module-Prefixes-on-Clauses"></a>
+<h4 class="subsection">4.11.10 Module Prefixes on Clauses</h4>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmod_002dmpc_002dcmo.html#ref_002dmod_002dmpc_002dcmo" accesskey="1">ref-mod-mpc-cmo</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Current Modules
+</td></tr>
+</table>
+
+<a name="index-module-prefixes-on-clauses"></a>
+
+
+<p>Every clause in a Prolog file has a source module implicitly associated with
+it.  If the file is a module-file, then the module named in the module
+declaration at the top of the file is the source module for all the clauses.
+If the file is not a module-file, then the relevant module
+is the source module for the command that caused this file to be
+loaded.
+</p>
+<p>The source module of a predicate decides in which module it is defined
+(the module of the head), and in which module the goals in the body are
+going to be called (the module of the body). It is possible to override
+the implicit source module, both for head and body, of clauses and
+directives, by using prefixes. For example, consider the module-file:
+</p><div class="example">
+<pre class="example">:- module(a, []).
+
+:- dynamic m:a/1.               
+b(1).                           
+m:c([]).                        
+m:d([H|T]) :- q(H), r(T).       
+m:(e(X) :- s(X), t(X)).
+f(X) :- m:(u(X), v(X)).
+</pre></div>
+
+
+<p>In the previous example, the following modules apply:
+</p><ol>
+<li> <code>a/1</code> is declared dynamic in the module <code>m</code>.
+</li><li> <code>b/1</code> is defined in module <code>a</code> (the module of the file).
+</li><li> <code>c/1</code> is defined in module <code>m</code>.
+</li><li> <code>d/1</code> is defined in module <code>m</code>, but <code>q/1</code> and <code>r/1</code> are called in module
+<code>a</code> (and must therefore be defined in module <code>a</code>).
+</li><li> <code>e/1</code> is defined in module <code>m</code>, and <code>s/1</code> and <code>t/1</code> are called in module
+<code>m</code>.
+</li><li> <code>f/1</code> is defined in module <code>a</code>, but <code>u/1</code> and <code>v/1</code> are called in module
+<code>m</code>.
+</li></ol>
+
+
+<p>Module prefixing is especially useful when the module prefix is <code>user</code>.  There
+are several predicates that have to be defined in module <code>user</code> but
+that you may want to define (or extend) in a program that is otherwise
+entirely defined in some other module or modules;
+see <a href="mpg_002dtop_002dhok.html#mpg_002dtop_002dhok">mpg-top-hok</a>.
+</p>
+<p>Note that if clauses for one of these predicates are to be spread
+across multiple files, then it will be necessary to declare that predicate
+to be multifile by putting a multifile declaration in each of the files.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002dcim.html#ref_002dmod_002dcim" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod_002ddmo.html#ref_002dmod_002ddmo" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dmpc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dmpc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

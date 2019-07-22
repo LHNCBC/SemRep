@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-ere-err-ins</title>
+
+<meta name="description" content="SICStus Prolog: ref-ere-err-ins">
+<meta name="keywords" content="SICStus Prolog: ref-ere-err-ins">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dere_002derr.html#ref_002dere_002derr" rel="up" title="ref-ere-err">
+<link href="ref_002dere_002derr_002duns.html#ref_002dere_002derr_002duns" rel="next" title="ref-ere-err-uns">
+<link href="ref_002dere_002derr.html#ref_002dere_002derr" rel="prev" title="ref-ere-err">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dere_002derr_002dins"></a>
+<hr>
+<a name="Instantiation-Errors"></a>
+<h4 class="subsubsection">4.15.4.1 Instantiation Errors</h4>
+
+<a name="index-instantiation-errors"></a>
+<a name="index-errors_002c-instantiation"></a>
+
+
+<p>An instantiation error occurs when a predicate or command is called with
+one of its input arguments insufficiently instantiated.  
+</p>
+<p>The <var>SICStus_Error</var> term associated with an instantiation error is
+</p><div class="example">
+<pre class="example">instantiation_error(<var>Goal, ArgNo</var>)
+</pre></div>
+
+
+<p>where <var>ArgNo</var> is a non-negative integer indicating which argument caused the
+problem.  <var>ArgNo</var>=0 means that the problem could not be localized to a single
+argument.  
+</p>
+<p>Note that the <var>ArgNo</var>th argument of <var>Goal</var> might well be
+a non-variable:  the error is <em>in</em> that argument.  For example, the goal
+</p><div class="example">
+<pre class="example">X is Y+1
+</pre></div>
+
+<p>where <var>Y</var> is uninstantiated throws the exception
+</p><div class="example">
+<pre class="example">error(instantiation_error,
+      instantiation_error(_A is _B+1,2))
+</pre></div>
+
+<p>because the second argument to <code>is/2</code> contains a variable.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dere_002derr_002duns.html#ref_002dere_002derr_002duns" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dere_002derr.html#ref_002dere_002derr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002dins.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002dins.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

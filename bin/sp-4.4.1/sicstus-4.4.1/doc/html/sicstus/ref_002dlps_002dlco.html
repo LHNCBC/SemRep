@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lps-lco</title>
+
+<meta name="description" content="SICStus Prolog: ref-lps-lco">
+<meta name="keywords" content="SICStus Prolog: ref-lps-lco">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlps.html#ref_002dlps" rel="up" title="ref-lps">
+<link href="ref_002dlps_002dsum.html#ref_002dlps_002dsum" rel="next" title="ref-lps-sum">
+<link href="ref_002dlps_002dflg.html#ref_002dlps_002dflg" rel="prev" title="ref-lps-flg">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlps_002dlco"></a>
+<hr>
+<a name="Load-Context"></a>
+<h4 class="subsection">4.9.5 Load Context</h4>
+
+
+<a name="index-load-context"></a>
+<a name="index-context_002c-load"></a>
+
+<p>When a Prolog source file is being read in, some aspects of the load
+context can be accessed by the built-in predicate
+<code>prolog_load_context/2</code>, which accesses the value of a given
+key. The available keys are:
+</p>
+<dl compact="compact">
+<dt><code>source</code></dt>
+<dd><a name="index-source-_0028load-context-key_0029"></a>
+<p>The absolute path name of the file being loaded. During loading of a
+PO file, the corresponding source file name is returned.
+</p>
+</dd>
+<dt><code>file</code></dt>
+<dd><a name="index-file-_0028load-context-key_0029"></a>
+<p>Outside included files (see <a href="Include-Declarations.html#Include-Declarations">Include Declarations</a>) this is the same
+as the <code>source</code> key. In included files this is the absolute path
+name of the file being included.  
+</p>
+</dd>
+<dt><code>directory</code></dt>
+<dd><a name="index-directory-_0028load-context-key_0029"></a>
+<p>The absolute path name of the directory of the file being
+loaded.  In included files this is the directory of the
+file being included.
+</p>
+</dd>
+<dt><code>module</code></dt>
+<dd><a name="index-module-_0028load-context-key_0029"></a>
+<p>The source module (see <a href="ref_002dmod_002dmne.html#ref_002dmod_002dmne">ref-mod-mne</a>).  This is useful for example
+if you are defining clauses for <code>user:term_expansion/6</code>
+and need to access the source module at compile time.
+</p>
+</dd>
+<dt><code>stream</code></dt>
+<dd><a name="index-stream-_0028load-context-key_0029"></a>
+<p>The stream being loaded.
+This key is not available during loading of a PO file.
+</p>
+</dd>
+<dt><code>term_position</code></dt>
+<dd><a name="index-term_005fposition-_0028load-context-key_0029"></a>
+<p>A term representing the stream position of the last
+clause read.
+This key is not available during loading of a PO file.
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlps_002dsum.html#ref_002dlps_002dsum" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlps.html#ref_002dlps" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlps_002dlco.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlps_002dlco.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

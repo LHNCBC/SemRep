@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: OS Threads</title>
+
+<meta name="description" content="SICStus Prolog: OS Threads">
+<meta name="keywords" content="SICStus Prolog: OS Threads">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Operating-System-Services.html#Operating-System-Services" rel="up" title="Operating System Services">
+<link href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" rel="next" title="Calling Prolog from C">
+<link href="OS-File-System.html#OS-File-System" rel="prev" title="OS File System">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="OS-Threads"></a>
+<hr>
+<a name="Threads-1"></a>
+<h4 class="subsubsection">6.4.7.3 Threads</h4>
+
+
+<p>When running more that one SICStus runtime in the same process it is
+often necessary to protect data with mutual exclusion locks. The
+following functions implement recursive mutual exclusion locks, which only
+need static initialization.
+</p>
+<a name="index-threads"></a>
+<a name="index-mutex"></a>
+<a name="index-mutual-exclusion-locks"></a>
+<a name="index-locks_002c-mutual-exclusion"></a>
+
+<a name="index-SP_005fmutex_005funlock_0028_0029-_0028C-function_0029"></a>
+<a name="index-SP_005fMUTEX_005fINITIALIZER-_0028C-macro_0029"></a>
+
+<dl compact="compact">
+<dt><code>SP_mutex_lock()</code></dt>
+<dd><a name="index-SP_005fmutex_005flock_0028_0029-_0028C-function_0029"></a>
+<p>Locks the mutex.
+</p></dd>
+<dt><code>SP_mutex_unlock()</code></dt>
+<dd><a name="index-SP_005fmutex_005funlock_0028_0029-_0028C-function_0029-1"></a>
+<p>Unlocks the mutex.
+</p></dd>
+</dl>
+
+<p>A (recursive) mutual exclusion lock is declared as type
+<code>SP_mutex</code>. It should be initialized to (the static initializer)
+<code>SP_MUTEX_INITIALIZER</code> before use.
+</p>
+<p>Note that the SICStus runtime is not thread safe in general.
+</p>
+<a name="index-SP_005fforeign_005fstash_0028_0029-_0028C-macro_0029"></a>
+<p>A dynamic foreign resource that is used by multiple SICStus
+runtimes in the same process may need to maintain a global state that
+is kept separate for each SICStus runtime. Each SICStus runtime
+maintains a location (containing a <code>void*</code>) for each foreign
+resource. By calling <code>SP_foreign_stash()</code>,
+a foreign resource can then access this location to
+store any data that is specific to the calling SICStus runtime.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="OS-File-System.html#OS-File-System" accesskey="p" rel="prev">Previous</a>
+<li><a href="Operating-System-Services.html#Operating-System-Services" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/OS-Threads.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/OS-Threads.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

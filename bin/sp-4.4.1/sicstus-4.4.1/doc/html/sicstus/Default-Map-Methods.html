@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Default Map Methods</title>
+
+<meta name="description" content="SICStus Prolog: Default Map Methods">
+<meta name="keywords" content="SICStus Prolog: Default Map Methods">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Query-Processing.html#Query-Processing" rel="up" title="Query Processing">
+<link href="Default-Query-Classes.html#Default-Query-Classes" rel="next" title="Default Query Classes">
+<link href="Default-Input-Methods.html#Default-Input-Methods" rel="prev" title="Default Input Methods">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Default-Map-Methods"></a>
+<hr>
+<a name="Default-Map-Methods-1"></a>
+<h4 class="subsubsection">4.16.3.5 Default Map Methods</h4>
+
+<p>The following <var>MapMethod</var> types are known to
+<code>'SU_messages':query_map(<var>MapMethod</var>, <var>RawInput</var>,
+<var>Result</var>, <var>Answer</var>)</code> and to the built-in fall-back mapping:
+</p>
+<dl compact="compact">
+<dt><code>char(<var>Pairs</var>)</code></dt>
+<dd><a name="index-char_002f1-_0028map-method_0029"></a>
+<p>In this map method <var>RawInput</var> is assumed to be a code-list.
+</p>
+<p><var>Pairs</var> is a list of <code><var>Name</var>-<var>Abbreviations</var></code>
+pairs, where <var>Name</var> is a ground term, and
+<var>Abbreviations</var> is a code-list.  The first non-whitespace
+character of <var>RawInput</var> is used for finding the corresponding name
+as the answer, by looking it up in the abbreviation lists.  If the
+character is found, then <var>Result</var> is <code>success</code>, and
+<var>Answer</var> is set to the <var>Name</var> found; otherwise, <var>Result</var> is
+<code>failure</code>.
+</p>
+</dd>
+<dt><code>=</code></dt>
+<dd><a name="index-_003d_002f0-_0028map-method_0029"></a>
+<p>No conversion is done, <var>Answer</var> is equal to <var>RawInput</var> and
+<var>Result</var> is <code>success</code>.  
+</p>
+</dd>
+<dt><code>debugger</code></dt>
+<dd><a name="index-debugger_002f0-_0028map-method_0029"></a>
+<p>This map method is used when reading a single line debugger command.  It
+parses the debugger command and returns the corresponding abstract
+command term.  If the parse is unsuccessful, then the answer
+<code>unknown(Line,Warning)</code> is returned.  This is to allow the user to
+extend the debugger command language via <code>debugger_command_hook/2</code>,
+see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>.
+</p>
+<p>The details of this mapping can be obtained from the
+<samp>library('SU_messages')</samp> file.
+</p>
+<p>Note that the fall-back version of this mapping is simplified, it only
+accepts parameterless debugger commands.
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Default-Query-Classes.html#Default-Query-Classes" accesskey="n" rel="next">Next</a>
+<li><a href="Default-Input-Methods.html#Default-Input-Methods" accesskey="p" rel="prev">Previous</a>
+<li><a href="Query-Processing.html#Query-Processing" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Default-Map-Methods.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Default-Map-Methods.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

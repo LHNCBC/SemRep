@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.1.2 Bugs Fixed</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.1.2 Bugs Fixed">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.1.2 Bugs Fixed">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e1_002e2-Changes.html#g_t4_002e1_002e2-Changes" rel="up" title="4.1.2 Changes">
+<link href="4_002e1_002e2-Other-Changes.html#g_t4_002e1_002e2-Other-Changes" rel="next" title="4.1.2 Other Changes">
+<link href="4_002e1_002e2-Changes.html#g_t4_002e1_002e2-Changes" rel="prev" title="4.1.2 Changes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e1_002e2-Bugs-Fixed"></a>
+<hr>
+<a name="Bugs-Fixed-9"></a>
+<h4 class="subsection">14.14.1 Bugs Fixed</h4>
+
+<ul>
+<li> Term comparison now runs in constant C stack space.
+</li><li> Virtual machine bugs.
+</li><li> PO file compatibility bug.
+</li><li> Memory management bugs.
+</li><li> Memory and stack corruption on UNIX-like systems with large file
+number limit and many open files (systems with <code>ulimit -n</code> larger
+than <code>FD_SETSIZE</code>, i.e. larger than 1024).
+</li><li> <var>pred_spec_tree</var> parse error.
+</li><li> Module expansion of args shadowed by do iterators.
+</li><li> Command line arguments with certain non-ASCII characters would prevent
+SICStus from initializing.
+</li><li> <code>ceiling/1</code>, <code>floor/1</code>, <code>round/1</code>, <code>truncate/1</code>
+now accept integers in addition to floats.
+</li><li> <code>statistics(garbage_collection,_)</code> did not report the correct byte count.
+</li><li> PrologBeans: one hook predicate was incorrectly declared dynamic.
+</li><li> <code>library(bdb)</code>: determinacy bugs.
+</li><li> CLPFD: 
+<ul class="no-bullet">
+<li>- <code>table/[2,3]</code>: bugs with <code>inf</code>/<code>sup</code>, <code>copy_term</code>/2.
+</li><li>- <code>geost/[2,3,4]</code>: polymorphism with rules; <code>volume/1</code> option.
+</li></ul>
+</li><li> <code>library(linda)</code>: The Linda server is now more robust against
+misbehaving clients. Especially on Windows the server would get a
+connection reset error if the client crashed.
+</li><li> <code>library(sockets)</code>: <code>socket_select/7</code> would sometimes return with nothing selected even
+though it was called with infinite timeout (UNIX-like platforms only).
+</li><li> Prolog Beans clients (both Java and .NET) would sometimes get an array
+index out of bounds error when more than ten concurrent sessions were
+active.
+</li></ul>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e1_002e2-Other-Changes.html#g_t4_002e1_002e2-Other-Changes" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e1_002e2-Changes.html#g_t4_002e1_002e2-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e1_002e2-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e1_002e2-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

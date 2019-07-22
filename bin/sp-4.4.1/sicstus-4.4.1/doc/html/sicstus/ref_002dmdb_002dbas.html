@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mdb-bas</title>
+
+<meta name="description" content="SICStus Prolog: ref-mdb-bas">
+<meta name="keywords" content="SICStus Prolog: ref-mdb-bas">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmdb.html#ref_002dmdb" rel="up" title="ref-mdb">
+<link href="ref_002dmdb_002ddsp.html#ref_002dmdb_002ddsp" rel="next" title="ref-mdb-dsp">
+<link href="ref_002dmdb.html#ref_002dmdb" rel="prev" title="ref-mdb">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmdb_002dbas"></a>
+<hr>
+<a name="Introduction-3"></a>
+<h4 class="subsection">4.12.1 Introduction</h4>
+
+<a name="index-assertion-and-retraction-predicates"></a>
+<a name="index-predicates_002c-assertion-and-retraction"></a>
+
+
+<p>The family of assertion and retraction predicates described below
+enables you to modify a Prolog program by adding or deleting clauses
+while it is running.  These predicates should not be overused.   Often
+people who are experienced with other programming languages have a tendency
+to think in terms of global data structures, as opposed to data structures
+that are passed as procedure arguments, and hence they make too much use
+of assertion and retraction.  This leads to less readable and less
+efficient programs.
+</p>
+<a name="index-self_002dmodifying-procedures"></a>
+
+<a name="index-procedures_002c-self_002dmodifying"></a>
+
+<p>An interesting question in Prolog is what happens if a procedure modifies
+itself, by asserting or retracting a clause, and then fails.  On
+backtracking, does the current execution of the procedure use new 
+clauses that are added to the bottom of the procedure? 
+</p>
+<blockquote>
+
+<p><strong>Historical note:</strong> In some non-ISO-conforming implementations
+of Prolog, changes to the Prolog database become globally visible upon
+the success of the built-in predicate modifying the database.  An
+unsettling consequence is that the definition of a procedure can
+change while it is being run.  This can lead to code that is difficult
+to understand.  Furthermore, the memory performance of the interpreter
+implementing these semantics is poor.  Worse yet, the semantics
+rendered ineffective the added determinacy detection available through
+indexing.
+</p></blockquote>
+
+
+<a name="index-dynamic-code_002c-semantics-of"></a>
+<a name="index-semantics-of-dynamic-code"></a>
+
+<p>SICStus Prolog implements the &ldquo;logical&rdquo; view in updating dynamic
+predicates, conforming to the ISO standard.  This means that the
+definition of a dynamic procedure that is visible to a call is
+effectively frozen when the call is made.  A procedure always
+contains, as far as a call to it is concerned, exactly the clauses it
+contained when the call was made.
+</p>
+<p>A useful way to think of this is to consider that a call to a dynamic procedure
+makes a <em>virtual copy</em> of the procedure and then runs the copy rather than
+the original procedure.  Any changes to the procedure made by the call are
+immediately reflected in the Prolog database, but not in the copy of the
+procedure being run.  Thus, changes to a running procedure will not be visible
+on backtracking.  A subsequent call, however, makes and runs a copy of the
+modified Prolog database.  Any changes to the procedure that were made by an
+earlier call will now be visible to the new call.
+</p>
+<p>In addition to being more intuitive and easy to understand,
+the new semantics allow interpreted code to execute 
+with the same determinacy detection (and excellent memory performance) as 
+static compiled code (see <a href="Indexing.html#Indexing">Indexing</a> for more information on determinacy
+detection).
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmdb_002ddsp.html#ref_002dmdb_002ddsp" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmdb.html#ref_002dmdb" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmdb_002dbas.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmdb_002dbas.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

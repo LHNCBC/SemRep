@@ -1,0 +1,3 @@
+This directory contains SICStus adapted versions of the std library of
+the G12 MiniZinc distribution. Those files are in the public domain,
+as of version 1.0 of the G12 MiniZinc distribution.

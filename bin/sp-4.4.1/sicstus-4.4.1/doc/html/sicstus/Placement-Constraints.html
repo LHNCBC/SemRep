@@ -1,0 +1,654 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Placement Constraints</title>
+
+<meta name="description" content="SICStus Prolog: Placement Constraints">
+<meta name="keywords" content="SICStus Prolog: Placement Constraints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Available-Constraints.html#Available-Constraints" rel="up" title="Available Constraints">
+<link href="Automata-Constraints.html#Automata-Constraints" rel="next" title="Automata Constraints">
+<link href="Scheduling-Constraints.html#Scheduling-Constraints" rel="prev" title="Scheduling Constraints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Placement-Constraints"></a>
+<hr>
+<a name="Placement-Constraints-1"></a>
+<h4 class="subsubsection">10.10.4.8 Placement Constraints</h4>
+
+<dl compact="compact">
+<dt><code>disjoint1(<var>+Lines</var>)</code></dt>
+<dt><code>disjoint1(<var>+Lines</var>,<var>+Options</var>)</code></dt>
+<dd>
+<a name="index-disjoint1_002f_005b1_002c2_005d-_0028clpfd_0029-1"></a>
+<a name="index-disjoint1_002f_005b1_002c2_005d-_0028clpfd_0029"></a>
+
+<p>constrains a set of lines to be non-overlapping.
+<var>Lines</var> is a list of terms <var>F(Sj,Dj)</var> or
+<var>F(Sj,Dj,Tj)</var>, <var>Sj</var> and <var>Dj</var> are domain variables with
+finite bounds denoting the origin and length of line <var>j</var>
+respectively, <var>F</var> is any functor, and the optional <var>Tj</var> is an
+atomic term denoting the type of the line.  <var>Tj</var> defaults to 0
+(zero).
+</p>
+<p><var>Options</var> is a list of zero or more of the following, where
+<var>Boolean</var> must be <code>true</code> or <code>false</code> (<code>false</code> is the
+default):
+</p>
+<dl compact="compact">
+<dt><code>global(<var>Boolean</var>)</code></dt>
+<dd><a name="index-global_002f1-_0028disjoint1_002f2-option_0029"></a>
+<p>if <code>true</code>, then a redundant algorithm using global reasoning is used to
+achieve more complete pruning.
+</p>
+</dd>
+<dt><code>wrap(<var>Min</var>,<var>Max</var>)</code></dt>
+<dd><a name="index-wrap_002f2-_0028disjoint1_002f2-option_0029"></a>
+<p>If used, then the space in which the lines are placed should be thought of as
+a circle where positions <var>Min</var> and <var>Max</var> coincide, where
+<var>Min</var> and <var>Max</var> should be integers.  That is, the space wraps
+around.  Furthermore, this option forces the domains of the origin
+variables to be inside <var>[Min,Max-1]</var>.
+</p>
+</dd>
+<dt><code>margin(<var>T1</var>,<var>T2</var>,<var>D</var>)</code></dt>
+<dd><a name="index-margin_002f3-_0028disjoint1_002f2-option_0029"></a>
+<p>This option imposes a minimal distance <var>D</var> between the end point of
+any line of type <var>T1</var> and the origin of any line of type <var>T2</var>.
+<var>D</var> should be a positive integer or <code>sup</code>.  If <code>sup</code> is
+used, then all lines of type <var>T2</var> must be placed before any line of type
+<var>T1</var>.
+</p>
+<p>This option interacts with the <code>wrap/2</code> option in the sense that
+distances are counted with possible wrap-around, and the distance
+between any end point and origin is always finite.
+</p></dd>
+</dl>
+
+<p>The file <code>library('clpfd/examples/bridge.pl')</code> contains an example
+where <code>disjoint1/2</code> is used for scheduling non-overlapping tasks.
+</p>
+</dd>
+<dt><code>disjoint2(<var>+Rectangles</var>)</code></dt>
+<dt><code>disjoint2(<var>+Rectangles</var>,<var>+Options</var>)</code></dt>
+<dd>
+<a name="index-disjoint2_002f_005b1_002c2_005d-_0028clpfd_0029-1"></a>
+<a name="index-disjoint2_002f_005b1_002c2_005d-_0028clpfd_0029"></a>
+
+<p>constrains a set of rectangles to be non-overlapping.
+<var>Rectangles</var> is a list of terms <var>F(Xj,Lj,Yj,Hj)</var> or
+<var>F(Xj,Lj,Yj,Hj,Tj)</var>, <var>Xj</var> and <var>Lj</var> are domain variables with
+finite bounds denoting the origin and size of rectangle <var>j</var> in the X
+dimension, <var>Yj</var> and <var>Hj</var> are the values for the Y dimension,
+<var>F</var> is any functor, and the optional <var>Tj</var> is an atomic term
+denoting the type of the rectangle.  <var>Tj</var> defaults to 0 (zero).
+</p>
+<p>Corresponds to <code>diffn/4</code> in MiniZinc<!-- /@w -->.
+</p>
+<p><var>Options</var> is a list of zero or more of the following, where
+<var>Boolean</var> must be <code>true</code> or <code>false</code> (<code>false</code> is the
+default):
+</p>
+<dl compact="compact">
+<dt><code>global(<var>Boolean</var>)</code></dt>
+<dd><a name="index-global_002f1-_0028disjoint2_002f2-option_0029"></a>
+<p>If <code>true</code>, then a redundant algorithm using global reasoning is used 
+to achieve more complete pruning.
+</p>
+</dd>
+<dt><code>wrap(<var>Min1</var>,<var>Max1</var>,<var>Min2</var>,<var>Max2</var>)</code></dt>
+<dd><a name="index-wrap_002f4-_0028disjoint2_002f2-option_0029"></a>
+<p><var>Min1</var> and <var>Max1</var> should be either integers or the atoms
+<code>inf</code> and <code>sup</code> respectively.  If they are integers, then the space
+in which the rectangles are placed should be thought of as a cylinder
+wrapping around the X dimension where positions <var>Min1</var> and
+<var>Max1</var> coincide.  Furthermore, this option forces the domains of the
+<var>Xj</var> variables to be inside <var>[Min1,Max1-1]</var>.
+</p>
+<p><var>Min2</var> and <var>Max2</var> should be either integers or the atoms
+<code>inf</code> and <code>sup</code> respectively.  If they are integers, then the space
+in which the rectangles are placed should be thought of as a cylinder
+wrapping around the Y dimension where positions <var>Min2</var> and
+<var>Max2</var> coincide.  Furthermore, this option forces the domains of the
+<var>Yj</var> variables to be inside <var>[Min2,Max2-1]</var>.
+</p>
+<p>If all four are integers, then the space is a toroid wrapping around both
+dimensions.
+</p>
+</dd>
+<dt><code>margin(<var>T1</var>,<var>T2</var>,<var>D1</var>,<var>D2</var>)</code></dt>
+<dd><a name="index-margin_002f4-_0028disjoint2_002f2-option_0029"></a>
+<p>This option imposes minimal distances <var>D1</var> in the X dimension and
+<var>D2</var> in the Y dimension between the end point of any rectangle of
+type <var>T1</var> and the origin of any rectangle of type <var>T2</var>.
+<var>D1</var> and <var>D2</var> should be positive integers or <code>sup</code>.  If
+<code>sup</code> is used, then all rectangles of type <var>T2</var> must be placed
+before any rectangle of type <var>T1</var> in the relevant dimension.
+</p>
+<p>This option interacts with the <code>wrap/4</code> option in the sense that
+distances are counted with possible wrap-around, and the distance
+between any end point and origin is always finite.
+</p>
+</dd>
+<dt><code>synchronization(<var>Boolean</var>)</code></dt>
+<dd><a name="index-synchronization_002f1-_0028disjoint2_002f2-option_0029"></a>
+<p>Let the <em>assignment dimension</em> and the <em>temporal dimension</em>
+denote the two dimensions, no matter which is the X and which is the Y
+dimension.  If <var>Boolean</var> is <code>true</code>, then a redundant algorithm is
+used to achieve more complete pruning for the following case:
+</p>
+<ul>
+<li> All rectangles have size 1 in the assignment dimension.
+
+</li><li> Some rectangles have the same origin and size in the temporal dimension,
+and that origin is not yet fixed.
+</li></ul>
+
+<p>The following example shows an artificial placement problem involving 25
+rectangles including four groups of rectangles whose left and right
+borders must be aligned.  If <code>Synch</code> is <code>true</code>, then it can be
+solved with first-fail labeling in 23 backtracks.  If <code>Synch</code> is
+<code>false</code>, then 60 million backtracks do not suffice to solve it.
+</p>
+<div class="example">
+<pre class="example">ex([O1,Y1a,Y1b,Y1c,
+    O2,Y2a,Y2b,Y2c,Y2d,
+    O3,Y3a,Y3b,Y3c,Y3d,
+    O4,Y4a,Y4b,Y4c],
+   Synch) :-
+        domain([Y1a,Y1b,Y1c,
+                Y2a,Y2b,Y2c,Y2d,
+                Y3a,Y3b,Y3c,Y3d,
+                Y4a,Y4b,Y4c], 1, 5),
+        O1 in 1..28,
+        O2 in 1..26,
+        O3 in 1..22,
+        O4 in 1..25,
+        disjoint2([t(1,1,5,1),    t(20,4,5,1),
+                   t(1,1,4,1),    t(14,4,4,1),
+                   t(1,2,3,1),    t(24,2,3,1),
+                   t(1,2,2,1),    t(21,1,2,1),
+                   t(1,3,1,1),    t(14,2,1,1),
+                   t(O1,3,Y1a,1),
+                   t(O1,3,Y1b,1),
+                   t(O1,3,Y1c,1),
+                   t(O2,5,Y2a,1),
+                   t(O2,5,Y2b,1),
+                   t(O2,5,Y2c,1),
+                   t(O2,5,Y2d,1),
+                   t(O3,9,Y3a,1),
+                   t(O3,9,Y3b,1),
+                   t(O3,9,Y3c,1),
+                   t(O3,9,Y3d,1),
+                   t(O4,6,Y4a,1),
+                   t(O4,6,Y4b,1),
+                   t(O4,6,Y4c,1)],
+                  [synchronization(Synch)]).
+</pre></div>
+</dd>
+</dl>
+
+</dd>
+<dt><code>bin_packing(<var>+Items</var>,<var>+Bins</var>) &nbsp;<!-- /@w --> <i>since release 4.4</i></code></dt>
+<dd>
+<a name="index-bin_005fpacking_002f2-_0028clpfd_0029-1"></a>
+<a name="index-bin_005fpacking_002f2-_0028clpfd_0029"></a>
+
+<p>constrains the placement of items of given size in bins of given
+capacity, so that the total load of any bin matches its capacity.
+</p>
+<p><var>Items</var> is a list of terms of the form
+<code>item(<var>Bin</var>,<var>Size</var>)</code> where <var>Bin</var> is a domain variable
+denoting the bin where the item should be placed, and <var>Size</var> is
+an integer &gt;= 0 denoting its size.
+</p>
+<p><var>Bins</var> is a list of terms of the form
+<code>bin(<var>ID</var>,<var>Cap</var>)</code> where <var>ID</var> is an integer
+identifying the bin, and <var>Cap</var> is a domain variable denoting is
+its capacity.  The <var>ID</var> values should be all different.
+</p>
+<p>The constraint holds if every <var>Bin</var> equals one of the <var>ID</var>
+values, and for every bin <code>bin(<var>ID</var>,<var>Cap</var>)</code>, the total
+size of the items assigned to it equals <var>Cap</var>.
+</p>
+</dd>
+<dt><code>geost(<var>+Objects</var>,<var>+Shapes</var>) &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dt><code>geost(<var>+Objects</var>,<var>+Shapes</var>,<var>+Options</var>) &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dt><code>geost(<var>+Objects</var>,<var>+Shapes</var>,<var>+Options</var>,<var>+Rules</var>) &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd>
+<a name="index-geost_002f_005b2_002c3_002c4_005d-_0028clpfd_0029-1"></a>
+<a name="index-geost_002f_005b2_002c3_002c4_005d-_0028clpfd_0029"></a>
+
+<p>constrains the location in space of non-overlapping multi-dimensional
+<var>Objects</var>, each of which taking a shape among a set of <var>Shapes</var>.
+</p>
+<p>Each shape is defined as a finite set of <em>shifted boxes</em>, where each
+shifted box is described by a box in a <var>k</var>-dimensional space at the
+given offset with the given sizes.  A shifted box is described by a
+ground term <code>sbox(<var>Sid</var>,<var>Offset</var>,<var>Size</var>)</code> where
+<var>Sid</var>, an integer, is the shape id; <var>Offset</var>, a list of <var>k</var>
+integers, denotes the offset of the shifted box from the origin of the
+object; and <var>Size</var>, a list of <var>k</var> integers greater than zero,
+denotes the size of the shifted box.  Then, a <em>shape</em> is a
+collection of shifted boxes all sharing the same shape id.  The shifted
+boxes associated with a given shape must not overlap. <var>Shapes</var> is
+thus the list of such <code>sbox/3</code> terms.
+</p>
+<p>Each object is described by a term
+<code>object(<var>Oid</var>,<var>Sid</var>,<var>Origin</var></code> where <var>Oid</var>, an
+integer, is the unique object id; <var>Sid</var>, a domain variable, is the
+shape id; and <var>Origin</var>, a list of domain variables, is the origin
+coordinate of the object. If <var>Sid</var> is nonground, then the object is said
+to be <em>polymorphic</em>. The possible values for <var>Sid</var> are the shape
+ids that occur in <var>Shapes</var>.  <var>Objects</var> is thus the list of such
+<code>object/3</code> terms.
+</p>
+<p>If given, then <var>Options</var> is a list of zero or more of the following,
+where <var>Boolean</var> must be <code>true</code> or <code>false</code> (<code>false</code> is
+the default):
+</p>
+<dl compact="compact">
+<dt><code>lex(<var>ListOfOid</var>)</code></dt>
+<dd><a name="index-lex_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>where <var>ListOfOid</var> should be a list of distinct object ids, denotes
+that the origin vectors of the objects according to <var>ListOfOid</var>
+should be in ascending lexicographic order.  Multiple <code>lex/1</code>
+options can be given, but should mention disjoint sets of objects.
+</p>
+</dd>
+<dt><code>cumulative(<var>Boolean</var>)</code></dt>
+<dd><a name="index-cumulative_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, then redundant reasoning methods are enabled, based on
+projecting the objects onto each dimension.
+</p>
+</dd>
+<dt><code>disjunctive(<var>Boolean</var>)</code></dt>
+<dd><a name="index-disjunctive_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, then cliques of objects are detected that clash in one
+dimension and so must be separated in the other dimension. This method
+only applies in the 2D case.
+</p>
+</dd>
+<dt><code>longest_hole(<var>Value</var>,<var>Maxbacks</var>)</code></dt>
+<dd><a name="index-longest_005fhole_002f2-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>This method only applies in the 2D case and in the absence of
+polymorphic objects.  <var>Value</var> can be <code>all</code>, <code>true</code> or
+<code>false</code>.  If <code>true</code>, then the filtering algorithm computes and uses
+information about holes that can be tolerated without necessarily
+failing the constraint.  If <code>all</code>,then  more precise information is
+computed.  If <code>false</code>, then no such information is computed.
+<var>Maxbacks</var> should be an integer <code>&gt;= -1</code> and gives a bound on
+the effort spent tightening the longest hole information.  Experiments
+suggest that 1000 may be a reasonable compromise value.
+</p>
+</dd>
+<dt><code>parconflict(<var>Boolean</var>)</code></dt>
+<dd><a name="index-parconflict_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, then redundant reasoning methods are enabled, based on
+computing the number of items that can be put in parallel in the
+different dimensions.
+</p>
+</dd>
+<dt><code>visavis_init(<var>Boolean</var>)</code></dt>
+<dd><a name="index-visavis_005finit_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, then a redundant method is enabled that statically detects
+placements that would cause too large holes.  This method can be quite
+effective.
+</p>
+</dd>
+<dt><code>visavis_floating(<var>Boolean</var>)</code></dt>
+<dd><a name="index-visavis_005ffloating_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, then a redundant method is enabled that dynamically detects
+placements that would cause too large holes.  It is more general than the
+following option, but only applies in the 2D case and in the absence of
+polymorphic objects.  This method has been shown to pay off only in rare
+cases.
+</p>
+</dd>
+<dt><code>visavis(<var>Boolean</var>)</code></dt>
+<dd><a name="index-visavis_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, then a redundant method is enabled that dynamically detects
+placements that would cause too large holes.  This method has not been
+shown to pay off experimentally.
+</p>
+</dd>
+<dt><code>corners(<var>Boolean</var>)</code></dt>
+<dd><a name="index-corners_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, then a redundant method is enabled that reasons in terms on
+borders that impinge on the corners of objects.  This method only
+applies in the 2D case.  It has not been shown to pay off
+experimentally.
+</p>
+</dd>
+<dt><code>task_intervals(<var>Boolean</var>)</code></dt>
+<dd><a name="index-task_005fintervals_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, then a redundant reasoning method is enabled that detects
+overcrowded and undercrowded regions of the placement space.  This
+method has not been shown to pay off experimentally.
+</p>
+</dd>
+<dt><code>dynamic_programming(<var>Boolean</var>)</code></dt>
+<dd><a name="index-dynamic_005fprogramming_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, then a redundant reasoning method is enabled that solves a 2D
+knapsack problem for every two adjacent columns of the projection of the
+objects onto each dimension.  This method has pseudo-polynomial
+complexity but can be quite powerful.
+</p>
+</dd>
+<dt><code>polymorphism(<var>Boolean</var>)</code></dt>
+<dd><a name="index-polymorphism_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, then a reasoning method is enabled that is relevant in the
+context of polymorphic objects and no slack.  The method detects parts
+of the placement space that cannot be filled and thus fails the
+constraint.  This method has not been shown to pay off experimentally.
+</p>
+</dd>
+<dt><code>pallet_loading(<var>Boolean</var>)</code></dt>
+<dd><a name="index-pallet_005floading_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, and if all objects consist of a single shifted box of
+the same shape, modulo rotations, then a redundant method is enabled that
+recognizes necessary conditions for this special case.
+</p>
+</dd>
+<dt><code>overlap(<var>Boolean</var>)</code></dt>
+<dd><a name="index-overlap_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If <code>true</code>, then the constraint that objects be non-overlapping is
+lifted.  This option is useful mainly in conjunction with the
+<var>Rules</var> argument, in case the placement of objects should be
+restricted by the <var>Rules</var> only.
+</p>
+</dd>
+<dt><code>volume(<var>Total</var>)</code></dt>
+<dd><a name="index-overlap_002f1-_0028geost_002f_005b2_002c3_002c4_005d-option_0029-1"></a>
+<p>If given, then <var>Total</var> is constrained to be the total volume of
+<var>Objects</var>.
+</p>
+
+</dd>
+<dt><code>bounding_box(<var>Lower</var>,<var>Upper</var>)</code></dt>
+<dd><a name="index-bounding_005fbox_002f2-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p><var>Lower=[L1,...,Lk]</var> and <var>Upper=[U1,...,Uk]</var> should be lists of
+domain variables.  The following conditions are imposed:
+</p><ul>
+<li> For every point <var>P = [P1,...,Pk]</var> occupied by an object,
+<var>L1 &lt;= P1 &lt; U1, ..., Lk &lt;= Pk &lt; Uk</var>.
+</li><li> For every <var>j</var> in <var>1..k</var>,
+there exists a point <var>P = [P1,...,Pj,...,Pk]</var> occupied by an object
+such that <var>Pj=Lj</var>.
+</li><li> For every <var>j</var> in <var>1..k</var>,
+there exists a point <var>P = [P1,...,Pj,...,Pk]</var> occupied by an object
+such that <var>Pj=Uj-1</var>.
+</li></ul>
+
+</dd>
+<dt><code>fixall(<var>Flag</var>,<var>Patterns</var>)</code></dt>
+<dd><a name="index-fixall_002f2-_0028geost_002f_005b2_002c3_002c4_005d-option_0029"></a>
+<p>If given, then <var>Flag</var> is a domain variable in <code>0..1</code>.  If <var>Flag</var>
+equals 1, then either initially or by binding <var>Flag</var> during search, the
+constraint switches behavior into greedy assignment mode. The greedy
+assignment will either succeed and assign all shape ids and origin
+coordinates to values that satisfy the constraint, or merely fail.
+<var>Flag</var> is never bound by the constraint; its sole function is to
+control the behavior of the constraint.
+</p>
+<p>Greedy assignment is done one object at a time, in the order of
+<var>Objects</var>.  The assignment per object is controlled by
+<var>Patterns</var>, which should be a list of one or more pattern terms of
+the form <code>object(_,SidSpec,OriginSpec)</code>, where <var>SidSpec</var> is a
+term <code>min(<var>I</var>)</code> or <code>max(<var>I</var>)</code>, <var>OriginSpec</var> is a
+list of <var>k</var> such terms, and <var>I</var> is a unique integer between 1
+and <var>k+1</var>.
+</p>
+<p>The meaning of the pattern is as follows.  The variable in the position
+of <code>min(1)</code> or <code>max(1)</code> is fixed first; the variable in the
+position of <code>min(2)</code> or <code>max(2)</code> is fixed second; and so on.
+<code>min(<var>I</var>)</code> means trying values in ascending order;
+<code>max(<var>I</var>)</code> means descending order.
+</p>
+<p>If <var>Patterns</var> contains <var>m</var> pattern, then object 1 is fixed
+according to pattern 1, &hellip;, object <var>m</var> is fixed according to
+pattern <var>m</var>, object <var>m+1</var> is fixed according to pattern 1, and
+so on.  For example, suppose that the following option is given:
+</p>
+<div class="example">
+<pre class="example">fixall(F, [object(_,min(1),[min(3),max(2)]),
+           object(_,max(1),[min(2),max(3)])])
+</pre></div>
+
+<p>Then, if the program binds <code>F</code> to 1, then the constraint enters greedy
+assignment mode and endeavors to fix all objects as follows.
+</p>
+<ul>
+<li> For object 1, 3, &hellip;, (a) the shape is fixed to the smallest
+possible value, (b) the Y coordinate is fixed to the largest possible
+value, (c) the X coordinate is fixed to the smallest possible value.
+</li><li> For object 2, 4, &hellip;, (a) the shape is fixed to the largest possible
+value, (b) the X coordinate is fixed to the smallest possible value, (c)
+the Y coordinate is fixed to the largest possible value.
+</li></ul>
+</dd>
+</dl>
+
+<p>If given, then <var>Rules</var> is a list of zero or more terms of the form shown
+below, and impose extra constraints on the placement of the objects.
+For the time being, the details are described in [Carlsson, Beldiceanu &amp;
+Martin 08].  <strong>Please note:</strong> the rules require that all shapes of
+a polymorphic objects consist of the same number of shifted boxes.  For
+example, <code>Shapes =
+[sbox(1,[0,0],[3,1]),sbox(1,[0,1],[2,4]),sbox(2,[0,0],[3,1])]</code> will not
+work.
+</p>
+<table>
+<tr><td width="20%"><var>sentence</var></td><td width="20%">::=</td><td width="20%"><var>macro</var> | <var>fol</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>macro</var></td><td width="20%">::=</td><td width="20%"><var>head</var> <code>---&gt;</code> <var>body</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>head</var></td><td width="20%">::=</td><td width="20%"><var>term</var></td><td width="30%"><span class="roman">{ to be substituted by a <var>body</var> }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>body</var></td><td width="20%">::=</td><td width="20%"><var>term</var></td><td width="30%"><span class="roman">{ to substitute for a <var>head</var> }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>fol</var></td><td width="20%">::=</td><td width="20%"><code>#\</code> <var>fol</var></td><td width="30%"><span class="roman">{ negation }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>fol</var> <code>#/\</code> <var>fol</var></td><td width="30%"><span class="roman">{ conjunction }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>fol</var> <code>#\/</code> <var>fol</var></td><td width="30%"><span class="roman">{ disjunction }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>fol</var> <code>#=&gt;</code> <var>fol</var></td><td width="30%"><span class="roman">{ implication }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>fol</var> <code>#&lt;=&gt;</code> <var>fol</var></td><td width="30%"><span class="roman">{ equivalence }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><code>exists(<var>var</var>,<var>collection</var>,<var>fol</var>)</code></td><td width="30%"><span class="roman">{ existential quantification }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><code>forall(<var>var</var>,<var>collection</var>,<var>fol</var>)</code></td><td width="30%"><span class="roman">{ universal quantification }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><code>card(<var>var</var>,<var>collection</var>,<var>integer</var>,<var>integer</var>,<var>fol</var>)</code></td><td width="30%"><span class="roman">{ cardinality }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><code>true</code></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><code>false</code></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>expr</var> <var>relop</var> <var>expr</var></td><td width="30%"><span class="roman">{ rational arithmetic }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>head</var></td><td width="30%"><span class="roman">{ macro application }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>expr</var></td><td width="20%">::=</td><td width="20%"><var>expr</var> <code>+</code> <var>expr</var></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><code>-</code> <var>expr</var></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>expr</var> <code>-</code> <var>expr</var></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><code>min(<var>expr</var>,<var>expr</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><code>max(<var>expr</var>,<var>expr</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>expr</var> <code>*</code> <var>groundexpr</var></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>groundexpr</var> <code>*</code> <var>expr</var></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>expr</var> <code>/</code> <var>groundexpr</var></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>attref</var></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>integer</var></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><code>fold(<var>var</var>,<var>collection</var>,<var>fop</var>,<var>expr</var>,<var>expr</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>variable</var></td><td width="30%"><span class="roman">{ quantified variable }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>head</var></td><td width="30%"><span class="roman">{ macro application }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>groundexpr</var></td><td width="20%">::=</td><td width="20%"><var>expr</var></td><td width="30%"><span class="roman">{ where <var>expr</var> is ground }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>attref</var></td><td width="20%">::=</td><td width="20%"><var>entity</var> <code>^</code> <var>attr</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>attr</var></td><td width="20%">::=</td><td width="20%"><var>term</var></td><td width="30%"><span class="roman">{ attribute name }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><var>variable</var></td><td width="30%"><span class="roman">{ quantified variable }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>relop</var></td><td width="20%">::=</td><td width="20%"><code>#&lt;</code> | <code>#=</code> | <code>#&gt;</code> | <code>#\=</code> | <code>#=&lt;</code> | <code>#&gt;=</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>fop</var></td><td width="20%">::=</td><td width="20%"><code>+</code> | <code>min</code> | <code>max</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>collection</var></td><td width="20%">::=</td><td width="20%"><var>list</var></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><code>objects(<var>list</var>)</code></td><td width="30%"><span class="roman">{ list of oids }</span></td></tr>
+<tr><td width="20%"></td><td width="20%">|</td><td width="20%"><code>sboxes(<var>list</var>)</code></td><td width="30%"><span class="roman">{ list of sids }</span></td></tr>
+</table>
+
+<p>The following example shows <code>geost/2</code> modeling three
+non-overlapping objects.  The first object has four possible shapes, and
+the other two have two possible shapes each.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>domain([X1,X2,X3,Y1,Y2,Y3], 1, 4),</kbd>
+     <kbd>S1 in 1..4,</kbd>
+     <kbd>S2 in 5..6,</kbd>
+     <kbd>S3 in 7..8,</kbd>
+     <kbd>geost([object(1,S1,[X1,Y1]), </kbd>
+            <kbd>object(2,S2,[X2,Y2]),</kbd>
+            <kbd>object(3,S3,[X3,Y3])],</kbd>
+           <kbd>[sbox(1,[0,0],[2,1]), </kbd>
+            <kbd>sbox(1,[0,1],[1,2]), </kbd>
+            <kbd>sbox(1,[1,2],[3,1]),</kbd>
+            <kbd>sbox(2,[0,0],[3,1]), </kbd>
+            <kbd>sbox(2,[0,1],[1,3]), </kbd>
+            <kbd>sbox(2,[2,1],[1,1]),</kbd>
+            <kbd>sbox(3,[0,0],[2,1]), </kbd>
+            <kbd>sbox(3,[1,1],[1,2]), </kbd>
+            <kbd>sbox(3,[-2,2],[3,1]),</kbd>
+            <kbd>sbox(4,[0,0],[3,1]), </kbd>
+            <kbd>sbox(4,[0,1],[1,1]), </kbd>
+            <kbd>sbox(4,[2,1],[1,3]),</kbd>
+            <kbd>sbox(5,[0,0],[2,1]), </kbd>
+            <kbd>sbox(5,[1,1],[1,1]), </kbd>
+            <kbd>sbox(5,[0,2],[2,1]),</kbd>
+            <kbd>sbox(6,[0,0],[3,1]), </kbd>
+            <kbd>sbox(6,[0,1],[1,1]), </kbd>
+            <kbd>sbox(6,[2,1],[1,1]),</kbd>
+            <kbd>sbox(7,[0,0],[3,2]), </kbd>
+            <kbd>sbox(8,[0,0],[2,3])]).</kbd>
+</pre></div>
+
+
+<p>The shapes are illustrated in the following picture:
+</p>
+<br>
+<img src="images/geost1a.png" alt="images/geost1a">
+<div align="center"><code>geost/2</code>: three objects and eight shapes
+</div>
+<p>A ground solution is shown in the following picture:
+</p>
+<br>
+<img src="images/geost1b.png" alt="images/geost1b">
+<div align="center"><code>geost/2</code>: a ground solution
+</div>
+
+<p>The following example shows how to encode in <var>Rules</var> &ldquo;objects with
+oid 1, 2 and 3 must all be at least 2 units apart from objects with oid
+4, 5 and 6&rdquo;.
+</p>
+<div class="example">
+<pre class="example">[ (origin(O1,S1,D) ---&gt; O1^x(D)+S1^t(D)),
+
+  (end(O1,S1,D) ---&gt; O1^x(D)+S1^t(D)+S1^l(D)),
+
+  (tooclose(O1,O2,S1,S2,D) ---&gt;
+      end(O1,S1,D)+2 #&gt; origin(O2,S2,D) #/\
+      end(O2,S2,D)+2 #&gt; origin(O1,S1,D)),
+
+  (apart(O1,O2) ---&gt;
+      forall(S1,sboxes([O1^sid]),
+          forall(S2,sboxes([O2^sid]),
+              #\ tooclose(O1,O2,S1,S2,1) #\/
+              #\ tooclose(O1,O2,S1,S2,2)))),
+
+  (forall(O1,objects([1,2,3]),
+      forall(O2,objects([4,5,6]), apart(O1,O2))))].
+</pre></div>
+
+<p>The following example shows how to encode in <var>Rules</var> &ldquo;objects 3 and
+7 model rooms that must be adjacent and have a common border at least 1
+unit long&rdquo;.
+</p>
+<div class="example">
+<pre class="example">[ (origin(O1,S1,D) ---&gt; O1^x(D)+S1^t(D)),
+
+  (end(O1,S1,D) ---&gt; O1^x(D)+S1^t(D)+S1^l(D)),
+
+  (overlap(O1,S1,O2,S2,D) ---&gt;
+      end(O1,S1,D) #&gt; origin(O2,S2,D) #/\
+      end(O2,S2,D) #&gt; origin(O1,S1,D)),
+
+  (abut(O1,O2) ---&gt;
+      forall(S1,sboxes([O1^sid]), 
+          forall(S2,sboxes([O2^sid]),
+              ((origin(O1,S1,1) #= end(O2,S2,1) #\/ 
+                origin(O2,S2,1) #= end(O1,S1,1)) #/\ 
+               overlap(O1,S1,O2,S2,2)) #\/
+              ((origin(O1,S1,2) #= end(O2,S2,2) #\/ 
+                origin(O2,S2,2) #= end(O1,S1,2)) #/\ 
+               overlap(O1,S1,O2,S2,1))))),
+
+  (forall(O1,objects([3]),
+      forall(O2,objects([7]), abut(O1,O2))))].
+</pre></div>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Automata-Constraints.html#Automata-Constraints" accesskey="n" rel="next">Next</a>
+<li><a href="Scheduling-Constraints.html#Scheduling-Constraints" accesskey="p" rel="prev">Previous</a>
+<li><a href="Available-Constraints.html#Available-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Placement-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Placement-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

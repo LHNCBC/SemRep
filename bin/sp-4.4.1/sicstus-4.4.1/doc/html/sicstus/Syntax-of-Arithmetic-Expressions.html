@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Syntax of Arithmetic Expressions</title>
+
+<meta name="description" content="SICStus Prolog: Syntax of Arithmetic Expressions">
+<meta name="keywords" content="SICStus Prolog: Syntax of Arithmetic Expressions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Syntax-Summary.html#Syntax-Summary" rel="up" title="Syntax Summary">
+<link href="Operator-Declarations.html#Operator-Declarations" rel="next" title="Operator Declarations">
+<link href="Syntax-of-Indexicals.html#Syntax-of-Indexicals" rel="prev" title="Syntax of Indexicals">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Syntax-of-Arithmetic-Expressions"></a>
+<hr>
+<a name="Syntax-of-Arithmetic-Expressions-1"></a>
+<h4 class="subsubsection">10.10.13.2 Syntax of Arithmetic Expressions</h4>
+
+<p><strong>Please note</strong>: that the Prolog arithmetic operators <code>/</code> and
+<code>//</code> do not mean the same thing.
+</p>
+<table>
+<tr><td width="20%"><var>N</var></td><td width="40%">::= <em>integer</em></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>LinExpr</var></td><td width="40%">::= <var>N</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <em>var</em></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>N</var> <code>*</code> <em>var</em></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>N</var> <code>*</code> <var>N</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>-</code> <var>LinExpr</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>LinExpr</var> <code>+</code> <var>LinExpr</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>LinExpr</var> <code>-</code> <var>LinExpr</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>ConstraintBody</var></td><td width="40%"><span class="roman">{ if true then 1 else 0 }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>Expr</var></td><td width="40%">::= <var>LinExpr</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>-</code> <var>Expr</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Expr</var> <code>+</code> <var>Expr</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Expr</var> <code>-</code> <var>Expr</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Expr</var> <code>*</code> <var>Expr</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Expr</var> <code>/</code> <var>Expr</var></td><td width="40%"><span class="roman">{ truncated division }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Expr</var> <code>//</code> <var>Expr</var></td><td width="40%"><span class="roman">{ truncated division }</span> &nbsp;<!-- /@w --> <i>since release 4.3</i></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Expr</var> <code>div</code> <var>Expr</var></td><td width="40%"><span class="roman">{ floored division }</span> &nbsp;<!-- /@w --> <i>since release 4.3</i></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Expr</var> <code>rem</code> <var>Expr</var></td><td width="40%"><span class="roman">{ truncated remainder }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Expr</var> <code>mod</code> <var>Expr</var></td><td width="40%"><span class="roman">{ floored remainder }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>min(<var>Expr</var>,<var>Expr</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>max(<var>Expr</var>,<var>Expr</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>abs(<var>Expr</var>)</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>RelOp</var></td><td width="40%">::= <code>#=</code> | <code>#\=</code> | <code>#&lt;</code> | <code>#=&lt;</code> | <code>#&gt;</code> | <code>#&gt;=</code></td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Operator-Declarations.html#Operator-Declarations" accesskey="n" rel="next">Next</a>
+<li><a href="Syntax-of-Indexicals.html#Syntax-of-Indexicals" accesskey="p" rel="prev">Previous</a>
+<li><a href="Syntax-Summary.html#Syntax-Summary" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Syntax-of-Arithmetic-Expressions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Syntax-of-Arithmetic-Expressions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

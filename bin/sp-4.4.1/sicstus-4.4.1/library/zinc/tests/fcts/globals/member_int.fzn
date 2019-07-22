@@ -1,0 +1,7 @@
+array[1 .. 4] of var 1 .. 2: a :: output_array([1..4]);
+
+var 1..8: x :: output_var;
+
+constraint member_int(a, x);
+
+solve satisfy;

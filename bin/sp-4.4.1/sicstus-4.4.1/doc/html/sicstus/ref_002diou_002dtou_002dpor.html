@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-tou-por</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-tou-por">
+<meta name="keywords" content="SICStus Prolog: ref-iou-tou-por">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou_002dtou.html#ref_002diou_002dtou" rel="up" title="ref-iou-tou">
+<link href="ref_002diou_002dtou_002dpcl.html#ref_002diou_002dtou_002dpcl" rel="next" title="ref-iou-tou-pcl">
+<link href="ref_002diou_002dtou_002ddsp.html#ref_002diou_002dtou_002ddsp" rel="prev" title="ref-iou-tou-dsp">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002dtou_002dpor"></a>
+<hr>
+<a name="Using-the-Portray-Hook"></a>
+<h4 class="subsubsection">4.6.4.5 Using the Portray Hook</h4>
+
+
+<a name="index-portray_002f1-_0028user_002c-hook_0029-2"></a>
+<a name="index-portray_002f1-_0028user_002c-hook_0029"></a>
+
+
+<a name="index-user_003aportray_002f1-_0028hook_0029-2"></a>
+<a name="index-user_003aportray_002f1-_0028hook_0029"></a>
+
+
+
+<p>By default, the effect of <code>print/[1,2]</code> is the same as that of
+<code>write/[1,2]</code>, but you can change its effect
+by providing clauses for the hook predicate <code>user:portray/1</code>.
+</p>
+<p>If <var>X</var> is a variable, then it is printed using <code>write(<var>X</var>)</code>.
+Otherwise the user-definable procedure <code>user:portray(<var>X</var>)</code> is called.
+If this succeeds, then it is assumed
+that <var>X</var> has been printed and <code>print/[1,2]</code> exits (succeeds).
+</p>
+<p>If the call to <code>user:portray/1</code> fails, and if <var>X</var> is a compound term, then
+<code>write/[1,2]</code> is used to write the principal functor of <var>X</var> and
+<code>print/[1,2]</code> is called recursively on its arguments.  If <var>X</var>
+is atomic, then it is written using <code>write/[1,2]</code>.
+</p>
+<p>When <code>print/[1,2]</code> has to print a list, say <code>[X1,X2,&hellip;,Xn]</code>, it passes
+the whole list to <code>user:portray/1</code>.  As usual, if <code>user:portray/1</code> succeeds, then
+it is assumed to have printed the entire list, and <code>print/[1,2]</code> does
+nothing further with this term.  Otherwise <code>print/[1,2]</code> writes the
+list using bracket notation, calling <code>print/[1,2]</code> on each element of the
+list in turn.  
+</p>
+<p>Since <code>[X1,X2,&hellip;,Xn]</code> is simply a different way of
+writing <code>.(X1,[X2,&hellip;,Xn])</code>, one might expect <code>print/[1,2]</code> to be called
+recursively on the two arguments <code>X1</code> and <code>[X2,&hellip;,Xn]</code>, giving <code>user:portray/1</code>
+a second
+chance at <code>[X2,&hellip;,Xn]</code>.  This does <em>not</em> happen; lists are a
+special case in which <code>print/[1,2]</code> is called separately for each of
+<code>X1,X2,&hellip;Xn</code>.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002dtou_002dpcl.html#ref_002diou_002dtou_002dpcl" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002diou_002dtou_002ddsp.html#ref_002diou_002dtou_002ddsp" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002diou_002dtou.html#ref_002diou_002dtou" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dtou_002dpor.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dtou_002dpor.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

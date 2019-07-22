@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Global vs. Local References</title>
+
+<meta name="description" content="SICStus Prolog: Global vs. Local References">
+<meta name="keywords" content="SICStus Prolog: Global vs. Local References">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Jasper-Library.html#The-Jasper-Library" rel="up" title="The Jasper Library">
+<link href="Handling-Java-Exceptions.html#Handling-Java-Exceptions" rel="next" title="Handling Java Exceptions">
+<link href="Conversion-between-Prolog-Arguments-and-Java-Types.html#Conversion-between-Prolog-Arguments-and-Java-Types" rel="prev" title="Conversion between Prolog Arguments and Java Types">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Global-vs_002e-Local-References"></a>
+<hr>
+<a name="Global-vs_002e-Local-References-1"></a>
+<h4 class="subsubsection">10.19.8.4 Global vs. Local References</h4>
+
+<p>It is important to understand the rules determining the life-span of
+Java object references. These are similar in spirit to the
+SP_term_refs of the C-Prolog interface, but since they are used to
+handle Java objects instead of Prolog terms they work a little
+differently.
+</p>
+<p>Java object references (<em>currently</em> represented in Prolog as
+<code>'$java_object'/1</code> terms) exist in two flavors: <em>local</em>
+and <em>global</em>. Their validity are governed by the following rules.
+</p>
+<ol>
+<li> A local reference is valid until Prolog returns to Java or the reference
+is deleted with <code>jasper_delete_local_ref/2</code>. It is only
+valid in the (native) thread in which is was created. As a rule of thumb a
+local reference can be used safely as long as it is not saved away using
+<code>assert/3</code> or similar.
+
+<p>Since local references are <em>never</em> reclaimed until Prolog returns
+to Java (which may never happen) you should typically call
+<code>jasper_delete_local_ref/2</code> when your code is done with an object.
+</p>
+</li><li> A global reference is valid until explicitly freed. It can be used from
+any native thread.
+</li><li> All objects returned by Java methods are converted to local references.
+</li><li> Java exceptions not caught by Java are thrown as Prolog exceptions
+consisting of a <em>global</em> reference to the exception object,
+see <a href="Handling-Java-Exceptions.html#Handling-Java-Exceptions">Handling Java Exceptions</a>.
+
+</li></ol>
+
+<p>Local references can be converted into global references
+(<code>jasper_create_global_ref/3</code>). When the global reference is no
+longer needed, it should be delete using
+<code>jasper_delete_global_ref/2</code>.
+</p>
+<p>For a more in-depth discussion of global and local references, consult
+the
+<a href="http://java.sun.com/products/jdk/1.2/docs/guide/jni/index.html">JNI Documentation</a>.
+</p>
+<p>Using a local (or global) reference that has been deleted (either
+explicitly or by returning to Java) is illegal and will generally lead
+to crashes. This is a limitation of the Java Native Interface used to
+implement the low level interface to Java.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Handling-Java-Exceptions.html#Handling-Java-Exceptions" accesskey="n" rel="next">Next</a>
+<li><a href="Conversion-between-Prolog-Arguments-and-Java-Types.html#Conversion-between-Prolog-Arguments-and-Java-Types" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Jasper-Library.html#The-Jasper-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Global-vs_002e-Local-References.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Global-vs_002e-Local-References.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

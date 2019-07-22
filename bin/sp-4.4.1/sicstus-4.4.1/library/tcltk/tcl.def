@@ -1,0 +1,12 @@
+EXPORTS
+_Tcl_CreateInterp
+_Tcl_Init
+_Tcl_Eval
+_Tcl_CreateCommand
+_Tcl_DeleteInterp
+_Tcl_AppendResult
+_Tcl_SetVar
+_Tcl_SetVar2
+_Tcl_Preserve
+_Tcl_DoOneEvent
+_Tcl_GetCommandInfo

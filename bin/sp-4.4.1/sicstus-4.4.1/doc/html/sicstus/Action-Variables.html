@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Action Variables</title>
+
+<meta name="description" content="SICStus Prolog: Action Variables">
+<meta name="keywords" content="SICStus Prolog: Action Variables">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Breakpoint-Conditions.html#Breakpoint-Conditions" rel="up" title="Breakpoint Conditions">
+<link href="Consult.html#Consult" rel="next" title="Consult">
+<link href="Condition-Macros.html#Condition-Macros" rel="prev" title="Condition Macros">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Action-Variables"></a>
+<hr>
+<a name="The-Action-Variables"></a>
+<h4 class="subsection">5.9.9 The Action Variables</h4>
+<a name="index-debugger-action-variables-1"></a>
+<a name="index-action-variables_002c-debugger-1"></a>
+
+<p>In this section we list the possible values of the debugger action
+variables, and their meaning.
+</p>
+<p>Note that the Prolog terms, supplied as values, are copied when a
+variable is set. This is relevant primarily in the case of the
+<code>proceed/2</code> and <code>flit/2</code> values.
+</p>
+<p>Values allowed in the <code>show</code> condition:
+</p>
+<dl compact="compact">
+<dt><code>print</code></dt>
+<dd><a name="index-print_002f0-_0028debugger-show-control_0029"></a>
+<p>Write using options stored in the <code>debugger_print_options</code> Prolog flag. 
+<a name="index-debugger_005fprint_005foptions-_0028prolog-flag_0029-4"></a>
+</p></dd>
+<dt><code>silent</code></dt>
+<dd><a name="index-silent_002f0-_0028debugger-show-control_0029"></a>
+<p>Display nothing.
+</p></dd>
+<dt><code>display</code></dt>
+<dd><a name="index-display_002f0-_0028debugger-show-control_0029"></a>
+<p>Write using <code>display</code>.
+</p></dd>
+<dt><code>write</code></dt>
+<dd><a name="index-write_002f0-_0028debugger-show-control_0029"></a>
+<p>Write using <code>writeq</code>.
+</p></dd>
+<dt><code>write_term(<var>Options</var>)</code></dt>
+<dd><a name="index-write_005fterm_002f1-_0028debugger-show-control_0029"></a>
+<p>Write using options <var>Options</var>.
+</p></dd>
+<dt><code><var>Method</var>-<var>Sel</var></code></dt>
+<dd><a name="index-_002d_002f2-_0028debugger-show-control_0029"></a>
+<p>Display only the subterm selected by <var>Sel</var>, using
+<var>Method</var>. Here, <var>Method</var> is one of the methods above, and
+<var>Sel</var> is a subterm selector.
+</p></dd>
+</dl>
+
+
+<p>Values allowed in the <code>command</code> condition:
+</p>
+<dl compact="compact">
+<dt><code>ask</code></dt>
+<dd><a name="index-ask_002f0-_0028debugger-command-control_0029"></a>
+<p>Ask the user what to do next.
+</p></dd>
+<dt><code>proceed</code></dt>
+<dd><a name="index-proceed_002f0-_0028debugger-command-control_0029"></a>
+<p>Continue the execution without interacting with the user (cf.
+unleashing).
+</p></dd>
+<dt><code>flit</code></dt>
+<dd><a name="index-flit_002f0-_0028debugger-command-control_0029"></a>
+<p>Continue the execution without building a procedure box for the current goal
+(and consequently not encountering any other ports for this invocation).
+Only meaningful at Call ports, at other ports it is equivalent to
+<code>proceed</code>.
+</p></dd>
+<dt><code>proceed(<var>Goal</var>,<var>New</var>)</code></dt>
+<dd><a name="index-proceed_002f2-_0028debugger-command-control_0029"></a>
+<p>Unless at call port, first go back to the call port (retry the current
+invocation; see the <code>retry(<var>Inv</var>)</code> command value below). Next,
+unify the current goal with <var>Goal</var> and execute the goal <var>New</var> in
+its place. Create (or keep) a procedure box for the current goal.
+</p>
+<p>This construct is used by the &lsquo;<samp>u</samp>&rsquo; (unify) interactive
+debugger command.
+</p>
+<p>Both the <var>Goal</var> and <var>New</var> arguments are module name
+expanded when the breakpoint is added: the module of
+<var>Goal</var> defaults to the module of the current goal, while
+that of <var>New</var> to the module name of the breakpoint
+spec. If the command value is created during run time, then the
+module name of both arguments defaults to the module
+of the current goal.
+</p>
+<p>The term <code>proceed(<var>Goal</var>,<var>New</var>)</code> will be copied when
+the <code>command</code> action variable is set. Therefore breakpoint
+specs of form
+</p><div class="example">
+<pre class="example">Tests - [goal(foo(X)),&hellip;,proceed(_,bar(X))]
+</pre></div>
+
+<p>should be avoided, and
+</p>
+<div class="example">
+<pre class="example">Tests - [goal(foo(X)),&hellip;,proceed(foo(Y),bar(Y))
+</pre></div>
+<p>should be used instead. The first variant will not work as expected if
+<code>X</code> is non-ground, as the variables in the <code>bar/1</code>
+call will be detached from the original ones in <code>foo/1</code>. Even if
+<code>X</code> is ground, the first variant may be much less efficient,
+as it will copy the possibly huge term <code>X</code>.
+</p>
+</dd>
+<dt><code>flit(<var>Goal</var>,<var>New</var>)</code></dt>
+<dd><a name="index-flit_002f2-_0028debugger-command-control_0029"></a>
+
+<p>Same as <code>proceed(<var>Goal</var>,<var>New</var>)</code>, but do not create (or
+discard) a procedure box for the current goal. (Consequently
+no other ports will be encountered for this invocation.)
+</p>
+<p>Notes for <code>proceed/2</code>, on module name expansion and copying,
+also apply to <code>flit/2</code>.
+</p>
+</dd>
+<dt><code>raise(<var>E</var>)</code></dt>
+<dd><a name="index-raise_002f1-_0028debugger-command-control_0029"></a>
+<p>Raise the exception <var>E</var>.
+</p></dd>
+<dt><code>abort</code></dt>
+<dd><a name="index-abort_002f0-_0028debugger-command-control_0029"></a>
+<p>Abort the execution.
+</p></dd>
+<dt><code>retry(<var>Inv</var>)</code></dt>
+<dd><a name="index-retry_002f1-_0028debugger-command-control_0029"></a>
+<p>Retry the most recent goal in the backtrace with an
+invocation number less or equal to <var>Inv</var> (go back to the Call
+port of the goal). This is used by the interactive debugger
+command &lsquo;<samp>r</samp>&rsquo;, retry; see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>.
+</p></dd>
+<dt><code>reexit(<var>Inv</var>)</code></dt>
+<dd><a name="index-reexit_002f1-_0028debugger-command-control_0029"></a>
+<p>Re-exit the invocation with number <var>Inv</var> (go back to the Exit
+port of the goal).  <var>Inv</var> must be an exact reference to an exited
+invocation present in the backtrace (exited nondeterminately, or
+currently being exited). This is used by the
+interactive debugger command &lsquo;<samp>je</samp>&rsquo;, jump to Exit port; see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>. 
+</p></dd>
+<dt><code>redo(<var>Inv</var>)</code></dt>
+<dd><a name="index-redo_002f1-_0028debugger-command-control_0029"></a>
+<p>Redo the invocation with number <var>Inv</var> (go back to the Redo port
+of the goal).  <var>Inv</var> must be an exact reference to an exited
+invocation present in the backtrace. This is used by the
+interactive debugger command &lsquo;<samp>jr</samp>&rsquo;, jump to Redo port; see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>. 
+</p></dd>
+<dt><code>fail(<var>Inv</var>)</code></dt>
+<dd><a name="index-fail_002f1-_0028debugger-command-control_0029"></a>
+<p>Fail the most recent goal in the backtrace with an invocation number
+less or equal to <var>Inv</var> (transfer control back to the Fail port of
+the goal). This is used by the interactive debugger command &lsquo;<samp>f</samp>&rsquo;,
+fail; see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>.
+</p></dd>
+</dl>
+
+
+<p>Values allowed in the <code>mode</code> condition:
+</p>
+
+
+<dl compact="compact">
+<dt><code>qskip(<var>Inv</var>)</code></dt>
+<dd><a name="index-qskip_002f1-_0028debugger-mode-control_0029"></a>
+<p>Quasi-skip until the first port with invocation number less or
+equal to <var>Inv</var> is reached.  Having reached that point, <code>mode</code>
+is set to <code>trace</code>. Valid only if <em>\Inv \geq 1</em> and furthermore
+<em>\Inv \leq \CurrInv</em> for entry ports (Call, Redo), and
+<em>\Inv &lt; \CurrInv</em> for all other ports, where <var>CurrInv</var> is
+the invocation number of the current port.
+</p></dd>
+<dt><code>skip(<var>Inv</var>)</code></dt>
+<dd><a name="index-skip_002f1-_0028debugger-mode-control_0029"></a>
+<p>Skip until the first port with invocation number less or equal to
+<var>Inv</var> is reached, and set <code>mode</code> to <code>trace</code> there.
+<var>Inv</var> should obey the same rules as for <code>qskip</code>.
+</p></dd>
+<dt><code>trace</code></dt>
+<dd><a name="index-trace_002f0-_0028debugger-mode-control_0029"></a>
+<p>Creep.
+</p></dd>
+<dt><code>debug</code></dt>
+<dd><a name="index-debug_002f0-_0028debugger-mode-control_0029"></a>
+<p>Leap.
+</p></dd>
+<dt><code>zip</code></dt>
+<dd><a name="index-zip_002f0-_0028debugger-mode-control_0029"></a>
+<p>Zip.
+</p></dd>
+<dt><code>off</code></dt>
+<dd><a name="index-off_002f0-_0028debugger-mode-control_0029"></a>
+<p>Continue without debugging.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Condition-Macros.html#Condition-Macros" accesskey="p" rel="prev">Previous</a>
+<li><a href="Breakpoint-Conditions.html#Breakpoint-Conditions" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Action-Variables.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Action-Variables.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

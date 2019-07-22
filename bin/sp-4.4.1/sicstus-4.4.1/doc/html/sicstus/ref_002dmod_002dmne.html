@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-mne</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-mne">
+<meta name="keywords" content="SICStus Prolog: ref-mod-mne">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002dmet.html#ref_002dmod_002dmet" rel="next" title="ref-mod-met">
+<link href="ref_002dmod_002didp.html#ref_002dmod_002didp" rel="prev" title="ref-mod-idp">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dmne"></a>
+<hr>
+<a name="Module-Name-Expansion"></a>
+<h4 class="subsection">4.11.15 Module Name Expansion</h4>
+
+<a name="index-module-name-expansion-2"></a>
+<a name="index-name-expansion_002c-module"></a>
+
+<a name="index-source-module-1"></a>
+<a name="index-modules_002c-source"></a>
+
+
+<p>The concept of a source module is explained in 
+<a href="ref_002dmod_002dsom.html#ref_002dmod_002dsom">ref-mod-som</a>.  For any goal, the applicable source module is
+determined when the goal is compiled rather than when it is
+executed.
+</p>
+<p>A procedure that needs to refer to the source module has arguments
+designated for module name expansion.  These arguments are expanded
+when code is consulted, compiled or asserted
+by the transformation <var>X -&gt; M:X</var> where <var>M</var> is the
+name of the source module.  For example, the goal <code>call(X)</code> is
+expanded into <code>call(M:X)</code> and the goal <code>clause(Head, Body)</code>
+is expanded into <code>clause(M:Head, Body)</code>.
+</p>
+<p>Module name expansion is avoided if the argument to be expanded is
+already a <code>:/2</code> term.  In this case it is unnecessary since the
+module to be used has already been supplied by the programmer.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002dmet.html#ref_002dmod_002dmet" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod_002didp.html#ref_002dmod_002didp" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dmne.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dmne.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

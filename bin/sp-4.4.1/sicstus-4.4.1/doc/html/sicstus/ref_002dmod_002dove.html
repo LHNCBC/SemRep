@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-ove</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-ove">
+<meta name="keywords" content="SICStus Prolog: ref-mod-ove">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002dbas.html#ref_002dmod_002dbas" rel="next" title="ref-mod-bas">
+<link href="ref_002dmod.html#ref_002dmod" rel="prev" title="ref-mod">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dove"></a>
+<hr>
+<a name="Overview-9"></a>
+<h4 class="subsection">4.11.1 Overview</h4>
+
+
+<a name="index-module-_0028definition_0029-1"></a>
+
+<p>The module system lets the user divide large Prolog programs into
+<em>modules</em>, or rather smaller sub-programs, and define
+the interfaces between those modules.  Each module has its own name
+space; that is, a predicate defined in one module is distinct from any
+predicates with the same name and arity that may be defined in other
+modules.  The module system encourages a group of programmers to
+define the dependence each has on others&rsquo; work before any code is
+written, and subsequently allows all to work on their own parts
+independently.  It also helps to make library predicates behave as
+extensions of the existing set of built-in predicates.
+</p>
+<p>The SICStus Prolog library uses the module system and can therefore serve as
+an extended example of the concepts presented in the following text.  The
+design of the module system is such that loading library files and calling
+library predicates can be performed without knowledge of the module system.
+</p>
+<p>Some points to note about the module system are that:
+</p><ul>
+<li> It is based on predicate modularity rather than on data
+modularity; that is, atoms and functors are global.
+<a name="index-procedural-modularity"></a>
+<a name="index-modularity_002c-procedural"></a>
+
+</li><li> It is flat rather than hierarchical; any module may refer to any other
+module by its name&mdash;there is no need to specify a path of modules.
+</li><li> It is not strict; modularity rules can be explicitly overridden.  This is
+primarily for flexibility during debugging.
+</li><li> It is efficient; calls to predicates across module boundaries incur
+little or no overhead.
+</li></ul>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002dbas.html#ref_002dmod_002dbas" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dove.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dove.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

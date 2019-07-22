@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-heaps</title>
+
+<meta name="description" content="SICStus Prolog: lib-heaps">
+<meta name="keywords" content="SICStus Prolog: lib-heaps">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002djasper.html#lib_002djasper" rel="next" title="lib-jasper">
+<link href="lib_002dgauge.html#lib_002dgauge" rel="prev" title="lib-gauge">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dheaps"></a>
+<hr>
+<a name="Heap-Operations_002d_002d_002dlibrary_0028heaps_0029"></a>
+<h3 class="section">10.18 Heap Operations&mdash;<code>library(heaps)</code></h3>
+<p>A heap is a labelled binary tree where the key of each node is less
+than or equal to the keys of its sons.  The point of a heap is that
+we can keep on adding new elements to the heap and we can keep on
+taking out the minimum element.  If there are <var>N</var> elements total, the
+total time is <var>O(N lg N)</var>.  If you know all the elements in advance, you
+are better off doing a merge-sort, but this file is for when you
+want to do say a best-first search, and have no idea when you start
+how many elements there will be, let alone what they are.
+</p>
+<p>A heap is represented as a triple <code>heap(N,Free,Tree)</code> where <var>N</var> is the
+number of elements in the tree, <var>Free</var> is a list of integers which
+specifies unused positions in the tree, and <var>Tree</var> is a tree made of:
+</p><dl compact="compact">
+<dt><code>heap</code></dt>
+<dd><p>terms for empty subtrees and
+</p></dd>
+<dt><code>heap(<var>Key</var>,<var>Datum</var>,<var>Lson</var>,<var>Rson</var>)</code></dt>
+<dd><p>terms for the rest
+</p></dd>
+</dl>
+
+<p>The nodes of the tree are notionally numbered like this:
+</p>
+<div class="example">
+<pre class="example">                                1
+                 2				    3
+         4               6               5               7
+     8      12      10     14       9       13      11     15
+  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..  ..
+</pre></div>
+<p>The idea is that if the maximum number of elements that have been in
+the heap so far is <var>M</var>, and the tree currently has <var>K</var> elements, the tree
+is some subtreee of the tree of this form having exactly <var>M</var> elements,
+and the <var>Free</var> list is a list of <var>M-K</var> integers saying which of the 
+positions in the <var>M</var>-element tree are currently unoccupied.  This free
+list is needed to ensure that the cost of passing <var>N</var> elements through
+the heap is <var>O(N lg M)</var> instead of <var>O(N lg N)</var>.  For <var>M</var> say 100 and <var>N</var> say 10^4
+this means a factor of two.  The cost of the free list is slight.
+The storage cost of a heap in a copying Prolog is <var>2K+3M</var> words.
+Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>add_to_heap(<var>+OldHeap</var>, <var>+Key</var>, <var>+Datum</var>, <var>-NewHeap</var>)</code></dt>
+<dt><code>add_to_heap/4 (heaps)</code></dt>
+<dd><p>inserts the new <var>Key-Datum</var> pair into the heap.  The insertion is
+not stable, that is, if you insert several pairs with the same
+<var>Key</var> it is not defined which of them will come out first, and it
+is possible for any of them to come out first depending on the 
+history of the heap.  
+</p></dd>
+<dt><code>delete_from_heap(<var>+OldHeap</var>, <var>+Key</var>, <var>-Datum</var>, <var>-NewHeap</var>)</code></dt>
+<dt><code>delete_from_heap/4 (heaps)</code></dt>
+<dd><p>deletes a single <var>Key-Datum</var> pair from the <var>OldHeap</var> producing
+a <var>NewHeap</var>.  This is useful if you want to e.g. change
+the priority of Datum.
+</p></dd>
+<dt><code>get_from_heap(<var>+OldHeap</var>, <var>-Key</var>, <var>-Datum</var>, <var>-NewHeap</var>)</code></dt>
+<dt><code>get_from_heap/4 (heaps)</code></dt>
+<dd><p>returns the <var>Key-Datum</var> pair in <var>OldHeap</var> with the smallest <var>Key</var>, and
+also a <var>NewHeap</var> which is the <var>OldHeap</var> with that pair deleted.
+</p></dd>
+<dt><code>heap_size(<var>+Heap</var>, <var>-Size</var>)</code></dt>
+<dt><code>heap_size/2 (heaps)</code></dt>
+<dd><p>reports the number of elements currently in the heap.
+</p></dd>
+<dt><code>heap_to_list(<var>+Heap</var>, <var>-List</var>)</code></dt>
+<dt><code>heap_to_list/2 (heaps)</code></dt>
+<dd><p>returns the current set of <var>Key-Datum</var> pairs in the <var>Heap</var> as a
+<var>List</var>, sorted into ascending order of <var>Keys</var>.  
+</p></dd>
+<dt><code>list_to_heap(<var>+List</var>, <var>-Heap</var>)</code></dt>
+<dt><code>list_to_heap/2 (heaps)</code></dt>
+<dd><p>takes a proper list of <var>Key-Datum</var> pairs (such as <code>keysort/2</code> could be used to
+sort) and forms them into a heap.  
+</p></dd>
+<dt><code>empty_heap(<var>?Heap</var>)</code></dt>
+<dt><code>empty_heap/1 (heaps)</code></dt>
+<dd><p>is true when <var>Heap</var> represents an empty heap.  There is only one
+way it can be true.
+</p></dd>
+<dt><code>is_heap(<var>+Heap</var>)</code></dt>
+<dt><code>is_heap/1 (heaps)</code></dt>
+<dd><p>is true when <var>Heap</var> is a well formed heap.  For this to be true, the
+size must be right and the tree must satisfy the heap condition.
+</p></dd>
+<dt><code>min_of_heap(<var>+Heap</var>, <var>-Key</var>, <var>-Datum</var>)</code></dt>
+<dt><code>min_of_heap/3 (heaps)</code></dt>
+<dd><p>returns the <var>Key-Datum</var> pair at the top of the heap (which is of
+course the pair with the smallest <var>Key</var>), but does not remove it
+from the heap.  It fails if the heap is empty.
+</p></dd>
+<dt><code>min_of_heap(<var>+Heap</var>, <var>-Key1</var>, <var>-Datum1</var>, <var>-Key2</var>, <var>-Datum2</var>)</code></dt>
+<dt><code>min_of_heap/5 (heaps)</code></dt>
+<dd><p>returns the smallest (<var>Key1</var>) and second smallest (<var>Key2</var>) pairs in
+the heap, without deleting them.  It fails if the heap does not
+have at least two elements.
+</p></dd>
+<dt><code>portray_heap(<var>+Heap</var>)</code></dt>
+<dt><code>portray_heap/1 (heaps)</code></dt>
+<dd><p>writes a heap to the current output stream in a pretty format so that
+you can easily see what it is.  Note that a heap written out this way
+can <em>not</em> be read back in.  The point of this predicate is that you can
+add a clause
+</p><div class="example">
+<pre class="example">    portray(X) :- is_heap(X), !, portray_heap(X).
+</pre></div>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002djasper.html#lib_002djasper" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dgauge.html#lib_002dgauge" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dheaps.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dheaps.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

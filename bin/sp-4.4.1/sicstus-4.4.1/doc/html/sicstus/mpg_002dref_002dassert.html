@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-assert</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-assert">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-assert">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dasserta.html#mpg_002dref_002dasserta" rel="next" title="mpg-ref-asserta">
+<link href="mpg_002dref_002dask_005fquery.html#mpg_002dref_002dask_005fquery" rel="prev" title="mpg-ref-ask_query">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dassert"></a>
+<hr>
+<a name="assert_002f_005b1_002c2_005d"></a>
+<h4 class="subsection">11.3.10 <code>assert/[1,2]</code></h4>
+<a name="index-assert_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-assert_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-35"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p>These predicates add a dynamic clause,
+<var>Clause</var>, to the Prolog database.  They optionally return a database
+reference in <var>Ref</var>:
+</p>
+<p><code>assert(<var>+Clause</var>)</code>
+</p>
+<p><code>assert(<var>+Clause</var>, <var>-Ref</var>)</code>
+</p>
+<p>It is undefined whether <var>Clause</var> will precede or follow the
+clauses already in the database.
+</p>
+<a name="Arguments-32"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:Clause</var></dt>
+<dd><p><em>callable</em>, must be nonvar
+</p>
+<p>A valid dynamic Prolog clause.
+</p>
+</dd>
+<dt><var>Ref</var></dt>
+<dd><p><em>db_reference</em>, must be var
+</p>
+<p>A database reference, which uniquely identifies the newly asserted <var>Clause</var>.
+</p></dd>
+</dl>
+
+<a name="Description-33"></a>
+<h4 class="subheading">Description</h4>
+
+<p><var>Clause</var> must be of the form:
+</p><div class="example">
+<pre class="example">       <var>Head</var>
+or     <var>Head</var> :- <var>Body</var>
+or     <var>M</var>:<var>Clause</var>
+</pre></div>
+
+<p>where <var>Head</var> is of type callable and <var>Body</var> is a valid clause body.
+If specified, then <var>M</var> must be an atom.
+</p>
+
+<p><code>assert(<var>Head</var>)</code> means assert the unit-clause <var>Head</var>.  The exact
+same effect can be achieved by <code>assert((<var>Head</var> :- true))</code>.
+</p>
+
+<p>If <var>Body</var> is uninstantiated, then it is taken to mean <code>call(<var>Body</var>)</code>.
+For example, (A) is equivalent to (B):
+</p><div class="example">
+<pre class="example">| ?- <kbd>assert((p(X) :- X)).</kbd>            <!-- /@w --> (A)
+| ?- <kbd>assert((p(X) :- call(X))).</kbd>      <!-- /@w --> (B)
+</pre></div>
+
+
+<p><var>Ref</var> should be uninstantiated; a range exception is signalled if
+<var>Ref</var>
+does not unify with its return value.  This exception is signalled after the
+assert has been completed.
+</p>
+<p>The procedure for <var>Clause</var> must be dynamic or undefined.  If it is
+undefined, then it is set to be dynamic.
+</p>
+<p>When an assert takes place, the new clause is immediately seen by any
+subsequent call to the procedure.  However, if there is a currently active
+call of the procedure at the time the clause is asserted, then the new clause
+is not encountered on backtracking by that call.  See <a href="ref_002dmdb_002dbas.html#ref_002dmdb_002dbas">ref-mdb-bas</a>
+for further explanation of what happens when currently running code is
+modified.
+</p>
+<p>Any uninstantiated variables in the <var>Term</var> will be replaced by
+brand new, unattributed variables (see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>).
+</p>
+<a name="Exceptions-26"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Head</var> (in <var>Clause</var>) or <var>M</var> is uninstantiated.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Head</var> is not a callable, or <var>M</var> is 
+not an atom, or <var>Body</var> is not a valid clause body.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>the procedure corresponding to <var>Head</var> is not dynamic
+</p>
+</dd>
+<dt><code>uninstantiation_error</code></dt>
+<dd><p><var>Ref</var> is not a variable
+</p>
+</dd>
+</dl>
+
+<a name="See-Also-32"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmdb_002dacd.html#ref_002dmdb_002dacd">ref-mdb-acd</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dasserta.html#mpg_002dref_002dasserta" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dask_005fquery.html#mpg_002dref_002dask_005fquery" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dassert.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dassert.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

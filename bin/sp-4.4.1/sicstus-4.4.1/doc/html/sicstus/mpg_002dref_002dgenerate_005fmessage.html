@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-generate_message</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-generate_message">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-generate_message">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dgenerate_005fmessage_005fhook.html#mpg_002dref_002dgenerate_005fmessage_005fhook" rel="next" title="mpg-ref-generate_message_hook">
+<link href="mpg_002dref_002dgarbage_005fcollect_005fatoms.html#mpg_002dref_002dgarbage_005fcollect_005fatoms" rel="prev" title="mpg-ref-garbage_collect_atoms">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dgenerate_005fmessage"></a>
+<hr>
+<a name="generate_005fmessage_002f3---extendible"></a>
+<h4 class="subsection">11.3.91 <code>generate_message/3</code> &nbsp;<!-- /@w --> <i>extendible</i></h4>
+<a name="index-generate_005fmessage_002f3-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-generate_005fmessage_002f3-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-116"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile 'SU_messages':generate_message/3.</code>
+</p>
+<p><code>'SU_messages':generate_message(<var>+MessageTerm</var>, <var>-S0</var>, <var>-S</var>)</code>
+</p>
+<p>For a given <var>MessageTerm</var>, generates a list composed of
+<var>Control-Arg</var> pairs and the atom <code>nl</code>.  This can be translated into a
+nested list of <var>Control-Arg</var> pairs, which can be used as input to
+<code>print_message_lines/3</code>.
+</p>
+<a name="Arguments-105"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>MessageTerm</var></dt>
+<dd><p><em>term</em>
+</p>
+<p>May be any term.
+</p>
+</dd>
+<dt><var>S0</var></dt>
+<dd><p><em>list of pair</em>
+</p>
+<p>The resulting list of <var>Control-Args</var> pairs.
+</p>
+</dd>
+<dt><var>S</var></dt>
+<dd><p><em>list of pair</em>
+</p>
+<p>The remaining list.
+</p></dd>
+</dl>
+
+<a name="Description-88"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Clauses for <code>'SU_messages':generate_message/3</code> underly all messages from Prolog.  They may
+be examined and altered.  They are found in <code>library('SU_messages')</code>.
+</p>
+<p>The purpose of this predicate is to allow you to redefine the 
+displayal of Prolog&rsquo;s messages.  For example, to translate
+all the messages from English into some other language.
+</p>
+<p>This predicate should <em>not</em> be modified if all you want to do is modify or
+add a few messages:  <code>user:generate_message_hook/3</code> is provided for that purpose.
+</p>
+<p>The Prolog system uses the built-in predicate <code>print_message/2</code>
+to print all its messages.  When <code>print_message/2</code> is called, it
+calls <code>user:generate_message_hook(Message,L,[])</code> to generate the
+message.  If that fails, then 
+<code>'SU_messages':generate_message(Message,L,[])</code> is called instead.
+If that succeeds, then <var>L</var> is assumed to have been bound to a list whose
+elements are either <var>Control-Args</var> pairs or the atom <code>nl</code>.  Each <var>Control-Arg</var>
+pair should be such that the call
+</p>
+<div class="example">
+<pre class="example">format(user_error, <var>Control</var>, <var>Args</var>)
+</pre></div>
+
+<p>is valid.  The atom <code>nl</code> is used for breaking the message into
+lines.  Using the format specification &lsquo;<samp>~n</samp>&rsquo; (new-line) is
+discouraged, since the routine that actually prints the message (see
+<code>user:message_hook/3</code> and <code>print_message_lines/3</code>) may need
+to have control over newlines.
+</p>
+<p><code>'SU_messages':generate_message/3</code> is not included by default in runtime systems,
+since end-users of application programs should probably not be seeing any
+messages from the Prolog system.
+</p>
+<p>If there is a call to <code>print_message/2</code> when 
+when <code>'SU_messages':generate_message/3</code> does not succeed
+for some reason, then the message term itself is printed, for example:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>print_message(error,unexpected_error(37)).</kbd>
+! unexpected_error(37)
+</pre></div>
+
+<p><code>'SU_messages':generate_message/3</code> failed because the message term was not recognized.  In
+the following example <code>print_message/2</code> is being called by the default
+exception handler:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>write(A,B).</kbd>
+! Instantiation error in argument 1 of write/2
+! goal:  write(_2107,_2108)
+</pre></div>
+
+<a name="Examples-40"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">:- multifile user:generate_message_hook/3.
+user:generate_message_hook(hello_world) --&gt; 
+        ['hello world'-[],nl].
+</pre></div>
+
+<p>Note that the terminating <code>nl</code> is required.
+</p>
+<a name="Exceptions-107"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p><code>print_message/2</code> checks that the generated list is a valid parse.
+</p>
+<a name="See-Also-113"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dgenerate_005fmessage_005fhook.html#mpg_002dref_002dgenerate_005fmessage_005fhook" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dgarbage_005fcollect_005fatoms.html#mpg_002dref_002dgarbage_005fcollect_005fatoms" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dgenerate_005fmessage.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dgenerate_005fmessage.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Terminology</title>
+
+<meta name="description" content="SICStus Prolog: Terminology">
+<meta name="keywords" content="SICStus Prolog: Terminology">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dcomclient.html#lib_002dcomclient" rel="up" title="lib-comclient">
+<link href="COM-Client-Predicates.html#COM-Client-Predicates" rel="next" title="COM Client Predicates">
+<link href="Preliminaries.html#Preliminaries" rel="prev" title="Preliminaries">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Terminology"></a>
+<hr>
+<a name="Terminology-1"></a>
+<h4 class="subsection">10.14.2 Terminology</h4>
+
+<dl compact="compact">
+<dt><em>ProgID</em></dt>
+<dd><a name="index-ProgID"></a>
+<p>A human readable name for an object class, typically as an atom,
+e.g. <code>'Excel.Application'</code>.
+</p>
+</dd>
+<dt><em>CLSID <span class="roman">(Class Identifier)</span></em></dt>
+<dd><a name="index-CLSID"></a>
+<p>A globally unique identifier of a class, typically as an atom,
+e.g. <code>'{00024500-0000-0000-C000-000000000046}'</code>.
+</p>
+<p>Where it makes sense a <var>ProgID</var> can be used instead of the
+corresponding <var>CLSID</var>.
+</p>
+</dd>
+<dt><em>IID <span class="roman">(Interface Identifier)</span></em></dt>
+<dd><a name="index-IID"></a>
+<p>A globally unique identifier of an
+interface. Currently only the <code>'IDispatch'</code> interface is used so you
+do not have to care about this.
+</p>
+</dd>
+<dt><em>IName <span class="roman">(Interface Name)</span></em></dt>
+<dd><a name="index-IName"></a>
+<p>The human readable name of an interface, e.g.
+<code>'IDispatch'</code>.
+</p>
+<p>Where it makes sense an <var>IName</var> can be used instead of the
+corresponding <var>IID</var>.
+</p>
+</dd>
+<dt><em>Object</em></dt>
+<dd><a name="index-Object"></a>
+<p>A COM-object (or rather a pointer to an interface).
+</p>
+</dd>
+<dt><em>ComValue</em></dt>
+<dd><a name="index-ComValue"></a>
+<p>A value that can be passed from COM to SICStus Prolog. Currently numeric types,
+booleans (treated as 1 for <code>true</code>, 0 for <code>false</code>), strings,
+and COM objects.
+</p>
+</dd>
+<dt><em>ComInArg</em></dt>
+<dd><a name="index-ComInArg"></a>
+<p>A value that can be passed as an input argument to COM, currently
+one of:
+</p><dl compact="compact">
+<dt>atom</dt>
+<dd><p>Passed as a string (BSTR)
+</p></dd>
+<dt>numeric</dt>
+<dd><p>Passed as the corresponding number
+</p></dd>
+<dt>list</dt>
+<dd><p>A code-list is treated as a string.
+</p></dd>
+<dt>COM object</dt>
+<dd><p>A compound term referring to a COM object.
+</p></dd>
+<dt>compound</dt>
+<dd><p>Other compound terms are presently illegal but  will be used to extend
+the permitted types.
+</p></dd>
+</dl>
+
+
+</dd>
+<dt><em>SimpleCallSpec</em></dt>
+<dd><a name="index-SimpleCallSpec"></a>
+<p>Denotes a single method and its arguments. As an example, to call
+the method named <code>foo</code> with the arguments <code>42</code> and the
+string <code>&quot;bar&quot;</code> the <var>SimpleCallSpec</var> would be the compound
+term <code>foo(42,'bar')</code> or, as an alternative, <code>foo(42,&quot;bar&quot;)</code>.
+</p>                
+<p>The arguments of the compound term are treated as follows:
+</p><dl compact="compact">
+<dt><em>ComInArg</em></dt>
+<dd><a name="index-ComInArg-1"></a>
+<p>See above
+</p></dd>
+<dt><em>variable</em></dt>
+<dd><a name="index-variable"></a>
+<p>The argument is assumed to be output. The variable is bound to
+the resulting value when the method returns.
+</p>
+</dd>
+<dt><em>mutable</em></dt>
+<dd><a name="index-mutable"></a>
+<p>The argument is assumed to be input/output. The value of the
+mutable is passed to the method and when the method returns the
+mutable is updated with the corresponding return value.
+</p></dd>
+</dl>
+
+
+</dd>
+<dt><em>CallSpec</em></dt>
+<dd><a name="index-CallSpec"></a>
+<p>Either a SimpleCallSpec or a list of CallSpecs. If it is a
+list then all but the last SimpleCallSpec are assumed to denote
+method calls that return a COM-object. So for instance the VB statement
+<code>app.workbooks.add</code> can be expressed either as:
+</p><div class="example">
+<pre class="example">comclient_invoke_method_proc(App, [workbooks, add])
+</pre></div>
+<p>or as
+</p><div class="example">
+<pre class="example">comclient_invoke_method_fun(App, workbooks, WorkBooks),
+comclient_invoke_method_proc(WorkBooks, add),
+comclient_release(WorkBooks)
+</pre></div>
+
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="COM-Client-Predicates.html#COM-Client-Predicates" accesskey="n" rel="next">Next</a>
+<li><a href="Preliminaries.html#Preliminaries" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dcomclient.html#lib_002dcomclient" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Terminology.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Terminology.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

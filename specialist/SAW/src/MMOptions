@@ -1,0 +1,61 @@
+MetaMap options not applicable to SemRep (remove from SemRep option list):
+--JSONf <integer>
+--JSONn
+--UDA <file>
+--XMLf
+--XMLf1
+--XMLn
+--XMLn1
+--pipe_output
+-a --all_acros_abbrs
+-b --compute_all_mappings
+-D --all_derivational_variants 
+-F --formal_tagger_output 
+-t --no_tagging
+-q --machine_output
+-N --fielded_mmi_output
+-+ --bracketed_output
+-c --show_candidates
+-f --number_the_mappings
+-G –sources 
+-j --dump_aas
+-m --hide_mappings
+-n --number_the_candidates
+-o --allow_overmatches
+-p --hide_plain_syntax
+-s --short_semantic_types
+-T --tagger_output
+-v --variants
+-x –syntax
+--phrases_only
+--warnings
+-8 --dynamic_variant_generation
+-K --ignore_stop_phrases
+
+Options kept from MetaMap and modified:
+-r --threshold <integer> (clashes with write_syntax_only)
+-R --restrict_to_sources <list> (clashes with write_syntax)
+-S --TAGGER_SERVER <none> (clashes generic processing)
+-u --unique_acros_abbrs_only (clashes with unexpanded utterances only)
+
+These exists for both MetaMap and SemRep (with the same key)
+-L --lexicon_year <none> 
+-V --mm_data_version <none>
+-Z --mm_data_year <none> 
+
+These exists for both MetaMap and SemRep (with different keys). Removed from SemRep.
+-C --relaxed_model (-M in SemRep)
+
+Unclear about these:
+--map_thresh <none>
+--mappings_limit <integer>
+--min_length <integer>
+--no_nums <list>
+--no_prune
+--novar <file>
+--num_break
+--prompt <none>
+--show_lex
+--tokenize_only
+--utterances_only
+

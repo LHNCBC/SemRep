@@ -1,0 +1,625 @@
+# -*- Mode:makefile -*-
+# Copyright (C) 2010 Swedish Institute of Computer Science.
+#
+#
+# Common definitions for SICStus Prolog Makefiles. Contains mostly
+# configuration stuff coming from configure.
+#
+
+ifneq ($(COMMON_INCLUDED),yes) # entire file
+override COMMON_INCLUDED := yes
+# [PM] 4.2.0 We need $eval, .SECONDEXPAND etc. GNU make 3.82 is the
+# latest available 3.81 ought to suffice.
+ifeq ($(strip $(.FEATURES)),)
+# .FEATURES variable was introduced in 3.81 and will be non-empty
+$(error This makefile requires GNU make 3.81 or later)
+endif # .FEATURES empty
+
+### Start of section that is seen both when and when not having SP_SMALL_COMMON
+### BEGIN SP_SMALL_COMMON
+
+## Warnings: this section is seen also when SP_SMALL_COMMON
+
+PLATFORM=x86_64-linux-glibc2.17
+OLDSICSTUS=
+WAMFILTER=
+
+## Warnings: this section is seen also when SP_SMALL_COMMON
+
+# numeric value of -DDBG, 'yes' if default 'no' if no debug info.
+DBGFLAG=yes
+# yes if we are building with extra debugging (-DDBG>0)
+DEBUG_BUILD=no
+ifeq ($(DEBUG_BUILD), yes)
+# [PM] 4.2 sp_local_cflags is used for Android NDK build
+# not :=
+sp_local_cflags = $(extra_cflags)
+sp_local_cflags += -DDBG=$(DBGFLAG)
+endif				# DEBUG_BUILD
+
+# Empty, or ends with slash
+# yes if we are building with LLVM JIT enabled (implies JIT=no)
+
+# yes if we are building with (the ordinary) JIT enabled
+JIT=yes
+# yes if we are building with the PPC64LE JIT enabled. Implies JIT=yes.
+JIT_PPC64LE=
+
+SP_JIT_ABI=linuxx64
+SP_JIT_PRELOAD_FAIL=none
+
+# [PM] POWER
+SP_JIT_USE_LQ_STQ=no
+
+# [PM] 4.3 whether invariant/1 et al should be in effect or just no-ops.
+## Warnings: this section is seen also when SP_SMALL_COMMON
+
+
+## Warnings: this section is seen also when SP_SMALL_COMMON
+
+# Useful when used with make functions, see
+# GNU Make Manual, Section "Functions for Transforming Text"
+comma := ,
+empty :=
+space := $(empty) $(empty)
+hash  := \#
+
+## Warnings: this section is seen also when SP_SMALL_COMMON
+
+# [PM] 4.1.3+ hide-trick from Android NDK build system which they stole from Linux build system.
+# -----------------------------------------------------------------------------
+# Macro    : hide
+# Returns  : nothing
+# Usage    : $(hide)<make commands>
+# Rationale: To be used as a prefix for Make build commands to hide them
+#            by default during the build. To show them, set V=1 in your
+#            environment or command-line.
+#
+#            For example:
+#
+#                foo.o: foo.c
+#                -->|$(hide) <build-commands>
+#
+#            Where '-->|' stands for a single tab character.
+#
+# -----------------------------------------------------------------------------
+ifeq ($(V),1)
+hide := $(empty)
+else
+hide := @
+endif
+
+## Warnings: this section is seen also when SP_SMALL_COMMON
+
+
+ifneq ($(findstring android, $(PLATFORM)),)
+CROSS_TARGET := android
+# Numeric Android version (6,7,8,...) or empty if not Android
+SP_ANDROID_PLATFORM := $(patsubst %, android-%,$(PLATFORM))
+ifeq ($(strip $(SP_ANDROID_PLATFORM)),)
+$(error SP_ANDROID_PLATFORM empty, PLATFORM=$(PLATFORM))
+endif				# !SP_ANDROID_PLATFORM
+endif				# PLATFORM ~= android
+
+## Warnings: this section is seen also when SP_SMALL_COMMON
+ifneq ($(findstring cygwin,$(OSTYPE)),)
+SP_CYGWIN_HOST := yes
+endif				# OSTYPE = cygwin
+
+ifeq ($(SP_ANDROID_PLATFORM), yes)
+SP_SMALL_COMMON := yes
+endif
+
+ifeq ($(SP_SMALL_COMMON),yes)
+# Define NATIVEPATH et al manually, instead of relying on configure.
+
+# Do not use CYGPATH explicitly in make files. Instead of,
+# e.g., '$(shell $(CYGPATH) "$<")' do '$(call NATIVEPATH, $<)' (note
+# the absense of double quotes). This avoids calling the shell on
+# non-windows platforms. NATIVEPATH will give a path with forward
+# slashes which works for most Win32 cases and avoids quoting
+# issues. NATIVEPATHBACKSLASH and CYGPATHBACKSLASH generates the fully
+# native paths with backslash
+ifeq ($(SP_CYGWIN_HOST),yes)
+CYGPATH = cygpath -m
+CYGPATHBACKSLASH = cygpath -w
+NATIVEPATH = $(shell $(CYGPATH) "$(strip $(1))")
+NATIVEPATHBACKSLASH = $(shell $(CYGPATHBACKSLASH) "$(strip $(1))")
+else				# native (POSIX)
+# identity functions
+CYGPATH = echo
+CYGPATHBACKSLASH = echo
+NATIVEPATH = $(strip $(1))
+NATIVEPATHBACKSLASH = $(strip $(1))
+endif				# native (POSIX)
+endif				# SP_SMALL_COMMON
+
+
+### END SP_SMALL_COMMON
+# [PM] 4.2 Most things should be conditionalized on SP_SMALL_COMMON != yes
+#      The only exceptions should go above and are things that is
+#      needed when building Android and similar cross-compilation
+#      targets.
+ifneq ($(SP_SMALL_COMMON),yes) # rest of file
+
+# [PM] 4.1.3+ Make verbose the default, for now
+V := 1
+
+# A function for the path of the parent directory, _without_ the terminating slash.
+# Use as $(call parentdir, $(FILE))
+parentdir = $(patsubst %/,%,$(dir $1))
+
+
+POSIX_SHELL=/usr/bin/sh
+
+# [PM] 4.2 was but why? Instead consider SHELL=/usr/bin/sh
+# SHELL=/bin/sh
+
+
+prefix=/nfsvol/nls/II_Group_WorkArea/SICStus/sp-4.4.1-x86_64-linux-glibc2.17
+
+SP_DIRNAME=sicstus-4.4.1
+SP_RTSYS_DIRNAME=sp-4.4.1
+SP_GET_DISPATCH_NAME=SP_get_dispatch_40401
+
+# [PM] 3.11.2 export CYGWIN=nontsec on WinCE, otherwise empty
+
+
+# Obsolete docs: [PM] 4.0.1. export MACOSX_DEPLOYMENT_TARGET=10.4 on Mac OS X, otherwise empty
+
+
+# [PD] 3.10.2beta1 Once upon a time Jesper thought it would be a good
+#           idea to keep this list sorted. Since he left SICS nobody
+#           really cared enough to keep it sorted. The comment below
+#           has been left untouched so his dream can be alive ...
+# Keep this list sorted!
+AR=ar
+ARFLAGS=
+#[PD] 3.8.7 perhaps AS and ASM should be one and same?
+BASH=/usr/bin/sh
+BDBINC=
+BDBLIB=
+BDB_MODULE=
+BENCH_ITERATIONS_SCALE=100
+CC=gcc
+CXX=gcc
+CC_IS_GCC=yes
+CC_IS_CLANG=no
+# [PM] 3.11.2+ $(cflags_extra) should always be empty. It is a hook for passing extra flags while debugging
+CFLAGS=-g -O2 -pipe -D_REENTRANT -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64 -fPIC  -fno-strict-aliasing -ffloat-store -mieee-fp  -Wdeclaration-after-statement -Wmissing-declarations -Wstrict-prototypes -Wunused  -Wall -Wstrict-aliasing -Wdisabled-optimization -Wmissing-prototypes -Wnested-externs -Wpointer-arith -W -Wno-sign-compare -fno-common -fomit-frame-pointer $(cflags_extra)
+CHR_MODULE=chr.po
+
+# [PM] 4.4.0 see Emulator/Makefile
+wam.o_cflags_extra=
+wam_body.o_cflags_extra=
+
+CC_WERROR=-Werror
+# -Wno-conversion on GCC, otherwise may be empty. 
+CC_WNO_CONVERSION_OPTION=-Wno-conversion
+CC_WNO_IMPLICIT_FALLTHROUGH_OPTION=
+CHARMAINOBJ=charmain.o intrpt.o 
+CHMOD=chmod
+CODETYPE=
+COMCLIENTLIB=
+CP=cp
+#[PD] 4.0.0
+CPUCOUNTCOMMAND=:
+#[PD] C# compiler (.NET)
+CSC=no
+#[PD] 3.11.3beta1 Flags for the C# compiler (.NET)
+CSCFLAGS=
+
+# e.g. empty, or /Library/Frameworks/Mono.framework/Commands/mono
+DOTNET_LAUNCHER=
+
+#[PD] J# compiler (.NET)
+VJC=
+#[PD] 4.0.0beta2 Flags for the J# compiler (.NET)
+VJCFLAGS=
+CYGPATH=echo
+CYGPATHBACKSLASH=echo
+# [PM] 3.11.1 Do not use CYGPATH explicitly in make files. Instead of,
+# e.g., '$(shell $(CYGPATH) "$<")' do '$(call NATIVEPATH, $<)' (note
+# the absense of double quotes). This avoids calling the shell on
+# non-windows platforms. NATIVEPATH will give a path with forward
+# slashes which works for most Win32 cases and avoids quoting
+# issues. NATIVEPATHBACKSLASH and CYGPATHBACKSLASH generates the fully
+# native paths with backslash (similar to what CYGPATH did pre 3.11.1)
+#
+NATIVEPATH=$(strip $(1))
+NATIVEPATHBACKSLASH=$(strip $(1))
+DSMAINOBJ=main.o
+
+DT_CC = 
+DT_CC_PATH = 
+DT_OUTPUT_OPT = 
+DT_CFLAGS = 
+DT_CPPFLAGS = 
+DT_LIBS = 
+DT_ENV_INCLUDE = 
+DT_ENV_LIB = 
+
+# [PM] 4.3 where to find vjslib.dll, e.g. $(cygpath -u 'C:/WINDOWS/Microsoft.NET/Framework/v2.0.50727')
+# [PM] 3.9.1 SP_NO_MULTI_SP_FEATURE is yes on particular platforms where multi-sp is disabled
+SP_NO_MULTI_SP_FEATURE=no
+# [PM] 4.2.1 If low level memory allocation can _not_ be hookable
+SP_NO_MEMORY_HOOKS=
+
+ENABLE_STATLIB=yes
+
+ENABLE_CLPFD=yes
+# [PM] 4.0.5 one of no,yes,always
+ENABLE_SYSTEM_SINGLE_THREADED=$(ENABLE_MULTITHREADED_LIBS)
+
+# [PM] 3.9b4 the new pthreads based timeout.c (ignored on windows)
+
+EXPECT_WARNINGS_MULTI_SP_C=no
+EXPFILE_SYMBOL_PREFIX=
+
+DEFAULT_KERNEL_IMPLIB=$(error DEFAULT_KERNEL_IMPLIB should not be used)
+EXEEXT=
+# [PM] 4.1.3+ can be empty if DISABLE_FOREIGN_RESOURCES=yes
+
+GCCLIB=
+# [PM] 4.1.3+ gone
+KERNEL_SHLD_GENIMPLIB=
+IMPLIB=
+INCR_CFLAGS=
+INSTALL_RO_DATA=${INSTALL} -m 444
+ENABLE_JAVA=no
+ENABLE_JAVA_JNI=no
+HIGH_RESOLUTION_TIME_CP=no
+JAR=
+JASPER_MODULE=
+JASPER_SPLFR_FLAGS=
+JAVAC=
+JAVACFLAGS=
+# [PM] 3.8.6 autoconf naively looks for AC_ so this can not be JAVAC_DBGFLAGS
+JAVACDBGFLAGS=
+# [PM] 4.0.2+ consider, e.g. -Xlint:all
+JAVACLINTFLAGS=
+JAVADOC=
+JAVADOCFLAGS=
+JAVAEXEC=
+JAVAH=
+JAVAINC=
+JAVALIB=
+JAVA_CLASSPATH=
+JAVA_EXECOPTS=
+# [PM] 3.12.8 subsumed by JASPER_ENV_ARG
+JASPER_ENV_ARGS=
+ifneq ($(strip $(JASPER_ENV_ARGS)), )
+# [PM] 3.12.8 set environment variables necessary for loading java into sicstus
+#             Subsumes JAVA_PRELOAD
+JASPER_ENV := env $(JASPER_ENV_ARGS)
+endif
+
+JAVAEXEC_ENV_ARGS=
+ifneq ($(strip $(JAVAEXEC_ENV_ARGS)), )
+# [PM] 4.0.3 set environment variables necessary for loading sicstus into java
+JAVAEXEC_ENV := env $(JAVAEXEC_ENV_ARGS)
+endif
+
+LD=ld
+# [PM] 4.0 malloc debug environment vars.
+# On RH set to, e.g. env MALLOC_PERTURB_=47
+# Mac OS X also has similar things, others?
+MALLOC_ENV=
+
+# [PM] 4.0 on MacOS X we need to limit MALLOC_ENV for some OS tools
+MACOSX_MALLOC_SCRIBBLE_KLUDGE := 
+
+
+# [PM] 3.11.2 PrologBeans server module is always built (does not require Java)
+PROLOGBEANS_MODULE := prologbeans.po
+
+# [PM] 3.9.1 LDFLAGS is obsolete, no longer used. LDFLAGS used to
+# contain what is now in SPLD_EXE_LIBS, SPLD_EXE_LDFLAGS and
+# SPLM_LIBS.
+
+LDFLAGS=surely_this_is_an_illegal_arg_if_ever_used_by_mistake
+SPAUXOBJ=spaux.o
+SPLM_LIBS=
+SPLD_EXE_LDFLAGS=
+SPLD_EXE_LIBS=-ldl -lm -lpthread -lrt
+WIN32_SPLD_CC_SPECIAL=
+SPLD_CONFIG_FILE_BASENAME=spconfig-4.4.1
+LD_R=ld -r
+CC_ROPT=-Wl,-rpath,
+SHLD_ROPT=-Wl,-rpath,
+
+SPLFR_LD_r_FLAGS=
+# [PM] 3.9.1 renamed from LINK_OUTPUT_OPT
+# [PM] 4.3 Follow immediately by comment to make visible the space following "-o" on POSIX.
+SHLD_OUTPUT_OPT=-o #
+LN=ln -s
+# [PM] 4.1.3 Locale-name corresponding to en_US.utf8.
+LC_ALL_UTF8_LOCALE_NAME=en_US.utf8
+M4_FLAGS=
+MV=mv
+# [PM] 3.11.3 NOT quoted! Use short path-name or quote at usage
+# [PD] 3.11.3 .NET document generator
+NMEDIT=
+NOLINK_OPT=-c
+# [PM] 4.3 Follow immediately by comment to make visible the space following "-o" on POSIX.
+NOLINK_OUTPUT_OPT=-o #
+NO_UNKNOWN_PRAGMAS=-Wno-unknown-pragmas
+OBJEXT=o
+ODBC_MODULE=
+ODBCINC=
+ODBCLIB=
+OPAGENT_LIB=
+
+# [PM] 4.3.3 CAPSTONE for debugging the jitter. Not part of the product.
+# E.g. -I/usr/local/capstone/include
+# E.g. "-L/usr/local/capstone/lib -lcapstone" (for dynamic linking), or
+#       ".../libcapstone.a" (for static linking)
+
+# [PM] 4.3.2+ OPDIS for debugging the jitter. Not part of the product.
+# E.g. -I/usr/local/opdis/include
+# E.g. -L/usr/local/opdis/lib -lopdis
+
+
+OUTPUT_OPT=-o 
+PARMAKE=
+## [PM] 3.8.6 Note: When setting PATH you should always use colon
+## (:). PATHSEP is for PATH-like arguments to possibly non-UNIX
+## programs (i.e., not to cygwin programs, nor sh/bash builtins).
+PATHSEP=:
+PCACHE=./platform.cache
+PERL=/bin/perl
+# [PM] 4.1 Ensure perl is run in a sane locale. Mainly an issue in Cygwin 1.7
+PERLAPP_MODE=
+PERLAPP_ENABLED=
+
+PLFLAGS=
+QUOTECHAR="
+RANLIB=ranlib
+RM=rm
+RTKERNEL_BASENAME_SANS_SUFFIX=libsprt4-4-1
+RTKERNEL_BASENAME_WITH_DSO_SUFFIX=libsprt4-4-1.so
+RTKERNEL_BASENAME_WITH_STAT_SUFFIX=libsprt4-4-1.a
+RTKERNEL_INSTANCE_TEMPLATE=libsprt4-4-1-instance-XX
+
+KERNEL_STATLIB=$(error KERNEL_STATLIB should not be used, use RTKERNEL_BASENAME_WITH_STAT_SUFFIX instead)
+KERNEL_SHLD_FLAGS=
+SHLD=gcc
+# [PM] 4.2.1 $(shldflags_extra) should always be empty. It is a hook for passing extra flags while debugging
+SHLDFLAGS=-shared    $(shldflags_extra)
+# [PM] 4.2.1 $(kernel_shld_libs_extra) should always be empty. It is a hook for passing extra flags while debugging
+MAPFILEOPT=-Wl,--version-script=
+RTKERNEL_EXPFILE=
+RELEASE_YEAR=2018
+
+
+# Location of the MiniZinc tools.
+MZN2FZN=
+SOLNS2OUT=
+MINIZINC_BIN_DIR=
+
+SHLD_RTKERNELEXP=
+SHPRE=lib
+SHSFX=so
+FLI_SHSFX=so
+JNI_SHSFX=so
+SHVER=
+SICSTUS_MAJOR_VERSION=4
+SICSTUS_MINOR_VERSION=4
+SICSTUS_REVISION_VERSION=1
+SICSTUS_BETA_VERSION=0
+SICSTUS_MICRO_VERSION=1000
+SICSTUS_BUILD_VERSION=4.4.1.1000
+SICSTUS_VERSION_STRING=4.4.1
+SICSTUS_VERSION=40401
+SICSTUS_RELEASE_BUILD=yes
+SP_CLAUSE_ISO_BODY=yes
+SP_CLAUSE_ISO_BODY_NO_META_ARGUMENT_WRAPPING=yes
+SP_AVOID_PREFIX_MINUS_ARGUMENT_BRACKETING=no
+
+SLEEP=
+SOCKETLIB=
+SP_BINAUXDIR=/nfsvol/nls/II_Group_WorkArea/SICStus/sp-4.4.1-x86_64-linux-glibc2.17/lib/sicstus-4.4.1/bin
+SP_BIGENDIAN=no
+
+# yes if 64-bit platform, no if not.
+SP_64 = yes
+
+SP_X86_ = 
+SP_X64_ = yes
+SP_POWER64_ = 
+
+SP_X86 := $(strip $(if $(findstring yes, $(SP_X86_)), yes, no))
+SP_X64 := $(strip $(if $(findstring yes, $(SP_X64_)), yes, no))
+SP_POWER64 := $(strip $(if $(findstring yes, $(SP_POWER64_)), yes, no))
+
+# CPU architecture aliases
+SP_INTEL := $(strip $(if $(findstring yes, $(SP_X86)$(SP_X64)), yes, no))
+SP_X86_64 := $(SP_X64)
+
+
+SPACEOUT_MODULE=
+SPLD_CONFIG_FILE=/nfsvol/nls/II_Group_WorkArea/SICStus/sp-4.4.1-x86_64-linux-glibc2.17/bin/spconfig-4.4.1
+SPLD_DSFLAGS=
+SPLD_TOOLFLAGS=
+SPLD_OPT_MOVEABLE_NEEDS_WRAPPER=no
+SPLD_OPT_WRAPPER_DEFAULT=no
+# [PM] 4.0.5 Empty if we do not support embedded runtime licenses.
+# [PM] 4.0.5 true if either of the USE_RUNTIME_LICENSE_XXX
+
+
+SPVER=$(error [PM] 4.0 SPVER should not be used)
+STSFX=s.o
+SYSTEMLIB=
+# [PD] 3.10.2 TAR is now STDTAR
+STDTAR=/bin/tar
+# [PD] 3.10.2beta1
+# [PM] 4.0.1
+POSIX_GREP=/usr/bin/grep
+# [PM] 4.0.2 
+RMDUMMY=
+TCLINC=
+TCLLIB=
+TCLTK_MODULE=
+
+# [PM] 4.3.1 texi2dvi is completely broken in its handling of $TEX et
+# al. so we need to make them findable on PATH by adding TEXINFODIR.
+
+TIMEOUT_MODULE=timeout.po
+
+# [PM] 4.4.0 Whether library/timeout.pl needs a foreign resource. In effect "yes" prior to 4.4.0.
+TIMEOUT_MODULE_FOREIGN=no
+
+TOP_SRCDIR=/nfsvol/nls/II_Group_WorkArea/SICStus/sp-4.4.1-x86_64-linux-glibc2.17
+ULIMIT_DATA=
+ULIMIT_CMD=ulimit
+
+
+WIN32=no
+WIN64=no
+WINCE=no
+WIN32_EXTRAOBJS=
+WINMAINOBJ=
+
+
+# [PM] 4.0.5 whether VALGRIND should be supported (but still not used unless explicitly on)
+
+VALGRIND=
+# [PM] 4.1.3+ valgrind_flags_extra should always be empty. It is for passing extra flags via make command line
+VALGRIND_FLAGS=--alignment=16 --smc-check=all $(valgrind_flags_extra)
+# [PM] 4.2.1 space separated absolute, or relative to root source dir, paths to valgrind suppression files. Used by make test_valgrind
+# Should be used as ... --suppressions=F1 --suppressions=F2 ...
+VALGRIND_SUPPRESSIONS_FILES=
+
+# [PM] 4.2.1 Tests that should not be run by default on this platform
+SUITE_SKIPPED_TESTS=cplus cplus_stat
+# [PM] 4.2.1 Tests expected to fail on this platform, often a superset of SUITE_SKIPPED_TESTS
+SUITE_EXPECTED_FAILURES=
+
+ifeq ($(CODETYPE),profiledcode)
+PLATFORM_BSTRAP=$(PLATFORM)
+CODE=pql
+endif
+ifeq ($(CODETYPE),compactcode)
+PLATFORM_BSTRAP=$(PLATFORM)
+CODE=cql
+endif
+
+# [PM] 3.9.1 the prolog code library directory (.../lib/sicstus-3.9.1beta1/library)
+SP_LIBRARY_DIR=/nfsvol/nls/II_Group_WorkArea/SICStus/sp-4.4.1-x86_64-linux-glibc2.17/lib/sicstus-4.4.1/library
+
+ifeq ($(WIN32),yes)
+SP_LIBDIR=$(prefix)
+LOCAL_PREFIX=$(TOP_SRCDIR)
+LOCAL_BOOTSTRAP_PREFIX=$(TOP_SRCDIR)
+else
+SP_LIBDIR=$(prefix)/lib/$(SP_DIRNAME)
+LOCAL_PREFIX=$(TOP_SRCDIR)/Utils/$(PLATFORM)
+LOCAL_BOOTSTRAP_PREFIX=$(TOP_SRCDIR)/Utils/$(PLATFORM_BSTRAP)
+endif
+SP_BINDIR=$(prefix)/bin
+
+
+# Executables.
+
+ifeq ($(MAKE_SICSTUS_REFERENCES_ERROR),yes)
+# [PM] 4.1.3 cross compiling
+SICSTUS=$(error Should not reference SICSTUS)
+else
+SICSTUS=$(prefix)/bin/sicstus$(EXEEXT)
+endif
+# [PM] 3.9.2 SPLD_EXEEXT empty except when perlapp is used on Win32 (in which case it is .exe)
+SPLD=$(prefix)/bin/spld$(SPLD_EXEEXT)
+SPLFR=$(prefix)/bin/splfr$(SPLD_EXEEXT)
+
+SPLM=$(prefix)/bin/splm$(EXEEXT)
+SPDET=$(prefix)/bin/spdet$(EXEEXT)
+SPXREF=$(prefix)/bin/spxref$(EXEEXT)
+SPFZ=$(prefix)/bin/spfz$(EXEEXT)
+MZNSP=$(prefix)/bin/mzn-sicstus$(EXEEXT)
+
+# Misc scripts
+MKDIR=mkdir -p
+
+
+# [PM] WinCE
+SP_BIGENDIAN=no
+
+SP_INSTALL_ZCAT=zcat
+
+
+# [PD] 3.10.2
+USE_PAX=no
+
+COMP_QL= Compiler
+BIPS_QL= Bips
+
+
+
+## [PM] 3.9 Common defines for making sicstus exit with error code if
+##          an error or warning occurs (e.g., during compile).
+##          Prefix any goal sent to sicstus with $(BARF_ON_ERROR), e.g.,
+##          echo "$(BARF_ON_ERROR), fcompile(foo)." | sicstus -f
+## [PD] 3.9 FIXME: BARF_ERROR_38 affects SICStus 3.9, so BARF_ERROR below
+##          cannot be defined as both BARF_ERROR_38 and BARF_ERROR_39.
+
+# barf if we get error
+# [PM] 3.9 OLDSICSTUS may be 3.8 or 3.9
+
+# [PM] 3.9b5 broken: BARF_ERROR := $(BARF_ERROR_38) $(BARF_ERROR_39)
+# [PM] 3.9b5 works in 3.8 and 3.9
+# [PM] 3.12.2 must be "recursively expanded" variable so we can override CUT_FAIL_FOR_IGNORED_PROLOG_ERRORS
+BARF_ERROR = asserta(user:(portray_message(error, _Message) :- $(CUT_FAIL_FOR_IGNORED_PROLOG_ERRORS) abolish(user:portray_message/2), print_message(error, _Message), halt(1))), 
+
+# [PM] 3.12.2 now define FAIL_FOR_IGNORED_PROLOG_WARNINGS only where needed
+# # [PM] 3.10 Do not barf at ... is previously loaded into module user now it is reloaded into module dummy
+# #           reload(File,OldM,NewM)
+# #           Could use \+ but afraid the backslash would confuse the shell
+# FAIL_FOR_IGNORED_PROLOG_WARNINGS := ((_Message=reload(_File,_OldM,_NewM), _OldM==user, _NewM==dummy) -> fail; true),
+
+# Barf if we get error or warning
+# [PM] 3.9b5 works in 3.8 and 3.9
+# [PM] 3.12.2 must be "recursively expanded" variable so we can override FAIL_FOR_IGNORED_PROLOG_WARNINGS
+BARF_WARNING = asserta(user:(portray_message(warning, _Message) :- $(FAIL_FOR_IGNORED_PROLOG_WARNINGS) abolish(user:portray_message/2), print_message(warning, _Message), halt(1))), 
+
+BARF_REDEFINED = asserta(user:(portray_message(_, _Message) :- _Message = redefined(_,_,_,_), $(FAIL_FOR_IGNORED_PROLOG_WARNINGS) abolish(user:portray_message/2), print_message(warning, _Message), halt(1))), 
+
+
+# Barf only on errors
+# BARF_ON_ERROR := $(BARF_ERROR)
+# Barf on errors and warnings (there should be no warnings).
+
+# [PM] 3.12.2 must be "recursively expanded" variable so we can
+#      override CUT_FAIL_FOR_IGNORED_PROLOG_ERRORS and
+#      FAIL_FOR_IGNORED_PROLOG_WARNINGS
+BARF_ON_ERROR = $(BARF_WARNING) $(BARF_ERROR)
+
+# [PM] 4.1.3+ convert "a b c" into "[ a, b, c ]"
+# I do not understand why $(strip $1) is needed, just $(if $1, ...) ought to suffice but does not (GNU Make 3.81)
+MAKE_PROLOG_LIST = [ $(strip $(if $(strip $1), $(addsuffix $(comma), $(wordlist 2,$(words $1), x $1)) $(word $(words $1),$1))) ]
+
+# [PM] 4.1.3+ convert "a b c" into "[ 'a', 'b', 'c' ]"
+MAKE_PROLOG_LIST_QUOTED_ELEMENTS = $(call MAKE_PROLOG_LIST, $(foreach t,$1,'$(t)'))
+
+
+# Make sure that nobody runs the clean-targets by mistake
+.PHONY: def_internal
+def_internal:
+	$(error There is no default target in this Makefile. Use explicit target(s) instead.)
+	@echo "There is no default target in this Makefile"
+	@echo "Use explicit target(s) instead."
+
+# Default values for clean-targets
+.PHONY: clean distclean maintainerclean mostlyclean
+
+# [PM] 3.10.2 SPRM 5244 Emulator/Makefile deletes more in clean target than in distclean
+# distclean: clean
+
+# [PM] 3.9 delete failed targets (GNU Make specific)
+# NO_DELETE_ON_ERROR is set from Suite/Makefile
+ifneq ($(NO_DELETE_ON_ERROR),yes)
+.DELETE_ON_ERROR:
+endif
+
+endif # SP_SMALL_COMMON != yes
+
+endif # COMMON_INCLUDED != yes

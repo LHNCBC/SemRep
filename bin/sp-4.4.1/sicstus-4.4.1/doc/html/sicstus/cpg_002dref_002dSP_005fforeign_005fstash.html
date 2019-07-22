@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_foreign_stash</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_foreign_stash">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_foreign_stash">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005ffprintf.html#cpg_002dref_002dSP_005ffprintf" rel="next" title="cpg-ref-SP_fprintf">
+<link href="cpg_002dref_002dSP_005ffopen.html#cpg_002dref_002dSP_005ffopen" rel="prev" title="cpg-ref-SP_fopen">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fforeign_005fstash"></a>
+<hr>
+<a name="SP_005fforeign_005fstash_0028_0029---macro"></a>
+<h4 class="subsection">12.3.21 <code>SP_foreign_stash()</code> &nbsp;<!-- /@w --> <i>macro</i></h4>
+<a name="index-SP_005fforeign_005fstash_0028_0029-_0028C-macro_0029-1"></a>
+
+<a name="Synopsis-301"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+void *
+SP_foreign_stash();
+</pre></div>
+
+<p>Obtains a storage location that is unique to the calling foreign resource.
+</p>
+<a name="Return-Value-18"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>The location, initially set to <code>NULL</code>.
+</p>
+<a name="Description-198"></a>
+<h4 class="subheading">Description</h4>
+
+<p>A dynamic foreign resource that is used by multiple SICStus
+runtimes in the same process may need to maintain a global state that
+is kept separate for each SICStus runtime. Each SICStus runtime
+maintains a location (containing a <code>void*</code>) for each foreign
+resource. A foreign resource can then access this location to
+store any data that is specific to the calling SICStus runtime.
+</p>
+<p>You can use <code>SP_foreign_stash()</code> to get access to a location,
+where the foreign resource can store a <code>void*</code>. Typically this
+would be a pointer to a C struct that holds all information that need
+to be stored in global variables. This struct can be allocated and
+initialized by the foreign resource init function, it should be
+deallocated by the foreign resource deinit function.
+</p>
+<p><code>SP_foreign_stash()</code> is only available for use in dynamic
+foreign resources.
+</p>
+<a name="Examples-103"></a>
+<h4 class="subheading">Examples</h4>
+
+<p>The value returned by <code>SP_foreign_stash()</code> is only valid
+until the next SICStus API call. The correct way to initialize the
+location pointed at by <code>SP_foreign_stash()</code> is therefore:
+</p><div class="example">
+<pre class="example">struct my_state {&hellip;};
+
+init_my_foreign_resource(&hellip;)
+{
+   struct my_state *p = SP_malloc(sizeof(struct my_state));
+   (*SP_foreign_stash()) = (void*)p;
+}
+</pre></div>
+
+<p>The following example is incorrect; <code>SP_malloc()</code> may be called
+between the time <code>SP_foreign_stash()</code> is called and the time its
+return value is used:
+</p><div class="example">
+<pre class="example">// WRONG
+(*SP_foreign_stash()) = SP_malloc(sizeof(struct my_state));
+</pre></div>
+
+<a name="See-Also-298"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="OS-Threads.html#OS-Threads">OS Threads</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005ffprintf.html#cpg_002dref_002dSP_005ffprintf" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005ffopen.html#cpg_002dref_002dSP_005ffopen" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fforeign_005fstash.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fforeign_005fstash.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-bas-ucl</title>
+
+<meta name="description" content="SICStus Prolog: obj-bas-ucl">
+<meta name="keywords" content="SICStus Prolog: obj-bas-ucl">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dbas.html#obj_002dbas" rel="up" title="obj-bas">
+<link href="obj_002dbas_002dla.html#obj_002dbas_002dla" rel="next" title="obj-bas-la">
+<link href="obj_002dbas_002ddef.html#obj_002dbas_002ddef" rel="prev" title="obj-bas-def">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dbas_002ducl"></a>
+<hr>
+<a name="Using-Classes"></a>
+<h4 class="subsubsection">10.23.1.3 Using Classes</h4>
+
+
+<p>Given this definition, the following command creates an instance of
+the point class, assigning values to its <code>x</code> and <code>y</code> slots,
+and prints a description of the point.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(point(3,4), PointObj),
+     PointObj &lt;- print(user_output).</kbd>
+</pre></div>
+
+
+<p>The print message prints <code>(3.0,4.0)</code>. The variable
+<code>PointObj</code> is bound to a Prolog term of the form
+</p>
+<div class="example">
+<pre class="example"><code>point(<var>Address</var>)</code>
+</pre></div>
+
+
+<p>where <var>Address</var> is essentially a pointer to the object.
+</p>
+<p>In general, an object belonging to a class <var>ClassName</var> will be
+represented by a Prolog term of the form
+</p>
+<div class="example">
+<pre class="example"><var>ClassName(Address)</var>
+</pre></div>
+
+
+<p>The name <var>ClassName</var> must be an atom. This manual refers to such a
+term as if it were the object, not just a pointer to the object.
+Users are strongly discouraged from attempting to do pointer
+arithmetic with the address.
+</p>
+<p>After execution of this command, the point object still exists, but
+the variable <code>PointObj</code> can no longer be used to access it. So,
+while objects resemble clauses asserted into the Prolog database in
+their persistence, there is no automatic way to search for an object.
+Objects are not automatically destroyed when they are no longer
+needed. And, there is no automatic way to save an object from one
+Prolog session to the next. It is the responsibility of the
+programmer to keep track of objects, perhaps calling the
+<code>destroy/1</code> predicate for particular objects that are no longer
+needed or asserting bookkeeping facts into the Prolog database to keep
+track of important objects.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dbas_002dla.html#obj_002dbas_002dla" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dbas_002ddef.html#obj_002dbas_002ddef" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dbas.html#obj_002dbas" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dbas_002ducl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dbas_002ducl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: too-spfz</title>
+
+<meta name="description" content="SICStus Prolog: too-spfz">
+<meta name="keywords" content="SICStus Prolog: too-spfz">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Command-Reference-Pages.html#Command-Reference-Pages" rel="up" title="Command Reference Pages">
+<link href="too_002dspdet.html#too_002dspdet" rel="next" title="too-spdet">
+<link href="too_002dmzn_002dsicstus.html#too_002dmzn_002dsicstus" rel="prev" title="too-mzn-sicstus">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="too_002dspfz"></a>
+<hr>
+<a name="spfz-_002d_002d_002d-FlatZinc-Interpreter"></a>
+<h3 class="section">13.3 <code>spfz</code> &mdash; FlatZinc Interpreter</h3>
+
+
+<a name="index-spfz_00281_0029-_0028command-line-tool_0029"></a>
+
+<a name="Synopsis-391"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">% <kbd>spfz [-help | --help | -?] [-n <var>N</var> | -a] [-search <var>S</var>] [-time <var>T</var>] [-r <var>R</var>] [-s] [-o <var>ofile</var>]</kbd> <var>fznfile</var>
+</pre></div>
+
+<a name="Description-229"></a>
+<h4 class="subheading">Description</h4>
+
+<p>This tool interprets the FlatZinc (&lsquo;<samp>.fzn</samp>&rsquo;) file <var>fznfile</var> with
+options taken from the command line.
+</p>
+<a name="Options-3"></a>
+<h4 class="subheading">Options</h4>
+
+<dl compact="compact">
+<dt><samp>-help, --help, -?</samp></dt>
+<dd><p>Print a help message explaining the options.
+</p></dd>
+<dt><samp>-n <var>N</var></samp></dt>
+<dd><p>Number of solutions. The default is 1; 0 means all solutions.
+</p></dd>
+<dt><samp>-a</samp></dt>
+<dd><p>All solutions.  The same as <samp>-n 0</samp>.
+</p></dd>
+<dt><samp>-search <var>S</var></samp></dt>
+<dd><p>Optimization method is <var>S</var>, one of <code>bab</code> (the default) and <code>restart</code>.
+</p></dd>
+<dt><samp>-time <var>T</var></samp></dt>
+<dd><p>Time cutoff after <var>T</var> ms.
+</p></dd>
+<dt><samp>-r <var>R</var></samp></dt>
+<dd><p>Set the random seed to <var>R</var> first.
+The default is to use the same random seed every run.
+</p></dd>
+<dt><samp>-s</samp></dt>
+<dd><p>Emit post-execution statistics.
+</p></dd>
+<dt><samp>-o <var>ofile</var></samp></dt>
+<dd><p>Redirect the output to file <var>ofile</var>.
+</p></dd>
+</dl>
+
+<a name="See-Also-388"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="lib_002dzinc.html#lib_002dzinc">lib-zinc</a>.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="too_002dspdet.html#too_002dspdet" accesskey="n" rel="next">Next</a>
+<li><a href="too_002dmzn_002dsicstus.html#too_002dmzn_002dsicstus" accesskey="p" rel="prev">Previous</a>
+<li><a href="Command-Reference-Pages.html#Command-Reference-Pages" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/too_002dspfz.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/too_002dspfz.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

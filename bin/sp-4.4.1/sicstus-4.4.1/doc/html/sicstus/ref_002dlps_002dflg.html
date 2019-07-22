@@ -1,0 +1,693 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lps-flg</title>
+
+<meta name="description" content="SICStus Prolog: ref-lps-flg">
+<meta name="keywords" content="SICStus Prolog: ref-lps-flg">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlps.html#ref_002dlps" rel="up" title="ref-lps">
+<link href="ref_002dlps_002dlco.html#ref_002dlps_002dlco" rel="next" title="ref-lps-lco">
+<link href="ref_002dlps_002dapf.html#ref_002dlps_002dapf" rel="prev" title="ref-lps-apf">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlps_002dflg"></a>
+<hr>
+<a name="Prolog-Flags"></a>
+<h4 class="subsection">4.9.4 Prolog Flags</h4>
+
+<p>Certain aspects of the state of the program are accessible as values
+of the global Prolog flags.  Some of these flags are read-only and
+correspond to implementation defined properties and exist to aid
+portability.  Others can be set and impact the behavior of certain
+built-in predicates.
+</p>
+<p>The flags are accessed by the built-in predicates <code>prolog_flag/[2,3]</code>,
+<code>current_prolog_flag/2</code>, and <code>set_prolog_flag/2</code>.
+</p>
+<p><strong>Please note</strong>: Prolog flags are <em>global</em>, as opposed to being
+local to the current module, Prolog text, or otherwise.
+</p>
+<p>The possible Prolog flag names and values are listed below. Flags
+annotated <em>ISO</em> are prescribed by the ISO standard. Flags
+annotated <em>volatile</em> are not saved by <code>save_program/[1,2]</code>.
+Flags annotated <em>read-only</em> are read-only:
+</p>
+
+<dl compact="compact">
+<dt><code>agc_margin</code></dt>
+<dd><a name="index-agc_005fmargin-_0028prolog-flag_0029"></a>
+<p>An integer <var>Margin</var>.  The atoms will be garbage
+collected when <var>Margin</var> new atoms have been created since the
+last atom garbage collection.  Initially 10000.
+</p>
+</dd>
+<dt><code>argv &nbsp;<!-- /@w --> <i>volatile</i></code></dt>
+<dd><a name="index-argv-_0028prolog-flag_0029"></a>
+<p>The value is a list of atoms of the
+program arguments supplied when the current SICStus Prolog
+process was started.  For example, if SICStus Prolog were invoked with:
+</p>
+<div class="example">
+<pre class="example">% <kbd>sicstus -- hello world 2001</kbd>
+</pre></div>
+
+<p>then the value will be <code>[hello,world,'2001']</code>.
+</p>
+<p>Setting the value can be useful when writing test cases for code that
+expects to be run with command line parameters.
+</p>
+</dd>
+<dt><code>bounded       &nbsp;<!-- /@w --> <i>read-only</i>,<i>volatile</i>,<i>ISO</i></code></dt>
+<dd><a name="index-bounded-_0028prolog-flag_0029"></a>
+<p>One of the flags defining the integer type. For
+SICStus, its value is <code>false</code>, indicating that the domain of
+integers is practically unbounded.
+</p>
+</dd>
+<dt><code>char_conversion       &nbsp;<!-- /@w --> <i>volatile</i>,<i>ISO</i></code></dt>
+<dd><a name="index-char_005fconversion-_0028prolog-flag_0029-1"></a>
+<p>If this flag is <code>on</code>, then unquoted characters in terms and
+programs read in will be converted, as specified by previous
+invocations of <code>char_conversion/2</code>. If the flag is <code>off</code>, then no
+conversion will take place. The default value is <code>on</code>.
+</p>
+</dd>
+<dt><code>compiling</code></dt>
+<dd><a name="index-compiling-_0028prolog-flag_0029-2"></a>
+<p>Governs the mode in which <code>compile/1</code> operate (see <a href="ref_002dlod.html#ref_002dlod">ref-lod</a>).
+</p>
+<dl compact="compact">
+<dt><code>compactcode</code></dt>
+<dd><a name="index-compactcode-_0028compiling-flag-value_0029-1"></a>
+<p>Compilation produces byte-coded abstract instructions (the
+default).
+</p>
+</dd>
+<dt><code>debugcode</code></dt>
+<dd><a name="index-debugcode-_0028compiling-flag-value_0029-1"></a>
+<p>Compiling is replaced by consulting.
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>debugging &nbsp;<!-- /@w --> <i>volatile</i></code></dt>
+<dd><a name="index-debugging-_0028prolog-flag_0029"></a>
+<p>Corresponds to the predicates <code>debug/0</code>, <code>nodebug/0</code>,
+<code>trace/0</code>, <code>notrace/0</code>, <code>zip/0</code>, <code>nozip/0</code>. The
+flag describes the mode the debugger is in, or is required to be
+switched to:
+</p>
+<dl compact="compact">
+<dt><code>trace</code></dt>
+<dd><a name="index-trace-_0028debugging-flag-value_0029"></a>
+<p>Trace mode (the debugger is creeping).
+</p>
+</dd>
+<dt><code>debug</code></dt>
+<dd><a name="index-debug-_0028debugging-flag-value_0029"></a>
+<p>Debug mode (the debugger is leaping).
+</p>
+</dd>
+<dt><code>zip</code></dt>
+<dd><a name="index-zip-_0028debugging-flag-value_0029"></a>
+<p>Zip mode (the debugger is zipping).
+</p>
+</dd>
+<dt><code>off</code></dt>
+<dd><a name="index-off-_0028debugging-flag-value_0029"></a>
+<p>The debugger is switched off (the default).
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>debug       &nbsp;<!-- /@w --> <i>volatile</i>,<i>ISO</i></code></dt>
+<dd><a name="index-debug-_0028prolog-flag_0029"></a>
+<p>The flag <code>debug</code>, prescribed by the ISO Prolog standard, is a
+simplified form of the <code>debugging</code> flag:
+</p>
+<dl compact="compact">
+<dt><code>off &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-off-_0028debug-flag-value_0029"></a>
+<p>The debugger is switched off (the default).
+</p>
+</dd>
+<dt><code>on &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-on-_0028debug-flag-value_0029"></a>
+<p>The debugger is switched on (to trace mode, if previously switched
+off).
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>profiling &nbsp;<!-- /@w --> <i>since release 4.2</i></code></dt>
+<dd><a name="index-profiling-_0028prolog-flag_0029"></a>
+<p>This flag describes the mode the execution profiler (see <a href="Execution-Profiling.html#Execution-Profiling">Execution Profiling</a>) is in, or is required to be switched to:
+</p>
+<dl compact="compact">
+<dt><code>off</code></dt>
+<dd><a name="index-off-_0028profiling-flag-value_0029"></a>
+<p>The profiler is switched off (the default).
+</p>
+</dd>
+<dt><code>on</code></dt>
+<dd><a name="index-on-_0028profiling-flag-value_0029"></a>
+<p>The profiler is switched on.
+</p></dd>
+</dl>
+
+<p>(The flags <code>profiling</code>, <code>debugging</code> and <code>debug</code> have no effect in
+runtime systems.)
+</p>
+</dd>
+<dt><code>double_quotes       &nbsp;<!-- /@w --> <i>volatile</i>,<i>ISO</i></code></dt>
+<dd><a name="index-double_005fquotes-_0028prolog-flag_0029-2"></a>
+<p>Governs the interpretation of double quoted strings
+(see <a href="ref_002dsyn_002dcpt_002dsli.html#ref_002dsyn_002dcpt_002dsli">ref-syn-cpt-sli</a>):
+</p>
+<dl compact="compact">
+<dt><code>codes &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-codes-_0028double_005fquotes-flag-value_0029"></a>
+<p>Code-list comprising the string.  The default.
+</p>
+</dd>
+<dt><code>chars &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-chars-_0028double_005fquotes-flag-value_0029"></a>
+<p>Char-list comprising the string.
+</p>
+</dd>
+<dt><code>atom &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-atom-_0028double_005fquotes-flag-value_0029"></a>
+<p>The atom composed of the same characters as the string.
+</p></dd>
+</dl>
+
+
+</dd>
+<dt><code>quoted_charset</code></dt>
+<dd><a name="index-quoted_005fcharset-_0028prolog-flag_0029"></a>
+<p>This flag is relevant when <code>quoted(true)</code> holds when writing terms.
+Its value should be one of the atoms:
+</p>
+<dl compact="compact">
+<dt><code>portable</code></dt>
+<dd><a name="index-portable-_0028quoted_005fcharset-flag-value_0029"></a>
+<p>Atoms and functors are written using character codes less than 128
+only, i.e. using the 7-bit subset of the <span class="nolinebreak">ISO-8859-1</span><!-- /@w --> (Latin 1)
+character set (see <a href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">ref-syn-syn-tok</a>).
+</p>
+</dd>
+<dt><code>prolog</code></dt>
+<dd><a name="index-prolog-_0028quoted_005fcharset-flag-value_0029"></a>
+
+
+<p>Atoms and functors are written using a character set that can be read
+back by <code>read/[1,2]</code>. This is a subset of Unicode that includes all
+of <span class="nolinebreak">ISO-8859-1</span><!-- /@w --> (Latin 1) as well as some additional characters.
+</p>
+<p>This character set may grow but not shrink in subsequent releases. This
+ensures that future releases can always read a term written by an older
+release.
+</p>
+<p>Note that the character set supported by the stream is not taken into
+account. You can use <code>portable</code> instead of <code>prolog</code> if the
+stream does not support Unicode.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>debugger_print_options</code></dt>
+<dd><a name="index-debugger_005fprint_005foptions-_0028prolog-flag_0029"></a>
+<p>The value is a list of options for <code>write_term/3</code>
+(see <a href="ref_002diou_002dtou_002dwrt.html#ref_002diou_002dtou_002dwrt">ref-iou-tou-wrt</a>), to be used in the debugger&rsquo;s messages.  The initial
+value is
+<code>[quoted(true),numbervars(true),portrayed(true),max_depth(10)]</code>.
+</p>
+</dd>
+<dt><code>dialect &nbsp;<!-- /@w --> <i>since release 4.1</i>,<i>read-only</i></code></dt>
+<dd><a name="index-dialect-_0028prolog-flag_0029-1"></a>
+<p>The value of this flag is <code>sicstus</code>. It is useful for
+distinguishing between Prolog implementations.
+</p>
+<p>Also see the Prolog flag <code>version_data</code>, below.
+</p>
+</dd>
+<dt><code>discontiguous_warnings &nbsp;<!-- /@w --> <i>volatile</i></code></dt>
+<dd><a name="index-discontiguous_005fwarnings-_0028prolog-flag_0029-2"></a>
+<p><code>on</code> or <code>off</code>.  Enable or disable warning messages when
+clauses are not together in source files.  Initially <code>on</code> in
+development systems, <code>off</code> in runtime systems.
+</p>
+</dd>
+<dt><code>fileerrors</code></dt>
+<dd><a name="index-fileerrors-_0028prolog-flag_0029-2"></a>
+<p><code>on</code> or <code>off</code>.  Enables or disables raising of file error
+exceptions.  Initially <code>on</code> (enabled).
+</p>
+</dd>
+<dt><code>gc</code></dt>
+<dd><a name="index-gc-_0028prolog-flag_0029"></a>
+<p><code>on</code> or <code>off</code>.  Enables or disables garbage collection
+of the global stack.  Initially <code>on</code> (enabled).
+<a name="index-garbage-collection"></a>
+<a name="index-collection_002c-garbage"></a>
+</p>
+</dd>
+<dt><code>gc_margin</code></dt>
+<dd><a name="index-gc_005fmargin-_0028prolog-flag_0029"></a>
+<p><var>Margin</var>: At least <var>Margin</var> kilobytes of free global stack space
+are guaranteed to exist after a garbage collection.  Also, no
+garbage collection is attempted unless the global stack is at
+least <var>Margin</var> kilobytes.  Initially 1000.
+</p>
+</dd>
+<dt><code>gc_trace</code></dt>
+<dd><a name="index-gc_005ftrace-_0028prolog-flag_0029"></a>
+<p>Governs global stack garbage collection trace messages.
+</p>
+<dl compact="compact">
+<dt><code>verbose</code></dt>
+<dd><a name="index-verbose-_0028gc_005ftrace-flag-value_0029"></a>
+<p>Turn on verbose tracing of garbage collection.
+</p>
+</dd>
+<dt><code>terse</code></dt>
+<dd><a name="index-terse-_0028gc_005ftrace-flag-value_0029"></a>
+<p>Turn on terse tracing of garbage collection.
+</p>
+</dd>
+<dt><code>off</code></dt>
+<dd><a name="index-off-_0028gc_005ftrace-flag-value_0029"></a>
+<p>Turn off tracing of garbage collection (the default).
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>host_type &nbsp;<!-- /@w --> <i>read-only</i>,<i>volatile</i></code></dt>
+<dd><a name="index-host_005ftype-_0028prolog-flag_0029-1"></a>
+<p>The value is an atom identifying the platform
+on which SICStus was compiled, such as <code>'x86-linux-glibc2.1'</code>
+or <code>'sparc-solaris-5.7'</code>.
+</p>
+</dd>
+<dt><code>informational &nbsp;<!-- /@w --> <i>volatile</i></code></dt>
+<dd><a name="index-informational-_0028prolog-flag_0029"></a>
+<p><code>on</code> or <code>off</code>.  Enables or disables the printing of
+informational messages.  Initially <code>on</code> (printing enabled) in
+development systems, unless the <samp>--noinfo</samp> command line option
+was used; <code>off</code> (printing disabled) in runtime systems.
+</p>
+</dd>
+<dt><code>integer_rounding_function       &nbsp;<!-- /@w --> <i>read-only</i>,<i>volatile</i>,<i>ISO</i></code></dt>
+<dd><a name="index-integer_005frounding_005ffunction-_0028prolog-flag_0029"></a>
+<p>One of the flags defining the integer type. In
+SICStus Prolog its value is <code>toward_zero</code>, indicating that the
+integer division (<code>(//)/2</code>) and integer remainder (<code>rem/2</code>)
+arithmetic functions use rounding toward zero; see <a href="ref_002dari.html#ref_002dari">ref-ari</a>.
+</p>
+</dd>
+<dt><code>legacy_char_classification &nbsp;<!-- /@w --> <i>since release 4.0.3</i>,<i>volatile</i></code></dt>
+<dd><a name="index-legacy_005fchar_005fclassification-_0028prolog-flag_0029-2"></a>
+<p><code>on</code> or <code>off</code>.  When enabled, most legal Unicode codepoints
+above 255 are treated as lowercase characters when reading Prolog
+terms. This improves compatibility with earlier versions of SICStus
+Prolog and makes it possible to use full Unicode, e.g. Chinese characters, in
+unquoted atoms as well as variable names, <a href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">ref-syn-syn-tok</a>.
+Initially <code>off</code> (disabled).
+</p>
+<p>Setting this flag affects the <code>read_term/[2,3]</code> option
+<code>singletons/1</code>; see <a href="mpg_002dref_002dread_005fterm.html#mpg_002dref_002dread_005fterm">mpg-ref-read_term</a>. It also affects the
+style warning for singleton variables; see the description of the
+<code>single_var_warnings</code> in <a href="ref_002dlod_002dlod.html#ref_002dlod_002dlod">The Load Predicates</a>.
+</p>
+</dd>
+<dt><code>max_arity       &nbsp;<!-- /@w --> <i>read-only</i>,<i>volatile</i>,<i>ISO</i></code></dt>
+<dd><a name="index-max_005farity-_0028prolog-flag_0029"></a>
+<p>Specifies the maximum arity allowed for a
+compound term. In SICStus Prolog this is 255.
+</p>
+</dd>
+<dt><code>max_integer       &nbsp;<!-- /@w --> <i>read-only</i>,<i>volatile</i>,<i>ISO</i></code></dt>
+<dd><a name="index-max_005finteger-_0028prolog-flag_0029"></a>
+<p>Specifies the largest possible integer value. As in
+SICStus Prolog the range of integers in not bounded,
+<code>prolog_flag/[2,3]</code> and <code>current_prolog_flag/2</code> will fail when
+accessing this flag.
+</p>
+</dd>
+<dt><code>max_tagged_integer &nbsp;<!-- /@w --> <i>since release 4.1</i>,<i>read-only</i>,<i>volatile</i></code></dt>
+<dd><a name="index-max_005ftagged_005finteger-_0028prolog-flag_0029-1"></a>
+<p>The largest small integer, i.e. integers larger than this are
+less efficient to manipulate and are not available in <code>library(clpfd)</code>.
+</p>
+</dd>
+<dt><code>min_integer       &nbsp;<!-- /@w --> <i>read-only</i>,<i>volatile</i>,<i>ISO</i></code></dt>
+<dd><a name="index-min_005finteger-_0028prolog-flag_0029"></a>
+<p>Specifies the smallest possible integer value. As in
+SICStus Prolog the range of integers in not bounded,
+<code>prolog_flag/[2,3]</code> and <code>current_prolog_flag/2</code> will fail, when
+accessing this flag.
+</p>
+</dd>
+<dt><code>min_tagged_integer &nbsp;<!-- /@w --> <i>since release 4.1</i>,<i>read-only</i>,<i>volatile</i></code></dt>
+<dd><a name="index-min_005ftagged_005finteger-_0028prolog-flag_0029-1"></a>
+<p>The smallest small integer, i.e. integers smaller than this are
+less efficient to manipulate and are not available in <code>library(clpfd)</code>.
+</p>
+</dd>
+<dt><code>os_data &nbsp;<!-- /@w --> <i>since release 4.1</i>,<i>read-only</i>,<i>volatile</i></code></dt>
+<dd><a name="index-os_005fdata-_0028prolog-flag_0029"></a>
+<p>The value is a term <code>os(Family,Name,Extra)</code> describing the
+operating system on which this SICStus process is running, i.e. it is
+the runtime version of the <code>platform_data</code> flag, below.
+</p>
+<p><var>Family</var> has the same value and meaning as for the
+<code>platform_data</code> flag, below.
+</p>
+<p>On UNIX-like systems the <var>Name</var> is the lower case value
+<code>sysname</code> returned from <code>uname(3)</code> at runtime, i.e. the same as from
+the comamnd <code>uname -s</code>. On all supported versions of Microsoft
+Windows this is <code>win32nt</code>.
+</p>
+<p><code>Extra</code> is a list of extra information. Entries may be added to
+this list without prior notice.
+</p>
+<p>Currently, at least up to release 4.2.3, the <var>Family</var> and <var>Name</var>
+for the <code>platform_data</code> and <code>os_data</code> flags happens to be the
+same but this may change in the unlikely case that the operating system
+starts to return something new. For this reason it is probably better to
+use <code>platform_data</code> than <code>os_data</code> in most cases.
+</p>
+<p>The
+<code>Extra</code> value for <code>os_data</code> may differ from its
+<code>platform_data</code> counterpart in order to accurately describe the
+running operating system.
+</p>
+</dd>
+<dt><code>platform_data &nbsp;<!-- /@w --> <i>since release 4.1</i>,<i>read-only</i>,<i>volatile</i></code></dt>
+<dd><a name="index-platform_005fdata-_0028prolog-flag_0029"></a>
+<p>The value is a term <code>platform(Family,Name,Extra)</code> describing the
+operating system platform for which this version of SICStus was built.
+</p>
+<p><var>Family</var> describes the family or class of operating
+system. Currently documented values are <code>unix</code>, for UNIX-like systems like
+Linux, OS X, Solaris and Androind; and
+<code>windows</code> for all supported versions of Microsoft Windows. You should not assume
+that these are the only two possibilities.
+</p>
+<p><var>Name</var> describes the name of the operating system. On UNIX-like
+systems this correspond to the (lower case) output from <code>uname
+-s</code>. Currently documented values are <code>linux</code>, <code>darwin</code>,
+<code>sunos</code>, <code>android</code> and <code>win32nt</code>.
+</p>
+<p>Note that this implies that some operating systems may have unexpected
+names. In particular the name for Apple OS X is <code>darwin</code>, for
+Oracle Solaris it is <code>sunos</code> and for 64-bit versions of SICStus on
+Microsoft Windows it is <code>win32nt</code>.
+</p>
+<p><code>Extra</code> is bound to a list of extra information. Entries may be
+added to this list without prior notice.
+</p>
+</dd>
+<dt><code>redefine_warnings</code></dt>
+<dd><a name="index-redefine_005fwarnings-_0028prolog-flag_0029-1"></a>
+<p>Enable or disable warning messages when:
+</p>
+<ul>
+<li> a module or predicate is being redefined from a different
+file than its previous definition.  Such warnings are currently not
+issued when a &lsquo;<samp>.po</samp>&rsquo; file is being loaded.
+</li><li> a predicate is being
+imported while it was locally defined already.
+</li><li> a predicate is being
+redefined locally while it was imported already.
+</li><li> a predicate is being
+imported while it was imported from another module already.
+</li></ul>
+
+<p>The possible values are:
+</p>
+<dl compact="compact">
+<dt><code>on</code></dt>
+<dd><a name="index-on-_0028redefine_005fwarnings-flag-value_0029"></a>
+<p>The default in development systems.
+The user is queried about what to do in each case.
+</p></dd>
+<dt><code>off</code></dt>
+<dd><a name="index-off-_0028redefine_005fwarnings-flag-value_0029"></a>
+<p>The default in runtime systems, but note that this flag is not <em>volatile</em>.
+Redefinitions are performed silently, as if the user had accepted them.
+</p></dd>
+<dt><code>reject &nbsp;<!-- /@w --> <i>since release 4.0.3</i></code></dt>
+<dd><a name="index-reject-_0028redefine_005fwarnings-flag-value_0029"></a>
+<p>Redefinitions are refused silently, as if the user had rejected them.
+</p></dd>
+<dt><code>proceed &nbsp;<!-- /@w --> <i>since release 4.0.3</i></code></dt>
+<dd><a name="index-proceed-_0028redefine_005fwarnings-flag-value_0029"></a>
+<p>Redefinitions are performed, and warnings are issued.
+</p></dd>
+<dt><code>suppress &nbsp;<!-- /@w --> <i>since release 4.0.3</i></code></dt>
+<dd><a name="index-suppress-_0028redefine_005fwarnings-flag-value_0029"></a>
+<p>Redefinitions are refused, and warnings are issued.
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>single_var_warnings &nbsp;<!-- /@w --> <i>volatile</i></code></dt>
+<dd><a name="index-single_005fvar_005fwarnings-_0028prolog-flag_0029-1"></a>
+<p><code>on</code> or <code>off</code>.  Enable or disable warning messages when a
+<var>sentence</var> (see <a href="ref_002dsyn_002dsyn_002dsen.html#ref_002dsyn_002dsyn_002dsen">ref-syn-syn-sen</a>) containing variables not
+beginning with &lsquo;<samp>_</samp>&rsquo; occurring once only is compiled or consulted.
+Initially <code>on</code> in development systems, <code>off</code> in runtime
+systems.
+</p>
+</dd>
+<dt><code>source_info &nbsp;<!-- /@w --> <i>volatile</i></code></dt>
+<dd><a name="index-source_005finfo-_0028prolog-flag_0029-1"></a>
+<a name="index-source-information-1"></a>
+<a name="index-information_002c-source-1"></a>
+<p><code>emacs</code> or <code>on</code> or <code>off</code>.  If not <code>off</code> while
+source code is being loaded, then information about line numbers
+and file names are stored with the loaded code.  If the value is
+<code>on</code> while debugging, then this information is used to print the
+source code location while prompting for a debugger command.  If
+the value is <code>on</code> while printing an uncaught error exception
+message, then the information is used to print the source code location
+of the culprit goal or one of its ancestors, as far as it
+can be determined.  If the value is <code>emacs</code> in any of these cases, then
+the appropriate line of code is instead highlighted, and no extra text
+is printed.  The value is <code>off</code> initially, and that is its only
+available value in runtime systems.
+</p>
+</dd>
+<dt><code>syntax_errors</code></dt>
+<dd><a name="index-syntax_005ferrors-_0028prolog-flag_0029-1"></a>
+<p>Controls what action is taken upon syntax errors in
+<code>read/[1,2]</code>.
+</p>
+<dl compact="compact">
+<dt><code>dec10</code></dt>
+<dd><a name="index-dec10-_0028syntax_005ferrors-flag-value_0029"></a>
+<p>The syntax error is reported and the read is repeated.
+</p>
+</dd>
+<dt><code>error</code></dt>
+<dd><a name="index-error-_0028syntax_005ferrors-flag-value_0029"></a>
+<p>An exception is raised.  See <a href="ref_002dere.html#ref_002dere">ref-ere</a>. (the default).
+</p>
+</dd>
+<dt><code>fail</code></dt>
+<dd><a name="index-fail-_0028syntax_005ferrors-flag-value_0029"></a>
+<p>The syntax error is reported and the read fails.  
+</p>
+</dd>
+<dt><code>quiet</code></dt>
+<dd><a name="index-quiet-_0028syntax_005ferrors-flag-value_0029"></a>
+<p>The read quietly fails.  
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>system_type &nbsp;<!-- /@w --> <i>read-only</i>,<i>volatile</i></code></dt>
+<dd><a name="index-system_005ftype-_0028prolog-flag_0029"></a>
+<p>The value is <code>development</code> in development
+systems and <code>runtime</code> in runtime systems.
+</p>
+</dd>
+<dt><code>title</code></dt>
+<dd><a name="index-title-_0028prolog-flag_0029"></a>
+<p>The window title. The default value is the same as the boot message
+&lsquo;<samp>SICStus 4.4.1 &hellip;
+Licensed to SICS</samp>&rsquo;. It is currently only used as the
+window title on the Windows platform.
+</p>
+</dd>
+<dt><code>toplevel_print_options</code></dt>
+<dd><a name="index-toplevel_005fprint_005foptions-_0028prolog-flag_0029-1"></a>
+<p>The value is a list of options for <code>write_term/3</code>
+(see <a href="ref_002diou_002dtou_002dwrt.html#ref_002diou_002dtou_002dwrt">ref-iou-tou-wrt</a>), to be used when the top-level displays
+variable bindings and answer constraints.  It is also used when
+messages are displayed.  The initial value is
+<code>[quoted(true),numbervars(true),portrayed(true),max_depth(10)]</code>.
+</p>  
+</dd>
+<dt><code>typein_module</code></dt>
+<dd><a name="index-typein_005fmodule-_0028prolog-flag_0029"></a>
+<p>Permitted values are atoms.  Controls the current type-in module
+(see <a href="ref_002dmod_002dtyi.html#ref_002dmod_002dtyi">ref-mod-tyi</a>).  Corresponds to the predicate <code>set_module/1</code>.
+<a name="index-type_002din-module"></a>
+<a name="index-module_002c-type_002din"></a>
+</p>
+</dd>
+<dt><code>unknown       &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-unknown-_0028prolog-flag_0029-1"></a>
+<a name="index-undefined-predicate-1"></a>
+<a name="index-predicate_002c-undefined-1"></a>
+
+<p>The system can optionally catch calls to predicates that have no
+definition. First, the user defined predicate
+<code>user:unknown_predicate_handler/3</code> (see <a href="ref_002dere.html#ref_002dere">ref-ere</a>) is called.  If
+undefined or if the call fails, then the action is governed by the state of
+the this flag, which can be:
+</p>
+<dl compact="compact">
+<dt><code>trace</code></dt>
+<dd><a name="index-trace-_0028unknown-flag-value_0029"></a>
+<p>Causes calls to undefined predicates to be reported and the
+debugger to be entered at the earliest opportunity.  Not available in
+runtime systems.
+</p>
+</dd>
+<dt><code>error &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-error-_0028unknown-flag-value_0029"></a>
+<p>Causes calls to such predicates to raise an exception (the
+default). See <a href="ref_002dere.html#ref_002dere">ref-ere</a>.
+</p>
+</dd>
+<dt><code>warning &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-warning-_0028unknown-flag-value_0029"></a>
+<p>Causes calls to such predicates to display a warning message
+and then fail.
+</p>
+</dd>
+<dt><code>fail &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-fail-_0028unknown-flag-value_0029"></a>
+<p>Causes calls to such predicates to fail.
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>user_input &nbsp;<!-- /@w --> <i>volatile</i></code></dt>
+<dd><a name="index-user_005finput-_0028prolog-flag_0029-1"></a>
+<p>Permitted values are any stream opened for reading.  Controls
+which stream is referenced by <code>user_input</code> and
+<code>SP_stdin</code>. It is initially set to a stream connected to UNIX
+<code>stdin</code>.
+</p> 
+</dd>
+<dt><code>user_output &nbsp;<!-- /@w --> <i>volatile</i></code></dt>
+<dd><a name="index-user_005foutput-_0028prolog-flag_0029-1"></a>
+<p>Permitted values are any stream opened for writing. 
+Controls which stream is referenced by
+<code>user_output</code> and <code>SP_stdout</code>. It is initially set to a stream
+connected to UNIX <code>stdout</code>.
+</p> 
+</dd>
+<dt><code>user_error &nbsp;<!-- /@w --> <i>volatile</i></code></dt>
+<dd><a name="index-user_005ferror-_0028prolog-flag_0029-1"></a>
+<p>Permitted values are any stream opened for writing. 
+Controls which stream is referenced by
+<code>user_error</code> and <code>SP_stderr</code>. It is initially set to a stream
+connected to UNIX <code>stderr</code>.
+</p> 
+</dd>
+<dt><code>version &nbsp;<!-- /@w --> <i>read-only</i>,<i>volatile</i></code></dt>
+<dd><a name="index-version-_0028prolog-flag_0029"></a>
+<p>The value is an atom containing the banner text
+displayed on startup, such as
+<code>'SICStus 4.1.0 (i386-darwin-9.8.0): Wed Oct 14 14:43:58 CEST 2009'</code>.
+</p>
+<p>Also see the Prolog flag <code>version_data</code>, below.
+</p>
+</dd>
+<dt><code>version_data &nbsp;<!-- /@w --> <i>since release 4.1</i>,<i>read-only</i>,<i>volatile</i></code></dt>
+<dd><a name="index-version_005fdata-_0028prolog-flag_0029"></a>
+<p>The value is a term <code>sicstus(Major,Minor,Revision,Beta,Extra)</code> with
+integer major, minor, revision, and beta version.
+</p>
+<p><code>Extra</code> is bound to a list of extra information. Entries may be
+added to this list without prior notice.
+</p>
+<p>Also see the Prolog flag <code>dialect</code>, above.
+</p>
+</dd>
+</dl>
+
+<p>You can use <code>prolog_flag/2</code> to enumerate all the <var>FlagName</var>s that
+the system currently understands, together with their current values.
+Use <code>prolog_flag/2</code> to make queries, <code>prolog_flag/3</code> to
+make changes.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlps_002dlco.html#ref_002dlps_002dlco" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlps_002dapf.html#ref_002dlps_002dapf" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlps.html#ref_002dlps" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlps_002dflg.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlps_002dflg.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

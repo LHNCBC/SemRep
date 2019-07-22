@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-sfh-opn</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-sfh-opn">
+<meta name="keywords" content="SICStus Prolog: ref-iou-sfh-opn">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" rel="up" title="ref-iou-sfh">
+<link href="ref_002diou_002dsfh_002denc.html#ref_002diou_002dsfh_002denc" rel="next" title="ref-iou-sfh-enc">
+<link href="ref_002diou_002dsfh_002dsem.html#ref_002diou_002dsfh_002dsem" rel="prev" title="ref-iou-sfh-sem">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002dsfh_002dopn"></a>
+<hr>
+<a name="Opening-a-Stream"></a>
+<h4 class="subsubsection">4.6.7.4 Opening a Stream</h4>
+
+
+<a name="index-open_002f_005b3_002c4_005d-_0028built_002din_0029-3"></a>
+<a name="index-open_002f_005b3_002c4_005d-_0028built_002din_0029-1"></a>
+
+
+
+<a name="index-set_005finput_002f1-_0028built_002din_0029-2"></a>
+<a name="index-set_005finput_002f1-_0028built_002din_0029"></a>
+
+
+
+<a name="index-set_005foutput_002f1-_0028built_002din_0029-2"></a>
+<a name="index-set_005foutput_002f1-_0028built_002din_0029"></a>
+
+
+<a name="index-opening-a-file"></a>
+
+<a name="index-streams_002c-opening"></a>
+
+<a name="index-files_002c-opening"></a>
+
+
+<p>Before I/O operations can take place on a stream, the stream must be
+opened, and it must be set to be current input or current output.  As
+illustrated in the figure &ldquo;Categorization of Stream Handling Predicates&rdquo;, the operations
+of opening and setting
+are separate with respect to the stream predicates, and combined in the File
+Specification Predicates.
+</p>
+<ul>
+<li> <code>open(<var>File</var>, <var>Mode</var>, <var>Stream</var>)</code> attempts to open the file
+<var>File</var> in the mode specified (read,write or append).  If the
+<code>open/3</code> request is successful, then a stream object, which can be
+subsequently used for input or output to the given file, is unified
+with <var>Stream</var>.
+
+<a name="index-creating-new-files"></a>
+
+<a name="index-files_002c-creating-new"></a>
+
+<a name="index-appending_002c-to-existing-files"></a>
+
+<a name="index-files_002c-appending-to-existing"></a>
+
+
+<p>The <code>read</code> mode is used for input.  The <code>write</code> and
+<code>append</code> modes are used for output.  The <code>write</code> option causes
+a new file to be created for output.  If the file already exists, then
+it is set to empty and its previous contents are lost.  The
+<code>append</code> option opens an already-existing file and adds output to
+the end of it.  The <code>append</code> option will create the file if it does
+not already exist.
+</p>
+<p>Options can be specified by calling <code>open/4</code>.
+See <a href="mpg_002dref_002dopen.html#mpg_002dref_002dopen">mpg-ref-open</a>.
+</p>
+</li><li> <code>set_input(<var>Stream</var>)</code> makes <var>Stream</var> the current input stream.  
+Subsequent input predicates
+such as <code>read/1</code> and <code>get_code/1</code> will henceforth use this stream.
+
+<a name="index-set_005finput_002f1-_0028built_002din_0029-3"></a>
+<a name="index-set_005finput_002f1-_0028built_002din_0029-1"></a>
+
+
+<a name="index-current-input-streams"></a>
+<a name="index-streams_002c-current-input"></a>
+<a name="index-current-output-streams"></a>
+<a name="index-streams_002c-current-output"></a>
+
+</li><li> <code>set_output(<var>Stream</var>)</code> makes <var>Stream</var> the current output stream.  
+Subsequent output
+predicates such as <code>write/1</code> and <code>put_code/1</code> will henceforth use this
+stream.
+
+<a name="index-set_005foutput_002f1-_0028built_002din_0029-3"></a>
+<a name="index-set_005foutput_002f1-_0028built_002din_0029-1"></a>
+
+
+</li></ul>
+
+
+<p>Opening a stream and making it current are combined in <code>see</code> and <code>tell</code>:
+</p>
+
+<ul>
+<li> <code>see(<var>S</var>)</code> makes file <var>S</var> the current input stream.
+If <var>S</var> is an atom, then it is taken to be a file specification, and
+<ul class="no-bullet">
+<li>- if there is an open input stream associated with the filename, and that
+stream was opened by <code>see/1</code>, then it is made the current input stream;
+
+<a name="index-see_002f1-_0028built_002din_0029-1"></a>
+<a name="index-see_002f1-_0028built_002din_0029"></a>
+
+
+</li><li>- Otherwise, the specified
+file is opened for input and made the current input stream.  If it is not
+possible to open the file, and the
+<code>fileerrors</code> flag is on (as it is by default), then <code>see/1</code>
+raises an error exception.  Otherwise, <code>see/1</code> merely fails.
+</li></ul>
+<p>See <a href="mpg_002dref_002dsee.html#mpg_002dref_002dsee">mpg-ref-see</a>.
+</p>
+</li><li> <code>tell(<var>S</var>)</code> makes <var>S</var> the current output stream.
+<ul class="no-bullet">
+<li>- If there is an open output stream currently associated with the filename,
+and that stream was opened by <code>tell/1</code>, then it is made the current output
+stream;
+
+<a name="index-tell_002f1-_0028built_002din_0029-1"></a>
+<a name="index-tell_002f1-_0028built_002din_0029"></a>
+
+
+</li><li>- Otherwise, the specified file is opened for output and made the
+current output stream.  If the file does not exist, then it is created.  If
+it is not possible to open the file (because of protections, for
+example), and the <code>fileerrors</code> flag is on (which it is by
+default), then <code>tell/1</code> raises an error exception.  Otherwise,
+<code>tell/1</code> merely fails.
+</li></ul>
+<p>See <a href="mpg_002dref_002dtell.html#mpg_002dref_002dtell">mpg-ref-tell</a>.
+</p>
+</li></ul>
+
+
+
+<p>It is important to remember to close streams when you have finished with
+them. Use <code>seen/0</code> or <code>close/1</code> for input files, and
+<code>told/0</code> or <code>close/1</code> for output files.
+</p>
+<ul>
+<li> <code>open_null_stream(<var>Stream</var>)</code> opens a text output stream that is not
+connected to any file and unifies its stream object with <var>Stream</var>.
+Characters or terms that are sent to this stream are thrown away.
+This predicate is useful because various pieces of local state are
+kept for null streams: the predicates
+<code>character_count/2</code>,
+<code>line_count/2</code> and <code>line_position/2</code> can be used on these
+streams (see <a href="ref_002diou_002dsos.html#ref_002diou_002dsos">ref-iou-sos</a>).
+
+<a name="index-open_005fnull_005fstream_002f1-_0028built_002din_0029-1"></a>
+<a name="index-open_005fnull_005fstream_002f1-_0028built_002din_0029"></a>
+
+
+
+<a name="index-byte_005fcount_002f2-_0028built_002din_0029-2"></a>
+<a name="index-byte_005fcount_002f2-_0028built_002din_0029"></a>
+
+
+
+<a name="index-character_005fcount_002f2-_0028built_002din_0029-2"></a>
+<a name="index-character_005fcount_002f2-_0028built_002din_0029"></a>
+
+
+
+<a name="index-line_005fcount_002f2-_0028built_002din_0029-2"></a>
+<a name="index-line_005fcount_002f2-_0028built_002din_0029"></a>
+
+
+
+<a name="index-line_005fposition_002f2-_0028built_002din_0029-2"></a>
+<a name="index-line_005fposition_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-null-streams"></a>
+
+<a name="index-streams_002c-null"></a>
+
+</li></ul>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002dsfh_002denc.html#ref_002diou_002dsfh_002denc" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002diou_002dsfh_002dsem.html#ref_002diou_002dsfh_002dsem" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh_002dopn.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh_002dopn.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

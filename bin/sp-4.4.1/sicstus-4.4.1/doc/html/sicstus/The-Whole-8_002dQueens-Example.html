@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: The Whole 8-Queens Example</title>
+
+<meta name="description" content="SICStus Prolog: The Whole 8-Queens Example">
+<meta name="keywords" content="SICStus Prolog: The Whole 8-Queens Example">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Putting-It-All-Together.html#Putting-It-All-Together" rel="up" title="Putting It All Together">
+<link href="Quick-Reference.html#Quick-Reference" rel="next" title="Quick Reference">
+<link href="Prolog-And-Tcl-Interact-through-Prolog-Event-Queue.html#Prolog-And-Tcl-Interact-through-Prolog-Event-Queue" rel="prev" title="Prolog And Tcl Interact through Prolog Event Queue">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="The-Whole-8_002dQueens-Example"></a>
+<hr>
+<a name="The-Whole-8_002dQueens-Example-1"></a>
+<h4 class="subsubsection">10.39.5.4 The Whole 8-Queens Example</h4>
+
+<p>To finish off, we our complete 8-queens program.
+</p>
+<p>Here is the Prolog part, which we have covered in previous
+sections.  The code is in <code>library('tcltk/examples/8-queens.pl')</code>:
+</p>
+<div class="example">
+<pre class="example"><em>% 8-queens.pl</em>
+</pre><pre class="example">:- use_module(library(tcltk)). 
+:- use_module(library(lists)).
+
+setup :- 
+    tk_new([name('SICStus+Tcl/Tk - Queens')], Tcl),
+    tcl_eval(Tcl, 'source 8-queens.tcl', _),
+    tk_next_event(Tcl, Event),
+    (   Event = next -&gt; go(Tcl)
+    ;   closedown(Tcl)
+    ).
+
+closedown(Tcl) :-
+    tcl_delete(Tcl).
+
+go(Tcl) :- 
+    tcl_eval(Tcl, 'clear_board', _),
+    queens(8, Qs),
+    show_solution(Tcl,Qs),
+    tk_next_event(Tcl, Event),
+    (   Event = next -&gt; fail
+    ;   closedown(Tcl)
+    ).
+go(Tcl) :- 
+    tcl_eval(Tcl, 'disable_next', _),
+    tcl_eval(Tcl, 'clear_board', _),
+    tk_next_event(Tcl, _Event),
+    closedown(Tcl).
+</pre><pre class="example"><em>% 8-queens.pl</em>
+</pre><pre class="example">queens(N, Qs) :- 
+    range(1, N, Ns),
+    queens(Ns, [], Qs).
+
+queens(UnplacedQs, SafeQs, Qs) :-
+    select(Q, UnplacedQs, UnplacedQs1),
+    \+ attack(Q, SafeQs),
+    queens(UnplacedQs1, [Q|SafeQs], Qs).
+    queens([], Qs, Qs).
+
+attack(X, Xs) :- attack(X, 1, Xs).
+
+attack(X, N, [Y|_Ys]) :- X is Y + N.
+attack(X, N, [Y|_Ys]) :- X is Y - N.
+attack(X, N, [_Y|Ys]) :-
+    N1 is N + 1,
+    attack(X, N1, Ys).
+
+range(M, N, [M|Ns]) :- 
+    M &lt; N,
+    M1 is M + 1,
+    range(M1, N, Ns).
+range(N, N, [N]).
+
+show_solution(Tcl, L) :-
+    reverse(L, LR),
+    tcl_eval(Tcl, [show_solution, br(LR)], _),
+    tk_do_all_events.
+
+tk_do_all_events :-
+    tk_do_one_event, !,
+    tk_do_all_events.
+tk_do_all_events.
+
+:- setup.
+</pre></div>
+
+<p>And here is the Tcl/Tk part, which we have covered in bits and pieces
+but here is the whole thing. We have added an enhancement
+where when the mouse is moved over one of the queens, the squares
+that the queen attacks are highlighted. Move the mouse away and
+the board reverts to normal. This is an illustration of how
+the Tcl/Tk <code>bind</code> feature can be used.
+The code is in <code>library('tcltk/examples/8-queens.tcl')</code>:
+</p>
+<div class="example">
+<pre class="example"><em># 8-queens.tcl</em>
+</pre><pre class="example">#! /usr/bin/wish 
+# create an 8x8 grid of labels
+proc setup_display { } {
+    frame .queens -background black
+    pack .queens
+
+    for {set y 1} {$y &lt;= 8} {incr y} {
+        for {set x 1} {$x &lt;= 8} {incr x} {
+
+            # create a label and display a queen in it
+            label .queens.$x-$y -bitmap @bitmaps/q64s.bm -relief flat
+
+            # color alternate squares with different colors
+            # to create the chessboard pattern
+            if { [expr ($x + $y) % 2] } {
+                .queens.$x-$y config -background #ffff99
+            } else {
+                .queens.$x-$y config -background #66ff99
+            }
+
+            # set foreground to the background color to
+            # make queen image invisible
+            .queens.$x-$y config -foreground [.queens.$x-$y cget -background]
+
+            # bind the mouse to highlight the squares attacked by a
+            # queen on this square
+            bind .queens.$x-$y &lt;Enter&gt; &quot;highlight_attack on $x $y&quot;
+            bind .queens.$x-$y &lt;Leave&gt; &quot;highlight_attack off $x $y&quot;
+
+            # arrange the queens in a grid
+            grid .queens.$x-$y -row $y -column $x -padx 1 -pady 1
+
+            }
+       }
+}
+</pre><pre class="example"><em># 8-queens.tcl</em>
+</pre><pre class="example"># clear a whole column 
+proc reset_column { column } {
+    for {set y 1 } { $y &lt;= 8 } {incr y} {
+        set_queens $column $y &quot;&quot;
+    }
+}
+
+# place or unplace a queen
+proc set_queens { x y v } {
+    if { $v == &quot;Q&quot; } { 
+        .queens.$x-$y config -foreground black
+    } else { 
+        .queens.$x-$y config -foreground [.queens.$x-$y cget -background] 
+    }
+}
+
+# place a queen on a column
+proc place_queen { x y } {
+    reset_column $x
+    set_queens $x $y Q
+}
+
+# clear the whole board by clearing each column in turn
+proc clear_board { } {
+    for { set x 1 } {$x &lt;= 8} {incr x} {
+        reset_column $x
+    }
+}
+
+# given a solution as a list of queens in column positions
+# place each queen on the board
+proc show_solution { solution } {
+    clear_board
+    set x 1
+    foreach y $solution {
+        place_queen $x $y
+        incr x
+    }
+}
+</pre><pre class="example"><em># 8-queens.tcl</em>
+</pre><pre class="example">proc highlight_square { mode x y } { 
+    # check if the square we want to highlight is on the board
+    if { $x &lt; 1 || $y &lt; 1 || $x &gt; 8 || $y &gt; 8 } { return };
+
+    # if turning the square on make it red,
+    # otherwise determine what color it should be and set it to that
+    if { $mode == &quot;on&quot; } { set color red } else { 
+        if { [expr ($x + $y) % 2] } { set color &quot;#ffff99&quot; } else {
+            set color &quot;#66ff99&quot; }
+        }
+    
+        # get the current settings
+        set bg [ .queens.$x-$y cget -bg ]
+        set fg [ .queens.$x-$y cget -fg ]
+
+        # if the current foreground and background are the same
+        # there is no queen there
+        if { $bg == $fg } {
+            # no queens
+            .queens.$x-$y config -bg $color -fg $color
+         } else {
+             .queens.$x-$y config -bg $color
+    }
+}
+
+proc highlight_attack { mode x y } {
+    # get current colors of square at x y
+    set bg [ .queens.$x-$y cget -bg ]
+    set fg [ .queens.$x-$y cget -fg ]
+
+    # no queen there, give up
+    if { $bg == $fg } { return };
+
+    # highlight the sqaure the queen is on
+    highlight_square $mode $x $y 
+
+    # highlight vertical and horizontal
+    for { set i 1 } {$i &lt;= 8} {incr i} {
+        highlight_square $mode $x $i
+        highlight_square $mode $i $y
+    }
+
+    # highlight diagonals
+    for { set i 1} { $i &lt;= 8} {incr i} {
+        highlight_square $mode [expr $x+$i] [expr $y+$i]
+        highlight_square $mode [expr $x-$i] [expr $y-$i]
+        highlight_square $mode [expr $x+$i] [expr $y-$i]
+        highlight_square $mode [expr $x-$i] [expr $y+$i]
+    }
+}
+</pre><pre class="example"><em># 8-queens.tcl</em>
+</pre><pre class="example">proc disable_next {} { 
+    .next config -state disabled
+}
+
+setup_display
+
+# button for sending a 'next' message
+button .next -text next -command {prolog_event next}
+pack .next 
+
+# button for sending a 'stop' message
+button .stop -text stop -command {prolog_event stop}
+pack .stop
+</pre></div>
+
+
+
+
+<br>
+<img src="images/tcltk8queens.png" alt="images/tcltk8queens">
+<div align="center">8-Queens Solution, Attacked Squares Highlighted
+</div>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Prolog-And-Tcl-Interact-through-Prolog-Event-Queue.html#Prolog-And-Tcl-Interact-through-Prolog-Event-Queue" accesskey="p" rel="prev">Previous</a>
+<li><a href="Putting-It-All-Together.html#Putting-It-All-Together" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-Whole-8_002dQueens-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-Whole-8_002dQueens-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

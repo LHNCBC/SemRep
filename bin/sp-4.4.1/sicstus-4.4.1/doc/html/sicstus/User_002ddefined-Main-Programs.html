@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: User-defined Main Programs</title>
+
+<meta name="description" content="SICStus Prolog: User-defined Main Programs">
+<meta name="keywords" content="SICStus Prolog: User-defined Main Programs">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables" rel="up" title="Stand-Alone Executables">
+<link href="Initializing-the-Prolog-Engine.html#Initializing-the-Prolog-Engine" rel="next" title="Initializing the Prolog Engine">
+<link href="spld-Examples.html#spld-Examples" rel="prev" title="spld Examples">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="User_002ddefined-Main-Programs"></a>
+<hr>
+<a name="User_002ddefined-Main-Programs-1"></a>
+<h4 class="subsection">6.7.4 User-defined Main Programs</h4>
+
+<p>Runtime systems may or may not have an automatically generated
+main program.  This is controlled by the <samp>--main</samp> option to
+<code>spld</code>.  If <samp>--main=user</samp> is given, then a function
+<code>user_main()</code> must be supplied:
+</p>
+<a name="index-user_005fmain_0028_0029-_0028C-function_0029"></a>
+<div class="example">
+<pre class="example">int user_main(int argc, char *argv[])
+</pre></div>
+
+<p><code>user_main()</code> is responsible for initializing the Prolog engine,
+loading code, and issuing any Prolog queries. An
+alternative is to use <samp>--main=none</samp> and write your own
+<code>main()</code> function.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Initializing-the-Prolog-Engine.html#Initializing-the-Prolog-Engine" accesskey="1">Initializing the Prolog Engine</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Initializing the Prolog Engine
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Loading-Prolog-Code.html#Loading-Prolog-Code" accesskey="2">Loading Prolog Code</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Loading Prolog Code
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Generic-Runtime-Systems.html#Generic-Runtime-Systems" accesskey="n" rel="next">Next</a>
+<li><a href="The-Application-Builder.html#The-Application-Builder" accesskey="p" rel="prev">Previous</a>
+<li><a href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/User_002ddefined-Main-Programs.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/User_002ddefined-Main-Programs.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

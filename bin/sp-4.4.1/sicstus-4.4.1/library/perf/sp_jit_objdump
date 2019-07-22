@@ -1,0 +1,91 @@
+#!/bin/bash
+# Pass this as --objdump argument to perf in order to make sense of the data written by SICStus.
+#
+# 1. Start sicstus within perf and with perf profiling support
+#
+#    $ perf record sicstus -DSP_SPTI_PATH=perf
+#
+#    Note: perf profiling may not work in virtual machines (VMWare,
+#          VirtualBox, etc). That problem has nothing to do with
+#          SICStus.
+#
+# 2. Do the thing in sicstus that you want profiled.
+#
+# 3. Exit sicstus (this is probably optional, currently).
+#
+# 4. Use perf report, perf annotate, etc. to present the results.
+#
+#    $ perf report --objdump=sp_jit_objdump
+# or
+#    $ perf annotate --objdump=sp_jit_objdump
+#
+# You may need to specify full paths to "sicstus" and "sp_jit_objdump"
+#
+# Specifying an objdump is not strictly neecessary. It is only needed
+# if you want to annotate (i.e. show machine code) for the jitted
+# code.
+#
+#
+# Older versions of perf (prior to 3.10?) does not support the
+# --objdump flag (but those versions may be to old to understand the
+# profile data from the JIT, so the following workaround may be
+# useless). A workaround is to create a copy or symbolic link of
+# sp_jit_objdump called "objdump". Something like:
+#
+# Create a symbolic link, named "objdump", in its own directory. This
+# way we can add that directory first to PATH, so its "objdump" is
+# found before the perf version.
+#
+# ( mkdir tmp && cd tmp && ln -s $( sicstus --noinfo --nologo --goal "absolute_file_name(library('perf/sp_jit_objdump'), P), write(P),nl,halt." ) objdump )
+#
+# Then run perf report etc with a modified PATH:
+#
+# PATH="$PWD/tmp:$PATH" perf report
+# 
+
+
+# The perf-PID.map file, if present, is the last argument
+file="${@: -1}"
+
+: ${sp_real_objdump:=/usr/bin/objdump}
+
+if [ "${file##*.}" = 'map' ]; then
+  # file ends with ".map". Presumably it is ..../perf-PID.map. Extract the PID part.
+  basename="$(basename "$file" '.map')" # remove directory and the .map suffix 
+  pid="${basename##perf-}" # remove the "perf-" prefix
+  # now verify that we really got a non-empty, non-negative, integer
+  case "$pid" in
+      ''|*[!0-9]*)
+	  pid=''
+	  ;;
+  esac
+  # Here pid is non-empty iff it is an integer.
+
+  if test -n "$pid"; then
+    # xref library/perf_common.c
+    obj_dir="$(dirname "$file")/sicstus_jit_${pid}"
+
+    # Remove the last argument (the map file), that objdump does not
+    # understand, before passing arguments to objdump
+    #
+    # We do this even if we will fall through to the fallback case
+    # (since objdump do not understand the .map file anyway).
+    #
+    set -- "${@:1:$(($#-1))}"
+
+    # Check whether there are at least one *.elf file in the obj_dir before passing the glob matches to objdump
+    if [ -n "$( find "$obj_dir"/ -maxdepth 1 -name "*.elf" -print -quit )" ]; then
+      # Pass the original arguments (except the .map file) and all the
+      # elf files to the real objdump.
+      #
+      # objdump will write empty lines and information about the
+      # format of the argument files ("... file format
+      # elf64-x86-64"). Filter away those lines.
+      "${sp_real_objdump}" "$@" "$obj_dir"/*.elf | grep -iv 'file format' | grep -v '^$'
+      exit
+    fi
+  fi
+fi
+
+# Fallback case. We could not understand the arguments, give up and pass everything to objdump.
+"${sp_real_objdump}" "$@"

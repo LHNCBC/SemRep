@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CHR Debugging Predicates</title>
+
+<meta name="description" content="SICStus Prolog: CHR Debugging Predicates">
+<meta name="keywords" content="SICStus Prolog: CHR Debugging Predicates">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CHR-Debugging.html#CHR-Debugging" rel="up" title="CHR Debugging">
+<link href="CHR-Examples.html#CHR-Examples" rel="next" title="CHR Examples">
+<link href="CHR-Tracing.html#CHR-Tracing" rel="prev" title="CHR Tracing">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CHR-Debugging-Predicates"></a>
+<hr>
+<a name="Debugging-Predicates"></a>
+<h4 class="subsubsection">10.8.4.3 Debugging Predicates</h4>
+
+<p>The <code>chr</code> module exports several predicates that allow
+inspecting and printing the content of the constraint store.
+</p>
+<dl compact="compact">
+<dt><code>chr_trace/0</code></dt>
+<dd>
+<a name="index-chr_005ftrace_002f0-_0028chr_0029-1"></a>
+<a name="index-chr_005ftrace_002f0-_0028chr_0029"></a>
+
+<p>Activate the CHR tracer.  By default the CHR tracer is activated and
+deactivated automatically by the Prolog predicates <code>trace/0</code> and
+<code>notrace/0</code>.
+</p>
+</dd>
+<dt><code>chr_notrace/0</code></dt>
+<dd>
+<a name="index-chr_005fnotrace_002f0-_0028chr_0029-1"></a>
+<a name="index-chr_005fnotrace_002f0-_0028chr_0029"></a>
+
+<p>De-activate the CHR tracer.  By default the CHR tracer is activated and
+deactivated automatically by the Prolog predicates <code>trace/0</code> and
+<code>notrace/0</code>.
+</p>    
+</dd>
+<dt><code>chr_leash(<var>+Spec</var>)</code></dt>
+<dd>
+<a name="index-chr_005fleash_002f1-_0028chr_0029-1"></a>
+<a name="index-chr_005fleash_002f1-_0028chr_0029"></a>
+
+<p>Define the set of CHR ports on which the CHR tracer asks for user
+intervention (i.e. stops). <var>Spec</var> is either a list of ports as
+defined in <a href="CHR-Ports.html#CHR-Ports">CHR Ports</a> or a predefined alias.  Defined aliases
+are: <code>full</code> to stop at all ports, <code>none</code> or <code>off</code> to
+never stop, and <code>default</code> to stop at the <code>call</code>,
+<code>exit</code>, <code>fail</code>, <code>wake</code> and <code>apply</code> ports.
+See also <code>leash/1</code>.
+</p>
+</dd>
+<dt><code>chr_flag(<var>+FlagName</var>, <var>?OldValue</var>, <var>?NewValue</var>)</code></dt>
+<dd>
+<a name="index-chr_005fflag_002f3-_0028chr_0029-1"></a>
+<a name="index-chr_005fflag_002f3-_0028chr_0029"></a>
+
+<p><var>OldValue</var> is the value of the CHR flag <var>FlagName</var>,
+and the new value of <var>FlagName</var> is set to <var>NewValue</var>.
+The valid CHR flag are the following:
+</p>
+<dl compact="compact">
+<dt><code>toplevel_show_store</code></dt>
+<dd><a name="index-toplevel_005fshow_005fstore-_0028CHR-flag_0029"></a>
+<p>If <code>on</code> (the default), then the Prolog toplevel displays the constraint store at the
+end of each query. If <code>off</code>, then the toplevel does not display this.
+</p>
+</dd>
+<dt><code>generate_debug_info</code></dt>
+<dd><a name="index-generate_005fdebug_005finfo-_0028CHR-flag_0029"></a>
+<p>Provides the default if the <code>debug</code> option is not given.
+The valid values are <code>true</code> and <code>false</code> (the default).
+</p>
+</dd>
+<dt><code>optimize</code></dt>
+<dd><a name="index-optimize-_0028CHR-flag_0029"></a>
+<p>Provides the default if the <code>optimize</code> option is not given.
+The valid values are <code>full</code> and <code>off</code> (the default).
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>chr_show_store(<var>+Mod</var>)</code></dt>
+<dd>
+<a name="index-chr_005fshow_005fstore_002f1-_0028chr_0029-1"></a>
+<a name="index-chr_005fshow_005fstore_002f1-_0028chr_0029"></a>
+
+<p>Prints all suspended constraints of module <var>Mod</var> to the current output stream.
+</p>
+</dd>
+<dt><code>find_chr_constraint(<var>-Constraint</var>) &nbsp;<!-- /@w --> <i>since release 4.3.2</i></code></dt>
+<dd>
+<a name="index-find_005fchr_005fconstraint_002f1-_0028chr_0029-1"></a>
+<a name="index-find_005fchr_005fconstraint_002f1-_0028chr_0029"></a>
+
+<p>Unifies <var>Constraint</var> with a constraint in the store.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CHR-Tracing.html#CHR-Tracing" accesskey="p" rel="prev">Previous</a>
+<li><a href="CHR-Debugging.html#CHR-Debugging" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CHR-Debugging-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CHR-Debugging-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

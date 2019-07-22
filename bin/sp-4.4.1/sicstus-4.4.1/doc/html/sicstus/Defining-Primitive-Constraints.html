@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Defining Primitive Constraints</title>
+
+<meta name="description" content="SICStus Prolog: Defining Primitive Constraints">
+<meta name="keywords" content="SICStus Prolog: Defining Primitive Constraints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dclpfd.html#lib_002dclpfd" rel="up" title="lib-clpfd">
+<link href="Definitions.html#Definitions" rel="next" title="Definitions">
+<link href="A-Global-Constraint-Example.html#A-Global-Constraint-Example" rel="prev" title="A Global Constraint Example">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Defining-Primitive-Constraints"></a>
+<hr>
+<a name="Defining-Primitive-Constraints-1"></a>
+<h4 class="subsection">10.10.10 Defining Primitive Constraints</h4>
+
+<p>Indexicals are the principal means of defining constraints, but it is
+usually not necessary to resort to this level of programming&mdash;most
+commonly used constraints are available in a library and/or via
+macro-expansion.  The key feature about indexicals is that they give the
+programmer precise control over aspects of the operational semantics of
+the constraints. Trade-offs can be made between the computational cost
+of the constraints and their pruning power.  The indexical language
+provides many degrees of freedom for the user to select the level of
+consistency to be maintained depending on application-specific needs.
+</p>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Definitions.html#Definitions" accesskey="1">Definitions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Definitions
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Pitfalls-of-Interval-Reasoning.html#Pitfalls-of-Interval-Reasoning" accesskey="2">Pitfalls of Interval Reasoning</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Pitfalls of Interval Reasoning
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Indexicals.html#Indexicals" accesskey="3">Indexicals</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Indexicals
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Range-Expressions.html#Range-Expressions" accesskey="4">Range Expressions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Range Expressions
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Term-Expressions.html#Term-Expressions" accesskey="5">Term Expressions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Term Expressions
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Monotonicity-of-Ranges.html#Monotonicity-of-Ranges" accesskey="6">Monotonicity of Ranges</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Monotonicity of Ranges
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FD-Predicates.html#FD-Predicates" accesskey="7">FD Predicates</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">FD Predicates
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Execution-of-Propagating-Indexicals.html#Execution-of-Propagating-Indexicals" accesskey="8">Execution of Propagating Indexicals</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Execution of Propagating Indexicals
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Execution-of-Checking-Indexicals.html#Execution-of-Checking-Indexicals" accesskey="9">Execution of Checking Indexicals</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Execution of Checking Indexicals
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Compiled-Indexicals.html#Compiled-Indexicals">Compiled Indexicals</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Compiled Indexicals
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPFD-Coexisting.html#CLPFD-Coexisting" accesskey="n" rel="next">Next</a>
+<li><a href="Defining-Global-Constraints.html#Defining-Global-Constraints" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dclpfd.html#lib_002dclpfd" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Defining-Primitive-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Defining-Primitive-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

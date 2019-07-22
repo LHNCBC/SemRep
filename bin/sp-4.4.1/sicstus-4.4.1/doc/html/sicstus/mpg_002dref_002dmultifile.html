@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-multifile</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-multifile">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-multifile">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dmutable.html#mpg_002dref_002dmutable" rel="next" title="mpg-ref-mutable">
+<link href="mpg_002dref_002dmodule.html#mpg_002dref_002dmodule" rel="prev" title="mpg-ref-module">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dmultifile"></a>
+<hr>
+<a name="multifile_002f1---declaration_002c-ISO"></a>
+<h4 class="subsection">11.3.125 <code>multifile/1</code> &nbsp;<!-- /@w --> <i>declaration</i>, <i>ISO</i></h4>
+<a name="index-multifile_002f1-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-multifile_002f1-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-150"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile <var>+PredSpecs</var></code>
+</p>
+<p>Declares the clauses of the predicates defined by <var>PredSpecs</var> to be
+multifile in the source file (suppresses compile-time warnings).
+</p>
+<a name="Arguments-139"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:PredSpecs</var></dt>
+<dd><p><em>pred_spec_forest</em>, must be ground
+</p>
+<p>A predicate specification, or a list of such,
+or a sequence of such separated by commas.
+</p></dd>
+</dl>
+
+<a name="Description-113"></a>
+<h4 class="subheading">Description</h4>
+
+<p>By default, all clauses for a predicate are expected to come from just
+one file.  This assists with reloading and debugging of code.
+Declaring a predicate <code>multifile</code> means that its clauses can be
+spread across several different files.  This is independent of whether
+or not the predicate is declared <code>dynamic</code>.
+</p>
+<p>Should precede all the clauses for the specified predicates in the
+file.
+</p>
+<p>There should be a <code>multifile</code> declaration for a predicate <var>P</var>
+in every file that contains clauses for <var>P</var>.
+If a <code>multifile</code> predicate is dynamic, then there should be a <code>dynamic</code>
+declaration in every file containing clauses for the predicate.
+</p>
+<p>When a file containing clauses for a <code>multifile</code> predicate (<var>P</var>) is
+reloaded, the clauses for <var>P</var> that previously came from that file are
+removed.  Then the new clauses for <var>P</var> (which may be the same as the old
+ones) are added to the end of the definition of the <code>multifile</code> predicate.
+</p>
+<p>If a <code>multifile</code> declaration is found for a predicate that has already been
+defined in another file (without a <code>multifile</code> declaration), then this is
+considered to be a redefinition of that predicate.  Normally this will result
+in a multiple-definition style-check warning (see <code>style_check/1</code>).
+</p>
+<p>The predicate <code>source_file/2</code> can be used to find all the files containing
+clauses for a <code>multifile</code> predicate.
+</p>
+<a name="Comments-14"></a>
+<h4 class="subheading">Comments</h4>
+
+<p><code>multifile</code> is not an ISO predefined prefix operator.
+</p>
+<a name="Exceptions-141"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions in the context of loading code are printed as error messages.
+</p>
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>PredSpecs</var> not ground.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>PredSpecs</var> not a valid <em>pred_spec_forest</em>.
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p>Some arity is an integer &lt; 0.
+</p>
+</dd>
+<dt><code>representation_error</code></dt>
+<dd><p>Some arity is an integer &gt; 255.
+</p>
+</dd>
+<dt><code>context_error</code></dt>
+<dd><p>Declaration appeared in a goal.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>Declaration appeared as a clause.
+</p></dd>
+</dl>
+
+<a name="See-Also-147"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Multifile-Declarations.html#Multifile-Declarations">Multifile Declarations</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dmutable.html#mpg_002dref_002dmutable" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dmodule.html#mpg_002dref_002dmodule" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dmultifile.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dmultifile.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-structs</title>
+
+<meta name="description" content="SICStus Prolog: lib-structs">
+<meta name="keywords" content="SICStus Prolog: lib-structs">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="str_002dfty.html#str_002dfty" rel="next" title="str-fty">
+<link href="lib_002dstatistics.html#lib_002dstatistics" rel="prev" title="lib-statistics">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dstructs"></a>
+<hr>
+<a name="The-Structs-Package_002d_002d_002dlibrary_0028structs_0029"></a>
+<h3 class="section">10.37 The Structs Package&mdash;<code>library(structs)</code></h3>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="str_002dfty.html#str_002dfty" accesskey="1">str-fty</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Foreign Types
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="str_002dcft.html#str_002dcft" accesskey="2">str-cft</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Checking Foreign Term Types
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="str_002dcdf.html#str_002dcdf" accesskey="3">str-cdf</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Creating and Destroying Foreign Terms
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="str_002dafd.html#str_002dafd" accesskey="4">str-afd</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Accessing and Modifying Foreign Term Contents
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="str_002dcas.html#str_002dcas" accesskey="5">str-cas</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Casting
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="str_002dnul.html#str_002dnul" accesskey="6">str-nul</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Null Foreign Terms
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="str_002difc.html#str_002difc" accesskey="7">str-ifc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Interfacing with Foreign Code
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="str_002detr.html#str_002detr" accesskey="8">str-etr</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Examining Type Definitions at Runtime
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="str_002dtip.html#str_002dtip" accesskey="9">str-tip</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tips
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="str_002dexa.html#str_002dexa">str-exa</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Example
+</td></tr>
+</table>
+
+
+
+<a name="index-structs-_0028library-package_0029"></a>
+
+<a name="index-foreign-data-types"></a>
+
+<a name="index-data-types_002c-foreign"></a>
+
+
+
+<p>The <code>structs</code> package allows Prolog to hold pointers to C data structures,
+and to access and store into fields in those data structures.
+Currently, the only representation for a pointer supported by SICStus
+Prolog is an integer, so it is not possible to guarantee that Prolog
+cannot confuse a pointer with an ordinary Prolog term.  What this package
+does is to represent such a pointer as a term with the type of the
+structure or array as its functor and the integer that is the address
+of the actual data as its only argument.  We will refer such terms as
+<em>foreign terms</em>.
+<a name="index-foreign-terms-_0028definition_0029"></a>
+</p>
+
+<p>The package consists of two modules, <code>str_decl</code> and <code>structs</code>. The
+<code>str_decl</code> module is used at compile time to translate the
+structs-related constructs.  Any file that defines or accesses structs
+should include the command:
+</p>
+<div class="example">
+<pre class="example">:- load_files(library(str_decl),
+              [when(compile_time), if(changed)]).
+</pre></div>
+
+
+<p>The <code>structs</code> module provides runtime support for structs.  A
+file that accesses structs should include the command:
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(structs)).
+</pre></div>
+
+
+<p>You will probably include both in most files that define and access structs.
+</p>
+<p><strong>Please note:</strong> A file that loads <code>library(str_decl)</code> currently cannot
+recursively load another file that loads <code>library(str_decl)</code>, because that would
+confuse the internal database being used by the package.
+</p>
+<blockquote>
+
+<p><strong>Important caveats:</strong>
+</p>
+<p>You should not count on future versions of the structs package to
+continue to represent foreign terms as compound Prolog terms.  In
+particular, you should never explicitly take apart a foreign term using
+unification or <code>functor/3</code> and <code>arg/3</code>.  You may use the predicate
+<code>foreign_type/2</code> to find the type of a foreign term, and <code>cast/3</code> (casting
+a foreign term to address) to get the address part of a foreign term.
+You may also use <code>cast/3</code> to cast an address back to a foreign term.  You
+should use <code>null_foreign_term/2</code> to check if a foreign term is null, or
+to create a null foreign term of some type.
+</p>
+<p>It should never be necessary to explicitly take apart foreign terms.
+</p></blockquote>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dsystem.html#lib_002dsystem" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dstatistics.html#lib_002dstatistics" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dstructs.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dstructs.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

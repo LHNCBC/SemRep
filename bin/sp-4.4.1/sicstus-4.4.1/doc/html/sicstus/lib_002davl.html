@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-avl</title>
+
+<meta name="description" content="SICStus Prolog: lib-avl">
+<meta name="keywords" content="SICStus Prolog: lib-avl">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dbags.html#lib_002dbags" rel="next" title="lib-bags">
+<link href="lib_002datts.html#lib_002datts" rel="prev" title="lib-atts">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002davl"></a>
+<hr>
+<a name="AVL-Trees_002d_002d_002dlibrary_0028avl_0029"></a>
+<h3 class="section">10.4 AVL Trees&mdash;<code>library(avl)</code></h3>
+<a name="index-association-list-1"></a>
+<a name="index-list_002c-association-1"></a>
+<a name="index-binary-tree-1"></a>
+<a name="index-tree_002c-binary-1"></a>
+<p>This library module provides an AVL tree implementation of &quot;association
+lists&quot;. The binary tree <em>is</em> kept balanced, as opposed to
+<code>library(assoc)</code>, which provides similar functionality based on
+binary trees that are not kept balanced.
+</p>
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>empty_avl(<var>?AVL</var>)</code></dt>
+<dd>
+<a name="index-empty_005favl_002f1-_0028avl_0029-1"></a>
+<a name="index-empty_005favl_002f1-_0028avl_0029"></a>
+
+<p>is true when <var>AVL</var> is an empty AVL tree.
+</p></dd>
+<dt><code>avl_to_list(<var>+AVL</var>, <var>-List</var>)</code></dt>
+<dd>
+<a name="index-avl_005fto_005flist_002f2-_0028avl_0029-1"></a>
+<a name="index-avl_005fto_005flist_002f2-_0028avl_0029"></a>
+
+<p>assumes that <var>AVL</var> is a proper AVL tree, and is true when
+<var>List</var> is a list of <var>Key-Value</var> pairs in ascending order with no
+duplicate keys specifying the same finite function as <var>AVL</var>.
+Use this to convert an <var>AVL</var> to an ordered list.
+</p></dd>
+<dt><code>is_avl(<var>+AVL</var>)</code></dt>
+<dd>
+<a name="index-is_005favl_002f1-_0028avl_0029-1"></a>
+<a name="index-is_005favl_002f1-_0028avl_0029"></a>
+
+<p>is true when <var>AVL</var> is a (proper) AVL tree.  It checks both the order
+condition (that the keys are in ascending order as you go from left
+to right) and the height balance condition.  This code relies on
+variables (to be precise, the first anonymous variable in is_avl/1)
+being <code>@&lt;</code> than any non-variable.  in strict point of fact you <em>can</em>
+construct an AVL tree with variables as keys, but <code>is_avl/1</code> doesn&rsquo;t
+believe it, and it is not good taste to do so.
+</p></dd>
+<dt><code>avl_domain(<var>+AVL</var>, <var>-Domain</var>)</code></dt>
+<dd>
+<a name="index-avl_005fdomain_002f2-_0028avl_0029-1"></a>
+<a name="index-avl_005fdomain_002f2-_0028avl_0029"></a>
+
+<p>unifies <var>Domain</var> with the ordered set representation of the domain
+of the AVL tree (the keys of it).  As the keys are in ascending
+order with no duplicates, we just read them off like <code>avl_to_list/2</code>.
+</p></dd>
+<dt><code>avl_range(<var>+AVL</var>, <var>-Range</var>)</code></dt>
+<dd>
+<a name="index-avl_005frange_002f2-_0028avl_0029-1"></a>
+<a name="index-avl_005frange_002f2-_0028avl_0029"></a>
+
+<p>unifies <var>Range</var> with the ordered set representation of the range of the
+AVL (the values associated with its keys, not the keys themselves).
+Note that the cardinality (length) of the domain and the range are
+seldom equal, except of course for trees representing intertible maps.
+</p></dd>
+<dt><code>avl_min(<var>+AVL</var>, <var>-Key</var>)</code></dt>
+<dd>
+<a name="index-avl_005fmin_002f2-_0028avl_0029-1"></a>
+<a name="index-avl_005fmin_002f2-_0028avl_0029"></a>
+
+<p>is true when <var>Key</var> is the smallest key in <var>AVL</var>.
+</p></dd>
+<dt><code>avl_min(<var>+AVL</var>, <var>-Key</var>, <var>-Val</var>)</code></dt>
+<dd>
+<a name="index-avl_005fmin_002f3-_0028avl_0029-1"></a>
+<a name="index-avl_005fmin_002f3-_0028avl_0029"></a>
+
+<p>is true when <var>Key</var> is the smallest key in <var>AVL</var> and <var>Val</var> is its value.
+</p></dd>
+<dt><code>avl_max(<var>+AVL</var>, <var>-Key</var>)</code></dt>
+<dd>
+<a name="index-avl_005fmax_002f2-_0028avl_0029-1"></a>
+<a name="index-avl_005fmax_002f2-_0028avl_0029"></a>
+
+<p>is true when <var>Key</var> is the greatest key in <var>AVL</var>.
+</p></dd>
+<dt><code>avl_max(<var>+AVL</var>, <var>-Key</var>, <var>-Val</var>)</code></dt>
+<dd>
+<a name="index-avl_005fmax_002f3-_0028avl_0029-1"></a>
+<a name="index-avl_005fmax_002f3-_0028avl_0029"></a>
+
+<p>is true when <var>Key</var> is the greatest key in <var>AVL</var> and <var>Val</var> is its value.
+</p></dd>
+<dt><code>avl_height(<var>+AVL</var>, <var>-Height</var>)</code></dt>
+<dd>
+<a name="index-avl_005fheight_002f2-_0028avl_0029-1"></a>
+<a name="index-avl_005fheight_002f2-_0028avl_0029"></a>
+
+<p>is true when <var>Height</var> is the height of the given AVL tree, that is,
+the longest path in the tree has <var>Height</var> &rsquo;node&rsquo;s on it.
+</p></dd>
+<dt><code>avl_size(<var>+AVL</var>, <var>-Size</var>)</code></dt>
+<dd>
+<a name="index-avl_005fsize_002f2-_0028avl_0029-1"></a>
+<a name="index-avl_005fsize_002f2-_0028avl_0029"></a>
+
+<p>is true when <var>Size</var> is the size of the AVL tree, the number of &rsquo;node&rsquo;s in it.
+</p></dd>
+<dt><code>portray_avl(<var>+AVL</var>)</code></dt>
+<dd>
+<a name="index-portray_005favl_002f1-_0028avl_0029-1"></a>
+<a name="index-portray_005favl_002f1-_0028avl_0029"></a>
+
+<p>writes an AVL tree to the current output stream in a pretty form so
+that you can easily see what it is.  Note that an AVL tree written
+out this way can NOT be read back in; for that use <code>writeq/1</code>.  The
+point of this predicate is 
+to get AVL trees displayed nicely by <code>print/1</code>.
+</p></dd>
+<dt><code>avl_member(<var>?Key</var>, <var>+AVL</var>)</code></dt>
+<dd>
+<a name="index-avl_005fmember_002f2-_0028avl_0029-1"></a>
+<a name="index-avl_005fmember_002f2-_0028avl_0029"></a>
+
+<p>is true when <var>Key</var> is one of the keys in the given AVL.  This
+predicate should be used to enumerate the keys, not to look for
+a particular key (use <code>avl_fetch/2</code> or <code>avl_fetch/3</code> for that).
+The <var>Keys</var> are enumerated in ascending order.
+</p></dd>
+<dt><code>avl_member(<var>?Key</var>, <var>+AVL</var>, <var>?Val</var>)</code></dt>
+<dd>
+<a name="index-avl_005fmember_002f3-_0028avl_0029-1"></a>
+<a name="index-avl_005fmember_002f3-_0028avl_0029"></a>
+
+<p>is true when <var>Key</var> is one of the keys in the given AVL and <var>Val</var> is
+the value the AVL associates with that <var>Key</var>.  This predicate should
+be used to enumerate the keys and their values, not to look up the
+value of a known key (use <code>avl_fetch/3</code>) for that.
+The <var>Keys</var> are enumerated in ascending order.
+</p></dd>
+<dt><code>avl_fetch(<var>+Key</var>, <var>+AVL</var>)</code></dt>
+<dd>
+<a name="index-avl_005ffetch_002f2-_0028avl_0029-1"></a>
+<a name="index-avl_005ffetch_002f2-_0028avl_0029"></a>
+
+<p>is true when the (given) <var>Key</var> is one of the keys in the (given) AVL.
+Use this to test whether a known Key occurs in <var>AVL</var> and you don&rsquo;t
+want to know the value associated with it.
+</p></dd>
+<dt><code>avl_fetch(<var>+Key</var>, <var>+AVL</var>, <var>-Val</var>)</code></dt>
+<dd>
+<a name="index-avl_005ffetch_002f3-_0028avl_0029-1"></a>
+<a name="index-avl_005ffetch_002f3-_0028avl_0029"></a>
+
+<p>is true when the (given) <var>Key</var> is one of the keys in the (given) AVL
+and the value associated with it therein is <var>Val</var>.  It should be
+used to look up <em>known</em> keys, not to enumerate keys (use either
+<code>avl_member/2</code> or <code>avl_member/3</code> for that).
+</p></dd>
+<dt><code>avl_next(<var>+Key</var>, <var>+AVL</var>, <var>-Knext</var>)</code></dt>
+<dd>
+<a name="index-avl_005fnext_002f3-_0028avl_0029-1"></a>
+<a name="index-avl_005fnext_002f3-_0028avl_0029"></a>
+
+<p>is true when <var>Knext</var> is the next key after <var>Key</var> in <var>AVL</var>;
+that is, <var>Knext</var> is the smallest key in <var>AVL</var> such that <var>Knext @&gt; Key</var>.
+</p></dd>
+<dt><code>avl_next(<var>+Key</var>, <var>+AVL</var>, <var>-Knext</var>, <var>-Vnext</var>)</code></dt>
+<dd>
+<a name="index-avl_005fnext_002f4-_0028avl_0029-1"></a>
+<a name="index-avl_005fnext_002f4-_0028avl_0029"></a>
+
+<p>is true when <var>Knext</var> is the next key after <var>Key</var> in <var>AVL</var> and <var>Vnext</var> is the
+value associated with <var>Knext</var> in <var>AVL</var>.  That is, <var>Knext</var> is the smallest
+key in <var>AVL</var> such that <var>Knext @&gt; Key</var>, and <code>avl_fetch(<var>Knext</var>, <var>AVL</var>, <var>Vnext</var>)</code>.
+</p></dd>
+<dt><code>avl_prev(<var>+Key</var>, <var>+AVL</var>, <var>-Kprev</var>)</code></dt>
+<dd>
+<a name="index-avl_005fprev_002f3-_0028avl_0029-1"></a>
+<a name="index-avl_005fprev_002f3-_0028avl_0029"></a>
+
+<p>is true when <var>Kprev</var> is the key previous to <var>Key</var> in <var>AVL</var>;
+that is, <var>Kprev</var> is the greatest key in <var>AVL</var> such that <var>Kprev @&lt; Key</var>.
+</p></dd>
+<dt><code>avl_prev(<var>+Key</var>, <var>+AVL</var>, <var>-Kprev</var>, <var>-Vprev</var>)</code></dt>
+<dd>
+<a name="index-avl_005fprev_002f4-_0028avl_0029-1"></a>
+<a name="index-avl_005fprev_002f4-_0028avl_0029"></a>
+
+<p>is true when <var>Kprev</var> is the key previous to Key in <var>AVL</var> and <var>Vprev</var> is the
+value associated with <var>Kprev</var> in <var>AVL</var>.  That is, <var>Kprev</var> is the greatest key
+in <var>AVL</var> such that <var>Kprev @&lt; Key</var>, and <code>avl_fetch(<var>Kprev</var>, <var>AVL</var>, <var>Vprev</var>)</code>.
+</p></dd>
+<dt><code>avl_change(<var>+Key</var>, <var>?AVL1</var>, <var>?Val1</var>, <var>?AVL2</var>, <var>?Val2</var>)</code></dt>
+<dd>
+<a name="index-avl_005fchange_002f5-_0028avl_0029-1"></a>
+<a name="index-avl_005fchange_002f5-_0028avl_0029"></a>
+
+<p>is true when <var>AVL1</var> and <var>AVL2</var> are avl trees of exactly the same shape,
+<var>Key</var> is a key of both of them, <var>Val1</var> is the value associated with <var>Key</var>
+in <var>AVL1</var> and <var>Val2</var> is the value associated with it in <var>AVL2</var>, and when
+<var>AVL1</var> and <var>AVL2</var> are identical except perhaps for the value they assign
+to <var>Key</var>.  Use this to change the value associated with a <var>Key</var> which is
+already present, not to insert a new <var>Key</var> (it won&rsquo;t).
+</p></dd>
+<dt><code>ord_list_to_avl(<var>+List</var>, <var>-AVL</var>)</code></dt>
+<dd>
+<a name="index-ord_005flist_005fto_005favl_002f2-_0028avl_0029-1"></a>
+<a name="index-ord_005flist_005fto_005favl_002f2-_0028avl_0029"></a>
+
+<p>is given a list of <var>Key-Val</var> pairs where the <var>Keys</var> are already in
+standard order with no duplicates (this is not checked) and
+returns an AVL representing the same associations.  This takes
+<var>O(N)</var> time, unlike <code>list_to_avl/2</code> which takes <var>O(N lg N)</var>.
+</p></dd>
+<dt><code>list_to_avl(<var>+Pairs</var>, <var>-AVL</var>)</code></dt>
+<dd>
+<a name="index-list_005fto_005favl_002f2-_0028avl_0029-1"></a>
+<a name="index-list_005fto_005favl_002f2-_0028avl_0029"></a>
+
+<p>is given a proper list of <var>Key-Val</var> pairs where the <var>Keys</var> are in no particular
+order (but are sufficiently instantiated to be told apart) and
+returns an AVL representing the same associations.  This works by
+starting with an empty tree and inserting the elements of the list
+into it.  This takes <var>O(N lg N)</var> time.  Since it is possible to read
+off a sorted list in <var>O(N)</var> time from the result, <var>O(N lg N)</var> is as good as
+can possibly be done.  If the same <var>Key</var> appears more than once in the
+input, the last value associated with it will be used.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">list_to_avl(Pairs, AVL) :-
+	(   foreach(K-V,Pairs),
+	    fromto(empty,AVL0,AVL1,AVL)
+	do  avl_store(K, AVL0, V, AVL1)
+	).
+</pre></div>
+</dd>
+<dt><code>avl_store(<var>+Key</var>, <var>+OldAVL</var>, <var>+Val</var>, <var>+NewAVL</var>)</code></dt>
+<dd>
+<a name="index-avl_005fstore_002f4-_0028avl_0029-1"></a>
+<a name="index-avl_005fstore_002f4-_0028avl_0029"></a>
+
+<p>is true when <var>OldAVL</var> and <var>NewAVL</var> define the same finite function
+except that <var>NewAVL</var> associates <var>Val</var> with <var>Key</var>.  <var>OldAVL</var> need not have
+associated any value at all with <var>Key</var>.  When it didn&rsquo;t, you can
+read this as &quot;insert <var>(Key-&gt;Val)</var> into <var>OldAVL</var> giving <var>NewAVL</var>&quot;.
+</p></dd>
+<dt><code>avl_incr(<var>+Key</var>, <var>+OldAVL</var>, <var>+Incr</var>, <var>+NewAVL</var>)</code></dt>
+<dd>
+<a name="index-avl_005fincr_002f4-_0028avl_0029-1"></a>
+<a name="index-avl_005fincr_002f4-_0028avl_0029"></a>
+
+<p>if <var>Key</var> is not present in <var>OldAVL</var>, adds <var>Key-&gt;Incr</var>.
+if <var>Key-&gt;N</var> is present in <var>OldAvl</var>, changes it to <var>Key-&gt;N+Incr</var>.
+</p></dd>
+<dt><code>avl_delete(<var>+Key</var>, <var>+OldAVL</var>, <var>-Val</var>, <var>-NewAVL</var>)</code></dt>
+<dd>
+<a name="index-avl_005fdelete_002f4-_0028avl_0029-1"></a>
+<a name="index-avl_005fdelete_002f4-_0028avl_0029"></a>
+
+<p>is true when <var>OldAVL</var> and <var>NewAVL</var> define the same finite function
+except that <var>OldAVL</var> associates <var>Key</var> with <var>Val</var> and <var>NewAVL</var> doesn&rsquo;t
+associate <var>Key</var> with any value.
+</p></dd>
+<dt><code>avl_del_min(<var>+OldAVL</var>, <var>-Key</var>, <var>-Val</var>, <var>-NewAVL</var>)</code></dt>
+<dd>
+<a name="index-avl_005fdel_005fmin_002f4-_0028avl_0029-1"></a>
+<a name="index-avl_005fdel_005fmin_002f4-_0028avl_0029"></a>
+
+<p>is true when <var>OldAVL</var> and <var>NewAVL</var> define the same finite function
+except that <var>OldAVL</var> associates <var>Key</var> with <var>Val</var> and <var>NewAVL</var> doesn&rsquo;t
+associate <var>Key</var> with any value and <var>Key</var> precedes all other keys in <var>OldAVL</var>.
+</p></dd>
+<dt><code>avl_del_max(<var>+OldAVL</var>, <var>-Key</var>, <var>-Val</var>, <var>-NewAVL</var>)</code></dt>
+<dd>
+<a name="index-avl_005fdel_005fmax_002f4-_0028avl_0029-1"></a>
+<a name="index-avl_005fdel_005fmax_002f4-_0028avl_0029"></a>
+
+<p>is true when <var>OldAVL</var> and <var>NewAVL</var> define the same finite function
+except that <var>OldAVL</var> associates <var>Key</var> with <var>Val</var> and <var>NewAVL</var> doesn&rsquo;t
+associate <var>Key</var> with any value and 
+<var>Key</var> is preceded by all other keys in <var>OldAVL</var>.
+</p></dd>
+<dt><code>avl_map(<var>:Pred</var>, <var>+AVL</var>)</code></dt>
+<dd>
+<a name="index-avl_005fmap_002f2-_0028avl_0029-1"></a>
+<a name="index-avl_005fmap_002f2-_0028avl_0029"></a>
+
+<p>is true when <var>AVL</var> is an association tree, and for each <var>Key</var>, 
+if <var>Key</var> is associated with <var>Value</var> in <var>AVL</var>, <var>Pred(Value)</var> is true.
+</p></dd>
+<dt><code>avl_map(<var>:Pred</var>, <var>+OldAVL</var>, <var>-NewAVL</var>)</code></dt>
+<dd>
+<a name="index-avl_005fmap_002f3-_0028avl_0029-1"></a>
+<a name="index-avl_005fmap_002f3-_0028avl_0029"></a>
+
+<p>is true when <var>OldAVL</var> and <var>NewAVL</var> are association trees of the
+same shape, and for each <var>Key</var>, if <var>Key</var> is associated with <var>Old</var> in
+<var>OldAVL</var> and with <var>New</var> in <var>NewAVL</var>, <var>Pred(Old,New)</var> is true.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dbags.html#lib_002dbags" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002datts.html#lib_002datts" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002davl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002davl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

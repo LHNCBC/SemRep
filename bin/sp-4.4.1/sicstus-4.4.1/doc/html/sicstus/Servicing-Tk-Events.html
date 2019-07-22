@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Servicing Tk Events</title>
+
+<meta name="description" content="SICStus Prolog: Servicing Tk Events">
+<meta name="keywords" content="SICStus Prolog: Servicing Tk Events">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" rel="up" title="The Tcl/Tk Prolog Library">
+<link href="Passing-Control-to-Tk.html#Passing-Control-to-Tk" rel="next" title="Passing Control to Tk">
+<link href="Event-Functions.html#Event-Functions" rel="prev" title="Event Functions">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Servicing-Tk-Events"></a>
+<hr>
+<a name="Servicing-Tcl-and-Tk-events"></a>
+<h4 class="subsubsection">10.39.4.5 Servicing Tcl and Tk events</h4>
+
+<p>The notion of an event in the Prolog+Tcl/Tk system is overloaded.
+We have already come across the following kinds of events:
+</p>
+<ul>
+<li> Tk widget events captured in Tcl/Tk through the <code>bind</code> command
+</li><li> Prolog queue events controlled through the <code>tcl_event/3</code>, 
+<code>tk_next_event(2,3)</code>, and <code>prolog_event</code> functions
+</li></ul>
+
+<p>It is further about to be overloaded with the notion of Tcl/Tk events.
+It is possible to create event handlers in Tcl/Tk for reacting to
+other kinds of events. We will not cover them here but describe
+them so that the library functions are understandable and in case
+the user needs these features in an advanced application.
+</p>
+<p>There are the following kinds of Tcl/Tk events:
+</p>
+<dl compact="compact">
+<dt>idle events</dt>
+<dd><p>happen when the Tcl/Tk system is idle
+</p>
+</dd>
+<dt>file events</dt>
+<dd><p>happen when input arrives on a file handle that has a file event
+handler attached to it
+</p>
+</dd>
+<dt>timer events</dt>
+<dd><p>happen when a Tcl/Tk timer times out
+</p>
+</dd>
+<dt>window events</dt>
+<dd><p>when something happens to a Tk window, such as being resized or
+destroyed
+</p></dd>
+</dl>
+
+<p>The problem is that in advanced Tcl/Tk applications it is possible
+to create event handlers for each of these kinds of event, but
+they are not normally serviced while in Prolog code.
+This can result in unresponsive behavior in the application;
+for example, if window events are not serviced regularly, then if the
+user tries to resize a Tk window, then it will not resize in a timely fashion.
+</p>
+<p>The solution to this is to introduce a Prolog predicate that
+passes control to Tk for a while so that it can process its events,
+<code>tk_do_one_event/[0,1]</code>. If an application is unresponsive because
+it is spending a lot of time in Prolog and is not servicing Tk events
+often enough, then critical sections of the Prolog code can be sprinkled
+with calls to <code>tk_do_one_event/[0,1]</code> to alleviate the problem.
+</p>
+<p><code>tk_do_one_event/[0,1]</code> has the following forms:
+</p>
+
+<a name="index-tk_005fdo_005fone_005fevent_002f_005b0_002c1_005d-_0028tcltk_0029-2"></a>
+<a name="index-tk_005fdo_005fone_005fevent_002f_005b0_002c1_005d-_0028tcltk_0029"></a>
+
+<div class="example">
+<pre class="example">tk_do_one_event
+tk_do_one_event(<var>+Options</var>)
+</pre></div>
+
+<p>which passes control to Tk to handle a single event before passing
+control back to Prolog. The type of events handled is passed through
+the
+<var>Options</var> variable, a list of
+atoms that are event types.
+</p>
+
+<p>The <var>Options</var> list can contain the following atoms:
+</p>
+<dl compact="compact">
+<dt><code>tk_dont_wait</code></dt>
+<dd><a name="index-tk_005fdont_005fwait-_0028tk_005fdo_005fone_005fevent_002f1-option_0029"></a>
+<p>do not wait for new events, process only those that are ready
+</p>
+</dd>
+<dt><code>tk_window_events</code></dt>
+<dd><a name="index-tk_005fwindow_005fevents-_0028tk_005fdo_005fone_005fevent_002f1-option_0029"></a>
+<p>process window events
+</p>
+</dd>
+<dt><code>tk_file_events</code></dt>
+<dd><a name="index-tk_005ffile_005fevents-_0028tk_005fdo_005fone_005fevent_002f1-option_0029"></a>
+<p>process file events
+</p>
+</dd>
+<dt><code>tk_timer_events</code></dt>
+<dd><a name="index-tk_005ftimer_005fevents-_0028tk_005fdo_005fone_005fevent_002f1-option_0029"></a>
+<p>process timer events
+</p>
+</dd>
+<dt><code>tk_idle_events</code></dt>
+<dd><a name="index-tk_005fidle_005fevents-_0028tk_005fdo_005fone_005fevent_002f1-option_0029"></a>
+<p>process <code>Tcl_DoWhenIdle</code> events
+</p>
+</dd>
+<dt><code>tk_all_events</code></dt>
+<dd><a name="index-tk_005fall_005fevents-_0028tk_005fdo_005fone_005fevent_002f1-option_0029"></a>
+<p>process any event
+</p></dd>
+</dl>
+
+<p>Calling <code>tk_do_one_event/0</code> is equivalent to a call to
+<code>tk_do_one_event/1</code> with the <code>tk_all_events</code> and <code>tk_dont_wait</code> flags. 
+</p>
+<p>A call to either of these predicates succeeds only if an event of
+the appropriate type happens in the Tcl/Tk interpreter.  If there are no
+such events, then <code>tk_do_one_event/1</code> will fail if the
+<code>tk_dont_wait</code> wait flag is present, as will
+<code>tk_do_one_event/0</code>, which has that flag set implicitly.
+</p>
+<p>If the <code>tk_dont_wait</code> flag is not set, then a call to
+<code>tk_do_one_event/1</code> will block until an appropriate Tk event
+happens (in which case it will succeed).
+</p>
+<p>It is straight forward to define a predicate that handles all Tk
+events and then returns:
+</p>
+<div class="example">
+<pre class="example">tk_do_all_events :-
+    tk_do_one_event, !,
+    tk_do_all_events.
+tk_do_all_events.
+</pre></div>
+
+<p>The predicate <code>tk_next_event/[2,3]</code> is similar to
+<code>tk_do_one_event/[0,1]</code> except that it processes Tk events until at
+least one Prolog event happens. (We came across this predicate
+before when discussing Prolog event queue predicates. This shows
+the overloading of the notion event where we have a predicate that
+handles both Tcl/Tk events and Prolog queue events.)
+</p>
+<p>It has the following forms:
+</p>
+
+<a name="index-tk_005fnext_005fevent_002f_005b2_002c3_005d-_0028tcltk_0029-4"></a>
+<a name="index-tk_005fnext_005fevent_002f_005b2_002c3_005d-_0028tcltk_0029-1"></a>
+
+<div class="example">
+<pre class="example">tk_next_event(<var>+TclInterpreter</var>, <var>-Event</var>)
+tk_next_event(<var>+Options</var>, <var>+TclInterpreter</var>, <var>-Event</var>)
+</pre></div>
+
+<p>The Prolog event is returned in the variable <var>Event</var> and is the
+first term on the Prolog event queue associated with the
+interpreter <var>TclInterpreter</var>. (Prolog events are initiated on the
+Tcl side through the new Tcl command <code>prolog_event</code>, covered
+earlier; see <a href="Event-Functions.html#Event-Functions">Event Functions</a>).
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Passing-Control-to-Tk.html#Passing-Control-to-Tk" accesskey="n" rel="next">Next</a>
+<li><a href="Event-Functions.html#Event-Functions" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Servicing-Tk-Events.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Servicing-Tk-Events.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

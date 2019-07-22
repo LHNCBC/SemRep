@@ -1,0 +1,1239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-lists</title>
+
+<meta name="description" content="SICStus Prolog: lib-lists">
+<meta name="keywords" content="SICStus Prolog: lib-lists">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dlogarr.html#lib_002dlogarr" rel="next" title="lib-logarr">
+<link href="lib_002dlinda_002dclient.html#lib_002dlinda_002dclient" rel="prev" title="lib-linda-client">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dlists"></a>
+<hr>
+<a name="List-Operations_002d_002d_002dlibrary_0028lists_0029"></a>
+<h3 class="section">10.21 List Operations&mdash;<code>library(lists)</code></h3>
+<p>This library module provides operations on lists.
+Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>select(<var>?Element</var>, <var>?Set</var>, <var>?Residue</var>)</code></dt>
+<dd>
+<a name="index-select_002f3-_0028lists_0029-1"></a>
+<a name="index-select_002f3-_0028lists_0029"></a>
+
+<p>is true when <var>Set</var> is a list, <var>Element</var> occurs in <var>Set</var>, and <var>Residue</var> is
+everything in <var>Set</var> except <var>Element</var> (things stay in the same order).
+</p></dd>
+<dt><code>selectchk(<var>+Element</var>, <var>+Set</var>, <var>?Residue</var>)</code></dt>
+<dd>
+<a name="index-selectchk_002f3-_0028lists_0029-1"></a>
+<a name="index-selectchk_002f3-_0028lists_0029"></a>
+
+<p>is to <code>select/3</code> what <code>memberchk/2</code> is to <code>member/2</code>.  That is, it locates
+the first occurrence of <var>Element</var> in <var>Set</var>, and deletes it, giving <var>Residue</var>.
+It is steadfast in <var>Residue</var>.
+</p></dd>
+<dt><code>append(<var>+ListOfLists</var>, <var>-List</var>)</code></dt>
+<dd>
+<a name="index-append_002f_005b2_002c5_005d-_0028lists_0029-1"></a>
+<a name="index-append_002f_005b2_002c5_005d-_0028lists_0029"></a>
+
+<p>is true when <var>ListOfLists</var> is a list <var>[L1,...,Ln]</var> of lists, <var>List</var> is
+a list, and appending <var>L1</var>, ..., <var>Ln</var> together yields <var>List</var>.
+<var>ListOfLists</var> <em>must</em> be a proper list.  
+Additionally, either <var>List</var> should be a proper list, or
+each of <var>L1</var>, ..., <var>Ln</var> should be a proper list.  The behavior on
+non-lists is undefined.  <var>ListOfLists</var> must be proper because for
+any given solution, infinitely many more can be obtained by
+inserting nils ([]) into <var>ListOfList</var>.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">append(Lists, Appended) :-
+	(   foreach(List,Lists),
+	    fromto(Appended,S0,S,[])
+	do  append(List, S, S0)
+	).
+</pre></div>
+</dd>
+<dt><code>append(<var>?Prefix</var>, <var>?Tail1</var>, <var>?List1</var>, <var>?Tail2</var>, <var>?List2</var>)</code></dt>
+<dd><p>is true when <code>append(<var>Prefix</var>, <var>Tail1</var>, <var>List1</var>)</code> and <code>append(<var>Prefix</var>, <var>Tail2</var>, <var>List2</var>)</code>
+are both true.  You could call <code>append/3</code> twice, but that is order-
+dependent.  This will terminate if <var>Prefix</var> is a proper list or if
+either <var>List1</var> or <var>List2</var> is a proper list.
+</p></dd>
+<dt><code>correspond(<var>?X</var>, <var>?Xlist</var>, <var>?Ylist</var>, <var>?Y</var>)</code></dt>
+<dd>
+<a name="index-correspond_002f4-_0028lists_0029-1"></a>
+<a name="index-correspond_002f4-_0028lists_0029"></a>
+
+<p>is true when <var>Xlist</var> and <var>Ylist</var> are lists, <var>X</var> is an element of <var>Xlist</var>, <var>Y</var> is
+an element of <var>Ylist</var>, and <var>X</var> and <var>Y</var> are in similar places in their lists.
+No relation is implied between other elements of <var>Xlist</var> and <var>Ylist</var>.
+For a similar predicate without the cut, see <code>select/4</code>.
+</p></dd>
+<dt><code>delete(<var>+List</var>, <var>+Kill</var>, <var>-Residue</var>)</code></dt>
+<dd>
+<a name="index-delete_002f_005b3_002c4_005d-_0028lists_0029-1"></a>
+<a name="index-delete_002f_005b3_002c4_005d-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> is a list, in which <var>Kill</var> may or may not occur, and
+<var>Residue</var> is a copy of <var>List</var> with all elements equal to <var>Kill</var> deleted.
+To extract a single copy of <var>Kill</var>, use <code>select(<var>Kill</var>, <var>List</var>, <var>Residue</var>)</code>.
+If <var>List</var> is not proper, <code>delete/3</code> will <em>fail</em>.  <var>Kill</var> and the elements of
+<var>List</var> should be sufficiently instantiated for <code>\=</code> to be sound.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">delete(List, Kill, Residue) :-
+	(   foreach(X,List),
+	    fromto(Residue,S0,S,[]),
+	    param(Kill)
+	do  (X = Kill -&gt; S0 = S ; S0 = [X|S])
+	).
+</pre></div>
+</dd>
+<dt><code>delete(<var>+List</var>, <var>+Kill</var>, <var>+Count</var>, <var>-Residue</var>)</code></dt>
+<dd><p>is true when <var>List</var> is a list, in which <var>Kill</var> may or may not occur,
+and <var>Count</var> is a non-negative integer, and <var>Residue</var> is a copy of
+<var>List</var> with the first <var>Count</var> elements equal to <var>Kill</var> deleted.  If
+<var>List</var> has fewer than <var>Count</var> elements equal to <var>Count</var>, all of them
+are deleted.
+If <var>List</var> is not proper, <code>delete/4</code> may <em>fail</em>.  <var>Kill</var> and the elements of
+<var>List</var> should be sufficiently instantiated for <code>\=</code> to be sound.
+</p></dd>
+<dt><code>is_list(<var>+List</var>)</code></dt>
+<dd>
+<a name="index-is_005flist_002f1-_0028lists_0029-1"></a>
+<a name="index-is_005flist_002f1-_0028lists_0029"></a>
+
+<p>succeeds when <var>List</var> is a proper list.  That is, <var>List</var> is nil ([]) or
+a cons cell (<var>[Head|Tail]</var>) whose <var>Tail</var> is a proper list.
+A variable, or a list whose final tail is a variable, or a cyclic list, will fail this
+test.
+</p></dd>
+<dt><code>keys_and_values(<var>?[K1-V1,...,Kn-Vn]</var>, <var>?[K1,...,Kn]</var>, <var>?[V1,...,Vn]</var>)</code></dt>
+<dd>
+<a name="index-keys_005fand_005fvalues_002f3-_0028lists_0029-1"></a>
+<a name="index-keys_005fand_005fvalues_002f3-_0028lists_0029"></a>
+
+<p>is true when its arguments look like the picture above.  It is meant
+for splitting a list of <var>Key-Value</var> pairs (such as <code>keysort/2</code> wants and
+produces) into separate lists of <var>Keys</var> and of <var>Values</var>.  It may just as
+well be used for building a list of pairs from a pair of lists.   In
+fact one usually wants just the keys or just the values, but you can
+supply <code>_</code> as the other argument.   For example, suppose you wanted to
+sort a list without having duplicates removed.  You could do
+</p><div class="example">
+<pre class="example">    keys_and_values(RawPairs, RawKeys, _),
+    keysort(RawPairs, OrdPairs),
+    keys_and_values(OrdPairs, OrdKeys, _).
+</pre></div>
+<p>Could be defined as:
+</p>
+<div class="example">
+<pre class="example">keys_and_values([], [], []).
+keys_and_values([Key-Value|Pairs], [Key|Keys], [Value|Values]) :-
+	keys_and_values(Pairs, Keys, Values).
+</pre></div>
+</dd>
+<dt><code>last(<var>+List</var>, <var>-Last</var>)</code></dt>
+<dd>
+<a name="index-last_002f2-_0028lists_0029-1"></a>
+<a name="index-last_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> is a <var>List</var> and <var>Last</var> is its last element.
+There is also a <code>last(<var>?Fore</var>, <var>?Last</var>, <var>?List</var>)</code>
+whose argument order matches append/3.
+This could be defined as 
+</p><div class="example">
+<pre class="example">    last(L, X) :- append(_, [X], L).
+</pre></div>
+</dd>
+<dt><code>nextto(<var>?X</var>, <var>?Y</var>, <var>?List</var>)</code></dt>
+<dd>
+<a name="index-nextto_002f3-_0028lists_0029-1"></a>
+<a name="index-nextto_002f3-_0028lists_0029"></a>
+
+<p>is true when <var>X</var> and <var>Y</var> appear side-by-side in <var>List</var>.
+It could be written as
+</p><div class="example">
+<pre class="example">    nextto(X, Y, List) :- append(_, [X,Y|_], List).
+</pre></div>
+<p>It may be used to enumerate successive pairs from the list.
+<var>List</var> should be proper, otherwise <code>nextto/3</code> will generate it.
+</p></dd>
+<dt><code>nth0(<var>?N</var>, <var>?List</var>, <var>?Elem</var>)</code></dt>
+<dd>
+<a name="index-nth0_002f_005b3_002c4_005d-_0028lists_0029-1"></a>
+<a name="index-nth0_002f_005b3_002c4_005d-_0028lists_0029"></a>
+
+<p>is true when <var>Elem</var> is the <var>N</var>th member of <var>List</var>, counting the first as
+element 0.  That is, throw away the first <var>N</var> elements and unify <var>Elem</var>
+with the next.  E.g. <code>nth0(0, [H|T], H)</code>.
+Either <var>N</var> should be an integer, or <var>List</var> should be proper.
+</p></dd>
+<dt><code>nth1(<var>?N</var>, <var>?List</var>, <var>?Element</var>)</code></dt>
+<dd>
+<a name="index-nth1_002f_005b3_002c4_005d-_0028lists_0029-1"></a>
+<a name="index-nth1_002f_005b3_002c4_005d-_0028lists_0029"></a>
+
+<p>is true when <var>Elem</var> is the <var>Nth</var> member of <var>List</var>, counting the first as
+element 1.  That is, throw away the first <var>N-1</var> elements and unify <var>Elem</var>
+with the next element (the <var>Nth</var>).  E.g. <code>nth1(1, [H|T], H)</code>.
+This is just like <code>nth0/3</code> except that it counts from 1 instead of 0.
+Either <var>N</var> should be an integer, or <var>List</var> should be proper.
+</p></dd>
+<dt><code>nth0(<var>?N</var>, <var>?List</var>, <var>?Elem</var>, <var>?Rest</var>)</code></dt>
+<dd><p>unifies <var>Elem</var> with the <var>Nth</var> element of <var>List</var>, counting from 0, and <var>Rest</var>
+with the other elements.  It can be used to select the <var>Nth</var> element
+of <var>List</var> (yielding <var>Elem</var> and <var>Rest</var>), or to insert <var>Elem</var> <em>before</em> the <var>Nth</var>
+(counting from 0) element of <var>Rest</var>, when it yields <var>List</var>, e.g.
+<code>nth0(2, List, c, [a,b,d,e])</code> unifies <var>List</var> with <code>[a,b,c,d,e]</code>.
+This can be seen as inserting <var>Elem</var> <em>after</em> the <var>Nth</var> element of <var>Rest</var>
+if you count from 1 rather than 0.
+Either <var>N</var> should be an integer, or <var>List</var> or <var>Rest</var> should be proper.
+</p></dd>
+<dt><code>nth1(<var>?N</var>, <var>?List</var>, <var>?Elem</var>, <var>?Rest</var>)</code></dt>
+<dd><p>unifies <var>Elem</var> with the <var>Nth</var> element of <var>List</var>, counting from 1, and <var>Rest</var>
+with the other elements.  It can be used to select the <var>Nth</var> element
+of <var>List</var> (yielding <var>Elem</var> and <var>Rest</var>), or to insert <var>Elem</var> <em>before</em> the <var>Nth</var>
+(counting from 1) element of <var>Rest</var>, when it yields <var>List</var>, e.g.
+<code>nth1(2, List, b, [a,c,d,e])</code> unifies <var>List</var> with <code>[a,b,c,d,e]</code>.
+Either <var>N</var> should be an integer, or <var>List</var> or <var>Rest</var> should be proper.
+</p></dd>
+<dt><code>one_longer(<var>?Longer</var>, <var>?Shorter</var>)</code></dt>
+<dd>
+<a name="index-one_005flonger_002f2-_0028lists_0029-1"></a>
+<a name="index-one_005flonger_002f2-_0028lists_0029"></a>
+
+<p>is true when 
+</p><div class="example">
+<pre class="example">    length(Longer,N), length(Shorter,M), succ(M,N)
+</pre></div>
+<p>for some integers <var>M</var>, <var>N</var>.  It was
+written to make <code>{nth0,nth1}/4</code> able to find the index, just as
+<code>same_length/2</code> is useful for making things invertible.
+</p></dd>
+<dt><code>perm(<var>+List</var>, <var>?Perm</var>)</code></dt>
+<dd>
+<a name="index-perm_002f2-_0028lists_0029-1"></a>
+<a name="index-perm_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> and <var>Perm</var> are permutations of each other.  The main
+use of <code>perm/2</code> is to generate permutations.  You should not use this
+predicate in new programs; use <code>permutation/2</code> instead.  <var>List</var> must be
+a proper list.  <var>Perm</var> may be partly instantiated.
+</p></dd>
+<dt><code>permutation(<var>?List</var>, <var>?Perm</var>)</code></dt>
+<dd>
+<a name="index-permutation_002f2-_0028lists_0029-1"></a>
+<a name="index-permutation_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> and <var>Perm</var> are permutations of each other.
+Unlike <code>perm/2</code>, it will work even when <var>List</var> is not a proper list.
+Any way, it works by generating permutations of <var>List</var> and unifying them with <var>Perm</var>.
+Be careful: this is quite efficient, but the number of permutations of an
+<var>N</var>-element list is <var>N!</var>, and even for a 7-element list that is 5040.
+</p></dd>
+<dt><code>perm2(<var>?A</var>,<var>?B</var>, <var>?C</var>,<var>?D</var>)</code></dt>
+<dd>
+<a name="index-perm2_002f4-_0028lists_0029-1"></a>
+<a name="index-perm2_002f4-_0028lists_0029"></a>
+
+<p>is true when <var>{A,B} = {C,D}</var>.  It is very useful for writing pattern
+matchers over commutative operators.
+</p></dd>
+<dt><code>proper_length(<var>+List</var>, <var>?Length</var>)</code></dt>
+<dd>
+<a name="index-proper_005flength_002f2-_0028lists_0029-1"></a>
+<a name="index-proper_005flength_002f2-_0028lists_0029"></a>
+
+<p>succeeds when <var>List</var> is a proper list, binding <var>Length</var> to its length.
+That is, <code>is_list(List), length(List, Length)</code>.
+Will fail for cyclic lists.
+</p></dd>
+<dt><code>remove_dups(<var>+List</var>, <var>?Pruned</var>)</code></dt>
+<dd>
+<a name="index-remove_005fdups_002f2-_0028lists_0029-1"></a>
+<a name="index-remove_005fdups_002f2-_0028lists_0029"></a>
+
+<p>removes duplicated elements from <var>List</var>, which should be a proper list.
+If <var>List</var> has non-ground elements, <var>Pruned</var> may contain elements which
+unify; two elements will remain separate iff there is a substitution
+which makes them different.  E.g. <var>[X,X] -&gt; [X]</var> but <var>[X,Y] -&gt; [X,Y]</var>.
+The surviving elements, by ascending standard order, is unified with <var>Pruned</var>.
+</p></dd>
+<dt><code>reverse(<var>?List</var>, <var>?Reversed</var>)</code></dt>
+<dd>
+<a name="index-reverse_002f2-_0028lists_0029-1"></a>
+<a name="index-reverse_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> and <var>Reversed</var> are lists with the same elements
+but in opposite orders.  Either <var>List</var> or <var>Reversed</var> should be a
+proper list: given either argument the other can be found.  If
+both are incomplete <code>reverse/2</code> can backtrack forever trying ever
+longer lists.
+</p></dd>
+<dt><code>rev(<var>+List</var>, <var>?Reversed</var>)</code></dt>
+<dd>
+<a name="index-rev_002f2-_0028lists_0029-1"></a>
+<a name="index-rev_002f2-_0028lists_0029"></a>
+
+<p>is a version of <code>reverse/2</code> which only works one way around.
+Its <var>List</var> argument must be a proper list whatever <var>Reversed</var> is.
+You should use <code>reverse/2</code> in new programs, though <code>rev/2</code> is
+faster when it is safe to use it.
+</p></dd>
+<dt><code>same_length(<var>?List1</var>, <var>?List2</var>)</code></dt>
+<dd>
+<a name="index-same_005flength_002f_005b2_002c3_005d-_0028lists_0029-1"></a>
+<a name="index-same_005flength_002f_005b2_002c3_005d-_0028lists_0029"></a>
+
+<p>is true when <var>List1</var> and <var>List2</var> are both lists and have the same number
+of elements.  No relation between the values of their elements is
+implied.  It may be used to generate either list given the other,
+or indeed to generate two lists of the same length, in which case
+the arguments will be bound to lists of length 0, 1, 2, ... 
+If either <var>List1</var> or <var>List2</var> is bound to a proper
+list, same_length is determinate and terminating.
+</p></dd>
+<dt><code>same_length(<var>?List1</var>, <var>?List2</var>, <var>?Length</var>)</code></dt>
+<dd><p>is true when <var>List1</var> and <var>List2</var> are both lists, <var>Length</var> is a non-negative
+integer, and both <var>List1</var> and <var>List2</var> have exactly <var>Length</var> elements.  No
+relation between the elements of the lists is implied.  If <var>Length</var>
+is instantiated, or if either <var>List1</var> or <var>List2</var> is bound to a proper
+list, same_length is determinate and terminating.
+</p></dd>
+<dt><code>select(<var>?X</var>, <var>?Xlist</var>, <var>?Y</var>, <var>?Ylist</var>)</code></dt>
+<dd>
+<a name="index-select_002f4-_0028lists_0029-1"></a>
+<a name="index-select_002f4-_0028lists_0029"></a>
+
+<p>is true when <var>X</var> is the <var>Kth</var> member of <var>Xlist</var> and <var>Y</var> the <var>Kth</var> element of <var>Ylist</var>
+for some <var>K</var>, and apart from that <var>Xlist</var> and <var>Ylist</var> are the same.  You can
+use it to replace <var>X</var> by <var>Y</var> or vice versa.  Either <var>Xlist</var> or <var>Ylist</var> should
+be a proper list.  
+</p></dd>
+<dt><code>selectchk(<var>?X</var>, <var>+Xlist</var>, <var>?Y</var>, <var>+Ylist</var>)</code></dt>
+<dd>
+<a name="index-selectchk_002f4-_0028lists_0029-1"></a>
+<a name="index-selectchk_002f4-_0028lists_0029"></a>
+
+<p>is to <code>select/4</code> as <code>memberhck/2</code> is to <code>member/2</code>.  That is, it finds the
+first <var>K</var> such that <var>X</var> unifies with the <var>Kth</var> element of <var>Xlist</var> and <var>Y</var> with
+the <var>Kth</var> element of <var>Ylist</var>, and it commits to the bindings thus found.
+If you have <var>Keys</var> and <var>Values</var> in &quot;parallel&quot; lists, you can use this to
+find the <var>Value</var> associated with a particular <var>Key</var> (much better methods
+exist).  Except for argument order, this is identical to <code>correspond/4</code>,
+but <code>selectchk/4</code> is a member of a coherent family.  Note that the
+arguments are like the arguments of <code>memberchk/2</code>, twice.
+</p></dd>
+<dt><code>shorter_list(<var>?Short</var>, <var>?Long</var>)</code></dt>
+<dd>
+<a name="index-shorter_005flist_002f2-_0028lists_0029-1"></a>
+<a name="index-shorter_005flist_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>Short</var> is a list is strictly shorter than <var>Long</var>.  <var>Long</var>
+doesn&rsquo;t have to be a proper list provided it is long enough.  This
+can be used to generate lists shorter than <var>Long</var>, lengths 0, 1, 2...
+will be tried, but backtracking will terminate with a list that is
+one element shorter than <var>Long</var>.  It cannot be used to generate lists
+longer than <var>Short</var>, because it doesn&rsquo;t look at all the elements of the
+longer list.
+</p></dd>
+<dt><code>subseq(<var>?Sequence</var>, <var>?SubSequence</var>, <var>?Complement</var>)</code></dt>
+<dd>
+<a name="index-subseq_002f3-_0028lists_0029-1"></a>
+<a name="index-subseq_002f3-_0028lists_0029"></a>
+
+<p>is true when <var>SubSequence</var> and <var>Complement</var> are both subsequences of the
+list <var>Sequence</var> (the order of corresponding elements being preserved)
+and every element of <var>Sequence</var> which is not in <var>SubSequence</var> is in the
+<var>Complement</var> and vice versa.  That is,
+<code>length(Sequence) = length(SubSequence)+length(Complement)</code>, 
+e.g. <code>subseq([1,2,3,4], [1,3,4], [2])</code>.  This was written to generate subsets
+and their complements together, but can also be used to interleave two
+lists in all possible ways.  
+</p></dd>
+<dt><code>subseq0(<var>+Sequence</var>, <var>?SubSequence</var>)</code></dt>
+<dd>
+<a name="index-subseq0_002f2-_0028lists_0029-1"></a>
+<a name="index-subseq0_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>SubSequence</var> is a subsequence of <var>Sequence</var>, but may
+be <var>Sequence</var> itself.   Thus <code>subseq0([a,b], [a,b])</code> is true as well
+as <code>subseq0([a,b], [a])</code>.  <var>Sequence</var> must be a proper list, since
+there are infinitely many lists with a given <var>SubSequence</var>.
+</p><div class="example">
+<pre class="example">?- setof(X, subseq0([a,b,c],X), Xs).
+Xs = [[],[a],[a,b],[a,b,c],[a,c],[b],[b,c],[c]] 
+?- bagof(X, subseq0([a,b,c,d],X), Xs).
+Xs = [[a,b,c,d],[b,c,d],[c,d],[d],[],[c],[b,d],[b],[b,c],[a,c,d],
+      [a,d],[a],[a,c],[a,b,d],[a,b],[a,b,c]] 
+</pre></div>
+</dd>
+<dt><code>subseq1(<var>+Sequence</var>, <var>?SubSequence</var>)</code></dt>
+<dd>
+<a name="index-subseq1_002f2-_0028lists_0029-1"></a>
+<a name="index-subseq1_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>SubSequence</var> is a proper subsequence of <var>Sequence</var>,
+that is it contains at least one element less.  <var>Sequence</var> must
+be a proper list, as <var>SubSequence</var> does not determine <var>Sequence</var>.
+</p></dd>
+<dt><code>sumlist(<var>+Numbers</var>, <var>?Total</var>)</code></dt>
+<dd>
+<a name="index-sumlist_002f2-_0028lists_0029-1"></a>
+<a name="index-sumlist_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>Numbers</var> is a list of integers, and <var>Total</var> is their sum.
+<var>Numbers</var> should be a proper list.  
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">sumlist(Numbers, Total) :-
+	(   foreach(X,Numbers),
+	    fromto(0,S0,S,Total)
+	do  S is S0+X
+	).
+</pre></div>
+</dd>
+<dt><code>transpose(<var>?X</var>, <var>?Y</var>)</code></dt>
+<dd>
+<a name="index-transpose_002f2-_0028lists_0029-1"></a>
+<a name="index-transpose_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>X</var> is a list of the form <var>[[X11,...,X1m],...,[Xn1,...,Xnm]]</var>
+and <var>Y</var> is its transpose, that is, <var>Y = [[X11,...,Xn1],...,[X1m,...,Xnm]]</var>
+We insist that both lists should have this rectangular form, so that
+the predicate can be invertible.  For the same reason, we reject empty
+arrays with <var>m = 0</var> or <var>n = 0</var>.
+</p></dd>
+<dt><code>append_length(<var>?Prefix</var>, <var>?Suffix</var>, <var>?List</var>, <var>?Length</var>)</code></dt>
+<dd>
+<a name="index-append_005flength_002f_005b3_002c4_005d-_0028lists_0029-1"></a>
+<a name="index-append_005flength_002f_005b3_002c4_005d-_0028lists_0029"></a>
+
+<p>is true when
+</p><div class="example">
+<pre class="example">    append(Prefix, Suffix, List), length(Prefix, Length).
+</pre></div>
+<p>The normal use of this is to split a <var>List</var> into a <var>Prefix</var> of
+a given <var>Length</var> and the corresponding <var>Suffix</var>, but it can be
+used any way around provided that
+    <var>Length</var> is instantiated, or
+    <var>Prefix</var> is a proper list, or
+    <var>List</var>   is a proper list.
+</p></dd>
+<dt><code>append_length(<var>?Suffix</var>, <var>?List</var>, <var>?Length</var>)</code></dt>
+<dd><p>is true when there exists a list <var>Prefix</var> such that
+<code>append_length(<var>Prefix</var>, <var>Suffix</var>, <var>List</var>, <var>Length</var>)</code> is true.
+When you don&rsquo;t want to know the <var>Prefix</var>, you should call this
+predicate, because it doesn&rsquo;t construct the <var>Prefix</var> argument,
+which <code>append_length/4</code> would do.
+</p></dd>
+<dt><code>prefix_length(<var>?List</var>, <var>?Prefix</var>, <var>?Length</var>)</code></dt>
+<dd>
+<a name="index-prefix_005flength_002f3-_0028lists_0029-1"></a>
+<a name="index-prefix_005flength_002f3-_0028lists_0029"></a>
+
+<p>is true when
+</p><div class="example">
+<pre class="example">    prefix(List, Prefix) &amp;
+    length(Prefix, Length).
+</pre></div>
+<p>The normal use of this is to find the first <var>Length</var> elements of
+a given <var>List</var>, but it can be used any way around provided that
+    <var>Length</var> is instantiated, or
+    <var>Prefix</var> is a proper list, or
+    <var>List</var>   is a proper list.
+It is identical in effect to <code>append_length(Prefix, _, List, Length)</code>.
+</p></dd>
+<dt><code>proper_prefix_length(<var>?List</var>, <var>?Prefix</var>, <var>?Length</var>)</code></dt>
+<dd>
+<a name="index-proper_005fprefix_005flength_002f3-_0028lists_0029-1"></a>
+<a name="index-proper_005fprefix_005flength_002f3-_0028lists_0029"></a>
+
+<p>is true when
+</p><div class="example">
+<pre class="example">    proper_prefix(List, Prefix) &amp;
+    length(Prefix, Length).
+</pre></div>
+<p>The normal use of this is to find the first <var>Length</var> elements of
+a given <var>List</var>, but it can be used any way around provided that
+    <var>Length</var> is instantiated, or
+    <var>Prefix</var> is a proper list, or
+    <var>List</var>   is a proper list.
+It is logically equivalent to <code>prefix(Prefix, List, Length), Length &gt; 0</code>.
+</p></dd>
+<dt><code>suffix_length(<var>+List</var>, <var>?Suffix</var>, <var>?Length</var>)</code></dt>
+<dd>
+<a name="index-suffix_005flength_002f3-_0028lists_0029-1"></a>
+<a name="index-suffix_005flength_002f3-_0028lists_0029"></a>
+
+<p>is true when
+</p><div class="example">
+<pre class="example">    suffix(List, Suffix) &amp;
+    length(Suffix, Length).
+</pre></div>
+<p>The normal use of this is to return the last <var>Length</var> elements of
+a given <var>List</var>.  For this to be sure of termination,
+    <var>List</var> must be a proper list.
+The predicate suffix/2 has the same requirement.
+If <var>Length</var> is instantiated or <var>Suffix</var> is a proper list, this predicate
+is determinate.
+</p></dd>
+<dt><code>proper_suffix_length(<var>+List</var>, <var>?Suffix</var>, <var>?Length</var>)</code></dt>
+<dd>
+<a name="index-proper_005fsuffix_005flength_002f3-_0028lists_0029-1"></a>
+<a name="index-proper_005fsuffix_005flength_002f3-_0028lists_0029"></a>
+
+<p>is true when
+</p><div class="example">
+<pre class="example">    proper_suffix(List, Suffix) &amp;
+    length(Suffix, Length).
+</pre></div>
+<p>The normal use of this is to return the last <var>Length</var> elements of
+a given <var>List</var>.  For this to be sure of termination,
+    <var>List</var> must be a proper list.
+The predicate proper_suffix/2 has the same
+If <var>Length</var> is instantiated or <var>Suffix</var> is a proper list, this predicate
+is determinate.
+</p></dd>
+<dt><code>rotate_list(<var>+Amount</var>, <var>?List</var>, <var>?Rotated</var>)</code></dt>
+<dd>
+<a name="index-rotate_005flist_002f_005b2_002c3_005d-_0028lists_0029-1"></a>
+<a name="index-rotate_005flist_002f_005b2_002c3_005d-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> and <var>Rotated</var> are lists of the same length, and
+</p><div class="example">
+<pre class="example">    append(Prefix, Suffix, List) &amp;
+    append(Suffix, Prefix, Rotated) &amp;
+    (   Amount &gt;= 0 &amp; length(Prefix, Amount)
+    |   Amount =&lt; 0 &amp; length(Suffix, Amount)
+    ).
+</pre></div>
+<p>That is to say, <var>List</var> rotated LEFT by <var>Amount</var> is <var>Rotated</var>.
+If either <var>List</var> or <var>Rotated</var> is bound to a proper
+list, rotate_list is determinate.
+</p></dd>
+<dt><code>rotate_list(<var>?List</var>, <var>?Rotated</var>)</code></dt>
+<dd><p>is true when <code>rotate_list(1, List, Rotated)</code>, but is a bit less
+heavy-handed.
+<code>rotate_list(X, Y)</code> rotates <var>X</var> left  one place yielding <var>Y</var>.
+<code>rotate_list(Y, X)</code> rotates <var>X</var> right one place yielding <var>Y</var>.
+Either <var>List</var> or <var>Rotated</var> should be a proper list,
+in which case rotate_list is determinate and terminating.
+</p></dd>
+<dt><code>sublist(<var>+Whole</var>, <var>?Part</var>, <var>?Before</var>, <var>?Length</var>, <var>?After</var>)</code></dt>
+<dd>
+<a name="index-sublist_002f5-_0028lists_0029-1"></a>
+<a name="index-sublist_002f5-_0028lists_0029"></a>
+
+<p>is true when
+</p><ul>
+<li> <var>Whole</var> is a list &ndash; it must be proper already
+</li><li> <var>Part</var>  is a list
+</li><li> <var>Whole = Alpha || Part || Omega</var>
+</li><li> <code>length(<var>Alpha</var>, <var>Before</var>)</code>
+</li><li> <code>length(<var>Part</var>,  <var>Length</var>)</code>
+</li><li> <code>length(<var>Omega</var>, <var>After</var>)</code>
+</li></ul>
+</dd>
+<dt><code>cons(<var>?Head</var>, <var>?Tail</var>, <var>?List</var>)</code></dt>
+<dd>
+<a name="index-cons_002f3-_0028lists_0029-1"></a>
+<a name="index-cons_002f3-_0028lists_0029"></a>
+
+<p>is true when <var>Head</var> is the head of <var>List</var> and <var>Tail</var> is its tail.
+i.e. <code>append([Head], Tail, List)</code>.   No restrictions.
+</p></dd>
+<dt><code>last(<var>?Fore</var>, <var>?Last</var>, <var>?List</var>)</code></dt>
+<dd>
+<a name="index-last_002f3-_0028lists_0029-1"></a>
+<a name="index-last_002f3-_0028lists_0029"></a>
+
+<p>is true when <var>Last</var> is the last element of <var>List</var> and <var>Fore</var> is the
+list of preceding elements, e.g. <code>append(Fore, [Last], List)</code>.
+<var>Fore</var> or <var>Last</var> should be proper.  It is expected that <var>List</var> will
+be proper and <var>Fore</var> unbound, but it will work in reverse too.
+</p></dd>
+<dt><code>head(<var>?List</var>, <var>?Head</var>)</code></dt>
+<dd>
+<a name="index-head_002f2-_0028lists_0029-1"></a>
+<a name="index-head_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> is a non-empty list and <var>Head</var> is its head.
+A list has only one head.  No restrictions.
+</p></dd>
+<dt><code>tail(<var>?List</var>, <var>?Tail</var>)</code></dt>
+<dd>
+<a name="index-tail_002f2-_0028lists_0029-1"></a>
+<a name="index-tail_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> is a non-empty list and <var>Tail</var> is its tail.
+A list has only one tail.  No restrictions.
+</p></dd>
+<dt><code>prefix(<var>?List</var>, <var>?Prefix</var>)</code></dt>
+<dd>
+<a name="index-prefix_002f2-_0028lists_0029-1"></a>
+<a name="index-prefix_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> and <var>Prefix</var> are lists and <var>Prefix</var> is a prefix of <var>List</var>.
+It terminates if either argument is proper, and has at most <var>N+1</var> solutions.
+Prefixes are enumerated in ascending order of length.
+</p></dd>
+<dt><code>proper_prefix(<var>?List</var>, <var>?Prefix</var>)</code></dt>
+<dd>
+<a name="index-proper_005fprefix_002f2-_0028lists_0029-1"></a>
+<a name="index-proper_005fprefix_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> and <var>Prefix</var> are lists and <var>Prefix</var> is a proper prefix
+of <var>List</var>.  That is, <var>Prefix</var> is a prefix of <var>List</var> but is not <var>List</var> itself.
+It terminates if either argument is proper, and has at most <var>N</var> solutions.
+Prefixes are enumerated in ascending order of length.
+</p></dd>
+<dt><code>suffix(<var>?List</var>, <var>?Suffix</var>)</code></dt>
+<dd>
+<a name="index-suffix_002f2-_0028lists_0029-1"></a>
+<a name="index-suffix_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> and <var>Suffix</var> are lists and <var>Suffix</var> is a suffix of <var>List</var>.
+It terminates only if <var>List</var> is proper, and has at most <var>N+1</var> solutions.
+Suffixes are enumerated in descending order of length.
+</p></dd>
+<dt><code>proper_suffix(<var>?List</var>, <var>?Suffix</var>)</code></dt>
+<dd>
+<a name="index-proper_005fsuffix_002f2-_0028lists_0029-1"></a>
+<a name="index-proper_005fsuffix_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> and <var>Suffix</var> are lists and <var>Suffix</var> is a proper suffix
+of <var>List</var>.  That is, <var>Suffix</var> is a suffix of <var>List</var> but is not <var>List</var> itself.
+It terminates only if <var>List</var> is proper, and has at most <var>N</var> solutions.
+Suffixes are enumerated in descending order of length.
+</p></dd>
+<dt><code>segment(<var>?List</var>, <var>?Segment</var>)</code></dt>
+<dd>
+<a name="index-segment_002f2-_0028lists_0029-1"></a>
+<a name="index-segment_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> and <var>Segment</var> are lists and <var>Segment</var> is a segment
+of <var>List</var>.  That is, <var>List = _ &lt;&gt; Segment &lt;&gt; _ </var>.
+Terminates only if <var>List</var> is proper.  If <var>Segment</var> is proper
+it enumerates all solutions.  If neither argument is proper, it
+would have to diagonalise to find all solutions, but it doesn&rsquo;t, so
+it is then incomplete.  If <var>Segment</var> is proper, it has at most <var>N+1</var>
+solutions.  Otherwise, it has at most <var>(1/2)(N+1)(N+2)</var> solutions.
+</p></dd>
+<dt><code>proper_segment(<var>?List</var>, <var>?Segment</var>)</code></dt>
+<dd>
+<a name="index-proper_005fsegment_002f2-_0028lists_0029-1"></a>
+<a name="index-proper_005fsegment_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> and <var>Segment</var> are lists and <var>Segment</var> is a proper
+segment of <var>List</var>.  It terminates only if <var>List</var> is proper.  The only
+solution of <code>segment/2</code> which is not a solution of <code>proper_segment/2</code>
+is <code>segment(List,List)</code>.  So <code>proper_segment/2</code> has one solution fewer.
+</p></dd>
+<dt><code>cumlist(<var>:Pred</var>, <var>+[X1,...,Xn]</var>, <var>?V0</var>, <var>?[V1,...,Vn]</var>)</code></dt>
+<dt><code>cumlist(<var>:Pred</var>, <var>+[X1,...,Xn]</var>, <var>+[Y1,...,Yn]</var>, <var>?V0</var>, <var>?[V1,...,Vn]</var>)</code></dt>
+<dt><code>cumlist(<var>:Pred</var>, <var>+[X1,...,Xn]</var>, <var>+[Y1,...,Yn]</var>, <var>+[Z1,...,Zn]</var>, <var>?V0</var>, <var>?[V1,...,Vn]</var>)</code></dt>
+<dd>
+<a name="index-cumlist_002f_005b4_002c5_002c6_005d-_0028lists_0029-1"></a>
+<a name="index-cumlist_002f_005b4_002c5_002c6_005d-_0028lists_0029"></a>
+
+<p><code>cumlist/4</code> maps a ternary predicate <var>Pred</var> down the list <var>[X1,...,Xn]</var> just as
+<code>scanlist/4</code> does, and returns a list of the results.  It terminates
+when the lists runs out.  If <var>Pred</var> is bidirectional, it may be
+used to derive <var>[X1...Xn]</var> from <var>V0</var> and <var>[V1...Vn]</var>, e.g.
+<code>cumlist(plus, [1,2,3,4], 0, /* -&gt; */ [1,3,6,10])</code> and
+<code>cumlist(plus, [1,1,1,1], /* &lt;- */ 0, [1,2,3,4])</code>.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">cumlist(Pred, Xs, V0, Cum) :-
+	(   foreach(X,Xs),
+	    foreach(V,Cum),
+	    fromto(V0,V1,V,_),
+	    param(Pred)
+	do  call(Pred,X,V1,V)
+	).
+
+cumlist(Pred, Xs, Ys, V0, Cum) :-
+	(   foreach(X,Xs),
+	    foreach(Y,Ys),
+	    foreach(V,Cum),
+	    fromto(V0,V1,V,_),
+	    param(Pred)
+	do  call(Pred,X,Y,V1,V)
+	).
+
+cumlist(Pred, Xs, Ys, Zs, V0, Cum) :-
+	(   foreach(X,Xs),
+	    foreach(Y,Ys),
+	    foreach(Z,Zs),
+	    foreach(V,Cum),
+	    fromto(V0,V1,V,_),
+	    param(Pred)
+	do  call(Pred,X,Y,Z,V1,V)
+	).
+</pre></div>
+</dd>
+<dt><code>maplist(<var>:Pred</var>, <var>+List</var>)</code></dt>
+<dd>
+<a name="index-maplist_002f_005b2_002c3_002c4_005d-_0028lists_0029-1"></a>
+<a name="index-maplist_002f_005b2_002c3_002c4_005d-_0028lists_0029"></a>
+
+<p>succeeds when <var>Pred(X)</var> succeeds for each element <var>X</var> of <var>List</var>.
+<var>List</var> should be a proper list.  
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">maplist(Pred, Xs) :-
+	(   foreach(X,Xs),
+	    param(Pred)
+	do  call(Pred, X)
+	).
+</pre></div>
+</dd>
+<dt><code>maplist(<var>:Pred</var>, <var>+OldList</var>, <var>?NewList</var>)</code></dt>
+<dd><p>succeeds when <var>Pred(Old,New)</var> succeeds for each corresponding
+<var>Old</var> in <var>OldList</var>, <var>New</var> in <var>NewList</var>.  
+Either <var>OldList</var> or <var>NewList</var> should be a proper list.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">maplist(Pred, Xs, Ys) :-
+	(   foreach(X,Xs),
+	    foreach(Y,Ys),
+	    param(Pred)
+	do  call(Pred, X, Y)
+	).
+</pre></div>
+</dd>
+<dt><code>maplist(<var>:Pred</var>, <var>+Xs</var>, <var>?Ys</var>, <var>?Zs</var>)</code></dt>
+<dd><p>is true when <var>Xs</var>, <var>Ys</var>, and <var>Zs</var> are lists of equal length, and
+<var>Pred(X, Y, Z)</var> is true for corresponding elements <var>X</var> of <var>Xs</var>,
+<var>Y</var> of <var>Ys</var>, and <var>Z</var> of <var>Zs</var>.
+At least one of <var>Xs</var>, <var>Ys</var>, and <var>Zs</var> should be a proper list.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">maplist(Pred, Xs, Ys, Zs) :-
+	(   foreach(X,Xs),
+	    foreach(Y,Ys),
+	    foreach(Z,Zs),
+	    param(Pred)
+	do  call(Pred, X, Y, Z)
+	).
+</pre></div>
+</dd>
+<dt><code>map_product(Pred, Xs, Ys, PredOfProduct)</code></dt>
+<dd>
+<a name="index-map_005fproduct_002f5-_0028lists_0029-1"></a>
+<a name="index-map_005fproduct_002f5-_0028lists_0029"></a>
+
+<p>Just as <code>maplist(P, Xs, L)</code> is the analogue of Miranda&rsquo;s
+</p><div class="example">
+<pre class="example">    let L = [ P x | x &lt;- Xs ]
+</pre></div>
+<p>so <code>map_product(P, Xs, Ys, L)</code> is the analogue of Miranda&rsquo;s
+</p><div class="example">
+<pre class="example">    let L = [ P x y | x &lt;- Xs; y &lt;- Ys ]
+</pre></div>
+<p>That is, if <var>Xs = [X1,...,Xm]</var>, <var>Ys = [Y1,...,Yn]</var>, and <var>P(Xi,Yj,Zij)</var>,
+<var>L = [Z11,...,Z1n,Z21,...,Z2n,...,Zm1,...,Zmn]</var>.
+It is as if we formed the cartesian product of <var>Xs</var> and <var>Ys</var> and
+applied <var>P</var> to the <var>(Xi,Yj)</var> pairs.
+<var>Xs</var> and <var>Ys</var> should be proper lists.  
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">map_product(Pred, Xs, Ys, Zs) :-
+	(   foreach(X,Xs),
+	    fromto(Zs,S0,S,[]),
+	    param([Ys,Pred])
+	do  (   foreach(Y,Ys),
+		fromto(S0,[Z|S1],S1,S),
+		param([X,Pred])
+	    do  call(Pred, X, Y, Z)
+	    )
+	).
+</pre></div>
+</dd>
+<dt><code>scanlist(<var>:Pred</var>, <var>[X1,...,Xn]</var>, <var>?V1</var>, <var>?V</var>)</code></dt>
+<dt><code>scanlist(<var>:Pred</var>, <var>[X1,...,Xn]</var>, <var>[Y1,...,Yn]</var>, <var>?V1</var>, <var>?V</var>)</code></dt>
+<dt><code>scanlist(<var>:Pred</var>, <var>[X1,...,Xn]</var>, <var>[Y1,...,Yn]</var>, <var>[Z1,...,Zn]</var>, <var>?V1</var>, <var>?V</var>)</code></dt>
+<dd>
+<a name="index-scanlist_002f_005b4_002c5_002c6_005d-_0028lists_0029-1"></a>
+<a name="index-scanlist_002f_005b4_002c5_002c6_005d-_0028lists_0029"></a>
+
+<p><code>scanlist/4</code> maps a ternary relation <var>Pred</var> down a list.  The computation is
+<var>Pred(X1,V1,V2)</var>, <var>Pred(X2,V2,V3)</var>, ..., <var>Pred(Xn,Vn,V)</var>
+So if <var>Pred</var> is <code>plus/3</code>, <code>scanlist(plus, [X1,...,Xn], 0, V)</code> puts the
+sum of the list elements in <var>V</var>.
+Note that the order of the arguments passed to Pred is the same
+as the order of the arguments following Pred.  This also holds
+for scanlist/5 and scanlist/6, e.g.
+scanlist(Pred, Xs, Ys, Zs, V1, V) calls Pred(X3,Y3,Z3,V3,V4).
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">scanlist(Pred, Xs, V0, V) :-
+	(   foreach(X,Xs),
+	    fromto(V0,V1,V2,V),
+	    param(Pred)
+	do  call(Pred, X, V1, V2)
+	).
+
+scanlist(Pred, Xs, Ys, V0, V) :-
+	(   foreach(X,Xs),
+	    foreach(Y,Ys),
+	    fromto(V0,V1,V2,V),
+	    param(Pred)
+	do  call(Pred, X, Y, V1, V2)
+	).
+
+scanlist(Pred, Xs, Ys, Zs, V0, V) :-
+	(   foreach(X,Xs),
+	    foreach(Y,Ys),
+	    foreach(Z,Zs),
+	    fromto(V0,V1,V2,V),
+	    param(Pred)
+	do  call(Pred, X, Y, Z, V1, V2)
+	).
+</pre></div>
+</dd>
+<dt><code>some(<var>:Pred</var>, <var>+List</var>)</code></dt>
+<dd>
+<a name="index-some_002f_005b2_002c3_002c4_005d-_0028lists_0029-1"></a>
+<a name="index-some_002f_005b2_002c3_002c4_005d-_0028lists_0029"></a>
+
+<p>succeeds when <var>Pred(Elem)</var> succeeds for some <var>Elem</var> in <var>List</var>.  It will
+try all ways of proving <var>Pred</var> for each <var>Elem</var>, and will try each <var>Elem</var>
+in the <var>List</var>.  <code>somechk/2</code> is to <code>some/2</code> as <code>memberchk/2</code> is to <code>member/2</code>.
+</p><div class="example">
+<pre class="example">    member(X,L)     &lt;-&gt; some(=(X), L).
+    memberchk(X, L) &lt;-&gt; somechk(=(X), L).
+    some(Pred,L)    &lt;-&gt; member(X, L), call(Pred,X).
+</pre></div>
+<p>This acts on backtracking like member/2; List should be a proper list.
+</p></dd>
+<dt><code>some(<var>:Pred</var>, <var>+[X1,...,Xn]</var>, <var>?[Y1,...,Yn]</var>)</code></dt>
+<dd><p>is true when <var>Pred(Xi, Yi)</var> is true for some <var>i</var>.
+</p></dd>
+<dt><code>some(<var>:Pred</var>, <var>+[X1,...,Xn]</var>, <var>?[Y1,...,Yn]</var>, <var>?[Z1,...,Zn]</var>)</code></dt>
+<dd><p>is true when <var>Pred(Xi, Yi, Zi)</var> is true for some <var>i</var>.
+</p></dd>
+<dt><code>somechk(<var>:Pred</var>, <var>+[X1,...,Xn]</var>)</code></dt>
+<dd>
+<a name="index-somechk_002f_005b2_002c3_002c4_005d-_0028lists_0029-1"></a>
+<a name="index-somechk_002f_005b2_002c3_002c4_005d-_0028lists_0029"></a>
+
+<p>is true when <var>Pred(Xi)</var> is true for some <var>i</var>, and it commits to
+the first solution it finds (like <code>memberchk/2</code>).
+</p></dd>
+<dt><code>somechk(<var>:Pred</var>, <var>+[X1,...,Xn]</var>, <var>?[Y1,...,Yn]</var>)</code></dt>
+<dd><p>is true when <var>Pred(Xi, Yi)</var> is true for some <var>i</var>, and it commits to
+the first solution it finds (like <code>memberchk/2</code>).
+</p></dd>
+<dt><code>somechk(<var>:Pred</var>, <var>+[X1,...,Xn]</var>, <var>?[Y1,...,Yn]</var>, <var>?[Z1,...,Zn]</var>)</code></dt>
+<dd><p>is true when <var>Pred(Xi, Yi, Zn)</var> is true for some <var>i</var>, and it commits to
+the first solution it finds (like <code>memberchk/2</code>).
+</p></dd>
+<dt><code>convlist(<var>:Rewrite</var>, <var>+OldList</var>, <var>?NewList</var>)</code></dt>
+<dd>
+<a name="index-convlist_002f3-_0028lists_0029-1"></a>
+<a name="index-convlist_002f3-_0028lists_0029"></a>
+
+<p>is a sort of hybrid of <code>maplist/3</code> and <code>include/3</code>.
+Each element of <var>NewList</var> is the image under <var>Rewrite</var> of some
+element of <var>OldList</var>, and order is preserved, but elements of
+<var>OldList</var> on which <var>Rewrite</var> is undefined (fails) are not represented.
+Thus if <code>foo(K,X,Y) :- integer(X), Y is X+K.</code>
+then <code>convlist(foo(1), [1,a,0,joe(99),101], [2,1,102]).</code>
+<var>OldList</var> should be a proper list.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">convlist(Pred, Xs, News) :-
+	(   foreach(X,Xs),
+	    fromto(News,S0,S,[]),
+	    param(Pred)
+	do  (call(Pred,X,N) -&gt; S0 = [N|S] ; S0 = S)
+	).
+</pre></div>
+</dd>
+<dt><code>exclude(<var>:Pred</var>, <var>+Xs</var>, <var>?SubList</var>)</code></dt>
+<dt><code>exclude(<var>:Pred</var>, <var>+Xs</var>, <var>+Ys</var>, <var>?SubList</var>)</code></dt>
+<dt><code>exclude(<var>:Pred</var>, <var>+Xs</var>, <var>+Ys</var>, <var>+Zs</var>, <var>?SubList</var>)</code></dt>
+<dd>
+<a name="index-exclude_002f_005b3_002c4_002c5_005d-_0028lists_0029-1"></a>
+<a name="index-exclude_002f_005b3_002c4_002c5_005d-_0028lists_0029"></a>
+
+<p>succeeds when <var>SubList</var> is the sublist of <var>Xs</var> containing all the
+elements <var>Xi[,Yi[,Zi]]</var> for which <var>Pred(Xi[,Yi[,Zi]])</var> is <em>false</em>.  That is, it removes
+all the elements satisfying <var>Pred</var>.
+<var>Xs</var>, <var>Ys</var> or <var>Zs</var> should be a proper list.  
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">exclude(Pred, Xs, News) :-
+	(   foreach(X,Xs),
+	    fromto(News,S0,S,[]),
+	    param(Pred)
+	do  (call(Pred,X) -&gt; S0 = S ; S0 = [X|S])
+	).
+
+exclude(Pred, Xs, Ys, News) :-
+	(   foreach(X,Xs),
+	    foreach(Y,Ys),
+	    fromto(News,S0,S,[]),
+	    param(Pred)
+	do  (call(Pred,X,Y) -&gt; S0 = S ; S0 = [X|S])
+	).
+
+exclude(Pred, Xs, Ys, Zs, News) :-
+	(   foreach(X,Xs),
+	    foreach(Y,Ys),
+	    foreach(Z,Zs),
+	    fromto(News,S0,S,[]),
+	    param(Pred)
+	do  (call(Pred,X,Y,Z) -&gt; S0 = S ; S0 = [X|S])
+	).
+</pre></div>
+</dd>
+<dt><code>include(<var>:Pred</var>, <var>+Xs</var>, <var>?SubList</var>)</code></dt>
+<dt><code>include(<var>:Pred</var>, <var>+Xs</var>, <var>+Ys</var>, <var>?SubList</var>)</code></dt>
+<dt><code>include(<var>:Pred</var>, <var>+Xs</var>, <var>+Ys</var>, <var>+Zs</var>, <var>?SubList</var>)</code></dt>
+<dd>
+<a name="index-include_002f_005b3_002c4_002c5_005d-_0028lists_0029-1"></a>
+<a name="index-include_002f_005b3_002c4_002c5_005d-_0028lists_0029"></a>
+
+<p>succeeds when <var>SubList</var> is the sublist of <var>Xs</var> containing all the
+elements <var>Xi[,Yi[,Zi]]</var> for which <var>Pred(Xi[,Yi[,Zi]])</var> is <em>true</em>.  That is, it retains
+all the elements satisfying <var>Pred</var>.
+<var>Xs</var>, <var>Ys</var> or <var>Zs</var> should be a proper list.  
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">include(Pred, Xs, News) :-
+	(   foreach(X,Xs),
+	    fromto(News,S0,S,[]),
+	    param(Pred)
+	do  (call(Pred,X) -&gt; S0 = [X|S] ; S0 = S)
+	).
+
+include(Pred, Xs, News) :-
+	(   foreach(X,Xs),
+	    fromto(News,S0,S,[]),
+	    param(Pred)
+	do  (call(Pred,X) -&gt; S0 = [X|S] ; S0 = S)
+	).
+
+include(Pred, Xs, Ys, News) :-
+	(   foreach(X,Xs),
+	    foreach(Y,Ys),
+	    fromto(News,S0,S,[]),
+	    param(Pred)
+	do  (call(Pred,X,Y) -&gt; S0 = [X|S] ; S0 = S)
+	).
+
+include(Pred, Xs, Ys, Zs, News) :-
+	(   foreach(X,Xs),
+	    foreach(Y,Ys),
+	    foreach(Z,Zs),
+	    fromto(News,S0,S,[]),
+	    param(Pred)
+	do  (call(Pred,X,Y,Z) -&gt; S0 = [X|S] ; S0 = S)
+	).
+</pre></div>
+</dd>
+<dt><code>partition(<var>:Pred</var>, <var>+List</var>, <var>?Less</var>, <var>?Equal</var>, <var>?Greater</var>)</code></dt>
+<dd>
+<a name="index-partition_002f5-_0028lists_0029-1"></a>
+<a name="index-partition_002f5-_0028lists_0029"></a>
+
+<p>is a relative of <code>include/3</code> and <code>exclude/3</code> which has some pretensions
+to being logical.  For each <var>X</var> in <var>List</var>, we call <var>Pred(X,R)</var>, and route
+<var>X</var> to <var>Less</var>, <var>Equal</var>, or <var>Greater</var> according as <var>R</var> is <code>&lt;</code>, <code>=</code>, or <code>&gt;</code> .
+</p></dd>
+<dt><code>group(<var>:Pred</var>, <var>+List</var>, <var>?Front</var>, <var>?Back</var>)</code></dt>
+<dd>
+<a name="index-group_002f_005b3_002c4_002c5_005d-_0028lists_0029-1"></a>
+<a name="index-group_002f_005b3_002c4_002c5_005d-_0028lists_0029"></a>
+
+<p>is true when <code>append(Front, Back, List), maplist(Pred, Front)</code>,
+and <var>Front</var> is as long as possible.
+</p></dd>
+<dt><code>group(<var>:Pred</var>, <var>+Key</var>, <var>+List</var>, <var>?Front</var>, <var>?Back</var>)</code></dt>
+<dd><p>is true when <code>append(Front, Back, List), maplist(call(Pred,Key), Front)</code>,
+and <var>Front</var> is as long as possible.  Strictly speaking we don&rsquo;t need it;
+<code>group(call(Pred,Key), List, Front, Back)</code> would do just as well.
+</p></dd>
+<dt><code>group(<var>:Pred</var>, <var>+List</var>, <var>?ListOfLists</var>)</code></dt>
+<dd><p>is true when <code>append(ListOfLists, List)</code>, each element of <var>ListOfLists</var>
+has the form <var>[Head|Tail]</var> such that <code>group(Pred, Head, Tail, Tail, [])</code>,
+and each element of <var>ListOfLists</var> is as long as possible.  For example,
+if you have a keysorted list, and define <code>same_key(K-_, K-_)</code>, then
+<code>group(same_key, List, Buckets)</code> will divide <var>List</var> up into <var>Buckets</var> of
+pairs having the same key.
+</p></dd>
+<dt><code>ordered(<var>+List</var>)</code></dt>
+<dd>
+<a name="index-ordered_002f_005b1_002c2_005d-_0028lists_0029-1"></a>
+<a name="index-ordered_002f_005b1_002c2_005d-_0028lists_0029"></a>
+
+<p>is true when <var>List</var> is a list of terms <var>[T1,T2,...,Tn]</var> such that
+for all <var>k</var> in <var>2..n</var> <var>Tk-1</var> <code>@=&lt;</code> <var>Tk</var>, i.e. <var>T1</var> <code>@=&lt;</code> <var>T2</var> <code>@=&lt;</code> <var>T3</var> ...
+The output of <code>keysort/2</code> is always ordered, and so is that of
+<code>sort/2</code>.  Beware: just because a list is ordered does not mean
+that it is the representation of an ordered set; it might contain
+duplicates.  
+</p></dd>
+<dt><code>ordered(<var>+P</var>, <var>+[T1,T2,...,Tn]</var>)</code></dt>
+<dd><p>is true when <var>P(T1,T2) &amp; P(T2,T3) &amp; ...</var>   That is, if you take
+<var>P</var> as a &quot;comparison&quot; predicate like <code>@=&lt;</code>, the list is ordered.
+This is good for generating prefixes of sequences,
+e.g. <code>L = [1,_,_,_,_], ordered(times(2), L)</code> yields <code>L = [1,2,4,8,16]</code>.
+</p></dd>
+<dt><code>max_member(<var>?Xmax</var>, <var>+[X1,...,Xn]</var>)</code></dt>
+<dd>
+<a name="index-max_005fmember_002f_005b2_002c3_005d-_0028lists_0029-1"></a>
+<a name="index-max_005fmember_002f_005b2_002c3_005d-_0028lists_0029"></a>
+
+<p>unifies <var>Xmax</var> with the maximum (in the sense of <code>@=&lt;</code>) of <var>X1</var>,...,<var>Xn</var>.
+The list should be proper. If it is empty, the predicate fails quietly.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">max_member(Maximum, [Head|Tail]) :-
+	(   foreach(X,Tail),
+	    fromto(Head,M0,M,Maximum)
+	do  (X@=&lt;M0 -&gt; M = M0 ; M = X)
+	).
+</pre></div>
+</dd>
+<dt><code>min_member(<var>?Xmin</var>, <var>+[X1,...,Xn]</var>)</code></dt>
+<dd>
+<a name="index-min_005fmember_002f_005b2_002c3_005d-_0028lists_0029-1"></a>
+<a name="index-min_005fmember_002f_005b2_002c3_005d-_0028lists_0029"></a>
+
+<p>unifies <var>Xmin</var> with the minimum (in the sense of <code>@=&lt;</code>) of <var>X1</var>,...,<var>Xn</var>.
+The list should be proper. If it is empty, the predicate fails quietly.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">min_member(Minimum, [Head|Tail]) :-
+	(   foreach(X,Tail),
+	    fromto(Head,M0,M,Minimum)
+	do  (M0@=&lt;X -&gt; M = M0 ; M = X)
+	).
+</pre></div>
+</dd>
+<dt><code>max_member(<var>:P</var>, <var>?Xmax</var>, <var>+[X1,...,Xn]</var>)</code></dt>
+<dd><p>unifies <var>Xmax</var> with the maximum element of <var>[X1,...,Xn]</var>, as defined
+by the comparison predicate <var>P</var>, which should act like <code>@=&lt;</code> .
+The list should be proper. If it is empty, the predicate fails quietly.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">max_member(Pred, Maximum, [Head|Tail]) :-
+	(   foreach(X,Tail),
+	    fromto(Head,M0,M,Maximum),
+	    param(Pred)
+	do  (call(Pred,X,M0) -&gt; M = M0 ; M = X)
+	).
+</pre></div>
+</dd>
+<dt><code>min_member(<var>:P</var>, <var>?Xmin</var>, <var>+[X1,...,Xn]</var>)</code></dt>
+<dd><p>unifies <var>Xmin</var> with the minimum element of <var>[X1,...,Xn]</var>, as defined
+by the comparison predicate <var>P</var>, which should act like <code>@=&lt;</code> .
+The list should be proper. If it is empty, the predicate fails quietly.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">min_member(Pred, Minimum, [Head|Tail]) :-
+	(   foreach(X,Tail),
+	    fromto(Head,M0,M,Minimum),
+	    param(Pred)
+	do  (call(Pred,M0,X) -&gt; M = M0 ; M = X)
+	).
+</pre></div>
+</dd>
+<dt><code>select_min(<var>?Element</var>, <var>+Set</var>, <var>?Residue</var>)</code></dt>
+<dd>
+<a name="index-select_005fmin_002f_005b3_002c4_005d-_0028lists_0029-1"></a>
+<a name="index-select_005fmin_002f_005b3_002c4_005d-_0028lists_0029"></a>
+
+<p>unifies <var>Element</var> with the smallest (in the sense of <code>@=&lt;</code>) element
+of <var>Set</var>, and <var>Residue</var> with a list of all the other elements.
+</p></dd>
+<dt><code>select_min(<var>:Pred</var>, <var>?Element</var>, <var>+Set</var>, <var>?Residue</var>)</code></dt>
+<dd><p>find the least <var>Element</var> of <var>Set</var>, i.e. <var>Pred(Element,X)</var> for all <var>X</var> in <var>Set</var>.
+</p></dd>
+<dt><code>select_max(<var>?Element</var>, <var>+Set</var>, <var>?Residue</var>)</code></dt>
+<dd>
+<a name="index-select_005fmax_002f_005b3_002c4_005d-_0028lists_0029-1"></a>
+<a name="index-select_005fmax_002f_005b3_002c4_005d-_0028lists_0029"></a>
+
+<p>unifies <var>Element</var> with the (leftmost) maximum element of the <var>Set</var>,
+and <var>Residue</var> to the other elements in the same order.
+</p></dd>
+<dt><code>select_max(<var>:Pred</var>, <var>?Element</var>, <var>+Set</var>, <var>?Residue</var>)</code></dt>
+<dd><p>find the greatest <var>Element</var> of <var>Set</var>, i.e. <var>Pred(X,Element)</var> for all <var>X</var> in <var>Set</var>.
+</p></dd>
+<dt><code>increasing_prefix(<var>?Sequence</var>, <var>?Prefix</var>, <var>?Suffix</var>)</code></dt>
+<dd><p>is true when <code>append(Prefix, Suffix, Sequence)</code>
+and <var>Prefix</var>, together with the first element of <var>Suffix</var>,
+forms a monotone non-decreasing sequence, and
+no longer Prefix will do.  Pictorially,
+</p><div class="example">
+<pre class="example">Sequence = [x1,...,xm,xm+1,...,xn]
+Prefix   = [x1,...,xm]
+Suffix     = [xm+1,...,xn]
+x1 &lt;= x2 &lt;= ... &lt;= xm &lt;= xm+1
+not xm+1 &lt;= xm+2
+</pre></div>
+<p>This is perhaps a surprising definition; you might expect
+that the first element of <var>Suffix</var> would be included in <var>Prefix</var>.
+However, this way, it means that if Sequence is a strictly
+decreasing sequence, the <var>Prefix</var> will come out empty.
+</p></dd>
+<dt><code>increasing_prefix(<var>:Order</var>, <var>?Sequence</var>, <var>?Prefix</var>, <var>?Suffix</var>)</code></dt>
+<dd>
+<a name="index-increasing_005fprefix_002f_005b3_002c4_005d-_0028lists_0029-1"></a>
+<a name="index-increasing_005fprefix_002f_005b3_002c4_005d-_0028lists_0029"></a>
+
+<p>is the same as <code>increasing_prefix/3</code>, except that it uses the
+binary relation <var>Order</var> in place of <code>@=&lt;</code>.
+</p></dd>
+<dt><code>decreasing_prefix(<var>?Sequence</var>, <var>?Prefix</var>, <var>?Suffix</var>)</code></dt>
+<dt><code>decreasing_prefix(<var>:Order</var>, <var>?Sequence</var>, <var>?Prefix</var>, <var>?Suffix</var>)</code></dt>
+<dd>
+<a name="index-decreasing_005fprefix_002f_005b3_002c4_005d-_0028lists_0029-1"></a>
+<a name="index-decreasing_005fprefix_002f_005b3_002c4_005d-_0028lists_0029"></a>
+
+<p>is the same, except it looks for a decreasing prefix.
+The order is the converse of the given order.  That
+is, where <code>increasing_prefix/[3,4]</code> check <var>X(R)Y</var>, these
+routines check <var>Y(R)X</var>.
+</p></dd>
+<dt><code>clumps(<var>+Items</var>, <var>-Clumps</var>)</code></dt>
+<dd>
+<a name="index-clumps_002f2-_0028lists_0029-1"></a>
+<a name="index-clumps_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>Clumps</var> is a list of lists such that
+</p><ul>
+<li> <code>append(Clumps, Items)</code>
+</li><li> for each <var>Clump</var> in <var>Clumps</var>, all the elements of <var>Clump</var> are identical (<code>==</code>)
+</li></ul>
+<p><var>Items</var> must be a proper list of terms for which sorting would have been
+sound.  In fact, it usually is the result of sorting.
+</p></dd>
+<dt><code>keyclumps(<var>+Pairs</var>, <var>?Clumps</var>)</code></dt>
+<dd>
+<a name="index-keyclumps_002f2-_0028lists_0029-1"></a>
+<a name="index-keyclumps_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>Pairs</var> is a list of pairs and <var>Clumps</var> a list of lists such that
+</p><ul>
+<li> <code>append(Clumps, Pairs)</code>
+</li><li> for each <var>Clump</var> in <var>Clumps</var>, all of the <var>Key-Value</var> pairs in <var>Clump</var> have
+identical (<code>==</code>) <var>Keys</var>.
+</li></ul>
+<p><var>Pairs</var> must be a proper list of pairs for which keysorting would have
+been sound.  In fact, it usually is the result of keysorting.
+</p></dd>
+<dt><code>clumped(<var>+Items</var>, <var>?Counts</var>)</code></dt>
+<dd>
+<a name="index-clumped_002f2-_0028lists_0029-1"></a>
+<a name="index-clumped_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>Counts</var> is a list of <var>Item-Count</var> pairs such that
+if <code>clumps(Items, Clumps)</code>, then each <var>Item-Count</var> pair in <var>Counts</var> corresponds
+to an element <var>[Item/*1*/,...,Item/*Count*/]</var> of <var>Clumps</var>.
+<var>Items</var> must be a proper list of terms for which sorting would have been
+sound.  In fact, it usually is the result of sorting.
+</p></dd>
+<dt><code>keyclumped(<var>+Pairs</var>, <var>?Groups</var>)</code></dt>
+<dd>
+<a name="index-keyclumped_002f2-_0028lists_0029-1"></a>
+<a name="index-keyclumped_002f2-_0028lists_0029"></a>
+
+<p>is true when <var>Pairs</var> is a list of <var>Key-Item</var> pairs and
+<var>Groups</var> is a list of <var>Key-Items</var> pairs such that
+if <code>keyclumps(Pairs, Clumps)</code>, then for each <var>K-[I1,...,In]</var> pair in <var>Groups</var>
+there is a <var>[K-I1,...,K-In]</var> clump in <var>Clumps</var>.
+<var>Pairs</var> must be a proper list of pairs for which keysorting would have
+been sound.  In fact, it usually is the result of keysorting.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dlogarr.html#lib_002dlogarr" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dlinda.html#lib_002dlinda" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dlists.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dlists.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

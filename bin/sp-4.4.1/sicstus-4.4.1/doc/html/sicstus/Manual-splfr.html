@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Manual splfr</title>
+
+<meta name="description" content="SICStus Prolog: Manual splfr">
+<meta name="keywords" content="SICStus Prolog: Manual splfr">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker" rel="up" title="The Foreign Resource Linker">
+<link href="Windows_002dspecific-splfr-issues.html#Windows_002dspecific-splfr-issues" rel="next" title="Windows-specific splfr issues">
+<link href="Customizing-splfr.html#Customizing-splfr" rel="prev" title="Customizing splfr">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Manual-splfr"></a>
+<hr>
+<a name="Creating-Linked-Foreign-Resources-Manually-under-UNIX"></a>
+<h4 class="subsubsection">6.2.5.2 Creating Linked Foreign Resources Manually under UNIX</h4>
+
+<p>The only supported method for building foreign resources is by
+compiling and linking them with <code>splfr</code>. However, this is
+sometimes inconvenient, for instance when writing a Makefile for use
+with <code>make</code>. To figure out what needs to be done to build a
+foreign resource, you should build it once with <code>splfr&nbsp;<span class="nolinebreak">--verbose</span>&nbsp;<span class="nolinebreak">--keep</span>&nbsp;&hellip;</code><!-- /@w -->, note what compiler and linker flags are
+used, and save away any generated files. You can then mimic the build
+commands used by <code>splfr</code> in your <samp>Makefile</samp>. You should
+repeat this process each time you upgrade SICStus Prolog.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Windows_002dspecific-splfr-issues.html#Windows_002dspecific-splfr-issues" accesskey="n" rel="next">Next</a>
+<li><a href="Customizing-splfr.html#Customizing-splfr" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Manual-splfr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Manual-splfr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

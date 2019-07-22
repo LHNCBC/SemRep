@@ -1,0 +1,60 @@
+Title: SemRep XML Output option
+Author: Halil Kilicoglu
+
+SemRep -X option SemRep generates XML output, which is more verbose than the standard output 
+format and almost identical to full fielded output format content-wise.
+
+The data elements for XML output are as follows:
+
+-|SemRepAnnotation|: The top level XML element that contains a number of |Document|s and SemRep
+output for each |Document|.
+
+-|Document|: An individual document processed with SemRep that contains a number of |Utterance|s.
+Its attributes are id (00000000, if not explicitly stated in input) and text, which contains
+the full extent of the |Document| text.
+
+-|Utterance|: A single sentence with its associated MetaMap and SemRep annotations. 
+Its attributes are |id|, |section|, |type|, |number| and |text|. |id| attribute is an identifier for the sentence,
+|section| indicates the section abbreviation (current options are 'ti' for title, 'ab' for abstract,
+and 'tx' for everything else), |type| (section header, such as RESULTS, METHODS), |number| indicates 
+its position in the section and |text| indicates the sentence string.
+
+-|Entity|: An instance of a concept mapping. The attributes are |id|, |cui| (a unique UMLS concept
+identifier or any other unique source identifier), |name| (a preferred name for the concept),
+|semtypes| (semantic types associated with the concept), |text| (the textual mention for the concept),
+|score| (MetaMap score for the mapping, 0-1000), |negated| (whether the concept is negated in text or not, true/false), |begin| (character offset for the first character of
+the textual mention, 0-based), |end| (character offset for the end of the mention). Some attributes are relevant
+only for genomic concepts (genes, proteins, etc.). These attributes are |entrezID| (a unique identifier from
+the EntrezGene for the corresponding term), |entrezName| (the name of the corresponding term from
+the EntrezGene).
+
+-|Predication|: An instance of a SemRep relation that consists of |Subject|, |Predicate| and |Object| elements.
+Its attributes are |id|, |negated| (whether the predication is negated or not, true/false), and |inferred| (whether
+the predication is the result of an inference based on other predications).
+
+-|Coreference|: An instance of an anaphora relation that consists of an |Anaphor| and an |Antecedent| element.
+Its only attribute is |id|. 
+
+-|Scale|: This element indicates a scale that is associated with a comparative |Predication|. Its attributes
+are |id|, |name| (the name of the scale, such as 'effectiveness'), |text| (the textual indicator of the scale),
+|begin| (character offset of the first character of the scale indicator), |end| (character offset of the last 
+character of the scale indicator).
+
+-|Subject|/|Object|: These elements correspond to the subject and object arguments of the parent |Predication|.
+Their attributes are |entityID| (the identifier for the entity argument --a reference to an existing |Entity| element), 
+|relSemType| (the semantic type of  the entity that is used for the predication), |dist| (distance in terms of 
+noun phrases between the argument and the predicate), |maxDist| (maximum possible distance in terms of 
+noun phrases from the predicate in the direction of the argument). Note that |dist| and |maxDist| are both zero,
+if they are not relevant or not computed. 
+
+-|Anaphor|/|Antecedent|: These elements correspond to the arguments of the parent |Coreference|.
+Their single attribute is |entityID| (the identifier for the entity argument --a reference to an existing |Entity| element). 
+
+-|Predicate|: The predicate that indicates the |Predication|. Its attributes are |type| (the ontological
+predicate, such as TREATS, INHIBITS, etc.), |indicatorType| (the part-of-speech, syntactic structure, or
+mechanism that indicates the relation, such as  VERB for verbal indicators, MOD/HEAD for modifier-head
+constructions, etc.), |begin| (character offset for the first character of the predicate 
+mention in text), |end| (character offset for the end of the predicate mention in text),
+|scale| (if the |Predication| is scalar, the value refers to the |id| of the associated |Scale| element).
+
+

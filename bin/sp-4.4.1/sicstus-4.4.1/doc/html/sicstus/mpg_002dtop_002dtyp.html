@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-top-typ</title>
+
+<meta name="description" content="SICStus Prolog: mpg-top-typ">
+<meta name="keywords" content="SICStus Prolog: mpg-top-typ">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dtop.html#mpg_002dtop" rel="up" title="mpg-top">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="next" title="mpg-bpr">
+<link href="mpg_002dtop_002dtio.html#mpg_002dtop_002dtio" rel="prev" title="mpg-top-tio">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dtop_002dtyp"></a>
+<hr>
+<a name="Type-Tests"></a>
+<h4 class="subsection">11.2.23 Type Tests</h4>
+
+
+
+<a name="index-type-tests_002c-predicates-for-3"></a>
+<a name="index-predicates-for-type-tests-3"></a>
+
+<dl compact="compact">
+<dt><code>atom(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>term <var>T</var> is an atom
+</p>
+</dd>
+<dt><code>atomic(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>term <var>T</var> is an atom or a number
+</p>
+</dd>
+<dt><code>callable(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>T</var> is an atom or a compound term
+</p>
+</dd>
+<dt><code>compound(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>T</var> is a compound term
+</p>
+</dd>
+<dt><code>db_reference(<var>+X</var>) &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><p><var>X</var> is a db_reference
+</p>
+</dd>
+<dt><code>float(<var>+N</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>N</var> is a floating-point number
+</p>
+</dd>
+<dt><code>ground(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>term <var>T</var> is a nonvar, and all substructures are nonvar
+</p>
+</dd>
+<dt><code>integer(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>term <var>T</var> is an integer
+</p>
+</dd>
+<dt><code>mutable(<var>+X</var>)</code></dt>
+<dd><p><var>X</var> is a mutable term
+</p>
+</dd>
+<dt><code>nonvar(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>term <var>T</var> is one of atom, number, compound
+(that is, <var>T</var> is instantiated)
+</p>
+</dd>
+<dt><code>number(<var>+N</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>N</var> is an integer or a float
+</p>
+</dd>
+<dt><code>simple(<var>+T</var>)</code></dt>
+<dd><p><var>T</var> is not a compound term; it is either atomic or a var 
+</p>
+</dd>
+<dt><code>var(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>term <var>T</var> is a variable (that is, <var>T</var> is uninstantiated)
+</p>
+</dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dtop_002dtio.html#mpg_002dtop_002dtio" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dtop.html#mpg_002dtop" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dtyp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dtyp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

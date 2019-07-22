@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-if</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-if">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-if">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dif_005fthen.html#mpg_002dref_002dif_005fthen" rel="next" title="mpg-ref-if_then">
+<link href="mpg_002dref_002dhalt.html#mpg_002dref_002dhalt" rel="prev" title="mpg-ref-halt">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dif"></a>
+<hr>
+<a name="if_002f3"></a>
+<h4 class="subsection">11.3.102 <code>if/3</code></h4>
+<a name="index-if_002f3-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-if_002f3-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-127"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>if(<var>+P</var>,<var>+Q</var>,<var>+R</var>)</code>
+</p>
+<p><em>If</em> <var>P</var> <em>then</em> <var>Q</var> <em>else</em> <var>R</var>, for all solution of
+<var>P</var>.
+</p>
+<a name="Arguments-116"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:P</var></dt>
+<dd><p><em>callable</em>, must be nonvar
+</p></dd>
+<dt><var>:Q</var></dt>
+<dd><p><em>callable</em>, must be nonvar
+</p></dd>
+<dt><var>:R</var></dt>
+<dd><p><em>callable</em>, must be nonvar
+</p></dd>
+</dl>
+
+<a name="Description-95"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Analogous to
+</p>
+<div class="display">
+<pre class="display">if <var>P</var> then <var>Q</var> else <var>R</var>
+</pre></div>
+
+<p>but differs from <code>P -&gt; Q ; R</code> in that <code>if(P, Q, R)</code> explores
+<em>all</em> solutions to the goal <var>P</var>.  There is a small time
+penalty for this&mdash;if <var>P</var> is known to have only one solution of
+interest, then the form <code>P -&gt; Q ; R</code> should be preferred.
+</p>
+<p>This is normally regarded as part of the syntax of the language, but
+it is like a built-in predicate in that you can write
+<code>call(if(P,Q,R))</code>.
+</p>
+<p>Cuts in <var>P</var> do not make sense, but are allowed, their scope
+being the goal <var>P</var>.  The scope of cuts in <var>Q</var> and <var>R</var>
+extends to the containing clause.
+</p>
+<a name="Backtracking-15"></a>
+<h4 class="subheading">Backtracking</h4>
+
+<p>Depends on the arguments.
+</p>
+<a name="Exceptions-118"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+</p>
+<a name="See-Also-124"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dsem.html#ref_002dsem">ref-sem</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dif_005fthen.html#mpg_002dref_002dif_005fthen" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dhalt.html#mpg_002dref_002dhalt" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dif.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dif.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

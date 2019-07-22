@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-not_equal_to</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-not_equal_to">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-not_equal_to">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dnot_005fgreater_005fthan.html#mpg_002dref_002dnot_005fgreater_005fthan" rel="next" title="mpg-ref-not_greater_than">
+<link href="mpg_002dref_002dnospyall.html#mpg_002dref_002dnospyall" rel="prev" title="mpg-ref-nospyall">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dnot_005fequal_005fto"></a>
+<hr>
+<a name="g_t_003d_005c_003d_002f2---ISO"></a>
+<h4 class="subsection">11.3.134 <code>=\=/2</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-_003d_005c_003d_002f2-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-_003d_005c_003d_002f2-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-159"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><var>+Expr1</var> <code>=\=</code> <var>+Expr2</var>
+</p>
+<p>Succeeds if the results of evaluating <var>Expr1</var> and
+<var>Expr2</var> are <em>not equal</em>.
+</p>
+<a name="Arguments-146"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Expr1</var></dt>
+<dd><p><em>expr</em>, must be ground
+</p></dd>
+<dt><var>Expr2</var></dt>
+<dd><p><em>expr</em>, must be ground
+</p></dd>
+</dl>
+
+<a name="Description-116"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Evaluates <var>Expr1</var> and <var>Expr2</var> as arithmetic expressions and
+compares the results.
+</p>
+<a name="Exceptions-150"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Arithmetic errors (see <a href="ref_002dari_002dexc.html#ref_002dari_002dexc">ref-ari-exc</a>).
+</p>
+<a name="Examples-62"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">| ?- <kbd>7 =\= 14/2.</kbd>
+
+no
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>7 =\= 15/2.</kbd>
+
+yes
+</pre></div>
+
+<a name="See-Also-156"></a>
+<h4 class="subheading">See Also</h4>
+<p><a href="ref_002dari.html#ref_002dari">ref-ari</a>
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dnot_005fgreater_005fthan.html#mpg_002dref_002dnot_005fgreater_005fthan" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dnospyall.html#mpg_002dref_002dnospyall" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dnot_005fequal_005fto.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dnot_005fequal_005fto.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

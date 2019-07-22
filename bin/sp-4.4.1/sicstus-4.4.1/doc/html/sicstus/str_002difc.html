@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: str-ifc</title>
+
+<meta name="description" content="SICStus Prolog: str-ifc">
+<meta name="keywords" content="SICStus Prolog: str-ifc">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dstructs.html#lib_002dstructs" rel="up" title="lib-structs">
+<link href="str_002detr.html#str_002detr" rel="next" title="str-etr">
+<link href="str_002dnul.html#str_002dnul" rel="prev" title="str-nul">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="str_002difc"></a>
+<hr>
+<a name="Interfacing-with-Foreign-Code"></a>
+<h4 class="subsection">10.37.7 Interfacing with Foreign Code</h4>
+
+
+<p>Foreign terms may be passed between Prolog and other languages
+through the foreign interface.
+</p>
+<p>To use this, all foreign types to be passed between Prolog and another
+language must be declared with <code>foreign_type/2</code> before the <code>foreign/[2,3]</code>
+clauses specifying the foreign functions.
+</p>
+<p>The <code>structs</code> package extends the foreign type specifications recognized
+by the foreign interface.  In addition to the types already recognized
+by the foreign interface, any atomic type recognized by the <code>structs</code>
+package is understood, as well as a pointer to any named <code>structs</code> type.
+</p>
+<p>For example, if you have a function
+</p>
+<div class="example">
+<pre class="example">char nth_char(string, n)
+    char *string;
+    int n;
+    {
+        return string[n];
+    }
+</pre></div>
+
+
+<p>then you might use it from Prolog as follows:
+</p><div class="example">
+<pre class="example">:- foreign_type cstring = array(integer_8).
+
+foreign(nth_char, c, nth_char(+pointer(cstring), +integer, [-integer_8])).
+</pre></div>
+
+
+<p>This allows the predicate <code>nth_char/3</code> to be called from Prolog to
+determine the nth character of a C string.
+</p>
+<p>Note that all existing foreign interface type specifications are
+unaffected, in particular <code>address/[0,1]</code> continue to pass addresses to
+and from Prolog as plain integers.
+</p>
+<p>If you use the foreign resource linker, <code>splfr</code>, on a Prolog
+file that uses the <code>structs</code> package, then you must pass it the
+<samp>--structs</samp> option.  This will make <code>splfr</code> understand
+foreign type specifications and translate them into C declarations in
+the generated header file (see <a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>).
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="str_002detr.html#str_002detr" accesskey="n" rel="next">Next</a>
+<li><a href="str_002dnul.html#str_002dnul" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dstructs.html#lib_002dstructs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002difc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002difc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

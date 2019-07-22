@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: The Global Constraint Programming Interface</title>
+
+<meta name="description" content="SICStus Prolog: The Global Constraint Programming Interface">
+<meta name="keywords" content="SICStus Prolog: The Global Constraint Programming Interface">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Defining-Global-Constraints.html#Defining-Global-Constraints" rel="up" title="Defining Global Constraints">
+<link href="Reflection-Predicates.html#Reflection-Predicates" rel="next" title="Reflection Predicates">
+<link href="Defining-Global-Constraints.html#Defining-Global-Constraints" rel="prev" title="Defining Global Constraints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="The-Global-Constraint-Programming-Interface"></a>
+<hr>
+<a name="The-Global-Constraint-Programming-Interface-1"></a>
+<h4 class="subsubsection">10.10.9.1 The Global Constraint Programming Interface</h4>
+
+<a name="index-global-constraint"></a>
+<a name="index-constraint_002c-global"></a>
+<p>This section describes a programming interface by means of which new
+constraints can be written.  The interface consists of a set of
+predicates provided by this library module.  Constraints defined in this
+way can take arbitrary arguments and may use any constraint solving
+algorithm, provided it makes sense.  Reification cannot be expressed in
+this interface; instead, reification may be achieved by explicitly
+passing a 0/1-variable to the constraint in question.
+</p>
+<p>Global constraints have state, which may be updated each time the
+constraint is resumed.  The state information may be used e.g. in
+incremental constraint solving.
+</p>
+<p>The following two predicates are the principal entrypoints for defining
+and posting new global constraints:
+</p>
+<dl compact="compact">
+<dt><code>clpfd:dispatch_global(<var>+Constraint</var>, <var>+State0</var>, <var>-State</var>, <var>-Actions</var>) &nbsp;<!-- /@w --> <i>extendible</i></code></dt>
+<dd>
+<a name="index-dispatch_005fglobal_002f4-_0028clpfd_0029-1"></a>
+<a name="index-dispatch_005fglobal_002f4-_0028clpfd_0029"></a>
+
+
+<a name="index-clpfd_003adispatch_005fglobal_002f4-1"></a>
+<a name="index-clpfd_003adispatch_005fglobal_002f4"></a>
+
+<p>Tells the solver how to solve constraints of the form <var>Constraint</var>.
+Defined as a multifile predicate.
+</p>
+<p>When defining a new constraint, a clause of this predicate must be
+added. Its body defines a constraint solving method and should always
+succeed determinately.  When a global constraint is called or resumed,
+the solver will call this predicate to deal with the constraint.
+</p>
+<blockquote>
+<p><strong>Please note</strong>: the constraint is identified by its principal
+functor; there is no provision for having two constraints with the same
+name in different modules.  It is good practice to include a cut in
+every clause of <code>clpfd:dispatch_global/4</code>.
+</p>
+<p><strong>Please note</strong>: During propagation, if the domain of a variable
+becomes reduced to a single value, then the variable will eventually be bound
+to that value, but it is undefined exactly when that happens.
+Therefore, clauses of <code>clpfd:dispatch_global/4</code> should not use
+<code>nonvar/1</code> or <code>integer/1</code> to check if a variable is fixed. Use
+e.g. <code>fd_min/1</code> and <code>fd_max/1</code> instead.
+</p></blockquote>
+
+<p><var>State0</var> and <var>State</var> are the old and new state respectively.
+</p>
+<p>The constraint solving method must not invoke the constraint solver
+recursively e.g. by binding variables or posting new constraints;
+instead, <var>Actions</var> should be unified with a list of requests to the
+solver.  Each request should be of the following form:
+</p>
+<dl compact="compact">
+<dt><code>exit</code></dt>
+<dd><a name="index-exit_002f0-_0028clpfd_003adispatch_005fglobal_002f4-request_0029"></a>
+<p>The constraint has become entailed, and ceases to exist.
+</p>
+</dd>
+<dt><code>fail</code></dt>
+<dd><a name="index-fail_002f0-_0028clpfd_003adispatch_005fglobal_002f4-request_0029"></a>
+<p>The constraint has become disentailed, causing the solver to backtrack.
+</p>
+</dd>
+<dt><code><var>X</var> = <var>V</var></code></dt>
+<dd><a name="index-_003d_002f2-_0028clpfd_003adispatch_005fglobal_002f4-request_0029"></a>
+<p>The solver binds <var>X</var> to <var>V</var>.
+</p>
+</dd>
+<dt><code><var>X</var> in <var>R</var></code></dt>
+<dd><a name="index-in_002f2-_0028clpfd_003adispatch_005fglobal_002f4-request_0029"></a>
+<p>The solver constrains <var>X</var> to be a member of the <var>ConstantRange</var>
+<var>R</var> (see <a href="Syntax-of-Indexicals.html#Syntax-of-Indexicals">Syntax of Indexicals</a>).
+</p>
+</dd>
+<dt><code><var>X</var> in_set <var>S</var></code></dt>
+<dd><a name="index-in_005fset_002f2-_0028clpfd_003adispatch_005fglobal_002f4-request_0029"></a>
+<p>The solver constrains <var>X</var> to be a member of the FD set <var>S</var>
+(see <a href="FD-Set-Operations.html#FD-Set-Operations">FD Set Operations</a>).
+</p>
+</dd>
+<dt><code>call(<var>Goal</var>)</code></dt>
+<dd><a name="index-call_002f1-_0028clpfd_003adispatch_005fglobal_002f4-request_0029"></a>
+<p>The solver calls the goal or constraint <var>Goal</var>, which should be
+module prefixed unless it is a built-in predicate or an exported
+predicate of the <code>clpfd</code> module.
+</p>
+<p><var>Goal</var> is executed as any Prolog goal, but in a context where some
+constraints may already be enqueued for execution, in which case those
+constraints will run after the completion of the call request.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>fd_global(<var>:Constraint</var>, <var>+State</var>, <var>+Susp</var>)</code></dt>
+<dt><code>fd_global(<var>:Constraint</var>, <var>+State</var>, <var>+Susp</var>, <var>+Options</var>)</code></dt>
+<dd>
+<a name="index-fd_005fglobal_002f_005b3_002c4_005d-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fglobal_002f_005b3_002c4_005d-_0028clpfd_0029"></a>
+
+<p>where <var>Constraint</var> is a constraint goal, <var>State</var> is its initial
+state, and <var>Susp</var> is a term encoding how the constraint should wake
+up in response to domain changes.  This predicate posts the constraint.
+</p>
+<p><var>Susp</var> is a list of <var>F(Var)</var> terms where <var>Var</var> is a variable
+to suspend on and <var>F</var> is a functor encoding when to wake up:
+</p>
+<dl compact="compact">
+<dt><code>dom(<var>X</var>)</code></dt>
+<dd><a name="index-dom_002f1-_0028fd_005fglobal_002f_005b3_002c4_005d-option_0029"></a>
+<p>wake up when the domain of <var>X</var> has changed
+</p>
+</dd>
+<dt><code>min(<var>X</var>)</code></dt>
+<dd><a name="index-min_002f1-_0028fd_005fglobal_002f_005b3_002c4_005d-option_0029"></a>
+<p>wake up when the lower bound of <var>X</var> has changed
+</p>
+</dd>
+<dt><code>max(<var>X</var>)</code></dt>
+<dd><a name="index-max_002f1-_0028fd_005fglobal_002f_005b3_002c4_005d-option_0029"></a>
+<p>wake up when the upper bound of <var>X</var> has changed
+</p>
+</dd>
+<dt><code>minmax(<var>X</var>)</code></dt>
+<dd><a name="index-minmax_002f1-_0028fd_005fglobal_002f_005b3_002c4_005d-option_0029"></a>
+<p>wake up when the lower or upper bound of <var>X</var> has changed
+</p>
+</dd>
+<dt><code>val(<var>X</var>)</code></dt>
+<dd><a name="index-val_002f1-_0028fd_005fglobal_002f_005b3_002c4_005d-option_0029"></a>
+<p>wake up when the lower and upper bounds of <var>X</var> have coincided
+</p></dd>
+</dl>
+
+<p><var>Options</var> is a list of zero or more of the following:
+</p>
+<dl compact="compact">
+<dt><code>source(<var>Term</var>)</code></dt>
+<dd><a name="index-source_002f1-_0028fd_005fglobal_002f_005b3_002c4_005d-option_0029"></a>
+<p>By default, the symbolic form computed by <code>copy_term/3</code>, and shown
+in the answer constraint if <code>clpfd:full_answer</code> holds, equals
+<var>Constraint</var>, module name expanded.  With this option, the symbolic
+form will instead be <var>Term</var>.  In particular, if <var>Term</var> equals
+<code>true</code>, then the constraint will not appear in the <var>Body</var> argument
+of <code>copy_term/3</code>.  This can be useful if you are posting some
+redundant (implied) constraint.
+</p>
+</dd>
+<dt><code>idempotent(<var>Boolean</var>)</code></dt>
+<dd><a name="index-idempotent_002f1-_0028fd_005fglobal_002f_005b3_002c4_005d-option_0029"></a>
+<p>If <code>true</code> (the default), then the constraint solving method is assumed
+to be idempotent.  That is, in the scope of
+<code>clpfd:dispatch_global/4</code>, the solver will not check for the
+resumption conditions for the given constraint, while performing its
+<var>Actions</var>.  If <code>false</code>, then an action may well cause the solver to
+resume the constraint that produced the action.
+</p>
+<p>If a variable occurs more than once in a global constraint that is being
+posted, or due to a variable-variable unification, then the solver will no
+longer trust the constraint solving method to be idempotent.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<p>For an example of usage, see <a href="A-Global-Constraint-Example.html#A-Global-Constraint-Example">A Global Constraint Example</a>.
+</p>
+<p>The following predicate controls operational aspects of the constraint
+solver:
+</p>
+<dl compact="compact">
+<dt><code>fd_flag(<var>+FlagName</var>, <var>?OldValue</var>, <var>?NewValue</var>)</code></dt>
+<dd>
+<a name="index-fd_005fflag_002f3-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fflag_002f3-_0028clpfd_0029"></a>
+
+<p><var>OldValue</var> is the value of the FD flag <var>FlagName</var>, and the new
+value of <var>FlagName</var> is set to <var>NewValue</var>.  The possible FD flag
+names and values are:
+</p>
+<dl compact="compact">
+<dt><code>overflow</code></dt>
+<dd><a name="index-overflow-_0028FD-flag_0029"></a>
+<p>Determines the behavior on integer overflow conditions.  Possible
+values:
+</p>
+<dl compact="compact">
+<dt><code>error</code></dt>
+<dd><a name="index-error-_0028overflow-FD-flag-value_0029"></a>
+<p>Raises a representation error (the default).
+</p>
+</dd>
+<dt><code>fail</code></dt>
+<dd><a name="index-fail-_0028overflow-FD-flag-value_0029"></a>
+<p>Silently fails.
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>debug</code></dt>
+<dd><a name="index-debug-_0028FD-flag_0029"></a>
+<p>Controls the visibility of constraint propagation. Possible values are
+<code>on</code> and <code>off</code> (the default).  For internal use by
+<code>library(fdbg)</code>.
+</p></dd>
+</dl>
+
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Reflection-Predicates.html#Reflection-Predicates" accesskey="n" rel="next">Next</a>
+<li><a href="Defining-Global-Constraints.html#Defining-Global-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-Global-Constraint-Programming-Interface.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-Global-Constraint-Programming-Interface.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

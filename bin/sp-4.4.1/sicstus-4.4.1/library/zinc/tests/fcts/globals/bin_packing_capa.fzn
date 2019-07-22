@@ -1,0 +1,5 @@
+array[1 .. 4] of var 1 .. 3: bin :: output_array([1..4]);
+
+constraint bin_packing_capa_sicstus([5, 7, 9], bin, [2, 3, 5, 7], 1);
+
+solve :: int_search(bin, input_order, indomain_min, complete) satisfy;

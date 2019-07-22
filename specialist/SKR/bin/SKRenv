@@ -1,0 +1,280 @@
+#!/bin/ksh
+
+# @(#)SKRenv	1.49 12/22/06
+
+export LEX_TEST_MODE=write
+export TAG_TEST_MODE=write
+
+PROGRAM=`basename $0`
+
+USAGE="$PROGRAM -d | -p | -w HOME"
+
+export HERE=`pwd`
+
+MYHOST=`hostname`
+
+cd $HERE
+
+case $HERE
+in
+         /home*) export HERE=/net/${MYHOST}/export${HERE};;
+  /export/home*) export HERE=/net/${MYHOST}${HERE};;
+esac
+
+
+# Mats Carlsson's fix for the "Toronto" citation
+export PROLOGMAXSIZE=1000M
+
+export MYHOME=$HOME
+
+export NLS=/nfsvol/nls
+export HOST=`/bin/hostname`
+export HOSTNAME=`/bin/hostname`
+export SKR=$NLS/specialist/SKR
+export SAW=$NLS/specialist/SAW
+export USEMREP=$SAW/USemrep
+export USEMREP_LIB=$USEMREP/usemrep_lib
+export USEMREP_MAIN=$USEMREP/usemrep_main
+export USEMREP_DOMAIN=$USEMREP/usemrep_domain
+export USEMREP_VOCABULARY=$USEMREP/usemrep_vocabulary
+
+# ensure a full network pathname:
+# If $MYHOME is just /home/$LOGNAME or /export/home/$LOGNAME,
+# the user is on his/her own machine, so add /net/${HOST}
+if [  "$MYHOME" = "/home/$LOGNAME" \
+   -o "$MYHOME" = "/export/home/$LOGNAME" ]
+then
+   export MYHOME=/net/${MYHOST}/export/home/${LOGNAME}
+fi
+
+OPERATING_SYSTEM=`uname`
+if [ "$OPERATING_SYSTEM" = "SunOS" ]
+then
+
+   OS_VERSION=`uname -r`
+   if [ "$OS_VERSION" != "5.9" ]
+   then
+      ### echo "### WARNING: This machine is not running Solaris 5.9."
+      ### echo "### Please run whatever you are trying to do on a Solaris 5.9 machine."
+      ### exit 1
+      :
+   fi
+
+   # increase to the maximum possible the number of file descriptors
+   ulimit -n 2047
+
+   # from the man pages for ar:
+   # -c    Suppresses the diagnostic message that is written to
+   #       standard error by default when archive is created.
+   export AR="ar cruv"
+   export GNU_DIR=$NLS/tools/gnu
+   export COMPILER_DIR=$NLS/tools/gcc-4.1.1
+   export CC=$COMPILER_DIR/bin/gcc
+   export GCC=$COMPILER_DIR/bin/gcc
+   export LINKFLAGS="-G"
+   export LD_LIBRARY_PATH=$COMPILER_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$GNU_DIR/lib:$LD_LIBRARY_PATH
+   export PATH=$GNU_DIR/bin:$PATH
+
+elif [ "$OPERATING_SYSTEM" = "Linux" ]
+then
+   # from the man pages for ar:
+   # -c    Suppresses the diagnostic message that is written to
+   #       standard error by default when archive is created.
+   export AR="ar cruv"
+   export GNU_DIR=/usr
+   export COMPILER_DIR=/usr
+   export CC=gcc
+   export GCC=gcc
+   export LINKFLAGS="-m32 -shared"
+   export LD_LIBRARY_PATH=$COMPILER_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$GNU_DIR/lib:$LD_LIBRARY_PATH
+   export PATH=$GNU_DIR/bin:$PATH
+fi
+
+# default
+export SKR_SRC_HOME=${MYHOME}/specialist/SKR/src
+LEXICON_VERSION=""
+
+while getopts q:KL:S:dpCw: option
+do
+   # echo SKRenv option is $option
+   case $option
+   in
+	q) ;;
+	K) ;;
+	L) LEXICON_VERSION=$OPTARG;;
+	S) ;;
+ 	d) export SKR_SRC_HOME=${MYHOME}/specialist/SKR/src;; # redundant
+  	p) export SKR_SRC_HOME=$SKR/src;;
+	w) export SKR_SRC_HOME=$OPTARG
+	   # ensure that the "-w" flag was followed by another command-line argument
+	   if [ "$SKR_SRC_HOME" = "" ]
+	   then
+	      echo "The '-w' option requires specifying a working directory."
+	      exit 1
+	   fi;;
+	## the C flag is just because makeenv is sourced by SKRmake
+        C) export CLEAN=CLEAN; export SAVE_CLEAN=SAVE_CLEAN;;
+	## end of command-line flags; rest of args are command to run
+	?) exit 1;;
+   esac
+done
+
+shift `expr $OPTIND - 1`
+export OPTIND=1
+
+# If called with no args (no -d, -p, or -w), $SKR_SRC_HOME will not be set,
+if [ "$SKR_SRC_HOME" = "" -o "$SKR_SRC_HOME" = "." ]
+then
+    SKR_SRC_HOME=`pwd`
+    # ensure full network pathname
+    case $SKR_SRC_HOME
+    in
+             /home*) SKR_SRC_HOME=/net/${MYHOST}/export/${SKR_SRC_HOME};;
+      /export/home*) SKR_SRC_HOME=/net/${MYHOST}/${SKR_SRC_HOME};;
+    esac
+# ensure that the argument specifies an existing directory
+elif [ ! -d "$SKR_SRC_HOME" ]
+then
+   echo "The directory $SKR_SRC_HOME does not exist."
+   exit 1
+fi
+
+# echo SKR_SRC_HOME = $SKR_SRC_HOME
+
+# if we're in the SKR/src/skr directory,
+# set SKR_SRC_HOME to the parent src directory 
+case $SKR_SRC_HOME
+in
+   *skr) export SKR_SRC_HOME=`dirname $SKR_SRC_HOME`;;
+esac
+
+export SKR_HOME=`dirname $SKR_SRC_HOME`
+
+export MM_TOOLS=$SKR_HOME/tools
+
+export MM_TOOLS_LIB=$MM_TOOLS/lib
+
+export ABGENE_DIR=$NLS/specialist/SAW/abgene/
+
+export MODEL_LOCATION_BASE_DIR=/nfsvol/nls3aux18/DB/
+
+if [ "$OPERATING_SYSTEM" = "SunOS" ]
+then
+  export BASIC_CFLAGS="-g -w -O"
+  export QUINTUS=/net/nls3/export/home/quintus
+  export BERKELEY=$NLS/tools/berkeley_db/db-3.0.55
+  export DEFAULT_NETLIBS="-lsocket -lnsl"
+  export DEFAULT_LIBXML_DIR=${NLS}/tools/libxml2
+elif [ "$OPERATING_SYSTEM" = "Linux" ]
+then
+  export BASIC_CFLAGS="-g -w -O -m32"
+  export QUINTUS=/nfsvol/crfiler-ind/II_Research/quintus
+  export BERKELEY=$NLS/tools/berkeley_db/Linux-i686/db-3.0.55
+  export DEFAULT_NETLIBS=""
+  export DEFAULT_LIBXML_DIR=/usr
+fi
+
+export C__DEBUG="-D__DEBUG"
+
+export DEFAULT_CFLAGS="$BASIC_CFLAGS $C__DEBUG"
+
+export SKR_DB=$SKR_SRC_HOME/db
+
+export SKR_DEBUG=$SKR_SRC_HOME/debug
+
+export SKR_INCLUDE=$SKR_SRC_HOME/include
+
+export SKR_LEXICON=$SKR_SRC_HOME/lexicon
+
+export SKR_MORPH=$SKR_LEXICON/morph
+
+export SKR_LIB=$SKR_SRC_HOME/lib
+
+export SKR_LEX_LIB=$SKR_LEXICON/lib
+
+export SKR_METAMAP=$SKR_SRC_HOME/metamap
+
+export SKR_MMI=$SKR_SRC_HOME/mmi
+
+export SKR_SKR=$SKR_SRC_HOME/skr
+
+export SKR_NLS_CLNT=$SKR_SRC_HOME/nls_clnt
+
+export SKR_TAGGER=$SKR_SRC_HOME/tagger
+
+export SKR_TEXT=$SKR_SRC_HOME/text
+
+export SKR_WSD=$SKR_SRC_HOME/WSD
+
+export TAGGER_SERVER_HOST_0=indsc1
+
+export TAGGER_SERVER_HOST_1=indsc2
+
+export TAGGER_SERVER_DEFAULT_TCP_PORT=1795
+
+export TAGGER_SERVER_DELIMITER='^THE_END^\n'
+
+if [ "$OPERATING_SYSTEM" = "SunOS" ]
+then
+   export QUINTUS=/net/nls3/export/home/quintus
+   export QUINTUS_PROLOG_PATH=$QUINTUS/quintus3.5/bin3.5/sun4-5/prolog
+elif [ "$OPERATING_SYSTEM" = "Linux" ]
+then
+   export QUINTUS=/nfsvol/crfiler-ind/II_Research/quintus
+   export QUINTUS_PROLOG_PATH=$QUINTUS/quintus3.5/bin3.5/linux/prolog
+fi
+
+export QPINCDIR=$QUINTUS/quintus3.5/generic/qplib3.5/embed
+
+# for parse_meta.c in WSD/WSD directory
+export SUPPRESSED_CONC_FILE=suppressed_conc
+
+export DATABASE_HOME=$SKR_LEXICON/data
+
+export DEFAULT_LEXICON_FILE=$DATABASE_HOME/lexiconStatic${LEXICON_VERSION}
+
+export DEFAULT_LEXICON_INDEX_FILE=${DEFAULT_LEXICON_FILE}Ind
+
+export LCAT_HELP_FILE=$SKR_LEXICON/lcat/lcat.help
+
+export LF_HELP_FILE=$SKR_LEXICON/lf/lf.help
+
+export DM_TRANSLATED_RULES_FILE=$SKR_MORPH/dm_translated_rules
+
+export DM_TRANSLATED_FACTS_FILE=$SKR_MORPH/dm_translated_facts
+
+export IM_TRANSLATED_RULES_FILE=$SKR_MORPH/im_translated_rules
+
+export IM_TRANSLATED_FACTS_FILE=$SKR_MORPH/im_translated_facts
+
+export LM_TRANSLATED_RULES_FILE=$SKR_MORPH/lm_translated_rules
+
+export DISAMB_SERVER_HOST_0=mti2.nlm.nih.gov
+
+export DISAMB_SERVER_HOST_1=skr2.nlm.nih.gov
+
+export DISAMB_SERVER_TCP_PORT_0=5554
+
+export DISAMB_SERVER_TCP_PORT_1=5554
+
+export DISAMB_SERVER_BEGIN_DELIMITER='<Response>'
+
+export DISAMB_SERVER_END_DELIMITER='</Response>\n'
+
+export DISAMB_METHODS='['\''FREQ_METHOD'\'', '\''MESH_FREQ_METHOD'\'', '\''JDI_METHOD'\'']'
+
+export DISAMB_WEIGHTS='[0.0, 0.0, 1.0]'
+
+export DISAMB_LOG_FILE=WSD_Client/log/WSD_Proxy.log
+
+export DISAMB_LOG=false
+
+if [ $# -gt 0 ]
+then
+   case $1 in
+   -*) ;;
+    *) exec $* ;;
+   esac
+fi

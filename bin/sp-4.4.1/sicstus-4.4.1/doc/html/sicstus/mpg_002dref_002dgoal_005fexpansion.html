@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-goal_expansion</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-goal_expansion">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-goal_expansion">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dgoal_005fsource_005finfo.html#mpg_002dref_002dgoal_005fsource_005finfo" rel="next" title="mpg-ref-goal_source_info">
+<link href="mpg_002dref_002dget_005fmutable.html#mpg_002dref_002dget_005fmutable" rel="prev" title="mpg-ref-get_mutable">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dgoal_005fexpansion"></a>
+<hr>
+<a name="goal_005fexpansion_002f5---hook"></a>
+<h4 class="subsection">11.3.97 <code>goal_expansion/5</code> &nbsp;<!-- /@w --> <i>hook</i></h4>
+<a name="index-goal_005fexpansion_002f5-_0028hook_002c-ref-page_0029-1"></a>
+<a name="index-goal_005fexpansion_002f5-_0028hook_002c-ref-page_0029"></a>
+
+<a name="Synopsis-122"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code><var>M</var>:goal_expansion(<var>+Goal1</var>, <var>+Layout1</var>, <var>+Module</var>, <var>-Goal2</var>, <var>-Layout2</var>)</code>
+</p>
+<p>Defines transformations on goals while clauses are being compiled or asserted,
+and during meta-calls at runtime.
+</p>
+<a name="Arguments-111"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Goal1</var></dt>
+<dd><p><em>callable</em>
+</p>
+<p>Goal to transform.
+</p>
+</dd>
+<dt><var>Layout1</var></dt>
+<dd><p><em>term</em>
+</p>
+<p>Layout of goal to transform.
+</p>
+</dd>
+<dt><var>Module</var></dt>
+<dd><p><em>atom</em>
+</p>
+<p>Source module of goal to transform.
+</p>
+</dd>
+<dt><var>Goal2</var></dt>
+<dd><p><em>callable</em>
+</p>
+<p>Transformed goal.
+</p>
+</dd>
+<dt><var>Layout2</var></dt>
+<dd><p><em>term</em>
+</p>
+<p>Layout of transformed goal.
+</p></dd>
+</dl>
+
+<a name="index-macro-expansion"></a>
+<a name="index-expansion_002c-macro"></a>
+
+<a name="Description-90"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Defines transformations on goals while clauses are being consulted,
+compiled or asserted, <em>after</em> any processing by
+<code>user:term_expansion/6</code> of the terms being read in.  It is
+called for every simple <var>Goal1</var>, defined in <var>M</var>, in the source module <var>Module</var>
+found while traversing the clause bodies.  Typically, <var>Module</var> has imported
+the predicate <var>Goal1</var> from module <var>M</var>
+but it happens also if <var>Module</var> uses an explicit module prefix, i.e. <code><var>M</var>:<var>Goal1</var></code>.
+</p>
+<p>If it succeeds, then <var>Goal1</var>
+is replaced by <var>Goal2</var>; otherwise, <var>Goal1</var> = <var>Goal2</var>.
+<var>Goal2</var> may be an arbitrarily complex goal, and
+<code><var>M</var>:goal_expansion/5</code> is recursively applied to the expansion and its subgoals.
+</p>
+<blockquote>
+<p><strong>Please note</strong>: the arguments of meta-predicates such
+as <code>call/1</code>, <code>setof/3</code> and <code>on_exception/3</code> are
+<em>not</em> subject to such compile-time processing.
+Instead the expansion is performed at runtime, see below.
+</p></blockquote>
+
+<p>The above description holds even if <code>Goal1</code> is exported but not
+defined in the module <var>M</var>, i.e. it is possible to define a goal
+expansion for an exported, but otherwise undefined,
+predicate.
+However, in general, it is better to provide an ordinary predicate
+definition as a fallback, e.g. to be able to handle meta calls if
+the goal expansion is not defined at runtime.
+</p>
+<p>This predicate is also used to resolve any meta-calls to
+<var>Goal1</var> at runtime via the same mechanism.  If the transformation
+succeeds, then <var>Goal2</var> is simply called instead of <var>Goal1</var>.
+Otherwise, if <var>Goal1</var> is a goal of an existing predicate, then 
+that predicate is invoked.  Otherwise, error recovery is attempted
+by <code>user:unknown_predicate_handler/3</code>.
+</p>
+<p><code><var>M</var>:goal_expansion/5</code> can be regarded as a macro expansion
+facility.  It is used for this purpose to support the interface to
+attributed variables in <code>library(atts)</code>, which defines the
+predicates <code><var>M</var>:get_atts/2</code> and <code><var>M</var>:put_atts/2</code>
+to access module-specific variable attributes.  These
+&ldquo;predicates&rdquo; are actually implemented via the
+<code><var>M</var>:goal_expansion/5</code> mechanism.  This has the effect that calls
+to the interface predicates are expanded at compile time to
+efficient code.
+</p>
+<p>For accessing aspects of the load context, e.g. the name of the
+file being compiled, the predicate
+<code>prolog_load_context/2</code> (see <a href="ref_002dlps_002dlco.html#ref_002dlps_002dlco">ref-lps-lco</a>) can be used.
+Note that <code>prolog_load_context/2</code> only gives meaningful results
+during compile (or consult) time. This means that when a meta call is
+goal expanded, at runtime, the load context will not be available, and
+there is no reliable way for a goal expansion to distinguish between
+these cases. 
+</p>
+<p>The goal expansion may happen both at compile time (the normal case)
+at runtime (for meta calls).  In some cases the compiler may try to
+avoid meta calls by calling goal expansion also for meta calls. This
+all means that the code implementing goal expansion should be present
+at both compile time and runtime. It also implies that goal expansion
+should not misbehave if it is called more times than expected.
+</p>
+<p><var>Layout1</var> and <var>Layout2</var> are for supporting source-linked
+debugging in the context of goal expansion.  The predicate should
+construct a suitable <var>Layout2</var> compatible with <var>Term2</var> that
+contains the line number information from <var>Layout1</var>. If source-linked
+debugging of <var>Term2</var> is not important, then <var>Layout2</var> should be <code>[]</code>.
+The recording of source info is affected by the <code>source_info</code>
+prolog flag (see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>).
+</p>
+
+<a name="Exceptions-113"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions are treated as failures, except an error
+message is printed as well.
+</p>
+<a name="See-Also-119"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlod_002dexp.html#ref_002dlod_002dexp">ref-lod-exp</a>, <a href="Glossary.html#Glossary">Glossary</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dgoal_005fsource_005finfo.html#mpg_002dref_002dgoal_005fsource_005finfo" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dget_005fmutable.html#mpg_002dref_002dget_005fmutable" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dgoal_005fexpansion.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dgoal_005fexpansion.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

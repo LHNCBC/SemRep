@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mgc</title>
+
+<meta name="description" content="SICStus Prolog: ref-mgc">
+<meta name="keywords" content="SICStus Prolog: ref-mgc">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Prolog-Intro.html#Prolog-Intro" rel="up" title="Prolog Intro">
+<link href="ref_002dmgc_002dove.html#ref_002dmgc_002dove" rel="next" title="ref-mgc-ove">
+<link href="ref_002dlps_002dsum.html#ref_002dlps_002dsum" rel="prev" title="ref-lps-sum">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmgc"></a>
+<hr>
+<a name="Memory-Use-and-Garbage-Collection"></a>
+<h3 class="section">4.10 Memory Use and Garbage Collection</h3>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dove.html#ref_002dmgc_002dove" accesskey="1">ref-mgc-ove</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Overview
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dgcp.html#ref_002dmgc_002dgcp" accesskey="2">ref-mgc-gcp</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Garbage Collection and Programming Style
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002degc.html#ref_002dmgc_002degc" accesskey="3">ref-mgc-egc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Enabling and Disabling the Garbage Collector
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dmgc.html#ref_002dmgc_002dmgc" accesskey="4">ref-mgc-mgc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Monitoring Garbage Collections
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dgch.html#ref_002dmgc_002dgch" accesskey="5">ref-mgc-gch</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Interaction of Garbage Collection and Heap Expansion
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dgcd.html#ref_002dmgc_002dgcd" accesskey="6">ref-mgc-gcd</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Invoking the Garbage Collector Directly
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dago.html#ref_002dmgc_002dago" accesskey="7">ref-mgc-ago</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Atom Garbage Collection
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dsum.html#ref_002dmgc_002dsum" accesskey="8">ref-mgc-sum</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Summary of Predicates
+</td></tr>
+</table>
+
+<a name="index-memory_002c-general-description"></a>
+
+<a name="index-data-areas_002c-used-by-Prolog"></a>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlps.html#ref_002dlps" accesskey="p" rel="prev">Previous</a>
+<li><a href="Prolog-Intro.html#Prolog-Intro" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmgc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmgc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

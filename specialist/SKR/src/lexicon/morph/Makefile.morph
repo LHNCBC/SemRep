@@ -1,0 +1,140 @@
+
+#############################################################################
+#
+#                          PUBLIC DOMAIN NOTICE                         
+#         Lister Hill National Center for Biomedical Communications
+#                      National Library of Medicine
+#                      National Institues of Health
+#           United States Department of Health and Human Services
+#                                                                         
+#  This software is a United States Government Work under the terms of the
+#  United States Copyright Act. It was written as part of the authors'
+#  official duties as United States Government employees and contractors
+#  and thus cannot be copyrighted. This software is freely available
+#  to the public for use. The National Library of Medicine and the
+#  United States Government have not placed any restriction on its
+#  use or reproduction.
+#                                                                        
+#  Although all reasonable efforts have been taken to ensure the accuracy 
+#  and reliability of the software and data, the National Library of Medicine
+#  and the United States Government do not and cannot warrant the performance
+#  or results that may be obtained by using this software or data.
+#  The National Library of Medicine and the U.S. Government disclaim all
+#  warranties, expressed or implied, including warranties of performance,
+#  merchantability or fitness for any particular purpose.
+#                                                                         
+#  For full details, please see the MetaMap Terms & Conditions, available at
+#  http://metamap.nlm.nih.gov/MMTnCs.shtml.
+#
+############################################################################
+
+# Makefile for morphology
+
+
+RANLIB = /bin/true
+RM = /bin/rm -f
+MOVE = mv
+
+LOCAL_INCLUDES = -I${SKR_LEXICON}/include
+SP_INCLUDES = -I${SPINCDIR}
+ALL_INCLUDES = ${LOCAL_INCLUDES} ${SP_INCLUDES}
+CFLAGS = ${DEFAULT_CFLAGS} ${ALL_INCLUDES}
+CFLAGS = ${DEFAULT_CFLAGS} ${LOCAL_INCLUDES}
+LIBDIR=${SKR_LEX_LIB}
+LOCAL_LIBS= ${SKR_LEXICON}/miscutil/miscutil.a
+# LD_LIBRARY_PATH= ${SPECIALIST}/lib
+
+O_SYSTEM = $(shell uname)
+
+ifeq '$(O_SYSTEM)' "SunOS"
+  LD = ld
+  SOLDFLAGS=-G
+  LDFLAGS=
+  LIBS = -lnsl
+else
+  ifeq '$(O_SYSTEM)' "Linux"
+    LD = gcc
+    SOLDFLAGS=$(LINKFLAGS)
+    # LDFLAGS=-m32
+    # FML changed 09/30/2015
+    LDFLAGS=
+    LIBS =
+  endif
+endif
+
+LM_RULE_TRANSLATOR_OBJ = lm_rule_tran.o loc.o util.o
+LM_OBJ = lm.o util.o
+
+# general derivational module
+DM_RULE_TRANSLATOR_OBJ = dm_rule_tran.o loc.o util.o
+DM_FACT_TRANSLATOR_OBJ = dm_fact_tran.o loc.o util.o
+DM_OBJ = dm.o util.o
+
+# prolog shared obj lib
+MORPH_SO_OBJ = c_morph.o util.o
+
+FACTS=dm_translated_facts
+RULES=lm_translated_rules dm_translated_rules
+
+SPLFR_BASIC_FLAGS =  --vv --keep ${SOLDFLAGS}
+SPLFR_DYNAMIC_FLAGS = ${SPLFR_BASIC_FLAGS} --moveable
+SPLFR_STATIC_FLAGS = ${SPLFR_BASIC_FLAGS} --static
+SPLFR = splfr --conf CC="${CC}" $(addprefix --cflag=, $(CFLAGS))
+
+LINK_FLAGS = -- ${LOCAL_LIBS} ${LIBS} -lc ${DM_OBJ} ../miscutil/miscutil.o ../../debug/debug.o
+
+# all we need to make is morph.so and morph.a; liblm.a is not needed except for
+
+# all:		splfr_STATIC splfr_DYNAMIC ${FACTS} ${RULES}
+# all:		splfr_DYNAMIC ${FACTS} ${RULES}
+# FML changed 09/30/2015
+all:		splfr_STATIC splfr_DYNAMIC ${FACTS} ${RULES}
+		mv qp_morph.so ../..
+
+liblm.a:	${LM_OBJ} lm_translated_rules
+		${AR} ${ARFLAGS} $@ ${LM_OBJ}
+		${RANLIB} $@
+		${MOVE} $@ ${LIBDIR}/$@
+
+lm_translated_rules:	lm_rule_tran lm.rules rpp
+		./rpp < lm.rules | ./lm_rule_tran > $@
+
+lm_rule_tran:	${LM_RULE_TRANSLATOR_OBJ}
+		${CC} ${CFLAGS} -o $@ ${LM_RULE_TRANSLATOR_OBJ} -L${LIBDIR} ${LOCAL_LIBS} ${LIBS}
+
+# libdm.a:	${DM_OBJ}
+# 		${AR} ${ARFLAGS} $@ ${DM_OBJ}
+# 		${RANLIB} $@
+# 		${MOVE} $@ ${LIBDIR}/$@
+
+dm_translated_rules:	dm_rule_tran dm.rul rpp
+		./rpp < dm.rul | ./dm_rule_tran > $@
+
+dm_rule_tran: ${DM_RULE_TRANSLATOR_OBJ}
+		@echo FOO ${DEFAULT_CFLAGS}
+		${CC} ${DEFAULT_CFLAGS} -o $@ ${DM_RULE_TRANSLATOR_OBJ} -L${LIBDIR} ${LOCAL_LIBS} ${LIBS}
+
+dm_translated_facts:	dm_fact_tran dm.fct rpp
+		./rpp < dm.fct | ./dm_fact_tran > $@
+
+dm_fact_tran:	${DM_FACT_TRANSLATOR_OBJ}
+		${CC} ${CFLAGS} -o $@ ${DM_FACT_TRANSLATOR_OBJ} -L${LIBDIR} ${LOCAL_LIBS} ${LIBS}
+
+splfr_STATIC:	${DM_OBJ} ${LM_OBJ}
+		${SPLFR} ${SPLFR_STATIC_FLAGS} qp_morph.pl c_morph.c ${LINK_FLAGS}
+
+splfr_DYNAMIC:	${DM_OBJ} ${LM_OBJ} # dm_translated_rules dm_translated_facts lm_translated_rules
+		${SPLFR} ${SPLFR_DYNAMIC_FLAGS} qp_morph.pl c_morph.c ${LINK_FLAGS}
+
+c_morph.o:	c_morph.c
+		${CC} ${CFLAGS} -c c_morph.c
+
+# rule pre-processor
+rpp:		rpp.o
+		${CC} ${CFLAGS} -o rpp rpp.o
+
+rpp.o:		rpp.c
+		${CC} ${CFLAGS} ${INCLUDES} -c rpp.c
+
+clean:
+		-${RM} *.o *.a *.so core *glue* $(FACTS) $(RULES) 

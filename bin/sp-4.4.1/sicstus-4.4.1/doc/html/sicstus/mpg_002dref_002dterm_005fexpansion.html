@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-term_expansion</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-term_expansion">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-term_expansion">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dterm_005fgreater_005fthan.html#mpg_002dref_002dterm_005fgreater_005fthan" rel="next" title="mpg-ref-term_greater_than">
+<link href="mpg_002dref_002dterm_005fequal_005fto.html#mpg_002dref_002dterm_005fequal_005fto" rel="prev" title="mpg-ref-term_equal_to">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dterm_005fexpansion"></a>
+<hr>
+<a name="term_005fexpansion_002f6---hook"></a>
+<h4 class="subsection">11.3.227 <code>term_expansion/6</code> &nbsp;<!-- /@w --> <i>hook</i></h4>
+<a name="index-term_005fexpansion_002f6-_0028hook_002c-ref-page_0029-1"></a>
+<a name="index-term_005fexpansion_002f6-_0028hook_002c-ref-page_0029"></a>
+
+<a name="Synopsis-252"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile user:term_expansion/6.</code>
+</p>
+<p><code>user:term_expansion(<var>+Term1</var>, <var>+Layout1</var>, <var>+Tokens1</var>, <var>-Term2</var>, <var>-Layout2</var>, <var>-Tokens2</var>)</code>
+</p>
+<p>Overrides or complements the standard transformations to be done by
+<code>expand_term/2</code>.
+</p>
+<a name="Arguments-233"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Term1</var></dt>
+<dd><p><em>term</em>
+</p>
+<p>Term to transform.
+</p>
+</dd>
+<dt><var>Layout1</var></dt>
+<dd><p><em>term</em>
+</p>
+<p>Layout term of <var>Term1</var>.
+</p>
+</dd>
+<dt><var>Tokens1</var></dt>
+<dd><p><em>list of atom</em>
+</p>
+</dd>
+<dt><var>Term2</var></dt>
+<dd><p><em>term</em>
+</p>
+<p>Transformed term.
+</p>
+</dd>
+<dt><var>Layout2</var></dt>
+<dd><p><em>term</em>
+</p>
+<p>Layout term of <var>Term2</var>.
+</p>
+</dd>
+<dt><var>Tokens2</var></dt>
+<dd><p><em>list of atom</em>
+</p></dd>
+</dl>
+
+<a name="Description-176"></a>
+<h4 class="subheading">Description</h4>
+
+<p><code>expand_term/2</code> calls this hook predicate first; if it succeeds, then the
+standard grammar rule expansion is not tried.
+</p>
+<p><var>Tokens1</var> is a list of atoms, each atom uniquely identifying an
+expansion.  It is used to look up what expansions have already been
+applied to the clause or goal. The tokens are defined by the user, and
+should simply be added to the input list, before expansions
+recursively are applied. This token list can for instance be used to
+avoid cyclic expansions. The token <code>dcg</code> is reserved and denotes
+grammar rule expansion. <var>Tokens2</var> should be unified with <var>[Token|Tokens1]</var>.
+</p>
+<a name="index-dcg_002c-grammar-rule-expansion"></a>
+
+<p><var>Layout1</var> and <var>Layout2</var> are for supporting source-linked
+debugging in the context of clause expansion.  The predicate should
+construct a suitable <var>Layout2</var> compatible with <var>Term2</var> that
+contains the line number information from <var>Layout1</var>. If source-linked
+debugging of <var>Term2</var> is not important, then <var>Layout2</var> should be <code>[]</code>.
+The recording of source info is affected by the <code>source_info</code>
+prolog flag (see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>).
+</p>
+<p>A clause of this predicate should conform to the following template,
+where <code>convert(Term1, Layout1, Expansion, Layout)</code> should be a goal that performs the
+actual transformation.  <var>Token</var> should be the atom uniquely identifying
+this particular transformation rule. <var>Tokens2</var> should be unified with <var>[Token|Tokens1]</var>.
+</p>
+<div class="example">
+<pre class="example">user:term_expansion(Term1, Layout1, Tokens1, Term2, Layout2, Tokens2) :-
+        nonmember(<var>Token</var>, Tokens1),
+        convert(Term1, Layout1, Expansion, Layout),
+        !, % commit to this expansion
+        Term2 = Expansion,
+        Layout2 = Layout,
+        Tokens2 = [<var>Token</var>|Tokens1].
+</pre></div>
+
+<p>This hook predicate may return a list of terms rather than a single
+term.  Each of the terms in the list is then treated as a separate
+clause (or directive).
+</p>
+<p>This hook predicate may also be used to transform queries entered at
+the terminal in response to the &lsquo;<samp>|&nbsp;?-&nbsp;</samp>&rsquo; prompt.  In this case,
+it will be called with <var>Term1</var> = <code>?-(<var>Query</var>)</code> and should
+succeed with <var>Term2</var> = <code>?-(<var>ExpandedQuery</var>)</code>.
+</p>
+<p>For accessing aspects of the load context, e.g. the name of the
+file being compiled, the predicate
+<code>prolog_load_context/2</code> (see <a href="ref_002dlps_002dlco.html#ref_002dlps_002dlco">ref-lps-lco</a>) can be used.
+</p>
+<a name="Exceptions-243"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions are treated as failures, except an error
+message is printed also.
+</p>
+<a name="See-Also-249"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlod_002dexp.html#ref_002dlod_002dexp">ref-lod-exp</a>, <a href="Glossary.html#Glossary">Glossary</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dterm_005fgreater_005fthan.html#mpg_002dref_002dterm_005fgreater_005fthan" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dterm_005fequal_005fto.html#mpg_002dref_002dterm_005fequal_005fto" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dterm_005fexpansion.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dterm_005fexpansion.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Runtime Systems on Windows Target Machines</title>
+
+<meta name="description" content="SICStus Prolog: Runtime Systems on Windows Target Machines">
+<meta name="keywords" content="SICStus Prolog: Runtime Systems on Windows Target Machines">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines" rel="up" title="Runtime Systems on Target Machines">
+<link href="The-Application-Builder.html#The-Application-Builder" rel="next" title="The Application Builder">
+<link href="Runtime-Systems-on-UNIX-Target-Machines.html#Runtime-Systems-on-UNIX-Target-Machines" rel="prev" title="Runtime Systems on UNIX Target Machines">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Runtime-Systems-on-Windows-Target-Machines"></a>
+<hr>
+<a name="Runtime-Systems-on-Windows-Target-Machines-1"></a>
+<h4 class="subsubsection">6.7.2.2 Runtime Systems on Windows Target Machines</h4>
+
+<p>In order to locate all relevant files, the following directory structure 
+should be used:
+</p>
+<div class="example">
+<pre class="example">myapp.exe
+sprt4-4-1.dll
+sp-4.4.1\
++--- bin\
+|    +--- sprt.sav
++--- library\
+     +--- &lt;files from %SP_PATH%\library&gt;                
+</pre></div>
+
+<p>If support for multiple SICStus instances is needed, then the runtimes
+named e.g. <samp>sprt4-4-1_instance_01_.dll</samp> need to be available as
+well, in the same place as <samp>sprt4-4-1.dll</samp>.
+</p>
+<p>If the runtime system needs to be debugged, then the above file system
+layout should be complemented as follows: The file <samp>spds.sav</samp> from
+the development system should be copied and placed in the same folder as
+<samp>sprt.sav</samp> and the license information must be made
+available. See <a href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems">Debugging Runtime Systems</a> for details.
+</p>
+
+<p><samp>myapp.exe</samp> is typically created by a call to <code>spld</code>:
+</p>
+<div class="example">
+<pre class="example">% <kbd>spld --main=user [&hellip;] -o ./myapp.exe</kbd>
+</pre></div>
+
+<p>If the directory containing <samp>sprt4-4-1.dll</samp> contains a directory
+called <code>sp-4.4.1</code>, then SICStus assumes that it is part of a runtime system
+as described in the picture below. The (extended) runtime library,
+<samp>sprt.sav</samp> (<samp>spre.sav</samp>), is then looked up in the directory
+(<samp>sp-4.4.1/bin</samp>), as in the picture. Furthermore, the initial
+<code>library_directory/1</code> fact will be set to the same directory with
+<code>sp-4.4.1/library</code> appended.
+</p>
+<p>The directory structure under <code>library/</code> should look like in a
+regularly installed SICStus, including the platform-specific subdirectory
+(<code>x86-win32-nt-4</code> in this case). If your application needs to use
+<code>library(timeout)</code><a name="DOCF8" href="#FOOT8"><sup>8</sup></a>
+and <code>library(random)</code>, then your directory
+structure may look like:
+</p>
+<div class="example">
+<pre class="example">myapp.exe
+sprt4-4-1.dll
+sp-4.4.1\
++--- bin\
+|    +--- sprt.sav
++--- library\
+     +--- random.po
+     +--- timeout.po
+     +--- x86-win32-nt-4 \
+          +--- random.dll
+</pre></div>
+
+<p>The <code>sp*</code> files can also be put somewhere else in order to be
+shared by several applications provided the <samp>sprt4-4-1.dll</samp> can be
+located by the DLL search.
+</p>
+<p>Naming the files with version number enables applications using
+different SICStus versions to install the <code>sp*</code> files in the same
+directory.
+</p>
+
+<p>When a runtime system is redistributed to third parties, only the
+following files may be included in the distribution.
+All filenames are relative to <samp>%SP_PATH%</samp>:
+</p>
+<dl compact="compact">
+<dt><samp>bin\sprt.sav</samp></dt>
+<dt><samp>bin\spre.sav</samp></dt>
+<dt><samp>bin\jasper.jar</samp></dt>
+<dt><samp>bin\prologbeans.jar</samp></dt>
+<dt><samp>bin\*.dll</samp></dt>
+<dt><samp>bin\*.po</samp></dt>
+<dt><samp>library\*.{tcl,po,pl,bas}</samp></dt>
+<dd><p>Except <samp>license.pl</samp>!
+</p></dd>
+<dt><samp>library\*\*.dll</samp></dt>
+<dt><samp>library\*\*.{po,pl}</samp></dt>
+</dl>
+
+<p><strong>Please note</strong>: you cannot redistribute <samp>spds.sav</samp> or <samp>license.pl</samp>.
+</p>
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT8" href="#DOCF8">(8)</a></h3>
+<p>Prior to release 4.4, <code>library(timeout)</code> also used a foreign resource. This is no longer the case.</p>
+</div>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Runtime-Systems-on-UNIX-Target-Machines.html#Runtime-Systems-on-UNIX-Target-Machines" accesskey="p" rel="prev">Previous</a>
+<li><a href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Runtime-Systems-on-Windows-Target-Machines.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Runtime-Systems-on-Windows-Target-Machines.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

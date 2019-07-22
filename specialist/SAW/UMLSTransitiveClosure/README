@@ -1,0 +1,18 @@
+UMLS Transitive Closure is used to identify hypernymic propositions in text. Olivier Bodenreider generates a text file for each UMLS release that contains these transitive closure relations. These relations are stored in a Berkeley DB btree for efficient access by SemRep. The procedure for generating the btree is the following:
+
+- create_hrel_btree.pl: this is the perl script to generate the file. Run the following on the command line:
+
+cat <hrel_text_file> | perl create_hrel_btree.pl -bt <btree_output_file>
+
+- test_hrel_btree.pl: this is the perl script to test the generated btree file. Run the following on the command line:
+
+cat <hrel_text_file> | perl test_hrel_btree.pl -bt <btree_file>
+
+- To test with SemRep, change the UMLS_HIERARCHY_DB_PREFIX variable in SAWenv to point to the btree files. The current convention is that this variable has the file prefix and UMLS release and file number are concatenated to the file prefix at runtime to access the file. Therefore, if the variable is 'hrel-UMLS_btree.' and SemRep is using 2012AA UMLS data, then at runtime, the program searches for files hrel-UMLS_btree.2012AA_XX, where XX is the file number {1,2,...}. Oncee the environment variable is set, run SemRep on the sentence 'Aspirin is a drug that treats headache.'. An ISA relation (Aspirin-ISA-Pharmaceutical Preparations) should be extracted.  
+
+
+ISSUES: 
+The generation procedure is straightforward, but in the past, we have run into issues with generating and accessing the btree files. These are listed here for future reference:
+- Btree files larger than 2GB may not be completely accessed on Linux. This is a difficult problem to debug since the btree file is read, but only part of it is loaded to the memory. The solution for this is to split the input files into smaller chunks and run the create_hrel_btree.pl script on each chunk. This is the reason we append file numbers to the btree file name. It seems like 80M relations fit in 2GB btree, so it is recommended that the input file is split into chunks accordingly. 
+
+- Getting perl and BerkeleyDB to work together is a major headache. It is necessary to rebuild perl with the necessary Berkeley DB libraries.

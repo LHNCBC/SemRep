@@ -1,0 +1,6 @@
+array[1 .. 2] of var -2 .. 2: f :: output_array([1..2]);
+array[1 .. 2] of var -2 .. 2: inv :: output_array([1..2]);
+
+constraint inverse_sicstus(f, inv, -2, 1);
+
+solve satisfy;

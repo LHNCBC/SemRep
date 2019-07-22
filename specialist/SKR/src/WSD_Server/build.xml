@@ -1,0 +1,96 @@
+
+<project name="studio" default="main" basedir=".">
+
+  <!-- ============= Initialization properties ================= -->
+
+  <!-- Give user a chance to override without editing this file
+       (and without typing -D each time it compiles it) -->
+  <property file=".ant.properties" />
+  <property file="${user.home}/.ant.properties" />
+
+  <!--
+       ===================================================================
+         Set the properties related to the source tree
+       =================================================================== 
+   -->
+
+  <property name="project"          value="."/>
+  <property name="project.src"      value="${project}/src"/>
+  <property name="project.classes"  value="${project}/classes"/>
+  <property name="project.lib"     value="${project}/lib"/>
+  <property name="log4j-1.2.8.jar" value="${project.lib}/log4j-1.2.8.jar"/>
+  <property name="berkeleydb.jar"  value="${project.lib}/berkeleydb.jar"/>
+  <property name="db.jar"          value="${project.lib}/db.jar"/>
+  <property name="kss-api.jar"     value="${project.lib}/kss-api.jar"/>
+  <property name="thirdparty.jar"  value="${project.lib}/thirdparty.jar"/>
+  <property name="wsd.jar"         value="${project.lib}/wsd.jar"/>
+
+  <!-- ======================== compile ========================= -->
+  <target name="compile">
+    <mkdir dir="${project.classes}" />
+    <javac srcdir="${project.src}"
+      	   destdir="${project.classes}"
+	   deprecation="true" 
+	   debug="true">
+      <classpath>
+        <!-- pathelement location="${berkeleydb.jar}"/ -->
+        <pathelement location="${log4j-1.2.8.jar}"/>
+        <pathelement location="${db.jar}"/>
+        <pathelement location="${kss-api.jar}"/>
+        <pathelement location="${thirdparty.jar}"/>
+        <pathelement location="${wsd.jar}"/>
+      </classpath>
+    </javac>
+    <!-- javah destdir="${project}/c++src" 
+         classpath="${project.classes}"
+         class="wsd.methods.MblDisambiguator"
+         verbose="true"/ -->
+  </target>
+
+  <!-- ======================== javadoc ========================= -->
+  <target name="javadoc">
+  <!-- Add project internal javadoc -->
+    <mkdir dir="${project}/docs/apidoc" />
+    <javadoc packagenames="wsd.*"
+	     private="yes"
+             destdir="${project}/docs/apidoc"
+             author="true"
+             version="true"
+             use="true"
+             windowtitle="WSD API"
+             doctitle="WSD Internal"
+	     bottom="WSD Project">
+      <sourcepath>
+        <pathelement location="${project.src}"/>
+      </sourcepath>
+      <classpath>
+	<pathelement path="${project.lib}/log4j-1.2.8.jar"/>
+	<pathelement path="${project.lib}/berkeleydb.jar"/>
+	<pathelement path="${project.lib}/db.jar"/>
+	<pathelement path="${project.lib}/kss-api.jar"/>
+	<pathelement path="${project.lib}/thirdparty.jar"/>
+      </classpath>
+    </javadoc>
+  </target>
+
+ <!-- ======================== jar ========================= -->
+  <target name="jar" depends="compile">  
+    <mkdir dir="${project.lib}" />
+    <jar jarfile="${wsd.jar}">
+        <fileset dir="${project.classes}" />
+    </jar>
+  </target>
+
+  <!-- ==================== Administrative targets ======================= -->
+
+  <target name="clean">
+    <delete>
+     <fileset dir="." includes="**/*.class"/>
+    </delete>
+  </target>
+
+  <target name="all" depends="clean,compile,javadoc"/>
+
+  <target name="main" depends="compile"/>
+
+</project>

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-top-tha</title>
+
+<meta name="description" content="SICStus Prolog: mpg-top-tha">
+<meta name="keywords" content="SICStus Prolog: mpg-top-tha">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dtop.html#mpg_002dtop" rel="up" title="mpg-top">
+<link href="mpg_002dtop_002dtio.html#mpg_002dtop_002dtio" rel="next" title="mpg-top-tio">
+<link href="mpg_002dtop_002dtcm.html#mpg_002dtop_002dtcm" rel="prev" title="mpg-top-tcm">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dtop_002dtha"></a>
+<hr>
+<a name="Term-Handling"></a>
+<h4 class="subsection">11.2.21 Term Handling</h4>
+
+
+<a name="index-term-handling_002c-predicates-for-1"></a>
+<a name="index-predicates-for-term-handling-1"></a>
+
+<dl compact="compact">
+<dt><code><var>?T</var> =.. <var>?L</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>the functor and arguments of term <var>T</var> comprise the list <var>L</var>
+</p>
+</dd>
+<dt><code><var>?X</var> = <var>?Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>terms <var>X</var> and <var>Y</var> are unified
+</p>
+</dd>
+<dt><code><var>+X</var> \= <var>+Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>terms <var>X</var> and <var>Y</var> no not unify
+</p>
+</dd>
+<dt><code>?=(<var>+X</var>,<var>+Y</var>)</code></dt>
+<dd><p><var>X</var> and <var>Y</var> are either strictly identical or
+do not unify
+</p>
+</dd>
+<dt><code>acyclic_term(<var>+T</var>) &nbsp;<!-- /@w --> <i>since release 4.3</i>, <i>ISO</i></code></dt>
+<dd><p>term <var>T</var> is a finite (acyclic) term
+</p>
+</dd>
+<dt><code>arg(<var>+N</var>,<var>+T</var>,<var>-A</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>the <var>N</var>th argument of term <var>T</var> is <var>A</var>
+</p>
+</dd>
+<dt><code>atom_chars(<var>?A</var>,<var>?L</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>A</var> is the atom containing the character atoms in list <var>L</var>
+</p>
+</dd>
+<dt><code>atom_codes(<var>?A</var>,<var>?L</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>A</var> is the atom containing the characters in code-list <var>L</var>
+</p>
+</dd>
+<dt><code>atom_concat(<var>?Atom1</var>,<var>?Atom2</var>,<var>?Atom12</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>Atom <var>Atom1</var> concatenated with <var>Atom2</var> gives <var>Atom12</var>.
+</p>
+</dd>
+<dt><code>atom_length(<var>+Atom</var>,<var>-Length</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>Length</var> is the number of characters of the atom <var>Atom</var>.
+</p>
+</dd>
+<dt><code>char_code(<var>?Char</var>,<var>?Code</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>Code</var> is the character code of the one-char atom <var>Char</var>.
+</p>
+</dd>
+<dt><code>copy_term(<var>+T</var>,<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>C</var> is a copy of <var>T</var> in which all variables have been
+replaced by new variables
+</p>
+</dd>
+<dt><code>copy_term(<var>+T</var>,<var>-C</var>,<var>-G</var>)</code></dt>
+<dd><p><var>C</var> is a copy of <var>T</var> in which all variables have been
+replaced by new variables, and <var>G</var> is a goal for reinstating
+any attributes in <var>C</var>
+</p>
+</dd>
+<dt><code>create_mutable(<var>+Datum</var>,<var>-Mutable</var>)</code></dt>
+<dd><p><var>Mutable</var> is a new mutable term with current value
+<var>Datum</var>.
+</p>
+</dd>
+<dt><code>dif(<var>+X</var>,<var>+Y</var>)</code></dt>
+<dd><p><var>X</var> and <var>Y</var> are constrained to be different.
+</p>
+</dd>
+<dt><code>frozen(<var>+Var</var>,<var>-Goal</var>)</code></dt>
+<dd><p>The goal <var>Goal</var> is blocked on the variable
+<var>Var</var>.
+</p>
+</dd>
+<dt><code>functor(<var>?T</var>,<var>?F</var>,<var>?N</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>the principal functor of term <var>T</var> has name <var>F</var> and arity <var>N</var>
+</p>
+</dd>
+<dt><code>get_mutable(<var>-Datum</var>,<var>+Mutable</var>)</code></dt>
+<dd><p>The current value of the mutable term <var>Mutable</var> is
+<var>Datum</var>.
+</p>
+</dd>
+<dt><code>name(<var>?A</var>,<var>?L</var>) &nbsp;<!-- /@w --> <i>deprecated</i></code></dt>
+<dd><p>the code-list of atom or number <var>A</var> is <var>L</var>
+</p>
+</dd>
+<dt><code>number_chars(<var>?N</var>,<var>?L</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>N</var> is the numeric representation of list of
+character atoms <var>L</var>
+</p>
+</dd>
+<dt><code>number_codes(<var>?N</var>,<var>?L</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>N</var> is the numeric representation of code-list <var>L</var>
+</p>
+</dd>
+<dt><code>numbervars(<var>+T</var>,<var>+M</var>,<var>-N</var>)</code></dt>
+<dd><p>number the variables in term <var>T</var> from <var>M</var> to <var>N</var>-1
+</p>
+</dd>
+<dt><code>sub_atom(<var>+Atom</var>,<var>?Before</var>,<var>?Length</var>,<var>?After</var>,<var>?SubAtom</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>The characters of <var>SubAtom</var> form a sublist of the characters of
+<var>Atom</var>, such that the number of characters preceding <var>SubAtom</var>
+is <var>Before</var>, the number of characters after <var>SubAtom</var> is
+<var>After</var>, and the length of <var>SubAtom</var> is <var>Length</var>.
+</p>
+</dd>
+<dt><code>subsumes_term(General,Specific) &nbsp;<!-- /@w --> <i>since release 4.3</i>, <i>ISO</i></code></dt>
+<dd><p><var>Specific</var> is an instance of <var>General</var>
+</p>
+</dd>
+<dt><code>term_variables(<var>+Term</var>,<var>-Variables</var>) &nbsp;<!-- /@w --> <i>since release 4.3</i>, <i>ISO</i></code></dt>
+<dd><p><var>Variables</var> is the set of variables that occur in <var>Term</var>
+</p>
+</dd>
+<dt><code>unify_with_occurs_check(<var>?X</var>,<var>?Y</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>True if <var>X</var> and <var>Y</var> unify to a finite (acyclic) term.
+</p>
+</dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dtop_002dtio.html#mpg_002dtop_002dtio" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dtop_002dtcm.html#mpg_002dtop_002dtcm" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dtop.html#mpg_002dtop" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dtha.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dtha.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

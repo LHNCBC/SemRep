@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: str-exa</title>
+
+<meta name="description" content="SICStus Prolog: str-exa">
+<meta name="keywords" content="SICStus Prolog: str-exa">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dstructs.html#lib_002dstructs" rel="up" title="lib-structs">
+<link href="lib_002dsystem.html#lib_002dsystem" rel="next" title="lib-system">
+<link href="str_002dtip.html#str_002dtip" rel="prev" title="str-tip">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="str_002dexa"></a>
+<hr>
+<a name="Example-5"></a>
+<h4 class="subsection">10.37.10 Example</h4>
+
+<p>The following example shows how to use <code>library(structs)</code> in a
+simple package for handling integer arrays.  We define a module
+<code>minivec</code> with exported predicates for creating and disposing
+arrays, accessing its elements, and computing their sum.  The summing
+operation is implemented in C and the rest in Prolog.  Arrays are
+created using the <code>array(<var>Type</var>)</code> foreign type.
+</p>
+<p>Note that the type declaration <code>int32</code> does not have to be given
+in the C source code, as it appears in the automatically generated
+header file <samp>minivec_glue.h</samp>.
+Note also how the foreign type specification <code>+pointer(int_array)</code>
+corresponds to the C type declaration <code>int32 *</code>.
+</p>
+<div class="example">
+<pre class="example"><em>% minivec.pl</em>
+</pre><pre class="example">:- module(minivec, [
+        new_array/2,
+        get_array/3,
+        put_array/3,
+        dispose_array/1,
+        sum_array/2
+        ]).
+
+:- load_files(library(str_decl), [when(compile_time)]).
+:- use_module(library(structs)).
+
+:- foreign_type
+        int32           = integer_32,
+        int_array       = array(int32).
+
+foreign(c_sum_array, c_sum_array(+integer,
+                                 +pointer(int_array),
+                                 [-integer])).
+
+foreign_resource(minivec, [c_sum_array]).
+
+:- load_foreign_resource(minivec).
+
+new_array(Size, array(Size,Mem)) :-
+        new(int_array, Size, Mem).
+
+get_array(Index, array(_,Mem), Value) :-
+        get_contents(Mem, Index, Value).
+
+put_array(Index, array(_,Mem), Value) :-
+        put_contents(Mem, Index, Value).
+
+dispose_array(array(_,Mem)) :-
+        dispose(Mem).
+
+sum_array(array(Size,Mem), Sum) :-
+        c_sum_array(Size, Mem, Sum).
+</pre></div>
+
+<div class="example">
+<pre class="example"><em>/* minivec.c */</em>
+</pre><pre class="example">#include &quot;minivec_glue.h&quot;
+
+SP_integer c_sum_array(SP_integer cnt, int32 *mem)
+{
+  int i;
+  SP_integer sum = 0;
+
+  for (i=0; i&lt;cnt; i++)
+    sum += mem[i];
+  return sum;
+}
+</pre></div>
+
+<div class="example">
+<pre class="example"><em># session</em>
+</pre><pre class="example">% <kbd>splfr --struct minivec.pl minivec.c</kbd>
+% <kbd>sicstus -l minivec</kbd>
+% compiling /home/matsc/sicstus4/Suite/minivec.pl...
+% [...]
+% compiled /home/matsc/sicstus4/Suite/minivec.pl in module minivec, 30 msec 68388 bytes
+SICStus 4.4.1 &hellip;
+Licensed to SICS
+| ?- <kbd>new_array(4, A),</kbd>
+     <kbd>put_array(0,A,1),</kbd>
+     <kbd>put_array(1,A,10),</kbd>
+     <kbd>put_array(2,A,100),</kbd>
+     <kbd>put_array(3,A,1000),</kbd>
+     <kbd>sum_array(A,S),</kbd>
+     <kbd>dispose_array(A).</kbd>
+A = array(4,int_array(1264224)),
+S = 1111
+</pre></div>
+
+<p>A fragment from the generated header file:
+</p>
+<div class="example">
+<pre class="example"><em>/* minivec_glue.h */</em>
+</pre><pre class="example">#include &lt;sicstus/sicstus.h&gt;
+#include &lt;stdlib.h&gt;
+typedef int int32;
+typedef int32 *(int_array)/* really an unknown-size array */;
+extern SP_integer c_sum_array( SP_integer, int32 *);
+</pre></div>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="str_002dtip.html#str_002dtip" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dstructs.html#lib_002dstructs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002dexa.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002dexa.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

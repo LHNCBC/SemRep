@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ODBC Reading</title>
+
+<meta name="description" content="SICStus Prolog: ODBC Reading">
+<meta name="keywords" content="SICStus Prolog: ODBC Reading">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ODBC-Datatypes.html#ODBC-Datatypes" rel="up" title="ODBC Datatypes">
+<link href="ODBC-Writing.html#ODBC-Writing" rel="next" title="ODBC Writing">
+<link href="ODBC-Datatypes.html#ODBC-Datatypes" rel="prev" title="ODBC Datatypes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ODBC-Reading"></a>
+<hr>
+<a name="Reading-from-the-database"></a>
+<h4 class="subsubsection">10.24.3.1 Reading from the database</h4>
+
+<p>When reading data from the database the following datatypes are supported,
+with conversion to the corresponding prolog datatypes.
+</p><dl compact="compact">
+<dt><code>SQL_CHAR</code>, <code>SQL_VARCHAR</code> etc.</dt>
+<dd><p>A list of character codes.
+</p></dd>
+<dt><code>SQL_BIT</code></dt>
+<dd><p>The integer <code>0</code> for false, or <code>1</code> for true.
+</p></dd>
+<dt><code>SQL_INTEGER</code>, <code>SQL_TINYINT</code>, <code>SQL_SMALLINT</code>, etc.</dt>
+<dd><p>An integer.
+</p></dd>
+<dt><code>SQL_REAL</code>, <code>SQL_DOUBLE</code>, <code>SQL_FLOAT</code></dt>
+<dd><p>A floating point number.
+</p></dd>
+<dt><code>SQL_DATE</code></dt>
+<dd><p>A term <code>date(Year, Month, DayOfMonth)</code>, with one-based
+  integer arguments. E.g. <code>date(2012,10,22)</code> means October
+  22, 2012.
+</p></dd>
+<dt><code>SQL_TIME</code></dt>
+<dd><p>A term <code>time(Hour, Minute, Second)</code> with one-based integer
+  arguments. E.g. <code>time(22,11,5)</code> means eleven minutes and
+  five seconds past ten pm.
+</p></dd>
+<dt><code>SQL_TIMESTAMP</code></dt>
+<dd><p>A term <code>timestamp(Year, Month, Day, Hour, Minute, Second,
+  Fraction)</code> where the arguments have the same meaning as for
+  <code>SQL_TIME</code> and <code>SQL_TIMESTAMP</code> and <var>Fraction</var>
+  means fractional nanoseconds past, as an integer.
+</p></dd>
+<dt>the SQL null value</dt>
+<dd><p>The atom <code>null</code>.
+</p></dd>
+<dt><code>SQL_BINARY</code> and other binary types</dt>
+<dt><code>SQL_INTERVAL_HOUR</code> and other interval types</dt>
+<dt><code>SQL_UTCTIME</code> and <code>SQL_UTCDATETIME</code></dt>
+<dd><p>Currently not supported.
+</p></dd>
+</dl>
+<p>Note that atoms with names that start with an upper case letter,
+like <code>SQL_CHAR</code> must be quoted in Prolog, e.g. <code>'SQL_CHAR'</code>.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ODBC-Writing.html#ODBC-Writing" accesskey="n" rel="next">Next</a>
+<li><a href="ODBC-Datatypes.html#ODBC-Datatypes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ODBC-Reading.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ODBC-Reading.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

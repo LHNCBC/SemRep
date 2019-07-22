@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-sem-cal</title>
+
+<meta name="description" content="SICStus Prolog: ref-sem-cal">
+<meta name="keywords" content="SICStus Prolog: ref-sem-cal">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsem.html#ref_002dsem" rel="up" title="ref-sem">
+<link href="ref_002dsem_002dexc.html#ref_002dsem_002dexc" rel="next" title="ref-sem-exc">
+<link href="ref_002dsem_002dsec.html#ref_002dsem_002dsec" rel="prev" title="ref-sem-sec">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsem_002dcal"></a>
+<hr>
+<a name="Meta_002dCalls"></a>
+<h4 class="subsection">4.2.5 Meta-Calls</h4>
+
+<a name="index-meta_002dcall"></a>
+
+<p>If <var>X</var> is instantiated to a term that would be acceptable as the
+body of a clause, then the goal <code>call(<var>X</var>)</code> is executed exactly as
+if that term appeared textually in place of the <code>call(<var>X</var>)</code>,
+except the scope of any cut occurring in <var>X</var> is limited to the
+execution of <var>X</var>. That is, the cut does not &ldquo;propagate&rdquo; into the
+clause in which <code>call(<var>X</var>)</code> occurs. If <var>X</var> is not
+properly instantiated, then an error exception is raised as described in
+<a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>.
+</p>
+<p>In release 4, <code>call/1</code> has been generalized to
+<code>call/<var>N</var></code> of any arity <var>N</var> between 1 and 255: the first
+argument is treated as template, which should be augmented by the
+remaining arguments, giving the goal to call.  For example, the goal
+<code>call(p(X),Y,Z)</code> is equivalent to the goal <code>p(X,Y,Z)</code>.
+Note in particular that the first argument does not need to be an atom.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsem.html#ref_002dsem" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dcal.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dcal.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

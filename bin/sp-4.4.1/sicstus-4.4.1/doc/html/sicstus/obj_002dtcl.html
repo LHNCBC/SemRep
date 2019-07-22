@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-tcl</title>
+
+<meta name="description" content="SICStus Prolog: obj-tcl">
+<meta name="keywords" content="SICStus Prolog: obj-tcl">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dobjects.html#lib_002dobjects" rel="up" title="lib-objects">
+<link href="obj_002dtcl_002dstcl.html#obj_002dtcl_002dstcl" rel="next" title="obj-tcl-stcl">
+<link href="obj_002dinh_002dask.html#obj_002dinh_002dask" rel="prev" title="obj-inh-ask">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dtcl"></a>
+<hr>
+<a name="Term-Classes"></a>
+<h4 class="subsection">10.23.4 Term Classes</h4>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="obj_002dtcl_002dstcl.html#obj_002dtcl_002dstcl" accesskey="1">obj-tcl-stcl</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Simple Term Classes
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="obj_002dtcl_002drtrm.html#obj_002dtcl_002drtrm" accesskey="2">obj-tcl-rtrm</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Restricted Term Classes
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="obj_002dtcl_002dtce.html#obj_002dtcl_002dtce" accesskey="3">obj-tcl-tce</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Specifying a Term Class Essence
+</td></tr>
+</table>
+
+
+
+
+<p>Sometimes it is convenient to be able to send messages to ordinary
+Prolog terms as if they were objects.  Prolog terms are easier to
+create than objects, and unlike objects, they are automatically
+garbage collected (see <a href="obj_002dtech_002dlim.html#obj_002dtech_002dlim">obj-tech-lim</a>).  Of course,
+unlike objects, Prolog terms cannot be modified.  However, 
+when a particular class of objects never needs to be dynamically
+modified, and does not need to be subclassed, it may be appropriate to
+define it as a <em>term class</em>.
+</p>
+<p>A term class is defined much like an ordinary class:  it begins with a 
+&lsquo;<samp>:- class</samp>&rsquo; directive defining the class and its slots, follows with
+clauses defining the methods for this class, and ends with an &lsquo;<samp>:-
+end_class</samp>&rsquo; directive, the end of the file, or another &lsquo;<samp>:- class</samp>&rsquo;
+directive.  The only difference is in the form of the &lsquo;<samp>:- class</samp>&rsquo;
+directive introducing a term class definition.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dtech.html#obj_002dtech" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dinh.html#obj_002dinh" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dobjects.html#lib_002dobjects" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dtcl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dtcl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

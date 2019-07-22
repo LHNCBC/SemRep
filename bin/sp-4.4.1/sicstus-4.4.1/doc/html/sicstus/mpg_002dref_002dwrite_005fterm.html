@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-write_term</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-write_term">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-write_term">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dwriteq.html#mpg_002dref_002dwriteq" rel="next" title="mpg-ref-writeq">
+<link href="mpg_002dref_002dwrite_005fcanonical.html#mpg_002dref_002dwrite_005fcanonical" rel="prev" title="mpg-ref-write_canonical">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dwrite_005fterm"></a>
+<hr>
+<a name="write_005fterm_002f_005b2_002c3_005d---hookable_002c-ISO"></a>
+<h4 class="subsection">11.3.253 <code>write_term/[2,3]</code> &nbsp;<!-- /@w --> <i>hookable</i>, <i>ISO</i></h4>
+<a name="index-write_005fterm_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-write_005fterm_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-278"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>write_term(<var>+Stream</var>, <var>+Term</var>, <var>+Options</var>)</code>
+</p>
+<p><code>write_term(<var>+Term</var>, <var>+Options</var>)</code>
+</p>
+<p>Writes <var>Term</var> on the standard output stream, subject to <var>+Options</var>.
+</p>
+<a name="Arguments-255"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Stream</var></dt>
+<dd><p><em>stream_object</em>, must be ground
+</p>
+<p>A valid open Prolog stream, defaults to the current output stream.
+</p>
+</dd>
+<dt><var>Term</var></dt>
+<dd><p><em>term</em>
+</p>
+</dd>
+<dt><var>Options</var></dt>
+<dd><p><em>list of term</em>.
+</p>
+<p>A list of zero or more of the following,
+where <var>Boolean</var> must be <code>true</code> or <code>false</code> (<code>false</code> is
+the default).
+</p>
+<dl compact="compact">
+<dt><code>quoted(<var>Boolean</var>)</code></dt>
+<dd><a name="index-quoted_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p>If selected, then atoms and functors are quoted where necessary to make the
+result acceptable as input to <code>read/1</code>.  <code>write_canonical/1</code>,
+<code>writeq/1</code>, and <code>portray_clause/1</code> select this.
+</p>
+<p>Any output produced by <code>write_term/2</code> with the option
+<code>quoted(true)</code> will be in Normal Form C, as defined by
+Unicode. See <a href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">ref-syn-syn-tok</a> for further details.
+</p>
+</dd>
+<dt><code>ignore_ops(<var>Boolean</var>)</code></dt>
+<dd><a name="index-ignore_005fops_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p>If selected, then <var>Term</var> is written in standard functional notation
+instead of using operators.  <code>write_canonical/1</code> and
+<code>display/1</code> select this.
+</p>
+</dd>
+<dt><code>portrayed(<var>Boolean</var>)</code></dt>
+<dd><a name="index-portrayed_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p>If selected, then <code>user:portray/1</code> is called for each non-variable subterm.
+<code>print/1</code> selects this.
+</p>
+</dd>
+<dt><code>variable_names(<var>Names</var>) &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-variable_005fnames_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p><var>Names</var> should be a list of <code><var>Name</var>=<var>Var</var></code>
+pairs, where each <var>Name</var> is an atom indicating the
+name to be used if <var>Var</var> is a variable occurring in the written term.
+</p>
+<p>This argument has the same form as the corresponding <code>read_term/[2,3]</code> option
+and provides a convenient and safe way to preserve variable names
+when writing a previously read term.
+</p>
+</dd>
+<dt><code>numbervars(<var>Boolean</var>)</code></dt>
+<dd><a name="index-numbervars_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p>If selected, then terms of the form <code>'$VAR'(<var>N</var>)</code> where
+<var>N</var> is an integer &gt;= 0
+are
+treated specially (see <code>numbervars/3</code>).  <code>print/1</code>,
+<code>write/1</code>, <code>writeq/1</code>, and <code>portray_clause/1</code> select
+this.
+</p>
+</dd>
+<dt><code>legacy_numbervars(<var>Boolean</var>) &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-legacy_005fnumbervars_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p>If selected, then terms of the form <code>'$VAR'(<var>N</var>)</code> where
+<var>N</var> is an integer &gt;= 0, an atom, or a code-list,
+are treated specially,
+in a way consistent with versions prior to release 4.3,
+as follows.
+</p>
+<p>If <var>N</var> is an integer &gt;= 0, then the behavior is as for the <code>numbervars/1</code> option.
+Otherwise the characters of the atom or code-list are written instead of the term.
+</p>
+<p>The preferred way to specify variable names is with the <code>variable_names/1</code> option.
+</p>
+
+</dd>
+<dt><code>cycles(<var>Boolean</var>)</code></dt>
+<dd><a name="index-cycles_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<a name="index-cyclic-term-1"></a>
+<a name="index-term_002c-cyclic-1"></a>
+<p>If selected, then the potentially cyclic term is printed in finite
+<code>@/2</code> notation, as discussed for <code>read_term/[2,3]</code> (see <a href="mpg_002dref_002dread_005fterm.html#mpg_002dref_002dread_005fterm">mpg-ref-read_term</a>).
+</p>
+</dd>
+<dt><code>indented(<var>Boolean</var>)</code></dt>
+<dd><a name="index-indented_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p>If selected, then the term is printed with the same indentation as is
+used by <code>portray_clause/1</code> and <code>listing/[0,1]</code>.
+</p>
+</dd>
+<dt><code>max_depth(<var>Depth</var>)</code></dt>
+<dd><a name="index-max_005fdepth_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p>Depth limit on printing.  <var>Depth</var> is an integer.  0 (the default) means
+no limit.
+</p>
+</dd>
+<dt><code>quoted_charset(<var>Charset</var>)</code></dt>
+<dd><a name="index-quoted_005fcharset_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<a name="index-quoted_005fcharset-_0028prolog-flag_0029-1"></a>
+<p>Only relevant if <code>quoted(true)</code> holds.
+<var>Charset</var> should be a legal value of the <code>quoted_charset</code> Prolog
+flag, where it takes its default value from. <code>write_canonical/1</code>
+selects the value <code>portable</code>. See <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+</p>
+</dd>
+<dt><code>float_format(<var>Spec</var>)</code></dt>
+<dd><a name="index-float_005fformat_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p>How to print floats.  <var>Spec</var> should be an atom of the form
+&lsquo;<samp>~<var>N</var><var>C</var></samp>&rsquo;, like one of the <code>format/[2,3]</code> character
+sequences for printing floats.  The default is &lsquo;<samp>~H</samp>&rsquo;.
+</p>
+</dd>
+<dt><code>priority(<var>Prio</var>)</code></dt>
+<dd><a name="index-priority_002f1-_0028write_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p>The term is printed as if in the context of an associative
+operator of precedence <var>Prio</var>, where <var>Prio</var> is an
+integer.  The default is 1200.  See <a href="ref_002dsyn_002dops.html#ref_002dsyn_002dops">ref-syn-ops</a>.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<a name="Description-188"></a>
+<h4 class="subheading">Description</h4>
+
+<p>This predicate subsumes the predicates that output terms except
+<code>portray_clause/[1,2]</code>, which additionally prints a period and a
+newline, and removes module prefixes that are redundant wrt. the
+current type-in module.
+</p>
+<p>During debugging, goals are written out by this predicate with options
+given by the <code>debugger_print_options</code> Prolog flag.
+<a name="index-debugger_005fprint_005foptions-_0028prolog-flag_0029-7"></a>
+</p>
+<p>Top-level variable bindings are written out by this predicate with options
+given by the <code>toplevel_print_options</code> Prolog flag.
+<a name="index-toplevel_005fprint_005foptions-_0028prolog-flag_0029-4"></a>
+</p>
+<a name="Exceptions-269"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+</p>
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dt><code>type_error</code></dt>
+<dt><code>domain_error</code></dt>
+<dd><p>in <var>Options</var>.
+</p></dd>
+</dl>
+
+<a name="Examples-100"></a>
+<h4 class="subheading">Examples</h4>
+
+<p>How certain options affect the output of <code>write_term/2</code>:
+</p><div class="example">
+<pre class="example">| ?- <kbd>write_term('a b', [quoted(true)]).</kbd>
+'a b'
+
+| ?- <kbd>write_term(a+b, [ignore_ops(true)]).</kbd>
++(a,b)
+
+| ?- <kbd>write_term(f('$VAR'(2)), 
+                   [numbervars(true)].)</kbd>
+f(C)
+
+
+| ?- <kbd>write_term(A+B,
+                      [variable_names(['Hello'=A, 'World'=B])]).</kbd>
+Hello+World
+
+</pre></div>
+
+
+<p>If your intention is to name variables such as that
+generated by <code>read_term/2</code> with the <code>variable_names</code>
+option, then this can be done by
+simply passing on the <code>variable_names</code> option to <code>write_term/2</code>:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>read_term(T, [variable_names(Names)]),
+     write_term(T, [variable_names(Names),quoted(true)]),
+     nl,
+     fail.</kbd>
+|: <kbd>a(X, Y).</kbd>
+a(X, Y)
+no
+</pre></div>
+
+<p>There is, currently, no documented way to write single-occurrence
+variables as <code>_</code>, e.g. as done by <code>portray_clause/1</code>
+(see <a href="mpg_002dref_002dportray_005fclause.html#mpg_002dref_002dportray_005fclause">mpg-ref-portray_clause</a>).
+</p>
+
+
+<a name="See-Also-275"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002diou_002dtou.html#ref_002diou_002dtou">ref-iou-tou</a>, <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>, <code>user:portray/1</code>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dwriteq.html#mpg_002dref_002dwriteq" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dwrite_005fcanonical.html#mpg_002dref_002dwrite_005fcanonical" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dwrite_005fterm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dwrite_005fterm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Deprecated Argument Conversions</title>
+
+<meta name="description" content="SICStus Prolog: Deprecated Argument Conversions">
+<meta name="keywords" content="SICStus Prolog: Deprecated Argument Conversions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Deprecated-Jasper-API.html#Deprecated-Jasper-API" rel="up" title="Deprecated Jasper API">
+<link href="Deprecated-Jasper-Predicates.html#Deprecated-Jasper-Predicates" rel="next" title="Deprecated Jasper Predicates">
+<link href="Deprecated-Jasper-API.html#Deprecated-Jasper-API" rel="prev" title="Deprecated Jasper API">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Deprecated-Argument-Conversions"></a>
+<hr>
+<a name="Deprecated-Argument-Conversions-1"></a>
+<h4 class="subsubsection">10.19.8.7 Deprecated Argument Conversions</h4>
+
+
+<p>The pre release 3.8.5 method call predicates in this library use a
+specific form of argument lists containing conversion
+information so the predicates know how to convert the input
+arguments from Prolog datatypes to Java datatypes. This is similar
+to the (new) mechanism described in <a href="Conversion-between-Prolog-Arguments-and-Java-Types.html#Conversion-between-Prolog-Arguments-and-Java-Types">Conversion between Prolog Arguments and Java Types</a>. The argument lists are standard
+Prolog lists containing terms on the following form:
+</p>
+<dl compact="compact">
+<dt><code>jboolean(<var>X</var>)</code></dt>
+<dd><p><var>X</var> is the atom <code>true</code> or <code>false</code>, representing a
+Java <code>boolean</code> primitive type.
+</p></dd>
+<dt><code>jbyte(<var>X</var>)</code></dt>
+<dd><p><var>X</var> is an integer, which is converted to a Java <code>byte</code>.
+</p></dd>
+<dt><code>jchar(<var>X</var>)</code></dt>
+<dd><p><var>X</var> is an integer, which is converted to a Java <code>char</code>.
+</p></dd>
+<dt><code>jdouble(<var>X</var>)</code></dt>
+<dd><p><var>X</var> is a float, which is converted to a Java <code>double</code>.
+</p></dd>
+<dt><code>jfloat(<var>X</var>)</code></dt>
+<dd><p><var>X</var> is a float, which is converted to a Java <code>float</code>.
+</p></dd>
+<dt><code>jint(<var>X</var>)</code></dt>
+<dd><p><var>X</var> is an integer, which is converted to a Java <code>int</code>.
+</p></dd>
+<dt><code>jlong(<var>X</var>)</code></dt>
+<dd><p><var>X</var> is an integer, which is converted to a Java <code>long</code>.
+</p></dd>
+<dt><code>jshort(<var>X</var>)</code></dt>
+<dd><p><var>X</var> is an integer, which is converted to a Java <code>short</code>.
+</p></dd>
+<dt><code>jobject(<var>X</var>)</code></dt>
+<dd><p><var>X</var> is a reference to a Java object, as returned by
+<code>jasper_new_object/5</code> (see <a href="Jasper-Library-Predicates.html#Jasper-Library-Predicates">Jasper Library Predicates</a>).
+</p></dd>
+<dt><code>jstring(<var>X</var>)</code></dt>
+<dd><p><var>X</var> is an atom, which is converted to a Java <code>String</code>.
+</p></dd>
+</dl>
+
+<p>If the Prolog term does not fit in the corresponding Java data
+type (<code>jbyte(4711)</code>, for example), then the result is undefined.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Deprecated-Jasper-API.html#Deprecated-Jasper-API" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Deprecated-Argument-Conversions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Deprecated-Argument-Conversions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

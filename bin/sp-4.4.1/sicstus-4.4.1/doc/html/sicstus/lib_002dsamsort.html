@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-samsort</title>
+
+<meta name="description" content="SICStus Prolog: lib-samsort">
+<meta name="keywords" content="SICStus Prolog: lib-samsort">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dsets.html#lib_002dsets" rel="next" title="lib-sets">
+<link href="lib_002drem.html#lib_002drem" rel="prev" title="lib-rem">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dsamsort"></a>
+<hr>
+<a name="Generic-Sorting_002d_002d_002dlibrary_0028samsort_0029"></a>
+<h3 class="section">10.33 Generic Sorting&mdash;<code>library(samsort)</code></h3>
+<p>This library module provides generic sorting.
+Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>samsort(<var>+RawList</var>, <var>-Sorted</var>)</code></dt>
+<dd>
+<a name="index-samsort_002f_005b2_002c3_005d-_0028samsort_0029-1"></a>
+<a name="index-samsort_002f_005b2_002c3_005d-_0028samsort_0029"></a>
+
+<p>takes a proper list <var>RawList</var> and unifies <var>Sorted</var> with a list
+having exactly the same elements as <var>RawList</var> but in ascending
+order according to the standard order on terms.  
+</p></dd>
+<dt><code>merge(<var>+List1</var>, <var>+List2</var>, <var>-Merged</var>)</code></dt>
+<dd>
+<a name="index-merge_002f_005b3_002c4_005d-_0028samsort_0029-1"></a>
+<a name="index-merge_002f_005b3_002c4_005d-_0028samsort_0029"></a>
+
+<p>is true when <var>Merged</var> is the stable merge of the two given lists.
+If the two lists are not ordered, the merge doesn&rsquo;t mean a great
+deal.  Merging is perfectly well defined when the inputs contain
+duplicates, and all copies of an element are preserved in the
+output, e.g. merge(&quot;122357&quot;, &quot;34568&quot;, &quot;12233455678&quot;).
+</p></dd>
+<dt><code>samsort(<var>:Order</var>, <var>+RawList</var>, <var>-SortedList</var>)</code></dt>
+<dd><p>takes a proper list <var>RawList</var> and a binary predicate <var>Order</var>
+and unifies <var>SortedList</var> with a list
+having exactly the same elements as <var>RawList</var> but in ascending
+order according to <var>Order</var>.
+This is only supposed to work when Order is transitive.
+</p></dd>
+<dt><code>merge(<var>:Order</var>, <var>+List1</var>, <var>+List2</var>, <var>-Merged</var>)</code></dt>
+<dd><p>is like <code>merge/3</code> except that it takes an <var>Order</var> predicate as its
+first arguments, like all the generalised ordering routines.
+</p></dd>
+<dt><code>samkeysort(<var>+RawList</var>, <var>-Sorted</var>)</code></dt>
+<dd>
+<a name="index-samkeysort_002f2-_0028samsort_0029-1"></a>
+<a name="index-samkeysort_002f2-_0028samsort_0029"></a>
+
+<p>takes a proper list <var>RawList</var> of <var>Key-Value</var> pairs, and unifies
+<var>Sorted</var> with a list having exactly the same elements as <var>RawList</var>
+but in ascending order according to the standard order on the keys.
+<code>samkeysort/2</code> is stable in the sense that the relative position of
+elements with the same key is maintained.
+</p></dd>
+<dt><code>keymerge(<var>+List1</var>, <var>+List2</var>, <var>-Merged</var>)</code></dt>
+<dd>
+<a name="index-keymerge_002f3-_0028samsort_0029-1"></a>
+<a name="index-keymerge_002f3-_0028samsort_0029"></a>
+
+<p>is like <code>merge/3</code> except that it compares only the keys of its input
+lists.  Note that it will not work properly when <var>Merged</var> is already
+instantiated.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dsets.html#lib_002dsets" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002drem.html#lib_002drem" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dsamsort.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dsamsort.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

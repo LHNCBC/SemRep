@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.4.0 New Features</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.4.0 New Features">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.4.0 New Features">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e4_002e0-Changes.html#g_t4_002e4_002e0-Changes" rel="up" title="4.4.0 Changes">
+<link href="4_002e4_002e0-Other-Changes.html#g_t4_002e4_002e0-Other-Changes" rel="next" title="4.4.0 Other Changes">
+<link href="4_002e4_002e0-Changes.html#g_t4_002e4_002e0-Changes" rel="prev" title="4.4.0 Changes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e4_002e0-New-Features"></a>
+<hr>
+<a name="New-Features-18"></a>
+<h4 class="subsection">14.26.1 New Features</h4>
+
+<ul>
+<li> Indexing on large integers and floats is no longer coarse, but exact.    
+</li><li> Shorter interrupt latency for arithmetics.
+</li><li> ZINC: upgraded to and compatible with MiniZinc 2.1.6.
+</li><li> CLPFD:
+<ul class="no-bullet">
+<li>- In order to distinguish an unsatisfiable problems from one that timed
+out before any solution was found, if used with the <code>best</code>
+option, the <code>time_out/2</code> option has a slightly different output.
+</li><li>- A new bin-packing constraint, using Shaw&rsquo;s algorithm.
+</li><li>- Shorter interrupt latency for a lot of constraints.
+</li><li>- <code>table/[2,3]</code> uses the fast Compact Table algorithm by Demeulenaere et al. for relations over three or more variables.
+</li><li>- Speed up some special cases of <code>element/3</code>, <code>bool_and/2</code>, <code>bool_or/2</code>, <code>bool_xor/2</code>.
+</li><li>- Remove obsolete options.
+</li></ul>
+</li></ul>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e4_002e0-Other-Changes.html#g_t4_002e4_002e0-Other-Changes" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e4_002e0-Changes.html#g_t4_002e4_002e0-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e4_002e0-New-Features.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e4_002e0-New-Features.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

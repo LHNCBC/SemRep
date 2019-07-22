@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Query Phases</title>
+
+<meta name="description" content="SICStus Prolog: Query Phases">
+<meta name="keywords" content="SICStus Prolog: Query Phases">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Query-Processing.html#Query-Processing" rel="up" title="Query Processing">
+<link href="Query-Hooks.html#Query-Hooks" rel="next" title="Query Hooks">
+<link href="Query-Classes.html#Query-Classes" rel="prev" title="Query Classes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Query-Phases"></a>
+<hr>
+<a name="Phases-of-Query-Processing"></a>
+<h4 class="subsubsection">4.16.3.2 Phases of Query Processing</h4>
+
+<p>Query processing is done in several phases, described below.  We will
+illustrate what is done in each phase through a simple example: the
+question put to the user when the solution to the toplevel query &lsquo;<samp>X
+is 1+1</samp>&rsquo; is displayed, requesting a decision whether to find alternative
+answers or not:
+</p><div class="example">
+<pre class="example">| ?- <kbd>X is 1+1.</kbd>
+
+X = 2 ? <kbd>no</kbd>
+Please enter &quot;;&quot; for more choices; otherwise, &lt;return&gt;
+ ? <kbd>;</kbd>
+</pre></div>
+
+<p>We focus on the query &lsquo;<samp>X = 2 ? </samp>&rsquo; in the above script.
+</p>
+<p>The example query belongs to the class <code>next_solution</code>, its text is
+described by the message term <code>solutions([binding(&quot;X&quot;,2)])</code>,
+and its help text by the message term <code>bindings_help</code>.
+Accordingly, such a query is executed by calling:
+</p><div class="example">
+<pre class="example">ask_query(next_solution,               /* <var>QueryClass</var> */ 
+          solutions([binding(&quot;X&quot;,2)]), /* <var>Query</var> */ 
+          bindings_help,               /* <var>Help</var> */ 
+          <var>Answer</var>)
+</pre></div>
+
+<p>In general, execution of <code>ask_query(<var>QueryClass</var>, <var>Query</var>,
+<var>Help</var>, <var>Answer</var>)</code> consists of the following phases:
+</p>
+<dl compact="compact">
+<dt><em>Preparation phase</em></dt>
+<dd><p>The abstract message terms <var>Query</var>
+(for the text of the query) and <var>Help</var> (for the help message) are
+converted to format-command lines via the message generation and
+line splitting phases (see <a href="Message-Processing.html#Message-Processing">Message Processing</a>).  Let us call the
+results of the two conversions <var>QueryLines</var> and <var>HelpLines</var>,
+respectively.  The text of the query, <var>QueryLines</var> is printed
+immediately (via the message printing phase, using <code>query</code>
+severity).  <var>HelpLines</var> may be printed later, and <var>QueryLines</var>
+printed again, in case of invalid user input.
+</p>
+<p>The characteristics of <var>QueryClass</var> (described in the previous
+subsubsection) are retrieved to control
+the exact behavior of the further phases.
+</p>
+<p>In our example, the following parameters are sent in the preparation
+phase:
+</p>
+<table>
+<tr><td><var>QueryLines</var></td><td>=</td><td><code>[[],['~s = '-[&quot;X&quot;],write_term(2)]]</code></td></tr>
+<tr><td><var>HelpLines</var></td><td>=</td><td></td></tr>
+</table>
+<p>&nbsp;&nbsp;<code>[['Please enter &quot;;&quot; for more choices; otherwise, &lt;return&gt;'-[]]]</code>
+</p><table>
+<tr><td><var>Prompt</var></td><td>=</td><td><code>' ? '</code></td></tr>
+<tr><td><var>InputMethod</var></td><td>=</td><td><code>line</code></td></tr>
+<tr><td><var>MapMethod</var></td><td>=</td><td><code>char([yes-&quot;;&quot;, no-[0'\n]])</code></td></tr>
+<tr><td><var>FailureMode</var></td><td>=</td><td><code>help</code></td></tr>
+</table>
+
+<p><var>QueryLines</var> is displayed immediately, printing:
+</p><div class="example">
+<pre class="example">X = 2
+</pre></div>
+
+<p>(Note that the first element of <var>QueryLines</var> is <code>[]</code>, therefore
+the output is preceded by a newline.  Also note that no newline is
+printed at the end of the  last line, because the <code>query</code> severity
+is used.)
+</p>
+<p>The subsequent phases will be called repeatedly until the mapping phase
+succeeds in generating an answer.
+</p>
+</dd>
+<dt><em>Input phase</em></dt>
+<dd><p>By default, the input phase is implemented by the extendible predicate
+</p><div class="example">
+<pre class="example">'SU_messages':query_input(<var>InputMethod</var>, <var>Prompt</var>, <var>RawInput</var>).
+</pre></div>
+
+<p>This phase uses the <var>Prompt</var> and <var>InputMethod</var> characteristics
+of the query class.
+<var>InputMethod</var> specifies the method of obtaining input from the user.
+This method is executed, and the result (<var>RawInput</var>) is passed on to
+the next phase.
+</p>
+<p>The use of <var>Prompt</var> may depend on <var>InputMethod</var>.  For example,
+the built-in input method <code>line</code> prints the prompt unconditionally,
+while the input method <code>term(<var>_</var>)</code> passes <var>Prompt</var> to
+<code>prompt/2</code>.
+</p>
+<p>In the example, first the &lsquo;<samp> ? </samp>&rsquo; prompt is displayed.  Next, because
+<var>InputMethod</var> is <code>line</code>, a line of input is read, and the
+code-list is returned in <var>RawInput</var>.  Supposing that the user
+typed <kbd> no<span class="key">RET</span></kbd>, <var>RawInput</var> becomes <code>&quot; no&quot;</code> =
+<code>[32,110,111]</code>.
+</p>
+
+</dd>
+<dt><em>Mapping phase</em></dt>
+<dd><p>By default, the mapping phase is implemented by the extendible predicate
+</p><div class="example">
+<pre class="example">'SU_messages':query_map(<var>MapMethod</var>, <var>RawInput</var>, 
+                        <var>Result</var>, <var>Answer</var>).
+</pre></div>
+
+<p>This phase uses the <var>MapMethod</var> parameter to control the method of
+converting the raw input to the abstract answer.  
+</p>
+<p>In some cases <var>RawInput</var> is returned as it is, but otherwise
+it has to be processed (parsed) to generate the answer.
+</p>
+<p>The conversion process may have two outcomes indicated in the
+<var>Result</var> returned:
+</p><ul>
+<li> success, in which case the query processing is completed with the <var>Answer</var> term returned;
+
+</li><li> failure, the query has to be repeated. 
+</li></ul>
+
+<p>In the latter case a message describing the cause of failure may be
+returned, to be printed before the query is repeated.
+</p>
+<p>In our example, the map method is <code>char([yes-&quot;;&quot;, no-[0'\n]])</code>.
+The mapping phase fails for the <var>RawInput</var> passed on by the previous
+phase of the example, as the first non-whitespace character is <kbd>n</kbd>,
+which does not match any of the given characters.
+</p>
+</dd>
+<dt><em>Query restart phase</em></dt>
+<dd><p>This phase is executed only if the mapping phase returned with failure.
+</p>
+<p>First, if a message was returned by the mapping, then it is printed.
+Subsequently, if requested by the <var>FailureMode</var> parameter, then the help message
+<var>HelpLines</var> and/or the text of the query <var>QueryLines</var> is
+printed.
+</p>
+<p>The query is then repeated&mdash;the input and mapping phase will be called
+again to try to get a valid answer.
+</p>
+<p>In the above example, the user typed an invalid character, so the
+mapping failed.  The <code>char(<var>_</var>)</code> mapping does not return any
+message in case of failure.  The <var>FailureMode</var> of the query class
+is <code>help</code>, so the help message <var>HelpLines</var> is
+printed, but the query is not repeated:
+</p><div class="example">
+<pre class="example">Please enter &quot;;&quot; for more choices; otherwise, &lt;return&gt;
+</pre></div>
+
+<p>Having completed the query restart phase, the example script continues
+by re-entering the input phase: the prompt &lsquo;<samp> ? </samp>&rsquo; is printed,
+another line is read, and is processed by the mapping phase.  If the
+user types the character <kbd>;</kbd> this time, then the mapping phase
+returns successfully and gives the abstract answer term
+<code>yes</code>.
+</p>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Query-Hooks.html#Query-Hooks" accesskey="n" rel="next">Next</a>
+<li><a href="Query-Classes.html#Query-Classes" accesskey="p" rel="prev">Previous</a>
+<li><a href="Query-Processing.html#Query-Processing" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Query-Phases.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Query-Phases.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: Intermediate Representation</title>
+
+<meta name="description" content="SICStus JIT White Paper: Intermediate Representation">
+<meta name="keywords" content="SICStus JIT White Paper: Intermediate Representation">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="IR-Instruction-Set.html#IR-Instruction-Set" rel="next" title="IR Instruction Set">
+<link href="Introduction.html#Introduction" rel="prev" title="Introduction">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Intermediate-Representation"></a>
+<hr>
+<a name="Intermediate-Representation-1"></a>
+<h2 class="chapter">2 Intermediate Representation</h2>
+
+<p>The intermediate representation can be thought of as a universal
+assembly language, or at least a language general enough to execute the
+Prolog virtual machine if assisted by a runtime system.  In this
+chapter, we list its instructions as well as their expansion into native
+instructions.
+</p>
+<p><b>[PERM:</b> It would be nice with some description of the abstract CPU. In
+particular the condition codes and how they are maintained.<b>]</b>
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="IR-Instruction-Set.html#IR-Instruction-Set" accesskey="1">IR Instruction Set</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Targets.html#Targets" accesskey="2">Targets</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Offsets.html#Offsets" accesskey="3">Offsets</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Constants.html#Constants" accesskey="4">Constants</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Instructions.html#Instructions" accesskey="5">Instructions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Predicate-Linkage.html#Predicate-Linkage" accesskey="n" rel="next">Next</a>
+<li><a href="Introduction.html#Introduction" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/Intermediate-Representation.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/Intermediate-Representation.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

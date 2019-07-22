@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lod-ove</title>
+
+<meta name="description" content="SICStus Prolog: ref-lod-ove">
+<meta name="keywords" content="SICStus Prolog: ref-lod-ove">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlod.html#ref_002dlod" rel="up" title="ref-lod">
+<link href="ref_002dlod_002dlod.html#ref_002dlod_002dlod" rel="next" title="ref-lod-lod">
+<link href="ref_002dlod.html#ref_002dlod" rel="prev" title="ref-lod">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlod_002dove"></a>
+<hr>
+<a name="Overview-4"></a>
+<h4 class="subsection">4.3.1 Overview</h4>
+
+
+<p>There are two ways of loading programs into Prolog&mdash;loading source
+files and loading precompiled PO files.  Source files can be
+<em>compiled</em> into virtual machine code, as well as <em>consulted</em>
+for interpretation.  Dynamic predicates are always stored in
+interpreted form, however.
+</p>
+<p>Virtual machine code runs about 8 times faster than interpreted code,
+and requires less runtime storage.  Compiled code is fully debuggable,
+except certain constructs compile inline and cannot be traced.
+Compiled code also provides better precision for execution profiling
+and coverage analysis.
+</p>
+<a name="index-JIT-compilation"></a>
+<a name="index-compilation_002c-JIT"></a>
+<p>Since release 4.3, on 32 and 64 bit x86 platforms running Windows, OS X,
+and Linux, SICStus Prolog has the ability to compile predicates from
+virtual machine code to native code.  This process, known as Just In
+Time (JIT) compilation, is controlled by a couple of system properties
+(see <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>), but is otherwise
+automatic.  JIT compilation is seamless wrt. debugging, profiling,
+coverage analysis, etc.  JIT compiled code runs up to 4 times faster
+than virtual machine code, but takes more space.
+</p>
+<p>The virtual machine compiler operates in two different modes, controlled
+by the <code>compiling</code> Prolog flag.  The possible values of the flag are:
+<a name="index-compiling-_0028prolog-flag_0029-1"></a>
+</p>
+<dl compact="compact">
+<dt><code>compactcode</code></dt>
+<dd><a name="index-compactcode-_0028compiling-flag-value_0029"></a>
+<p>Compilation produces byte-coded abstract instructions.  The default.
+</p>
+</dd>
+<dt><code>debugcode</code></dt>
+<dd><a name="index-debugcode-_0028compiling-flag-value_0029"></a>
+<p>Compilation produces <em>interpreted</em> code, i.e.
+compiling is replaced by consulting.
+</p></dd>
+</dl>
+
+<p>This section contains references to the use of the module system.
+These can be ignored if the module system is not being used (see
+<a href="ref_002dmod.html#ref_002dmod">ref-mod</a> for information on the module system).
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlod_002dlod.html#ref_002dlod_002dlod" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlod.html#ref_002dlod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlod_002dove.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlod_002dove.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

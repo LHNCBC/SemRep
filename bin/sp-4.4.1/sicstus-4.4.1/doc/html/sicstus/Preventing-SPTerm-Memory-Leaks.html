@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Preventing SPTerm Memory Leaks</title>
+
+<meta name="description" content="SICStus Prolog: Preventing SPTerm Memory Leaks">
+<meta name="keywords" content="SICStus Prolog: Preventing SPTerm Memory Leaks">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="SPTerm-and-Memory.html#SPTerm-and-Memory" rel="up" title="SPTerm and Memory">
+<link href="Java-Threads.html#Java-Threads" rel="next" title="Java Threads">
+<link href="Lifetime-of-SPTerms-and-Prolog-Memory.html#Lifetime-of-SPTerms-and-Prolog-Memory" rel="prev" title="Lifetime of SPTerms and Prolog Memory">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Preventing-SPTerm-Memory-Leaks"></a>
+<hr>
+<a name="Preventing-SPTerm-Memory-Leaks-1"></a>
+<h4 class="subsubsection">10.19.6.2 Preventing SPTerm Memory Leaks</h4>
+
+<p>Some uses of <code>SPTerm</code> will leak memory on the Prolog side. This
+happens if a new <code>SPTerm</code> object is allocate, but Java neither
+returns to Prolog nor backtracks (using the method <code>close</code>,
+<code>cut</code> or <code>nextSolution</code>) into a query opened before the
+allocation of the <code>SPTerm</code> object.
+</p>
+
+<p>As of release 3.8.5, it is possible to explicitly delete a <code>SPTerm</code>
+object using the <code>SPTerm.delete()</code> method. The <code>delete()</code>
+method invalidates the SPTerm object and makes the associated
+SP_term_ref available for re-use.
+</p>
+<p>Another way to ensure that all SP_term_refs are deallocated
+is to open a dummy query only for this purpose. The following code
+demonstrates this:
+</p>
+<div class="example">
+<pre class="example">// Always synchronize over creation and closing of SPQuery objects
+synchronized (sp) {
+    // Create a dummy query that invokes true/0
+    SPQuery context = sp.openQuery(&quot;user&quot;,&quot;true&quot;,new SPTerm[]{});
+    // All SP_term_refs created after this point will be reclaimed by
+    // Prolog when doing context.close() (or context.cut())
+
+    try {           // ensure context is always closed
+        SPTerm tmp = new SPTerm(sp); // created <em>after</em> context
+        int i = 0;
+
+        while (i++ &lt; 5) {
+            // re-used instead of doing tmp = new SPTerm(sp,&quot;&hellip;&quot;);
+            tmp.putString(&quot;Iteration #&quot; + i + &quot;\n&quot;);
+            // e.g. user:write('Iteration #1\n')
+            sp.queryCutFail(&quot;user&quot;, &quot;write&quot;, new SPTerm[]{tmp});
+        }
+    }
+    finally {
+        // This will invalidate tmp and make Prolog
+        // reclaim the corresponding SP_term_ref
+        context.close(); // or context.cut() to retain variable bindings.
+    }
+}
+</pre></div>
+
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Lifetime-of-SPTerms-and-Prolog-Memory.html#Lifetime-of-SPTerms-and-Prolog-Memory" accesskey="p" rel="prev">Previous</a>
+<li><a href="SPTerm-and-Memory.html#SPTerm-and-Memory" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Preventing-SPTerm-Memory-Leaks.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Preventing-SPTerm-Memory-Leaks.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

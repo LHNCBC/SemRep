@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CHR Constraint Declaration</title>
+
+<meta name="description" content="SICStus Prolog: CHR Constraint Declaration">
+<meta name="keywords" content="SICStus Prolog: CHR Constraint Declaration">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CHR-in-Prolog-Programs.html#CHR-in-Prolog-Programs" rel="up" title="CHR in Prolog Programs">
+<link href="CHR-Compilation.html#CHR-Compilation" rel="next" title="CHR Compilation">
+<link href="CHR-Embedding-in-Prolog-Programs.html#CHR-Embedding-in-Prolog-Programs" rel="prev" title="CHR Embedding in Prolog Programs">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CHR-Constraint-Declaration"></a>
+<hr>
+<a name="Constraint-Declaration"></a>
+<h4 class="subsubsection">10.8.3.2 Constraint Declaration</h4>
+
+
+<a name="index-chr_005fconstraint_002f1-_0028CHR-declaration_0029-1"></a>
+<a name="index-chr_005fconstraint_002f1-_0028CHR-declaration_0029"></a>
+
+<p>Every constraint used in CHR rules has to be declared with a
+<code>chr_constraint/1</code> declaration by the <em>constraint
+specifier</em>. For convenience multiple constraints may be declared at once with
+the same <code>chr_constraint/1</code> declaration followed by a comma-separated
+list of constraint specifiers.
+</p>
+<p>A constraint specifier is, in its compact form, <var>F/A</var> where <var>F</var> and <var>A</var> are respectively
+the functor name and arity of the constraint, e.g.
+</p>
+<div class="example">
+<pre class="example">:- chr_constraint foo/1.
+:- chr_constraint bar/2, baz/3.
+</pre></div>
+
+<p>In its extended form, a constraint specifier is <code><var>c</var>(<var>A_1</var>,&hellip;,<var>A_n</var>)</code>
+where <var>c</var> is the constraint&rsquo;s functor, <var>n</var> its arity and the <var>A_i</var> are argument
+specifiers. An argument specifier is a mode, optionally followed by a type. E.g.
+</p>
+<div class="example">
+<pre class="example">:- chr_constraint get_value(+,?).
+:- chr_constraint domain(?int,+list(int)), 
+                   alldifferent(?list(int)).
+</pre></div>
+
+<p>A mode is one of the following:
+</p>
+<dl compact="compact">
+<dt><code>-</code></dt>
+<dd><a name="index-_002d-_0028CHR-mode_0029"></a>
+<p>The corresponding argument of every occurrence of the constraint is always unbound.
+</p>
+</dd>
+<dt><code>+</code></dt>
+<dd><a name="index-_002b-_0028CHR-mode_0029"></a>
+<p>The corresponding argument of every occurrence of the constraint is always ground.
+</p>
+</dd>
+<dt><code>?</code></dt>
+<dd><a name="index-_003f-_0028CHR-mode_0029"></a>
+<p>The corresponding argument of every occurrence of the constraint can
+have any instantiation, which may change over time. This is the
+default value.
+</p></dd>
+</dl>
+
+<p>A type can be a user-defined type or one of the built-in types. A type
+comprises a (possibly infinite) set of values. The type declaration for
+a constraint argument means that for every instance of that constraint the
+corresponding argument is only ever bound to values in that set. It does not
+state that the argument necessarily has to be bound to a value.
+</p>
+<p>The built-in types are:
+</p>
+<dl compact="compact">
+<dt><code>int</code></dt>
+<dd><a name="index-int-_0028CHR-type_0029"></a>
+<p>The corresponding argument of every occurrence of the constraint is an integer.
+</p>
+</dd>
+<dt><code>float</code></dt>
+<dd><a name="index-float-_0028CHR-type_0029"></a>
+<p>&hellip; a floating point number.
+</p>
+</dd>
+<dt><code>number</code></dt>
+<dd><a name="index-number-_0028CHR-type_0029"></a>
+<p>&hellip; a number.
+</p>
+</dd>
+<dt><code>natural</code></dt>
+<dd><a name="index-natural-_0028CHR-type_0029"></a>
+<p>&hellip; a positive integer.
+</p>
+</dd>
+<dt><code>any</code></dt>
+<dd><p>The corresponding argument of every occurrence of the constraint can
+have any type. This is the default value.  
+</p></dd>
+</dl>
+
+
+<a name="index-chr_005ftype_002f1-_0028CHR-declaration_0029-1"></a>
+<a name="index-chr_005ftype_002f1-_0028CHR-declaration_0029"></a>
+
+<p>User-defined types are algebraic data types, similar to those in Haskell or the discriminated unions in Mercury. An algebraic data type is defined using
+</p>
+<div class="example">
+<pre class="example">:- chr_type <var>type</var> ---&gt; <var>body</var>. 
+</pre></div>
+
+<p>If the type term is a functor of arity zero (i.e. one having zero
+arguments), then it names a <em>monomorphic</em> type. Otherwise, it names a
+<em>polymorphic</em> type; the arguments of the functor must be distinct
+type variables. The body term is defined as a sequence of constructor
+definitions separated by semi-colons.
+</p>
+<p>Each constructor definition must be a functor whose arguments (if any)
+are types. Discriminated union definitions must be transparent: all
+type variables occurring in the body must also occur in the type.
+</p>
+<p>Here are some examples of algebraic data type definitions:
+</p>
+<div class="example">
+<pre class="example">:- chr_type color ---&gt; red ; blue ; yellow ; green.
+:- chr_type tree ---&gt;  empty ; leaf(int) ; branch(tree, tree).
+:- chr_type list(T) ---&gt;    [] ; [T | list(T)].
+:- chr_type pair(T1, T2) ---&gt; (T1 - T2).
+</pre></div>
+
+<p>Each algebraic data type definition introduces a distinct type. Two
+algebraic data types that have the same bodies are considered to be
+distinct types (name equivalence).
+</p>
+<p>Constructors may be overloaded among different types: there may be any
+number of constructors with a given name and arity, so long as they
+all have different types.
+</p>
+<p>Aliases can be defined using &lsquo;<samp>==</samp>&rsquo;. For example, if your program uses
+lists of lists of integers, then you can define an alias as follows:
+</p>
+<div class="example">
+<pre class="example">:- chr_type lli == list(list(int)).
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CHR-Compilation.html#CHR-Compilation" accesskey="n" rel="next">Next</a>
+<li><a href="CHR-Embedding-in-Prolog-Programs.html#CHR-Embedding-in-Prolog-Programs" accesskey="p" rel="prev">Previous</a>
+<li><a href="CHR-in-Prolog-Programs.html#CHR-in-Prolog-Programs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CHR-Constraint-Declaration.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CHR-Constraint-Declaration.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

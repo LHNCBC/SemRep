@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-inh-ask</title>
+
+<meta name="description" content="SICStus Prolog: obj-inh-ask">
+<meta name="keywords" content="SICStus Prolog: obj-inh-ask">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dinh.html#obj_002dinh" rel="up" title="obj-inh">
+<link href="obj_002dtcl.html#obj_002dtcl" rel="next" title="obj-tcl">
+<link href="obj_002dinh_002dmih.html#obj_002dinh_002dmih" rel="prev" title="obj-inh-mih">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dinh_002dask"></a>
+<hr>
+<a name="Asking-About-Classes-and-Objects"></a>
+<h4 class="subsubsection">10.23.3.3 Asking About Classes and Objects</h4>
+
+<p>It is possible to determine, at run time, what classes are defined,
+how they are related by inheritance, what class an object belongs to,
+etc. This section describes the predicates used for those
+purposes. Most of the predicates involve the class hierarchy, so they
+are properly described in the section on inheritance. But, several can
+be useful even in programs that use only simple classes.
+</p>
+<p>Most of these predicates come in pairs, where one predicate involves
+one class or its direct superclasses, and the other predicate involves
+all ancestors. For example, the <code>class_superclass/2</code> and
+<code>class_ancestor/2</code> predicates connect a currently defined class to
+its superclass(es) and to all its ancestors, respectively.
+</p>
+<p>In all of these predicates, the ancestors of a class include not only
+superclasses and their ancestors, but also the class itself. A class
+cannot be a superclass of itself, by the rules of defining
+classes. However, it is convenient to consider every class an ancestor
+of itself, because then we may say that every property of a class is
+defined in one of its ancestors, without having to say &ldquo;the class
+itself or a superclass or a superclass of a superclass, etc.&rdquo;
+</p>
+
+<a name="Objects"></a>
+<h4 class="subheading">Objects</h4>
+
+
+<p>The <code>class_of/2</code> predicate is used to test whether an object is of a
+particular type or to determine the type of an object. Similarly, the
+<code>descendant_of/2</code> predicate relates an object to all ancestors of its
+class. (Remember that the object&rsquo;s class is, itself, an ancestor class
+of the object.)
+</p>
+<p>Both require the first argument (the object) to be instantiated. That
+is, the predicates cannot be used to find objects of a given class. If
+you need to search among all the objects of a class, then you must provide
+a way to do it. One way to do this is to assert a fact connecting the
+class name to every object, when it is created. The named_point
+example of the previous section took that idea a step further by
+allowing each object to have a different name.
+</p>
+<p>The <code>pointer_object/2</code> predicate relates an object&rsquo;s address (a pointer)
+to the object. Remember that an instance of <var>Class</var> is represented by a
+term of the form
+</p>
+<div class="example">
+<pre class="example"><var>Class</var>(<var>Address</var>)
+</pre></div>
+
+
+<p>The <code>pointer_object/2</code> predicate requires that one of its arguments be
+instantiated, but it may be either one. Hence, just by knowing the
+address of an object (which possibly was returned by a foreign
+function) it is possible to determine the object&rsquo;s type.
+</p>
+<p>Most Prolog programmers can safely ignore the <code>pointer_object/2</code>
+predicate, unless they are using SICStus Objects with foreign
+functions or with the Structs package.  
+</p>
+<a name="Classes"></a>
+<h4 class="subheading">Classes</h4>
+
+
+<p>The <code>current_class/1</code> predicate is used to ask whether a class is 
+currently defined or to get the names of all currently defined 
+classes.
+</p>
+<p>The <code>class_superclass/2</code> predicate is used to test whether one class
+is a superclass of another, or to find a class&rsquo;s superclasses, or to
+find a class&rsquo;s subclasses, or to find all subclass-superclass pairs.
+The <code>class_ancestor/2</code> predicate is used in the same ways for the
+ancestor relation between currently defined classes.
+</p>
+<p>As an example, the following goal finds all the ancestors of each
+currently defined class.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>setof(C-As,
+	   (current_class(C),
+	    setof(A, class_ancestor(C,A), As)),
+	   L).</kbd>
+</pre></div>
+
+
+<p>It binds <code>L</code> to a list of terms of the form
+<var>Class</var>-<var>AncestorList</var>, with one term for each currently defined
+class.
+</p>
+<p>Arguably, this predicate violates the principle of information hiding,
+by letting you ask about how a class is defined.  Therefore, you
+should generally avoid it.  It may be useful, however, in debugging
+and in building programmer support tools.
+</p>
+
+
+<a name="Messages"></a>
+<h4 class="subheading">Messages</h4>
+
+
+<p>The <code>message/4</code> predicate is used to ask whether a message is
+defined for a class or to find what messages are defined for a class,
+etc. It does not distinguish between messages whose methods are
+defined in the class itself and those that are inherited from a
+superclass.
+</p>
+<p>The <code>direct_message/4</code> predicate is used to ask whether a message is
+not only defined for a class, but whether the method for that message
+is defined in the class itself. It can also be used to determine
+which methods are defined in a class. This ability to look inside a
+class definition makes <code>direct_message/4</code> an egregious violator of
+the principle of information hiding.  Thus it, like
+<code>class_ancestor/2</code>, should mainly be confined to use in programmer
+support applications.
+</p>
+<p>Both <code>message/4</code> and <code>direct_message/4</code> take the message operator
+as an argument, along with the class, message name and arity. Hence it
+is possible to use these predicates to ask about get, put or send
+messages.
+</p>
+<p>It is not possible to ask about a class&rsquo;s slots, nor should it
+be. However, it is possible (and quite reasonable) to ask about the
+get and put messages that are defined for a class. For example, the
+following goal finds all the 1-argument messages that are defined for
+both the get and put message operators in the class <var>Class</var>.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>setof(Message,
+	   (message(<var>Class</var>, &lt;&lt;, Msg, 1), 
+	    message(<var>Class</var>, &gt;&gt;, Msg, 1)), 
+	   L).</kbd>
+</pre></div>
+
+
+<p>There may or may not be slots corresponding to these messages; that
+detail is hidden in the definition of <var>Class</var>. However, it should be
+possible to use <var>Class</var> as if the slots were there.
+</p>
+<p>As an example, recall the polar coordinate interface to the point
+class, which defined get and put methods for <code>r</code> and <code>theta</code>, even
+though data was represented inside an object by rectangular
+coordinates <code>x</code> and <code>y</code>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dinh_002dmih.html#obj_002dinh_002dmih" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dinh.html#obj_002dinh" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dinh_002dask.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dinh_002dask.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

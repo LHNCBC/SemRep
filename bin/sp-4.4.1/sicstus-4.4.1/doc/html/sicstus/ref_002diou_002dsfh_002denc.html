@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-sfh-enc</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-sfh-enc">
+<meta name="keywords" content="SICStus Prolog: ref-iou-sfh-enc">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" rel="up" title="ref-iou-sfh">
+<link href="ref_002diou_002dsfh_002dcis.html#ref_002diou_002dsfh_002dcis" rel="next" title="ref-iou-sfh-cis">
+<link href="ref_002diou_002dsfh_002dopn.html#ref_002diou_002dsfh_002dopn" rel="prev" title="ref-iou-sfh-opn">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002dsfh_002denc"></a>
+<hr>
+<a name="Text-Stream-Encodings"></a>
+<h4 class="subsubsection">4.6.7.5 Text Stream Encodings</h4>
+
+
+<p>SICStus Prolog supports character codes up to 31 bits wide where
+the codes are interpreted as for Unicode for the common subset.
+</p>
+<p>When a character code (a &ldquo;code point&rdquo; in Unicode terminology) is read
+or written to a stream, it must be encoded into a byte sequence. The
+method by which each character code is encoded to or decoded from a byte
+sequence is called &ldquo;character encoding&rdquo;.
+</p>
+<p>The following character encodings are currently supported by SICStus
+Prolog.
+</p>
+<a name="index-encoding"></a>
+<a name="index-character-encoding"></a>
+<a name="index-character-set-1"></a>
+
+<dl compact="compact">
+<dt><code>ANSI_X3.4-1968</code></dt>
+<dd><p>The 7-bit subset of Unicode, commonly referred to as ASCII.
+</p>
+</dd>
+<dt><code>ISO-8859-1</code></dt>
+<dd><p>The 8-bit subset of Unicode, commonly referred to as Latin 1.
+</p>
+</dd>
+<dt><code>ISO-8859-2</code></dt>
+<dd><p>A variant of ISO-8859-1, commonly referred to as Latin 2.
+</p>
+</dd>
+<dt><code>ISO-8859-15</code></dt>
+<dd><p>A variant of ISO-8859-1, commonly referred to as Latin 9.
+</p>
+</dd>
+<dt><code>windows 1252</code></dt>
+<dd><p>The Microsoft Windows code page 1252.
+</p>
+</dd>
+<dt><code>UTF-8</code></dt>
+<dt><code>UTF-16</code></dt>
+<dt><code>UTF-16LE</code></dt>
+<dt><code>UTF-16BE</code></dt>
+<dt><code>UTF-32</code></dt>
+<dt><code>UTF-32LE</code></dt>
+<dt><code>UTF-32BE</code></dt>
+<dd>
+<p>The suffixes <code>LE</code> and <code>BE</code> denote respectively little endian
+and big endian.
+</p>
+<p>These encodings can be auto-detected if a Unicode signature is present
+in a file opened for read. A Unicode signature is also known as a Byte
+order mark (BOM).
+</p>
+
+</dd>
+</dl>
+
+<p>In addition, it is possible to use all alternative names defined by the IANA registry
+<a href="http://www.iana.org/assignments/character-sets">http://www.iana.org/assignments/character-sets</a>.
+</p>
+<p>All encodings in the table above, except the UTF-XXX encodings, supports
+the <code>reposition(true)</code> option to <code>open/4</code>
+(see <a href="mpg_002dref_002dopen.html#mpg_002dref_002dopen">mpg-ref-open</a>).
+</p>
+<p>The encoding to use can be specified when using <code>open/4</code> and
+similar predicates using the option <code>encoding/1</code>. When opening a
+file for input, the encoding can often be determined automatically. The
+default is <code>ISO-8859-1</code> if no encoding is specified and no encoding
+can be detected from the file contents.
+</p>
+<p>The encoding used by a text stream can be queried using
+<code>stream_property/2</code>.
+</p>
+<p>See <a href="mpg_002dref_002dopen.html#mpg_002dref_002dopen">mpg-ref-open</a> for details on how character encoding is
+auto-detected when opening text files.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002dsfh_002dcis.html#ref_002diou_002dsfh_002dcis" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002diou_002dsfh_002dopn.html#ref_002diou_002dsfh_002dopn" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh_002denc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh_002denc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

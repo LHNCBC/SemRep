@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mgc-ove-rsp</title>
+
+<meta name="description" content="SICStus Prolog: ref-mgc-ove-rsp">
+<meta name="keywords" content="SICStus Prolog: ref-mgc-ove-rsp">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmgc_002dove.html#ref_002dmgc_002dove" rel="up" title="ref-mgc-ove">
+<link href="ref_002dmgc_002dove_002dsta.html#ref_002dmgc_002dove_002dsta" rel="next" title="ref-mgc-ove-sta">
+<link href="ref_002dmgc_002dove.html#ref_002dmgc_002dove" rel="prev" title="ref-mgc-ove">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmgc_002dove_002drsp"></a>
+<hr>
+<a name="Reclaiming-Space"></a>
+<h4 class="subsubsection">4.10.1.1 Reclaiming Space</h4>
+
+<a name="index-space-reclamation"></a>
+<a name="index-reclamation_002c-space"></a>
+
+
+<a name="index-trimcore_002f0-_0028built_002din_0029-1"></a>
+<a name="index-trimcore_002f0-_0028built_002din_0029"></a>
+
+
+<p><code>trimcore/0</code> reclaims space in all of Prolog&rsquo;s data areas.  At any
+given time, each data area contains some free space.  For example, the
+local stack space contains the local stack and some free space for
+that stack to grow into.  The data area is automatically expanded when
+it runs out of free space, and it remains expanded until
+<code>trimcore/0</code> is called, even though the stack may have shrunk
+considerably in the meantime.  The effect of <code>trimcore/0</code> is to
+reduce the free space in all the data areas as much as possible, and to
+endeavor to give the space no longer needed back to the operating system.
+</p>
+<a name="index-PROLOGKEEPSIZE-_0028system-property_0029"></a>
+<a name="index-PROLOGINITSIZE-_0028system-property_0029"></a>
+<p>The system property
+<code>PROLOGKEEPSIZE</code> can be used to define a lower bound on the amount
+of memory to be retained.  Also, the system property
+<code>PROLOGINITSIZE</code> can be used to request that an initial amount of
+memory be allocated.  This initially allocated memory will not be touched
+by <code>trimcore/0</code>.
+</p>
+<p>When trimming a given stacks, <code>trimcore/0</code> will retain at least
+the amount of space initially allocated for that stack.
+</p>
+<p><code>trimcore/0</code> is called each time Prolog returns to the
+top-level or the top of a break level, except it does not trim the stacks then.
+See <a href="mpg_002dref_002dtrimcore.html#mpg_002dref_002dtrimcore">mpg-ref-trimcore</a>.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmgc_002dove_002dsta.html#ref_002dmgc_002dove_002dsta" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmgc_002dove.html#ref_002dmgc_002dove" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmgc_002dove_002drsp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmgc_002dove_002drsp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

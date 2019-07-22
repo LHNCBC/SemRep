@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Specific and Generic Breakpoints</title>
+
+<meta name="description" content="SICStus Prolog: Specific and Generic Breakpoints">
+<meta name="keywords" content="SICStus Prolog: Specific and Generic Breakpoints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="up" title="Advanced Debugging">
+<link href="Breakpoint-Actions.html#Breakpoint-Actions" rel="next" title="Breakpoint Actions">
+<link href="Breakpoint-Tests.html#Breakpoint-Tests" rel="prev" title="Breakpoint Tests">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Specific-and-Generic-Breakpoints"></a>
+<hr>
+<a name="Specific-and-Generic-Breakpoints-1"></a>
+<h4 class="subsection">5.6.4 Specific and Generic Breakpoints</h4>
+
+<a name="index-specific-breakpoint"></a>
+<a name="index-breakpoint_002c-specific"></a>
+<a name="index-generic-breakpoint"></a>
+<a name="index-breakpoint_002c-generic"></a>
+<p>In all the examples so far a breakpoint was put on a specific
+predicate, described by a <code>goal</code> or <code>pred</code> test. Such
+breakpoints are called <em>specific</em>, as opposed to <em>generic</em>
+ones.
+</p>
+<p>Generic breakpoints are the ones that do not specify a concrete
+predicate. This can happen when the breakpoint spec does not
+contain <code>goal</code> or <code>pred</code> tests at all, or their argument
+is not sufficiently instantiated. Here are some examples of
+generic breakpoints:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint(line('/home/bob/myprog.pl',6), _).</kbd>
+% Generic spypoint added, BID=1
+| ?- <kbd>add_breakpoint(pred(foo/_), _).</kbd>
+% Generic spypoint added, BID=2
+| ?- <kbd>add_breakpoint([goal(G),true((arg(1,G,X),X==bar))], _).</kbd>
+% Generic spypoint added, BID=3
+</pre></div>
+
+<p>The first breakpoint will stop at all calls in line 6 of the given
+file, the second at all calls of a predicate <code>foo</code>,
+irrespective of the number of arguments, while the third one will
+stop at any predicate with <code>bar</code> as its first
+argument. However, there is an additional implicit condition: the
+module name expansion inserts the type-in module as the
+default module name in the <code>goal</code> and <code>pred</code>
+conditions. Consequently, the second and third breakpoint applies
+only to predicates in the type-in module (<code>user</code> by
+default). If you would like the breakpoint to cover all
+modules, then you have to include an anonymous module prefix
+in the argument of the <code>goal</code> or <code>pred</code> test:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint(pred(_:foo/_), _).</kbd>
+% Generic spypoint added, BID=1
+% zip
+| ?- <kbd>add_breakpoint([goal(_:G),true((arg(1,G,X),X==bar))], _).</kbd>
+% Generic spypoint added, BID=2
+</pre></div>
+
+<p>Generic breakpoints are very powerful, but there is a price to
+pay: the zip mode is slowed down considerably.
+</p>
+<p>As said earlier, in principle the debugger is entered at each port
+of each procedure invocation. As an optimization, the debugger can
+request the underlying Prolog engine to run at full speed and invoke the
+debugger only when one of the specified predicates is called. This
+optimization is used in zip mode, provided there are no
+generic breakpoints. In the presence of generic breakpoints,
+however, the debugger has to be entered at each call, to check their
+applicability.  Consequently, with generic breakpoints, zip
+mode execution will not give much speed-up over debug mode,
+although its space requirements will still be much lower.
+</p>
+<p>It is therefore advisable to give preference to specific
+breakpoints over generic ones, whenever possible. For example, if
+your program includes predicates <code>foo/2</code> and
+<code>foo/3</code>, then it is much better to create two specific
+breakpoints, rather than a single generic one with conditions
+<code>[pred(foo/_),&hellip;]</code>.
+</p>
+<p><code>spy/2</code> is a built-in predicate that will create
+specific breakpoints only. Its first argument is a
+generalized predicate spec, much like in <code>spy/1</code>, and the
+second argument is a breakpoint spec. <code>spy/2</code> will
+expand the first argument to one or more predicate specs,
+and for each of these will create a breakpoint, with a <code>pred</code>
+condition added to the <em>test</em> part of the supplied breakpoint
+spec. For example, in the presence of predicates <code>foo/2</code> and
+<code>foo/3</code>
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/_, file(&hellip;))</kbd>
+</pre></div>
+
+<p>is equivalent to:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([pred(foo/2),file(&hellip;)], _),</kbd>
+     <kbd>add_breakpoint([pred(foo/3),file(&hellip;)], _).</kbd>
+</pre></div>
+
+<p>Note that with <code>spy/[1,2]</code> it is not possible to put a
+breakpoint on a (yet) undefined predicate. On the other
+hand, <code>add_breakpoint/2</code> is perfectly capable of creating such
+breakpoints, but warns about them.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Breakpoint-Actions.html#Breakpoint-Actions" accesskey="n" rel="next">Next</a>
+<li><a href="Breakpoint-Tests.html#Breakpoint-Tests" accesskey="p" rel="prev">Previous</a>
+<li><a href="Advanced-Debugging.html#Advanced-Debugging" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Specific-and-Generic-Breakpoints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Specific-and-Generic-Breakpoints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

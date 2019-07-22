@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-sem-occ</title>
+
+<meta name="description" content="SICStus Prolog: ref-sem-occ">
+<meta name="keywords" content="SICStus Prolog: ref-sem-occ">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsem.html#ref_002dsem" rel="up" title="ref-sem">
+<link href="ref_002dsem_002dcon.html#ref_002dsem_002dcon" rel="next" title="ref-sem-con">
+<link href="ref_002dsem_002dexc.html#ref_002dsem_002dexc" rel="prev" title="ref-sem-exc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsem_002docc"></a>
+<hr>
+<a name="Occurs_002dCheck"></a>
+<h4 class="subsection">4.2.7 Occurs-Check</h4>
+
+<a name="index-occurs_002dcheck"></a>
+
+<a name="index-cyclic-terms"></a>
+
+<a name="index-terms_002c-cyclic"></a>
+
+
+<p>Prolog&rsquo;s unification does not have an <em>occurs-check</em>; that is,
+when unifying a variable against a term, the system does not check to
+see if the variable occurs in the term.  When the variable occurs in
+the term, unification should fail, but the absence of the check means
+that the unification succeeds, producing a <em>cyclic</em> term.
+Operations such as trying to print a cyclic term will cause a loop.
+</p>
+<p>The absence of the occurs-check is not a bug or a design oversight, but
+a conscious design decision.  The reason for this decision is that
+unification of a variable and a term with the occurs-check is at best
+linear in the sum of the term, whereas such unification without the
+occurs-check runs in constant time.  For any programming language to be
+practical, basic operations should take constant time.  Unification
+against a variable may be thought of as the basic operation of Prolog,
+and this can take constant time only if the occurs-check is omitted.
+Thus the absence of an occurs-check is essential to Prolog&rsquo;s
+practicality as a programming language.  The inconvenience caused by
+this restriction is, in practice, very slight.
+</p>
+<p>SICStus Prolog unifies, compares (see <a href="ref_002dlte_002dcte.html#ref_002dlte_002dcte">ref-lte-cte</a>), asserts, and
+copies cyclic terms without looping.  The <code>write_term/[2,3]</code>
+built-in predicate can optionally handle cyclic terms.  Unification
+with occurs-check is available as a built-in predicate;
+see <a href="ref_002dlte_002dmet_002dusu.html#ref_002dlte_002dmet_002dusu">ref-lte-met-usu</a>. 
+The <code>acyclic_term/1</code> built-in predicate can test whether a term
+is acyclic; <code>subsumes_term/2</code> can test whether a term is subsumed
+by another one (see <a href="ref_002dlte.html#ref_002dlte">ref-lte</a>).
+Additional predicates for subsumption and testing
+(a)cyclicity are available in a library package; see <a href="lib_002dterms.html#lib_002dterms">lib-terms</a>.
+Other predicates usually do not handle cyclic terms well.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsem_002dcon.html#ref_002dsem_002dcon" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsem.html#ref_002dsem" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002docc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002docc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

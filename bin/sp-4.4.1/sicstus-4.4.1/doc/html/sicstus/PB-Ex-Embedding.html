@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: PB Ex Embedding</title>
+
+<meta name="description" content="SICStus Prolog: PB Ex Embedding">
+<meta name="keywords" content="SICStus Prolog: PB Ex Embedding">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="PB-Java-Examples.html#PB-Java-Examples" rel="up" title="PB Java Examples">
+<link href="PB-Ex-Servers.html#PB-Ex-Servers" rel="next" title="PB Ex Servers">
+<link href="PB-Java-Examples.html#PB-Java-Examples" rel="prev" title="PB Java Examples">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="PB-Ex-Embedding"></a>
+<hr>
+<a name="Embedding-Prolog-in-Java-Applications"></a>
+<h4 class="subsubsection">10.29.6.1 Embedding Prolog in Java Applications</h4>
+
+<p>If you have an advanced Prolog application that needs a GUI, then you can
+write a stand-alone Java application that handles the GUI and set up
+the Prolog server to call the right predicates in the Prolog application.
+</p>
+<p>An example of how to do this can be found under the
+<samp>pbexamples(evaluate)</samp> directory (see the example code in <a href="PB-First-Example.html#PB-First-Example">PB First Example</a>).
+</p>
+<p>Another example of this is <samp>pbexamples(pbtest)</samp>, which illustrates
+several advanced features like:
+</p><ul>
+<li> registering several queries
+</li><li> listening to server events (<code>server_started</code>)
+</li><li> shutting down the Prolog server from Java
+</li><li> starting up the Prolog server from Java
+</li><li> using dynamic (OS assigned) ports for the Java/Prolog communication
+</li></ul>
+
+<p>The example is run by executing the Java program <code>PBTest</code>:
+</p><div class="example">
+<pre class="example">&gt; <kbd>java -classpath &quot;%SP_PATH%\bin\prologbeans.jar;.&quot; PBTest</kbd> <span class="roman">(Windows), or</span>
+% <kbd>java -classpath &quot;$SP_PATH/bin/prologbeans.jar:.&quot; PBTest</kbd> <span class="roman">(UNIX)</span>
+</pre></div>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="PB-Ex-Servers.html#PB-Ex-Servers" accesskey="n" rel="next">Next</a>
+<li><a href="PB-Java-Examples.html#PB-Java-Examples" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-Ex-Embedding.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-Ex-Embedding.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

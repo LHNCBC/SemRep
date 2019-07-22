@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPFD Coexisting</title>
+
+<meta name="description" content="SICStus Prolog: CLPFD Coexisting">
+<meta name="keywords" content="SICStus Prolog: CLPFD Coexisting">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dclpfd.html#lib_002dclpfd" rel="up" title="lib-clpfd">
+<link href="CLPFD-Example-Programs.html#CLPFD-Example-Programs" rel="next" title="CLPFD Example Programs">
+<link href="Compiled-Indexicals.html#Compiled-Indexicals" rel="prev" title="Compiled Indexicals">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPFD-Coexisting"></a>
+<hr>
+<a name="Coexisting-with-Attributes-and-Blocked-Goals"></a>
+<h4 class="subsection">10.10.11 Coexisting with Attributes and Blocked Goals</h4>
+
+<p>Domain variables may have attributes from other modules, as well as
+blocked goals, attached to them.  However, the CLPFD propagation phase
+runs to completion before invoking handlers for such attributes and
+resuming such blocked goals.  This could mean in particular that upon
+completion of the propagation phase, attribute handlers and blocked
+goals for multiple variables are ready to execute.  For details, see the
+<code>verify_attributes/3</code> hook at <a href="lib_002datts.html#lib_002datts">lib-atts</a>.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPFD-Example-Programs.html#CLPFD-Example-Programs" accesskey="n" rel="next">Next</a>
+<li><a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dclpfd.html#lib_002dclpfd" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPFD-Coexisting.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPFD-Coexisting.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

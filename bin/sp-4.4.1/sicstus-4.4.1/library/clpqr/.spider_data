@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<se.sics.sicstus.spider.data>
+
+  <!-- Everything except examples/ should be ignored by the
+  indexer. The relevant files are reached from ../{clpq,clpr}.pl -->
+
+  <fileProperties name="arith.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="bb.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="bv.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="compenv.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="dump.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="fourmotz.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="ineq.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="itf3.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="monash.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="nf.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="ordering.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="printf.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="project.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="redund.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <fileProperties name="store.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+
+</se.sics.sicstus.spider.data>

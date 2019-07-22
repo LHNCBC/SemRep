@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.4.0 Bugs Fixed</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.4.0 Bugs Fixed">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.4.0 Bugs Fixed">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e4_002e0-Changes.html#g_t4_002e4_002e0-Changes" rel="up" title="4.4.0 Changes">
+<link href="4_002e4_002e0-Known-Issues.html#g_t4_002e4_002e0-Known-Issues" rel="next" title="4.4.0 Known Issues">
+<link href="4_002e4_002e0-Other-Changes.html#g_t4_002e4_002e0-Other-Changes" rel="prev" title="4.4.0 Other Changes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e4_002e0-Bugs-Fixed"></a>
+<hr>
+<a name="Bugs-Fixed-20"></a>
+<h4 class="subsection">14.26.3 Bugs Fixed</h4>
+
+<ul>
+<li> <code>format/3</code> could crash with certain parameters to the &lsquo;<samp>~*</samp>&rsquo;
+construct (and the equivalent inline form). For some format control
+options, this was fixed by restricting the magnitude of the &lsquo;<samp>~*</samp>&rsquo;
+parameter.
+</li><li> Profiling could crash.
+</li><li> Locating source info for exceptions could crash.
+</li><li> Minor efficiency bug in backtracking in dynamic code.
+</li><li> Efficiency bug in <code>append(L1,L2,L3)</code> if called with <code>L1</code> not a proper list.
+</li><li> Reading a term could crash under low memory conditions.
+</li><li> Multiple problems with the compatibility library <code>system3</code>.
+
+</li><li> In some cases, large integers could overflow when converting to
+floating point values. This could lead to incorrect behavior:
+
+<ul class="no-bullet">
+<li>- For arithmetic expressions, e.g. <code>sin/1</code> and <code>(/)/2</code>, which
+implicitly take floating point values, a float overflow error will now
+be thrown if the argument evaluates to a large integer that will not
+fit in a floating point value.
+
+<p>In some cases this now throws an error, where earlier versions
+computed a sensible result, e.g. <code>X is 1/(1&lt;&lt;1024)</code> would
+compute <code>X = 0.0</code> but now throws an error (because the value of
+<code>(1&lt;&lt;1024)</code> is a large integer that does not fit in a floating
+point number).
+</p></li><li>- <code>SP_get_float()</code> now fails if the argument term is a large
+integer that does not fit in a C double. It used to return an
+infinity value.
+</li><li>- Foreign resource code using the type <code>+float</code>, or code that use
+the <code>library(structs)</code> floating point types, will now give an
+error if the argument is a large integer that does not fit in the
+destination type.
+</li></ul>
+
+</li><li> In some cases, floating point negative zero, not a number (NaN) and
+positive or negative infinity could enter the system. These values are
+not supported, and caused various incorrect behavior:
+
+<ul class="no-bullet">
+<li>- Reading the text &lsquo;<samp>-0.0</samp>&rsquo; now creates an ordinary (unsigned)
+floating point zero.
+</li><li>- <code>SP_put_float(-0.0)</code> now creates an ordinary (unsigned) floating point zero.
+</li><li>- <code>SP_put_float(-inf)</code>, <code>SP_put_float(+inf)</code> and
+<code>SP_put_float(NaN)</code> fail<a name="DOCF2" href="#FOOT2"><sup>2</sup></a>.
+</li><li>- Foreign resource code using the type <code>-float</code>, or code that use
+the <code>library(structs)</code> floating point types, will now throw an
+error if the value is not finite. Negative zero will treated as an
+ordinary (unsigned) floating point zero.
+
+<p>This means that a call to a foreign function can throw an exception
+when the function returns to Prolog, if it attempts to return a
+non-finite result.
+</p></li></ul>
+
+</li><li> Foreign resource code using the type <code>+integer</code>, or code that uses
+the <code>library(structs)</code> integer types, will now give an error if
+the argument is a large integer that does not fit in the destination
+type.
+</li><li> <code>spld --extended-rt</code> failed unless <samp>--license-file</samp> was
+specified. Now it tries to find the license in the &ldquo;usual&rdquo; places.
+</li><li> ZINC: With the <code>timeout/1</code> option of various predicates and the
+<code>spfz</code> option <samp>-time <var>Time</var></samp> together with
+one-solutions search, no solution was reported at time-out, even if
+some solution had been found during optimization search.
+</li><li> CLPFD:
+<ul class="no-bullet">
+<li>- Incorrect special case for <code>bool_channel/4</code>.
+</li><li>- Propagation bug when mixing <code>dif/2</code> and reified constraints.
+</li><li>- Idempotency and correctness bugs in multiple global constraints.
+</li></ul>
+</li></ul>
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT2" href="#DOCF2">(2)</a></h3>
+<p>This was fixed already in 4.3.3.</p>
+</div>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e4_002e0-Known-Issues.html#g_t4_002e4_002e0-Known-Issues" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e4_002e0-Other-Changes.html#g_t4_002e4_002e0-Other-Changes" accesskey="p" rel="prev">Previous</a>
+<li><a href="4_002e4_002e0-Changes.html#g_t4_002e4_002e0-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e4_002e0-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e4_002e0-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

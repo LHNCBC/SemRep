@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-number_codes</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-number_codes">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-number_codes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dnumbervars.html#mpg_002dref_002dnumbervars" rel="next" title="mpg-ref-numbervars">
+<link href="mpg_002dref_002dnumber_005fchars.html#mpg_002dref_002dnumber_005fchars" rel="prev" title="mpg-ref-number_chars">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dnumber_005fcodes"></a>
+<hr>
+<a name="number_005fcodes_002f2---ISO"></a>
+<h4 class="subsection">11.3.143 <code>number_codes/2</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-number_005fcodes_002f2-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-number_005fcodes_002f2-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-168"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>number_codes(<var>+Number</var>, <var>-Codes</var>)</code>
+</p>
+<p><code>number_codes(<var>-Number</var>, <var>+Codes</var>)</code>
+</p>
+<p><var>Codes</var> is the <em>codes</em> comprising the printed
+representation of <var>Number</var>.
+</p>
+<a name="Arguments-153"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Number</var></dt>
+<dd><p><em>number</em>
+</p>
+</dd>
+<dt><var>Codes</var></dt>
+<dd><p><em>codes</em>
+</p></dd>
+</dl>
+
+
+<a name="Description-122"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Initially, either <var>Number</var> must be instantiated to a number, or
+<var>Codes</var> must be instantiated to a proper <em>codes</em>.
+</p>
+<p>If <var>Codes</var> is instantiated to a <em>codes</em> that corresponds to
+the correct syntax of a number, then <var>Number</var> will be unified with that
+number.
+</p>
+<p>Else, <var>Number</var> should be instantiated to a number, and <var>Codes</var>
+will be unified with the <em>codes</em> that make up its printed
+representation.
+</p>
+<a name="Exceptions-159"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Number</var> is uninstantiated and <var>Chars</var> is not instantiated enough
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Number</var> is not a number or
+<var>Codes</var> cannot be unified with a list of integers
+</p>
+</dd>
+<dt><code>representation_error</code></dt>
+<dd><p>An element of <var>Codes</var> is an invalid character code, or
+<var>Codes</var> is a list corresponding to a number that can&rsquo;t be represented
+</p>
+</dd>
+<dt><code>syntax_error</code></dt>
+<dd><p><var>Codes</var> does not correspond to a syntactically valid number
+</p></dd>
+</dl>
+
+<p>The check of <var>Codes</var> when <var>Number</var> is instantiated was added
+in release 4.3 for alignment with the ISO Prolog standard. Previous
+releases simply failed in this case instead of reporting an error for
+malformed <var>Codes</var>.
+</p>
+<a name="Examples-66"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">| ?- <kbd>number_codes(foo, L).</kbd>
+
+! Type error in argument 1 of number_codes/2
+! expected a number, but found foo
+! goal:  number_codes(foo,_104)
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>number_codes(431, L).</kbd>
+
+L = [52,51,49] 
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>number_codes(X, [102,111,111]).</kbd>
+
+! Syntax error in number_codes/2
+! number syntax
+! in line 0
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>number_codes(X, [52,51,49]).</kbd>
+
+X = 431 
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>number_codes(X, &quot;15.0e+12&quot;).</kbd>
+
+X = 1.5E+13
+</pre></div>
+
+<a name="See-Also-165"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>number_chars/2</code>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dnumbervars.html#mpg_002dref_002dnumbervars" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dnumber_005fchars.html#mpg_002dref_002dnumber_005fchars" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dnumber_005fcodes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dnumber_005fcodes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

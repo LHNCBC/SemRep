@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-bas-def</title>
+
+<meta name="description" content="SICStus Prolog: obj-bas-def">
+<meta name="keywords" content="SICStus Prolog: obj-bas-def">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dbas.html#obj_002dbas" rel="up" title="obj-bas">
+<link href="obj_002dbas_002ducl.html#obj_002dbas_002ducl" rel="next" title="obj-bas-ucl">
+<link href="obj_002dbas_002duobj.html#obj_002dbas_002duobj" rel="prev" title="obj-bas-uobj">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dbas_002ddef"></a>
+<hr>
+<a name="Defining-Classes"></a>
+<h4 class="subsubsection">10.23.1.2 Defining Classes</h4>
+
+
+<p>A class definition can restrict the values of any slot to a particular
+C-style type. It can specify whether a slot is <em>private</em> (the
+default, meaning that it cannot be accessed except by that methods of
+that class), 
+<em>protected</em> (like <em>private</em>, except that the slot can also be
+accessed by subclasses of the class),
+or <em>public</em> (meaning get and put methods for the slot are generated
+automatically), and it can specify an initial value. The class definition
+also may contain method clauses, which determine how instances of the
+class will respond to messages.
+A class
+definition may also specify one or more superclasses and which methods
+are to be inherited.
+</p>
+<p>The point object created in the previous example had two floating
+point slots, named <code>x</code> and <code>y</code>, with initial values of 1.0 and
+2.0, respectively. As we have seen, the <code>point</code> class also defined
+put and get methods for <code>x</code> and <code>y</code>, as well as a send method for
+printing the object.  The put and get methods for <code>x</code> and <code>y</code> can be
+automatically generated simply by declaring the slots <code>public</code>, but
+the <code>print</code> method must be explicitly written.  In addition, in
+order to be able to create instances of this class, we must define a
+<code>create</code> method, as explained in <a href="obj_002dscl_002dmeth.html#obj_002dscl_002dmeth">obj-scl-meth</a>.
+We also provide a second <code>create</code> method, taking two arguments,
+allowing us to specify an <code>x</code> and <code>y</code> value when we first create a
+point object.
+</p>
+<div class="example">
+<pre class="example">:- class point =
+        [public x:float = 1.0, 
+         public y:float = 2.0].
+
+Self &lt;- create.
+
+Self &lt;- create(X, Y) :-
+        Self &lt;&lt; x(X),
+        Self &lt;&lt; y(Y).
+
+Self &lt;- print(Stream) :-
+        Self &gt;&gt; x(X), 
+        Self &gt;&gt; y(Y),
+        format(Stream, '(~w,~w)', [X,Y]).
+
+:- end_class point.
+</pre></div>
+
+
+<p>The variable name <code>Self</code> in these clauses is arbitrary&mdash;any
+variable to the
+left of the message operator in the head of a method clause refers to
+the instance of the class receiving the message.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dbas_002ducl.html#obj_002dbas_002ducl" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dbas_002duobj.html#obj_002dbas_002duobj" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dbas.html#obj_002dbas" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dbas_002ddef.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dbas_002ddef.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

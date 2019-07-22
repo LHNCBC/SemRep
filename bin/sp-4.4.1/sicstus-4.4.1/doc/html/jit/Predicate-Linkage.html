@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: Predicate Linkage</title>
+
+<meta name="description" content="SICStus JIT White Paper: Predicate Linkage">
+<meta name="keywords" content="SICStus JIT White Paper: Predicate Linkage">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86.html#Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86" rel="next" title="Code Outline Lead-In and Prefix Sequences for x86">
+<link href="Instructions.html#Instructions" rel="prev" title="Instructions">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Predicate-Linkage"></a>
+<hr>
+<a name="Predicate-Linkage-1"></a>
+<h2 class="chapter">3 Predicate Linkage</h2>
+
+<p>For the purposes of SPJIT, it is useful to think of three modes in which
+a predicate <var>p</var> can be:
+</p>
+<dl compact="compact">
+<dt><em>jitex</em></dt>
+<dd><p><var>p</var> has been JIT compiled and does not have a breakpoint, block
+declaration or the like.  Calls from other <em>jitex</em> predicates to
+<var>p</var> stay in native code.
+</p>
+</dd>
+<dt><em>cex</em></dt>
+<dd><p><var>p</var> is implemented by a C function and does not have a breakpoint,
+block declaration or the like.  Calls from <em>jitex</em> predicates to
+<var>p</var> go to the C function <b>[PERM:</b> &ldquo;go to the C function&rdquo; means what?
+Direcly (not via <code>native_c</code>? If so, how are
+breakpoints/redefinitions to C functions triggered when called from
+jitted code_<b>]</b>.
+Such predicates are never subject to JIT compilation.
+</p>
+</dd>
+<dt><em>wamex</em></dt>
+<dd><p>All other cases.  Calls from <em>jitex</em> predicates to
+<var>p</var> are routed via the WAM emulator.  The transfer of control
+is implemented by returning from the JIT runtime system with the value 2.
+</p></dd>
+</dl>
+
+<p>When SICStus starts, no <em>jitex</em> predicates exist, but start to
+appear as emulated predicates get JIT compiled.
+</p>
+<p>Note that setting a breakpoint on a <em>jitex</em> predicate changes its
+state to <em>wamex</em>.  Removing the breakpoint changes the state back
+to <em>jitex</em>.  Redefining a <em>jitex</em> predicate also changes its
+state to <em>wamex</em>.
+</p>
+<p>For a predicate <var>p</var> whose <code>struct definition *</code> pointer is
+<code>def</code>, <code>def-&gt;jit</code> is either NULL or points at the JIT code
+generated for <var>p</var>, whereas <code>def-&gt;proc.native</code> contains a
+lead-in sequence of machine instructions.  The JIT compiler translates a
+call from <var>p</var> to <var>q</var> into a call to <var>q</var>&rsquo;s lead-in sequence,
+no matter what type of predicate <var>q</var> is or whether it is even
+defined.
+</p>
+<p><b>[PERM:</b> Do <code>mod_def.proxies</code> definitions need some special treatment?<b>]</b>
+</p>
+<p>If <var>p</var> is <em>jitex</em>, then the lead-in sequence calls the kernel
+subroutine <code>native_shunt_link</code>, which patches the caller to
+directly call the JIT code the next time around.  If <var>p</var> is
+<em>cex</em>, then the lead-in sequence calls the kernel subroutine
+<code>native_c</code>, which routes the call to the C function.  If <var>p</var> is
+<em>wamex</em>, then the lead-in sequence calls the kernel subroutine
+<code>native_nonjit</code>, which arranges for the call to be handled by the
+WAM emulator.
+</p>
+<p>If the state of <var>p</var> changes from <em>jitex</em> to <em>wamex</em>, then
+a prefix of <code>def-&gt;jit</code> is modified to an instruction sequence
+that calls the kernel subroutine <code>native_restore_link</code>, which
+patches the caller to call the lead-in sequence the next time around.
+</p>
+<p>If the state of <var>p</var> changes from <em>cex</em> to <em>wamex</em> because
+a breakpoint was set, then <code>def-&gt;jit</code> is not relevant (because
+such predicates are not jitted).
+</p>
+<p>If the state of <var>p</var> changes from <em>wamex</em> back to <em>jitex</em>
+because a breakpoint was removed, then the prefix of <code>def-&gt;jit</code> is
+repaired to contain the original JIT instructions for <var>p</var>.
+</p>
+<p>If <var>p</var> was first JIT compiled and then redefined, then
+<code>def-&gt;jit</code> cannot be freed entirely, because there may be dangling
+references to it created by <code>native_shunt_link</code>.  Thus, its prefix,
+which calls <code>native_restore_link</code>, must be preserved.  This small
+memory leak is not expected to be noticeable in a production setting.
+</p>
+<p>The exact layout of these code sequences is back-end dependent and is
+explained in the following sections.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86.html#Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86" accesskey="1">Code Outline Lead-In and Prefix Sequences for x86</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86_005f64.html#Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86_005f64" accesskey="2">Code Outline Lead-In and Prefix Sequences for x86_64</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-PPC64.html#Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-PPC64" accesskey="3">Code Outline Lead-In and Prefix Sequences for PPC64</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="WAM_002dJIT-Interface.html#WAM_002dJIT-Interface" accesskey="4">WAM-JIT Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Register-Allocation.html#Register-Allocation" accesskey="n" rel="next">Next</a>
+<li><a href="Intermediate-Representation.html#Intermediate-Representation" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/Predicate-Linkage.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/Predicate-Linkage.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

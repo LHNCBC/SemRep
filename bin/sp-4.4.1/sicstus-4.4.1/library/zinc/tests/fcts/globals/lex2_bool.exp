@@ -1,0 +1,29 @@
+cc = array2d(1..3, 1..3, [false, false, false, false, false, false]);
+----------
+cc = array2d(1..3, 1..3, [false, false, false, false, false, true]);
+----------
+cc = array2d(1..3, 1..3, [false, false, false, false, true, true]);
+----------
+cc = array2d(1..3, 1..3, [false, false, false, true, true, true]);
+----------
+cc = array2d(1..3, 1..3, [false, false, true, false, false, true]);
+----------
+cc = array2d(1..3, 1..3, [false, false, true, false, true, false]);
+----------
+cc = array2d(1..3, 1..3, [false, false, true, false, true, true]);
+----------
+cc = array2d(1..3, 1..3, [false, false, true, true, true, false]);
+----------
+cc = array2d(1..3, 1..3, [false, false, true, true, true, true]);
+----------
+cc = array2d(1..3, 1..3, [false, true, true, false, true, true]);
+----------
+cc = array2d(1..3, 1..3, [false, true, true, true, false, false]);
+----------
+cc = array2d(1..3, 1..3, [false, true, true, true, false, true]);
+----------
+cc = array2d(1..3, 1..3, [false, true, true, true, true, true]);
+----------
+cc = array2d(1..3, 1..3, [true, true, true, true, true, true]);
+----------
+==========

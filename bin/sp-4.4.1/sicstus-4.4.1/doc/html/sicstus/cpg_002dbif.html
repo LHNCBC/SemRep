@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-bif</title>
+
+<meta name="description" content="SICStus Prolog: cpg-bif">
+<meta name="keywords" content="SICStus Prolog: cpg-bif">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="C-Reference-Pages.html#C-Reference-Pages" rel="up" title="C Reference Pages">
+<link href="cpg_002dref_002dSP_005fatom_005ffrom_005fstring.html#cpg_002dref_002dSP_005fatom_005ffrom_005fstring" rel="next" title="cpg-ref-SP_atom_from_string">
+<link href="cpg_002dtop_002dtyp.html#cpg_002dtop_002dtyp" rel="prev" title="cpg-top-typ">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dbif"></a>
+<hr>
+<a name="API-Functions"></a>
+<h3 class="section">12.3 API Functions</h3>
+
+<p>The following reference pages, alphabetically arranged, describe the
+SICStus Prolog API functions.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fatom_005ffrom_005fstring.html#cpg_002dref_002dSP_005fatom_005ffrom_005fstring" accesskey="1">cpg-ref-SP_atom_from_string</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_atom_from_string()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fatom_005flength.html#cpg_002dref_002dSP_005fatom_005flength" accesskey="2">cpg-ref-SP_atom_length</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_atom_length()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fcalloc.html#cpg_002dref_002dSP_005fcalloc" accesskey="3">cpg-ref-SP_calloc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_calloc()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fclose_005fquery.html#cpg_002dref_002dSP_005fclose_005fquery" accesskey="4">cpg-ref-SP_close_query</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_close_query()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fcompare.html#cpg_002dref_002dSP_005fcompare" accesskey="5">cpg-ref-SP_compare</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_compare()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fcons_005ffunctor.html#cpg_002dref_002dSP_005fcons_005ffunctor" accesskey="6">cpg-ref-SP_cons_functor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_cons_functor()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fcons_005ffunctor_005farray.html#cpg_002dref_002dSP_005fcons_005ffunctor_005farray" accesskey="7">cpg-ref-SP_cons_functor_array</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_cons_functor_array()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fcons_005flist.html#cpg_002dref_002dSP_005fcons_005flist" accesskey="8">cpg-ref-SP_cons_list</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_cons_list()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fcreate_005fstream.html#cpg_002dref_002dSP_005fcreate_005fstream" accesskey="9">cpg-ref-SP_create_stream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_create_stream()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fcut_005fquery.html#cpg_002dref_002dSP_005fcut_005fquery">cpg-ref-SP_cut_query</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_cut_query()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fdefine_005fc_005fpredicate.html#cpg_002dref_002dSP_005fdefine_005fc_005fpredicate">cpg-ref-SP_define_c_predicate</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_define_c_predicate()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fdeinitialize.html#cpg_002dref_002dSP_005fdeinitialize">cpg-ref-SP_deinitialize</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_deinitialize()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005ferror_005fmessage.html#cpg_002dref_002dSP_005ferror_005fmessage">cpg-ref-SP_error_message</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_error_message()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fevent.html#cpg_002dref_002dSP_005fevent">cpg-ref-SP_event</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_event()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fexception_005fterm.html#cpg_002dref_002dSP_005fexception_005fterm">cpg-ref-SP_exception_term</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_exception_term()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fexpand_005ffile_005fname.html#cpg_002dref_002dSP_005fexpand_005ffile_005fname">cpg-ref-SP_expand_file_name</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_expand_file_name()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005ffail.html#cpg_002dref_002dSP_005ffail">cpg-ref-SP_fail</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_fail()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005ffclose.html#cpg_002dref_002dSP_005ffclose">cpg-ref-SP_fclose</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_fclose()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fflush_005foutput.html#cpg_002dref_002dSP_005fflush_005foutput">cpg-ref-SP_flush_output</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_flush_output()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005ffopen.html#cpg_002dref_002dSP_005ffopen">cpg-ref-SP_fopen</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_fopen()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fforeign_005fstash.html#cpg_002dref_002dSP_005fforeign_005fstash">cpg-ref-SP_foreign_stash</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_foreign_stash()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005ffprintf.html#cpg_002dref_002dSP_005ffprintf">cpg-ref-SP_fprintf</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_fprintf()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005ffree.html#cpg_002dref_002dSP_005ffree">cpg-ref-SP_free</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_free()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005faddress.html#cpg_002dref_002dSP_005fget_005faddress">cpg-ref-SP_get_address</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_address()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005farg.html#cpg_002dref_002dSP_005fget_005farg">cpg-ref-SP_get_arg</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_arg()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005fatom.html#cpg_002dref_002dSP_005fget_005fatom">cpg-ref-SP_get_atom</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_atom()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005fbyte.html#cpg_002dref_002dSP_005fget_005fbyte">cpg-ref-SP_get_byte</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_byte()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005fcode.html#cpg_002dref_002dSP_005fget_005fcode">cpg-ref-SP_get_code</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_code()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005fcurrent_005fdir.html#cpg_002dref_002dSP_005fget_005fcurrent_005fdir">cpg-ref-SP_get_current_dir</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_current_dir()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005fdispatch.html#cpg_002dref_002dSP_005fget_005fdispatch">cpg-ref-SP_get_dispatch</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_dispatch()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005ffloat.html#cpg_002dref_002dSP_005fget_005ffloat">cpg-ref-SP_get_float</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_float()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005ffunctor.html#cpg_002dref_002dSP_005fget_005ffunctor">cpg-ref-SP_get_functor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_functor()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005finteger.html#cpg_002dref_002dSP_005fget_005finteger">cpg-ref-SP_get_integer</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_integer()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005finteger_005fbytes.html#cpg_002dref_002dSP_005fget_005finteger_005fbytes">cpg-ref-SP_get_integer_bytes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_integer_bytes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005flist.html#cpg_002dref_002dSP_005fget_005flist">cpg-ref-SP_get_list</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_list()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005flist_005fcodes.html#cpg_002dref_002dSP_005fget_005flist_005fcodes">cpg-ref-SP_get_list_codes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_list_codes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005flist_005fn_005fbytes.html#cpg_002dref_002dSP_005fget_005flist_005fn_005fbytes">cpg-ref-SP_get_list_n_bytes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_list_n_bytes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005flist_005fn_005fcodes.html#cpg_002dref_002dSP_005fget_005flist_005fn_005fcodes">cpg-ref-SP_get_list_n_codes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_list_n_codes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005fnumber_005fcodes.html#cpg_002dref_002dSP_005fget_005fnumber_005fcodes">cpg-ref-SP_get_number_codes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_number_codes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005fstream_005fcounts.html#cpg_002dref_002dSP_005fget_005fstream_005fcounts">cpg-ref-SP_get_stream_counts</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_stream_counts()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata.html#cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata">cpg-ref-SP_get_stream_user_data</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_stream_user_data()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fget_005fstring.html#cpg_002dref_002dSP_005fget_005fstring">cpg-ref-SP_get_string</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_get_string()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fgetenv.html#cpg_002dref_002dSP_005fgetenv">cpg-ref-SP_getenv</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_getenv()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005finitialize.html#cpg_002dref_002dSP_005finitialize">cpg-ref-SP_initialize</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_initialize()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fis_005fatom.html#cpg_002dref_002dSP_005fis_005fatom">cpg-ref-SP_is_atom</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_is_atom()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fis_005fatomic.html#cpg_002dref_002dSP_005fis_005fatomic">cpg-ref-SP_is_atomic</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_is_atomic()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fis_005fcompound.html#cpg_002dref_002dSP_005fis_005fcompound">cpg-ref-SP_is_compound</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_is_compound()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fis_005ffloat.html#cpg_002dref_002dSP_005fis_005ffloat">cpg-ref-SP_is_float</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_is_float()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fis_005finteger.html#cpg_002dref_002dSP_005fis_005finteger">cpg-ref-SP_is_integer</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_is_integer()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fis_005flist.html#cpg_002dref_002dSP_005fis_005flist">cpg-ref-SP_is_list</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_is_list()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fis_005fnumber.html#cpg_002dref_002dSP_005fis_005fnumber">cpg-ref-SP_is_number</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_is_number()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fis_005fvariable.html#cpg_002dref_002dSP_005fis_005fvariable">cpg-ref-SP_is_variable</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_is_variable()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fload.html#cpg_002dref_002dSP_005fload">cpg-ref-SP_load</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_load()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fload_005fsicstus_005frun_005ftime.html#cpg_002dref_002dSP_005fload_005fsicstus_005frun_005ftime">cpg-ref-SP_load_sicstus_run_time</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_load_sicstus_run_time()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fmalloc.html#cpg_002dref_002dSP_005fmalloc">cpg-ref-SP_malloc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_malloc()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fmutex_005flock.html#cpg_002dref_002dSP_005fmutex_005flock">cpg-ref-SP_mutex_lock</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_mutex_lock()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fmutex_005funlock.html#cpg_002dref_002dSP_005fmutex_005funlock">cpg-ref-SP_mutex_unlock</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_mutex_unlock()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fnew_005fterm_005fref.html#cpg_002dref_002dSP_005fnew_005fterm_005fref">cpg-ref-SP_new_term_ref</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_new_term_ref()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fnext_005fsolution.html#cpg_002dref_002dSP_005fnext_005fsolution">cpg-ref-SP_next_solution</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_next_solution()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fnext_005fstream.html#cpg_002dref_002dSP_005fnext_005fstream">cpg-ref-SP_next_stream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_next_stream()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fopen_005fquery.html#cpg_002dref_002dSP_005fopen_005fquery">cpg-ref-SP_open_query</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_open_query()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fpred.html#cpg_002dref_002dSP_005fpred">cpg-ref-SP_pred</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_pred()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fpredicate.html#cpg_002dref_002dSP_005fpredicate">cpg-ref-SP_predicate</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_predicate()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fprintf.html#cpg_002dref_002dSP_005fprintf">cpg-ref-SP_printf</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_printf()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005faddress.html#cpg_002dref_002dSP_005fput_005faddress">cpg-ref-SP_put_address</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_address()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005fatom.html#cpg_002dref_002dSP_005fput_005fatom">cpg-ref-SP_put_atom</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_atom()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005fbyte.html#cpg_002dref_002dSP_005fput_005fbyte">cpg-ref-SP_put_byte</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_byte()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005fbytes.html#cpg_002dref_002dSP_005fput_005fbytes">cpg-ref-SP_put_bytes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_bytes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005fcode.html#cpg_002dref_002dSP_005fput_005fcode">cpg-ref-SP_put_code</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_code()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005fcodes.html#cpg_002dref_002dSP_005fput_005fcodes">cpg-ref-SP_put_codes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_codes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005fencoded_005fstring.html#cpg_002dref_002dSP_005fput_005fencoded_005fstring">cpg-ref-SP_put_encoded_string</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_encoded_string()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005ffloat.html#cpg_002dref_002dSP_005fput_005ffloat">cpg-ref-SP_put_float</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_float()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005ffunctor.html#cpg_002dref_002dSP_005fput_005ffunctor">cpg-ref-SP_put_functor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_functor()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005finteger.html#cpg_002dref_002dSP_005fput_005finteger">cpg-ref-SP_put_integer</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_integer()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005finteger_005fbytes.html#cpg_002dref_002dSP_005fput_005finteger_005fbytes">cpg-ref-SP_put_integer_bytes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_integer_bytes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005flist.html#cpg_002dref_002dSP_005fput_005flist">cpg-ref-SP_put_list</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_list()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005flist_005fcodes.html#cpg_002dref_002dSP_005fput_005flist_005fcodes">cpg-ref-SP_put_list_codes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_list_codes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005flist_005fn_005fbytes.html#cpg_002dref_002dSP_005fput_005flist_005fn_005fbytes">cpg-ref-SP_put_list_n_bytes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_list_n_bytes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005flist_005fn_005fcodes.html#cpg_002dref_002dSP_005fput_005flist_005fn_005fcodes">cpg-ref-SP_put_list_n_codes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_list_n_codes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005fnumber_005fcodes.html#cpg_002dref_002dSP_005fput_005fnumber_005fcodes">cpg-ref-SP_put_number_codes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_number_codes()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005fstring.html#cpg_002dref_002dSP_005fput_005fstring">cpg-ref-SP_put_string</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_string()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005fterm.html#cpg_002dref_002dSP_005fput_005fterm">cpg-ref-SP_put_term</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_term()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fput_005fvariable.html#cpg_002dref_002dSP_005fput_005fvariable">cpg-ref-SP_put_variable</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_put_variable()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fquery.html#cpg_002dref_002dSP_005fquery">cpg-ref-SP_query</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_query()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fquery_005fcut_005ffail.html#cpg_002dref_002dSP_005fquery_005fcut_005ffail">cpg-ref-SP_query_cut_fail</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_query_cut_fail()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fraise_005fexception.html#cpg_002dref_002dSP_005fraise_005fexception">cpg-ref-SP_raise_exception</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_raise_exception()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fread_005ffrom_005fstring.html#cpg_002dref_002dSP_005fread_005ffrom_005fstring">cpg-ref-SP_read_from_string</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_read_from_string()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005frealloc.html#cpg_002dref_002dSP_005frealloc">cpg-ref-SP_realloc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_realloc()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fregister_005fatom.html#cpg_002dref_002dSP_005fregister_005fatom">cpg-ref-SP_register_atom</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_register_atom()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005frestore.html#cpg_002dref_002dSP_005frestore">cpg-ref-SP_restore</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_restore()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fset_005fargv.html#cpg_002dref_002dSP_005fset_005fargv">cpg-ref-SP_set_argv</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_set_argv()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fset_005fcurrent_005fdir.html#cpg_002dref_002dSP_005fset_005fcurrent_005fdir">cpg-ref-SP_set_current_dir</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_set_current_dir()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks">cpg-ref-SP_set_memalloc_hooks</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_set_memalloc_hooks()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook.html#cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook">cpg-ref-SP_set_user_stream_hook</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_set_user_stream_hook()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook.html#cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook">cpg-ref-SP_set_user_stream_post_hook</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_set_user_stream_post_hook()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fsignal.html#cpg_002dref_002dSP_005fsignal">cpg-ref-SP_signal</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_signal()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fstrdup.html#cpg_002dref_002dSP_005fstrdup">cpg-ref-SP_strdup</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_strdup()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fstring_005ffrom_005fatom.html#cpg_002dref_002dSP_005fstring_005ffrom_005fatom">cpg-ref-SP_string_from_atom</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_string_from_atom()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005fterm_005ftype.html#cpg_002dref_002dSP_005fterm_005ftype">cpg-ref-SP_term_type</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_term_type()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005funget_005fbyte.html#cpg_002dref_002dSP_005funget_005fbyte">cpg-ref-SP_unget_byte</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_unget_byte()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005funget_005fcode.html#cpg_002dref_002dSP_005funget_005fcode">cpg-ref-SP_unget_code</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_unget_code()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005funify.html#cpg_002dref_002dSP_005funify">cpg-ref-SP_unify</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_unify()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSP_005funregister_005fatom.html#cpg_002dref_002dSP_005funregister_005fatom">cpg-ref-SP_unregister_atom</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SP_unregister_atom()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002dSU_005finitialize.html#cpg_002dref_002dSU_005finitialize">cpg-ref-SU_initialize</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SU_initialize()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002duser_005fclose.html#cpg_002dref_002duser_005fclose">cpg-ref-user_close</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">user_close()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002duser_005fflush_005foutput.html#cpg_002dref_002duser_005fflush_005foutput">cpg-ref-user_flush_output</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">user_flush_output()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002duser_005fread.html#cpg_002dref_002duser_005fread">cpg-ref-user_read</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">user_read()
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="cpg_002dref_002duser_005fwrite.html#cpg_002dref_002duser_005fwrite">cpg-ref-user_write</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">user_write()
+</td></tr>
+</table>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dtop.html#cpg_002dtop" accesskey="p" rel="prev">Previous</a>
+<li><a href="C-Reference-Pages.html#C-Reference-Pages" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dbif.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dbif.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

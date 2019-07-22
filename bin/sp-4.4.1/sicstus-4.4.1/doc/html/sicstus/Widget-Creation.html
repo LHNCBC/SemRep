@@ -1,0 +1,602 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Widget Creation</title>
+
+<meta name="description" content="SICStus Prolog: Widget Creation">
+<meta name="keywords" content="SICStus Prolog: Widget Creation">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tk.html#Tk" rel="up" title="Tk">
+<link href="Geometry-Managers.html#Geometry-Managers" rel="next" title="Geometry Managers">
+<link href="Widgets-Hierarchies.html#Widgets-Hierarchies" rel="prev" title="Widgets Hierarchies">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Widget-Creation"></a>
+<hr>
+<a name="Widget-Creation-1"></a>
+<h4 class="subsubsection">10.39.3.4 Widget Creation</h4>
+
+<p>As has already been said, a widget is a window object that has state and
+behavior. In terms of Tcl/Tk a widget is created by calling a widget
+creation command. There is a specific widget creation for each type of
+widget.
+</p>
+<p>The widget creation command is supplied with arguments.  The first
+argument is always the name you want to give to the resulting
+widget; the other arguments set the initial state of the widget.
+</p>
+<p>The immediate result of calling a widget creation command is that it
+returns the name of the new widget. A side-effect is that the
+instance of the widget is created and its name is defined as in the Tcl
+interpreter as a procedure through which the widget state can be
+accessed and manipulated.
+</p>
+<p>This needs an example. We will use the widget creator command <code>button</code>
+to make a button widget:
+</p>
+<div class="example">
+<pre class="example">button .fred -text 'Fred' -background red
+</pre></div>
+
+<p>which creates an instance of a button widget named <code>.fred</code> that will
+display the text <code>Fred</code> on the button and will have a red background
+color. Evaluating this command returns the string <code>.fred</code>, the name
+of the newly created widget.
+</p>
+<p>As a side-effect, a Tcl procedure named <code>.fred</code> is created.
+A call to a widget instance has the following form:
+</p>
+<div class="example">
+<pre class="example"><var>widgetName</var> <var>method</var> <var>methodArgs</var>
+</pre></div>
+
+<p>where <var>widgetName</var> is the name of the widget to be manipulated,
+<var>method</var> is the action to be performed on the widget, and
+<var>methodArgs</var> are the arguments passed to the method that is
+performed on the widget.
+</p>
+<p>The two standard methods for widgets are <code>configure</code> and <code>cget</code>.
+<code>configure</code> - is used to change the state of a widget; for example:
+</p>
+<div class="example">
+<pre class="example">.fred configure -background green -text 'Sid'
+</pre></div>
+
+<p>will change the background color of the widget <code>.fred</code> to green
+and the text displayed to <code>Sid</code>.
+</p>
+<p><code>cget</code> is used to get part of the state of a widget; for example:
+</p>
+<div class="example">
+<pre class="example">.fred cget -text
+</pre></div>
+
+<p>will return <code>Sid</code> if the text on the button <code>.fred</code> is <code>Sid</code>.
+</p>
+<p>In addition to these general methods, there are special methods
+for each widget type. For example, with button widgets
+you have the <code>flash</code> and <code>invoke</code> methods.
+</p>
+<p>For example,
+</p>
+<div class="example">
+<pre class="example">.fred invoke
+</pre></div>
+
+<p>can be called somewhere in the Tcl code to invoke button <code>.fred</code>
+as though it had been clicked on. 
+</p>
+<div class="example">
+<pre class="example">.fred flash
+</pre></div>
+
+<p>can be called somewhere in the Tcl code to cause the button to flash.
+</p>
+<p>We will come across some of these special method when we discuss the
+widgets in detail. For a comprehensive list of widget methods, refer to
+entry for the appropriate widget creation command in the Tcl/Tk manual.
+</p>
+<p>We now discuss the widget creation command for each widget type.
+</p>
+<p>A <em>label</em> is a simple widget for displaying a single line of text.
+An example of creating an instance of a label is
+</p>
+<div class="example">
+<pre class="example">label .l -text &quot;Hello world!&quot;
+</pre></div>
+
+<p>which simply creates the label named <code>.l</code> with the text &lsquo;<samp>Hello
+world!</samp>&rsquo;  displayed in it.
+Most widgets that display text can have a variable associated with them
+through the option <samp>-textvariable</samp>. When the value of the variable
+is changed the text changes in the associated label.
+For example,
+</p>
+<div class="example">
+<pre class="example">label .l -text &quot;Hello world!&quot; -textvariable mytext
+</pre></div>
+
+<p>creates a text label called <code>.l</code> displaying the initial text &lsquo;<samp>Hello
+world!</samp>&rsquo;  and associated text variable <code>mytext</code>; <code>mytext</code> will start
+with the value &lsquo;<samp>Hello world!</samp>&rsquo;.  However, if the following script is
+executed:
+</p>
+<div class="example">
+<pre class="example">set mytext &quot;Goodbye moon!&quot;
+</pre></div>
+
+<p>then the text in the label will magically change to &lsquo;<samp>Goodbye moon!</samp>&rsquo;.
+</p>
+
+<p>A <em>message widget</em> is similar to a label widget but for multi-line text.
+As its name suggests it is mostly used for creating popup message
+information boxes. 
+</p>
+<p>An example of a message widget is
+</p>
+<div class="example">
+<pre class="example">message .msg -text &quot;Your data is incorrect.\n\n \
+              Please correct it and try again.&quot; \
+    -justify center
+</pre></div>
+
+<p>which will create a message widget displaying the text shown, center justified.
+The width of the message box can be given through the <samp>-width</samp> switch.
+Any lines that exceed the width of the box are wrapped at word boundaries.
+</p>
+<p>Calling the <code>button</code> command creates an instance of a <em>button widget</em>.
+An example is:
+</p>
+<div class="example">
+<pre class="example">button .mybutton -text &quot;hello&quot; -command {puts &quot;howdie!&quot;}
+</pre></div>
+
+<p>which creates a button with name <code>.mybutton</code> that will display
+the text &quot;hello&quot; and will execute the Tcl script <code>puts &quot;howdie!&quot;</code>
+(that is print <code>howdie!</code> to the terminal) when clicked on.
+</p>
+
+<p><em>Checkbuttons</em> are buttons that have a fixed state that is either
+on or off. Clicking on the button toggles the state.
+To store the state, a checkbutton is associated with a variable.
+When the state of the checkbutton changes, so does that of the variable.
+An example is:
+</p>
+<div class="example">
+<pre class="example">checkbutton .on_or_off -text &quot;I like ice cream&quot; -variable ice
+</pre></div>
+
+<p>which will create a checkbutton with name <code>.on_or_off</code> displaying
+the text &lsquo;<samp>I like ice cream</samp>&rsquo; and associated with the variable <code>ice</code>.  If
+the checkbutton is checked, then <code>ice</code> will have the value 1; if not
+checked, then it will have the value 0.  The state of the checkbutton can
+also be changed by changing the state of the variable. For example,
+executing
+</p>
+<div class="example">
+<pre class="example">set ice 0
+</pre></div>
+
+<p>will set the state of <code>.on_or_off</code> to not checked.
+</p>
+
+<p><em>Radiobuttons</em> are buttons that are grouped together to select
+one value among many. Each button has a value, but only one
+in the button group is active at any one time.
+In Tcl/Tk this is achieved by creating a series of radiobutton
+that share an associated variable.
+Each button has a value. When a radiobutton is clicked on,
+the variable has that value and all the other buttons in the group
+are put into the off state.
+Similarly, setting the value of the variable is reflected in the state
+of the button group.
+An example is:
+</p>
+<div class="example">
+<pre class="example">radiobutton .first -value one -text one -variable count
+radiobutton .second -value two -text two -variable count
+radiobutton .third -value three -text three -variable count
+</pre></div>
+
+<p>which creates three radiobuttons that are linked through the variable
+<code>count</code>. If button <code>.second</code> is active, for example, then the
+other two buttons are in the inactive state and <code>count</code> has the
+value <code>two</code>.  The following code sets the button group to make the
+button <code>.third</code> active and the rest inactive regardless of the current
+state:
+</p>
+<div class="example">
+<pre class="example">set count three
+</pre></div>
+
+<p>If the value of <code>count</code> does not match any of the values of the
+radiobuttons, then they will all be off. For example executing the script
+</p>
+<div class="example">
+<pre class="example">set count four
+</pre></div>
+
+<p>will turn all the radiobuttons off.
+</p>
+
+<p>An <em>entry widget</em> allows input of a one line string.
+An example of an entry widget:
+</p>
+<div class="example">
+<pre class="example">label .l -text &quot;Enter your name&quot;
+entry .e -width 40 -textvariable your_name
+</pre></div>
+
+<p>would display a label widget named <code>.l</code> showing the string &lsquo;<samp>Enter
+your name</samp>&rsquo; and an entry widget named <code>.e</code> of width 40 characters.
+The value of variable <code>your_name</code> will reflect the string in the
+entry widget: as the entry widget string is updated, so is the value of
+the variable.  Similarly, changing the value of <code>your_name</code> in a
+Tcl script will change the string displayed in the entry field.
+</p>
+
+<p>A <em>scale widget</em> is for displaying an adjustable slider.  As the slider is
+moved its value, which is displayed next to the slider, changes.  To
+specify a scale, it must have <samp>-from</samp> and <samp>-to</samp> attributes,
+which is the range of the scale. It can have a <samp>-command</samp> option,
+which is set to a script to evaluate when the value of the slider
+changes.
+</p>
+<p>An example of a scale widget is:
+</p>
+<div class="example">
+<pre class="example">scale .s -from 0 -to 100
+</pre></div>
+
+<p>which creates a scale widget with name <code>.s</code> that will slide over a
+range of integers from 0 to 100.
+</p>
+<p>There are several other options that scales can have.  For example it is
+possible to display tick marks along the length of the scale through the
+<samp>-tickinterval</samp> attribute, and it is possible to specify both vertically
+and horizontally displayed scales through the <samp>-orient</samp> attribute.
+</p>
+
+<p>A <em>listbox</em> is a widget that displays a list of single line strings.
+One or more of the strings may be selected through using the mouse.
+Initializing and manipulating the contents of a listbox is
+done through invoking methods on the instance of the listbox.
+As examples, the <code>insert</code> method is used to insert a string
+into a listbox, <code>delete</code> to delete one, and <code>get</code> to retrieve
+a particular entry. Also the currently selected list items
+can be retrieved through the <code>selection</code> command.
+</p>
+<p>Here is an example of a listbox that is filled with entries of the form
+<code>entry N</code>:
+</p>
+<div class="example">
+<pre class="example">listbox .l
+for { set i 0 } { $i&lt;10 } { incr i } {
+    .l insert end &quot;entry $i&quot;
+}
+</pre></div>
+
+<p>A listbox may be given a height and/or width attribute, in which case it
+is likely that not all of the strings in the list are visible at the
+same time. There are a number of methods for affecting the display of
+such a listbox.  
+</p>
+<p>The <code>see</code> method causes the listbox display to
+change so that a particular list element is in view.  For example,
+</p>
+<div class="example">
+<pre class="example">.l see 5
+</pre></div>
+
+<p>will make sure that the sixth list item is visible. (List elements
+are counted from element 0.)
+</p>
+
+<p>A <em>scrollbar</em> widget is intended to be used with any widget that is likely
+to be able to display only part of its contents at one time.  Examples
+are listboxes, canvases, text widgets, and frames, amongst others.
+</p>
+<p>A scrollbar widget is displayed as a movable slider between two arrows.
+Clicking on either arrow moves the slider in the direction of the arrow.
+The slider can be moved by dragging it with the cursor.
+</p>
+<p>The scollbar and the widget it scrolls are connected through
+Tcl script calls. A scrollable widgets will have a <code>scrollcommand</code>
+attribute that is set to a Tcl script to call when the widget
+changes its view. When the view changes the command is called,
+and the command is usually set to change the state of its associated
+scrollbar. 
+</p>
+<p>Similarly, the scrollbar will have a <code>command</code> attribute that is
+another script that is called when an action is performed on the
+scrollbar, like moving the slider or clicking on one of its arrows.
+That action will be to update the display of the associated scrollable
+widget (which redraws itself and then invokes its <code>scrollcommand</code>,
+which causes the scrollbar to be redrawn).
+</p>
+<p>How this is all done is best shown through an example:
+</p>
+<div class="example">
+<pre class="example">listbox .l -yscrollcommand &quot;.s set&quot; -height 10
+scrollbar .s -command &quot;.l yview&quot;
+for { set i 0 } { $i &lt; 50 } { incr i } {
+    .l insert end &quot;entry $i&quot;
+}
+</pre></div>
+
+<p>creates a listbox named <code>.l</code> and a scrollbar named <code>.s</code>. Fifty
+strings of the form <code>entry N</code> are inserted into the listbox.  The
+clever part is the way the scrollbar and listbox are linked.  The
+listbox has its <samp>-yscrollcommand</samp> attribute set to the script
+<code>&quot;.s set&quot;</code>. What happens is that if the view of <code>.l</code> is
+changed, this script is called with 4 arguments attached: the
+number of entries in the listbox, the size of the listbox window, the
+index of the first entry currently visible, and the index of the last
+entry currently visible. This is exactly enough information for the
+scrollbar to work out how to redisplay itself.  For example, changing
+the display of the above listbox could result in the following
+<samp>-yscrollcommand</samp> script being called:
+</p>
+<div class="example">
+<pre class="example">.s set 50 10 5 15
+</pre></div>
+
+<p>which says that the listbox contains 50 elements, it can display
+10 at one time, the first element displayed has index 5 and the
+last one on display has index 15. This call invokes the <code>set</code>
+method of the scrollbar widget <code>.s</code>, which causes it to redraw
+itself appropriately.
+</p>
+<p>If, instead, the user interacts with the scrollbar, then 
+the scrollbar will invoke its <samp>-command</samp> script, which in this example
+is <code>&quot;.l yview&quot;</code>. Before invoking the script, the scrollbar widget
+calculates which element should the first displayed in its associated
+widget and appends its index to the call.
+For example, if element with index 20 should be the first to be displayed, then 
+the following call will be made:
+</p>
+<div class="example">
+<pre class="example">.l yview 20
+</pre></div>
+
+<p>which invokes the <code>yview</code> method of the listbox <code>.l</code>. This
+causes <code>.l</code> to be updated (which then causes its
+<samp>-yscrollcommand</samp> to be called, which updates the scrollbar).
+</p>
+
+<p>A <em>frame</em> widget does not do anything by itself except reserve an area of
+the display.  Although this does not seem to have much purpose, it is a
+very important widget.  It is a container widget; that is, it is used to
+group together collections of other widgets into logical groups. For
+example, a row of buttons may be grouped into a frame, then as the frame
+is manipulated so will the widgets displayed inside it.  A frame widget
+can also be used to create large areas of color inside another
+container widget (such as another frame widget or a toplevel widget).
+</p>
+<p>An example of the use of a frame widget as a container:
+</p>
+<div class="example">
+<pre class="example">canvas .c -background red
+frame .f
+button .b1 -text button1
+button .b2 -text button2
+button .b3 -text button3
+button .b4 -text button4
+button .b5 -text button5
+pack .b1 .b2 .b3 .b4 .b5 -in .f -side left
+pack .c -side top -fill both -expand 1
+pack .f -side bottom
+</pre></div>
+
+<p>which specifies that there are two main widgets a canvas named <code>.c</code>
+and a frame named <code>.f</code>. There are also 5 buttons, <code>.b1</code>
+through <code>.b5</code>.  The buttons are displayed inside the frame. Then
+the canvas is displayed at the top of the main window and the frame
+is displayed at the bottom. As the frame is displayed at the bottom,
+then so will the buttons because they are displayed inside the frame.
+</p>
+<p>(The <code>pack</code> command causes the widgets to be handled for display
+by the packer geometry manager.  The <samp>-fill</samp> and <samp>-expand 1</samp>
+options to pack for <code>.c</code> tell the display manager that if the
+window is resized, then the canvas is to expand to fill most of the
+window. You will learn about geometry managers later in the Geometry
+Managers section.)
+</p>
+
+<p>A <em>toplevel</em> widget is a new toplevel window.  It is a container widget
+inside which other widgets are displayed.  The root toplevel widget has
+path <code>.</code> &mdash; i.e. dot on its own.  Subsequent toplevel widgets
+must have a name that is lower down the path tree just like any other
+widget.
+</p>
+<p>An example of creating a toplevel widget is:
+</p>
+<div class="example">
+<pre class="example">toplevel .t
+</pre></div>
+
+<p>All the widgets displayed inside <code>.t</code> must also have <code>.t</code> as
+the root of their path.  For example, to create a button widget for
+display inside the <code>.t</code> toplevel the following would work:
+</p>
+<div class="example">
+<pre class="example">button .t.b -text &quot;Inside 't'&quot;
+</pre></div>
+
+<p>(Attributes, such as size and title, of toplevel widgets can be changed
+through the <code>wm</code> command, which we will not cover in this
+tutorial. The reader is referred to the Tk manual.)
+</p>
+
+<p>Yet another kind of container is a <em>menu widget</em>.  It contains a list of
+widgets to display inside itself, as a pulldown menu.  A simple entry in
+a menu widget is a <code>command</code> widget, displayed as an option in the
+menu widget, which if chosen executes a Tcl command.  Other types of
+widgets allowed inside a menu widget are radiobuttons and checkboxes.  A
+special kind of menu item is a <code>separator</code> that is used to group
+together menu items within a menu.  (It should be noted that the widgets
+inside a menu widget are special to that menu widget and do not have an
+independent existence, and so do not have their own Tk name.)
+</p>
+<p>A menu widget is built by first creating an instance of a menu
+widget (the container) and then invoking the <code>add</code> method
+to make entries into the menu.
+An example of a menu widget is as follows:
+</p>
+<div class="example">
+<pre class="example">menu .m
+.m add command -label &quot;Open file&quot; -command &quot;open_file&quot;
+.m add command -label &quot;Open directory&quot; -command &quot;open_directory&quot;
+.m add command -label &quot;Save buffer&quot; -command &quot;save_buffer&quot;
+.m add command -label &quot;Save buffer as&hellip;&quot; -command &quot;save_buffer_as&quot;
+.m add separator
+.m add command -label &quot;Make new frame&quot; -command &quot;new_frame&quot;
+.m add command -label &quot;Open new display&quot; -command &quot;new_display&quot;
+.m add command -label &quot;Delete frame&quot; -command &quot;delete_frame&quot;
+</pre></div>
+
+<p>which creates a menu widget called <code>.m</code>, which contains eight menu
+items, the first four of which are commands, then comes a separator
+widget, then the final three command entries.  (Some of you will notice
+that this menu is a small part of the <code>Files</code> menu from the menubar of
+the Emacs text editor.)
+</p>
+<p>An example of a checkbox and some radiobutton widget entries:
+</p>
+<div class="example">
+<pre class="example">.m add checkbox -label &quot;Inverse video&quot; -variable inv_vid
+.m add radiobutton -label &quot;black&quot; -variable color
+.m add radiobutton -label &quot;blue&quot; -variable color
+.m add radiobutton -label &quot;red&quot; -variable color
+</pre></div>
+
+<p>which gives a checkbox displaying &lsquo;<samp>Inverse video</samp>&rsquo;, keeping its
+state in the variable <code>inv_vid</code>, and three radiobuttons linked through
+the variable <code>color</code>.
+</p>
+<p>Another menu item variant is the <code>cascade</code> variant, which is used
+to make cascadable menus, i.e. menus that have submenus.
+An example of a cascade entry is the following:
+</p>
+<div class="example">
+<pre class="example">.m add cascade -label &quot;I cascade&quot; -menu .m.c
+</pre></div>
+
+<p>which adds a cascade entry to the menu <code>.m</code> that displays the text
+&lsquo;<samp>I cascade</samp>&rsquo;.  If the &lsquo;<samp>I cascade</samp>&rsquo; option is chosen from the <code>.m</code> menu,
+then the menu <code>.m.c</code> will be displayed.
+</p>
+<p>The cascade option is also used to make menubars at the top of an
+application window.  A menu bar is simply a menu each element of which
+is a cascade entry, (for example). The menubar menu is attached to the
+application window through a special configuration option for toplevel
+widgets, the <samp>-menu</samp> option.  Then a menu is defined for each of the
+cascade entry in the menubar menu.
+</p>
+<p>There are a large number of other variants to menu widgets: menu items
+can display bitmaps instead of text; menus can be specified as tear-off
+menus; accelerator keys can be defined for menu items; and so on.
+</p>
+<p>A <em>menubutton widget</em> displays like a button, but when activated a menu pops
+up. The menu of the menubutton is defined through the <code>menu</code> command
+and is attached to the menubutton.
+An example of a menu button:
+</p>
+<div class="example">
+<pre class="example">menubutton .mb -menu .mb.m -text &quot;mymenu&quot;
+menu .mb.m
+.mb.m add command -label hello
+.mb.m add command -label goodbye
+</pre></div>
+
+<p>which crates a menubutton widget named <code>.mb</code> with attached menu
+<code>.mb.m</code> and displays the text &lsquo;<samp>mymenu</samp>&rsquo;.  Menu <code>.mb.m</code> is
+defined as two command options, one labelled <code>hello</code> and the other
+labelled <code>goodbye</code>.  When the menubutton <code>.mb</code> is clicked on,
+the menu <code>.mb.m</code> will popup and its options can be chosen.
+</p>
+
+<p>A <em>canvas widget</em> is a container widget that is used to manage the drawing
+of complex shapes; for example, squares, circles, ovals, and polygons.
+(It can also handle bitmaps, text and most of the Tk widgets too.)
+The shapes may have borders, filled in, be clicked on, moved around,
+and manipulated.
+</p>
+<p>We will not cover the working of the canvas widget here.
+It is enough to know that there is a powerful widget in the Tk toolkit
+that can handle all manner of graphical objects.
+The interested reader is referred to the Tk manual.
+</p>
+
+<p>A <em>text widget</em> is another powerful container widget that handles 
+multi-line texts. The textwidget can display texts with varying
+font styles, sizes, and colors in the same text, and can also
+handle other Tk widgets embedded in the text.
+</p>
+<p>The text widget is a rich and complicated widget and will
+not be covered here.
+The interested reader is referred to the Tk manual.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Geometry-Managers.html#Geometry-Managers" accesskey="n" rel="next">Next</a>
+<li><a href="Widgets-Hierarchies.html#Widgets-Hierarchies" accesskey="p" rel="prev">Previous</a>
+<li><a href="Tk.html#Tk" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Widget-Creation.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Widget-Creation.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

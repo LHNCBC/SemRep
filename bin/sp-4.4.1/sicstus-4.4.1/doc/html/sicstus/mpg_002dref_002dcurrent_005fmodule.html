@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-current_module</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-current_module">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-current_module">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dcurrent_005fop.html#mpg_002dref_002dcurrent_005fop" rel="next" title="mpg-ref-current_op">
+<link href="mpg_002dref_002dcurrent_005fkey.html#mpg_002dref_002dcurrent_005fkey" rel="prev" title="mpg-ref-current_key">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dcurrent_005fmodule"></a>
+<hr>
+<a name="current_005fmodule_002f_005b1_002c2_005d"></a>
+<h4 class="subsection">11.3.52 <code>current_module/[1,2]</code></h4>
+<a name="index-current_005fmodule_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-current_005fmodule_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-77"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>current_module(<var>?ModuleName</var>)</code>
+</p>
+<p>Queries whether a module is &ldquo;current&rdquo; or backtracks through all
+of the current modules.
+</p>
+<p><code>current_module(<var>?ModuleName</var>, <var>?AbsFile</var>)</code>
+</p>
+<p>Associates modules with their module-files.
+</p>
+<a name="Arguments-73"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>ModuleName</var></dt>
+<dd><p><em>atom</em>
+</p>
+</dd>
+<dt><var>AbsFile</var></dt>
+<dd><p><em>atom</em>
+</p>
+<p>Absolute filename in which the module is defined.
+</p></dd>
+</dl>
+
+<a name="Description-61"></a>
+<h4 class="subheading">Description</h4>
+
+<p>A loaded module becomes &ldquo;current&rdquo; as soon as some predicate is defined
+in it, and a module can never lose the property of being current.
+</p>
+<p>It is possible for a current module to have no associated
+file, in which case <code>current_module/1</code> will succeed on it but
+<code>current_module/2</code> will fail.  This arises for the special module
+<code>user</code> and for dynamically-created modules (see <a href="ref_002dmod.html#ref_002dmod">ref-mod</a>).
+</p>
+<p>If its arguments are not correct, or if <var>Module</var> has no associated file, then 
+<code>current_module/2</code> simply fails.
+</p>
+<a name="Backtracking-10"></a>
+<h4 class="subheading">Backtracking</h4>
+
+<p><code>current_module/1</code> backtracks through
+all of the current modules.  The following command will print out all
+current modules:
+</p><div class="example">
+<pre class="example">| ?- <kbd>current_module(Module), writeq(Module), nl, fail.</kbd>
+</pre></div>
+
+
+<p><code>current_module/2</code> backtracks through all of the current modules
+and their associated files.
+</p>
+<a name="Exceptions-68"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>type_error</code></dt>
+</dl>
+
+<a name="Examples-25"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">| ?- <kbd>findall(M,current_module(M),Ms).</kbd>
+Ms = [chr,user,prolog,'SU_messages',clpfd] ? <span class="key">RET</span>
+yes
+| ?- <kbd>findall(M-F,current_module(M,F),MFs).</kbd>
+MFs = ['SU_messages'-'/src/sicstus/matsc/sicstus4/Utils/x86-linux-glibc2.3/bin/sp-4.1.0/sicstus-4.1.0/library/SU_messages.pl'] ? 
+yes
+</pre></div>
+
+<a name="See-Also-74"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmod_002dilm.html#ref_002dmod_002dilm">ref-mod-ilm</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dcurrent_005fop.html#mpg_002dref_002dcurrent_005fop" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dcurrent_005fkey.html#mpg_002dref_002dcurrent_005fkey" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcurrent_005fmodule.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcurrent_005fmodule.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

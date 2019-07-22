@@ -1,0 +1,298 @@
+#!/bin/bash
+
+PROGRAM=`basename $0`
+
+BITS=64
+if [ $# -gt 0 ]
+then
+    if [ $1 == "m32" ]
+    then
+	BITS=32
+        shift
+    fi
+fi
+
+export SKRenv=$PROGRAM
+GWA=/nfsvol/nls/II_Group_WorkArea
+export SICSTUS_BASE=$GWA/SICStus
+
+IIR=/nfsvol/crfiler-ind/II_Research/
+
+SICSTUS_VERSION='4.3.5'
+export SICSTUS_HOME=${SICSTUS_BASE}/sp-${SICSTUS_VERSION}-x86-linux-glibc2.17
+
+export NLS=/nfsvol/nls
+# export HOST=`/bin/hostname`
+# export HOSTNAME=`/bin/hostname`
+#export SKR=$NLS/specialist/SKR
+export NLSTOOLS=$NLS/tools
+
+export SAW=$NLS/specialist/SAW.Linux
+export SKR=$SAW/SKR
+
+# from the man pages for ar:
+# -c    Suppresses the diagnostic message that is written to
+#       standard error by default when archive is created.
+
+export AR="ar"
+export ARFLAGS="cruv"
+export C__DEBUG="-D__DEBUG"
+# export SKR_SRC_HOME=$GWA/specialist/SKR/src
+# export SKR_SRC_HOME=.
+export SKR_SRC_HOME=$SKR_HOME/src
+export SAW_SRC_HOME=$SAW_HOME/src
+
+export USEMREP=$SAW_SRC_HOME/USemrep
+export USEMREP_LIB=$USEMREP/usemrep_lib
+export USEMREP_MAIN=$USEMREP/usemrep_main
+export USEMREP_DOMAIN=$USEMREP/usemrep_domain
+export USEMREP_VOCABULARY=$USEMREP/usemrep_vocabulary
+
+LEXICON_VERSION="2012"
+WARNINGS="-pedantic -Wall -Wbad-function-cast -Wcast-qual -Wcast-align -Wconversion"
+WARNINGS="$WARNINGS -Wpointer-arith -Wstrict-prototypes -Wmissing-prototypes"
+WARNINGS="$WARNINGS -Wredundant-decls -Wnested-externs -Winline -Wno-long-long"
+
+export BERKELEY_DIR=$NLSTOOLS/berkeley_db
+export JAVA_DIR=$NLSTOOLS/MTI_resources/Linux/jdk1.6.0_35/jre/lib/i386/server
+
+# Mats Carlsson's fix for the "Toronto" citation
+export PROLOGMAXSIZE=1G
+
+PLATFORM=`uname`
+if [ "$PLATFORM" = "Linux" ]
+then
+   # increase to the maximum possible the number of file descriptors
+   # Linux complains if this value > 1024
+   ulimit -n 1024
+   if [ $BITS -eq 32 ]
+   then
+      # 32-bit
+      export BASIC_CFLAGS="-g -O -m32 -fPIC $WARNINGS -DSKR_PLATFORM=$PLATFORM"
+      export BERKELEY_VERSION=$BERKELEY_DIR/Linux-i686/db-4.8.24
+      export SICSTUS_HOME=$SICSTUS_BASE/sp-4.3.5-x86-linux-glibc2.17
+      export SICSTUS_LIB=$SICSTUS_HOME/lib 
+      export SICSTUS_BIN=$SICSTUS_HOME/bin
+      export SPLFR=$SICSTUS_BIN/splfr
+      export SPLD=$SICSTUS_BIN/spld
+      export SICSTUS_PROG=$SICSTUS_BIN/sicstus
+      export LINKFLAGS="-m32 -shared"
+else
+      # 64-bit
+       export BASIC_CFLAGS="-g -O -fPIC $WARNINGS -DSKR_PLATFORM=$PLATFORM"
+       export BERKELEY_VERSION=$BERKELEY_DIR/Linux-x86_64/db-4.8.24
+       export SICSTUS_HOME=$SICSTUS_BASE/sp-4.3.5-x86_64-linux-glibc2.17
+       export SICSTUS_LIB=$SICSTUS_HOME/lib 
+       export SICSTUS_BIN=$SICSTUS_HOME/bin
+       export SPLFR=$SICSTUS_BIN/splfr
+       export SPLD=$SICSTUS_BIN/spld
+       export SICSTUS_PROG=$SICSTUS_BIN/sicstus
+       export LINKFLAGS="-shared"
+   fi
+   export BERKELEY_INC=$BERKELEY_VERSION/include
+   export BERKELEY_LIB=$BERKELEY_VERSION/lib
+   export BERKELEY_LIB_A=$BERKELEY_LIB/libdb.a
+   export BERKELEY_LIB_SO=$BERKELEY_LIB/libdb.so
+   export DEFAULT_NETLIBS=""
+   export DEFAULT_LIBXML_DIR=/usr
+   export GNU_DIR=/usr
+   export COMPILER_DIR=/usr
+   export CC=gcc
+   export GCC=gcc
+   export LD_LIBRARY_PATH=$COMPILER_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$GNU_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$BERKELEY_LIB:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$JAVA_DIR:$LD_LIBRARY_PATH
+   export PATH=$GNU_DIR/bin:$PATH
+elif [ "$PLATFORM" = "Darwin" ]
+then
+   # 32-bit
+   # export BASIC_CFLAGS="-g -O -m32 -fPIC $WARNINGS -DSKR_PLATFORM=$PLATFORM -I/usr/include/malloc -D__DEBUG"
+   # 64-bit
+   export BASIC_CFLAGS="-g -O -fPIC $WARNINGS -DSKR_PLATFORM=$PLATFORM -I/usr/include/malloc -D__DEBUG"
+   export BERKELEY_VERSION=/usr/local/db-4.8.24
+   export BERKELEY_INC=$BERKELEY_VERSION/include
+   export BERKELEY_LIB=$BERKELEY_VERSION/lib
+   export BERKELEY_LIB_A=$BERKELEY_LIB/libdb.a
+   export BERKELEY_LIB_SO=$BERKELEY_LIB/libdb.dylib
+   export DEFAULT_NETLIBS=""
+   export DEFAULT_LIBXML_DIR=/usr
+   export GNU_DIR=/usr
+   export COMPILER_DIR=/usr
+   export CC=gcc
+   export GCC=gcc
+   # 32-bit
+   # export LINKFLAGS="-m32 -shared"
+   # 64-bit
+   export LINKFLAGS="-shared"
+   export LD_LIBRARY_PATH=$COMPILER_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$GNU_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$BERKELEY_LIB:$LD_LIBRARY_PATH
+   export PATH=$GNU_DIR/bin:$PATH
+fi
+
+export LD=$GCC
+export SICStus=
+
+while getopts L:dpCw: option
+do
+   # echo SKRenv option is $option
+   case $option
+   in
+	L) LEXICON_VERSION=$OPTARG;;
+ 	# d) export SKR_SRC_HOME=$HOME/specialist/SKR/src;; # redundant
+ 	d) ;;
+  	p) export SKR_SRC_HOME=$SKR/src;;
+	w) export SKR_SRC_HOME=$OPTARG
+	   # ensure that the "-w" flag was followed by another command-line argument
+	   if [ "$SKR_SRC_HOME" = "" ]
+	   then
+	      echo "The '-w' option requires specifying a working directory."
+	      exit 1
+	   fi;;
+	## the C flag is just because makeenv is sourced by SKRmake
+        C) export CLEAN=CLEAN; export SAVE_CLEAN=SAVE_CLEAN;;
+	## end of command-line flags; rest of args are command to run
+	?) exit 1;;
+   esac
+done
+
+shift `expr $OPTIND - 1`
+export OPTIND=1
+
+# echo $SKR_SRC_HOME
+
+if [ ! -e "$SKR_SRC_HOME" ]
+then
+   echo "The directory $SKR_SRC_HOME does not exist."
+   exit 1
+fi
+
+# echo SKR_SRC_HOME = $SKR_SRC_HOME
+export DYNAMIC_LIB_DIR=$SKR_SRC_HOME
+
+# if we're in the SKR/src/skr directory (which is normal),
+# set SKR_SRC_HOME to the parent src directory 
+# case $SKR_SRC_HOME
+# in
+#    *skr) export SKR_SRC_HOME=`dirname $SKR_SRC_HOME`;;
+# esac
+
+# for mmserver
+export MMSERVER_PORT=8066
+
+# for mmserver
+export ACCEPTED_HOSTS="['127.0.0.1']"
+
+export SKR_HOME=`dirname $SKR_SRC_HOME`
+
+export MM_TOOLS=$SKR_HOME/tools
+
+export MM_TOOLS_LIB=$MM_TOOLS/lib
+
+#export MODEL_LOCATION_BASE_DIR=/nfsvol/nls3aux18/DB
+
+export BDB_CACHE_SIZE=1048576
+
+export DEFAULT_CFLAGS="$BASIC_CFLAGS $C__DEBUG"
+
+export SKR_DB=$SKR_SRC_HOME/db
+export DATA_DIR=/nfsvol/crfiler-semrep/DATA
+export MODEL_LOCATION_BASE_DIR=$DATA_DIR/DB
+
+export SKR_DEBUG=$SKR_SRC_HOME/debug
+
+export SKR_INCLUDE=$SKR_SRC_HOME/include
+
+export SKR_LEXICON=$SKR_SRC_HOME/lexicon
+
+export SKR_MORPH=$SKR_LEXICON/morph
+
+export SKR_LIB=$SKR_SRC_HOME/lib
+
+export SKR_LEX_LIB=$SKR_LEXICON/lib
+
+export SKR_METAMAP=$SKR_SRC_HOME/metamap
+
+export SKR_MMI=$SKR_SRC_HOME/mmi
+
+export SKR_SKR=$SKR_SRC_HOME/skr
+
+export SKR_NLS_CLNT=$SKR_SRC_HOME/nls_clnt
+
+export SKR_TAGGER=$SKR_SRC_HOME/tagger
+
+export SKR_TEXT=$SKR_SRC_HOME/text
+
+export SKR_WSD=$SKR_SRC_HOME/WSD
+
+# for parse_meta.c in WSD/WSD directory
+export SUPPRESSED_CONC_FILE=suppressed_conc
+
+#export LEXICON_DATA=$SKR_LEXICON/data
+export LEXICON_DATA=$DATA_DIR/LEXICON
+
+# export DEFAULT_LEXICON_FILE=$LEXICON_DATA/lexiconStatic${LEXICON_VERSION}
+
+# export DEFAULT_LEXICON_INDEX_FILE=${DEFAULT_LEXICON_FILE}Ind
+
+export LF_HELP_FILE=$SKR_LEXICON/lf/lf.help
+
+export DM_TRANSLATED_RULES_FILE=$SKR_MORPH/dm_translated_rules
+
+export DM_TRANSLATED_FACTS_FILE=$SKR_MORPH/dm_translated_facts
+
+export LM_TRANSLATED_RULES_FILE=$SKR_MORPH/lm_translated_rules
+
+export MMI_TREE_DEPTH_SPECIFICITY_DIVISOR=9
+
+export MMI_WORD_SPECIFICITY_DIVISOR=26
+
+export MMI_CHARACTER_SPECIFICITY_DIVISOR=102
+
+export NEGEX_UTTERANCE_MAX_DIST=20
+
+export NEGEX_CONCEPT_MAX_DIST=10
+
+# Notify Halil and Dongwook when these change!
+export TAGGER_SERVER_HOSTS="ii-server2 ii-server3vm ii-server4 ii-server5 ii-server10 ii-server11 ii-server12 ii-server13"
+
+export TAGGER_SERVER_PORT=1795
+
+export TAGGER_SERVER_DELIMITER='^THE_END^\n'
+
+# Notify Halil and Dongwook when these change!
+export WSD_SERVER_HOSTS="ii-server2 ii-server4 ii-server5 ii-server12 ii-server13"
+
+export WSD_SERVER_PORT=5554
+
+export WSD_SERVER_BEGIN_DELIMITER='<Response>'
+
+export WSD_SERVER_END_DELIMITER='</Response>'
+
+export WSD_METHODS="['STI_METHOD']"
+#export WSD_METHODS="['AEC_METHOD']"
+
+export WSD_WEIGHTS="[1.0]"
+
+export WSD_LOG_FILE=WSD_Client/log/WSD_Proxy.log
+
+export WSD_LOG=false
+
+export XML_VERSION="<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+
+export XML_DOCTYPE="DOCTYPE MMOs PUBLIC"
+
+export XML_DOCNAME="-//NLM//DTD MetaMap Machine Output//EN"
+
+export XML_DTD="http://metamap.nlm.nih.gov/DTD/MMOtoXML_v5.dtd"
+
+echo "$*"
+
+if [ $# -gt 0 ]
+then
+   case $1 in
+   -*) ;;
+    *) "$@";;
+   esac
+fi

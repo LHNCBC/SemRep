@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-load_files</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-load_files">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-load_files">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dload_005fforeign_005fresource.html#mpg_002dref_002dload_005fforeign_005fresource" rel="next" title="mpg-ref-load_foreign_resource">
+<link href="mpg_002dref_002dlisting.html#mpg_002dref_002dlisting" rel="prev" title="mpg-ref-listing">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dload_005ffiles"></a>
+<hr>
+<a name="load_005ffiles_002f_005b1_002c2_005d"></a>
+<h4 class="subsection">11.3.117 <code>load_files/[1,2]</code></h4>
+<a name="index-load_005ffiles_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-load_005ffiles_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-142"></a>
+<h4 class="subheading">Synopsis</h4>
+<p><code>load_files(<var>+Files</var>)</code>
+</p>
+<p><code>load_files(<var>+Files</var>, <var>+Options</var>)</code>
+</p>
+<p><code>[<var>+Files</var>]</code>
+</p>
+<p>Loads the specified Prolog source and/or object file(s) into memory.
+Subsumes all other load predicates.
+</p>
+<a name="Arguments-131"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:Files</var></dt>
+<dd><p><em>file_spec</em> or <em>list of file_spec</em>, must be ground
+</p>
+<p>A file specification or a list of file specifications;
+extensions optional.
+</p>
+</dd>
+<dt><var>Options</var></dt>
+<dd><p><em>list of term</em>, must be ground
+</p>
+<p>A list of zero or more options of the form:
+</p><dl compact="compact">
+<dt><code>if(<var>X</var>)</code></dt>
+<dd><a name="index-if_002f1-_0028load_005ffiles_002f2-option_0029"></a>
+<p><code>true</code> (the default) to always load, or <code>changed</code> to
+load only if the file has not yet been loaded or if it has
+been modified since it was last loaded.  A non-module-file
+is not considered to have been previously loaded if it was
+loaded into a different module.  The file specification <code>user</code> is
+never considered to have been previously loaded.
+</p>
+</dd>
+<dt><code>when(<var>When</var>)</code></dt>
+<dd><a name="index-when_002f1-_0028load_005ffiles_002f2-option_0029"></a>
+<p><code>always</code> (the default) to always load, or <code>compile_time</code>
+to load only if the goal is not in the scope of another
+<code>load_files/[1,2]</code> directive occurring in a PO file.
+</p>
+<p>The latter is intended for use when the file only defines
+predicates that are needed for proper term or goal
+expansion during compilation of other files.
+</p>
+</dd>
+<dt><code>load_type(<var>LoadType</var>)</code></dt>
+<dd><a name="index-load_005ftype_002f1-_0028load_005ffiles_002f2-option_0029"></a>
+<p><code>source</code> to load source files only, <code>object</code> to
+load object (PO) files only,
+or <code>latest</code> (the default) to load any type of file, whichever is
+newest.  If the file specification is <code>user</code>, then <code>source</code> is forced.
+</p>
+</dd>
+<dt><code>imports(<var>Imports</var>)</code></dt>
+<dd><a name="index-imports_002f1-_0028load_005ffiles_002f2-option_0029"></a>
+<p><code>all</code> (the default) to import all exported
+predicates if the file is a module-file, or a list of
+predicates to import.
+</p>
+</dd>
+<dt><code>compilation_mode(<var>Mode</var>)</code></dt>
+<dd><a name="index-compilation_005fmode_002f1-_0028load_005ffiles_002f2-option_0029"></a>
+<p><code>compile</code> to translate into compiled code, <code>consult</code> to
+translate into static, interpreted code, or
+<code>assert_all</code> to translate into dynamic, interpreted
+code.
+</p>
+<p>The default is the compilation mode of any ancestor
+<code>load_files/[1,2]</code> goal, or <code>compile</code> otherwise. Note
+that <var>Mode</var> has no effect when a PO file is
+loaded, and that it is recommended to use <code>assert_all</code> in
+conjunction with <code>load_type(source)</code>, to ensure that the source
+file will be loaded even in the presence of a PO file.
+</p>
+
+</dd>
+</dl>
+<p>In addition the <code>open/4</code> options <code>encoding/1</code>, <code>encoding_signature/1</code> and
+<code>eol/1</code> can be specified. These will be used if the Prolog code is
+loaded from a source file.  See <a href="mpg_002dref_002dopen.html#mpg_002dref_002dopen">mpg-ref-open</a>, for details.
+</p></dd>
+</dl>
+
+<a name="Description-107"></a>
+<h4 class="subheading">Description</h4>
+
+<p><code>load_files/[1,2]</code> reads Prolog clauses, in source or precompiled
+form, and adds them to the Prolog database, after first deleting any previous
+versions of the predicates they define.  Clauses for a single predicate must
+all be in the same file unless that predicate is declared to be <code>multifile</code>.
+</p>
+<p>If a source file contains directives, that is, terms with principal
+functor <code>:-/1</code> or <code>?-/1</code>, then these are executed as they
+are encountered.  Initialization goals specified with
+<code>initialization/1</code> are executed after the load.
+</p>
+<p>A non-module source file can be loaded into any module by <code>load_files/[1,2]</code>,
+but the module of the predicates in a precompiled file is fixed at the time it is
+created.
+</p>
+<a name="Exceptions-133"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Files</var> or <var>Options</var> is not ground.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p>In <var>Files</var> or <var>Options</var>.
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p>Illegal option in <var>Options</var>.
+</p>
+</dd>
+<dt><code>existence_error</code></dt>
+<dd><p>A specified file does not exist.  If the <code>fileerrors</code> flag is <code>off</code>, then the
+predicate fails instead of raising this exception.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>A specified file not readable.  If the <code>fileerrors</code> flag is <code>off</code>, then the
+predicate fails instead of raising this exception.
+</p>
+<p>While loading clauses from a PO file, clauses for an existing
+multifile predicate were encountered, but were compiled in a way
+different from the existing clauses.  In this case, the existing clauses
+remain untouched, the multifile clauses from the PO file are simply ignored,
+the load continues, and an exception is raised at the end.
+</p>
+</dd>
+</dl>
+
+<a name="Examples-53"></a>
+<h4 class="subheading">Examples</h4>
+
+<p>Several of the other built-in predicates of this category could
+be defined in terms of <code>load_files/2</code>:
+</p>
+<div class="example">
+<pre class="example">[File|Files] :-
+    load_files([File|Files]).
+
+consult(Files) :- 
+    load_files(Files, [load_type(source),compilation_mode(consult)]).
+
+ensure_loaded(Files) :- 
+        load_files(Files, [if(changed)]).
+
+use_module(File) :-
+    load_files(File, [if(changed)]).
+
+use_module(File, Imports) :-
+    load_files(File, [if(changed),imports(Imports)]).
+</pre></div>
+
+<p>Code that is only needed at compile-time, e.g. for operator declarations
+or compile-time expansion, is conveniently loaded with the following idiom:
+</p>
+<div class="example">
+<pre class="example">:- load_files(library(obj_decl), [when(compile_time), if(changed)]).
+</pre></div>
+
+<a name="See-Also-139"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlod_002dlod.html#ref_002dlod_002dlod">ref-lod-lod</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dload_005fforeign_005fresource.html#mpg_002dref_002dload_005fforeign_005fresource" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dlisting.html#mpg_002dref_002dlisting" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dload_005ffiles.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dload_005ffiles.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-fdi-syn</title>
+
+<meta name="description" content="SICStus Prolog: ref-fdi-syn">
+<meta name="keywords" content="SICStus Prolog: ref-fdi-syn">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dfdi.html#ref_002dfdi" rel="up" title="ref-fdi">
+<link href="ref_002dfdi_002dpre.html#ref_002dfdi_002dpre" rel="next" title="ref-fdi-pre">
+<link href="ref_002dfdi_002dfsp_002dpre.html#ref_002dfdi_002dfsp_002dpre" rel="prev" title="ref-fdi-fsp-pre">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dfdi_002dsyn"></a>
+<hr>
+<a name="Syntactic-Rewriting"></a>
+<h4 class="subsection">4.5.2 Syntactic Rewriting</h4>
+
+<a name="index-file-specification-1"></a>
+<a name="index-specification_002c-file-1"></a>
+<p>A file specification must be an atom or a compound term with arity 1.
+Such compound terms are transformed to atoms as described in
+<a href="ref_002dfdi_002dfsp.html#ref_002dfdi_002dfsp">ref-fdi-fsp</a>. Let <var>FileSpec</var> be the given or transformed
+atomic file specification.
+</p>
+
+<a name="index-syntactic-rewriting"></a>
+<a name="index-rewriting_002c-syntactic"></a>
+<p>A file specification <var>FileSpec</var>
+is subject
+to <em>syntactic rewriting</em>.  Depending on the operation, the
+resulting absolute filename is subject to further processing.
+Syntactic rewriting is performed wrt. a context directory
+<var>Context</var> (an absolute path), in the following steps:
+</p>
+<ul>
+<li> Under Windows, all &lsquo;<samp>\</samp>&rsquo; characters are converted to &lsquo;<samp>/</samp>&rsquo;. This
+replacement is also performed, as needed, during all subsequent steps.
+
+</li><li> A &lsquo;<samp>$<var>PROP</var></samp>&rsquo; in the beginning of <var>FileSpec</var>, followed by
+&lsquo;<samp>/</samp>&rsquo; or the end of the path, is replaced by the absolute path of
+the value of the system property <var>PROP</var>. This is especially useful
+when the system property has no explicit value and thus takes its value
+from the environment variable with the same name.
+If <var>var</var> does not exist or its value is empty, then a permission error is
+raised.
+
+<p>A relative path that does not begin with &lsquo;<samp>/</samp>&rsquo; is made absolute by
+prepending <var>Context</var> followed by a &lsquo;<samp>/</samp>&rsquo;. Note that, under UNIX,
+all paths that begin with &lsquo;<samp>/</samp>&rsquo; are absolute.
+</p>
+<p>Under Windows only, a relative path that begins with a &lsquo;<samp>/</samp>&rsquo; is made
+absolute by prepending the root (see below) of <var>Context</var>.
+</p>
+</li><li> A &lsquo;<samp>~<var>user</var></samp>&rsquo; in the beginning of <var>FileSpec</var>, followed by
+&lsquo;<samp>/</samp>&rsquo; or the end of the path, is replaced by the absolute path of
+the home directory of <var>user</var>. If the home directory of <var>user</var>
+cannot be determined, then a permission error is raised.
+
+<p>Under Windows this has not been implemented, instead a permission error
+is raised.
+</p>
+<p>If the home directory of <var>user</var> is a relative path, then it is made
+absolute using <var>Context</var> if needed.
+</p>
+</li><li> A &lsquo;<samp>~</samp>&rsquo; in the beginning of <var>FileSpec</var>, followed by &lsquo;<samp>/</samp>&rsquo; or
+the end of the path, is replaced by the absolute path of the home
+directory of the current user. If the home directory of the current
+user cannot be determined, then a permission error is raised.
+
+<p>The the home directory of the current user is a relative path it is
+made absolute using <var>Context</var> if needed. 
+</p>
+<p>Under Windows, the home directory of the current user is determined
+using the system properties or environment variables <code>HOMEDRIVE</code> and <code>HOMEPATH</code>.
+</p>
+</li><li> If <var>FileSpec</var> is a relative file name, then <var>Context</var> is prepended to it.
+
+</li><li> <a name="index-absolute-path"></a>
+<a name="index-path_002c-absolute"></a>
+<a name="index-path-root"></a>
+The <var>root</var> of the file name is determined. Under UNIX this is simply
+the initial &lsquo;<samp>/</samp>&rsquo;, if any. Under Windows there are several variants of
+roots, as follows.
+
+<ul class="no-bullet">
+<li>- <var>driveletter</var><code>:/</code> where <var>driveletter</var> is a single upper
+or lower case character in the range &lsquo;<samp>a</samp>&rsquo; to &lsquo;<samp>z</samp>&rsquo;. For
+example, &lsquo;<samp>C:/</samp>&rsquo;.
+
+</li><li>- <code>//?/</code><var>driveletter</var><code>:/</code> This is transformed to
+<var>driveletter</var><code>:/</code>.
+
+</li><li>- <a name="index-UNC-path"></a>
+<a name="index-path_002c-UNC"></a>
+<a name="index-network-path"></a>
+<a name="index-path_002c-network"></a>
+<code>//</code><var>host</var><code>/</code><var>share</var><code>/</code> (a &lsquo;<samp>UNC</samp>&rsquo; path,
+also known as a <em>network path</em>) where <var>host</var> and <var>share</var>
+are non-empty and do not contain <code>/</code>.
+
+</li><li>- <code>//?/unc/</code><var>host</var><code>/</code><var>share</var><code>/</code> This is
+transformed to <code>//</code><var>host</var><code>/</code><var>share</var><code>/</code>
+</li></ul>
+
+<p>If no <var>root</var> can be determined, then a permission error is raised.
+</p>
+<a name="index-absolute-path-1"></a>
+<a name="index-path_002c-absolute-1"></a>
+<p>A path is absolute if and only if it is begins with a root, as above.
+</p>
+</li><li> The following steps are repeatedly applied to the last &lsquo;<samp>/</samp>&rsquo; of the
+<var>root</var> and the characters that follow it repeatedly until no
+change occurs.
+
+<ol>
+<li> Repeated occurrences of <code>/</code> are replaced by a single <code>/</code>.
+
+</li><li> &lsquo;<samp>/.</samp>&rsquo;, followed by &lsquo;<samp>/</samp>&rsquo; or the end of the path, is replaced by
+&lsquo;<samp>/</samp>&rsquo;.
+
+</li><li> <code>/</code><var>parent</var><code>/..</code>, followed by &lsquo;<samp>/</samp>&rsquo; or the end of the path, is replaced by
+&lsquo;<samp>/</samp>&rsquo;.
+</li></ol>
+
+<p>If the path still contains <code>/..</code>, followed by &lsquo;<samp>/</samp>&rsquo; or the end
+of the path, then a permission error is raised.
+</p>
+</li><li> Any trailing &lsquo;<samp>/</samp>&rsquo; is deleted unless it is part of the <var>root</var>.
+
+</li><li> <a name="index-path_002c-case_002dnormalized"></a>
+<a name="index-case_002dnormalized-path"></a>
+Finally, under Windows,
+the <em>case-normalized path</em>
+is obtained as follows: All Latin 1
+characters (i.e. character codes in [0..255]) are converted to lower
+case. All other characters are converted to upper case.
+
+<p>File systems under Windows are generally case insensitive. This step
+ensures that two file names that differ only in case, and therefore
+would reference the same file in the file system, will case-normalize to
+identical atoms.
+</p>
+<p>Since release 4.3, <code>open/[3,4]</code>,
+and other build-in predicates that create files and directories,
+creates files using the file name
+argument as obtained from syntactic rewriting but before applying
+case-normalization. This means that
+<code>open('HelloWorld.txt', write, S),
+file_property(S,file_name(Name).</code>
+will create a file that has the mixed-case name <samp>HelloWorld.txt</samp>
+in the file system but <code>Name</code> will end in &lsquo;<samp>helloworld.txt</samp>&rsquo;,
+i.e. the stream property will reflect the case-normalized
+path.
+</p>
+<p>The fact that <code>open/[3,4]</code> et al. preserves case when creating files
+seldom matters, except for aesthetics, since any Windows
+application that tries to open a file named <samp>HelloWorld.txt</samp> will
+also find <samp>helloworld.txt</samp>.
+</p>
+
+</li></ul>
+
+<p>The following UNIX examples assumes that <var>Context</var> is
+&lsquo;<samp>/usr/</samp>&rsquo;; that the environment variables <code>VAR1</code>, <code>VAR2</code>,
+<code>VAR3</code> have the values &lsquo;<samp>/opt/bin</samp>&rsquo;, &lsquo;<samp>foo</samp>&rsquo; and &lsquo;<samp>~/temp</samp>&rsquo;
+respectively and that the home directory of the current user,
+&lsquo;<samp>joe</samp>&rsquo;, is &lsquo;<samp>/home/joe</samp>&rsquo;.
+</p><div class="example">
+<pre class="example">
+/foo/bar
+   &rarr; /foo/bar
+
+/foo/.//bar/../blip///
+   &rarr; /foo/blip
+
+/foo//../bar/../../blip
+   &rarr; error
+
+$VAR1/../local/
+   &rarr; /opt/local
+
+$VAR2/misc/.
+   &rarr; /usr/foo/misc
+
+$VAR3/misc/.
+   &rarr; /home/joe/temp/misc
+
+~joe/../jenny/bin.
+   &rarr; /home/jenny/bin
+
+</pre></div>
+
+<p>The following Windows examples assume that <var>Context</var> is
+&lsquo;<samp>C:/Source/proj1</samp>&rsquo;; that the environment variables <code>VAR1</code>, <code>VAR2</code>,
+<code>VAR3</code> have the values &lsquo;<samp>\\server\docs\brian</samp>&rsquo;, &lsquo;<samp>foo</samp>&rsquo; and &lsquo;<samp>~/temp</samp>&rsquo;
+respectively and that the home directory of the current user is &lsquo;<samp>C:/home</samp>&rsquo;.
+</p><div class="example">
+<pre class="example">
+/foo/bar
+   &rarr; c:/foo/bar
+
+foo//../../blip
+   &rarr; c:/source/blip
+
+$VAR1/../local/
+   &rarr; //server/docs/local
+
+$VAR2/misc/.
+   &rarr; c:/source/proj1/foo/misc
+
+$VAR3/misc/.
+   &rarr; c:/home/temp/misc
+
+~joe/../jenny/bin.
+   &rarr; error
+
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dfdi_002dpre.html#ref_002dfdi_002dpre" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dfdi_002dfsp.html#ref_002dfdi_002dfsp" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dfdi.html#ref_002dfdi" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dfdi_002dsyn.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dfdi_002dsyn.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-repeat</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-repeat">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-repeat">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002drestore.html#mpg_002dref_002drestore" rel="next" title="mpg-ref-restore">
+<link href="mpg_002dref_002dremove_005fbreakpoints.html#mpg_002dref_002dremove_005fbreakpoints" rel="prev" title="mpg-ref-remove_breakpoints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002drepeat"></a>
+<hr>
+<a name="repeat_002f0---ISO"></a>
+<h4 class="subsection">11.3.191 <code>repeat/0</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-repeat_002f0-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-repeat_002f0-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-216"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>repeat</code>
+</p>
+<p>Succeeds immediately when called and whenever reentered by
+backtracking.
+</p>
+<a name="Description-152"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Generally used to simulate the looping constructs
+found in traditional procedural languages.
+</p>
+<p>Generates an infinite sequence of backtracking choices.  In
+sensible code, <code>repeat/0</code> is hardly ever used except in
+<em>repeat loops</em>.  A repeat loop has the structure
+</p>
+<div class="example">
+<pre class="example"><var>Head</var> :-
+        &hellip;
+        <var>save_state</var>(OldState),
+        repeat,
+          <var>generate</var>(Datum),
+          <var>action</var>(Datum),
+          <var>test</var>(Datum),
+        !,
+        <var>restore_state</var>(OldState),
+        &hellip;
+</pre></div>
+
+<p>The purpose is to repeatedly perform some <var>action</var> on elements that
+are somehow <var>generate</var>d, e.g. by reading them from a stream,
+until some <var>test</var> becomes true.  Usually, <var>generate</var>,
+<var>action</var>, and <var>test</var> are all determinate.  Repeat loops
+cannot contribute to the logic of the program.  They are only
+meaningful if the <var>action</var> involves side-effects.
+</p>
+<a name="index-side_002deffects_002c-in-repeat-loops"></a>
+
+<p>The easiest way to understand the effect of <code>repeat/0</code> is to think of
+failures as &ldquo;bouncing&rdquo; back off them causing re-execution of the later
+goals.
+</p>
+<p>Repeat loops are not often needed; usually recursive procedure calls
+will lead to code that is easier to understand as well as more
+efficient.  There are certain circumstances, however, in which
+<code>repeat/0</code> will lead to greater efficiency.  An important
+property of SICStus Prolog is that all runtime data is stored in
+stacks so that any storage that has been allocated during a proof of a
+goal is recovered immediately on backtracking through that goal.
+Thus, in the above example, any space allocated by any of the
+<var>actions</var> is very efficiently reclaimed.  When an iterative
+construct is implemented using recursion, storage reclamation will
+only be done by the garbage collector.
+</p>
+<a name="Tips-7"></a>
+<h4 class="subheading">Tips</h4>
+
+<p>In the most common use of repeat loops, each of the calls succeeds
+determinately.
+It can be confusing if calls sometimes fail, so that
+backtracking starts before the test is reached, or if calls are
+nondeterminate, so that backtracking does not always go right back to 
+<code>repeat/0</code>.
+</p>
+<p>Note that the repeat loop can only be useful if one or more of the
+<var>actions</var> involves a side-effect &mdash; either a change to the data 
+base (such as an assertion) or an I/O operation.  Otherwise you would do
+the same thing each time around the loop (which would never terminate).
+</p>
+<a name="Backtracking-27"></a>
+<h4 class="subheading">Backtracking</h4>
+
+<p>Succeeds repeatedly until backtracking is terminated by a cut or
+an exception.
+</p>
+<a name="Exceptions-207"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+</p>
+<a name="See-Also-213"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dsem.html#ref_002dsem">ref-sem</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002drestore.html#mpg_002dref_002drestore" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dremove_005fbreakpoints.html#mpg_002dref_002dremove_005fbreakpoints" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002drepeat.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002drepeat.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

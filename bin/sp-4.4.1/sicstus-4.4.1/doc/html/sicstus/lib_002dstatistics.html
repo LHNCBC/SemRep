@@ -1,0 +1,304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-statistics</title>
+
+<meta name="description" content="SICStus Prolog: lib-statistics">
+<meta name="keywords" content="SICStus Prolog: lib-statistics">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dstructs.html#lib_002dstructs" rel="next" title="lib-structs">
+<link href="lib_002dsockets.html#lib_002dsockets" rel="prev" title="lib-sockets">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dstatistics"></a>
+<hr>
+<a name="Statistics-Functions_002d_002d_002dlibrary_0028statistics_0029"></a>
+<h3 class="section">10.36 Statistics Functions&mdash;<code>library(statistics)</code></h3>
+<p>This library module provides commonly used sample and population statistics functions.
+In this module, a <var>Sample</var> is simply a proper list of numbers, normally floating-point;
+<var>Weight</var> is a proper list of numbers and should be of the same length as <var>Sample</var>.
+</p>
+<p><strong>Please note:</strong> These functions are plain textbook algorithms and we make no claims
+about numerical stability, avoiding loss of precision, etc.
+</p>
+<p>Exported predicates:
+</p><dl compact="compact">
+<dt><code>min(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-min_002f2-_0028statistics_0029-1"></a>
+<a name="index-min_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the smallest element of <var>Sample</var>.
+</p></dd>
+<dt><code>max(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-max_002f2-_0028statistics_0029-1"></a>
+<a name="index-max_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the largest element of <var>Sample</var>.
+</p></dd>
+<dt><code>min_max(<var>+Sample</var>, <var>-Min</var>, <var>-Max</var>)</code></dt>
+<dd>
+<a name="index-min_005fmax_002f3-_0028statistics_0029-1"></a>
+<a name="index-min_005fmax_002f3-_0028statistics_0029"></a>
+
+<p>is true when <var>Min</var> (<var>Max</var>) is the smallest (largest) element of <var>Sample</var>.
+</p></dd>
+<dt><code>range(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-range_002f2-_0028statistics_0029-1"></a>
+<a name="index-range_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the difference between the largest and smallest elements of <var>Sample</var>.
+</p></dd>
+<dt><code>mode(<var>+Sample</var>, <var>-Values</var>)</code></dt>
+<dd>
+<a name="index-mode_002f2-_0028statistics_0029-1"></a>
+<a name="index-mode_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Values</var> is the most frequently occurring value(s) in <var>Sample</var>. 
+If there is a unique value with maximum frequency, this value is returned as the only element of <var>Values</var>. 
+Otherwise, <var>Values</var> contains the maximum frequency elements in increasing order.
+This predicate does not make much sense if the sample is continuous.
+</p></dd>
+<dt><code>mean(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dt><code>arithmetic_mean(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-mean_002f2-_0028statistics_0029-1"></a>
+<a name="index-mean_002f2-_0028statistics_0029"></a>
+
+
+<a name="index-arithmetic_005fmean_002f2-_0028statistics_0029-1"></a>
+<a name="index-arithmetic_005fmean_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the arithmetic mean of <var>Sample</var>.
+</p></dd>
+<dt><code>weighted_mean(<var>+Weight</var>, <var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-weighted_005fmean_002f3-_0028statistics_0029-1"></a>
+<a name="index-weighted_005fmean_002f3-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the arithmetic mean of <var>Sample</var> weighted by <var>Weight</var>.
+</p></dd>
+<dt><code>geometric_mean(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-geometric_005fmean_002f2-_0028statistics_0029-1"></a>
+<a name="index-geometric_005fmean_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the geometric mean of <var>Sample</var>.
+</p></dd>
+<dt><code>harmonic_mean(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-harmonic_005fmean_002f2-_0028statistics_0029-1"></a>
+<a name="index-harmonic_005fmean_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the harmonic mean of <var>Sample</var>.
+</p></dd>
+<dt><code>central_moment(<var>K</var>, <var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-central_005fmoment_002f3-_0028statistics_0029-1"></a>
+<a name="index-central_005fmoment_002f3-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the <var>K</var>-th central moment of <var>Sample</var>.
+Also known as the <var>K</var>-th central moment about the mean.
+<var>K</var> should be positive integer.
+</p></dd>
+<dt><code>skewness(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-skewness_002f2-_0028statistics_0029-1"></a>
+<a name="index-skewness_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the skewness of <var>Sample</var>.
+This is a measure of the asymmetry of its distribution.
+A sample with negative skew is said to be <em>left-skewed</em>.
+Most of its mass is on the right of the distribution, with the tail on the left.
+Vice versa for positive skew.
+A sample&rsquo;s skewness is undefined if its variance is zero.
+</p></dd>
+<dt><code>kurtosis(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-kurtosis_002f2-_0028statistics_0029-1"></a>
+<a name="index-kurtosis_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the excess kurtosis of <var>Sample</var>.
+This is a measure of the peakedness of its distribution.
+A high kurtosis indicates that most of the sample&rsquo;s variance is 
+due to infrequent severe deviations, rather than frequent modest deviations.
+A sample&rsquo;s excess kurtosis is undefined if its variance is zero.
+In this implementation, the kurtosis of the normal distribution is 0.
+</p></dd>
+<dt><code>ml_variance(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dt><code>population_variance(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-ml_005fvariance_002f2-_0028statistics_0029-1"></a>
+<a name="index-ml_005fvariance_002f2-_0028statistics_0029"></a>
+
+
+<a name="index-population_005fvariance_002f2-_0028statistics_0029-1"></a>
+<a name="index-population_005fvariance_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the maximum likelihood estimate of the variance of <var>Sample</var>.
+Also known as the population variance, where the denominator is the length of <var>Sample</var>.
+</p></dd>
+<dt><code>sample_variance(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dt><code>unbiased_variance(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-sample_005fvariance_002f2-_0028statistics_0029-1"></a>
+<a name="index-sample_005fvariance_002f2-_0028statistics_0029"></a>
+
+
+<a name="index-unbiased_005fvariance_002f2-_0028statistics_0029-1"></a>
+<a name="index-unbiased_005fvariance_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the unbiased estimate of the variance of <var>Sample</var>.
+Also known as the sample variance, where the denominator is the length of <var>Sample</var> minus one.
+</p></dd>
+<dt><code>weighted_variance(<var>+Weight</var>, <var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-weighted_005fvariance_002f3-_0028statistics_0029-1"></a>
+<a name="index-weighted_005fvariance_002f3-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the weighted (biased) estimate of the variance of <var>Sample</var>.
+</p></dd>
+<dt><code>ml_standard_deviation(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dt><code>population_standard_deviation(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-ml_005fstandard_005fdeviation_002f2-_0028statistics_0029-1"></a>
+<a name="index-ml_005fstandard_005fdeviation_002f2-_0028statistics_0029"></a>
+
+
+<a name="index-population_005fstandard_005fdeviation_002f2-_0028statistics_0029-1"></a>
+<a name="index-population_005fstandard_005fdeviation_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the maximum likelihood estimate of the standard deviation of <var>Sample</var>.
+Also known as the population standard deviation, where the denominator is the length of <var>Sample</var>.
+Equals the square root of the population variance.
+</p></dd>
+<dt><code>sample_standard_deviation(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dt><code>unbiased_standard_deviation(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-sample_005fstandard_005fdeviation_002f2-_0028statistics_0029-1"></a>
+<a name="index-sample_005fstandard_005fdeviation_002f2-_0028statistics_0029"></a>
+
+
+<a name="index-unbiased_005fstandard_005fdeviation_002f2-_0028statistics_0029-1"></a>
+<a name="index-unbiased_005fstandard_005fdeviation_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the unbiased estimate of the standard deviation of <var>Sample</var>.
+Also known as the sample standard deviation, where the denominator is the length of <var>Sample</var> minus one.
+Equals the square root of the sample variance.
+</p></dd>
+<dt><code>weighted_standard_deviation(<var>+Weight</var>, <var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-weighted_005fstandard_005fdeviation_002f3-_0028statistics_0029-1"></a>
+<a name="index-weighted_005fstandard_005fdeviation_002f3-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the weighted (biased) estimate of the standard deviation of <var>Sample</var>.
+Equals the square root of the weighted (biased) variance.
+</p></dd>
+<dt><code>covariance(<var>+Sample1</var>, <var>+Sample2</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-covariance_002f3-_0028statistics_0029-1"></a>
+<a name="index-covariance_002f3-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the covariance of <var>Sample1</var> and <var>Sample2</var>.
+</p></dd>
+<dt><code>correlation(<var>+Sample1</var>, <var>+Sample2</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-correlation_002f3-_0028statistics_0029-1"></a>
+<a name="index-correlation_002f3-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the correlation of <var>Sample1</var> and <var>Sample2</var>.
+</p></dd>
+<dt><code>median(<var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-median_002f2-_0028statistics_0029-1"></a>
+<a name="index-median_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the median of <var>Sample</var>, that is,
+the value separating the higher half of the sample from the lower half.
+If there are an even number of observations, then the median is defined to be the smaller middle value.
+Same as the 0.5-fractile of <var>Sample</var>.
+</p></dd>
+<dt><code>fractile(<var>P</var>, <var>+Sample</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-fractile_002f3-_0028statistics_0029-1"></a>
+<a name="index-fractile_002f3-_0028statistics_0029"></a>
+
+<p>is true when <var>Value</var> is the <var>P</var>-fractile of <var>Sample</var>, that is,
+the smallest value in the sample such that the fraction <var>P</var> of the sample is less than or equal to that value.
+<var>P</var> should be a number in (0.0,1.0].
+</p></dd>
+<dt><code>normalize(<var>+Sample</var>, <var>-Normalized</var>)</code></dt>
+<dd>
+<a name="index-normalize_002f2-_0028statistics_0029-1"></a>
+<a name="index-normalize_002f2-_0028statistics_0029"></a>
+
+<p>is true when <var>Normalized</var> is the normalized <var>Sample</var>, so that
+<var>Normalized</var> has a mean of 0 and a population standard deviation of 1.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dstructs.html#lib_002dstructs" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dsockets.html#lib_002dsockets" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dstatistics.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dstatistics.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

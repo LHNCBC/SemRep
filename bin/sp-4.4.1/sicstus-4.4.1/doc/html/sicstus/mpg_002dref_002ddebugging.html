@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-debugging</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-debugging">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-debugging">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002ddif.html#mpg_002dref_002ddif" rel="next" title="mpg-ref-dif">
+<link href="mpg_002dref_002ddebugger_005fcommand_005fhook.html#mpg_002dref_002ddebugger_005fcommand_005fhook" rel="prev" title="mpg-ref-debugger_command_hook">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002ddebugging"></a>
+<hr>
+<a name="debugging_002f0---development"></a>
+<h4 class="subsection">11.3.62 <code>debugging/0</code> &nbsp;<!-- /@w --> <i>development</i></h4>
+<a name="index-debugging_002f0-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-debugging_002f0-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-87"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>debugging</code>
+</p>
+<p>Prints out current debugging state
+</p>
+<a name="Description-68"></a>
+<h4 class="subheading">Description</h4>
+
+<p><code>debugging/0</code> displays information on the
+terminal about the current debugging state.  It shows
+</p><ul>
+<li> The top-level state of the debugger, which is one of
+
+<dl compact="compact">
+<dd><a name="index-debug-_0028debugging-flag-value_0029-1"></a>
+</dd>
+<dt><code>debug</code></dt>
+<dd><p>The debugger is on but will not show anything or stop for user
+interaction until a spypoint is reached.
+</p>
+<a name="index-trace-_0028debugging-flag-value_0029-1"></a>
+</dd>
+<dt><code>trace</code></dt>
+<dd><p>The debugger is on and will show everything.  As soon as you type
+a goal, you will start seeing a debugging trace.  After printing each trace
+message, the debugger may or may not stop for user interaction:  this
+depends on the type of leashing in force (see below).
+</p>
+<a name="index-zip-_0028debugging-flag-value_0029-1"></a>
+</dd>
+<dt><code>zip</code></dt>
+<dd><p>The debugger is on but will not show anything or stop for user
+interaction until a spypoint is reached. The debugger does not even keep any
+information of the execution of the goal till the spypoint is reached and
+hence you will not be able to see the ancestors of the goal when you
+reach the spypoint.
+</p>
+<a name="index-off-_0028debugging-flag-value_0029-1"></a>
+</dd>
+<dt><code>off</code></dt>
+<dd><p>The debugger is off.
+</p></dd>
+</dl>
+
+<p>The top-level state can be controlled by the predicates
+<code>debug/0</code>, <code>nodebug/0</code>, <code>trace/0</code>, <code>notrace/0</code>
+<code>zip/0</code>, <code>nozip/0</code>, and <code>prolog_flag/3</code>.
+</p>
+</li><li> The type of leashing in force.  When the debugger prints a message
+saying that it is passing through a particular port (one of Call,
+Exit, Redo, Fail, or Exception) of a particular procedure, it stops for user
+interaction only if that port is leashed.  The predicate <code>leash/1</code>
+can be used to select which of the seven ports you want to be leashed.
+</li><li> All the current spypoints.  Spypoints are controlled by the predicates
+<code>spy/[1,2]</code>, <code>nospy/1</code>, <code>nospyall/0</code>,
+<code>add_breakpoint/2</code>,
+<code>disable_breakpoints/1</code>,
+<code>enable_breakpoints/1</code>, and
+<code>remove_breakpoints/1</code>.
+</li></ul>
+
+<a name="Exceptions-78"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+</p>
+<a name="See-Also-84"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Basic-Debug.html#Basic-Debug">Basic Debug</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002ddif.html#mpg_002dref_002ddif" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002ddebugger_005fcommand_005fhook.html#mpg_002dref_002ddebugger_005fcommand_005fhook" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002ddebugging.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002ddebugging.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

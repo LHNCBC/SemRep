@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Stream Example</title>
+
+<meta name="description" content="SICStus Prolog: Stream Example">
+<meta name="keywords" content="SICStus Prolog: Stream Example">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Mixing-C-and-Prolog-Examples.html#Mixing-C-and-Prolog-Examples" rel="up" title="Mixing C and Prolog Examples">
+<link href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems" rel="next" title="Debugging Runtime Systems">
+<link href="Exceptions-from-C.html#Exceptions-from-C" rel="prev" title="Exceptions from C">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Stream-Example"></a>
+<hr>
+<a name="Stream-Example-1"></a>
+<h4 class="subsection">6.8.4 Stream Example</h4>
+
+<p>See <a href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a> for a simple example of defining a stream
+that reads from a C <code>FILE</code> stream.
+</p>
+<p>For a more realistic example, <code>library(codesio)</code> implements a
+stream that can return a list of
+all characters written to it. The source code for this library is
+located in <samp>library/codesio.pl</samp> and <samp>library/codesio.c</samp> and
+can serve as a useful sample for user defined streams both for input
+and output. That code also illustrates other important features of
+user defined streams, for instance ensuring that all the streams have
+been closed when the foreign resource is unloaded.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Exceptions-from-C.html#Exceptions-from-C" accesskey="p" rel="prev">Previous</a>
+<li><a href="Mixing-C-and-Prolog-Examples.html#Mixing-C-and-Prolog-Examples" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Stream-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Stream-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

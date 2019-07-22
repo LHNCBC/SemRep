@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-gru-tra</title>
+
+<meta name="description" content="SICStus Prolog: ref-gru-tra">
+<meta name="keywords" content="SICStus Prolog: ref-gru-tra">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dgru.html#ref_002dgru" rel="up" title="ref-gru">
+<link href="ref_002dgru_002dsum.html#ref_002dgru_002dsum" rel="next" title="ref-gru-sum">
+<link href="ref_002dgru_002dexa.html#ref_002dgru_002dexa" rel="prev" title="ref-gru-exa">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dgru_002dtra"></a>
+<hr>
+<a name="Semantics-of-Grammar-Rules"></a>
+<h4 class="subsection">4.14.4 Semantics of Grammar Rules</h4>
+
+<a name="index-grammar-rules_002c-semantics-of"></a>
+<a name="index-semantics-of-grammar-rules"></a>
+
+<p>Grammar rules are best explained in terms of an interpreter.  The
+semantics of <code>phrase/3</code> is shown as if defined by the interpreter
+shown below.  The interpreter&rsquo;s case analysis is as follows:
+</p>
+<dl compact="compact">
+<dt><var>control constructs</var></dt>
+<dd><p>(Including cuts and module prefixes).
+The interpreter implements the semantics of the construct,
+descending into its argument. Note that other built-in predicates are
+<em>not</em> treated this way.
+</p></dd>
+<dt><var>lists</var></dt>
+<dd><p>Treated as terminal symbols.
+</p></dd>
+<dt><var>curly brackets</var></dt>
+<dd><p>Treated as procedure calls.
+</p></dd>
+<dt><var>callable terms with functor <var>N/A</var></var></dt>
+<dd><p>A grammar rule with head functor <var>N/A</var> is looked up
+using the imaginary predicate <code>--&gt;/2</code>,
+unified against, and its body is interpreted.
+If none exists, then this is treated as a procedure call to
+a predicate <var>N/A+2</var>.
+</p></dd>
+<dt><var>non-callable terms</var></dt>
+<dd><p>Raise error exception.
+</p></dd>
+</dl>
+
+<p>The following points are worth noting:
+</p>
+<ul>
+<li> The code below defines what constructs of and to what depth
+grammar rule bodies are interpreted, as opposed to being treated as
+non-terminals.
+</li><li> Throughout the interpretation, we must keep track of the module context.
+</li><li> The head non-terminal of a grammar rule is
+optionally  followed  by  a  sequence of terminals. This feature is
+not supported by the interpreter, but is supported in the actual implementation.
+</li><li> As a general rule, the last argument is unified <em>after</em> any
+side-effects, including cuts.  This is in line with the rule
+that output arguments should not be unified before a cut (see <a href="Eff-Overview.html#Eff-Overview">Eff Overview</a>). In other words, grammar rules are <em>steadfast</em>.
+</li><li> The last clause gives a clue to how grammar rules are actually
+implemented, i.e. by compile-time transformation to ordinary Prolog
+clauses. A grammar rule with head functor <var>N/A</var> is transformed to a Prolog
+clause with head functor <var>N/A+2</var>, the extra arguments being
+<code>S0</code> and <code>S</code>. <code>--&gt;/2</code> is <em>not</em> a predicate.
+</li></ul>
+
+<p>The interpreter is as follows, slightly simplified:
+</p>
+<div class="example">
+<pre class="example">phrase(M:Body, S0, S) :-
+        phrase(Body, M, S0, S).
+
+phrase(Var, M, S0, S) :- \+callable(Var), !,
+        must_be(Var, callable, phrase(M:Var,S0,S), 1).
+phrase(M:Body, _, S0, S) :- !,
+        phrase(Body, M, S0, S).
+phrase(!, _, S0, S) :- !,
+        <em>cut relevant choicepoints</em>,
+        S0 = S.                 % <em>unification AFTER action</em>
+phrase((A, B), M, S0, S) :- !,
+        phrase(A, M, S0, S1),
+        phrase(B, M, S1, S).
+phrase((A -&gt; B), M, S0, S) :- !,
+    (   phrase(A, M, S0, S1) -&gt;
+        phrase(B, M, S1, S)
+    ).
+phrase((A -&gt; B ; C), M, S0, S) :- !,
+    (   phrase(A, M, S0, S1) -&gt;
+        phrase(B, M, S1, S)
+    ;   phrase(C, M, S0, S)
+    ).
+phrase((A ; B), M, S0, S) :- !,
+    (   phrase(A, M, S0, S)
+    ;   phrase(B, M, S0, S)
+    ).
+phrase(\+(A), M, S0, S) :- !,
+    (   phrase(A, M, S0, _) -&gt;
+        fail
+    ;   S0 = S
+    ).
+phrase(_^A, M, S0, S) :- !,
+        phrase(A, M, S0, S).
+phrase(do(Iter,Body), M, S0, S) :- !,
+    (   Iter,
+        fromto(S0,S1,S2,S)
+    do  phrase(Body, M, S1, S2)
+    ).
+phrase(if(A,B,C), M, S0, S) :- !,
+        if(phrase(A, M, S0, S1),
+           phrase(B, M, S1, S),
+           phrase(C, M, S0, S)).
+phrase(once(A), M, S0, S) :- !,
+    (   phrase(A, M, S0, S1) -&gt;
+        S1 = S                  % <em>unification AFTER call</em>
+    ).
+phrase([], _, S0, S) :- !,
+        S0 = S.
+phrase([H|T], M, S0, S) :- !,
+        S0 = [H|S1],
+        phrase(T, M, S1, S).
+phrase({G}, M, S0, S) :- !,
+        call(M:G),              % <strong>Please note:</strong> <em>transparent to cuts</em>
+        S0 = S.                 % <em>unification AFTER call</em>
+phrase(NT, M, S0, S) :-
+        \+ \+(M:NT --&gt; Rhs), !, % <em>grammar rule exists?</em>
+        (M:NT --&gt; Rhs),
+        phrase(Rhs, M, S0, S).
+phrase(NT, M, S0, S) :-
+        call(M:NT, S0, S).      % <em>otherwise, treat as procedure call</em>
+</pre></div>
+
+<p>As mentioned above, grammar rules are merely a convenient abbreviation
+for ordinary Prolog clauses.  Each grammar rule is translated into a
+Prolog clause as it is compiled.  This translation is exemplified
+below.
+</p>
+<p>The procedural interpretation of a grammar rule is that it takes an
+input list of symbols or character codes, analyzes some initial
+portion of that list, and produces the remaining portion (possibly
+enlarged) as output for further analysis.  The arguments required for
+the input and output lists are not written explicitly in a grammar
+rule, but are added when the rule is translated into an ordinary
+Prolog clause.  The translations shown differ from the output of
+<code>listing/[0,1]</code> in that internal translations such as variable
+renaming are not represented.  This is done in the interests of
+clarity.  For example, a rule such as (A) will be depicted as
+translating into (B) rather than (C).
+</p><div class="example">
+<pre class="example">p(X) --&gt; q(X). <!-- /@w --> (A)
+</pre></div>
+
+<div class="example">
+<pre class="example">p(X, S0, S) :-
+        q(X, S0, S). <!-- /@w --> (B)
+</pre></div>
+
+<div class="example">
+<pre class="example">p(A, B, C) :-
+        q(A, B, C). <!-- /@w --> (C)
+</pre></div>
+
+
+<p>If there is more than one non-terminal on the right-hand side, as in
+(D), then the corresponding input and output arguments are identified,
+translating into (E):
+</p>
+<div class="example">
+<pre class="example">p(X, Y) --&gt; q(X), r(X, Y), s(Y). <!-- /@w --> (D)
+</pre></div>
+
+<div class="example">
+<pre class="example">p(X, Y, S0, S) :- <!-- /@w --> (E)
+    q(X, S0, S1), 
+    r(X, Y, S1, S2), 
+    s(Y, S2, S).                            
+</pre></div>
+
+
+<p>Terminals are translated using the built-in predicate <code>=/2</code>.
+For instance, (F) is translated into (G):
+</p>
+<div class="example">
+<pre class="example">p(X) --&gt; [go, to], q(X), [stop]. <!-- /@w --> (F)
+</pre></div>
+
+<div class="example">
+<pre class="example">p(X, S0, S) :- <!-- /@w --> (G)
+    S0 = [go,to|S1],
+    q(X, S1, S2),
+    S2 = [stop|S].
+</pre></div>
+
+<p>Extra conditions expressed as explicit procedure calls, enclosed in
+curly braces, naturally translate into themselves.  For example (H)
+translates to (I):
+</p><div class="example">
+<pre class="example">p(X) --&gt; [X], {integer(X), X &gt; 0}, q(X). <!-- /@w --> (H)
+</pre></div>
+
+
+<div class="example">
+<pre class="example">p(X, S0, S) :- <!-- /@w --> (I)
+    S0 = [X|S1],
+    integer(X), 
+    X &gt; 0, 
+    q(X, S1, S).                            
+</pre></div>
+
+
+<p>Terminals on the left-hand side of a rule, enclosed in square
+brackets, also translate into a unification.  For example, (J) becomes (K):
+</p><div class="example">
+<pre class="example">is(N), [not] --&gt; [aint]. <!-- /@w --> (J)
+</pre></div>
+
+
+<div class="example">
+<pre class="example">is(N, S0, S) :- <!-- /@w --> (K)
+    S0 = [aint|S1],
+    S = [not|S1].
+</pre></div>
+
+
+<p>Disjunction and other control constructs have a fairly obvious
+translation.  For example, (L), a rule that equates phrases like
+&ldquo;(sent) a letter to him&rdquo; and &ldquo;(sent) him a letter&rdquo;, translates to (M):
+</p><div class="example">
+<pre class="example">args(X, Y) --&gt; <!-- /@w --> (L)
+    (   indir(X), [to], indir(Y)
+    ;   indir(Y), dir(X)
+    ).
+</pre></div>
+
+<div class="example">
+<pre class="example">args(X, Y, S0, S) :- <!-- /@w --> (M)
+    (   dir(X, S0, S1), 
+        S1 = [to|S2], 
+        indir(Y, S2, S) 
+    ;   indir(Y, S0, S1), 
+        dir(X, S1, S)
+    ).                                      
+</pre></div>
+
+
+<p>In order to look at these translations, declare the grammar rules
+dynamic and use <code>listing/[0,1]</code>.  However, bear in mind that
+a grammar rule with head functor <var>N/A</var> is transformed to a Prolog
+clause with head functor <var>N/A+2</var>.  For example, the following declaration for
+grammar rule (L) would enable you to list its translation, (M):
+</p><div class="example">
+<pre class="example"> :- dynamic args/4.
+</pre></div>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dgru_002dsum.html#ref_002dgru_002dsum" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dgru_002dexa.html#ref_002dgru_002dexa" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dgru.html#ref_002dgru" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dgru_002dtra.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dgru_002dtra.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

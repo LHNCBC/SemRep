@@ -1,0 +1,161 @@
+                Description of Data Object Concept and its use:
+
+"docset" is a data object that consists of five files. These files are
+   denoted by the letters "a", "m", "n", "u", and "w". An occurrence of
+   this data object is also given a distinguishing string as a name. For
+   example we could call this string "occur". Then the file
+
+   "docset_occur.a" is an array of long in binary format, as many as
+       there are documents. It is the file offsets in the "w" file
+       for the documents.
+   "docset_occur.m" is an array of long in binary format, as many as
+       there are documents. It is the maximum local count for each
+       document.
+   "docset_occur.n" is a single long and the number of documents.
+   "docset_occur.u" is an array of long in ascii format, as many as
+       there are documents. It is the medline uids for the documents.
+   "docset_occur.w" is the list of documents one after another in
+       ascii format. First comes the number of terms and then the
+       maximum local count in the document. Then comes a list of
+       objects of the form word|n, where word is a term in the 
+       document and n is the local count of that term.
+
+"postset" is a data object that consists of six files. These files are
+   denoted by the letters "d", "f", "n", "p", "s". Naming of a particular 
+   occurrence is marked just as for all data objects. 
+
+   "postset_occur.d" is the number of documents in the set from 
+       which it was taken.
+   "postset_occur.a" is an array of long in binary format, as many as
+       there are keyterms. It is the file offsets in the "p" file
+       for a keyterms postings.
+   "postset_occur.f" is an array of long in binary format. Is the
+       frequencies of the keyterms. 
+   "postset_occur.n" is a single long in ascii format and the number
+       of keyterms.
+   "postset_occur.p" is an array of {long,char} structures in binary 
+       format. It is the listing for the postings for each term
+       occurrence in each document in order by term lexically and 
+       then by document number within the list for each term. There
+       are 5 bytes in each entry for a document, a long for the 
+       document number and a char for the local frequency.
+   "postset_occur.s" is the list of keyterms in ascii. They are 
+       lexically ordered and may have white space within a term.
+       They are terminated by '\n'.
+
+"dbnset" is a data object that consists of five files. These files are
+   denoted by the letters "d", "n", "a", "s", and "w". 
+   
+   "dbnset_occur.d" is the number of documents in the database.
+   "dbnset_occur.n" is the number of keyterms in the system.
+   "dbnset_occur.a" is the file offset of each documents data in
+       the w file in binary format.
+   "dbnset_occur.s" is the number of words in each document in binary.
+   "dbnset_occur.w" is the data in binary format for each document.
+       Data is a list of longs, one for each term giving its number 
+       in the lexical ordering of all terms. Then a list of floats
+       which are the local weights, one for each terms. The number
+       of terms if of course the size of the document in file "s".
+
+"termset" is a data object that consists of five files. These are 
+   denoted by the letters "d", "f", "n", "i", and "r". 
+ 
+   "termset_occur.d" is in ascii the number of documents in the set from 
+       which it was taken.
+   "termset_occur.n" is a single long in ascii format and the number
+       of keyterms.
+   "termset_occur.f" is an array of long in binary format. It is the
+       frequency of the terms in the set in lexical order. The 
+       number of terms must be obtained from "postset".
+   "termset_occur.i" is an array of longs in binary format.  
+       It is the number of relevant documents that had the term, for
+       each term.
+   "termset_occur.r" is an array of longs in binary format.  
+       It is the number of relevant documents for each term.
+
+"vecset" is the data that is used to produce similarity scores for 
+   the documents in "docset". It is produced by processing "docset"
+   "postset" and "termset". It has five files marked by the letters
+   "d", "n", "s", "w", and "v".
+
+   "vecset_occur.d" is in ascii the number of documents in the set from 
+       which it was taken.
+   "vecset_occur.n" is a single long in ascii format and the number
+       of keyterms.
+   "vecset_occur.s" is an array of floats in binary. There is one 
+       number for each term in the "termset". These are the
+       strengths of the terms. 
+   "vecset_occur.w" is an array of floats in binary. There is one 
+       number for each term in the "termset" and they are the weights.
+   "vecset_occur.v" is an array of floats in binary. There is one
+       number for each document in "docset" and they are the vector
+       lengths. The number of documents must be obtained from "docset".
+
+"stanset" is the data that defines a test set in the context of a
+   "docset". It has three files marked by "q", "u", and "c". 
+
+   "stanset_occur.q" is a set of pairs of uids. The first uid is 
+       the query and the second is a document that has been rated 
+       against this query. Must be grouped by the first uid.
+       Uids come from the documents in "docset" and must be 
+       associated in a 1-1 manner.
+   "stanset_occur.u" is an ascii file in the following format. It
+       begins with the number of queries. Then for each query there 
+       is the query uid followed by the number of test docs for that
+       query. Next comes a listing of the uids of that list of 
+       test docs. 
+   "stanset_occur.c" has the same format as the file "stanset_occur.u"
+       but each uid is replaced with the document number. This file
+       is obtained from the former by the use of "docset_occur.u".
+
+"rateset" is the set of files that defines an instance of the Rate class.
+    There are four files with the letters "u", "i", "j", and "r".
+
+    "rateset_occur.u" is an ascii file consisting of two columns of long
+       integers. These are the uid pairs that are identify the test set
+       document pairs. This file must be preconstructed to define the
+       test set.
+
+    "rateset_occur.i" is an ascii file consisting of two columns of long
+       integers. These are the numbers that replace the uids in the "u"
+       file. They are the document numbers for the document in the Docum
+       class.
+
+    "rateset_occur.j" is an ascii file that has on its first line the number
+       of judges in the class of judges and following the first line has the
+       full paths to the files of judgments for the different judges.
+
+    "rateset_occur.r" is an ascii file that is used to output results from 
+       various tests.
+
+The foregoing data objects can have particular occurrences and these 
+are represented in calling a function by strings that name the 
+occurrence. Type of call is denoted by
+
+char *dex
+   for "docset" objects
+char *pex
+   for "postset" objects
+char *tex 
+   for "termset" objects
+char *vex
+   for "vecset" objects
+char *sex
+   for "stanset" objects
+
+There are other types of objects that occur in the project file and
+are accessed via the project file. Important ones are
+
+files of name "iret.occur" where occur is denoted in the calling
+   function by char *iex. Format is standard.
+files of name "judg.occur" where occur is denoted in the calling
+   function by char *jex. Format is based on the "stanset_occur.c"
+   of "stanset_occur.u" file. Format is pairs of numbers that 
+   occur in sets corresponding to the queries. Each pair of numbers
+   corresponds to a document that has been judged in relation to 
+   the query. First number of a pair is the rating and second is
+   the best possible score for the document.
+file collections with marker "-combo occur" where occur is
+   denoted in the calling function by char *cex.
+
+

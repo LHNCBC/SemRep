@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-fdi-fsp-pre</title>
+
+<meta name="description" content="SICStus Prolog: ref-fdi-fsp-pre">
+<meta name="keywords" content="SICStus Prolog: ref-fdi-fsp-pre">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dfdi_002dfsp.html#ref_002dfdi_002dfsp" rel="up" title="ref-fdi-fsp">
+<link href="ref_002dfdi_002dsyn.html#ref_002dfdi_002dsyn" rel="next" title="ref-fdi-syn">
+<link href="ref_002dfdi_002dfsp_002dffs.html#ref_002dfdi_002dfsp_002dffs" rel="prev" title="ref-fdi-fsp-ffs">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dfdi_002dfsp_002dpre"></a>
+<hr>
+<a name="Predefined-File-Search-Paths"></a>
+<h4 class="subsubsection">4.5.1.3 Predefined File Search Paths</h4>
+
+<p><code>user:file_search_path/2</code> is undefined at startup, 
+but all callers first try a number of default file search paths, almost
+as if <code>user:file_search_path/2</code> had the following initial
+clauses. Therefore, to expand file search paths, you should not call
+<code>user:file_search_path/2</code> directly, but instead call
+<code>absolute_file_name/[2,3]</code>.
+</p>
+<a name="index-host_005ftype-_0028prolog-flag_0029"></a>
+<p>See <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a> for more info on the Prolog flag <code>host_type</code>.
+</p>
+<p>The system properties <code>SP_APP_DIR</code> and <code>SP_RT_DIR</code> expand
+respectively to the absolute path of the directory that contains the
+executable and the directory that contains the SICStus runtime. The
+system property <code>SP_TEMP_DIR</code> expands to a directory suitable
+for storing temporary files, it is particularly useful with the
+<code>open/4</code> option <code>if_exists(generate_unique_name)</code>.
+</p>
+<div class="example">
+<pre class="example">%% file_search_path/2 (virtual) initial clauses
+file_search_path(library, '$SP_LIBRARY_DIR').
+file_search_path(library, Path) :-
+        library_directory(Path).
+file_search_path(system, Platform) :-
+        prolog_flag(host_type, Platform).
+file_search_path(application, '$SP_APP_DIR').
+file_search_path(runtime, '$SP_RT_DIR').
+file_search_path(temp, '$SP_TEMP_DIR').
+file_search_path(path, Path) :- 
+ %% enumerate all directories in $PATH 
+ &hellip;
+</pre></div>
+
+
+<p>The only default expansion for the <code>library</code> file search path is
+the value of the system property <code>SP_LIBRARY_DIR</code>. However, you can
+add expansions for <code>library</code> by adding clauses to
+<code>user:library_directory/1</code> (which is initially undefined). This
+feature is mainly for compatibility with earlier releases. It is better
+to add your own names for file search paths directly to
+<code>user:file_search_path/2</code> and not extend the file search path
+<code>library</code> at all.
+</p>
+<div class="example">
+<pre class="example">:- multifile user:library_directory/1.
+user:library_directory('/home/joe/myprologcode/').
+user:library_directory('/home/jane/project/code').
+</pre></div>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dfdi_002dfsp_002dffs.html#ref_002dfdi_002dfsp_002dffs" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dfdi_002dfsp.html#ref_002dfdi_002dfsp" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dfdi_002dfsp_002dpre.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dfdi_002dfsp_002dpre.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

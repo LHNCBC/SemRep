@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Debug Summary</title>
+
+<meta name="description" content="SICStus Prolog: Debug Summary">
+<meta name="keywords" content="SICStus Prolog: Debug Summary">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Debug-Intro.html#Debug-Intro" rel="up" title="Debug Intro">
+<link href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" rel="next" title="Mixing C and Prolog">
+<link href="Exceptions-Debug.html#Exceptions-Debug" rel="prev" title="Exceptions Debug">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Debug-Summary"></a>
+<hr>
+<a name="Predicate-Summary-5"></a>
+<h3 class="section">5.12 Predicate Summary</h3>
+
+
+<a name="index-debugging_002c-predicates-for"></a>
+<a name="index-predicates-for-debugging"></a>
+
+<dl compact="compact">
+<dt><code>add_breakpoint(<var>+Conditions</var>, <var>-BID</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>Creates a breakpoint with <var>Conditions</var> and with identifier
+<var>BID</var>.  
+</p>
+</dd>
+<dt><code>user:breakpoint_expansion(<var>+Macro</var>, <var>-Body</var>) &nbsp;<!-- /@w --> <i>hook</i>,<i>development</i></code></dt>
+<dd><p>defines debugger condition macros
+</p>
+</dd>
+<dt><code>coverage_data(<var>?Data</var>) &nbsp;<!-- /@w --> <i>since release 4.2</i>,<i>development</i></code></dt>
+<dd><p><var>Data</var> is the coverage data accumulated so far
+</p>
+</dd>
+<dt><code>current_breakpoint(<var>?Conditions</var>, <var>?BID</var>, <var>?Status</var>, <var>?Kind</var>, <var>?Type</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>There is a breakpoint with conditions <var>Conditions</var>, identifier
+<var>BID</var>, enabledness <var>Status</var>, kind <var>Kind</var>, and type
+<var>Type</var>.
+</p>
+</dd>
+<dt><code>debug &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>switch on debugging
+</p>
+</dd>
+<dt><code>user:debugger_command_hook(<var>+DCommand</var>,<var>-Actions</var>) &nbsp;<!-- /@w --> <i>hook</i>,<i>development</i></code></dt>
+<dd><p>Allows the interactive debugger to be extended with user-defined
+commands.
+</p>
+</dd>
+<dt><code>debugging &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>display debugging status information
+</p>
+</dd>
+<dt><code>disable_breakpoints(<var>+BIDs</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>Disables the breakpoints specified by <var>BIDs</var>.
+</p>
+</dd>
+<dt><code>enable_breakpoints(<var>+BIDs</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>Enables the breakpoints specified by <var>BIDs</var>.
+</p>
+</dd>
+<dt><code>user:error_exception(<var>+Exception</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p><var>Exception</var> is an exception that traps to the debugger if it is
+switched on.
+</p>
+</dd>
+<dt><code>execution_state(<var>+Tests</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p><var>Tests</var> are satisfied in the current state of the execution.
+</p>
+</dd>
+<dt><code>execution_state(<var>+FocusConditions</var>, <var>+Tests</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p><var>Tests</var> are satisfied in the state of the execution pointed to by
+<var>FocusConditions</var>.
+</p>
+</dd>
+<dt><code>leash(<var>+M</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>set the debugger&rsquo;s leashing mode to <var>M</var>
+</p>
+</dd>
+<dt><code>nodebug &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>switch off debugging
+</p>
+</dd>
+<dt><code>nospy(<var>:P</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>remove spypoints from the procedure(s) specified by <var>P</var>
+</p>
+</dd>
+<dt><code>nospyall &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>remove all spypoints
+</p>
+</dd>
+<dt><code>notrace &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>switch off debugging (same as <code>nodebug/0</code>)
+</p>
+</dd>
+<dt><code>nozip &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>switch off debugging (same as <code>nodebug/0</code>)
+</p>
+</dd>
+<dt><code>print_coverage &nbsp;<!-- /@w --> <i>since release 4.2</i>,<i>development</i></code></dt>
+<dt><code>print_coverage(<var>?Data</var>) &nbsp;<!-- /@w --> <i>since release 4.2</i>,<i>development</i></code></dt>
+<dd><p>The coverage data <var>Data</var> is displayed in a hierarchical
+format.  <var>Data</var> defaults to the coverage data accumulated so far.
+</p>
+</dd>
+<dt><code>print_profile &nbsp;<!-- /@w --> <i>since release 4.2</i>,<i>development</i></code></dt>
+<dt><code>print_profile(<var>?Data</var>) &nbsp;<!-- /@w --> <i>since release 4.2</i>,<i>development</i></code></dt>
+<dd><p>The profiling data <var>Data</var> is displayed in a format similar to
+<code>gprof(1)</code>.  <var>Data</var> defaults to the profiling data accumulated so far.
+</p>
+</dd>
+<dt><code>profile_data(<var>?Data</var>) &nbsp;<!-- /@w --> <i>since release 4.2</i>,<i>development</i></code></dt>
+<dd><p><var>Data</var> is the profiling data accumulated so far
+</p>
+</dd>
+<dt><code>profile_reset &nbsp;<!-- /@w --> <i>since release 4.2</i>,<i>development</i></code></dt>
+<dd><p>All profiling data is reset.
+</p>
+</dd>
+<dt><code>remove_breakpoints(<var>+BIDs</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>Removes the breakpoints specified by <var>BIDs</var>.
+</p>
+</dd>
+<dt><code>spy(<var>:P</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dt><code>spy(<var>:P</var>,<var>:C</var>)</code></dt>
+<dd><p>set spypoints on the procedure(s) specified by <var>P</var>
+with conditions <var>C</var>
+</p>
+</dd>
+<dt><code>trace &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>switch on debugging and start tracing immediately
+</p>
+</dd>
+<dt><code>unknown(<var>-O</var>,<var>+N</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>Changes action on undefined predicates from <var>O</var> to <var>N</var>.
+</p>
+</dd>
+<dt><code>user:unknown_predicate_handler(<var>+G</var>,<var>+M</var>,<var>-N</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>handle for unknown predicates.
+</p>
+</dd>
+<dt><code>zip &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd><p>switch on debugging in zip mode
+</p>
+</dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Exceptions-Debug.html#Exceptions-Debug" accesskey="p" rel="prev">Previous</a>
+<li><a href="Debug-Intro.html#Debug-Intro" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Debug-Summary.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Debug-Summary.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

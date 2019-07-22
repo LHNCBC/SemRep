@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Syntax (Tcl)</title>
+
+<meta name="description" content="SICStus Prolog: Syntax (Tcl)">
+<meta name="keywords" content="SICStus Prolog: Syntax (Tcl)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tcl.html#Tcl" rel="up" title="Tcl">
+<link href="Variables-_0028Tcl_0029.html#Variables-_0028Tcl_0029" rel="next" title="Variables (Tcl)">
+<link href="Tcl.html#Tcl" rel="prev" title="Tcl">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Syntax-_0028Tcl_0029"></a>
+<hr>
+<a name="Syntax-2"></a>
+<h4 class="subsubsection">10.39.2.1 Syntax</h4>
+
+<p>A Tcl script consists of a series of strings separated from each other
+by a newline character. Each string contains a command or series of
+semi-colon separated commands.  A command is a series of words separated
+by spaces. The first word in a command is the name of the command and
+subsequent words are its arguments.
+</p>
+<p>An example is:
+</p>
+<div class="example">
+<pre class="example">set a 1
+set b 2
+</pre></div>
+
+<p>which is a Tcl script of two commands: the first command sets the value
+of variable <code>a</code> to <code>1</code>, and the second command sets the value
+of variable <code>b</code> to <code>2</code>.
+</p>
+<p>An example of two commands on the same line separated by a semi-colon
+is:
+</p>
+<div class="example">
+<pre class="example">set a 1; set b 2
+</pre></div>
+
+<p>which is equivalent to the previous example but written entirely on one
+line.
+</p>
+<p>A command is executed in two phases.  In the first phase, the command is
+broken down into its constituent words and various textual substitutions
+are performed on those words.  In the second phase, the procedure to
+call is identified from the first word in the command, and the procedure
+is called with the remaining words as arguments.
+</p>
+<p>There are special syntactic characters that control how the first
+phase, the substitution phase, is carried out. The three major
+substitution types are variable substitution, command substitution, and
+backslash substitution.
+</p>
+<p><em>Variable substitution</em> happens when a &lsquo;<samp>$</samp>&rsquo; prefixed word is found
+in a command.  There are three types of variable substitution:
+</p>
+<ul class="no-bullet">
+<li>- <code>$<var>name</var></code>
+<ul class="no-bullet">
+<li>- where <var>name</var> is a scalar variable. <var>name</var> is simply substituted
+in the word for its value. <var>name</var> can contain only letters, 
+digits, or underscores.
+</li></ul>
+
+</li><li>- <code>$<var>name</var>(<var>index</var>)</code>
+<ul class="no-bullet">
+<li>- where <var>name</var> is the name of an array variable and <var>index</var> is the
+index into it. This is substituted by the value of the array element.
+<var>name</var> must contain only letters, digits, or underscores.
+<var>index</var> has variable, command, and backslash substitution performed
+on it too.
+</li></ul>
+
+</li><li>- <code>${<var>name</var>}</code>
+<ul class="no-bullet">
+<li>- where <var>name</var> can have any characters in it except closing curly
+bracket.  This is more or less the same as <code>$<var>name</var></code>
+substitution except it is used to get around the restrictions in the
+characters that can form <var>name</var>.
+</li></ul>
+</li></ul>
+
+<p>An example of variable substitution is:
+</p>
+<div class="example">
+<pre class="example">set a 1
+set b $a
+</pre></div>
+
+<p>which sets the value of variable <code>a</code> to <code>1</code>, and then sets the value
+of variable <code>b</code> to the value of variable <code>a</code>.
+</p>
+<p><em>Command substitution</em> happens when a word contains an open square bracket,
+&lsquo;<samp>[</samp>&rsquo;. The string between the open bracket and matching closing bracket
+are treated as a Tcl script. The script is evaluated and its result
+is substituted in place of the original command substitution word.
+</p>
+<p>A simple example of command substitution is:
+</p>
+<div class="example">
+<pre class="example">set a 1
+set b [set a]
+</pre></div>
+
+<p>which does the same as the previous example but using command
+substitution.  The result of a <code>set a</code> command is to return the
+value of <code>a</code>, which is then passed as an argument to
+<code>set b</code> and so variable <code>b</code> acquires the value of variable
+<code>a</code>.
+</p>
+<p><em>Backslash substitution</em> is performed whenever the interpreter comes
+across a backslash.  The backslash is an escape character and when it is
+encountered is causes the interpreter to handle the next characters
+specially.  Commonly escaped characters are &lsquo;<samp>\a</samp>&rsquo; for audible bell,
+&lsquo;<samp>\b</samp>&rsquo; for backspace, &lsquo;<samp>\f</samp>&rsquo; for form feed, &lsquo;<samp>\n</samp>&rsquo; for newline,
+&lsquo;<samp>\r</samp>&rsquo; for carriage return, &lsquo;<samp>\t</samp>&rsquo; for horizontal tab, and
+&lsquo;<samp>\v</samp>&rsquo; for vertical tab. Double-backslash, &lsquo;<samp>\\</samp>&rsquo;, is substituted
+with a single backslash.  Other special backslash substitutions have the
+following forms:
+</p>
+<ul>
+<li> <code>\ooo</code>
+<ul class="no-bullet">
+<li>- the digits <code>ooo</code> give the octal value of the escaped character
+</li></ul>
+
+</li><li> <code>\xHH</code>
+<ul class="no-bullet">
+<li>- the <code>x</code> denotes that the following hexadecimal digits are the value
+of the escaped character
+</li></ul>
+</li></ul>
+
+<p>Any other character that is backslash escaped is simply substituted by
+the character itself. For example, <code>\W</code> is replaced by <code>W</code>.
+</p>
+<p>A further syntactic construction is used to <em>delay substitution</em>.
+When the beginning of a word starts with a curly bracket, &lsquo;<samp>{</samp>&rsquo;, it
+does not do any of the above substitutions between the opening curly
+bracket and its matching closing curly bracket.  The word ends with the
+matching closing curly bracket.  This construct is used to make the
+bodies of procedures in which substitutions happen when the procedure is
+called, not when it is constructed.  Or it is used anywhere when the
+programmer does not want the normal substitutions to happen. For
+example:
+</p>
+<div class="example">
+<pre class="example">puts {I have $20}
+</pre></div>
+
+<p>will print the string &lsquo;<samp>I have $20</samp>&rsquo; and will not try variable
+substitution on the &lsquo;<samp>$20</samp>&rsquo; part.
+</p>
+<p>A word delineated by curly brackets is replaced with the characters
+within the brackets without performing the usual substitutions.
+</p>
+<p>A word can begin with a <em>double-quote</em> and end with the matching closing
+double-quote. Substitutions as detailed above are done on the
+characters between the quotes, and the result is then substituted for
+the original word. Typically double-quotes are used to group 
+sequences of characters that contain spaces into a single command word.
+</p>
+<p>For example:
+</p>
+<div class="example">
+<pre class="example">set name &quot;Fred the Great&quot;
+puts &quot;Hello my name is $name&quot;
+</pre></div>
+
+<p>outputs &lsquo;<samp>Hello my name is Fred the Great</samp>&rsquo;. The first command sets
+the value of variable <code>name</code> to the following double-quoted string
+<code>&quot;Fred the Great&quot;</code>. The the next command prints its argument,
+a single argument because it is a word delineated by
+double-quotes, that has had variable substitution performed on it.
+</p>
+<p>Here is the same example but using curly brackets instead of double-quotes:
+</p>
+<div class="example">
+<pre class="example">set name {Fred the Great}
+puts {Hello my name is $name}
+</pre></div>
+
+<p>gives the output &lsquo;<samp>Hello my name is $name</samp>&rsquo; because substitutions
+are suppressed by the curly bracket notation.
+</p>
+<p>And again the same example but without either curly brackets or double-quotes:
+</p>
+<div class="example">
+<pre class="example">set name Fred the Great
+puts Hello my name is $name
+</pre></div>
+
+<p>simply fails because both <code>set</code> and <code>puts</code> expect a single
+argument but without the word grouping effects of double-quotes or
+curly brackets they find that they have more than one argument and
+throw an exception.
+</p>
+<p>Being a simple scripting language, Tcl does not have any real idea of
+data types. The interpreter simply manipulates strings.  The Tcl
+interpreter is not concerned with whether those strings contain
+representations of numbers or names or lists.  It is up to the commands
+themselves to interpret the strings that are passed to them as
+arguments in any manner those choose.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Variables-_0028Tcl_0029.html#Variables-_0028Tcl_0029" accesskey="n" rel="next">Next</a>
+<li><a href="Tcl.html#Tcl" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Syntax-_0028Tcl_0029.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Syntax-_0028Tcl_0029.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

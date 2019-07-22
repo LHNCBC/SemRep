@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FDBG Writing Legend Printers</title>
+
+<meta name="description" content="SICStus Prolog: FDBG Writing Legend Printers">
+<meta name="keywords" content="SICStus Prolog: FDBG Writing Legend Printers">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" rel="up" title="FDBG Advanced Usage">
+<link href="FDBG-Showing-Selected-Constraints-_0028simple-version_0029.html#FDBG-Showing-Selected-Constraints-_0028simple-version_0029" rel="next" title="FDBG Showing Selected Constraints (simple version)">
+<link href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers" rel="prev" title="FDBG Writing Visualizers">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FDBG-Writing-Legend-Printers"></a>
+<hr>
+<a name="Writing-Legend-Printers"></a>
+<h4 class="subsubsection">10.15.4.3 Writing Legend Printers</h4>
+
+<p>When you write your own visualizers, you might not be satisfied with the
+default format of the legend.  Therefore you might want to write your
+own legend printer, replacing <code>fdbg_legend/[1,2]</code>.  This should be
+quite straightforward based on the variable list returned by
+<code>fdbg_annotate/[3,4]</code>.  Processing the rest of the action
+list and writing conclusions about the constraint behavior is not
+that easy though.  To help your work, FDBG provides a predicate to
+transform the raw action list to a more readable form:
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-fdbg_005ftransform_005factions_002f3-_0028fdbg_0029-1"></a>
+<a name="index-fdbg_005ftransform_005factions_002f3-_0028fdbg_0029"></a>
+
+</dd>
+<dt><code>fdbg_transform_actions(<var>+Actions</var>, <var>+Vars</var>, <var>-TransformedActions</var>)</code></dt>
+<dd><p>This will do the following transformations to <var>Actions</var>, returning
+the result in <var>TransformedActions</var>:
+</p>
+<ol>
+<li> remove all actions concerning variables in <var>Vars</var> (the list
+returned by <code>fdbg_annotate/[3,4]</code>);
+</li><li> remove multiple <code>exit</code> and/or <code>fail</code> commands;
+</li><li> remove all ground actions, translating those that will cause
+failure into <code>fail(<var>Action</var>)</code>;
+</li><li> substitute all other narrowings with an <code>fdvar/3</code> compound
+term per variable.
+</li></ol>
+
+<p>The transformed action list may contain the following terms:
+</p>
+<dl compact="compact">
+<dt><code>exit</code></dt>
+<dd><p>the constraint exits
+</p>
+</dd>
+<dt><code>fail</code></dt>
+<dd><p>the constraint fails due to a <code>fail</code> action
+</p>
+</dd>
+<dt><code>fail(<var>Action</var>)</code></dt>
+<dd><p>the constraint fails because of <var>Action</var>
+</p>
+</dd>
+<dt><code>call(<var>Goal</var>)</code></dt>
+<dd><p><var>Actions</var> originally contained this action.  FDBG cannot do anything
+with that but to inform the user about it.
+</p>
+</dd>
+<dt><code>fdvar(<var>Name</var>, <var>Var</var>, <var>FDSet</var>)</code></dt>
+<dd><p><var>Actions</var> also narrowed some variables that did not appear in
+the <var>Vars</var> list, this is one of them.  The meaning of the
+arguments is the usual, described in <a href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers">FDBG Writing Visualizers</a>.  This should normally not happen.
+</p>
+</dd>
+<dt><code><var>AnythingElse</var></code></dt>
+<dd><p><var>Actions</var> contained unrecognized actions too, these are copied
+unmodified.  This should not happen!
+</p></dd>
+</dl>
+
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FDBG-Showing-Selected-Constraints-_0028simple-version_0029.html#FDBG-Showing-Selected-Constraints-_0028simple-version_0029" accesskey="n" rel="next">Next</a>
+<li><a href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers" accesskey="p" rel="prev">Previous</a>
+<li><a href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Writing-Legend-Printers.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Writing-Legend-Printers.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

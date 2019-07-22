@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Interfacing .NET and Java</title>
+
+<meta name="description" content="SICStus Prolog: Interfacing .NET and Java">
+<meta name="keywords" content="SICStus Prolog: Interfacing .NET and Java">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes" rel="next" title="Multiple SICStus Runtimes">
+<link href="Examples-of-Debugging-Runtime-Systems.html#Examples-of-Debugging-Runtime-Systems" rel="prev" title="Examples of Debugging Runtime Systems">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Interfacing-_002eNET-and-Java"></a>
+<hr>
+<a name="Interfacing-_002eNET-and-Java-1"></a>
+<h2 class="chapter">7 Interfacing .NET and Java</h2>
+
+
+<p>SICStus Prolog supports two different ways of interfacing a Prolog
+program with a Java client, and one for interfacing with a .NET
+client.
+</p>
+<p>SICStus Prolog provides a uniform way of interfacing to Java and .NET
+clients via the <em>PrologBeans</em> (see <a href="lib_002dprologbeans.html#lib_002dprologbeans">lib-prologbeans</a>) interface.
+This is a loosely coupled interface, which means that the client code
+runs in a different process from the Prolog code. In fact, the client
+program and the Prolog program can run on separate machines, since the
+communication is done via TCP/IP sockets. This design has the
+following advantages over a tightly coupled interface, where they run
+in the same process:
+</p>
+<ul>
+<li> There is no competition for memory or other process-wide resources
+between the virtual machines of the client (.NET or JVM) and of Prolog.
+
+</li><li> Distribution over a network is trivial when using PrologBeans. The 
+application is distributable from the beginning.
+
+</li><li> PrologBeans has support for user session handling both at the Java level 
+(with support for HTTP sessions and JNDI lookup) and at the Prolog 
+level. This makes it easy to integrate Prolog applications into 
+applications based on Java servers.
+</li></ul>
+
+<p>The main limitation of the design is that callbacks from Prolog to the
+client is not provided for.
+</p>
+<p><em>PrologBeans</em> is the recommended package unless you
+have special needs and are interfacing with Java in which case you may
+consider using <em>Jasper</em>.
+</p>
+<p>For interfacing to Java clients SICStus Prolog also provides
+<em>Jasper</em> (see <a href="lib_002djasper.html#lib_002djasper">lib-jasper</a>), a &ldquo;tightly coupled&rdquo; interface.
+This means that everything runs in the same process (the necessary
+code is loaded at runtime via dynamic linking).
+</p>
+<p>Advantages of Jasper:
+</p><ul>
+<li> Jasper is bi-directional. Callbacks are possible (limited in levels only by 
+memory), and queries can backtrack.
+
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes" accesskey="n" rel="next">Next</a>
+<li><a href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Interfacing-_002eNET-and-Java.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Interfacing-_002eNET-and-Java.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

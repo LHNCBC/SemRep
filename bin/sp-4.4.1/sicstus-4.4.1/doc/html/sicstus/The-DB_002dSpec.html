@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: The DB-Spec</title>
+
+<meta name="description" content="SICStus Prolog: The DB-Spec">
+<meta name="keywords" content="SICStus Prolog: The DB-Spec">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dbdb.html#lib_002dbdb" rel="up" title="lib-bdb">
+<link href="Exporting-and-importing-a-database.html#Exporting-and-importing-a-database" rel="next" title="Exporting and importing a database">
+<link href="An-Example-Session.html#An-Example-Session" rel="prev" title="An Example Session">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="The-DB_002dSpec"></a>
+<hr>
+<a name="The-DB_002dSpec-1"></a>
+<h4 class="subsection">10.6.7 The DB-Spec</h4>
+
+<p>A db-spec has the form of a <var>speclist</var>:
+</p>
+<dl compact="compact">
+<dt><var>speclist</var></dt>
+<dd><p>= <code>[</code><var>spec1</var>, &hellip;, <var>specM</var><code>]</code>
+</p>
+</dd>
+<dt><var>spec</var></dt>
+<dd><p>= <var>functor</var><code>(</code><var>argspec1</var>, &hellip;, <var>argspecN</var><code>)</code>
+</p>
+</dd>
+<dt><var>argspec</var></dt>
+<dd><p>= <code>+</code> | <code>-</code>
+</p></dd>
+</dl>
+<p>where <var>functor</var> is a Prolog atom.  The case <var>N</var> = 0 is
+allowed.
+</p>
+<p>A spec <var>F</var><code>(</code><var>argspec1</var>, &hellip;, <var>argspecN</var><code>)</code> is
+<em>applicable</em> to any nonvar term with principal functor
+<var>F</var>/<var>N</var>.
+</p>
+<p>When storing a term <var>T</var> we generate a hash code for every
+applicable spec in the db-spec, and a reference to <var>T</var> is stored
+with each of them.  (More precisely with each element of the set of
+generated hash codes).  If <var>T</var> contains nonvar elements on each
+<code>+</code> position in the spec, then the hash code depends on each of
+these elements.  If <var>T</var> does contain some variables on
+<code>+</code> position, then the hash code depends only on the functor
+of <var>T</var>.
+</p>
+<p>When fetching a term <var>Q</var> we look for an applicable spec for
+which there are no variables in <var>Q</var> on positions maked
+<code>+</code>.  If no applicable spec can be found a domain error is raised.
+If no spec can be found where on each <code>+</code> position a nonvar
+term occurs in <var>Q</var> an instantiation error is raised.
+Otherwise, we choose the spec with the most <code>+</code> postitions in
+it breaking ties by choosing the leftmost one.
+</p>
+<p>The terms that contain nonvar terms on every <code>+</code>
+postition will be looked up using indexing based on the principal
+functor of the term and the principal functor of
+terms on <code>+</code> postitions.  The other (more general)
+terms will be looked up using an indexing based on the principal
+functor of the term only.
+</p>
+<p>As can be seen, storing and fetching terms with variables on
+<code>+</code> positions are not vigorously supported operations.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Exporting-and-importing-a-database.html#Exporting-and-importing-a-database" accesskey="n" rel="next">Next</a>
+<li><a href="An-Example-Session.html#An-Example-Session" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dbdb.html#lib_002dbdb" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-DB_002dSpec.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-DB_002dSpec.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

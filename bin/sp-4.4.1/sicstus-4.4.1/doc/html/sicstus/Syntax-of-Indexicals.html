@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Syntax of Indexicals</title>
+
+<meta name="description" content="SICStus Prolog: Syntax of Indexicals">
+<meta name="keywords" content="SICStus Prolog: Syntax of Indexicals">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Syntax-Summary.html#Syntax-Summary" rel="up" title="Syntax Summary">
+<link href="Syntax-of-Arithmetic-Expressions.html#Syntax-of-Arithmetic-Expressions" rel="next" title="Syntax of Arithmetic Expressions">
+<link href="Syntax-Summary.html#Syntax-Summary" rel="prev" title="Syntax Summary">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Syntax-of-Indexicals"></a>
+<hr>
+<a name="Syntax-of-Indexicals-1"></a>
+<h4 class="subsubsection">10.10.13.1 Syntax of Indexicals</h4>
+
+<table>
+<tr><td width="20%"><var>Constant</var></td><td width="40%">::= <em>integer</em></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>inf</code></td><td width="40%"><span class="roman">{ minus infinity }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>sup</code></td><td width="40%"><span class="roman">{ plus infinity }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>Term</var></td><td width="40%">::= <var>Constant</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <em>var</em></td><td width="40%"><span class="roman">{ suspend until assigned }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>min(<em>var</em>)</code></td><td width="40%"><span class="roman">{ min. of domain of X }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>max(<em>var</em>)</code></td><td width="40%"><span class="roman">{ max. of domain of X }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>card(<em>var</em>)</code></td><td width="40%"><span class="roman">{ size of domain of X }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>-</code> <var>Term</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Term</var> <code>+</code> <var>Term</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Term</var> <code>-</code> <var>Term</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Term</var> <code>*</code> <var>Term</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Term</var> <code>/&gt;</code> <var>Term</var></td><td width="40%"><span class="roman">{ ceilinged division }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Term</var> <code>/&lt;</code> <var>Term</var></td><td width="40%"><span class="roman">{ floored division }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Term</var> <code>mod</code> <var>Term</var></td><td width="40%"><span class="roman">{ floored remainder }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Term</var> <code>rem</code> <var>Term</var></td><td width="40%"><span class="roman">{ truncated remainder }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>TermSet</var></td><td width="40%">::= <code>{<var>Term</var>,&hellip;,<var>Term</var>}</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>Range</var></td><td width="40%">::= <var>TermSet</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>dom(<em>var</em>)</code></td><td width="40%"><span class="roman">{ domain of X }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Term</var> <code>..</code> <var>Term</var></td><td width="40%"><span class="roman">{ interval }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Range</var> <code>/\</code> <var>Range</var></td><td width="40%"><span class="roman">{ intersection }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Range</var> <code>\/</code> <var>Range</var></td><td width="40%"><span class="roman">{ union }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>\</code> <var>Range</var></td><td width="40%"><span class="roman">{ complement }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>-</code> <var>Range</var></td><td width="40%"><span class="roman">{ pointwise negation }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Range</var> <code>+</code> <var>Range</var></td><td width="40%"><span class="roman">{ pointwise addition }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Range</var> <code>-</code> <var>Range</var></td><td width="40%"><span class="roman">{ pointwise subtraction }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Range</var> <code>mod</code> <var>Range</var></td><td width="40%"><span class="roman">{ pointwise modulo }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Range</var> <code>rem</code> <var>Range</var></td><td width="40%"><span class="roman">{ pointwise remainder }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Range</var> <code>+</code> <var>Term</var></td><td width="40%"><span class="roman">{ pointwise addition }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Range</var> <code>-</code> <var>Term</var></td><td width="40%"><span class="roman">{ pointwise subtraction }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Term</var> <code>-</code> <var>Range</var></td><td width="40%"><span class="roman">{ pointwise subtraction }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Range</var> <code>mod</code> <var>Term</var></td><td width="40%"><span class="roman">{ pointwise floored remainder }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Range</var> <code>rem</code> <var>Term</var></td><td width="40%"><span class="roman">{ pointwise truncated remainder }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Range</var> <code>?</code> <var>Range</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>unionof(<em>var</em>,<var>Range</var>,<var>Range</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>switch(<var>Term</var>,<var>MapList</var>)</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>ConstantSet</var></td><td width="40%">::= <code>{<var>integer</var>,&hellip;,<var>integer</var>}</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>ConstantRange</var></td><td width="40%">::= <var>ConstantSet</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Constant</var> <code>..</code> <var>Constant</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>ConstantRange</var> <code>/\</code> <var>ConstantRange</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>ConstantRange</var> <code>\/</code> <var>ConstantRange</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>\</code> <var>ConstantRange</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>MapList</var></td><td width="40%">::= <code>[]</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>[<em>integer</em>-<var>ConstantRange</var>|<var>MapList</var>]</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>CTable</var></td><td width="40%">::= <code>[]</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>[<var>CRow</var>|<var>CTable</var>]</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>CRow</var></td><td width="40%">::= <code>[]</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>[<em>integer</em>|<var>CRow</var>]</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>[<var>ConstantRange</var>|<var>CRow</var>]</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>CList</var></td><td width="40%">::= <code>[]</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>[<em>integer</em>|<var>CList</var>]</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>VList</var></td><td width="40%">::= <code>[]</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>[<em>var</em>|<var>VList</var>]</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>Indexical</var></td><td width="40%">::= <em>var</em> <code>in</code> <var>Range</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>Indexicals</var></td><td width="40%">::= <var>Indexical</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>Indexical</var> <code>,</code> <var>Indexicals</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>ConstraintBody</var></td><td width="40%">::= <em>var</em> <span class="roman">{ <code>X</code> stands for <code>X#=1</code> }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>true</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>false</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>1</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>0</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <em>var</em> <code>in</code> <var>ConstantRange</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>element(<em>var</em>,<var>CList</var>,<em>var</em>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>table([<var>VList</var>],<var>CTable</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>LinExpr</var> <var>RelOp</var> <var>LinExpr</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>#\ <var>ConstraintBody</var></code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code><var>ConstraintBody</var> #/\ <var>ConstraintBody</var></code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code><var>ConstraintBody</var> #\/ <var>ConstraintBody</var></code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code><var>ConstraintBody</var> #=&gt; <var>ConstraintBody</var></code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code><var>ConstraintBody</var> #\  <var>ConstraintBody</var></code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code><var>ConstraintBody</var> #&lt;=&gt; <var>ConstraintBody</var></code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>IxConstraintBody</var></td><td width="40%">::= <var>Indexicals</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>ConstraintBody</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>Head</var></td><td width="40%">::= <em>term</em></td><td width="40%"><span class="roman">{ a compound term with unique variable args }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>TellPos</var></td><td width="40%">::= <var>Head</var> <code>+:</code> <var>IxConstraintBody</var></td></tr>
+<tr><td width="20%"><var>TellNeg</var></td><td width="40%">::= <var>Head</var> <code>-:</code> <var>Indexicals</var></td></tr>
+<tr><td width="20%"><var>AskPos</var></td><td width="40%">::= <var>Head</var> <code>+?</code> <var>Indexical</var></td></tr>
+<tr><td width="20%"><var>AskNeg</var></td><td width="40%">::= <var>Head</var> <code>-?</code> <var>Indexical</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>ConstraintDef</var></td><td width="40%">::= <var>TellPos</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>TellNeg</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>AskPos</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>AskNeg</var></td></tr>
+</table>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Syntax-of-Arithmetic-Expressions.html#Syntax-of-Arithmetic-Expressions" accesskey="n" rel="next">Next</a>
+<li><a href="Syntax-Summary.html#Syntax-Summary" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Syntax-of-Indexicals.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Syntax-of-Indexicals.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

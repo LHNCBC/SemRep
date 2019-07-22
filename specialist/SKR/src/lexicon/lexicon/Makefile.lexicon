@@ -1,0 +1,137 @@
+
+#############################################################################
+#
+#                          PUBLIC DOMAIN NOTICE                         
+#         Lister Hill National Center for Biomedical Communications
+#                      National Library of Medicine
+#                      National Institues of Health
+#           United States Department of Health and Human Services
+#                                                                         
+#  This software is a United States Government Work under the terms of the
+#  United States Copyright Act. It was written as part of the authors'
+#  official duties as United States Government employees and contractors
+#  and thus cannot be copyrighted. This software is freely available
+#  to the public for use. The National Library of Medicine and the
+#  United States Government have not placed any restriction on its
+#  use or reproduction.
+#                                                                        
+#  Although all reasonable efforts have been taken to ensure the accuracy 
+#  and reliability of the software and data, the National Library of Medicine
+#  and the United States Government do not and cannot warrant the performance
+#  or results that may be obtained by using this software or data.
+#  The National Library of Medicine and the U.S. Government disclaim all
+#  warranties, expressed or implied, including warranties of performance,
+#  merchantability or fitness for any particular purpose.
+#                                                                         
+#  For full details, please see the MetaMap Terms & Conditions, available at
+#  http://metamap.nlm.nih.gov/MMTnCs.shtml.
+#
+############################################################################
+
+# Makefile for lexicon related files.
+#
+# SCCS:	@(#)Makefile.lexicon	1.11 12/07/06
+
+PURIFY=
+RM = /bin/rm -f
+INSTALL = cp
+
+CFLAGS = ${DEFAULT_CFLAGS} ${ALL_INCLUDES}
+
+O_SYSTEM = $(shell uname)
+
+ifeq '$(O_SYSTEM)' "SunOS"
+  LDFLAGS=-G -shared
+  LIBS = # -lnsl  -lsocket -lrt -llm  -lm
+else
+  ifeq '$(O_SYSTEM)' "Linux"
+    LD = gcc
+    LDFLAGS=$(LINKFLAGS)
+    LIBS = -lpthread -llm  -lm
+  else 
+    ifeq '$(O_SYSTEM)' "Darwin"
+        LDFLAGS=$(LINKFLAGS)
+        LIBS = 
+    endif
+  endif
+endif
+
+LIBDIR = ${SKR_LEXICON}/lib
+INCDIR= ${SKR_LEXICON}/include
+
+SPLIBS= -f lexicon:${SKR_LEXICON}/lexicon		\
+	-f metamap:${SKR_METAMAP}			\
+	-f mmi:${SKR_MMI}				\
+	-f morph:${SKR_MORPH}				\
+	-f skr:${SKR_SKR}				\
+	-f skr_db:${SKR_DB}				\
+	-f skr_lib:${SKR_LIB}				\
+	-f skr_lib:${SKR_LEX_LIB}			\
+	-f tagger:${SKR_TAGGER}				\
+	-f text:${SKR_TEXT}				\
+	-f wsd:${SKR_WSD}/WSD
+
+DEBUG_LIB = ${SKR_DEBUG}/debug.a
+SPLD = spld
+
+INCLUDES = -I${SKR_LEXICON}/include -I${SKR_DEBUG}/include
+
+SPLFR_BASIC_FLAGS =  --vv --keep
+SPLFR_DYNAMIC_FLAGS = ${SPLFR_BASIC_FLAGS} --moveable
+SPLFR_STATIC_FLAGS = ${SPLFR_BASIC_FLAGS} --static
+SPLFR = splfr --conf CC="${CC}" --cflag="${INCLUDES}" $(addprefix --cflag=, $(CFLAGS))
+
+STATIC_LINK_FLAGS = -- ${SKR_LEXICON}/functions/linfl.o		\
+		       ${SKR_LEXICON}/functions/tokenize.o	\
+		       ${SKR_LEXICON}/morph/lm.o		\
+		       ${SKR_LEXICON}/morph/util.o		\
+		       ${SKR_LEXICON}/query/btree_query.o	\
+		       ${SKR_LEXICON}/query/tokenize.o		\
+		       ${SKR_LEXICON}/query/lex_btree.a		\
+		       ${SKR_LEXICON}/query/wl.o		\
+		       ${SKR_LEXICON}/miscutil/miscutil.o	\
+		       ${SKR_DEBUG}/get_val.o
+
+DYNAMIC_LINK_FLAGS = -- ${LDFLAGS}			        \
+			${BERKELEY_LIB_SO}			\
+			${SKR_LEXICON}/functions/linfl.o	\
+		        ${SKR_LEXICON}/morph/lm.o		\
+		        ${SKR_LEXICON}/morph/util.o		\
+			${SKR_LEXICON}/functions/lexicon.a	\
+			${SKR_LEXICON}/query/lex_btree.a	\
+			${SKR_LEXICON}/miscutil/miscutil.a	\
+			${SKR_DEBUG}/debug.o			\
+			${SKR_DEBUG}/get_val.o
+
+
+# all:		splfr_STATIC splfr_DYNAMIC
+# all:		splfr_DYNAMIC
+# FML changed 09/30/2015
+all:		splfr_STATIC splfr_DYNAMIC
+		cp qp_lexicon.so ../..
+
+splfr_STATIC:	functions query miscutil morph
+		${SPLFR} ${SPLFR_STATIC_FLAGS} qp_lexicon.pl c_lexicon.c c_linfl.c ${STATIC_LINK_FLAGS}
+
+splfr_DYNAMIC:	functions query miscutil morph
+		${SPLFR} ${SPLFR_DYNAMIC_FLAGS} qp_lexicon.pl  c_lexicon.c c_linfl.c ${BTREE_QLIB_O} ${DYNAMIC_LINK_FLAGS}
+
+
+functions:
+		cd ${SKR_LEXICON}/functions; make -f Makefile.functions
+
+query:
+		cd ${SKR_LEXICON}/query; make -f Makefile.query
+
+miscutil:
+		cd ${SKR_LEXICON}/miscutil; make -f Makefile.miscutil
+
+morph:
+		cd ${SKR_LEXICON}/morph; make -f Makefile.morph
+
+clean:
+		-${RM} *.o *.a *.s.o *.so *glue* lcheck lcheckp lterm core
+		cd ${SKR_LEXICON}/functions ;  make -f Makefile.functions clean
+		cd ${SKR_LEXICON}/query ;      make -f Makefile.query     clean
+		cd ${SKR_LEXICON}/miscutil ;   make -f Makefile.miscutil  clean
+		cd ${SKR_LEXICON}/morph ;      make -f Makefile.morph     clean 

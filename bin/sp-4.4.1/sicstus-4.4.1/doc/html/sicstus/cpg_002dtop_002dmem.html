@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-top-mem</title>
+
+<meta name="description" content="SICStus Prolog: cpg-top-mem">
+<meta name="keywords" content="SICStus Prolog: cpg-top-mem">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dtop.html#cpg_002dtop" rel="up" title="cpg-top">
+<link href="cpg_002dtop_002dsig.html#cpg_002dtop_002dsig" rel="next" title="cpg-top-sig">
+<link href="cpg_002dtop_002dmain.html#cpg_002dtop_002dmain" rel="prev" title="cpg-top-main">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dtop_002dmem"></a>
+<hr>
+<a name="Memory-Management-1"></a>
+<h4 class="subsection">12.2.7 Memory Management</h4>
+
+<a name="index-Memory-management_002c-C-functions-for"></a>
+<a name="index-C-functions-for-memory-management"></a>
+
+
+<dl compact="compact">
+<dt><code>SP_calloc()</code></dt>
+<dd><p>Allocates memory for an array of elements, and clears the allocated memory.
+</p>
+</dd>
+<dt><code>SP_foreign_stash() &nbsp;<!-- /@w --> <i>macro</i></code></dt>
+<dd><p>provide a memory location unique to the current foreign resource instance
+</p>
+</dd>
+<dt><code>SP_free()</code></dt>
+<dd><p>Deallocates a piece of memory.
+</p>
+</dd>
+<dt><code>SP_malloc()</code></dt>
+<dd><p>Allocates a piece of memory.
+</p>
+</dd>
+<dt><code>SP_mutex_lock()</code></dt>
+<dd><p>Locks a mutex.
+</p>
+</dd>
+<dt><code>SP_mutex_unlock()</code></dt>
+<dd><p>Unlocks a mutex.
+</p>
+</dd>
+<dt><code>SP_realloc()</code></dt>
+<dd><p>Changes the size of an allocated piece of memory.
+</p>
+</dd>
+<dt><code>SP_register_atom()</code></dt>
+<dd><p>prevents an atom from being discarded by
+atom garbage collection even if not referenced by Prolog code
+</p>
+</dd>
+<dt><code>SP_set_memalloc_hooks() &nbsp;<!-- /@w --> <i>preinit</i></code></dt>
+<dd><p>provide the memory management bottom layer
+</p>
+</dd>
+<dt><code>SP_strdup()</code></dt>
+<dd><p>Makes a copy of a string in allocated memory.
+</p>
+</dd>
+<dt><code>SP_unregister_atom()</code></dt>
+<dd><p>enables an atom to be discarded
+during atom garbage collection if not referenced by Prolog code
+</p>
+</dd>
+</dl>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dtop_002dsig.html#cpg_002dtop_002dsig" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dtop_002dmain.html#cpg_002dtop_002dmain" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dtop.html#cpg_002dtop" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dtop_002dmem.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dtop_002dmem.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

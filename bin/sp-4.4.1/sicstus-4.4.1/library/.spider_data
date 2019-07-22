@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<se.sics.sicstus.spider.data>
+
+  <!-- genmakefile.pl is a perl script -->
+  <fileProperties name="genmakefile.pl">
+    <property key="ignore" value="true"/>
+    <property key="indexed" value="false"/>
+  </fileProperties>
+
+  <!-- INDEX.pl is a data file (non-Win32)-->
+  <fileProperties name="INDEX.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <!-- index.pl is a data file (Win32) -->
+  <fileProperties name="index.pl">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+
+  <!-- clpq/ contains unused files and should be indexed from clpq.pl -->
+  <fileProperties name="clpq">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+  <!-- clpr/ contains unused files and should be indexed from clpr.pl -->
+  <fileProperties name="clpr">
+    <property key="indexed" value="false"/>
+  </fileProperties>
+
+</se.sics.sicstus.spider.data>

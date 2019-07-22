@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Query Processing</title>
+
+<meta name="description" content="SICStus Prolog: Query Processing">
+<meta name="keywords" content="SICStus Prolog: Query Processing">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmsg.html#ref_002dmsg" rel="up" title="ref-msg">
+<link href="Query-Classes.html#Query-Classes" rel="next" title="Query Classes">
+<link href="Message-Handling-Predicates.html#Message-Handling-Predicates" rel="prev" title="Message Handling Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Query-Processing"></a>
+<hr>
+<a name="Query-Processing-1"></a>
+<h4 class="subsection">4.16.3 Query Processing</h4>
+
+<p>All user input in the Prolog system is handled by a single
+predicate:
+</p><div class="example">
+<pre class="example"><code>ask_query(<var>QueryClass</var>, <var>Query</var>, <var>Help</var>, <var>Answer</var>)</code>
+</pre></div>
+
+<p><var>QueryClass</var>, described below, specifies the form of the query
+interaction.  <var>Query</var> is an abstract message term specifying
+the query text, <var>Help</var> is an abstract message term used as a
+help message in certain cases, and <var>Answer</var> is the (abstract) result
+of the query.
+</p>
+<p><code>ask_query/4</code> is a built-in predicate, so that users can
+invoke it to have their own queries processed in the same way as the
+system queries.
+</p>
+<p>The processing of queries is highly customizable.  For example, this
+allows changing the language of the input expected from the user, or to
+make queries appear in dialog windows rather than on the terminal.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Query-Classes.html#Query-Classes" accesskey="1">Query Classes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Query Classes
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Query-Phases.html#Query-Phases" accesskey="2">Query Phases</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Phases of Query Processing
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Query-Hooks.html#Query-Hooks" accesskey="3">Query Hooks</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Hooks in Query Processing
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Default-Input-Methods.html#Default-Input-Methods" accesskey="4">Default Input Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Default Input Methods
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Default-Map-Methods.html#Default-Map-Methods" accesskey="5">Default Map Methods</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Default Map Methods
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Default-Query-Classes.html#Default-Query-Classes" accesskey="6">Default Query Classes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Default Query Classes
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Query-Handling-Predicates.html#Query-Handling-Predicates" accesskey="n" rel="next">Next</a>
+<li><a href="Message-Handling-Predicates.html#Message-Handling-Predicates" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmsg.html#ref_002dmsg" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Query-Processing.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Query-Processing.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

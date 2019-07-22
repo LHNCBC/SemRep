@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: Virtual Machine</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: Virtual Machine">
+<meta name="keywords" content="SICStus Prolog Release Notes: Virtual Machine">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4" rel="up" title="What Is New In Release 4">
+<link href="Prolog-Language.html#Prolog-Language" rel="next" title="Prolog Language">
+<link href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4" rel="prev" title="What Is New In Release 4">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Virtual-Machine"></a>
+<hr>
+<a name="Virtual-Machine-1"></a>
+<h4 class="subsection">14.1.1 Virtual Machine</h4>
+
+<ul>
+<li> The internal representation of Prolog terms and code has been
+redesigned, resulting in code that runs up to twice as fast as in release 3.
+</li><li> Certain memory limitations that existed in release 3 have been
+dropped.  All available virtual memory can be used without any
+limitations imposed by SICStus Prolog.
+</li><li> The limitations on &ldquo;temporary&rdquo; and &ldquo;permanent&rdquo; variables
+for compiled clauses have been dropped.  There is no size limit on
+compiled clauses.
+</li><li> The number of available atoms is four times larger than in release 3
+(1M atoms are available on 32-bit platforms).
+</li><li> The range of small integers is eight times larger than in release 3.
+Although the size of integers is unbounded, small integers are handled
+more efficiently than other numbers.
+</li><li> Multifile predicates are compiled by default; in release 3, they could
+not be compiled.
+</li><li> Native code compilation has been dropped.
+<strong>Update:</strong> JIT, a different variant of native code compilation, was added in release 4.3.0.
+</li><li> Execution profiling is available for compiled as well as interpreted code.
+The profiling data accessible by <code>profile_data/1</code> and
+<code>library(gauge)</code> is more precise. Some of the choices of release
+3 have been dropped.
+</li><li> Execution profiling has been generalized to support coverage analysis
+for compiled as well as interpreted code.
+</li></ul>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Prolog-Language.html#Prolog-Language" accesskey="n" rel="next">Next</a>
+<li><a href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Virtual-Machine.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Virtual-Machine.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

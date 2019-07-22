@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Customizing spld</title>
+
+<meta name="description" content="SICStus Prolog: Customizing spld">
+<meta name="keywords" content="SICStus Prolog: Customizing spld">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Application-Builder.html#The-Application-Builder" rel="up" title="The Application Builder">
+<link href="All_002din_002done-Executables.html#All_002din_002done-Executables" rel="next" title="All-in-one Executables">
+<link href="The-Application-Builder.html#The-Application-Builder" rel="prev" title="The Application Builder">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Customizing-spld"></a>
+<hr>
+<a name="Customizing-spld-1"></a>
+<h4 class="subsubsection">6.7.3.1 Customizing <code>spld</code></h4>
+
+<p>The <code>spld</code> tool reads a configuration file at start-up that
+contains default values for many configurable parameters. It is
+sometimes useful to modify these in order to adapt to local variations.
+</p>
+<p>The following methods can be used also with the <code>splfr</code> command,
+<a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>.
+</p>
+<p>There are two methods
+</p><ul>
+<li> Override some parameters with <samp>--conf</samp>
+<var>VAR</var>=<var>VALUE</var>.
+
+<p>This is useful when only a few parameters need to be changed, e.g. the
+C compiler. You can override multiple parameters by specified
+<samp>--conf</samp> more than once.
+</p>
+<p>For instance, to use a non-default C compiler you can pass
+<code>--conf CC=/home/joe/bin/mycc</code>.
+</p>
+<p>The option <samp>--conf</samp> was introduced in release 4.0.3.
+</p>
+</li><li> Use a modified configuration file with <samp>--config</samp>=<var>File</var>.
+
+<p>It may sometimes be convenient to use a separate, possibly modified,
+configuration file. This should seldom be needed, use <samp>--conf</samp>
+instead.
+</p>
+
+<p>To use a modified configuration file, follow these instructions:
+</p>
+
+<ol>
+<li> Locate the configuration file <code>spconfig-<var>version</var></code>. It should
+be located in the same directory as <code>spld</code>.
+</li><li> Make a copy for <code>spconfig-<var>version</var></code>; let us call it
+<code>hacked_spld.config</code>. Do Not edit the original file.
+</li><li> The configuration file contains lines on the form <code>CFLAGS=-g
+-O2</code>. Edit these according to your needs. Do Not add or remove any
+options.
+</li><li> You may now use the modified <code>spconfig-<var>version</var></code> together with
+<code>spld</code> like this:
+<div class="example">
+<pre class="example">% <kbd>spld [&hellip;] --config=/path/to/hacked_spld.config</kbd>
+</pre></div>
+</li><li> Replace <samp>/path/to</samp> with the actual path to the hacked configuration 
+file.
+</li></ol>
+</li></ul>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="All_002din_002done-Executables.html#All_002din_002done-Executables" accesskey="n" rel="next">Next</a>
+<li><a href="The-Application-Builder.html#The-Application-Builder" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Customizing-spld.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Customizing-spld.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

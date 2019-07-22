@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: The Determinacy Checker</title>
+
+<meta name="description" content="SICStus Prolog: The Determinacy Checker">
+<meta name="keywords" content="SICStus Prolog: The Determinacy Checker">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" rel="up" title="Writing Efficient Programs">
+<link href="Using-the-Determinacy-Checker.html#Using-the-Determinacy-Checker" rel="next" title="Using the Determinacy Checker">
+<link href="Last-Clause-Determinacy-Detection.html#Last-Clause-Determinacy-Detection" rel="prev" title="Last Clause Determinacy Detection">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="The-Determinacy-Checker"></a>
+<hr>
+<a name="The-Determinacy-Checker-1"></a>
+<h3 class="section">9.7 The Determinacy Checker</h3>
+<a name="index-determinacy-checker"></a>
+<a name="index-spdet_002c-the-determinacy-checker"></a>
+<a name="index-nondeterminacy_002c-finding"></a>
+<a name="index-finding-nondeterminacy"></a>
+
+<p><strong>Please note:</strong> the Determinacy Checker tool is mostly
+superseeded by the analysis performed by the SICStus Prolog IDE,
+SPIDER (see <a href="SPIDER.html#SPIDER">SICStus Prolog IDE</a>). SPIDER will analyze the
+source code fully automatically and will annotate the edited source
+code to highlight unwanted non-determinism. The analysis performed by
+SPIDER is more precise than the analysis implemented by the
+determinism checker described below.
+</p>
+<p>The determinacy checker can help you spot unwanted nondeterminacy in
+your programs.  This tool examines your program source code and points
+out places where nondeterminacy may arise.  It is not in general
+possible to find exactly which parts of a program will be nondeterminate
+without actually running the program, best with the execution profiler,
+which endeavors to find exactly those parts.  However, this tool can
+find most unwanted nondeterminacy.  Unintended nondeterminacy should be
+eradicated because:
+</p>
+<ol>
+<li> it may give you wrong answers on backtracking
+</li><li> it may cause a lot of memory to be wasted
+</li></ol>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Using-the-Determinacy-Checker.html#Using-the-Determinacy-Checker" accesskey="1">Using the Determinacy Checker</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Using the Determinacy Checker
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Declaring-Nondeterminacy.html#Declaring-Nondeterminacy" accesskey="2">Declaring Nondeterminacy</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Declaring Nondeterminacy
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Checker-Output.html#Checker-Output" accesskey="3">Checker Output</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Checker Output
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Det-Example.html#Det-Example" accesskey="4">Det Example</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Example
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Det-Options.html#Det-Options" accesskey="5">Det Options</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Options
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="What-is-Detected.html#What-is-Detected" accesskey="6">What is Detected</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">What is Detected
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Last-Call-Optimization.html#Last-Call-Optimization" accesskey="n" rel="next">Next</a>
+<li><a href="Last-Clause-Determinacy-Detection.html#Last-Clause-Determinacy-Detection" accesskey="p" rel="prev">Previous</a>
+<li><a href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-Determinacy-Checker.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-Determinacy-Checker.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

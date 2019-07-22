@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Command Format Summary</title>
+
+<meta name="description" content="SICStus Prolog: Command Format Summary">
+<meta name="keywords" content="SICStus Prolog: Command Format Summary">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Quick-Reference.html#Quick-Reference" rel="up" title="Quick Reference">
+<link href="Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters.html#Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters" rel="next" title="Predicates for Prolog to Interact with Tcl Interpreters">
+<link href="Quick-Reference.html#Quick-Reference" rel="prev" title="Quick Reference">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Command-Format-Summary"></a>
+<hr>
+<a name="Command-Format-Summary-1"></a>
+<h4 class="subsubsection">10.39.6.1 Command Format Summary</h4>
+
+<table>
+<tr><td width="20%"><var>Command</var></td><td width="40%">::= <var>Name</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>codes(<em>code-list</em>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>write(<em>term</em>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>writeq(<em>term</em>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>write_canonical(<em>term</em>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>format(<var>Fmt</var>,<var>Args</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>dq(<var>Command</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>br(<var>Command</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>sqb(<var>Command</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>min(<var>Command</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>dot(<var>ListOfNames</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>list(<var>ListOfCommands</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>ListOfCommands</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>Fmt</var></td><td width="40%">::= <em>atom</em></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>Name</var></td><td width="40%">::= <em>atom</em></td><td width="40%"><span class="roman">{ other than <code>[]</code> }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <em>number</em></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>ListOfCommands</var></td><td width="40%">::= <code>[]</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>[ <var>Command</var> | <var>ListOfCommands</var> ]</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>ListOfNames</var></td><td width="40%">::= <code>[]</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>[ <var>Name</var> | <var>ListOfNames</var> ]</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>Args</var></td><td width="40%">::= <code>[]</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>[ <em>term</em> | <var>Args</var> ]</code></td></tr>
+</table>
+
+<p>where
+</p>
+<dl compact="compact">
+<dt><var>Atom</var></dt>
+<dt><var>Number</var></dt>
+<dd><p>denote their printed representations
+</p></dd>
+<dt><code>codes(<var>PrologString</var>)</code></dt>
+<dd><p>denotes the string represented by <var>PrologString</var> (a code-list)
+</p></dd>
+<dt><code>write(<var>Term</var>)</code></dt>
+<dt><code>writeq(<var>Term</var>)</code></dt>
+<dt><code>write_canonical(<var>Term</var>)</code></dt>
+<dd><p>denotes the string that is printed by the corresponding built-in predicate
+</p></dd>
+<dt><code>format(<var>Fmt</var>, <var>Args</var>)</code></dt>
+<dd><p>denotes the string that is printed by the corresponding built-in predicate
+</p></dd>
+<dt><code>dq(<var>Command</var>)</code></dt>
+<dd><p>denotes the string specified by <var>Command</var>, enclosed in double quotes
+</p></dd>
+<dt><code>br(<var>Command</var>)</code></dt>
+<dd><p>denotes the string specified by <var>Command</var>, enclosed in curly brackets
+</p></dd>
+<dt><code>sqb(<var>Command</var>)</code></dt>
+<dd><p>denotes the string specified by <var>Command</var>, enclosed in square brackets
+</p></dd>
+<dt><code>min(<var>Command</var>)</code></dt>
+<dd><p>denotes the string specified by <var>Command</var>, immediately preceded by a hyphen
+</p></dd>
+<dt><code>dot(<var>ListOfName</var>)</code></dt>
+<dd><p>denotes the widget path specified by <var>ListOfName</var>, preceded by and separated by dots
+</p></dd>
+<dt><code>list(<var>ListOfCommands</var>)</code></dt>
+<dd><p>denotes the TCL list with one element for each element in
+<var>ListOfCommands</var>.
+</p></dd>
+<dt><var>ListOfCommands</var></dt>
+<dd><p>denotes the string denoted by each element, separated by spaces
+</p></dd>
+</dl>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters.html#Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters" accesskey="n" rel="next">Next</a>
+<li><a href="Quick-Reference.html#Quick-Reference" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Command-Format-Summary.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Command-Format-Summary.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

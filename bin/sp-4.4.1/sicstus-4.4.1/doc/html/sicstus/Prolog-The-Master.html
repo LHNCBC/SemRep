@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Prolog The Master</title>
+
+<meta name="description" content="SICStus Prolog: Prolog The Master">
+<meta name="keywords" content="SICStus Prolog: Prolog The Master">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Putting-It-All-Together.html#Putting-It-All-Together" rel="up" title="Putting It All Together">
+<link href="Prolog-And-Tcl-Interact-through-Prolog-Event-Queue.html#Prolog-And-Tcl-Interact-through-Prolog-Event-Queue" rel="next" title="Prolog And Tcl Interact through Prolog Event Queue">
+<link href="Tcl-The-Master.html#Tcl-The-Master" rel="prev" title="Tcl The Master">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Prolog-The-Master"></a>
+<hr>
+<a name="Prolog-The-Master_002c-Tk-The-Slave"></a>
+<h4 class="subsubsection">10.39.5.2 Prolog The Master, Tk The Slave</h4>
+
+<p>The second approach is to have Prolog be the master and Tk the slave.
+This is suitable when heavy processing is done in the Prolog code
+and Tk is used mostly to display the state of the computation in some
+way rather than as a traditional GUI; i.e. during computation Prolog
+often makes calls to Tk to show some state, but the user rarely
+interacts with the application.
+</p>
+<p>In our Prolog+Tcl/Tk setting this involves the following steps:
+</p>
+<ul>
+<li> start Prolog and load the Tcl/Tk library
+</li><li> load Prolog application code
+</li><li> start a Tcl/Tk interpreter through <code>tk_new/2</code>
+</li><li> set up the Tk GUI through calls to <code>tcl_eval/3</code>
+</li><li> Prolog calls <code>tcl_eval</code> to update the Tk display
+</li><li> values are passed to Prolog through the Result string of <code>tcl_eval</code>
+</li></ul>
+  
+<p>Again it its purest form, Prolog makes calls to Tcl, but Tcl does not
+make calls to Prolog. The result of a call to Tcl is either passed back
+through the <code>Result</code> variable of a <code>tcl_eval/3</code> call.
+</p>
+<p>A good example of this is the Tcl/Tk display for our 8-queens problem,
+that we saw earlier; see <a href="Queens-Display.html#Queens-Display">Queens Display</a>.
+</p>
+<p>We will now fill out the example by presenting the Prolog master part.
+The Prolog program calculates a solution to the 8-queens problem
+and then makes calls Tcl/Tk to display the solution. In this way Tcl/Tk
+is the slave, just being used as a simple display.
+</p>
+<p>We have already seen the Tcl/Tk part, but here is the Prolog part for
+generating a solution and displaying it:
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(tcltk)).
+:- use_module(library(lists)).
+
+go :- 
+    tk_new([name('SICStus+Tcl/Tk - Queens')], Tcl),
+    tcl_eval(Tcl, 'source queens.tcl', _),
+    tk_next_event(Tcl, Event),
+    queens(8, Qs),
+    reverse(L, LR),
+    tcl_eval(Tcl, [show_solution, br(LR)], _),
+    fail.
+go.
+
+queens(N, Qs) :-
+    range(1, N, Ns),
+    queens(Ns, [], Qs).
+
+queens(UnplacedQs, SafeQs, Qs) :-
+    select(Q, UnplacedQs, UnplacedQs1),
+    \+ attack(Q, SafeQs),
+    queens(UnplacedQs1, [Q|SafeQs], Qs).
+    queens([], Qs, Qs).
+
+attack(X, Xs) :- attack(X, 1, Xs).
+
+attack(X, N, [Y|_Ys]) :- X is Y + N.
+attack(X, N, [Y|_Ys]) :- X is Y - N.
+attack(X, N, [_Y|Ys]) :-
+    N1 is N + 1,
+attack(X, N1, Ys).
+
+range(M, N, [M|Ns]) :- 
+    M &lt; N,
+    M1 is M + 1,
+    range(M1, N, Ns).
+range(N, N, [N]).
+
+:- go.
+</pre></div>
+
+<p>All this simply does it to create a Tcl/Tk interpreter, load the Tcl
+code for displaying queens into it, generate a solution to the 8-queens
+problem as a list of integers, and then calls <code>show_solution/2</code> in
+the Tcl interpreter to display the solution.  At the end of first
+clause for <code>go/0</code> is a fail clause that turns
+<code>go/0</code> into a failure driven loop. The result of this is that the
+program will calculate all the solutions to the 8-queens problem,
+displaying them rapidly one after the other, until there are none left.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Prolog-And-Tcl-Interact-through-Prolog-Event-Queue.html#Prolog-And-Tcl-Interact-through-Prolog-Event-Queue" accesskey="n" rel="next">Next</a>
+<li><a href="Tcl-The-Master.html#Tcl-The-Master" accesskey="p" rel="prev">Previous</a>
+<li><a href="Putting-It-All-Together.html#Putting-It-All-Together" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Prolog-The-Master.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Prolog-The-Master.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

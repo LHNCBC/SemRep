@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.0.3 New Features</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.0.3 New Features">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.0.3 New Features">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e0_002e3-Changes.html#g_t4_002e0_002e3-Changes" rel="up" title="4.0.3 Changes">
+<link href="4_002e0_002e3-Bugs-Fixed.html#g_t4_002e0_002e3-Bugs-Fixed" rel="next" title="4.0.3 Bugs Fixed">
+<link href="4_002e0_002e3-Changes.html#g_t4_002e0_002e3-Changes" rel="prev" title="4.0.3 Changes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e0_002e3-New-Features"></a>
+<hr>
+<a name="New-Features-2"></a>
+<h4 class="subsection">14.6.1 New Features</h4>
+
+<ul>
+<li> The new Prolog flag <code>legacy_char_classification</code> makes it
+possible to use full Unicode, e.g. Chinese characters, in unquoted atoms
+and variable names. See <a href="../sicstus/ref_002dlps_002dflg.html#ref_002dlps_002dflg">Prolog Flags</a> in <cite>the SICStus Prolog Manual</cite>.
+
+</li><li> The Prolog flag <code>redefine_warnings</code> can take new values, 
+and is no longer ignored in runtime systems.
+See <a href="../sicstus/ref_002dlps_002dflg.html#ref_002dlps_002dflg">Prolog Flags</a> in <cite>the SICStus Prolog Manual</cite>.
+
+</li><li> <code>SP_load_sicstus_run_time()</code>, and related functionality for
+loading multiple SICStus runtimes into a process, is now available.
+
+</li><li> Jasper Java interface (<code>library(jasper)</code>) is now
+available. Jasper is mainly for legacy code; PrologBeans is still
+the preferred method of calling Prolog from Java.
+
+</li><li> <code>library(sockets)</code> now supports UNIX domain (<code>AF_UNIX</code>)
+sockets on UNIX-like platforms.  The new predicate
+<code>socket_server_open/3</code> allows some options when opening a server
+socket.
+
+</li><li> <code>SP_set_argv()</code>, a new C API function for setting the values returned
+by the <code>argv</code> Prolog flag. Similar to the <code>argv</code> argument to
+<code>SP_initialize()</code>, but can report failure and can use locale
+information.
+
+</li><li> <code>spld</code> and <code>splfr</code>: new command line options.
+The new (POSIX) option <samp>--</samp> is treated the same as the older
+<samp>-LD</samp>. New option <samp>--conf <var>VAR</var>=<var>VAL</var></samp> to
+override variable <var>VAR</var> in the configuration file. Option
+processing has been rewritten to be more robust and consistent.
+See <a href="../sicstus/The-Application-Builder.html#The-Application-Builder">The Application Builder</a> in <cite>the
+SICStus Prolog Manual</cite> and <a href="../sicstus/The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The
+Foreign Resource Linker</a> in <cite>the SICStus Prolog Manual</cite>.
+
+</li><li> <code>sicstus</code> The new (POSIX) option <samp>--</samp> is a synonym for
+the old <samp>-a</samp>.
+
+</li></ul>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e0_002e3-Bugs-Fixed.html#g_t4_002e0_002e3-Bugs-Fixed" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e0_002e3-Changes.html#g_t4_002e0_002e3-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e0_002e3-New-Features.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e0_002e3-New-Features.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

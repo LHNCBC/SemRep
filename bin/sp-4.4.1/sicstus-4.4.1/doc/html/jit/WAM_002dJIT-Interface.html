@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: WAM-JIT Interface</title>
+
+<meta name="description" content="SICStus JIT White Paper: WAM-JIT Interface">
+<meta name="keywords" content="SICStus JIT White Paper: WAM-JIT Interface">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Predicate-Linkage.html#Predicate-Linkage" rel="up" title="Predicate Linkage">
+<link href="Register-Allocation.html#Register-Allocation" rel="next" title="Register Allocation">
+<link href="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-PPC64.html#Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-PPC64" rel="prev" title="Code Outline Lead-In and Prefix Sequences for PPC64">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="WAM_002dJIT-Interface"></a>
+<hr>
+<a name="WAM_002dJIT-Interface-1"></a>
+<h3 class="section">3.4 WAM-JIT Interface</h3>
+
+<p>In terms of the C call stack, the WAM emulator calls the JIT runtime
+system, but the latter never calls the WAM emulator.  Recursive nesting
+can only happen in the foreign language interface, if the foreign
+function calls Prolog, and similarly in a predicate implemented as a C
+function, if the C function calls Prolog.
+</p>
+<p>The WAM emulator has a general mechanism to dispatch on the predicate
+type.  When it sees a <em>jitex</em> predicate, it routes the call with
+call site <code>w-&gt;insn</code> and callee <code>w-&gt;predicate</code> to the ABI
+function:
+</p><div class="example">
+<pre class="example">int call_native(struct worker *w);
+</pre></div>
+
+<p>The WAM instruction set has been extended by the special instruction
+<code>NATIVE_OP</code>, and it is legal for <code>w-&gt;next_insn</code> to point to
+it, i.e., it is a legal continuation.  As for all continuations, the
+half word preceding it is the environment size field.  The word
+following it points to the WAM code equivalent of the continuation,
+immediately followed by the native code of the continuation.  When the
+WAM emulator sees it, it routes the call with <code>w-&gt;insn</code> pointing to
+it to the ABI function:
+</p><div class="example">
+<pre class="example">int proceed_native(struct worker *w);
+</pre></div>
+
+<p>Both ABI function return the values:
+</p><dl compact="compact">
+<dt>0</dt>
+<dd><p><em>jitex</em> code backtracks into <em>wamex</em> code.
+</p></dd>
+<dt>1</dt>
+<dd><p><em>jitex</em> code proceeds to <em>wamex</em> code at address
+<code>w-&gt;insn</code>, in read mode if <code>x(0)</code> is nonvar and in write mode
+otherwise.
+</p></dd>
+<dt>2</dt>
+<dd><p><em>jitex</em> code calls <em>wamex</em> code with call site <code>w-&gt;insn</code>
+and callee <code>w-&gt;predicate</code>.
+</p></dd>
+<dt>3</dt>
+<dd><p><em>jitex</em> code proceeds to the WAM instruction <code>PROGRESS</code>.
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-PPC64.html#Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-PPC64" accesskey="p" rel="prev">Previous</a>
+<li><a href="Predicate-Linkage.html#Predicate-Linkage" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/WAM_002dJIT-Interface.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/WAM_002dJIT-Interface.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

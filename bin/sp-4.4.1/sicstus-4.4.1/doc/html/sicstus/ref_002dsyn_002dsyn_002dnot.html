@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-syn-syn-not</title>
+
+<meta name="description" content="SICStus Prolog: ref-syn-syn-not">
+<meta name="keywords" content="SICStus Prolog: ref-syn-syn-not">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" rel="up" title="ref-syn-syn">
+<link href="ref_002dsyn_002dsyn_002dsen.html#ref_002dsyn_002dsyn_002dsen" rel="next" title="ref-syn-syn-sen">
+<link href="ref_002dsyn_002dsyn_002dove.html#ref_002dsyn_002dsyn_002dove" rel="prev" title="ref-syn-syn-ove">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsyn_002dsyn_002dnot"></a>
+<hr>
+<a name="Notation-1"></a>
+<h4 class="subsubsection">4.1.7.2 Notation</h4>
+
+<a name="index-syntax_002c-rule-notation"></a>
+
+<a name="index-notation-1"></a>
+
+<ul>
+<li> Syntactic categories (or <var>nonterminals</var>) are  
+printed in italics,
+for example <var>query</var>.
+Depending  on  the section, a category may represent a class of either
+terms, token lists, or character strings.
+</li><li> A syntactic rule takes the general form
+<div class="example">
+<pre class="example"><var>C</var> ::= <var>F1</var>
+     | <var>F2</var> 
+     | <var>F3</var>     
+     .
+     .
+     .
+</pre></div>
+
+<p>which states that an entity of category <var>C</var> may take any of the
+alternative forms <var>F1</var>, <var>F2</var>, or <var>F3</var>.
+</p></li><li> Certain definitions and restrictions are given in ordinary English,
+enclosed in braces (&lsquo;<samp>{}</samp>&rsquo;).
+</li><li> A category written as &lsquo;<samp><var>C&hellip;</var></samp>&rsquo; denotes a sequence of one or more
+<var>C</var>s.
+</li><li> A category written as &lsquo;<samp><var>?C</var></samp>&rsquo; denotes an optional <var>C</var>.
+Therefore &lsquo;<samp><var>?C&hellip;</var></samp>&rsquo; denotes a sequence of zero or more <var>C</var>s.
+</li><li> A few syntactic categories have names with arguments, and rules in
+which they appear may contain meta-variables in the form of 
+italicized
+capital letters.  The meaning of  such  rules  should  be  clear  from
+analogy with the definite clause grammars described in <a href="ref_002dgru.html#ref_002dgru">ref-gru</a>.
+</li><li> In <a href="ref_002dsyn_002dsyn_002dtrm.html#ref_002dsyn_002dsyn_002dtrm">ref-syn-syn-trm</a>, particular tokens of the category
+<var>Name</var> (a name beginning with a capital letter) are written as quoted atoms, while tokens that are
+individual punctuation characters are written literally.
+</li></ul>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsyn_002dsyn_002dsen.html#ref_002dsyn_002dsyn_002dsen" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsyn_002dsyn_002dove.html#ref_002dsyn_002dsyn_002dove" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dsyn_002dnot.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dsyn_002dnot.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

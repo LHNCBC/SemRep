@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-trimcore</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-trimcore">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-trimcore">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dtrue.html#mpg_002dref_002dtrue" rel="next" title="mpg-ref-true">
+<link href="mpg_002dref_002dtrace.html#mpg_002dref_002dtrace" rel="prev" title="mpg-ref-trace">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dtrimcore"></a>
+<hr>
+<a name="trimcore_002f0"></a>
+<h4 class="subsection">11.3.238 <code>trimcore/0</code></h4>
+<a name="index-trimcore_002f0-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-trimcore_002f0-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-263"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>trimcore</code> 
+</p>
+<p>Force reclamation of memory in all of Prolog&rsquo;s data areas.
+</p>
+<a name="Description-179"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Trims the stacks, reclaims any dead clauses and predicates,
+defragmentizes Prolog&rsquo;s free memory, and endeavors to return any
+unused memory to the operating system.
+</p>
+<p>The system property
+<code>PROLOGKEEPSIZE</code> can be used to define a lower bound on the amount
+of memory to be retained.  Also, the system property
+<code>PROLOGINITSIZE</code> can be used to request that an initial amount of
+memory be allocated.  This initially allocated memory will not be touched
+by <code>trimcore/0</code>.
+</p>
+<p>When trimming a given stacks, <code>trimcore/0</code> will retain at least
+the amount of space initially allocated for that stack.
+</p>
+<p><code>trimcore/0</code> is called each time Prolog returns to the
+top level or the top of a break level, except it does not trim the stacks then.
+</p>
+<a name="Exceptions-254"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+</p>
+<a name="See-Also-260"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmgc_002dove_002drsp.html#ref_002dmgc_002dove_002drsp">ref-mgc-ove-rsp</a>, <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dtrue.html#mpg_002dref_002dtrue" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dtrace.html#mpg_002dref_002dtrace" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dtrimcore.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dtrimcore.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

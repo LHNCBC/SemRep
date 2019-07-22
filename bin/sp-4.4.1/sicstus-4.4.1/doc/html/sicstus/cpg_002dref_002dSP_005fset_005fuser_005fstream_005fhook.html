@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_set_user_stream_hook</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_set_user_stream_hook">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_set_user_stream_hook">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook.html#cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook" rel="next" title="cpg-ref-SP_set_user_stream_post_hook">
+<link href="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks" rel="prev" title="cpg-ref-SP_set_memalloc_hooks">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook"></a>
+<hr>
+<a name="SP_005fset_005fuser_005fstream_005fhook_0028_0029---preinit"></a>
+<h4 class="subsection">12.3.94 <code>SP_set_user_stream_hook()</code> &nbsp;<!-- /@w --> <i>preinit</i></h4>
+<a name="index-SP_005fset_005fuser_005fstream_005fhook_0028_0029-_0028C-function_0029-1"></a>
+
+<a name="Synopsis-374"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+typedef SP_stream * 
+SP_UserStreamHook(void *user_data, int which);
+
+SP_UserStreamHook *
+SP_set_user_stream_hook(SP_UserStreamHook *hook, void *user_data);
+</pre></div>
+
+<p>Sets the user-stream hook to <code>hook</code>.
+Must be called <em>before</em> <code>SP_initialize()</code>.
+</p>
+<a name="Arguments-343"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>hook</var></dt>
+<dd><p>It is called three times, one for each stream. The <code>which</code>
+argument indicates which stream it is called for. The value
+of <code>which</code> is one of:
+</p>
+<dl compact="compact">
+<dt><code>SP_STREAMHOOK_STDIN</code></dt>
+<dd><p>Create stream for standard input.
+</p></dd>
+<dt><code>SP_STREAMHOOK_STDOUT</code></dt>
+<dd><p>Create stream for standard output.
+</p></dd>
+<dt><code>SP_STREAMHOOK_STDERR</code></dt>
+<dd><p>Create stream for standard error.
+</p></dd>
+</dl>
+
+<p>The hook should return a standard SICStus text I/O stream, as
+described in <a href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a>.
+</p>
+</dd>
+<dt><var>user_data</var></dt>
+<dd><p>An arbitrary pointer that will be passed to the <code>hook</code>.
+</p></dd>
+</dl>
+
+<a name="See-Also-371"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Hookable-Standard-Streams.html#Hookable-Standard-Streams">Hookable Standard Streams</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook.html#cpg_002dref_002dSP_005fset_005fuser_005fstream_005fpost_005fhook" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

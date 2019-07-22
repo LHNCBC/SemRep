@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-lod</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-lod">
+<meta name="keywords" content="SICStus Prolog: ref-mod-lod">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002dvis.html#ref_002dmod_002dvis" rel="next" title="ref-mod-vis">
+<link href="ref_002dmod_002dn2m.html#ref_002dmod_002dn2m" rel="prev" title="ref-mod-n2m">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dlod"></a>
+<hr>
+<a name="Loading-a-Module"></a>
+<h4 class="subsection">4.11.5 Loading a Module</h4>
+
+<a name="index-modules_002c-loading"></a>
+<a name="index-loading-modules"></a>
+
+<a name="index-modules_002c-importing-predicates-into"></a>
+<a name="index-importing-predicates-into-modules"></a>
+
+<a name="index-importation_002c-predicates-from-another-module"></a>
+
+<a name="index-module_002dfiles_002c-loading"></a>
+
+
+<a name="index-ensure_005floaded_002f1-_0028built_002din_0029-1"></a>
+<a name="index-ensure_005floaded_002f1-_0028built_002din_0029"></a>
+
+
+
+<a name="index-compile_002f1-_0028built_002din_0029-1"></a>
+<a name="index-compile_002f1-_0028built_002din_0029"></a>
+
+
+
+<p>To gain access to the public predicates of a module-file, load it as you 
+would any other file&mdash;using <code>compile/1</code>, or <code>ensure_loaded/1</code> as
+appropriate.  For example, if your code contains a directive such as 
+</p><div class="example">
+<pre class="example">:- ensure_loaded(<var>File</var>).
+</pre></div>
+
+<p>then this directive will load the appropriate file <var>File</var> whether or not 
+<var>File</var> is a module-file.  The only difference is that if <var>File</var> is a
+module-file, then any private predicates that it defines will not
+be visible to your program.  
+</p>
+<p>The load predicates are adequate for use at Prolog&rsquo;s top-level, or
+when the file being loaded is a utility such as a library file.  When
+you are writing modules of your own, <code>use_module/[1,2,3]</code> is the
+most useful.
+</p>
+<p>The following predicates are used to load modules:
+</p>
+<dl compact="compact">
+<dt><code>use_module(<var>F</var>)</code></dt>
+<dd><p>import the module-file(s) <var>F</var>, loading them if necessary; same as <code>ensure_loaded(<var>F</var>)</code> if all files in <var>F</var> are module-files
+</p>
+
+<a name="index-use_005fmodule_002f_005b1_002c2_002c3_005d-_0028built_002din_0029-1"></a>
+<a name="index-use_005fmodule_002f_005b1_002c2_002c3_005d-_0028built_002din_0029"></a>
+
+
+</dd>
+<dt><code>use_module(<var>:F</var>,<var>+I</var>)</code></dt>
+<dd><p>import the procedure(s) <var>I</var> from the module-file <var>F</var>, loading
+module-file <var>F</var> if necessary
+</p>
+</dd>
+<dt><code>use_module(<var>?M</var>,<var>:F</var>,<var>+I</var>)</code></dt>
+<dd><p>import <var>I</var> from module <var>M</var>, loading
+module-file <var>F</var> if necessary
+</p>
+</dd>
+</dl>
+
+
+<a name="index-module_002f_005b2_002c3_005d-_0028declaration_0029-3"></a>
+<a name="index-module_002f_005b2_002c3_005d-_0028declaration_0029-1"></a>
+
+
+
+<a name="index-module-declaration-1"></a>
+
+<a name="index-declaration_002c-module-1"></a>
+
+<a name="index-module_002dfiles_002c-loading-1"></a>
+
+<a name="index-loading-module_002dfiles"></a>
+
+<a name="index-importation-1"></a>
+
+<p>Before a module-file is loaded, the associated module is
+<em>reinitialized</em>: any predicates previously imported into or
+defined in that module are forgotten by the module.
+</p>
+<p>If a module of the same name with a different <var>PublicPredList</var> or
+different meta-predicate list has previously been loaded from a
+different module-file, then a warning is printed and you are given the
+option of abandoning the load.  Only one of these two modules can
+exist in the system at one time.
+</p>
+<p>Normally, a module-file can be reloaded after editing with no need to
+reload any other modules.  However, when a module-file is reloaded after
+its <var>PublicPredList</var> has been changed, any modules that import
+predicates from it may have become inconsistent.  This is because a
+module is associated with a predicate at compile time, rather than run
+time.  Thus, other modules may refer to predicates in a module-file that
+are no longer public.  In the case of module-importation (where all,
+rather than specific, public predicates of a module are imported), it is
+possible that some predicates in the importing module should now refer
+to a newly-public predicate but do not.  SICStus Prolog tries to detect
+such inconsistencies, and issues a warning when it does detect one.
+Similarly, if a meta-predicate declaration of an exported predicate
+changes, then modules that have already imported that predicate become
+inconsistent, because module name expansion requirements have changed.
+The current release of SICStus Prolog is unable to detect such
+inconsistencies.
+</p>
+<p>Modules may be saved to a PO file by calling <code>save_modules(<var>Modules</var>,<var>File</var>)</code>
+(see <a href="ref_002dsls.html#ref_002dsls">ref-sls</a>).
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002dvis.html#ref_002dmod_002dvis" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod_002dn2m.html#ref_002dmod_002dn2m" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dlod.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dlod.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

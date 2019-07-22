@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-aty-ety</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-aty-ety">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-aty-ety">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dref_002daty.html#mpg_002dref_002daty" rel="up" title="mpg-ref-aty">
+<link href="mpg_002dref_002dexc.html#mpg_002dref_002dexc" rel="next" title="mpg-ref-exc">
+<link href="mpg_002dref_002daty_002dsim.html#mpg_002dref_002daty_002dsim" rel="prev" title="mpg-ref-aty-sim">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002daty_002dety"></a>
+<hr>
+<a name="Extended-Types"></a>
+<h4 class="subsubsection">11.1.4.2 Extended Types</h4>
+
+<p>Following is a list of argument types that are defined in terms of
+the simple argument types. This is a formal description of the
+types/domains used in the Arguments sections of the reference pages
+for the built-ins. The rules are given in BNF (Backus-Naur form).
+</p>
+<table>
+<tr><td width="25%"><a name="index-bbkey-_0028argument-type_0029"></a>
+<var>bbkey</var></td><td width="75%">::= <code>atom</code> | <code>integer</code> <span class="roman">{where the integer
+is small}</span></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-stream_005fobject-_0028argument-type_0029"></a>
+<var>stream_object</var></td><td width="75%">::= <var>term</var> <span class="roman">{as defined in <a href="ref_002diou_002dsfh_002dsob.html#ref_002diou_002dsfh_002dsob">ref-iou-sfh-sob</a>}</span></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-term-_0028argument-type_0029"></a>
+<var>term</var></td><td width="75%">::= <span class="roman">{any Prolog term}</span></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-list-of-Type-_0028argument-type_0029"></a>
+<var>list of Type</var></td><td width="75%">::= <code>[]</code> | <code>[<var>Type</var>|<var>list of Type</var>]</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-var-or-Type-_0028argument-type_0029"></a>
+<var>var or Type</var></td><td width="75%">::= <var>var</var> | <var>Type</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-one-of-List-_0028argument-type_0029"></a>
+<var>one of [Element|Rest]</var></td><td width="75%">::= <var>Element</var> | <var>one of Rest</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-arity-_0028argument-type_0029"></a>
+<var>arity</var></td><td width="75%">::= <span class="roman">{an <var>integer</var> <var>X</var> in the range 0..255}</span></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-byte-_0028argument-type_0029"></a>
+<var>byte</var></td><td width="75%">::= <span class="roman">{an <var>integer</var> <var>X</var> in the range 0..255}</span></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-char-_0028argument-type_0029"></a>
+<var>char</var></td><td width="75%">::= <span class="roman">{an <var>atom</var> consisting of a single character}</span></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-chars-_0028argument-type_0029"></a>
+<var>chars</var></td><td width="75%">::= <var>list of char</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-code-_0028argument-type_0029"></a>
+<var>code</var></td><td width="75%">::= <span class="roman">{an <var>integer</var> <var>X</var> &gt;= 0}</span></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-codes-_0028argument-type_0029"></a>
+<var>codes</var></td><td width="75%">::= <var>list of code</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-order-_0028argument-type_0029"></a>
+<var>order</var></td><td width="75%">::= <span class="roman">{an <var>atom</var>, one of <code>[&lt;,=,&gt;]</code>}</span></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-pair-_0028argument-type_0029"></a>
+<var>pair</var></td><td width="75%">::= <code><var>term</var>-<var>term</var></code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-simple_005fpred_005fspec-_0028argument-type_0029"></a>
+<var>simple_pred_spec</var></td><td width="75%">::= <code><var>atom</var>/<var>arity</var></code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-pred_005fspec-_0028argument-type_0029"></a>
+<var>pred_spec</var></td><td width="75%">::= <var>simple_pred_spec</var> | <code><var>atom</var>:<var>pred_spec</var></code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-pred_005fspec_005fforest-_0028argument-type_0029"></a>
+<var>pred_spec_forest</var></td><td width="75%">::= <code>[]</code> | <var>pred_spec</var></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>[<var>pred_spec_forest</var>|<var>pred_spec_forest</var>]</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code><var>pred_spec_forest</var>,<var>pred_spec_forest</var></code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-pred_005fspec_005ftree-_0028argument-type_0029"></a>
+<var>pred_spec_tree</var></td><td width="75%">::= <var>pred_spec</var> | <var>list of pred_spec</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-foreign_005fspec-_0028argument-type_0029"></a>
+<var>foreign_spec</var></td><td width="75%">::= <var>callable</var> <span class="roman">{all arguments being <var>foreign_arg</var>}</span></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-foreign_005farg-_0028argument-type_0029"></a>
+<var>foreign_arg</var></td><td width="75%">::= <code>+<var>interf_arg_type</var></code> | <code>-<var>interf_arg_type</var></code> | <code>[-<var>interf_arg_type</var>]</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-interf_005farg_005ftype-_0028argument-type_0029"></a>
+<var>interf_arg_type</var></td><td width="75%">::= <code>integer</code> | <code>float</code> | <code>atom</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>term</code> | <code>codes</code> | <code>string</code> | <code>address</code> | <code>address(<var>atom</var>)</code></td></tr>
+<tr><td width="25%"></td><td width="75%"><span class="roman">{see the description in <a href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types">Conversions between Prolog Arguments and C Types</a>}</span></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-file_005fspec-_0028argument-type_0029"></a>
+<var>file_spec</var></td><td width="75%">::= <var>atom</var> | <code><var>atom</var>(<var>file_spec</var>)</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><a name="index-expr-_0028argument-type_0029"></a>
+<var>expr</var></td><td width="75%">::= <span class="roman">{everything that is accepted as second argument to <code>is/2</code>;</span></td></tr>
+<tr><td width="25%"></td><td width="75%"><span class="roman">see the description of arithmetic expressions in <a href="ref_002dari_002daex.html#ref_002dari_002daex">ref-ari-aex</a>.}</span></td></tr>
+</table>
+
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002daty_002dsim.html#mpg_002dref_002daty_002dsim" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dref_002daty.html#mpg_002dref_002daty" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002daty_002dety.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002daty_002dety.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

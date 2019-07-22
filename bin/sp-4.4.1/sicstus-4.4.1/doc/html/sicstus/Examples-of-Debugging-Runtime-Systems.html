@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Examples of Debugging Runtime Systems</title>
+
+<meta name="description" content="SICStus Prolog: Examples of Debugging Runtime Systems">
+<meta name="keywords" content="SICStus Prolog: Examples of Debugging Runtime Systems">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems" rel="up" title="Debugging Runtime Systems">
+<link href="Interfacing-_002eNET-and-Java.html#Interfacing-_002eNET-and-Java" rel="next" title="Interfacing .NET and Java">
+<link href="Customizing-the-Debugged-Runtime-System.html#Customizing-the-Debugged-Runtime-System" rel="prev" title="Customizing the Debugged Runtime System">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Examples-of-Debugging-Runtime-Systems"></a>
+<hr>
+<a name="Examples-of-Debugging-Runtime-Systems-1"></a>
+<h4 class="subsection">6.9.3 Examples of Debugging Runtime Systems</h4>
+
+<p>The following examples show how to start Prolog debugging when SICStus
+is run from within Java via Jasper. The examples assume that the SICStus
+files are part of a development system installation.
+</p>
+<p>The first example initializes the SICStus system property
+<code>SP_USE_DEVSYS</code> by setting the environment variable with the same
+name. This method of passing SICStus system properties also works well
+when SICStus is embedded in some other, non-Java, program.
+</p>
+<div class="example">
+<pre class="example">$ <kbd>SP=/usr/local/sicstus4.4.1</kbd>
+$ <kbd>SP_USE_DEVSYS=yes</kbd>
+$ <kbd>export SP_USE_DEVSYS</kbd>
+$ <kbd>java -jar \</kbd>
+       <kbd>&quot;$SP/lib/sicstus-4.4.1/bin/jasper.jar&quot;</kbd>
+Trying to load SICStus.
+% The debugger will first creep -- showing everything (trace)
+        1      1 Call: write('If you see this message, you have successfully') ? <span class="key">RET</span>
+If you see this message, then you have successfully
+        1      1 Exit: write('If you see this message, you have successfully') ? <kbd>n</kbd>
+
+initialized the SICStus Prolog engine.
+$ <kbd>unset SP_USE_DEVSYS</kbd>
+</pre></div>
+
+<p>The second example initializes the SICStus system property
+<code>SP_USE_DEVSYS</code> by setting the Java system property
+<code>se.sics.sicstus.property.SP_USE_DEVSYS</code>. This method of passing
+SICStus system properties is specific to Jasper.
+</p>
+<div class="example">
+<pre class="example">$ <kbd>SP='/usr/local/sicstus4.4.1<!-- /@w -->'</kbd>
+$ <kbd>java -Dse.sics.sicstus.property.SP_USE_DEVSYS=yes \</kbd>
+       <kbd>-jar &quot;$SP/lib/sicstus-4.4.1/bin/jasper.jar&quot;</kbd>
+Trying to load SICStus.
+% The debugger will first creep -- showing everything (trace)
+        1      1 Call: write('If you see this message, you have successfully') ? <kbd>n</kbd>
+If you see this message, then you have successfully
+initialized the SICStus Prolog engine.
+$ 
+</pre></div>
+
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Customizing-the-Debugged-Runtime-System.html#Customizing-the-Debugged-Runtime-System" accesskey="p" rel="prev">Previous</a>
+<li><a href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Examples-of-Debugging-Runtime-Systems.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Examples-of-Debugging-Runtime-Systems.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-linda-client</title>
+
+<meta name="description" content="SICStus Prolog: lib-linda-client">
+<meta name="keywords" content="SICStus Prolog: lib-linda-client">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dlinda.html#lib_002dlinda" rel="up" title="lib-linda">
+<link href="lib_002dlists.html#lib_002dlists" rel="next" title="lib-lists">
+<link href="lib_002dlinda_002dserver.html#lib_002dlinda_002dserver" rel="prev" title="lib-linda-server">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dlinda_002dclient"></a>
+<hr>
+<a name="Linda-Client"></a>
+<h4 class="subsection">10.20.2 Linda Client</h4>
+<p>The clients are one or more SICStus processes that have connection(s) to the
+server.
+</p>
+<p>To load the package, enter the query
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>use_module(library('linda/client')).</kbd>
+</pre></div>
+
+<p>Some of the following predicates fail if they do not receive an
+answer from the Linda-server in a reasonable amount of time.  That time
+is set with the predicate <code>linda_timeout/2</code>.
+</p>
+<dl compact="compact">
+<dt><code>linda_client(<var>+Address</var>)</code></dt>
+<dd>
+<a name="index-linda_005fclient_002f1-_0028linda_005fclient_0029-1"></a>
+<a name="index-linda_005fclient_002f1-_0028linda_005fclient_0029"></a>
+
+<p>Establishes a connection to a Linda-server specified by <var>Address</var>.
+The <var>Address</var> is of the format <var>Host:PortNumber</var> as given by
+<code>linda/[0,1]</code>.
+</p>
+<p>It is not possible to be connected to two Linda-servers at the same time.
+</p>
+<p>This predicate can fail due to a timeout.
+</p>
+</dd>
+<dt><code>close_client</code></dt>
+<dd>
+<a name="index-close_005fclient_002f0-_0028linda_005fclient_0029-1"></a>
+<a name="index-close_005fclient_002f0-_0028linda_005fclient_0029"></a>
+
+<p>Closes the connection to the server.
+</p>
+</dd>
+<dt><code>shutdown_server/0</code></dt>
+<dd>
+<a name="index-shutdown_005fserver_002f0-_0028linda_005fclient_0029-1"></a>
+<a name="index-shutdown_005fserver_002f0-_0028linda_005fclient_0029"></a>
+
+<p>Sends a Quit signal to the server, which immediately stops accepting new
+connections before <code>shutdown_server/0</code> returns. The server continues
+running after receiving this signal, processing requests from existing
+clients, until such time as all
+the clients have closed their connections. It is up to the clients to 
+tell each other to quit. When all the clients are done, the server stops
+(i.e. <code>linda/[0,1]</code> succeeds).  Courtesy of Malcolm Ryan.
+Note that <code>close_client/0</code> should be called <em>after</em>
+<code>shutdown_server/0</code>. <code>shutdown_server/0</code> will raise an error
+if there is no connection between the client and the server.
+</p>
+<p>The behavior of <code>shutdown_server/0</code> changed in SICStus Prolog
+4.2. In previous releases the server continued to accept new connections
+after being told to shutdown. Now it immediately stops listening for new
+connections and releases the listening socket and these server actions
+happens before the client returns from <code>shutdown_server/0</code>.
+</p>
+</dd>
+<dt><code>linda_timeout(<var>?OldTime</var>, <var>?NewTime</var>)</code></dt>
+<dd>
+<a name="index-linda_005ftimeout_002f2-_0028linda_005fclient_0029-1"></a>
+<a name="index-linda_005ftimeout_002f2-_0028linda_005fclient_0029"></a>
+
+<p>This predicate controls Linda&rsquo;s timeout. <var>OldTime</var> is
+unified with the old timeout and then timeout is set to
+<var>NewTime</var>.  The value is either <code>off</code> or of the form
+<var>Seconds:Milliseconds</var>.  The former value indicates that the timeout
+mechanism is disabled, that is, eternal waiting.  The latter form is the
+<var>timeout</var>-<var>time</var>.
+</p>
+</dd>
+<dt><code>out(<var>+Tuple</var>)</code></dt>
+<dd>
+<a name="index-out_002f1-_0028linda_005fclient_0029-1"></a>
+<a name="index-out_002f1-_0028linda_005fclient_0029"></a>
+
+<p>Places the tuple <var>Tuple</var> in Linda&rsquo;s tuple-space.
+</p>
+</dd>
+<dt><code>in(<var>?Tuple</var>)</code></dt>
+<dd>
+<a name="index-in_002f1-_0028linda_005fclient_0029-1"></a>
+<a name="index-in_002f1-_0028linda_005fclient_0029"></a>
+
+<p>Removes the tuple <var>Tuple</var> from Linda&rsquo;s tuple-space if it is there.
+If not, then the predicate blocks until it is available (that is,
+someone performs an <code>out/1</code>).
+</p>
+</dd>
+<dt><code>in_noblock(<var>?Tuple</var>)</code></dt>
+<dd>
+<a name="index-in_005fnoblock_002f1-_0028linda_005fclient_0029-1"></a>
+<a name="index-in_005fnoblock_002f1-_0028linda_005fclient_0029"></a>
+
+<p>Removes the tuple <var>Tuple</var> from Linda&rsquo;s tuple-space if it is there.
+If not, then the predicate fails.
+</p>
+<p>This predicate can fail due to a timeout.
+</p>
+</dd>
+<dt><code>in(<var>+TupleList</var>, <var>?Tuple</var>)</code></dt>
+<dd>
+<a name="index-in_002f2-_0028linda_005fclient_0029-1"></a>
+<a name="index-in_002f2-_0028linda_005fclient_0029"></a>
+
+<p>As <code>in/1</code> but succeeds when either of the tuples in <var>TupleList</var>
+is available. <var>Tuple</var> is unified with the fetched tuple.  If
+that unification fails, then the tuple is <em>not</em> reinserted in the
+tuple-space.
+</p>
+</dd>
+<dt><code>rd(<var>?Tuple</var>)</code></dt>
+<dd>
+<a name="index-rd_002f_005b1_002c2_005d-_0028linda_005fclient_0029-1"></a>
+<a name="index-rd_002f_005b1_002c2_005d-_0028linda_005fclient_0029"></a>
+
+<p>Succeeds if <var>Tuple</var> is available in the tuple-space, suspends otherwise
+until it is available.
+Compare this with <code>in/1</code>: the tuple is <em>not</em> removed.
+</p>
+</dd>
+<dt><code>rd_noblock(<var>?Tuple</var>)</code></dt>
+<dd>
+<a name="index-rd_005fnoblock_002f1-_0028linda_005fclient_0029-1"></a>
+<a name="index-rd_005fnoblock_002f1-_0028linda_005fclient_0029"></a>
+
+<p>Succeeds if <var>Tuple</var> is available in the tuple-space, fails otherwise.
+</p>
+<p>This predicate can fail due to a timeout.
+</p>
+</dd>
+<dt><code>rd(<var>+TupleList</var>, <var>?Tuple</var>)</code></dt>
+<dd><p>As <code>in/2</code> but does not remove any tuples.
+</p>
+</dd>
+<dt><code>bagof_rd_noblock(<var>?Template</var>, <var>+Tuple</var>, <var>?Bag</var>)</code></dt>
+<dd>
+<a name="index-bagof_005frd_005fnoblock_002f3-_0028linda_005fclient_0029-1"></a>
+<a name="index-bagof_005frd_005fnoblock_002f3-_0028linda_005fclient_0029"></a>
+
+<p><var>Bag</var> is the list of all instances of <var>Template</var> such that
+<var>Tuple</var> exists in the tuple-space.
+</p>
+<p>The behavior of variables in <var>Tuple</var> and <var>Template</var> is as
+in <code>bagof/3</code>.  The variables could be existentially
+quantified with <code>^/2</code> as in <code>bagof/3</code>.
+</p>
+<p>The operation is performed as an atomic operation.
+</p>
+<p>This predicate can fail due to a timeout.
+</p>
+<p><b>Example</b>:
+Assume that only one client is connected to the server and that the tuple-space
+initially is empty.
+</p><div class="example">
+<pre class="example">| ?- <kbd>out(x(a,3)), out(x(a,4)), out(x(b,3)), out(x(c,3)).</kbd>
+
+| ?- <kbd>bagof_rd_noblock(C-N, x(C,N), L).</kbd>
+
+C = _32,
+L = [a-3,a-4,b-3,c-3],
+N = _52
+
+| ?- <kbd>bagof_rd_noblock(C, N^x(C,N), L).</kbd>
+
+C = _32,
+L = [a,a,b,c],
+N = _48
+
+</pre></div>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dlinda_002dserver.html#lib_002dlinda_002dserver" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dlinda.html#lib_002dlinda" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dlinda_002dclient.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dlinda_002dclient.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

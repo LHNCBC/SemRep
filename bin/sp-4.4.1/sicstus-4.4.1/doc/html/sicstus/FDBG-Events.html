@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FDBG Events</title>
+
+<meta name="description" content="SICStus Prolog: FDBG Events">
+<meta name="keywords" content="SICStus Prolog: FDBG Events">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="FDBG-Concepts.html#FDBG-Concepts" rel="up" title="FDBG Concepts">
+<link href="FDBG-Labeling-Levels.html#FDBG-Labeling-Levels" rel="next" title="FDBG Labeling Levels">
+<link href="FDBG-Concepts.html#FDBG-Concepts" rel="prev" title="FDBG Concepts">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FDBG-Events"></a>
+<hr>
+<a name="Events"></a>
+<h4 class="subsubsection">10.15.2.1 Events</h4>
+<a name="index-FDBG-event"></a>
+<a name="index-event_002c-FDBG"></a>
+
+<p>An FDBG event can (currently) belong to one of the two following major
+classes:
+</p>
+<dl compact="compact">
+<dt><em>constraint event</em></dt>
+<dd><a name="index-constraint-event"></a>
+<a name="index-event_002c-constraint"></a>
+<p>A constraint is woken.
+</p>
+</dd>
+<dt><em>labeling event</em></dt>
+<dd><a name="index-labeling-event"></a>
+<a name="index-event_002c-labeling"></a>
+<p>Three events belong to this class, namely:
+</p>
+<ul>
+<li> the labeling of an FD variable is started
+</li><li> an FD variable gets constrained
+</li><li> the labeling of an FD variable fails, i.e. all elements of its
+domain have been tried and caused failure
+</li></ul>
+</dd>
+</dl>
+
+<p>These events are intercepted by the FDBG core.  When any of them occurs,
+the appropriate visualizer (see <a href="FDBG-Visualizers.html#FDBG-Visualizers">FDBG Visualizers</a>) gets called with a
+representation of the event (a Prolog term) as extra
+arguments.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FDBG-Labeling-Levels.html#FDBG-Labeling-Levels" accesskey="n" rel="next">Next</a>
+<li><a href="FDBG-Concepts.html#FDBG-Concepts" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Events.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Events.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

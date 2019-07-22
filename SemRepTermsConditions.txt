@@ -1,0 +1,53 @@
+
+Terms and Conditions for Use of SemRep
+
+1. Introduction
+
+The following Terms and Conditions apply for use of SemRep. Using SemRep 
+indicates your acceptance of the following Terms and Conditions. These 
+Terms and Conditions apply to all SemRep components, independent of format 
+and method of acquisition.
+
+2. Availability
+
+SemRep is available to all requesters, both within and outside the United 
+States, at no charge.
+
+3. Use of SemRep
+
+a. Redistributions of SemRep in source or binary form must include this 
+list of conditions in the documentation and other materials provided 
+with the distribution.
+
+b. In any publication or distribution of all or any portion of SemRep
+ (1) you must attribute the source of the tools as SemRep with the 
+release number and date; (2) you must clearly annotate within the 
+source code, any modification made to SemRep; and (3) any subsequent 
+distribution of program, tool, or material based on SemRep, must be
+accomplished within the context of an open source set of terms and
+conditions such as the GNU General License.
+
+c. Bugs, questions, issues relating to SemRep should be directed to 
+the most recent of the chain of entities that may have modified and 
+re-distributed this code.
+
+d. You shall not assert any proprietary rights to any portion of
+SemRep, nor represent SemRep or any part thereof to anyone as other 
+than a United States Government product.
+
+e. The name of the U.S. Department of Health and Human Services,
+National Institutes of Health, National Library of Medicine, Lister
+Hill National Center for Biomedical Communications may not be used to
+endorse or promote products derived from SemRep without specific 
+prior written permission.
+
+f. Neither the United States Government, U.S. Department of Health and
+Human Services, National Institutes of Health, National Library of
+Medicine, Lister Hill National Center for Biomedical Communications,
+nor any of its agencies, contractors, subcontractors or employees of
+the United States Government make any warranties, expressed or
+implied, with respect to SemRep, and, furthermore, assume no liability 
+for any party's use, or the results of such use, of any part of these tools.
+
+These terms and conditions are in effect as long as the user retains
+any part of SemRep.

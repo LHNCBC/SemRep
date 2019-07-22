@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Condition Macros</title>
+
+<meta name="description" content="SICStus Prolog: Condition Macros">
+<meta name="keywords" content="SICStus Prolog: Condition Macros">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Breakpoint-Conditions.html#Breakpoint-Conditions" rel="up" title="Breakpoint Conditions">
+<link href="Action-Variables.html#Action-Variables" rel="next" title="Action Variables">
+<link href="Past-States.html#Past-States" rel="prev" title="Past States">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Condition-Macros"></a>
+<hr>
+<a name="Condition-Macros-1"></a>
+<h4 class="subsection">5.9.8 Condition Macros</h4>
+
+<p>There are a few condition macros expanding to a list of other
+conditions:
+</p>
+<dl compact="compact">
+<dt><code>unleash</code></dt>
+<dd><a name="index-unleash_002f0-_0028debugger-condition_0029"></a>
+<p>Expands to <code>[show(print),command(proceed)]</code>
+</p></dd>
+<dt><code>hide</code></dt>
+<dd><a name="index-hide_002f0-_0028debugger-condition_0029"></a>
+<p>Expands to <code>[show(silent),command(proceed)]</code>
+</p></dd>
+<dt><code>leash</code></dt>
+<dd><a name="index-leash_002f0-_0028debugger-condition_0029"></a>
+<p>Expands to <code>[show(print),command(ask)]</code>
+</p></dd>
+</dl>
+
+<p>The user can also define condition macros using the hook predicate
+below.
+</p>
+<dl compact="compact">
+<dt><code>breakpoint_expansion(<var>+Macro</var>, <var>-Body</var>) &nbsp;<!-- /@w --> <i>hook</i>,<i>development</i></code></dt>
+<dt><code>user:breakpoint_expansion(<var>+Macro</var>, <var>-Body</var>)</code></dt>
+<dd>
+<a name="index-breakpoint_005fexpansion_002f2-_0028user_002c-hook_0029-3"></a>
+<a name="index-breakpoint_005fexpansion_002f2-_0028user_002c-hook_0029-1"></a>
+
+
+<a name="index-user_003abreakpoint_005fexpansion_002f2-_0028hook_0029-3"></a>
+<a name="index-user_003abreakpoint_005fexpansion_002f2-_0028hook_0029-1"></a>
+
+<p>This predicate is called with each (non-composite)
+breakpoint test or action, as its first argument. If it
+succeeds, then the term returned in the second argument
+(<code>Body</code>) is substituted for the original condition. The expansion
+is done at the time the breakpoint is added.
+</p>
+<p>Note that <var>Body</var> can be composite, but it cannot be of form
+<code><var>Tests</var>-<var>Actions</var></code>. This means that the whole <var>Body</var>
+will be interpreted as being in either the test or the action part,
+depending on the context.
+</p>
+<p>The built-in breakpoint conditions cannot be redefined using this
+predicate.
+See <a href="mpg_002dref_002dbreakpoint_005fexpansion.html#mpg_002dref_002dbreakpoint_005fexpansion">mpg-ref-breakpoint_expansion</a>.
+</p></dd>
+</dl>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Action-Variables.html#Action-Variables" accesskey="n" rel="next">Next</a>
+<li><a href="Past-States.html#Past-States" accesskey="p" rel="prev">Previous</a>
+<li><a href="Breakpoint-Conditions.html#Breakpoint-Conditions" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Condition-Macros.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Condition-Macros.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

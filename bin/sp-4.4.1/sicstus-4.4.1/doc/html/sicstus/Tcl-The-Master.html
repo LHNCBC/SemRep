@@ -1,0 +1,319 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Tcl The Master</title>
+
+<meta name="description" content="SICStus Prolog: Tcl The Master">
+<meta name="keywords" content="SICStus Prolog: Tcl The Master">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Putting-It-All-Together.html#Putting-It-All-Together" rel="up" title="Putting It All Together">
+<link href="Prolog-The-Master.html#Prolog-The-Master" rel="next" title="Prolog The Master">
+<link href="Putting-It-All-Together.html#Putting-It-All-Together" rel="prev" title="Putting It All Together">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Tcl-The-Master"></a>
+<hr>
+<a name="Tcl-The-Master_002c-Prolog-The-Slave"></a>
+<h4 class="subsubsection">10.39.5.1 Tcl The Master, Prolog The Slave</h4>
+
+<p>This is the classical way that GUIs are bolted onto applications.
+The slave (in this case Prolog) sits mostly idle while the user
+interacts with the GUI, for example filling in a form.
+When some action happens in the GUI that requires information from the
+slave (a form submit, for example), the slave is called, performs
+a calculation, and the GUI retrieves the result and updates its display
+accordingly.
+</p>
+<p>In our Prolog+Tcl/Tk setting this involves the following steps:
+</p>
+<ul>
+<li> start Prolog and load the Tcl/Tk library
+</li><li> load Prolog application code
+</li><li> start a Tcl/Tk interpreter through <code>tk_new/2</code>
+</li><li> set up the Tk GUI through calls to <code>tcl_eval/3</code>
+</li><li> pass control to Tcl/Tk through <code>tk_main_loop</code>
+</li></ul>
+  
+<p>Some of The Tk widgets in the GUI will have &ldquo;callbacks&rdquo; to Prolog,
+i.e. they will call the <code>prolog</code> Tcl command.  When the Prolog call
+returns, the values stored in the <code>prolog_variables</code> array in the
+Tcl interpreter can then be used by Tcl to update the display.
+</p>
+<p>Here is a simple example of a callback. The Prolog part is this:
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(tcltk)).
+
+hello('world').
+
+go :-
+    tk_new([], Tcl),
+    tcl_eval(Tcl, 'source simple.tcl', _),
+    tk_main_loop.
+</pre></div>
+
+<p>which just loads the <code>library(tcltk)</code>, defines a
+<code>hello/1</code> data clause, and <code>go/0</code>, which starts a new
+Tcl/Tk interpreter, loads the code <code>simple.tcl</code> into it, and passes
+control to Tcl/Tk.
+</p>
+<p>The Tcl part, <code>simple.tcl</code>, is this:
+</p>
+<div class="example">
+<pre class="example">label .l -textvariable tvar
+button .b -text &quot;push me&quot; -command { call_and_display }
+pack .l .b -side top
+
+proc call_and_display { } {
+    global tvar
+
+    prolog &quot;hello(X)&quot;
+    set tvar $prolog_variables(X)
+}
+</pre></div>
+
+<p>which creates a label, with an associated text variable, and a button,
+that has a call back procedure, <code>call_and_display</code>, attached to it.
+When the button is pressed, <code>call_and_display</code> is executed, which
+simply evaluates the goal <code>hello(X)</code> in Prolog and the text
+variable of the label <code>.l</code> to whatever <code>X</code> becomes bound
+to, which happens to be &lsquo;<samp>world</samp>&rsquo;.  In short, pressing the button
+causes the word &lsquo;<samp>world</samp>&rsquo; to be displayed in the label.
+</p>
+<p>Having Tcl as the master and Prolog as the slave, although a simple
+model to understand and implement, does have disadvantages.  The Tcl
+command <code>prolog</code> is determinate, i.e. it can return only
+one result with no backtracking.  If more than one result is
+needed, then it means either performing some kind of all-solutions search and
+returning a list of results for Tcl to process, or asserting a
+clause into the Prolog clause store reflecting the state of
+the computation.
+</p>
+<p>Here is an example of how an all-solutions search can be done. It is a
+program that calculates the outcome of certain ancestor
+relationships; i.e. enter the name of a person, click on a button and
+it will tell you the mother, father, parents or ancestors of that
+person.
+</p>
+<p>The Prolog portion looks like this
+(see also <code>library('tcltk/examples/ancestors.pl')</code>):
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(tcltk)).
+
+go :- tk_new([name('ancestors')], X),
+    tcl_eval(X, 'source ancestors.tcl', _),
+    tk_main_loop,
+    tcl_delete(X).
+
+father(ann, fred).
+father(fred, jim).
+mother(ann, lynn).
+mother(fred, lucy).
+father(jim, sam).
+
+parent(X, Y) :- mother(X, Y).
+parent(X, Y) :- father(X, Y).
+
+ancestor(X, Y) :- parent(X, Y).
+ancestor(X, Y) :- parent(X, Z), ancestor(Z, Y).
+
+all_ancestors(X, Z) :- findall(Y, ancestor(X, Y), Z).
+
+all_parents(X, Z) :-   findall(Y, parent(X, Y), Z).
+</pre></div>
+
+<p>This program consists of three parts.  The first part is defined
+by <code>go/0</code>, the now familiar way in which a Prolog program can
+create a Tcl/Tk interpreter, load a Tcl file into that interpreter, and
+pass control over to the interpreter.
+</p>
+<p>The second part is a small database of mother/father relationships
+between certain people through the clauses <code>mother/2</code> and
+<code>father/2</code>.
+</p>
+<p>The third part is a set of &ldquo;rules&rdquo; for determining certain relationships
+between people: <code>parent/2</code>, <code>ancestor/2</code>,
+<code>all_ancestors/2</code> and <code>all_parents/2</code>.
+</p>
+<p>The Tcl part looks like this
+(see also <code>library('tcltk/examples/ancestors.tcl')</code>):
+</p>
+<div class="example">
+<pre class="example"><em>% ancestors.pl</em>
+</pre><pre class="example">#!/usr/bin/wish 
+
+# set up the tk display
+
+# construct text filler labels
+label .search_for -text &quot;SEARCHING FOR THE&quot; -anchor w
+label .of         -text &quot;OF&quot;                -anchor w
+label .gives      -text &quot;GIVES&quot;             -anchor w
+
+# construct frame to hold buttons
+frame .button_frame
+
+# construct radio button group
+radiobutton .mother    -text mother    -variable type -value mother
+radiobutton .father    -text father    -variable type -value father
+radiobutton .parents   -text parents   -variable type -value parents
+radiobutton .ancestors -text ancestors -variable type -value ancestors
+
+# add behaviors to radio buttons
+.mother    config -command { one_solution mother $name}
+.father    config -command { one_solution father $name}
+.parents   config -command { all_solutions all_parents $name}
+.ancestors config -command { all_solutions all_ancestors $name}
+
+# create entry box and result display widgets
+entry .name -textvariable name 
+label .result -text &quot;&gt;&gt;&gt; result &lt;&lt;&lt;&quot; -relief sunken -anchor nw -justify left
+
+# pack buttons into button frame
+pack .mother .father .parents .ancestors -fill x -side left -in .button_frame
+
+# pack everything together into the main window
+pack .search_for .button_frame .of .name .gives .result -side top -fill x
+
+# now everything is set up
+</pre><pre class="example"><em>% ancestors.pl</em>
+</pre><pre class="example"># defined the callback procedures 
+
+# called for one solution results
+proc one_solution { type name } {
+    if [prolog &quot;${type}('$name', R)&quot;] {
+        display_result $prolog_variables(R)
+    } else {
+        display_result &quot;&quot;
+    }
+}
+
+# called for all solution results
+proc all_solutions { type name } {
+    prolog  &quot;${type}('$name', R)&quot;
+    display_result $prolog_variables(R)
+}
+
+# display the result of the search in the results box
+proc display_result { result } {
+    if { $result != &quot;&quot; } {
+# create a multiline result
+        .result config -text $result
+    } else {
+        .result config -text &quot;*** no result ***&quot;
+    }
+} 
+</pre></div>
+
+<br>
+<img src="images/tcltkancestors.png" alt="images/tcltkancestors">
+<div align="center">Ancestors Calculator
+</div>
+<p>This program is in two parts.  The first part sets up the Tk
+display, which consists of four radiobuttons to choose the kind of
+relationship we want to calculate, an entry box to put the name of the
+person we want to calculate the relationship over, and a label in which
+to display the result.
+</p>
+<p>Each radio buttons has an associated callback. Clicking on the
+radio button will invoke the appropriate callback,
+apply the appropriate relationship to the name entered in the
+text entry box, and display the result in the results label.
+</p>
+<p>The second part consists of the callback procedures themselves.
+There are actually just two of them: one for a single solution
+calculation, and one for an all-solutions calculation.
+The single solution callback is used when we want to know the
+mother or father as we know that a person can have only
+one of each. The all-solutions callback is used when we want to
+know the parents or ancestors as we know that these
+can return more than one results.
+(We could have used the all-solutions callback for the single solutions cases too, but we would like to illustrate the difference in the two approaches.)
+There is little difference between the two approaches, except that in
+the single solution callback, it is possible that the call to Prolog
+will fail, so we wrap it in an <code>if</code> &hellip; <code>else</code> construct to
+catch this case.  An all-solutions search, however, cannot fail, and so
+the <code>if</code> &hellip; <code>else</code> is not needed.
+</p>
+<p>But there are some technical problems too with this approach.
+During a callback Tk events are not serviced until the callback
+returns. For Prolog callbacks that take a very short time to complete
+this is not a problem, but in other cases, for example during a long search
+call when the callback takes a significant time to complete, this can cause
+problems. Imagine that, in our example, we had a vast
+database describing the parent relationships of millions of people.
+Performing an all-solutions ancestors search could take a long time.
+The classic problem is that the GUI no longer reacts to
+the user until the callback completes.
+</p>
+<p>The solution to this is to sprinkle <code>tk_do_one_event/[0,1]</code> calls
+throughout the critical parts of the Prolog code, to keep various
+kinds of Tk events serviced.
+</p>
+<p>If this method is used in its purest form, then it is recommended that
+after initialization and passing of control to Tcl, Prolog do not make
+calls to Tcl through <code>tcl_eval/3</code>. This is to avoid programming
+spaghetti. In the pure master/slave relationship it is a general principle
+that the master only call the slave, and not the other way around.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Prolog-The-Master.html#Prolog-The-Master" accesskey="n" rel="next">Next</a>
+<li><a href="Putting-It-All-Together.html#Putting-It-All-Together" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Tcl-The-Master.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Tcl-The-Master.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

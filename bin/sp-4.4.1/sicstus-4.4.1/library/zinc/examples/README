@@ -1,0 +1,7 @@
+This directory contains a random collection of more or less well-known
+sample MiniZinc/FlatZinc programs. In most cases, but not always, the
+code is attributed to its source.
+
+The G12 sub directory contains example programs of the G12 MiniZinc
+distribution. These examples are in the public domain, as of version
+1.0 of the G12 MiniZinc distribution.

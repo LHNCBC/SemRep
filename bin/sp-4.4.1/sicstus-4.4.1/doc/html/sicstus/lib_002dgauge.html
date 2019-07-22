@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-gauge</title>
+
+<meta name="description" content="SICStus Prolog: lib-gauge">
+<meta name="keywords" content="SICStus Prolog: lib-gauge">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dheaps.html#lib_002dheaps" rel="next" title="lib-heaps">
+<link href="lib_002dfile_005fsystems.html#lib_002dfile_005fsystems" rel="prev" title="lib-file_systems">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dgauge"></a>
+<hr>
+<a name="The-Gauge-Profiling-Tool_002d_002d_002dlibrary_0028gauge_0029"></a>
+<h3 class="section">10.17 The Gauge Profiling Tool&mdash;<code>library(gauge)</code></h3>
+<a name="index-gauge"></a>
+<a name="index-profiling"></a>
+
+<p>The Gauge library package is a graphical interface to the SICStus
+built-in predicates <code>profile_data/1</code> and
+<code>profile_reset/0</code>.  See <a href="Execution-Profiling.html#Execution-Profiling">Execution Profiling</a> for more information about
+execution profiling.  The interface is based on Tcl/Tk
+(see <a href="lib_002dtcltk.html#lib_002dtcltk">lib-tcltk</a>).
+</p>
+<p>The SICStus IDE (see <a href="SPIDER.html#SPIDER">SPIDER</a>) can also show profiling information. This makes
+the Gauge library largely obsolescent.
+</p>
+<dl compact="compact">
+<dt><code>view &nbsp;<!-- /@w --> <i>since release 4.2</i></code></dt>
+<dd>
+<a name="index-view_002f0-_0028gauge_0029-1"></a>
+<a name="index-view_002f0-_0028gauge_0029"></a>
+
+<p>Creates a graphical user interface for viewing the profile data
+accumulated so far.  When the display first comes up it is blank except
+for the control panel.  A screen shot is shown below.
+</p></dd>
+</dl>
+
+<br>
+<img src="images/gauge.png" alt="images/gauge">
+<div align="center">Gauge graphical user interface
+</div>
+<p>The menus and buttons on the control panel are used as follows:
+</p>
+<dl compact="compact">
+<dt><em>Specification</em></dt>
+<dd><p>Selects what statistics to display.  One of:
+</p>
+<dl compact="compact">
+<dt><em>Calls</em></dt>
+<dd><p>The number of times a predicate was called.
+</p>
+</dd>
+<dt><em>Instructions</em></dt>
+<dd><p>The number of abstract instructions executed, plus two times the number of choice point accesses.
+</p>
+</dd>
+<dt><em>Choicepoints</em></dt>
+<dd><p>Number of choicepoints accessed (saved or restored).
+</p></dd>
+</dl>
+
+</dd>
+<dt><em>Sort Order</em></dt>
+<dd><p>Selects the sort order of the histogram.  One of:
+</p>
+<dl compact="compact">
+<dt><em>Alphabetic</em></dt>
+<dd><p>Sort the bars in alphabetic order.
+</p>
+</dd>
+<dt><em>Descending values</em></dt>
+<dd><p>Sort the bars by descending values.
+</p>
+</dd>
+<dt><em>Ascending values</em></dt>
+<dd><p>Sort the bars by ascending values.
+</p>
+</dd>
+<dt><em>Top 40</em></dt>
+<dd><p>Show just the 40 highest values in descending order.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><em>Scale</em></dt>
+<dd><p>Controls the scaling of the bars.  One of:
+</p>
+<dl compact="compact">
+<dt><em>Linear</em></dt>
+<dd><p>Display values with a linear scale.
+</p>
+</dd>
+<dt><em>Logarithmic</em></dt>
+<dd><p>Display values with a logarithmic scale.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><em>Show</em></dt>
+<dd><p>Controls whether to show bars with zero counts.  One of:
+</p>
+<dl compact="compact">
+<dt><em>All</em></dt>
+<dd><p>Show all values in the histogram.
+</p>
+</dd>
+<dt><em>No zero values</em></dt>
+<dd><p>Show only non-zero values.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><em>Font</em></dt>
+<dd><p>The font used in the histogram chart.
+</p>
+</dd>
+<dt><em>Calculate</em></dt>
+<dd><p>Calculates the values according to the current settings. The values are
+displayed in a histogram.
+</p>
+</dd>
+<dt><em>Reset</em></dt>
+<dd><p>The execution counters of the selected predicates and
+clauses are reset.
+</p>
+</dd>
+<dt><em>Print</em></dt>
+<dd><p>A choice of printing the histogram on a Postscript printer, or to a file.
+</p>
+</dd>
+<dt><em>Help</em></dt>
+<dd><p>Shows a help text.
+</p>
+</dd>
+<dt><em>Quit</em></dt>
+<dd><p>Quits Gauge and closes its windows.
+</p></dd>
+</dl>
+
+<p>By clicking on the bars of the histogram, the figures are displayed in
+the <em>Value Info</em> window.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dheaps.html#lib_002dheaps" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dfile_005fsystems.html#lib_002dfile_005fsystems" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dgauge.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dgauge.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

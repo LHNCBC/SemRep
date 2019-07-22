@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-sfh</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-sfh">
+<meta name="keywords" content="SICStus Prolog: ref-iou-sfh">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou.html#ref_002diou" rel="up" title="ref-iou">
+<link href="ref_002diou_002dsfh_002dsob.html#ref_002diou_002dsfh_002dsob" rel="next" title="ref-iou-sfh-sob">
+<link href="ref_002diou_002dcou_002dfou.html#ref_002diou_002dcou_002dfou" rel="prev" title="ref-iou-cou-fou">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002dsfh"></a>
+<hr>
+<a name="Stream-and-File-Handling"></a>
+<h4 class="subsection">4.6.7 Stream and File Handling</h4>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002diou_002dsfh_002dsob.html#ref_002diou_002dsfh_002dsob" accesskey="1">ref-iou-sfh-sob</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Stream Objects
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest" accesskey="2">ref-iou-sfh-est</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Exceptions Related to Streams
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002diou_002dsfh_002dsem.html#ref_002diou_002dsfh_002dsem" accesskey="3">ref-iou-sfh-sem</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Suppressing Error Messages
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002diou_002dsfh_002dopn.html#ref_002diou_002dsfh_002dopn" accesskey="4">ref-iou-sfh-opn</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Opening a Stream
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002diou_002dsfh_002denc.html#ref_002diou_002dsfh_002denc" accesskey="5">ref-iou-sfh-enc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Text Stream Encodings
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002diou_002dsfh_002dcis.html#ref_002diou_002dsfh_002dcis" accesskey="6">ref-iou-sfh-cis</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Finding the Current Input Stream
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002diou_002dsfh_002dcos.html#ref_002diou_002dsfh_002dcos" accesskey="7">ref-iou-sfh-cos</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Finding the Current Output Stream
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002diou_002dsfh_002dbos.html#ref_002diou_002dsfh_002dbos" accesskey="8">ref-iou-sfh-bos</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Finding Out About Open Streams
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002diou_002dsfh_002dcst.html#ref_002diou_002dsfh_002dcst" accesskey="9">ref-iou-sfh-cst</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Closing a Stream
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002diou_002dsfh_002dflu.html#ref_002diou_002dsfh_002dflu">ref-iou-sfh-flu</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Flushing Output
+</td></tr>
+</table>
+
+<a name="index-streams"></a>
+
+<p>The operations implemented are opening, closing, querying status,
+flushing, error handling, setting.
+</p>
+<p>The predicates in the &ldquo;see&rdquo; and &ldquo;tell&rdquo; families are supplied for
+compatibility with other Prologs.  They take either file specifications or
+stream objects as arguments (see <a href="mpg_002dref.html#mpg_002dref">mpg-ref</a>) and they specify
+an alternative, less powerful, mechanism for dealing with files and
+streams than the similar predicates (<code>open/[3,4]</code>, etc.), which take
+stream objects (see the figure &ldquo;Categorization of Stream Handling Predicates&rdquo;).
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002dsos.html#ref_002diou_002dsos" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002diou_002dcou.html#ref_002diou_002dcou" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002diou.html#ref_002diou" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

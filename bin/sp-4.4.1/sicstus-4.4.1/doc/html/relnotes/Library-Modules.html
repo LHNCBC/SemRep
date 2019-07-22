@@ -1,0 +1,347 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: Library Modules</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: Library Modules">
+<meta name="keywords" content="SICStus Prolog Release Notes: Library Modules">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4" rel="up" title="What Is New In Release 4">
+<link href="Input_002dOutput-System.html#Input_002dOutput-System" rel="next" title="Input-Output System">
+<link href="Prolog-Language.html#Prolog-Language" rel="prev" title="Prolog Language">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Library-Modules"></a>
+<hr>
+<a name="Library-Modules-1"></a>
+<h4 class="subsection">14.1.3 Library Modules</h4>
+
+<p>There is no consensus for a core library, portable across Prolog
+systems, let alone a standard for such a library.  Since release 3, SICS
+has acquired Quintus Prolog, which has a rather rich library.  For
+release 4, we have decided to make this asset be available to the
+SICStus community by providing a library that is a merger of the
+previous SICStus and Quintus libraries, which already overlap
+significantly.
+</p>
+<p>The User&rsquo;s Manual documents the library of release 4.  For the
+purposes of aiding code transition to release 4, the following is a
+list of the release 3 library modules, and their fate in release 4.
+See also <a href="Guide-to-Porting-Code-from-Release-3.html#Guide-to-Porting-Code-from-Release-3">Guide to Porting Code from Release 3</a>.
+</p>
+<dl compact="compact">
+<dt><code>atts</code></dt>
+<dt><code>comclient</code></dt>
+<dt><code>fdbg</code></dt>
+<dt><code>gauge</code></dt>
+<dt><code>heaps</code></dt>
+<dt><code>linda/client</code></dt>
+<dt><code>linda/server</code></dt>
+<dt><code>pillow</code></dt>
+<dt><code>prologbeans</code></dt>
+<dt><code>tcltk</code></dt>
+<dt><code>timeout</code></dt>
+<dt><code>trees</code></dt>
+<dt><code>wgraphs</code></dt>
+<dt><code>xml</code></dt>
+<dd><p>As in release 3.
+</p>
+</dd>
+<dt><code>arrays</code></dt>
+<dd><p>The native release 4 counterpart is called <code>library(logarr)</code>.
+Also available is a deprecated compatibility module <code>library(arrays3)</code>.
+</p>
+</dd>
+<dt><code>assoc</code></dt>
+<dd><p>The native release 4 counterpart is called <code>library(avl)</code>,
+reflecting the abstract data type, AVL trees, and with a modified,
+richer API.  Also available is a deprecated compatibility module
+<code>library(assoc3)</code>.
+</p>
+</dd>
+<dt><code>bdb</code></dt>
+<dd><p>As in release 3, but uses the default Berkeley DB hash function, so all
+of the standard Berkeley DB utilites should now work.
+</p>
+</dd>
+<dt><code>charsio</code></dt>
+<dd><p>Called <code>library(codesio)</code> in release 4.
+Likewise, the syllable &lsquo;<samp>chars</samp>&rsquo; has been renamed to &lsquo;<samp>codes</samp>&rsquo;
+in predicate names.
+</p>
+</dd>
+<dt><code>clpb</code></dt>
+<dt><code>clpq</code></dt>
+<dt><code>clpr</code></dt>
+<dd><p>As in release 3, unsupported.
+</p>
+</dd>
+<dt><code>clpfd</code></dt>
+<dd><p>As in release 3, plus the following additions and changes:
+</p>
+<dl compact="compact">
+<dt><code>automaton/8</code></dt>
+<dd><p>is a new constraint capturing any constraint
+whose checker of ground instances can be expressed as a finite
+automaton. 
+</p></dd>
+<dt><code>minimum/2</code></dt>
+<dt><code>maximum/2</code></dt>
+<dd><p>are new constraints, constraining a value to be the minimum (maximum) of
+a list of values.
+</p></dd>
+<dt><code>nvalue/2</code></dt>
+<dd><p>is a new constraint, constraining the number of distinct values taken by
+a list of values.
+</p></dd>
+<dt><code>cumulative/[1,2]</code></dt>
+<dd><p>provides a unified interface, subsuming <code>serialized/[2,3]</code> and <code>cumulative/[4,5]</code>.
+</p></dd>
+<dt><code>table/[2,3]</code></dt>
+<dd><p>defines an n-ary constraint by extension, subsuming <code>relation/3</code>.
+</p></dd>
+<dt><code>all_different/[1,2]</code></dt>
+<dt><code>all_distinct/[1,2]</code></dt>
+<dd><p>Arguments can have unbounded domains.
+</p></dd>
+<dt><code>scalar_product/[4,5]</code></dt>
+<dd><p>can optionally be told to maintain arc-consistency.
+This functionality subsumes <code>knapsack/3</code>.
+</p></dd>
+<dt><code>global_cardinality/[2,3]</code></dt>
+<dd><p>can optionally be told to use a simple algorithm.
+This functionality subsumes <code>count/4</code>.
+</p></dd>
+<dt><code>fd_copy_term/3</code></dt>
+<dd><p>is gone.  Subsumed by built-in <code>copy_term/3</code>.
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>jasper</code></dt>
+<dd><p>The Jasper module is available in the current 
+release. An alternative for Java users is PrologBeans. The
+latter is the recommended method for interfacing Java with SICStus.
+Jasper should only be used when PrologBeans is insufficient.
+</p>
+</dd>
+<dt><code>lists</code></dt>
+<dd><p>The native release 4 counterpart has a modified, richer API.
+Also available is a deprecated compatibility module <code>library(lists3)</code>.
+</p>
+</dd>
+<dt><code>ordsets</code></dt>
+<dd><p>As in release 3, plus several new predicates.
+</p>
+</dd>
+<dt><code>queues</code></dt>
+<dd><p>The native release 4 counterpart has a modified, richer API.
+Also available is a deprecated compatibility module <code>library(queues3)</code>.
+</p>
+</dd>
+<dt><code>random</code></dt>
+<dd><p>The native release 4 counterpart has a modified, richer API.
+Also available is a deprecated compatibility module <code>library(random3)</code>.
+<strong>Please note:</strong> The random number generator state is slightly
+different from the one in release 3.
+</p>
+</dd>
+<dt><code>sockets</code></dt>
+<dd><p>The new predicate <code>socket_client_open/3</code> subsumes <code>socket/2</code>
+and <code>socket_connect/3</code>.
+</p>
+<p><code>socket_server_open/[2,3]</code> subsumes <code>socket/2</code>,
+<code>socket_bind/2</code> and <code>socket_listen/2</code>.
+</p>
+<p><code>socket_select/7</code> can wait for any kind of stream, not just socket
+streams. <code>socket_select/7</code> waits until one <em>unit</em> (character for
+text streams, byte for binary streams) can be transferred.
+</p>
+<p><code>socket_select/7</code> can wait for streams ready to write.
+</p>
+<p><code>socket_select/7</code> does not create streams, you need to explicitly
+use <code>socket_server_accept/4</code>.
+</p>
+<p>Socket streams are binary by default.
+</p>
+<p>Blocking socket operations can be interrupted on both UNIX and Windows.
+</p>
+<p><code>library(sockets)</code> should work with IPv6 (in addition to IPv4 and <code>AF_UNIX</code>).
+</p>
+
+</dd>
+<dt><code>system</code></dt>
+<dd><p>Operations on files and directories have been moved to its own module,
+<code>library(file_systems)</code>. Process primitives have been redesigned
+and moved to a new module, <code>library(process)</code>. The predicates for
+creating temporary files, <code>mktemp/2</code> and <code>tmpnam/1</code>, have been
+removed. They used C library functionality that is broken by design and
+insecure. Instead, to create and open a temporary file use something
+like <code>open(temp('foo'), write, S,
+[if_exists(generate_unique_name)])</code>, possibly together with
+<code>stream_property(S, file_name(Path))</code> if you need to know the path
+to the generated file name.
+</p>
+<p>The (little) remaining functionality is largely as in release 3.
+Also available is a deprecated compatibility module <code>library(system3)</code>.
+</p>
+
+</dd>
+<dt><code>terms</code></dt>
+<dd><p>As in release 3, plus several new predicates.
+<code>term_hash/2</code> is not guaranteed to compute the same hash values as in release 3.
+</p>
+</dd>
+<dt><code>ugraphs</code></dt>
+<dd><p>As in release 3, plus a couple of deletions.
+</p>
+</dd>
+<dt><code>objects</code></dt>
+<dd><p>Replaced by the Quintus Prolog flavor of <code>library(objects)</code>.
+</p>
+</dd>
+<dt><code>chr</code></dt>
+<dd><p>A reimplementation of <code>library(chr)</code>,
+based on the Leuven implementation.
+</p>
+</dd>
+<dt><code>flinkage</code></dt>
+<dt><code>spaceout</code></dt>
+<dd><p>Not present in release 4.
+</p>
+</dd>
+<dt><code>vbsp</code></dt>
+<dd><p>Not available in the current release. Visual&nbsp;Basic&nbsp;.NET<!-- /@w --> and
+other .NET languages can use PrologBeans&nbsp;.NET<!-- /@w -->.
+</p>
+</dd>
+</dl>
+
+<p>The following is a list of library modules that are new in release 4.
+</p>
+<dl compact="compact">
+<dt><code>aggregate</code></dt>
+<dd><p>provides an aggregation operator for data-base-style queries.
+</p>
+</dd>
+<dt><code>assoc</code></dt>
+<dd><p>uses unbalanced binary trees to implement &ldquo;association lists&rdquo;, i.e. extendible
+finite mappings from terms to terms.
+</p>
+</dd>
+<dt><code>bags</code></dt>
+<dd><p>defines operations on bags, or multisets
+</p>
+</dd>
+<dt><code>between</code></dt>
+<dd><p>provides some means of generating integers.
+</p>
+</dd>
+<dt><code>file_systems</code></dt>
+<dd><p>accesses files and directories.
+</p>
+
+</dd>
+<dt><code>objects</code></dt>
+<dd><p>provides a package for object-oriented programming,
+and can be regarded as a high-level
+alternative to <code>library(structs)</code>.
+</p>
+</dd>
+<dt><code>plunit</code></dt>
+<dd><p>Unit test harness.
+</p>
+</dd>
+<dt><code>process</code></dt>
+<dd><p>Creating, killing, releasing, and waiting on processes.
+</p>
+</dd>
+<dt><code>rem</code></dt>
+<dd><p>provides Rem&rsquo;s algorithm for maintaining equivalence classes.
+</p>
+</dd>
+<dt><code>samsort</code></dt>
+<dd><p>provides generic sorting.
+</p>
+</dd>
+<dt><code>sets</code></dt>
+<dd><p>defines operations on sets represented as lists with the elements
+unordered.
+</p>
+</dd>
+<dt><code>structs</code></dt>
+<dd><p>provides access to C data structures, and can be regarded as a low-level
+alternative to <code>library(objects)</code>.
+</p>
+</dd>
+<dt><code>types</code></dt>
+<dd><p>Provides type checking.
+</p>
+</dd>
+<dt><code>varnumbers</code></dt>
+<dd><p>An inverse of <code>numbervars/3</code>.
+</p></dd>
+</dl>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Input_002dOutput-System.html#Input_002dOutput-System" accesskey="n" rel="next">Next</a>
+<li><a href="Prolog-Language.html#Prolog-Language" accesskey="p" rel="prev">Previous</a>
+<li><a href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Library-Modules.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Library-Modules.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

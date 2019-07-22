@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lps-app</title>
+
+<meta name="description" content="SICStus Prolog: ref-lps-app">
+<meta name="keywords" content="SICStus Prolog: ref-lps-app">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlps.html#ref_002dlps" rel="up" title="ref-lps">
+<link href="ref_002dlps_002dapf.html#ref_002dlps_002dapf" rel="next" title="ref-lps-apf">
+<link href="ref_002dlps_002dove.html#ref_002dlps_002dove" rel="prev" title="ref-lps-ove">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlps_002dapp"></a>
+<hr>
+<a name="Associating-Predicates-with-their-Properties"></a>
+<h4 class="subsection">4.9.2 Associating Predicates with their Properties</h4>
+
+
+<a name="index-predicate_005fproperty_002f2-_0028built_002din_0029-4"></a>
+<a name="index-predicate_005fproperty_002f2-_0028built_002din_0029"></a>
+
+<p>The following properties are associated with predicates either
+implicitly or by declaration:
+</p>
+<dl compact="compact">
+<dt><code>built_in</code></dt>
+<dd><a name="index-built_005fin_002f0-_0028predicate-property_0029"></a>
+<p>The predicate is built-in.
+</p>
+</dd>
+<dt><code>compiled</code></dt>
+<dd><a name="index-compiled_002f0-_0028predicate-property_0029"></a>
+<p>The predicate is in virtual code representation.
+</p>
+</dd>
+<dt><code>interpreted</code></dt>
+<dd><a name="index-interpreted_002f0-_0028predicate-property_0029"></a>
+<p>The predicate is in interpreted representation.
+</p>
+</dd>
+<dt><code>fd_constraint</code></dt>
+<dd><a name="index-fd_005fconstraint_002f0-_0028predicate-property_0029"></a>
+<p>The predicate is a so-called FD predicate;
+see <a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints">Defining Primitive Constraints</a>.
+</p>
+</dd>
+<dt><code>dynamic</code></dt>
+<dd><a name="index-dynamic_002f0-_0028predicate-property_0029"></a>
+<p>The predicate was declared dynamic.
+</p>
+</dd>
+<dt><code>volatile</code></dt>
+<dd><a name="index-volatile_002f0-_0028predicate-property_0029"></a>
+<p>The predicate was declared volatile.
+</p>
+</dd>
+<dt><code>multifile</code></dt>
+<dd><a name="index-multifile_002f0-_0028predicate-property_0029"></a>
+<p>The predicate was declared multifile.
+</p>
+
+</dd>
+<dt><code>block(<var>SkeletalGoal</var>)</code></dt>
+<dd><a name="index-block_002f1-_0028predicate-property_0029"></a>
+<p>The predicate has block declarations.
+</p>
+</dd>
+<dt><code>meta_predicate(<var>SkeletalGoal</var>)</code></dt>
+<dd><a name="index-meta_005fpredicate_002f1-_0028predicate-property_0029"></a>
+<p>The predicate is a meta-predicate.
+</p>
+<p>As of release 4.2, the <var>SkeletalGoal</var> will contain
+the specifications used in the original meta-predicate declaration.
+</p>
+</dd>
+<dt><code>exported</code></dt>
+<dd><a name="index-exported_002f0-_0028predicate-property_0029"></a>
+<p>The predicate was exported from a module.
+</p>
+</dd>
+<dt><code>imported_from(<var>Module</var>)</code></dt>
+<dd><a name="index-imported_005ffrom_002f1-_0028predicate-property_0029"></a>
+<p>The predicate was imported from the module <var>Module</var>.
+</p></dd>
+</dl>
+
+<p>Every predicate has exactly one of the properties
+<code>[built_in, compiled, interpreted, fd_constraint]</code>,
+at most one of the properties
+</p>
+<p><code>[exported, imported_from(<var>SkeletalGoal</var>)]</code>,
+zero or more <code>block(<var>SkeletalGoal</var>)</code> properties,
+and at most one of the remaining properties.
+</p>
+<p>To query these associations, use <code>predicate_property/2</code>.  The
+reference page contains several examples.
+See <a href="mpg_002dref_002dpredicate_005fproperty.html#mpg_002dref_002dpredicate_005fproperty">mpg-ref-predicate_property</a>.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlps_002dapf.html#ref_002dlps_002dapf" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlps_002dove.html#ref_002dlps_002dove" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlps.html#ref_002dlps" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlps_002dapp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlps_002dapp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

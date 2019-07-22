@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-linda</title>
+
+<meta name="description" content="SICStus Prolog: lib-linda">
+<meta name="keywords" content="SICStus Prolog: lib-linda">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dlinda_002dserver.html#lib_002dlinda_002dserver" rel="next" title="lib-linda-server">
+<link href="Deprecated-Jasper-Predicates.html#Deprecated-Jasper-Predicates" rel="prev" title="Deprecated Jasper Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dlinda"></a>
+<hr>
+<a name="Process-Communication_002d_002d_002dlibrary_0028linda_002f_005bserver_002cclient_005d_0029"></a>
+<h3 class="section">10.20 Process Communication&mdash;<code>library(linda/[server,client])</code></h3>
+<a name="index-Linda"></a>
+<a name="index-process-communication"></a>
+<a name="index-communication_002c-process"></a>
+<a name="index-synchronization"></a>
+<p>Linda is a concept for process communication.
+</p>
+<p>For an introduction and a deeper description, see [Carreiro &amp; Gelernter
+89a] or [Carreiro &amp; Gelernter 89b], respectively.
+</p>
+<p>One process is running as a server and one or more processes are running
+as clients.  The processes are communicating with sockets and
+supports networks.
+</p>
+<p>The server is in principle a blackboard on which the clients can write
+(<code>out/1</code>), read (<code>rd/1</code>) and remove (<code>in/1</code>) data.  If
+the data is not present on the blackboard, then the predicates suspend
+the process until they are available.
+</p>
+<p>There are some more predicates besides the basic <code>out/1</code>,
+<code>rd/1</code> and <code>in/1</code>.  The <code>in_noblock/1</code> and
+<code>rd_noblock/1</code> does not suspend if the data is not available&mdash;they
+fail instead.  A blocking fetch of a conjunction of data can be done
+with <code>in/2</code> or <code>rd/2</code>.
+</p>
+
+<p><b>Example</b>: A simple producer-consumer.  In client 1:
+</p><div class="example">
+<pre class="example">producer :-
+       produce(X),
+       out(p(X)),
+       producer.
+
+produce(X) :- &hellip;..
+</pre></div>
+
+<p>In client 2:
+</p>
+<div class="example">
+<pre class="example">consumer :- 
+       in(p(A)),
+       consume(A),
+       consumer.
+
+consume(A) :- &hellip;..
+</pre></div>
+
+<p><b>Example</b>: Synchronization
+</p>
+<div class="example">
+<pre class="example">       &hellip;,
+       in(ready),  %Waits here until someone does out(ready)
+       &hellip;,
+</pre></div>
+
+<p><b>Example</b>: A critical region
+</p>
+<div class="example">
+<pre class="example">       &hellip;,
+       in(region_free),  % wait for region to be free
+       critical_part,
+       out(region_free), % let next one in
+       &hellip;,
+</pre></div>
+
+<p><b>Example</b>: Reading global data
+</p>
+<div class="example">
+<pre class="example">       &hellip;,
+       rd(data(Data)),
+       &hellip;,
+
+or, without blocking:
+       &hellip;,
+       rd_noblock(data(Data)) -&gt;
+             do_something(Data)
+       ;     write('Data not available!'),nl
+       ),
+       &hellip;,
+</pre></div>
+
+<p><b>Example</b>: Waiting for one of several events
+</p>
+<div class="example">
+<pre class="example">       &hellip;,
+       in([e(1),e(2),&hellip;,e(n)], E),
+%  Here is E instantiated to the first tuple that became available
+       &hellip;,
+</pre></div>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="lib_002dlinda_002dserver.html#lib_002dlinda_002dserver" accesskey="1">lib-linda-server</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Linda Server
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dlinda_002dclient.html#lib_002dlinda_002dclient" accesskey="2">lib-linda-client</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Linda Client
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dlists.html#lib_002dlists" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002djasper.html#lib_002djasper" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dlinda.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dlinda.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

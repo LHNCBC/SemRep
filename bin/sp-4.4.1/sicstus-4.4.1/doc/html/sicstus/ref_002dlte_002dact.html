@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lte-act</title>
+
+<meta name="description" content="SICStus Prolog: ref-lte-act">
+<meta name="keywords" content="SICStus Prolog: ref-lte-act">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlte.html#ref_002dlte" rel="up" title="ref-lte">
+<link href="ref_002dlte_002dacl.html#ref_002dlte_002dacl" rel="next" title="ref-lte-acl">
+<link href="ref_002dlte_002dmet_002dusu.html#ref_002dlte_002dmet_002dusu" rel="prev" title="ref-lte-met-usu">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlte_002dact"></a>
+<hr>
+<a name="Analyzing-and-Constructing-Terms"></a>
+<h4 class="subsection">4.8.2 Analyzing and Constructing Terms</h4>
+
+
+<a name="index-functor_002f3-_0028built_002din_0029-1"></a>
+<a name="index-functor_002f3-_0028built_002din_0029"></a>
+
+
+<a name="index-principal-functor"></a>
+<a name="index-functor_002c-principal"></a>
+
+<p>The built-in predicate <code>functor/3</code>:
+</p><ul>
+<li> decomposes a given term into its name and arity, or
+</li><li> given a name and arity, constructs the corresponding compound term
+creating new uninstantiated variables for its arguments.
+</li></ul>
+
+
+<a name="index-arg_002f3-_0028built_002din_0029-1"></a>
+<a name="index-arg_002f3-_0028built_002din_0029"></a>
+
+
+<a name="index-terms_002c-arguments-of"></a>
+<a name="index-arguments-of-terms"></a>
+
+
+<p>The built-in predicate <code>arg/3</code> 
+unifies a term with a specified argument of another term.
+</p>
+
+<a name="index-_003d_002e_002e_002f2-_0028built_002din_0029-1"></a>
+<a name="index-_003d_002e_002e_002f2-_0028built_002din_0029"></a>
+
+
+<p>The built-in predicate <var>Term</var> <code>=..</code> <var>List</var>
+unifies <var>List</var> with a list whose head is the atom corresponding
+to the principal functor of <var>Term</var> and whose tail is a list of
+the arguments of <var>Term</var>.
+</p>
+
+<a name="index-acyclic_005fterm_002f2-_0028built_002din_0029-1"></a>
+<a name="index-acyclic_005fterm_002f2-_0028built_002din_0029"></a>
+
+
+<p>The built-in predicate <code>acyclic_term/2(<var>Term</var>)</code>
+succeeds if and only if <var>Term</var> is finite (acyclic).
+</p>
+
+<a name="index-term_005fvariables_002f2-_0028built_002din_0029-1"></a>
+<a name="index-term_005fvariables_002f2-_0028built_002din_0029"></a>
+
+
+<p>The built-in predicate <code>term_variables(<var>Term</var>,<var>Variables</var>)</code>
+unifies <var>Variables</var> with the set of variables that occur in <var>Term</var>,
+sorted in standard order.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlte_002dacl.html#ref_002dlte_002dacl" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlte_002dmet.html#ref_002dlte_002dmet" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlte.html#ref_002dlte" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dact.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dact.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

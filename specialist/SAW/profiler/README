@@ -1,0 +1,20 @@
+This directory contains profiler program, which can be used to compare two SemRep output files or to evaluate a SemRep output file against a gold standard. 
+To compare two files, run the following command:
+perl profiler.pl comp $file1:$file1_format $file2:$file2_format
+where $file1 is the first output file to compare and $file1_format is its output format (D for full-fielded output format and S for simple format). $file2 is the second file to compare and $file2_format is its output format.
+These files must be located in the same directory and the command must be run from there. For instance, in the sample directory:
+
+perl ../profiler.pl comp cardiac_325.cdx.old:D cardiac_325.cdx.new:D
+
+The same program can also be used to evaluate a SemRep output file. In this case, the second file is the gold standard file. The gold standard file is expected to be in simple output format. (NOTE: As of 01/10/2009, conversion of the gold standard files to this format is not complete, therefore, evaluation may not work as expected.) To evaluate a file, the command to use is:
+
+perl profiler.pl eval $file1:$file1_format $gs_file:$gs_format
+
+$gs_format is optional. If it is not used, the last argument of the program is $gs_file. 
+
+Once the program is run, several HTML files are created in the same directory. The main page is called $file1_$file2_comp.html (in case of comparison) or $file1_$file2_eval.html (in case of evaluation). This file can be opened using a browser. Several statistics are shown in this page, and links to predicate and semantic type comparisons are also provided. If evaluation was requested, a link to full evaluation results is provided, as well.
+
+
+
+ 
+

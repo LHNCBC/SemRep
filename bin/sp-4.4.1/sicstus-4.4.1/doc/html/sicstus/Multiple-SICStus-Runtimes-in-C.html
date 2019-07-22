@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Multiple SICStus Runtimes in C</title>
+
+<meta name="description" content="SICStus Prolog: Multiple SICStus Runtimes in C">
+<meta name="keywords" content="SICStus Prolog: Multiple SICStus Runtimes in C">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes" rel="up" title="Multiple SICStus Runtimes">
+<link href="MT-Single.html#MT-Single" rel="next" title="MT Single">
+<link href="Multiple-SICStus-Runtimes-in-Java.html#Multiple-SICStus-Runtimes-in-Java" rel="prev" title="Multiple SICStus Runtimes in Java">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Multiple-SICStus-Runtimes-in-C"></a>
+<hr>
+<a name="Multiple-SICStus-Runtimes-in-C-1"></a>
+<h3 class="section">8.2 Multiple SICStus Runtimes in C</h3>
+
+
+<p>Unless otherwise noted, this section documents the behavior when using
+dynamic linking to access a SICStus runtime.
+</p>
+<p>The key implementation feature that makes it possible to use multiple
+runtimes is that all calls from C to the SICStus API
+(<code>SP_query()</code>, etc.) go through a dispatch vector. Two runtimes
+can be loaded at the same time since their APIs are accessed
+through different dispatch vectors.
+</p>
+<p>By default, there will be a single dispatch vector, referenced from a
+global variable (<code>sp_GlobalSICStus</code>). A SICStus API functions, such
+as <code>SP_query()</code>, is then defined as a macro that expands to something
+similar to <code>sp_GlobalSICStus-&gt;SP_query_pointer</code>.
+The name of the global dispatch vector is subject to change without
+notice; it should not be referenced directly. If you need to access the
+dispatch vector, then use the C macro <code>SICStusDISPATCHVAR</code> instead; see
+below.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="MT-Single.html#MT-Single" accesskey="1">MT Single</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Using a Single SICStus Runtime
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="MT-Multiple.html#MT-Multiple" accesskey="2">MT Multiple</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Using More than One SICStus Runtime
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Foreign-Resources-and-Multiple-SICStus-Runtimes.html#Foreign-Resources-and-Multiple-SICStus-Runtimes" accesskey="n" rel="next">Next</a>
+<li><a href="Multiple-SICStus-Runtimes-in-Java.html#Multiple-SICStus-Runtimes-in-Java" accesskey="p" rel="prev">Previous</a>
+<li><a href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Multiple-SICStus-Runtimes-in-C.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Multiple-SICStus-Runtimes-in-C.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

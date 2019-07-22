@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Creating and Manipulating SP_term_refs</title>
+
+<meta name="description" content="SICStus Prolog: Creating and Manipulating SP_term_refs">
+<meta name="keywords" content="SICStus Prolog: Creating and Manipulating SP_term_refs">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Support-Functions.html#Support-Functions" rel="up" title="Support Functions">
+<link href="Atoms-in-C.html#Atoms-in-C" rel="next" title="Atoms in C">
+<link href="Support-Functions.html#Support-Functions" rel="prev" title="Support Functions">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Creating-and-Manipulating-SP_005fterm_005frefs"></a>
+<hr>
+<a name="Creating-and-Manipulating-SP_005fterm_005frefs-1"></a>
+<h4 class="subsection">6.4.1 Creating and Manipulating SP_term_refs</h4>
+
+<a name="index-SP_005fterm_005fref-_0028C-type_0029-1"></a>
+<p>Normally, C functions only have indirect access to Prolog terms
+via SP_term_refs.  C functions may receive arguments as
+unconverted Prolog terms, in which case the actual arguments
+received will have the type <code>SP_term_ref</code>.  Also, a C function may
+return an unconverted Prolog term, in which case it must create an
+SP_term_ref.  Finally, any temporary Prolog terms created by
+C code must be handled as SP_term_refs.
+</p>
+<p>SP_term_refs are motivated by the fact that SICStus Prolog&rsquo;s
+memory manager must have a means of reaching all live Prolog terms
+for memory management purposes, including such terms that are
+being manipulated by the user&rsquo;s C code.  Previous releases 
+provided direct access to Prolog terms and the ability to
+tell the memory manager that a given memory address points to a Prolog
+term, but this approach was too low level and highly error-prone.
+The current design is modeled after and largely compatible with Quintus
+Prolog release 3.
+</p>
+<p>SP_term_refs are created dynamically.  At any given time, an
+SP_term_ref has a value (a Prolog term, initially
+<code>[]</code>).  This value can be examined, accessed, and updated by the
+support functions described in this section.
+</p>
+<a name="index-SP_005fnew_005fterm_005fref_0028_0029-_0028C-function_0029"></a>
+<p>A new SP_term_ref is created by calling <code>SP_new_term_ref()</code>.
+</p>
+<a name="index-SP_005fput_005fterm_0028_0029-_0028C-function_0029"></a>
+<p>An SP_term_ref can be assigned the value of another SP_term_ref
+by calling <code>SP_put_term()</code>.
+</p>
+<p>It is important to understand the rules governing the scope of
+SP_term_refs, and the terms they hold, in conjunction with calls from
+Prolog to C and vice versa.  This is explained in <a href="Finding-Multiple-Solutions-of-a-Call.html#Finding-Multiple-Solutions-of-a-Call">Finding Multiple Solutions of a Call</a>.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Atoms-in-C.html#Atoms-in-C" accesskey="n" rel="next">Next</a>
+<li><a href="Support-Functions.html#Support-Functions" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Creating-and-Manipulating-SP_005fterm_005frefs.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Creating-and-Manipulating-SP_005fterm_005frefs.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

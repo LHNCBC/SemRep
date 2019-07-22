@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-sum</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-sum">
+<meta name="keywords" content="SICStus Prolog: ref-iou-sum">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou.html#ref_002diou" rel="up" title="ref-iou">
+<link href="ref_002dari.html#ref_002dari" rel="next" title="ref-ari">
+<link href="ref_002diou_002draf.html#ref_002diou_002draf" rel="prev" title="ref-iou-raf">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002dsum"></a>
+<hr>
+<a name="Summary-of-Predicates-and-Functions"></a>
+<h4 class="subsection">4.6.10 Summary of Predicates and Functions</h4>
+
+
+<p>Reference pages for the following provide further detail on the
+material in this section.
+</p>
+
+<a name="index-character-I_002fO_002c-predicates-for"></a>
+<a name="index-predicates-for-character-I_002fO"></a>
+
+<dl compact="compact">
+<dt><code>at_end_of_line</code></dt>
+<dt><code>at_end_of_line(<var>+S</var>)</code></dt>
+<dd><p>testing whether at end of line on input stream <var>S</var>
+</p>
+</dd>
+<dt><code>at_end_of_stream &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>at_end_of_stream(<var>+S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>testing whether end of file is reached for the input stream <var>S</var>
+</p>
+</dd>
+<dt><code>flush_output &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>flush_output(<var>+S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>flush the output buffer for stream <var>S</var>
+</p>
+</dd>
+<dt><code>get_byte(<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>get_byte(<var>+S</var>,<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>C</var> is the next byte on binary input stream <var>S</var>
+</p>
+</dd>
+<dt><code>get_char(<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>get_char(<var>+S</var>,<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>C</var> is the next character atom on text input stream <var>S</var>
+</p>
+</dd>
+<dt><code>get_code(<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>get_code(<var>+S</var>,<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>C</var> is the next character code on text input stream <var>S</var>
+</p>
+</dd>
+<dt><code>nl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>nl(<var>+S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>send a newline to stream <var>S</var>
+</p>
+</dd>
+<dt><code>peek_byte(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>peek_byte(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>looks ahead for next input byte on the binary input stream <var>S</var>
+</p>
+</dd>
+<dt><code>peek_char(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>peek_char(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>looks ahead for next input character atom on the text input stream <var>S</var>
+</p>
+</dd>
+<dt><code>peek_code(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>peek_code(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>looks ahead for next input character code on the text input stream <var>S</var>
+</p>
+</dd>
+<dt><code>put_byte(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>put_byte(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write byte <var>C</var> to binary stream <var>S</var>
+</p>
+</dd>
+<dt><code>put_char(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>put_char(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write character atom <var>C</var> to text stream <var>S</var>
+</p>
+</dd>
+<dt><code>put_code(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>put_code(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write character code <var>C</var> to text stream <var>S</var>
+</p>
+</dd>
+<dt><code>skip_byte(<var>+C</var>)</code></dt>
+<dt><code>skip_byte(<var>+S</var>,<var>+C</var>)</code></dt>
+<dd><p>skip input on binary stream <var>S</var> until after byte <var>C</var>
+</p>
+</dd>
+<dt><code>skip_char(<var>+C</var>)</code></dt>
+<dt><code>skip_char(<var>+S</var>,<var>+C</var>)</code></dt>
+<dd><p>skip input on text stream <var>S</var> until after char <var>C</var>
+</p>
+</dd>
+<dt><code>skip_code(<var>+C</var>)</code></dt>
+<dt><code>skip_code(<var>+S</var>,<var>+C</var>)</code></dt>
+<dd><p>skip input on text stream <var>S</var> until after code <var>C</var>
+</p>
+</dd>
+<dt><code>skip_line</code></dt>
+<dt><code>skip_line(<var>+S</var>)</code></dt>
+<dd><p>skip the rest input characters of the current line (record)
+on the input stream <var>S</var>
+</p>
+</dd>
+</dl>
+
+
+
+<a name="index-file-and-stream-handling_002c-predicates-for"></a>
+<a name="index-predicates-for-file-and-stream-handling"></a>
+
+<dl compact="compact">
+<dt><code>byte_count(<var>+S</var>,<var>-N</var>)</code></dt>
+<dd><p><var>N</var> is the number of bytes read/written on
+binary stream <var>S</var>
+</p>
+</dd>
+<dt><code>character_count(<var>+S</var>,<var>-N</var>)</code></dt>
+<dd><p><var>N</var> is the number of characters read/written on
+text stream <var>S</var>
+</p>
+</dd>
+<dt><code>close(<var>+F</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>close(<var>+F</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>close file or stream <var>F</var> with options <var>O</var>
+</p>
+</dd>
+<dt><code>current_input(<var>-S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>S</var> is the current input stream
+</p>
+</dd>
+<dt><code>current_output(<var>-S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>S</var> is the current output stream
+</p>
+</dd>
+<dt><code>current_stream(<var>?F</var>,<var>?M</var>,<var>?S</var>)</code></dt>
+<dd><p><var>S</var> is a stream open on file <var>F</var> in mode <var>M</var>
+</p>
+</dd>
+<dt><code>line_count(<var>+S</var>,<var>-N</var>)</code></dt>
+<dd><p><var>N</var> is the number of lines read/written on text stream <var>S</var>
+</p>
+</dd>
+<dt><code>line_position(<var>+S</var>,<var>-N</var>)</code></dt>
+<dd><p><var>N</var> is the number of characters read/written on the
+current line of text stream <var>S</var>
+</p>
+</dd>
+<dt><code>open(<var>+F</var>,<var>+M</var>,<var>-S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>open(<var>+F</var>,<var>+M</var>,<var>-S</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>file <var>F</var> is opened in mode <var>M</var>, options <var>O</var>, returning stream <var>S</var>
+</p>
+</dd>
+<dt><code>open_null_stream(<var>+S</var>)</code></dt>
+<dd><p>new output to text stream <var>S</var> goes nowhere
+</p>
+</dd>
+<dt><code>prompt(<var>-O</var>,<var>+N</var>)</code></dt>
+<dd><p>queries or changes the prompt string of the current input stream
+</p>
+</dd>
+<dt><code>see(<var>+F</var>)</code></dt>
+<dd><p>make file <var>F</var> the current input stream
+</p>
+</dd>
+<dt><code>seeing(<var>-N</var>)</code></dt>
+<dd><p>the current input stream is named <var>N</var>
+</p>
+</dd>
+<dt><code>seek(<var>+S</var>,<var>+O</var>,<var>+M</var>,<var>+N</var>)</code></dt>
+<dd><p>seek to an arbitrary byte position on the
+stream <var>S</var>
+</p>
+</dd>
+<dt><code>seen</code></dt>
+<dd><p>close the current input stream
+</p>
+</dd>
+<dt><code>set_input(<var>+S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>select <var>S</var> as the current input stream
+</p>
+</dd>
+<dt><code>set_output(<var>+S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>select <var>S</var> as the current output stream
+</p>
+</dd>
+<dt><code>set_stream_position(<var>+S</var>,<var>+P</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>P</var> is the new position of stream <var>S</var>
+</p>
+</dd>
+<dt><code>stream_code(<var>?S</var>,<var>?C</var>)</code></dt>
+<dd><p>Converts between Prolog and C representations of a stream
+</p>
+</dd>
+<dt><code>stream_position(<var>+S</var>,<var>-P</var>)</code></dt>
+<dd><p><var>P</var> is the current position of stream <var>S</var>
+</p>
+</dd>
+<dt><code>stream_position_data(<var>?Field</var>,<var>?Position</var>,<var>?Data</var>)</code></dt>
+<dd><p>The <var>Field</var> field of the stream position term <var>Position</var> is <var>Data</var>.  
+</p>
+</dd>
+<dt><code>stream_property(<var>?Stream</var>, <var>?Property</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>Stream <var>Stream</var> has property <var>Property</var>.
+</p>
+</dd>
+<dt><code>tell(<var>+F</var>)</code></dt>
+<dd><p>make file <var>F</var> the current output stream
+</p>
+</dd>
+<dt><code>telling(<var>-N</var>)</code></dt>
+<dd><p>to file <var>N</var>
+</p>
+</dd>
+<dt><code>told</code></dt>
+<dd><p>close the current output stream
+</p>
+</dd>
+</dl>
+
+
+
+<a name="index-term-I_002fO_002c-predicates-for"></a>
+<a name="index-predicates-for-term-I_002fO"></a>
+
+
+<dl compact="compact">
+<dt><code>char_conversion(<var>+InChar</var>, <var>+OutChar</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>The mapping of <var>InChar</var> to <var>OutChar</var> is added to the
+character-conversion mapping.
+</p>
+</dd>
+<dt><code>current_char_conversion(<var>?InChar</var>, <var>?OutChar</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>InChar</var> is mapped to <var>OutChar</var> in the current
+character-conversion mapping.
+</p>
+</dd>
+<dt><code>current_op(<var>?P</var>,<var>?T</var>,<var>?A</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>atom <var>A</var> is an operator of type <var>T</var> with precedence <var>P</var>
+</p>
+</dd>
+<dt><code>display(<var>+T</var>)</code></dt>
+<dd><p>write term <var>T</var> to the user output stream in functional notation
+</p>
+</dd>
+<dt><code>format(<var>+C</var>,<var>:A</var>)</code></dt>
+<dt><code>format(<var>+S</var>,<var>+C</var>,<var>:A</var>)</code></dt>
+<dd><p>write arguments <var>A</var> on stream <var>S</var> according to control
+string <var>C</var>
+</p>
+</dd>
+<dt><code>op(<var>+P</var>,<var>+T</var>,<var>+A</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>make atom <var>A</var> an operator of type <var>T</var> with precedence <var>P</var>
+</p>
+</dd>
+<dt><code>user:portray(<var>+T</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>tell <code>print/[1,2]</code> and <code>write_term/[2,3]</code> what to do
+</p>
+</dd>
+<dt><code>portray_clause(<var>+C</var>)</code></dt>
+<dt><code>portray_clause(<var>+S</var>,<var>+C</var>)</code></dt>
+<dd><p>write clause <var>C</var> to the stream <var>S</var>
+</p>
+</dd>
+<dt><code>print(<var>+T</var>) &nbsp;<!-- /@w --> <i>hookable</i></code></dt>
+<dt><code>print(<var>+S</var>,<var>+T</var>) &nbsp;<!-- /@w --> <i>hookable</i></code></dt>
+<dd><p>display the term <var>T</var> on stream <var>S</var>
+using <code>user:portray/1</code> or <code>write/2</code>
+</p>
+</dd>
+<dt><code>read(<var>-T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>read(<var>+S</var>,<var>-T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>read term <var>T</var> from stream <var>S</var>
+</p>
+</dd>
+<dt><code>read_term(<var>-T</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>read_term(<var>+S</var>,<var>-T</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>read <var>T</var> from stream <var>S</var> according to options <var>O</var>
+</p>
+</dd>
+<dt><code>write(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>write(<var>+S</var>,<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write term <var>T</var> on stream <var>S</var>
+</p>
+</dd>
+<dt><code>write_canonical(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>write_canonical(<var>+S</var>,<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write term <var>T</var> on stream <var>S</var> so that it can be read
+back by <code>read/[1,2]</code>
+</p>
+</dd>
+<dt><code>writeq(<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>writeq(<var>+S</var>,<var>+T</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write term <var>T</var> on stream <var>S</var>, quoting atoms where necessary
+</p>
+</dd>
+<dt><code>write_term(<var>+T</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>hookable</i>,<i>ISO</i></code></dt>
+<dt><code>write_term(<var>+S</var>,<var>+T</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>hookable</i>,<i>ISO</i></code></dt>
+<dd><p>writes <var>T</var> to <var>S</var> according to options <var>O</var>
+</p></dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002draf.html#ref_002diou_002draf" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002diou.html#ref_002diou" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsum.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsum.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

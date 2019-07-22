@@ -1,0 +1,30 @@
+Tue, Mar 31, 2015
+
+This is a translation of the Java version of PrologBeans into C# and
+.NET 4.0. It can be used without the J# libraries that Microsof has
+discontinued.
+
+It is a, partially automated, literal translation of the corresponding
+Java code (with extensive manual cleanup). This means that it most
+likely does not represent "good" C# practice. Instead the focus has
+been on binary compatibility with the J# version, with some minor
+C#-isms added.
+
+To ensure binary (and assembly-manifest) compatibility the DLL must be
+called prologbeans.dll, so it can not coexist with the J#-version in
+the same folder.
+
+You can build it yourself by passing all the .cs files to csc.exe, e.g. (all on one line):
+
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\csc.exe /warn:4 /warnaserror+ /target:library /reference:System.Numerics.dll /out:prologbeans.dll /doc:prologbeans.NET.xml PBBignum.cs PBMonitor.cs PBInteger.cs PBCompound.cs Bindings.cs PBAtomic.cs QueryAnswer.cs PBFloat.cs PBListCell.cs PBNil.cs PrologSession.cs FastWriter.cs PBVariable.cs PBAtom.cs FastParser.cs PBTerm.cs
+
+You may want to pass additional flags, e.g. for optimization and debug
+information, to the csc.exe compiler.
+
+The code also works with Mono, e.g. on OS X.
+
+The license is the same as for the PrologBeans Java code.
+
+Please contact sicstus-support@sics.se if you have any questions.
+
+/The SICStus Prolog team

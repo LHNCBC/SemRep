@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-sem-ctr-oth</title>
+
+<meta name="description" content="SICStus Prolog: ref-sem-ctr-oth">
+<meta name="keywords" content="SICStus Prolog: ref-sem-ctr-oth">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsem_002dctr.html#ref_002dsem_002dctr" rel="up" title="ref-sem-ctr">
+<link href="ref_002dsem_002dsec.html#ref_002dsem_002dsec" rel="next" title="ref-sem-sec">
+<link href="ref_002dsem_002dctr_002ddol.html#ref_002dsem_002dctr_002ddol" rel="prev" title="ref-sem-ctr-dol">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsem_002dctr_002doth"></a>
+<hr>
+<a name="Other-Control-Structures"></a>
+<h4 class="subsubsection">4.2.3.6 Other Control Structures</h4>
+
+
+<a name="index-_005e-_002f2_002c-existential-quantifier-1"></a>
+<a name="index-_005e-_002f2_002c-existential-quantifier"></a>
+
+<p>The &ldquo;all solution&rdquo; predicates recognize the following construct as
+meaning &ldquo;there exists an <var>X</var> such that <var>P</var> is true&rdquo;, and
+treats it as equivalent to <var>P</var>.  The use of this explicit
+existential quantifier outside the <code>setof/3</code> and <code>bagof/3</code>
+constructs is superfluous and discouraged. Thus, the following two
+goals are equivalent:
+</p>
+<div class="example">
+<pre class="example"><var>X</var>^<var>P</var>
+
+<var>P</var>
+</pre></div>
+
+
+
+<a name="index-_003a-_002f2_002c-module-qualifier-1"></a>
+<a name="index-_003a-_002f2_002c-module-qualifier"></a>
+
+<p>The following construct is meaningful in the context of modules
+(see <a href="ref_002dmod.html#ref_002dmod">ref-mod</a>), meaning &ldquo;<var>P</var> is true in the context of the <var>M</var> module&rdquo;:
+</p>
+<div class="example">
+<pre class="example"><var>M</var>:<var>P</var>
+</pre></div>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsem_002dctr_002ddol.html#ref_002dsem_002dctr_002ddol" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsem_002dctr.html#ref_002dsem_002dctr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dctr_002doth.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dctr_002doth.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

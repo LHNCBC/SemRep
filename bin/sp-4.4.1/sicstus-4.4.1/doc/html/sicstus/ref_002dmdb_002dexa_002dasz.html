@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mdb-exa-asz</title>
+
+<meta name="description" content="SICStus Prolog: ref-mdb-exa-asz">
+<meta name="keywords" content="SICStus Prolog: ref-mdb-exa-asz">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmdb_002dexa.html#ref_002dmdb_002dexa" rel="up" title="ref-mdb-exa">
+<link href="ref_002dmdb_002dexa_002drtr.html#ref_002dmdb_002dexa_002drtr" rel="next" title="ref-mdb-exa-rtr">
+<link href="ref_002dmdb_002dexa.html#ref_002dmdb_002dexa" rel="prev" title="ref-mdb-exa">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmdb_002dexa_002dasz"></a>
+<hr>
+<a name="Example_003a-assertz"></a>
+<h4 class="subsubsection">4.12.7.1 Example: assertz</h4>
+
+<p>Consider the procedure <code>foo/0</code> defined by
+</p>
+<div class="example">
+<pre class="example">:- dynamic foo/0.
+foo :- assertz(foo), fail.
+</pre></div>
+
+
+<p>Each call to <code>foo/0</code> asserts a new last clause for <code>foo/0</code>.  After 
+the Nth call to <code>foo/0</code> there will be N+1 clauses for <code>foo/0</code>.
+When <code>foo/0</code> is first called, a
+virtual copy of the procedure is made, effectively freezing the definition
+of <code>foo/0</code> for that call.  At the time of the call,
+<code>foo/0</code> has exactly one clause.  Thus, when
+<code>fail/0</code> forces backtracking, the call to <code>foo/0</code> simply fails:
+it finds no alternatives.  For example,
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>compile(user).</kbd>
+| <kbd>:- dynamic foo/0.</kbd>
+| <kbd>foo :- assertz(foo), fail.</kbd>
+| <kbd>^D</kbd>
+% user compiled in module user, 0.100 sec 2.56 bytes
+
+yes
+| ?- <kbd>foo.</kbd>  % The asserted clause is not found
+
+no
+| ?- <kbd>foo.</kbd>  % A later call does find it, however
+
+yes
+| ?-
+</pre></div>
+
+
+<p>Even though the virtual copy of <code>foo/0</code> being run by the first call is
+not changed by the assertion, the Prolog database is.  Thus, when a
+second call to <code>foo/0</code> is made, the virtual copy for that call
+contains two clauses.  The first clause fails, but on backtracking
+the second clause is found and the call succeeds.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmdb_002dexa_002drtr.html#ref_002dmdb_002dexa_002drtr" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmdb_002dexa.html#ref_002dmdb_002dexa" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmdb_002dexa_002dasz.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmdb_002dexa_002dasz.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: All-in-one Executables</title>
+
+<meta name="description" content="SICStus Prolog: All-in-one Executables">
+<meta name="keywords" content="SICStus Prolog: All-in-one Executables">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Application-Builder.html#The-Application-Builder" rel="up" title="The Application Builder">
+<link href="Setting-up-the-C-compiler-on-Windows.html#Setting-up-the-C-compiler-on-Windows" rel="next" title="Setting up the C compiler on Windows">
+<link href="Customizing-spld.html#Customizing-spld" rel="prev" title="Customizing spld">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="All_002din_002done-Executables"></a>
+<hr>
+<a name="All_002din_002done-Executables-1"></a>
+<h4 class="subsubsection">6.7.3.2 All-in-one Executables</h4>
+
+<p>It is possible to embed saved-states into an executable. Together
+with static linking, this gives an all-in-one executable, an executable
+that does not depend on external SICStus files.
+</p>
+<p>In the simplest case, creating an all-in-one executable <samp>main.exe</samp>
+from a saved-state <samp>main.sav</samp> can be done with a command like:
+</p><div class="example">
+<pre class="example">% <kbd>spld --output=main.exe --static main.sav</kbd>
+</pre></div>
+
+<p>This will automatically embed the saved-state, any foreign resources
+needed by the saved-state as well the SICStus runtime and its
+runtime saved-state.
+</p>
+<p>The keys to this feature are:
+</p><ul>
+<li> Static linking. By linking an application with a static version of
+the SICStus runtime, you avoid any dependency on e.g.
+<samp>sprt4-4-1.dll</samp> (Windows) or <samp>libsprt4-4-1.so</samp> (UNIX).
+
+<p>If the application needs foreign resources (predicates
+written in C code), as used for example by <code>library(random)</code> and
+<code>library(clpfd)</code>, then these foreign resources can be linked
+statically with the application as well.
+</p>
+<p>The remaining component is the Prolog code itself; see the next item.
+</p>
+</li><li> Data Resources (in-memory files). It is possible to link an application
+with data resources that can be read directly from memory. In
+particular, saved-states can be embedded in an application and
+used when restoring the saved-state of the application.
+
+<p>An application needs two saved-states:
+</p><ol>
+<li> The SICStus runtime system (<code>sprt.sav</code>).
+
+<p>This is added automatically when <code>spld</code> is invoked with the
+<samp>--static</samp> (or <samp>-S</samp>) option unless the <code>spld</code>-option
+<samp>--no-embed-rt-sav</samp> is specified. It can also be added explicitly
+with the option <samp>--embed-rt-sav</samp>.
+</p>
+</li><li> The user written code of the application as well as any SICStus libraries.
+
+<p>This saved-state is typically created by loading all
+application code using <code>compile/1</code> and then creating the
+saved-state with <code>save_program/2</code>.
+</p>
+</li></ol>
+
+</li></ul>
+
+<p>Data resources are added by specifying their internal name and the
+path to a file as part of the comma separated list of resources passed with
+the <code>spld</code> option <samp>--resources</samp>. Each data resource is
+specified as <var>file</var>=<var>name</var> where <var>file</var> is the path
+to the
+file containing the data (it must exist during the call to <code>spld</code>)
+and <var>name</var> is the name used to access the content of <var>file</var>
+during runtime. A typical choice of <var>name</var> would be the base name,
+i.e. without directories, of <var>file</var>, preceded by a slash
+(<code>/</code>).
+<var>name</var> should begin with a slash (<code>/</code>) and
+look like an ordinary lowercase file path made up of &lsquo;<samp>/</samp>&rsquo;-separated,
+non-empty,
+names consisting of &lsquo;<samp>a</samp>&rsquo; to &lsquo;<samp>z</samp>&rsquo;, underscore (&lsquo;<samp>_</samp>&rsquo;, period
+(&lsquo;<samp>.</samp>&rsquo;), and digits.
+</p>
+<p>Typically, you would use <code>spld --main=restore</code>, which will
+automatically restore the first &lsquo;<samp>.sav</samp>&rsquo; argument.  To manually
+restore an embedded saved-state you should use the syntax
+<code>URL:x-sicstus-resource:<var>name</var></code>, e.g.
+<code>SP_restore(&quot;URL:x-sicstus-resource:/main.sav&quot;)</code>.
+</p>
+<p>An example will make this clearer. Suppose we create a runtime system
+that consists of a single file <samp>main.pl</samp> that looks like:
+</p><div class="example">
+<pre class="example"><em>% main.pl</em>
+</pre><pre class="example">:- use_module(library(random)).
+:- use_module(library(clpfd)).
+
+% This will be called when the application starts:
+user:runtime_entry(start) :-
+   %% You may consider putting some other code here...
+   write('hello world'),nl,
+   write('Getting a random value:'),nl,
+   random(1,10,R),                  % from random
+   write(R),nl,
+   ( all_different([3,9]) -&gt;        % from clpfd
+       write('3 != 9'),nl
+   ; otherwise -&gt;
+       write('3 = 9!?'),nl
+   ).
+</pre></div>
+
+<p>Then create the saved-state <samp>main.sav</samp>, which will contain
+the compiled code of <samp>main.pl</samp> as well as the Prolog code of
+<code>library(random)</code> and <code>library(clpfd)</code> and other Prolog
+libraries needed by <code>library(clpfd)</code>:
+</p>
+<div class="example">
+<pre class="example">% <kbd>sicstus -i -f</kbd>
+SICStus 4.4.1 &hellip;
+Licensed to SICS
+| ?- <kbd>compile(main).</kbd>
+% compiling &hellip;/main.pl...
+% &hellip; loading several library modules
+| ?- <kbd>save_program('main.sav').</kbd>
+% &hellip;/main.sav created in 201 msec
+
+| ?- <kbd>halt.</kbd>
+
+</pre></div>
+
+<p>Finally, tell <code>spld</code> to build an executable statically linked
+with the SICStus runtime and the foreign resources needed by
+<code>library(random)</code> and <code>library(clpfd)</code>. Also, embed the Prolog
+runtime saved-state and the application specific
+saved-state just created.
+</p>
+<p>As noted above, it is possible to build the all-in-one executable with
+the command line:
+</p><div class="example">
+<pre class="example">% <kbd>spld --output=main.exe --static main.sav</kbd>
+</pre></div>
+<p>but for completeness the example below uses all options as if
+no options were added automatically.
+</p>
+<p>The example is using Cygwin <code>bash</code> (<a href="http://www.cygwin.com">http://www.cygwin.com</a>)
+under Windows but would look much the same on other platforms. The command
+should be given on a single line; it is broken up here for better
+layout:
+</p>
+<div class="example">
+<pre class="example">% <kbd>spld</kbd>
+  <kbd>--output=main.exe</kbd>
+  <kbd>--static</kbd>
+  <kbd>--embed-rt-sav</kbd>
+  <kbd>--main=restore</kbd>
+  <kbd>--resources=main.sav=/main.sav,clpfd,random</kbd>
+</pre></div>
+
+
+<p>The arguments are as follows:
+</p><dl compact="compact">
+<dt><samp>--output=main.exe</samp></dt>
+<dd><p>This tells <code>spld</code> where to put the resulting executable.
+</p>
+</dd>
+<dt><samp>--static</samp></dt>
+<dd><p>Link statically with the SICStus runtime and foreign resources
+(<code>clpfd</code> and <code>random</code>, in this case).
+</p>
+</dd>
+<dt><samp>--embed-rt-sav</samp></dt>
+<dd><p>This option embeds the SICStus runtime &lsquo;<samp>.sav</samp>&rsquo; file
+(<samp>sprt.sav</samp>). This option is not needed since it is added
+automatically by <samp>--static</samp>.
+</p>
+</dd>
+<dt><samp>--main=restore</samp></dt>
+<dd><p>Start the application by restoring the saved-state and calling
+<code>user:runtime_entry(start)</code>. This is not strictly needed in the above
+example since it is the default if any file with extension &lsquo;<samp>.sav</samp>&rsquo;
+or a data resource with a <em>name</em> where the extension is &lsquo;<samp>.sav</samp>&rsquo; is
+specified.
+</p>
+
+</dd>
+<dt><samp>--resources=&hellip;</samp></dt>
+<dd>
+<p>This is followed by comma-separated resource specifications:
+</p>
+<dl compact="compact">
+<dt><code>main.sav=/main.sav</code></dt>
+<dd><p>This tells <code>spld</code> to make the content (at the time <code>spld</code> is
+invoked) of the file <samp>main.sav</samp> available at runtime in a data
+resource named <samp>/main.sav</samp>.  That is, the data resource
+name corresponding to <code>&quot;URL:x-sicstus-resource:/main.sav&quot;</code>.
+</p>
+<p>Alternatively, <code>spld</code> can create a default data resource
+specification when passed a &lsquo;<samp>.sav</samp>&rsquo; file argument and the option
+<samp>--embed-sav-file</samp> (which is the default with
+<samp>--static</samp>).
+</p>
+</dd>
+<dt><code>clpfd</code></dt>
+<dt><code>random</code></dt>
+<dd><p>These tell <code>spld</code> to link with the foreign resources (that
+is, C-code) associated with 
+<code>library(clpfd)</code> and <code>library(random)</code>.
+Since <samp>--static</samp> was specified the static
+versions of these foreign resources will be used.
+</p>
+<p>Alternatively, <code>spld</code> can extract the information about the
+required foreign resources from the saved-state
+(<samp>main.sav</samp>). This feature is enabled by adding the option
+<samp>--resources-from-sav</samp> (which is the default with
+<samp>--static</samp>). Using <samp>--resources-from-sav</samp> instead of an
+explicit list of foreign resources is preferred since it is hard to know
+what foreign resources are used by the SICStus libraries.
+</p>
+</dd>
+</dl>
+
+<p>Since both <samp>--embed-sav-file</samp> and <samp>--resources-from-sav</samp>
+are the default when <samp>--static</samp> is used the example can be built
+simply by doing:
+</p><div class="example">
+<pre class="example">% <kbd>spld --output=main.exe --static main.sav</kbd>
+</pre></div>
+
+</dd>
+</dl>
+
+<p>Finally, we may run this executable on any machine, even if SICStus is
+not installed:
+</p>
+<div class="example">
+<pre class="example">bash-2.04$ <kbd>./main.exe</kbd>
+hello world
+Getting a random value:
+4
+3 != 9
+bash-2.04$ 
+</pre></div>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Setting-up-the-C-compiler-on-Windows.html#Setting-up-the-C-compiler-on-Windows" accesskey="n" rel="next">Next</a>
+<li><a href="Customizing-spld.html#Customizing-spld" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Application-Builder.html#The-Application-Builder" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/All_002din_002done-Executables.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/All_002din_002done-Executables.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

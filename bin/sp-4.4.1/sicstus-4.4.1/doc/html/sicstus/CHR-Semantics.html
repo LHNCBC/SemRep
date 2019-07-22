@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CHR Semantics</title>
+
+<meta name="description" content="SICStus Prolog: CHR Semantics">
+<meta name="keywords" content="SICStus Prolog: CHR Semantics">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CHR-Syntax-and-Semantics.html#CHR-Syntax-and-Semantics" rel="up" title="CHR Syntax and Semantics">
+<link href="CHR-in-Prolog-Programs.html#CHR-in-Prolog-Programs" rel="next" title="CHR in Prolog Programs">
+<link href="CHR-Syntax.html#CHR-Syntax" rel="prev" title="CHR Syntax">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CHR-Semantics"></a>
+<hr>
+<a name="Semantics-1"></a>
+<h4 class="subsubsection">10.8.2.2 Semantics</h4>
+
+<p>In this subsubsection the operational semantics of CHR in Prolog are presented
+informally. They do not differ essentially from other CHR systems.
+</p>
+<p>When a constraint is called, it is considered an active constraint and
+the system will try to apply the rules to it. Rules are tried and executed
+sequentially in the order they are written. 
+</p>
+<p>A rule is conceptually tried for an active constraint in the following
+way. The active constraint is matched with a constraint in the head of
+the rule. If more constraints appear in the head, then they are looked for
+among the suspended constraints, which are called passive constraints in
+this context. If the necessary passive constraints can be found and all
+match with the head of the rule and the guard of the rule succeeds, 
+then the rule is committed and the body of the rule executed. If not all the
+necessary passive constraint can be found, then the matching fails or the
+guard fails, the body is not executed and the process of trying and
+executing simply continues with the following rules. If for a rule,
+there are multiple constraints in the head, then the active constraint will
+try the rule sequentially multiple times, each time trying to match with
+another constraint.
+</p>
+<p>This process ends either when the active constraint disappears, i.e. it
+is removed by some rule, or after the last rule has been processed. In
+the latter case the active constraint becomes suspended.
+</p>
+<p>A suspended constraint is eligible as a passive constraint for an active
+constraint. The other way it may interact again with the rules, is when
+a variable appearing in the constraint becomes bound to either a non-variable
+or another variable involved in one or more constraints. In that case the
+constraint is triggered, i.e. it becomes an active constraint and all
+the rules are tried.
+</p>
+<p><b>Rule Types.</b>
+There are three different kinds of rules, each with their specific semantics:
+</p>
+<dl compact="compact">
+<dt><em>simplification</em></dt>
+<dd><p>The simplification rule removes the constraints in its head and calls its body.
+</p>
+</dd>
+<dt><em>propagation</em></dt>
+<dd><p>The propagation rule calls its body exactly once for the constraints in
+its head.
+</p>
+</dd>
+<dt><em>simpagation</em></dt>
+<dd><p>The simpagation rule removes the constraints in its head after the
+<code>\</code> and then calls its body. It is an optimization of
+simplification rules of the form: 
+</p>
+<div class="example">
+<pre class="example"><var>constraints_1</var>, <var>constraints_2</var> &lt;=&gt; <var>constraints_1</var>, <var>body</var>
+</pre></div>
+
+<p>namely, in the simpagation form: 
+</p>
+<div class="example">
+<pre class="example"><var>constraints_1</var> \ <var>constraints_2</var> &lt;=&gt; <var>body</var>
+</pre></div>
+
+<p>the <var>constraints_1</var> constraints are not called in the body.
+</p></dd>
+</dl>
+
+<p><b>Rule Names.</b>
+Naming a rule is optional and has no semantical meaning. It only functions
+as documentation for the programmer.
+</p>
+<p><b>Pragmas.</b>
+The semantics of the pragmas are:
+</p>
+<dl compact="compact">
+<dt><code>passive(<var>Identifier</var>)</code></dt>
+<dd><a name="index-passive_002f1-_0028CHR-pragma_0029"></a>
+<p>The constraint in the head of a rule <var>Identifier</var> can only match a
+passive constraint in that rule.
+</p></dd>
+</dl>
+
+<p>Additional pragmas may be released in the future.
+</p>
+<p><b>Options.</b>
+</p>
+<a name="index-chr_005foption_002f2-_0028CHR-declaration_0029-1"></a>
+<a name="index-chr_005foption_002f2-_0028CHR-declaration_0029"></a>
+
+<p>It is possible to specify options that apply to all the CHR rules in the module.
+Options are specified with the <code>chr_option/2</code> declaration:
+</p>
+<div class="example">
+<pre class="example">:- chr_option(Option,Value).
+</pre></div>
+
+<p>and may appear in the file anywhere after the first constraints declaration.
+</p>
+<p>Available options are:
+</p><dl compact="compact">
+<dt><code>check_guard_bindings</code></dt>
+<dd><a name="index-check_005fguard_005fbindings-_0028CHR-option_0029"></a>
+<p>This option controls whether guards should be checked for (illegal) variable
+bindings or not. Possible values for this option are <code>on</code>, to enable
+the checks, and <code>off</code>, to disable the checks. If this option is on,
+then any guard fails when it binds a variable that appears in the head of the rule.
+When the option is off, the behavior of a binding in the guard is undefined.
+</p>
+</dd>
+<dt><code>optimize</code></dt>
+<dd><a name="index-optimize-_0028CHR-option_0029"></a>
+<p>This option controls the degree of optimization.
+Possible values are <code>full</code>, to enable all available
+optimizations, and <code>off</code> (the default), to disable all optimizations.  
+If optimization is enabled, then debugging must be disabled.
+</p>
+</dd>
+<dt><code>debug</code></dt>
+<dd><a name="index-debug-_0028CHR-option_0029"></a>
+<p>This options enables or disables the possibility to debug the CHR code.
+Possible values are <code>on</code> (the default) and <code>off</code>. See
+<a href="CHR-Debugging.html#CHR-Debugging">CHR Debugging</a> for more details on debugging.  
+</p></dd>
+</dl>
+ 
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CHR-Syntax.html#CHR-Syntax" accesskey="p" rel="prev">Previous</a>
+<li><a href="CHR-Syntax-and-Semantics.html#CHR-Syntax-and-Semantics" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CHR-Semantics.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CHR-Semantics.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

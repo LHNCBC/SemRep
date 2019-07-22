@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Mixing C and Prolog</title>
+
+<meta name="description" content="SICStus Prolog: Mixing C and Prolog">
+<meta name="keywords" content="SICStus Prolog: Mixing C and Prolog">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="CPL-Notes.html#CPL-Notes" rel="next" title="CPL Notes">
+<link href="Debug-Summary.html#Debug-Summary" rel="prev" title="Debug Summary">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Mixing-C-and-Prolog"></a>
+<hr>
+<a name="Mixing-C_002fC_002b_002b-and-Prolog"></a>
+<h2 class="chapter">6 Mixing C/C++ and Prolog</h2>
+<a name="index-mixing-C_002fC_002b_002b-and-Prolog"></a>
+<a name="index-interoperability"></a>
+<a name="index-foreign-language-interface"></a>
+<a name="index-interface_002c-foreign-language"></a>
+<a name="index-API"></a>
+
+<p>SICStus Prolog provides a bi-directional, procedural interface for
+program parts written in C and Prolog.  The C side of the interface
+defines a number of functions and macros for various operations.  On
+the Prolog side, you have to supply declarations specifying the names
+and argument/value types of C functions being called as predicates.
+These declarations are used by the predicate
+<code>load_foreign_resource/1</code>, which performs the actual binding of
+functions to predicates.  They are also needed when the functions are
+unloaded, for example when SICStus is halted.
+</p>
+<a name="index-term-reference"></a>
+<a name="index-reference_002c-term"></a>
+<a name="index-SP_005fterm_005fref-_0028C-type_0029"></a>
+<a name="index-SP_005fterm_005fref"></a>
+<p>In most cases, the argument/value type declarations suffice for
+making the necessary conversions of data automatically as they are
+passed between C and Prolog.  However, it is possible to declare the
+type of an argument to be a Prolog term, in which case the
+receiving function will see it as a &ldquo;handle&rdquo; object, called an
+<em>SP_term_ref</em>, for which access functions are provided.
+</p>
+<p>The C support routines are available in a development system as
+well as in runtime systems.  The support routines include:
+</p>
+<ul>
+<li> Static and dynamic linking of C code into the Prolog environment.
+
+</li><li> Automatic conversion between Prolog terms and C data with
+<code>foreign/[2,3]</code> declarations.
+
+</li><li> Functions for accessing and creating Prolog terms, and for
+creating and manipulating SP_term_refs.
+
+</li><li> The Prolog system may call C predicates, which may call Prolog
+back without limits on recursion. Predicates that call C may
+be defined dynamically from C.
+
+</li><li> Support for creating stand-alone executables.
+
+</li><li> Support for creating user defined Prolog streams.
+
+</li><li> Functions to read and write on Prolog streams from C.
+
+</li><li> Functions to install interrupt handlers that can safely call Prolog.
+
+</li><li> Functions for manipulating mutual exclusion locks.
+
+</li><li> User hooks that can be used to perform user defined actions e.g.
+for customizing the memory management bottom layer.
+
+</li></ul>
+
+<p>In addition to the interface described in this chapter,
+<code>library(structs)</code> and <code>library(objects)</code> (see
+<a href="lib_002dstructs.html#lib_002dstructs">lib-structs</a> and <a href="lib_002dobjects.html#lib_002dobjects">lib-objects</a>) allow Prolog to hold pointers
+to C data structures and arrays and access and store into fields in
+those data structures in a very efficient way, allowing the programmer
+to stay completely inside Prolog.
+</p>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="CPL-Notes.html#CPL-Notes" accesskey="1">CPL Notes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Notes
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" accesskey="2">Calling C from Prolog</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Calling C from Prolog
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Calling-C_002b_002b-from-Prolog.html#Calling-C_002b_002b-from-Prolog" accesskey="3">Calling C++ from Prolog</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Calling C++ from Prolog
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Support-Functions.html#Support-Functions" accesskey="4">Support Functions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Support Functions
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" accesskey="5">Calling Prolog from C</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Calling Prolog from C
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="SICStus-Streams.html#SICStus-Streams" accesskey="6">SICStus Streams</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SICStus Streams
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables" accesskey="7">Stand-Alone Executables</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Stand-Alone Executables
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Mixing-C-and-Prolog-Examples.html#Mixing-C-and-Prolog-Examples" accesskey="8">Mixing C and Prolog Examples</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Mixing C and Prolog Examples
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems" accesskey="9">Debugging Runtime Systems</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Debugging Runtime Systems
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Interfacing-_002eNET-and-Java.html#Interfacing-_002eNET-and-Java" accesskey="n" rel="next">Next</a>
+<li><a href="Debug-Intro.html#Debug-Intro" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Mixing-C-and-Prolog.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Mixing-C-and-Prolog.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

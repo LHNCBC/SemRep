@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Event Handling</title>
+
+<meta name="description" content="SICStus Prolog: Event Handling">
+<meta name="keywords" content="SICStus Prolog: Event Handling">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tk.html#Tk" rel="up" title="Tk">
+<link href="Miscellaneous.html#Miscellaneous" rel="next" title="Miscellaneous">
+<link href="Geometry-Managers.html#Geometry-Managers" rel="prev" title="Geometry Managers">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Event-Handling"></a>
+<hr>
+<a name="Event-Handling-1"></a>
+<h4 class="subsubsection">10.39.3.6 Event Handling</h4>
+
+<p>So far we have covered the widgets types, how instances of them
+are created, how their attributes can be set and queried,
+and how they can be managed for display using geometry managers.
+What we have not touched on is how to give each widget a behavior.
+</p>
+<p>This is done through event handlers.  Each widget instance can be given
+a window event handler for each kind of window event.  A window event is
+something like the cursor moving into or out of the widget, a key
+press happening while the widget is active (in focus), or the widget
+being destroyed.
+</p>
+<p>Event handlers are specified through the <code>bind</code> command:
+</p>
+<div class="example">
+<pre class="example">bind <var>widgetName</var> <var>eventSequence</var> <var>command</var>
+</pre></div>
+
+<p>where <var>widgetName</var> is the name or class of the widget to which the event
+handler should be attached, <var>eventSqueuence</var> is a description of the
+event that this event handler will handle, and <var>command</var> is a script
+that is invoked when the event happens (i.e. it is the event handler).
+</p>
+<p>Common event types are
+</p>
+<dl compact="compact">
+<dt><code>Key</code></dt>
+<dd><a name="index-Key-_0028Tk-event-type_0029"></a>
+</dd>
+<dt><code>KeyPress</code></dt>
+<dd><a name="index-KeyPress-_0028Tk-event-type_0029"></a>
+<p>when a key was pressed
+</p>
+</dd>
+<dt><code>KeyRelease</code></dt>
+<dd><a name="index-KeyRelease-_0028Tk-event-type_0029"></a>
+<p>when a key was released
+</p>
+</dd>
+<dt><code>Button</code></dt>
+<dd><a name="index-Button-_0028Tk-event-type_0029"></a>
+</dd>
+<dt><code>ButtonPress</code></dt>
+<dd><a name="index-ButtonPress-_0028Tk-event-type_0029"></a>
+<p>when a mouse button was pressed
+</p>
+</dd>
+<dt><code>ButtonRelease</code></dt>
+<dd><a name="index-ButtonRelease-_0028Tk-event-type_0029"></a>
+<p>when a mouse button was released
+</p>
+</dd>
+<dt><code>Enter</code></dt>
+<dd><a name="index-Enter-_0028Tk-event-type_0029"></a>
+<p>when the cursor moves into a widget
+</p>
+</dd>
+<dt><code>Leave</code></dt>
+<dd><a name="index-Leave-_0028Tk-event-type_0029"></a>
+<p>when the cursor moved our of a widget
+</p>
+</dd>
+<dt><code>Motion</code></dt>
+<dd><a name="index-Motion-_0028Tk-event-type_0029"></a>
+<p>when the cursor moves within a widget
+</p></dd>
+</dl>
+
+<p>There are other event types. Please refer to the Tk documentation for 
+a complete list.
+</p>
+<p>The <var>eventSequence</var> part of a <code>bind</code> command is a list of one or more of
+these events, each event surrounded by angled brackets. (Mostly, an
+event sequence consists of handling a single event. Later we will show
+more complicated event sequences.)
+</p>
+<p>An example is the following:
+</p>
+<div class="example">
+<pre class="example">button .b -text &quot;click me&quot;
+pack .b
+bind .b &lt;Enter&gt; { puts &quot;entering .b&quot; }
+</pre></div>
+
+<p>makes a button <code>.b</code> displaying text &lsquo;<samp>click me</samp>&rsquo; and displays it
+in the root window using the packing geometry manager. The <code>bind</code>
+command specifies that when the cursor enters (i.e. goes onto)
+the widget, then the text <code>entering .b</code> is printed at the terminal.
+</p>
+<p>We can make the button change color as the cursor enters or leaves
+it like this:
+</p>
+<div class="example">
+<pre class="example">button .b -text &quot;click me&quot; -background red
+pack .b
+bind .b &lt;Enter&gt; { .b config -background blue }
+bind .b &lt;Leave&gt; { .b config -background red }
+</pre></div>
+
+<p>which causes the background color of the button to change to blue when
+the cursor enters it and to change back to red when the
+cursor leaves.
+</p>
+<p>An action can be appended to an event handler by prefixing the action with
+a <code>+</code> sign. An example is:
+</p>
+<div class="example">
+<pre class="example">bind .b &lt;Enter&gt; {+puts &quot;entering .b&quot;}
+</pre></div>
+
+<p>which, when added to the example above, would not only change the color
+of the button to red when the cursor enters it, but would also
+print <code>entering .b</code> to the terminal.
+</p>
+<p>A binding can be revoked simply by binding the empty command to it:
+</p>
+<div class="example">
+<pre class="example">bind .b &lt;Enter&gt; {}
+</pre></div>
+
+<p>A list of events that are bound can be found by querying the widget
+thus:
+</p>
+<div class="example">
+<pre class="example">bind .b
+</pre></div>
+
+<p>which will return a list of bound events.
+</p>
+<p>To get the current command(s) bound to an event on a widget, invoke
+<code>bind</code> with the widget name and the event. An example is:
+</p>
+<div class="example">
+<pre class="example">bind .b &lt;Enter&gt;
+</pre></div>
+
+<p>which will return a list of the commands bound to the event &lt;Enter&gt;
+on widget <code>.b</code>.
+</p>
+<p>Binding can be generalized to sequences of events.
+For example, we can create an entry widget that
+prints <code>spells rob</code> each time the key sequence <code>ESC r o b</code> happens:
+</p>
+<div class="example">
+<pre class="example">entry .e
+pack .e
+bind .e &lt;Escape&gt;rob {puts &quot;spells rob&quot;}
+</pre></div>
+
+<p>(A letter on its own in an event sequence stands for that key being
+ pressed when the corresponding widget is in focus.)
+</p>
+<p>Events can also be bound for entire classes of widgets.
+For example, if we wanted to perform the same trick for
+ALL entry widgets, then we could use the following command:
+</p>
+<div class="example">
+<pre class="example">bind entry &lt;Escape&gt;rob {puts &quot;spells rob&quot;}
+</pre></div>
+
+<p>In fact, we can bind events over all widgets using <code>all</code> as
+the widget class specifier.
+</p>
+<p>The event script can have substitutions specified in it.  Certain
+textual substitutions are then made at the time the event is
+processed. For example, <code>%x</code> in a script gets the x coordinate of
+the mouse substituted for it. Similarly, <code>%y</code> becomes the y
+coordinate, <code>%W</code> the dot path of the window on which the event
+happened, <code>%K</code> the keysym of the button that was pressed, and so
+on.  For a complete list, see the manual.
+</p>
+<p>In this way it is possible to execute the event script in the context
+of the event.
+</p>
+<p>A clever example of using the <code>all</code> widget specifier and text
+substitutions is given in John Ousterhout&rsquo;s book on Tcl/Tk (see <a href="Resources.html#Resources">Resources</a>):
+</p>
+<div class="example">
+<pre class="example">bind all &lt;Enter&gt; {puts &quot;Entering %W at (%x, %y)&quot;}
+bind all &lt;Leave&gt; {puts &quot;Leaving %W at (%x, %y)&quot;}
+bind all &lt;Motion&gt; {puts &quot;Pointer at (%x, %y)&quot;}
+</pre></div>
+
+<p>which implements a mouse tracker for all the widgets in a Tcl/Tk application.
+The widget&rsquo;s name and x and y coordinates are printed at the terminal
+when the mouse enters or leaves any widget, and also the x and y coordinates
+are printed when the mouse moves within a widget.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Miscellaneous.html#Miscellaneous" accesskey="n" rel="next">Next</a>
+<li><a href="Geometry-Managers.html#Geometry-Managers" accesskey="p" rel="prev">Previous</a>
+<li><a href="Tk.html#Tk" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Event-Handling.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Event-Handling.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,14 @@
+CC=gcc
+LD=gcc
+CFLAGS=-O -g -w -fpic
+LD_FLAGS=
+BERKELEY_DB_LIB=/nfsvol/nls/tools/berkeley_db/db-3.0.55/lib
+BERKELEY_DB_INC=/nfsvol/nls/tools/berkeley_db/db-3.0.55/include
+OBJ=retrieve_entrezgene_main retrieve_entrezgene_main.o
+
+retrieve_entrezgene_main : retrieve_entrezgene_main.o
+	${LD} ${LD_FLAGS} -o retrieve_entrezgene_main retrieve_entrezgene_main.o ${BERKELEY_DB_LIB}/libdb.a -lc
+
+retrieve_entrezgene_main.o : retrieve_entrezgene_main.c
+	${CC} ${CFLAGS} -c retrieve_entrezgene_main.c -I. -I${BERKELEY_DB_INC}
+

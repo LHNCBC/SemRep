@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lod-lod</title>
+
+<meta name="description" content="SICStus Prolog: ref-lod-lod">
+<meta name="keywords" content="SICStus Prolog: ref-lod-lod">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlod.html#ref_002dlod" rel="up" title="ref-lod">
+<link href="ref_002dlod_002drpx.html#ref_002dlod_002drpx" rel="next" title="ref-lod-rpx">
+<link href="ref_002dlod_002dove.html#ref_002dlod_002dove" rel="prev" title="ref-lod-ove">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlod_002dlod"></a>
+<hr>
+<a name="The-Load-Predicates"></a>
+<h4 class="subsection">4.3.2 The Load Predicates</h4>
+
+
+<p>Loading a program is accomplished by one of these predicates
+</p>
+<dl compact="compact">
+<dt><code>[]</code></dt>
+<dt><code>[<var>:File</var>|<var>:Files</var>]</code></dt>
+<dt><code>load_files(<var>:Files</var>)</code></dt>
+<dt><code>load_files(<var>:Files</var>, <var>+Options</var>)</code></dt>
+<dd><p>loads source or PO file(s),
+whichever is the more recent, according to <var>Options</var>.
+</p>
+</dd>
+<dt><code>compile(<var>:Files</var>)</code></dt>
+<dd><p>loads source file(s) into virtual machine code.
+</p>
+</dd>
+<dt><code>consult(<var>:Files</var>)</code></dt>
+<dt><code>reconsult(<var>:Files</var>)</code></dt>
+<dd><p>loads source file(s) into interpreted representation.
+</p>
+</dd>
+<dt><code>ensure_loaded(<var>:Files</var>)</code></dt>
+<dd><p>loads source or PO file(s), whichever is the more recent, unless the file
+has already been loaded and it has not been modified since it was
+loaded.
+</p>
+</dd>
+<dt><code>use_module(<var>:Files</var>)</code></dt>
+<dt><code>use_module(<var>:File</var>,<var>+I</var>)</code></dt>
+<dt><code>use_module(<var>?M</var>,<var>:File</var>,<var>+I</var>)</code></dt>
+<dd><p>loads module files, see <a href="ref_002dmod_002ddef.html#ref_002dmod_002ddef">ref-mod-def</a> for information about
+module-files.
+</p>
+</dd>
+</dl>
+
+
+<p>The following notes apply to all the Load Predicates:
+</p>
+<ol>
+<li> The <var>File</var> argument must be one of the following:
+
+<ul>
+<li> a file specification, that is the name of a file containing Prolog code; a &lsquo;<samp>.pro</samp>&rsquo;,
+&lsquo;<samp>.pl</samp>&rsquo; or a
+&lsquo;<samp>.po</samp>&rsquo; suffix to a filename may be omitted (see <a href="ref_002dfdi_002dfsp.html#ref_002dfdi_002dfsp">ref-fdi-fsp</a>)
+</li><li> the atom <code>user</code>
+</li></ul>
+
+</li><li> The <var>Files</var> argument can be a <var>File</var>, as above, or a list of
+such elements.
+
+</li><li> These predicates resolve file specifications in the same way as
+<code>absolute_file_name/2</code>.  For information on file names refer
+to <a href="ref_002dfdi.html#ref_002dfdi">ref-fdi</a>.
+
+</li><li> <a name="index-fileerrors-_0028prolog-flag_0029"></a>
+The above predicates raise an exception if any of the files named in
+<var>Files</var> does not exist, unless the <code>fileerrors</code> flag is set to
+<code>off</code>.
+
+<p>Errors detected during compilation, such as an attempt to redefine a built-in
+predicate, also cause exceptions to be raised.  However, these exceptions are
+caught by the compiler, an appropriate error message is printed, and
+compilation continues.
+</p>
+</li><li> There are a number of <em>style warnings</em> that may appear when a file
+is compiled.  These are designed to aid in catching simple errors in
+your programs and are initially <code>on</code>, but can be turned
+<code>off</code> if desired by setting the appropriate flags, which are:
+
+<dl compact="compact">
+<dt><code>single_var_warnings</code></dt>
+<dd><a name="index-single_005fvar_005fwarnings-_0028prolog-flag_0029"></a>
+<p>If <code>on</code>, then warnings are printed when a <var>sentence</var>
+(see <a href="ref_002dsyn_002dsyn_002dsen.html#ref_002dsyn_002dsyn_002dsen">ref-syn-syn-sen</a>) containing variables not beginning with
+&lsquo;<samp>_</samp>&rsquo; occurring once only is compiled or consulted.
+</p>
+<a name="index-legacy_005fchar_005fclassification-_0028prolog-flag_0029-1"></a>
+<p>The Prolog flag <code>legacy_char_classification</code> (see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">Prolog Flags</a>) expands the set of variable names for which warnings are
+printed. When <code>legacy_char_classification</code> is in effect warnings
+are printed also for variables that occur only once and whose name begin
+with &lsquo;<samp>_</samp>&rsquo; followed by a character that is not an uppercase Latin 1
+character.
+</p>
+</dd>
+<dt><code>redefine_warnings</code></dt>
+<dd><a name="index-redefine_005fwarnings-_0028prolog-flag_0029"></a>
+<p>This flag can take more values; see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+If <code>on</code>, then the user is asked what to do when:
+</p>
+<ul>
+<li> a module or predicate is being redefined from a different
+file than its previous definition.
+</li><li> a predicate is being
+imported whilst it was locally defined already.
+</li><li> a predicate is being
+redefined locally whilst it was imported already.
+</li><li> a predicate is being
+imported whilst it was imported from another module already.
+</li></ul>
+
+</dd>
+<dt><code>discontiguous_warnings</code></dt>
+<dd><a name="index-discontiguous_005fwarnings-_0028prolog-flag_0029"></a>
+<p>If <code>on</code>, then warnings are printed when clauses are not together in
+source files, and the relevant predicate has not been declared
+<code>discontiguous</code>.
+</p></dd>
+</dl>
+
+</li><li> By default, all clauses for a predicate are required to come from just
+one file.  A predicate must be declared <code>multifile</code> if its clauses
+are to be spread across several different files.  See the reference
+page for <code>multifile/1</code>.
+
+</li><li> If a file being loaded is not a module-file, then all the predicates
+defined in the file are loaded into the source module.  The form
+<code>load_files(Module:Files)</code> can be used to load the file into the
+specified module.  See <a href="ref_002dmod_002ddef.html#ref_002dmod_002ddef">ref-mod-def</a> for information about
+module-files.  If a file being loaded <em>is</em> a module-file, then it is
+first loaded in the normal way, the source module imports all the
+public predicates of the module-file except for <code>use_module/[1,2,3]</code> and
+<code>load_files/[1,2]</code> if you specify an import list.
+
+</li><li> If there are any directives in the file being loaded, that
+is, any terms with principal functor <code>:-/1</code> or <code>?-/1</code>, then
+these are executed as they are encountered.  
+Only the
+first solution of directives is produced, and variable
+bindings are not displayed.  Directives that fail or raise
+exceptions give rise to warning or error messages, but do not terminate
+the load.  However, these warning or error messages can be
+intercepted by the hook <code>user:portray_message/2</code>, which can
+call <code>abort/0</code> to terminate the load, if that is the desired
+behavior.
+
+</li><li> A common type of
+directive to have in a file is one that loads another
+file, such as 
+<div class="example">
+<pre class="example"> :- [otherfile].  
+</pre></div>
+<p>In this case, if <code>otherfile</code> is a
+relative filename, then it is resolved with respect to the directory
+containing the file that is being loaded, not the current working
+directory of the Prolog system.
+</p>
+<a name="index-directives_002c-in-files-being-compiled"></a>
+<p>Any legal Prolog goal may be included as a directive. 
+There is no difference between a &lsquo;<samp>:-/1</samp>&rsquo; and a &lsquo;<samp>?-/1</samp>&rsquo;
+goal in a file being compiled.
+</p>
+</li><li> If <var>Files</var> is the atom <code>user</code>, or <var>Files</var> is a list, and
+during loading of the list <code>user</code> is encountered, then procedures are to
+be typed directly into Prolog from <code>user_input</code>, e.g. the terminal.
+A special prompt,
+&lsquo;<samp>| </samp>&rsquo;, is displayed at the beginning of every new clause entered
+from the terminal.  Continuation lines of clauses typed at the
+terminal are preceded by a prompt of five spaces.  When all clauses
+have been typed in, the last should be followed by end-of-file, or
+the atom <code>end_of_file</code> followed by a full-stop.
+
+</li><li> During loading of source code, all terms being read in are subject to
+term expansion.  Grammar rules is a special, built-in case of this
+mechanism.  By defining the hook predicates
+<code>user:term_expansion/6</code> and <code>goal_expansion/5</code>, you can
+specify any desired transformation to be done as clauses are loaded.
+
+</li><li> The current load context (module, file, stream, directory) can be
+queried using <code>prolog_load_context/2</code>.
+
+</li><li> Predicates loading source code are affected by the
+character-conversion mapping, cf. <code>char_conversion/2</code>.
+
+</li></ol>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlod_002drpx.html#ref_002dlod_002drpx" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlod_002dove.html#ref_002dlod_002dove" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlod.html#ref_002dlod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlod_002dlod.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlod_002dlod.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

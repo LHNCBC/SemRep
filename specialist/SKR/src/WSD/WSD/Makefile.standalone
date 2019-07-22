@@ -1,0 +1,54 @@
+# SCCS:	@(#)Makefile.standalone	1.1 09/15/06
+
+LD = ${GCC}
+CFLAGS = ${BASIC_CFLAGS} -fpic -Wall
+
+WSD_CLIENT_LIB = ${SKR_WSD}/lib
+WSD_CLIENT_BIN = ${SKR_WSD}/bin
+LIBXML_DIR = ${NLS}/tools/libxml2
+XML_LIB = ${LIBXML_DIR}/lib
+XML_INC = ${LIBXML_DIR}/include/libxml2
+DEBUG_LIB = ${SKR_DEBUG}/debug.a
+
+OBJS = com_utils.o wsd_clnt.o wsd_clnt.a parse_meta.o parse disambClient01 clean_ambiguity
+
+all:	clean ${OBJS} install
+
+clean:	
+	rm -f ${OBJS} 
+
+install:
+	mv disambClient01 ${WSD_CLIENT_BIN}
+	mv clean_ambiguity ${WSD_CLIENT_BIN}
+	mv parse ${WSD_CLIENT_BIN}
+
+disambClient01 : disambClient01.o
+	${LD} -o disambClient01 disambClient01.o  ${WSD_CLIENT_LIB}/wsd_clnt.a ${DEBUG_LIB} -L${XML_LIB} -lxml2 -lsocket -lnsl -lc -I${SKR_INCLUDE} -I${SKR_DEBUG}/include -I${XML_INC}
+
+disambClient01.o : disambClient01.c
+	${CC} ${CFLAGS} -c disambClient01.c -I${SKR_INCLUDE} -I${SKR_DEBUG}/include -I${XML_INC}
+
+clean_ambiguity : clean_ambiguity.o
+	${LD} -o clean_ambiguity clean_ambiguity.o ${DEBUG_LIB} -L${XML_LIB} -lxml2 -lc  -I${SKR_INCLUDE} -I${SKR_DEBUG}/include -I${XML_INC}
+
+clean_ambiguity.o : clean_ambiguity.c
+	${CC} ${CFLAGS} -c clean_ambiguity.c -I${SKR_INCLUDE} -I${SKR_DEBUG}/include -I${XML_INC} 
+
+parse : parse.o parse_meta.o
+	${LD} -o parse parse.o parse_meta.o ${DEBUG_LIB} -L${XML_LIB} -lxml2 -lsocket -lnsl -lc -I{${SKR_INCLUDE} -I${SKR_DEBUG}/include -I${XML_INC}
+
+parse.o : parse.c
+	${CC} ${CFLAGS} -c parse.c -I${SKR_INCLUDE} -I${SKR_DEBUG}/include -I${XML_INC} 
+
+parse_meta.o : parse_meta.c
+	${CC} ${CFLAGS} -c parse_meta.c -I${SKR_INCLUDE} -I${XML_INC}
+
+wsd_clnt.a : wsd_clnt.o com_utils.o
+	ar -r wsd_clnt.a wsd_clnt.o com_utils.o 
+	mv wsd_clnt.a ${WSD_CLIENT_LIB}
+
+wsd_clnt.o : wsd_clnt.c
+	${CC} ${CFLAGS} -c wsd_clnt.c -I${SKR_INCLUDE} -I${SKR_DEBUG}/include
+
+com_utils.o : com_utils.c
+	${CC} ${CFLAGS} -c com_utils.c -I${SKR_INCLUDE}

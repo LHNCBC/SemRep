@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-ere-err-syn</title>
+
+<meta name="description" content="SICStus Prolog: ref-ere-err-syn">
+<meta name="keywords" content="SICStus Prolog: ref-ere-err-syn">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dere_002derr.html#ref_002dere_002derr" rel="up" title="ref-ere-err">
+<link href="ref_002dere_002derr_002dres.html#ref_002dere_002derr_002dres" rel="next" title="ref-ere-err-res">
+<link href="ref_002dere_002derr_002dcns.html#ref_002dere_002derr_002dcns" rel="prev" title="ref-ere-err-cns">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dere_002derr_002dsyn"></a>
+<hr>
+<a name="Syntax-Errors-2"></a>
+<h4 class="subsubsection">4.15.4.11 Syntax Errors</h4>
+
+<a name="index-syntax-errors"></a>
+
+<a name="index-errors_002c-syntax"></a>
+
+
+<p>A syntax error occurs when data are read from some external source
+but have an improper format or cannot be processed for some other reason.
+This category mainly applies to <code>read/1</code> and its variants.
+</p>
+<p>The <var>SICStus_Error</var> term associated with a syntax error is
+</p><div class="example">
+<pre class="example">syntax_error(<var>Goal, Position, Message, Left, Right</var>)
+</pre></div>
+
+<p>where <var>Goal</var> is the goal in question, <var>Position</var> identifies
+the position in the stream where reading started,
+and <var>Message</var> describes the error.  Left and right are lists of
+tokens before and after the error, respectively.
+</p>
+<p>Note that the <var>Position</var> is where reading started, not where the
+error <em>is</em>.
+</p>
+<p><code>read/1</code> does two things.  First, it reads a sequence of characters from the
+current input stream up to and including a clause terminator, or the end of
+file marker, whichever comes first.  Then it attempts to parse the sequence
+of characters as a Prolog term.  If the parse is unsuccessful, then a syntax error
+occurs.  Thus, in the case of syntax errors, <code>read/1</code> disobeys the normal
+rule that predicates should detect and report errors before they perform any
+side-effects, because the side-effect of reading the characters has been done.
+</p>
+<a name="index-syntax_005ferrors-_0028prolog-flag_0029-2"></a>
+<a name="index-syntax_005ferrors_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p>A syntax error does not necessarily cause an exception to be thrown.
+For I/O predicates, but not for <code>number_chars/2</code> and <code>number_codes/2</code>,
+The behavior can be controlled via the <code>syntax_errors</code> Prolog flag
+(see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>), or via the <code>syntax_errors/1</code> option to
+<code>read_term/[2,3]</code>.  The following values are possible:
+</p>
+<dl compact="compact">
+<dt><code>quiet</code></dt>
+<dd><a name="index-quiet-_0028syntax_005ferrors-flag-value_0029-1"></a>
+<p>When a syntax error is detected, nothing is printed, and <code>read/1</code> 
+just quietly fails.
+</p>
+</dd>
+<dt><code>dec10</code></dt>
+<dd><a name="index-dec10-_0028syntax_005ferrors-flag-value_0029-1"></a>
+<p>This provides compatibility with other Prologs:  when a syntax error
+is detected, a syntax error message is issued with <code>print_message/2</code>, and
+the <code>read</code> is repeated.  This is the default.
+</p>
+</dd>
+<dt><code>fail</code></dt>
+<dd><a name="index-fail-_0028syntax_005ferrors-flag-value_0029-1"></a>
+<p>This provides compatibility with other Prologs.  When a syntax error is
+detected, a syntax error message is printed on <code>user_error</code>, and the
+<code>read</code> then fails.
+</p>
+</dd>
+<dt><code>error</code></dt>
+<dd><a name="index-error-_0028syntax_005ferrors-flag-value_0029-1"></a>
+<p>When a syntax error is detected, an exception is thrown.
+</p></dd>
+</dl>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dere_002derr_002dres.html#ref_002dere_002derr_002dres" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dere_002derr_002dcns.html#ref_002dere_002derr_002dcns" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dere_002derr.html#ref_002dere_002derr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002dsyn.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002dsyn.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

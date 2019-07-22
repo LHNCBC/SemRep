@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: Code Outline Lead-In and Prefix Sequences for x86</title>
+
+<meta name="description" content="SICStus JIT White Paper: Code Outline Lead-In and Prefix Sequences for x86">
+<meta name="keywords" content="SICStus JIT White Paper: Code Outline Lead-In and Prefix Sequences for x86">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Predicate-Linkage.html#Predicate-Linkage" rel="up" title="Predicate Linkage">
+<link href="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86_005f64.html#Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86_005f64" rel="next" title="Code Outline Lead-In and Prefix Sequences for x86_64">
+<link href="Predicate-Linkage.html#Predicate-Linkage" rel="prev" title="Predicate Linkage">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86"></a>
+<hr>
+<a name="Code-Outline_002c-Lead_002dIn-and-Prefix-Sequences-for-x86"></a>
+<h3 class="section">3.1 Code Outline, Lead-In and Prefix Sequences for x86</h3>
+
+<p>For all modes, the prefix sequence is preceded by a single word
+containing a pointer to the current predicate.  The prefix sequence is
+followed by a single section of code.
+</p>
+<table>
+<thead><tr><th width="10%">Mode</th><th width="40%">Lead-In</th><th width="50%">Prefix</th></tr></thead>
+<tr><td width="10%"><em>jitex</em></td><td width="40%"><code>jmp native_shunt_link</code></td><td width="50%"><code>cmp h,w_heap_warn_soft</code></td></tr>
+<tr><td width="10%"></td><td width="40%"></td><td width="50%"><code>jae native_nonjit</code></td></tr>
+<tr><td width="10%"></td><td width="40%"></td><td width="50%"><code>pop %eax</code></td></tr>
+<tr><td width="10%">&nbsp;</td></tr>
+<tr><td width="10%"><em>wamex</em></td><td width="40%"><code>jmp native_nonjit</code></td><td width="50%"><code>jmp native_restore_link</code></td></tr>
+<tr><td width="10%">&nbsp;</td></tr>
+<tr><td width="10%"><em>cex</em></td><td width="40%"><code>jmp native_c</code></td><td width="50%">&mdash;</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86_005f64.html#Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86_005f64" accesskey="n" rel="next">Next</a>
+<li><a href="Predicate-Linkage.html#Predicate-Linkage" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,509 @@
+% -*-texinfo-*-
+\input texinfo
+
+@comment %**start of header (This is for running Texinfo on a region.)
+@setfilename libdb.info
+@settitle The new library(db)
+@setchapternewpage odd
+@comment %**end of header (This is for running Texinfo on a region.)
+@c @smallbook
+
+@tex
+% Adjust \hoffset for A4 paper
+\global\vsize 25.6cm
+\global\pageheight=\vsize
+\global\hoffset-0.125cm
+
+% No indentation
+\global\parindent=0pt
+\global\parskip=10pt
+@end tex
+
+@node Top, Top, Top, (dir)
+@comment  node-name,  next,  previous,  up
+@chapter External Storage of Terms (External Database)
+
+This library handles storage and retrieval of terms on files.  By using
+indexing, the store/retrieve operations are efficient also for large
+data sets.
+
+The package is loaded by the query
+
+@example
+| ?- use_module(library(db)).
+@end example
+
+@menu
+* Basics::
+* Current Limitations::
+* Berkeley DB::
+* The DB-Spec Informal Description::
+* Predicates::
+* An Example Session::
+* The DB-Spec::
+@end menu
+
+@node Basics, Current Limitations, Top, Top
+@section Basics
+
+The idea is to get a behavior similar to @code{assert/1},
+@code{retract/1} and @code{clause/2} but the terms are stored on files
+instead of in primary memory.
+
+The differences compared with the internal database are:
+
+@itemize @bullet
+@item
+@cindex database
+A @dfn{database} must be opened before any access and closed after the
+last access. (There are special predicates for this: @code{db_open} and
+@code{db_close}.)
+
+@item
+The functors and the indexing specifications of the terms to be stored
+have to be given when the database is created. (@pxref{The DB-Spec}).
+
+@item
+The indexing is specified when the database is created.  It is possible
+to index on other parts of the term than just the functor and first
+argument.
+
+@item
+Changes affect the database immediately.
+
+@item
+The database will store variables with frozen goals as ordinary variables.
+@end itemize
+
+Some commercial databases can't store non-ground terms or more than one
+instance of a term.  The SICStus database can however store terms of
+either kind.
+
+@node Current Limitations, Berkeley DB, Basics, Top
+@section Current Limitations
+
+@itemize @bullet
+@item
+The terms are not necessarily fetched in the same order as they were
+stored.
+
+@item
+If the process dies during an update operation (@code{db_store},
+@code{db_erase}), the database can be inconsistent.
+
+@item
+Databases can only be shared between processes running on the machine
+where the environment is created (@pxref{Predicates}).  The database
+itself can be on a different machine.
+
+@item
+The number of terms ever inserted in a database cannot exceed
+@tex
+$2^{32}-1$.
+@end tex
+@ifnottex
+2**32-1.
+@end ifnottex
+
+@item
+Duplicates are not handled efficiently by Berkeley DB.  This limitation
+is supposed to get lifted in the future.  Duplicates can result from
+indexing on non-key attribute sets, inserting terms with variables on
+indexing positions, or simply from storing the same term more than once.
+@end itemize
+
+@node Berkeley DB, The DB-Spec Informal Description, Current Limitations, Top
+@section Berkeley DB
+This database library is an interface to the Berkeley DB toolset to
+support persistent storage of Prolog terms.  Some of the notions of
+Berkeley DB are directly inherited, e.g., the environment.
+
+The interface uses the Concurrent Access Methods product of Berkeley DB.
+This means that multiple processes can open the same database but
+transactions and disaster recovery are not supported.
+
+The environment and the database files are ordinary Berkeley DB entities
+which means that the standard support utilities (e.g., @code{db_stat})
+will work.
+
+@node The DB-Spec Informal Description, Predicates, Berkeley DB, Top
+@section The DB-Spec---Informal Description
+
+@cindex db-spec
+The @dfn{db-spec} defines which functors are allowed and which parts of
+a term are used for indexing in a database.  The syntax of a spec
+resembles to that of the mode specification.  The db-spec is a list of
+atoms and compound terms where the arguments are either @code{+} or
+@code{-}.  A term can be inserted in the database if there is a spec in
+the spec list with the same functor.
+
+Multilevel indexing is not supported, terms have to be ``flattened''.
+
+@cindex indexed term
+@cindex term, indexed
+Every spec with the functor of the @dfn{indexed term} specifies an
+indexing.  Every argument where there is a @code{+} in the spec is
+indexed on.
+
+The idea of the db-spec is illustrated with a few examples.  (A section
+further down explains the db-spec in a more formal way).
+
+Given a spec of @code{[f(+,-), .(+,-), g, f(-,+)]} the indexing works
+as follows.  (The parts with indexing are underlined.)
+
+@example
+@emph{Term}               @emph{Store}                      @emph{Fetch}
+
+g(x,y)              domain error              domain error
+
+f(A,B)              f(A,B)                    instantiation error
+                    -
+
+f(a,b)              f(a,b)  f(a,b)            f(a,b)
+                    - -     -   -             - -
+
+[a,b]               .(a,.(b,[]))              .(a,.(b,[]))
+                    - -                       - -
+
+g                   g                         g
+                    -                         -
+@end example
+
+The specification @code{[f(+,-), f(-,+)]} is different from
+@code{[f(+,+)]}.  The first specifies that two indices are to be made
+whereas the second specifies that only one index is to be made on both
+arguments of the term.
+
+@node Predicates, An Example Session, The DB-Spec Informal Description, Top
+@section Predicates
+@subsection Conventions
+The following conventions are used in the predicate descriptions below.
+@itemize @bullet
+@item
+@var{Mode} is either @code{update} or @code{read} or @code{enumerate}.
+In mode @code{read} no updates can be made.  Mode @code{enumerate} is
+like mode @code{read} but also indexing cannot be used, i.e., you can
+only sequentially enumerate the items in the database.  In mode
+@code{enumerate} only the file storing the terms along with their
+references is used.
+
+@item
+@var{EnvRef} is a reference to an open database environment.  The
+environment is returned when it is opened.  The reference becomes
+invalid after the environment has been closed.
+
+@item
+@var{DBRef} is a reference to an open database.  The reference is
+returned when the database is opened.  The reference becomes invalid
+after the database has been closed.
+
+@item
+@var{TermRef} is a reference to a term in a given database.  The
+reference is returned when a term is stored.  The reference stays valid
+even after the database has been closed and hence can be stored
+permanently as part of another term.  However, if such references are
+stored in the database, automatic compression of the database (using
+@code{db_compress/(2-3)}) is not possible, in that case the user has to
+write her own compressing predicate.
+
+@item
+@var{SpecList} is a description of the indexing scheme,
+@pxref{The DB-Spec}.
+
+@item
+@var{Term} is any Prolog term.
+
+@item
+@var{Iterator} is a non-backtrackable mutable object.  It can be used to
+iterate through a set of terms stored in a database.  The iterators are
+unidirectional.
+@end itemize
+
+@subsection The environment
+To enable sharing of databases between process, programs have to create
+@emph{environments} and the databases should be opened in these
+environments.  A database can be shared between processes that open it
+in the same environment.  An environment physically consists of a
+directory containing the files needed to enable sharing databases
+between processes.  The directory of the environment has to be located
+in a local file system.
+
+Databases can be opened outside any environment (see @code{db_open/4}),
+but in that case a process writing the database must ensure exclusive
+access or the behaviour of the predicates is undefined.
+
+@subsection Memory leaks
+In order to avoid memory leaks, environments, databases and iterators
+should always be closed.  Consider using @code{call_cleanup/2} to
+automate the closing/deallocation of these objects.  You can always use
+the @code{db_current...} predicates to enumerate the currently living
+objects.
+
+@subsection The predicates
+@table @code
+@item db_open_env(@var{+EnvName}, @var{-EnvRef})
+@itemx db_open_env(@var{+EnvName}, @var{+CacheSize}, @var{-EnvRef})
+@findex db_open_env/2
+@findex db_open_env/3
+Opens an environment with the name @var{EnvName}.  A directory with this
+name is created for the environment if necessary.  @var{EnvName} is not
+subject to @code{absolute_file_name/2} conversion.
+
+By using @code{db_open_env/3} one can specify the size of the cache:
+@var{CacheSize} is the (integer) size of the cache in kilobytes.  The
+size of the cache cannot be less than 20 kilobytes.
+@code{db_open_env/2} will create a cache of the system's default size.
+
+The size of the cache is determined when the environment is created and
+cannot be changed by future openings.
+
+A process cannot open the same environment more than once.
+
+@item db_close_env(@var{+EnvRef})
+@findex db_close_env/1
+Closes an environment.  All databases opened in the environment will be
+closed as well.  @code{abort/0} does not close environments.
+
+@item current_env(@var{?EnvName}, @var{?EnvRef})
+@findex current_env/2
+Unifies the arguments with the open environments.  This predicate can be
+used for enumerating all currently open environments through
+backtracking.
+
+@item db_open(@var{+DBName}, @var{+Mode}, @var{?SpecList}, @var{-DBRef})
+@itemx db_open(@var{+DBName}, @var{+Mode}, @var{?SpecList}, @var{+EnvRef}, @var{-DBRef})
+@findex db_open/4
+@findex db_open/5
+Opens a database with the name @var{DBName}.  The database physically
+consists of a directory with the same name, containing the files that
+make up the database.  If the directory does not exist, it is created.
+In that case @var{Mode} must be @code{update} and the db-spec
+@var{SpecList} must be ground.  If an existing database is opened and
+@var{Mode} is @code{read} or @code{update}, @var{SpecList} is unified
+with the db-spec given when the database was created.  If the
+unification fails an error is raised.  @var{DBRef} is unified with a
+reference to the opened database.  @var{DBName} is not subject to
+@code{absolute_file_name/2} conversion.
+
+If @var{Mode} is @code{enumerate} then the indexing specification is not
+read, and @var{SpecList} is left unbound.
+
+@code{db_open/5} opens the database in the environment referred to by
+@var{EnvRef}.  @code{db_open/4} opens the database outside any
+environment.  (@code{db_open/4} is equivalent to calling
+@code{db_open/5} with @var{EnvRef} bound to the atom @code{none}.)
+
+To avoid inconsistency, if multiple processes open the same database
+with @code{db_open/4} then all of them should do that with @var{Mode}
+set to @code{read} or @code{enumerate}.  (This is not enforced by the
+system.)
+
+@item db_close(@var{+DBRef})
+@findex db_close/1
+Closes the database referenced by @var{DBRef}.  Any iterators opened in
+the database will be deallocated.  @code{abort/0} does not close
+databases.
+
+@item db_current(@var{?DBName}, @var{?Mode}, @var{?SpecList}, @var{?EnvRef}, @var{?DBRef})
+@findex db_current/5
+Unifies the arguments with the open databases.  This predicate can be
+used to enumerate all currently open databases through backtracking.
+If the database was opened with @code{db_open/4} then @var{EnvRef} will
+be unified with the atom @code{none}.
+
+@item db_store(@var{+DBRef}, @var{+Term}, @var{-TermRef})
+@findex db_store/3
+Stores @var{Term} in the database @var{DBRef}.  @var{TermRef} is unified
+with a corresponding term reference.  The functor of @var{Term} must match
+the functor of a spec in the db-spec associated with @var{DBRef}.
+
+@item db_fetch(@var{+DBRef}, @var{?Term}, @var{?TermRef})
+@findex db_fetch/3
+Unifies @var{Term} with a term from the database @var{DBRef}.  At the
+same time, @var{TermRef} is unified with a corresponding term reference.
+Backtracking over the predicate unifies with all terms matching
+@var{Term}.
+
+If @var{TermRef} is not instantiated then both the functor and the
+instantiatedness of @var{Term} must match a spec in the db-spec
+associated with @var{DBRef}.
+
+If @var{TermRef} is instantiated, the referenced term is read and
+unified with @var{Term}.
+
+If you simply want to find all matching terms, it is more efficient to
+use @code{db_findall/5} or @code{db_enumerate/3}.
+
+@item db_findall(@var{+DBRef}, @var{+Template}, @var{+Term}, @var{:Goal}, @var{?Bag})
+@findex db_findall/3
+Unifies @var{Bag} with the list of instances of @var{Template} in all
+proofs of Goal found when @var{Term} is unified with a matching term
+from the database @var{DBRef}.  Both the functor and the
+instantiatedness of @var{Term} must match a spec in the db-spec
+associated with @var{DBRef}.  Conceptually, this predicate is equivalent
+with @code{findall(@var{Template}, (db_fetch(@var{DBRef}, @var{Term}, _), @var{Goal}), @var{Bag})}.
+
+@item db_erase(@var{+DBRef}, @var{+TermRef})
+@itemx db_erase(@var{+DBRef}, @var{+TermRef}, @var{+Term})
+@findex db_erase/2
+@findex db_erase/3
+Deletes the term from the database @var{DBRef} that is referenced by
+@var{TermRef}.
+
+In the case of @code{db_erase/2} the term associated with @code{TermRef}
+has to be looked up.  @code{db_erase/3} assumes that the term
+@code{Term} is identical with the term associated with @code{TermRef}
+(modulo variable renaming).  If this is not the case, the behaviour is
+undefined.
+
+@item db_enumerate(@var{+DBRef}, @var{?Term}, @var{?TermRef})
+@findex db_enumerate/3
+
+Unifies @var{Term} with a term from the database @var{DBRef}.  At the
+same time, @var{TermRef} is unified with a corresponding term reference.
+Backtracking over the predicate unifies with all terms matching @var{Term}.
+
+Implemented by linear search---the db-spec associated with @var{DBRef}
+is ignored.  It is not useful to call this predicate with @var{TermRef}
+instantiated.
+
+@item db_compress(@var{+DBRef}, @var{+DBName})
+@itemx db_compress(@var{+DBRef}, @var{+DBName}, @var{+SpecList})
+Copies the database given by @var{DBRef} to a new database named by
+@var{DBName}.  The new database will be a compressed version of the
+first one in the sense that it will not have ``holes'' resulting from
+deletion of terms.  Deleted term references will also be reused, which
+implies that references that refer to terms in the old database will be
+invalid in the new one.
+
+@code{db_compress/2} looks for a database with the db-spec of the
+original one.  @code{db_compress/3} stores the terms found in the
+original database with the indexing specification @var{SpecList}.
+@code{db_compress/2} cannot be used if the database @var{DBRef} was
+opened in mode @code{enumerate}.
+
+If the database @var{DBName} already exists then the terms of
+@var{DBRef} will be appended to it.  Of course @var{DBName} must have an
+indexing specification which enables the terms in @var{DBRef} to be
+inserted into it.
+
+In the case of @code{db_compress/3} if the database @var{DBName} does
+not exist, then @var{SpecList} must be a valid indexing specification.
+
+@item db_make_iterator(@var{+DBRef}, @var{-Iterator})
+@itemx db_make_iterator(@var{+DBRef}, @var{+Term}, @var{-Iterator})
+@findex db_make_iterator/2
+@findex db_make_iterator/3
+Creates a new iterator and unifies it with @var{Iterator}.  Iterators
+created with @code{db_make_iterator/2} iterate through the whole database.
+Iterators created with @code{db_make_iterator/3} iterate through the terms
+that would be found by @code{db_fetch(@var{DBRef}, @var{Term}, _)}.
+
+Every iterator created by @code{db_make_iterator/(2-3)} must be
+destroyed with @code{db_iterator_done/1}.
+
+@item db_iterator_next(@var{+Iterator}, @var{?Term}, @var{?TermRef})
+@findex db_iterator_next/3
+@var{Iterator} advances to the next term, @var{Term} and @var{TermRef}
+is unified with the term and its reference pointed to by @var{Iterator}.
+If there is no next term, the predicate fails.
+
+@item db_iterator_done(@var{+Iterator})
+@findex db_iterator_done/1
+Deallocates @var{Iterator}, which must not be used anymore.
+@code{abort/0} does not deallocate iterators.
+
+@item db_current_iterator(@var{?DBRef}, @var{?Term}, @var{?Iterator})
+@findex db_current_iterator/3
+Unifies the variables with the respective properties of the living
+iterators.  This predicate can be used to enumerate all currently alive
+iterators through backtracking.  If @var{Iterator} was made with
+@code{db_make_iterator/2} then @var{Term} will be left unbound.
+@end table
+
+@node An Example Session, The DB-Spec, Predicates, Top
+@section An Example Session
+@example
+| ?- db_open('/tmp/db', update, [a(+,-)], '$db_env'(-33470544), DBRef).
+
+DBRef = '$db'(-33470432) ? 
+
+yes
+| ?- db_store('$db'(-33470432), a(b,1), _).
+
+yes
+| ?- db_store('$db'(-33470432), a(c,2), _).
+
+yes
+| ?- db_fetch('$db'(-33470432), a(b,X), _).
+
+X = 1 ? ;
+
+no
+| ?- db_enumerate('$db'(-33470432), X, _).
+
+X = a(b,1) ? ;
+
+X = a(c,2) ? ;
+
+no
+| ?- db_current(DBName, Mode, Spec, EnvRef, DBRef).
+
+Mode = update,
+Spec = [a(+,-)],
+DBRef = '$db'(-33470432),
+DBName = '/tmp/db',
+EnvRef = '$db_env'(-33470544) ? ;
+
+no
+| ?- db_close_env('$db_env'(-33470544)).
+
+yes
+@end example
+
+@node The DB-Spec,  , An Example Session, Top
+@section The DB-Spec
+
+A db-spec has the form of a @var{speclist}:
+
+@table @var
+@item speclist
+= @code{[}@var{spec1}, ..., @var{specM}@code{]}
+
+@item spec
+= @var{functor}@code{(}@var{argspec1}, ..., @var{argspecN}@code{)}
+
+@item argspec
+= @code{+} | @code{-}
+@end table
+where @var{functor} is a Prolog atom.  The case @var{N} = 0 is allowed.
+
+A spec @var{F}@code{(}@var{argspec1}, ..., @var{argspecN}@code{)} is
+@emph{applicable} to any nonvar term with principal functor
+@var{F}/@var{N}.
+
+When storing a term @var{T} we generate a hash code for every applicable
+spec in the db-spec, and a reference to @var{T} is stored with each of
+them.  (More precisely with each element of the set of generated hash
+codes).  If @var{T} contains nonvar elements on each @code{+} position
+in the spec, then the hash code depends on each of these elements.  If
+@var{T} does contain some variables on @code{+} position, then the hash
+code depends only on the functor of @var{T}.
+
+When fetching a term @var{Q} we look for an applicable spec for which
+there are no variables in @var{Q} on positions maked @code{+}.  If no
+applicable spec can be found a domain error is raised.  If no spec can
+be found where on each @code{+} position a nonvar term occurs in @var{Q}
+an instantiation error is raised.  Otherwise we choose the spec with
+the most @code{+} postitions in it breaking ties by choosing the
+leftmost one.
+
+The terms that contain nonvar terms on every @code{+} postition will be
+looked up using indexing based on the principal functor of the term and
+the principal functor of terms on @code{+} postitions.  The other (more
+general) terms will be looked up using an indexing based on the
+principal functor of the term only.
+
+As it can be seen, storing and fetching terms with variables on @code{+}
+positions are not vigorously supported.
+@bye

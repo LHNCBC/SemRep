@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: How it Works - An Overview</title>
+
+<meta name="description" content="SICStus Prolog: How it Works - An Overview">
+<meta name="keywords" content="SICStus Prolog: How it Works - An Overview">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" rel="up" title="The Tcl/Tk Prolog Library">
+<link href="Basic-Functions.html#Basic-Functions" rel="next" title="Basic Functions">
+<link href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" rel="prev" title="The Tcl/Tk Prolog Library">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="How-it-Works-_002d-An-Overview"></a>
+<hr>
+<a name="How-it-Works-_002d-An-Overview-1"></a>
+<h4 class="subsubsection">10.39.4.1 How it Works - An Overview</h4>
+
+<p>Before describing the details of the Tcl/Tk library we will give an
+overview of how it works with the Prolog system.
+</p>
+<p>The Tcl/Tk library provides a loosely coupled integration of Prolog and
+Tcl/Tk. By this we mean that the two systems, Prolog and Tcl/Tk,
+although joined through the library, are mostly separate; Prolog
+variables have nothing to do with Tcl variables, Prolog and Tcl
+program states are separate, and so on.
+</p>
+<p>The Tcl/Tk library extends Prolog so that Prolog can create a number of
+independent Tcl interpreters with which it can interact.  Basically,
+there is a predicate, which when executed creates a Tcl
+interpreter and returns a handle with which Prolog can interact with the
+interpreter.
+</p>
+<p>Prolog and a Tcl interpreter interact, and so communicate and cooperate,
+through two ways:
+</p>
+<ol>
+<li> One system evaluates a code fragment in the other system and retrieves
+the result. For example, Prolog evaluates a Tcl code fragment in an
+attached Tcl interpreter and gets the result of the evaluation in a
+Prolog variable. Similarly, a Tcl interpreter can evaluate a
+Prolog goal and get the result back through a Tcl variable.
+
+<p>This is synchronous communication in that the caller
+waits until the callee has finished their evaluation and reads the result.
+</p>
+</li><li> One system passing a &ldquo;message&rdquo; to the other on an &ldquo;event&rdquo; queue.
+
+<p>This is asynchronous communication in that the receiver of the message
+can read the message whenever it likes, and the sender can send the
+message without having to wait for a reply.
+</p></li></ol>
+
+<p>The Tk part of Tcl/Tk comes in because an attached Tcl interpreter may
+be extended with the Tk widget set and so be a Tcl/Tk interpreter.  This
+makes it possible to add GUIs to a Prolog application: the application
+loads the Tcl/Tk Prolog library, creates a Tcl/Tk interpreter, and
+sends commands to the interpreter to create a Tk GUI.  The user
+interacts with the GUI and therefore with the underlying Prolog system.
+</p>
+<p>There are two main ways to partition the Tcl/Tk library functions:
+by function, i.e. the task they perform; or by package, i.e. whether they
+are Tcl, Tk, or Prolog functions.
+We will describe the library in terms of the former because it fits in with
+the tutorial style better, but at the end is a summary section
+that summarizes the library functions both ways.
+</p>
+<p>Taking the functional approach, the library can be split into six
+function groups:
+</p>
+<ul>
+<li> basic functions
+<ul class="no-bullet">
+<li>- loading the library
+</li><li>- creating and destroying Tcl and Tcl/Tk interpreters
+</li></ul>
+</li><li> evaluation functions
+<ul class="no-bullet">
+<li>- evaluating Tcl expressions from Prolog
+</li><li>- evaluating Prolog expressions from Tcl
+</li></ul>
+</li><li> Prolog event functions
+<ul class="no-bullet">
+<li>- handling the Prolog/Tcl event queue
+</li></ul>
+</li><li> Tk event handling
+</li><li> passing control to Tk
+</li><li> housekeeping functions
+</li></ul>
+
+<p>We go through each group in turn.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Basic-Functions.html#Basic-Functions" accesskey="n" rel="next">Next</a>
+<li><a href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/How-it-Works-_002d-An-Overview.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/How-it-Works-_002d-An-Overview.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

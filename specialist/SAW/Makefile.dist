@@ -1,0 +1,327 @@
+# -*-makefile-*-
+#/nfsvol/nlsaux15/public_mm/makefile.dist, Wed Jul 23 13:06:47 2008, edit by Will Rogers
+#
+# invoke using: SAWenv make -f Makefile.dist populate 
+# NOTE: this makefile requires GNU Make (gmake)
+#
+# i.e.: make -f Makefile.dist OS=solaris dist.99
+#
+
+AFT=aft
+AFTFLAGS=--verbose
+LATEX=latex
+PDFLATEX=pdflatex
+DVIPS=dvips
+TAROPTIONS=cvfj
+STAGE=
+RSYNC=rsync
+CP=cp
+CHMOD=chmod
+MKDIR=mkdir
+FIND=find
+DIFF=diff
+VERSION=v1.6
+
+ORIGINBIN=${SAW_HOME}/bin
+ORIGINDOC=${SAW_HOME}/doc
+ORIGINTEST=${SAW_HOME}/TestSuite
+ORIGINRES=${SAW_HOME}/resources
+ORIGINSKRBIN=${SKR_HOME}/bin
+
+PUBLIC_SEMREP=public_semrep
+PUBLIC_SEMREP_PATH=${SAW_PROD}/${PUBLIC_SEMREP}
+PUBLIC_SEMREP_DIST_PATH=${SAW_PROD}/public_semrep_dist
+
+O_SYSTEM = $(shell uname)
+ifeq '$(O_SYSTEM)' "SunOS"
+  OS = solaris
+  TAR=/usr/local/bin/tar
+else
+  ifeq '$(O_SYSTEM)' "Linux"
+	OS = Linux
+	TAR=tar
+  endif
+endif
+
+# these should probably be includes rather than excludes, an alternative would be to use rsync instead of tar.
+#TAREXCLUDES=--exclude=${PUBLIC_SEMREP}/Makefile.dist --exclude=${PUBLIC_SEMREP}/*delete --exclude=${PUBLIC_SEMREP}/*trash --exclude=${PUBLIC_SEMREP}/install.log  --exclude=${PUBLIC_SEMREP}/bin/*delete
+
+#TAREXCLUDES99=$(TAREXCLUDESCOMMON) --exclude=public_mm/bin/metamap07* \
+#--exclude=public_mm/lexicon/data/*2007* --exclude=public_mm/DB/*.07.* \
+#--exclude=public_mm/lexicon/data/*2008* --exclude=public_mm/DB/*.08.* \
+#--exclude=public_mm/scripts/dfbuilder  --exclude=public_mm/install.log \
+#--exclude=metamap07* --exclude=metamap08* 
+
+#TAREXCLUDES07=$(TAREXCLUDESCOMMON) --exclude=public_mm/bin/metamap08* \
+#--exclude=public_mm/lexicon/data/*2008* --exclude=public_mm/DB/*.08.* \
+#--exclude=public_mm/lexicon/data/*1999* --exclude=public_mm/DB/*.99.* \
+#--exclude=public_mm/scripts/dfbuilder  --exclude=public_mm/install.log \
+#--exclude=metamap08* --exclude=metamap99*
+
+TARINCLUDES= \
+${PUBLIC_SEMREP}/SemRepTermsConditions.txt \
+${PUBLIC_SEMREP}/SemRep.$(VERSION)_Release_Notes.txt \
+${PUBLIC_SEMREP}/README.txt \
+${PUBLIC_SEMREP}/bin/install.sh \
+${PUBLIC_SEMREP}/bin/SEMREPrun.$(VERSION).in \
+${PUBLIC_SEMREP}/bin/semrep.$(VERSION).in \
+${PUBLIC_SEMREP}/bin/semrep.$(VERSION).BINARY.$(OS) \
+${PUBLIC_SEMREP}/bin/SemRep.sav \
+${PUBLIC_SEMREP}/bin/abgenemod.so \
+${PUBLIC_SEMREP}/bin/db_access.so \
+${PUBLIC_SEMREP}/bin/entrezgene.so \
+${PUBLIC_SEMREP}/bin/mancmod.so \
+${PUBLIC_SEMREP}/bin/nls_signal.so \
+${PUBLIC_SEMREP}/bin/qp_morph.so \
+${PUBLIC_SEMREP}/bin/qp_lexicon.so \
+${PUBLIC_SEMREP}/bin/sp-4.2.1 \
+${PUBLIC_SEMREP}/doc/SemRep_full_fielded_output.pdf \
+${PUBLIC_SEMREP}/doc/SemRep.$(VERSION)_XML_output_desc.txt \
+${PUBLIC_SEMREP}/doc/SemRep.$(VERSION)_Options.txt \
+${PUBLIC_SEMREP}/lib/libdb-4.8.so \
+${PUBLIC_SEMREP}/lib/libdb.so \
+${PUBLIC_SEMREP}/lib/libgcc_s.so \
+${PUBLIC_SEMREP}/lib/libstdc++.so \
+${PUBLIC_SEMREP}/lib/libpcre.so.0.0.1 \
+${PUBLIC_SEMREP}/lib/libpcre.so.0 \
+${PUBLIC_SEMREP}/TestSuite/runTest_$(VERSION).sh.in \
+${PUBLIC_SEMREP}/TestSuite/README \
+${PUBLIC_SEMREP}/TestSuite/test.plain \
+${PUBLIC_SEMREP}/TestSuite/test.ml \
+${PUBLIC_SEMREP}/TestSuite/test.plain.SD \
+${PUBLIC_SEMREP}/TestSuite/test.ml.SD \
+${PUBLIC_SEMREP}/TestSuite/test.ml.SDF \
+${PUBLIC_SEMREP}/TestSuite/test.ml.SDR \
+${PUBLIC_SEMREP}/TestSuite/test.ml.SDX \
+${PUBLIC_SEMREP}/TestSuite/test.ml.SD12 \
+${PUBLIC_SEMREP}/TestSuite/test.ml.SD14 \
+${PUBLIC_SEMREP}/TestSuite/test.ml.SDA \
+${PUBLIC_SEMREP}/TestSuite/test.ml.SDM \
+${PUBLIC_SEMREP}/resources/SemRepXML_$(VERSION).dtd \
+${PUBLIC_SEMREP}/DATA/ABGENE \
+${PUBLIC_SEMREP}/DATA/ENTREZGENE \
+${PUBLIC_SEMREP}/DATA/JDI
+
+LEXDBTARINCLUDES14= \
+${PUBLIC_SEMREP}/DATA/DB/*2014AA* \
+${PUBLIC_SEMREP}/DATA/LEXICON/*2014* 
+
+LEXDBTARINCLUDES12= \
+${PUBLIC_SEMREP}/DATA/DB/*2012AA* \
+${PUBLIC_SEMREP}/DATA/LEXICON/*2012* 
+
+LEXDBTARINCLUDES06= \
+${PUBLIC_SEMREP}/DATA/DB/*2006* \
+${PUBLIC_SEMREP}/DATA/LEXICON/*2006* 
+
+HIERTARINCLUDES14= \
+${PUBLIC_SEMREP}/DATA/UMLS_HIERARCHY/*2014AA*
+
+HIERTARINCLUDES12= \
+${PUBLIC_SEMREP}/DATA/UMLS_HIERARCHY/*2012AA*
+
+HIERTARINCLUDES06= \
+${PUBLIC_SEMREP}/DATA/UMLS_HIERARCHY/*2006AA*
+
+#all : $(DOCS)
+all : dist
+
+help : 
+	echo "targets: populate dist \n "
+
+#  populate populatedoc populatebin populatesrc populatedfb populatejavaapi\n\
+#  dist.09 distbin.09 distsrc.09 distdfb.09 distjavaapi.09\n\
+#  dist.09v2 distbin.09v2 distsrc.09v2 distdfb.09v2 distjavaapi.09v2\n\
+#  dist.99 data.99 "
+
+dist : clean public_semrep_$(VERSION)_$(OS).tar.bz2 public_semrep_$(VERSION)_umls_data_$(OS).tar.bz2 checksum
+
+public_semrep_$(VERSION)_$(OS).tar.bz2 : 
+	(mkdir -p ${PUBLIC_SEMREP_DIST_PATH} && cd ${PUBLIC_SEMREP_PATH} && cd .. && chmod -R ugo+r ${PUBLIC_SEMREP_PATH} && ${TAR} ${TAROPTIONS} ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_$(OS).tar.bz2 ${TARINCLUDES})
+
+public_semrep_$(VERSION)_umls_data_$(OS).tar.bz2 : public_semrep_$(VERSION)_umls_data_06_$(OS).tar.bz2 public_semrep_$(VERSION)_umls_data_12_$(OS).tar.bz2 public_semrep_$(VERSION)_umls_data_14_$(OS).tar.bz2
+
+public_semrep_$(VERSION)_umls_data_06_$(OS).tar.bz2 : public_semrep_$(VERSION)_lex_db_06_$(OS).tar.bz2 public_semrep_$(VERSION)_hier_06_$(OS).tar.bz2
+
+public_semrep_$(VERSION)_umls_data_12_$(OS).tar.bz2 : public_semrep_$(VERSION)_lex_db_12_$(OS).tar.bz2 public_semrep_$(VERSION)_hier_12_$(OS).tar.bz2
+
+public_semrep_$(VERSION)_umls_data_14_$(OS).tar.bz2 : public_semrep_$(VERSION)_lex_db_14_$(OS).tar.bz2 public_semrep_$(VERSION)_hier_14_$(OS).tar.bz2
+
+public_semrep_$(VERSION)_lex_db_06_$(OS).tar.bz2 : 
+	(mkdir -p ${PUBLIC_SEMREP_DIST_PATH} && cd ${PUBLIC_SEMREP_PATH} && cd .. && ${TAR} ${TAROPTIONS} ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_06_$(OS).tar.bz2 ${LEXDBTARINCLUDES06})
+
+public_semrep_$(VERSION)_lex_db_12_$(OS).tar.bz2 : 
+	(mkdir -p ${PUBLIC_SEMREP_DIST_PATH} && cd ${PUBLIC_SEMREP_PATH} && cd .. && ${TAR} ${TAROPTIONS} ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_12_$(OS).tar.bz2 ${LEXDBTARINCLUDES12})
+
+public_semrep_$(VERSION)_lex_db_14_$(OS).tar.bz2 : 
+	(mkdir -p ${PUBLIC_SEMREP_DIST_PATH} && cd ${PUBLIC_SEMREP_PATH} && cd .. && ${TAR} ${TAROPTIONS} ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_14_$(OS).tar.bz2 ${LEXDBTARINCLUDES14})
+
+public_semrep_$(VERSION)_hier_06_$(OS).tar.bz2 : 
+	(mkdir -p ${PUBLIC_SEMREP_DIST_PATH} && cd ${PUBLIC_SEMREP_PATH} && cd .. && ${TAR} ${TAROPTIONS} ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_06_$(OS).tar.bz2 ${HIERTARINCLUDES06})
+
+public_semrep_$(VERSION)_hier_12_$(OS).tar.bz2 : 
+	(mkdir -p ${PUBLIC_SEMREP_DIST_PATH} && cd ${PUBLIC_SEMREP_PATH} && cd .. && ${TAR} ${TAROPTIONS} ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_12_$(OS).tar.bz2 ${HIERTARINCLUDES12})
+
+public_semrep_$(VERSION)_hier_14_$(OS).tar.bz2 : 
+	(mkdir -p ${PUBLIC_SEMREP_DIST_PATH} && cd ${PUBLIC_SEMREP_PATH} && cd .. && ${TAR} ${TAROPTIONS} ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_14_$(OS).tar.bz2 ${HIERTARINCLUDES14})
+
+checksum : checksum_sha1 checksum_md5
+
+checksum_sha1 : 
+	sha1sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_$(OS).sha1
+	sha1sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_06_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_06_$(OS).sha1
+	sha1sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_06_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_06_$(OS).sha1
+	sha1sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_12_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_12_$(OS).sha1
+	sha1sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_12_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_12_$(OS).sha1
+	sha1sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_14_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_14_$(OS).sha1
+	sha1sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_14_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_14_$(OS).sha1
+
+checksum_md5 : 
+	md5sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_$(OS).md5
+	md5sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_06_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_06_$(OS).md5
+	md5sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_06_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_06_$(OS).md5
+	md5sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_12_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_12_$(OS).md5
+	md5sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_12_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_12_$(OS).md5
+	md5sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_14_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_hier_14_$(OS).md5
+	md5sum ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_14_$(OS).tar.bz2 > ${PUBLIC_SEMREP_DIST_PATH}/public_semrep_$(VERSION)_lex_db_14_$(OS).md5
+
+
+#diffmakefile:
+#	$(DIFF) $(PUBLIC_MM_COMMON)/Makefile.dist .
+
+#updatemakefile :
+#	$(RSYNC) -ruva $(PUBLIC_MM_COMMON)/Makefile.dist .
+
+populate: cleandist populatedoc populatebin populatelib populatedata populatetest populateresources
+	$(RSYNC) -ruva $(SAW_HOME)/Makefile.dist $(PUBLIC_SEMREP_PATH)
+
+populatedoc :
+	mkdir -p $(PUBLIC_SEMREP_PATH)/doc
+	$(RSYNC) -ruva $(ORIGINDOC)/README.txt  \
+			$(ORIGINDOC)/SemRepTermsConditions.txt \
+			$(ORIGINDOC)/SemRep.$(VERSION)_Release_Notes.txt $(PUBLIC_SEMREP_PATH)
+	$(RSYNC) -ruva $(ORIGINDOC)/SemRep.$(VERSION)_Options.txt \
+			$(ORIGINDOC)/SemRep.$(VERSION)_XML_output_desc.txt \
+			$(ORIGINDOC)/SemRep_full_fielded_output.pdf $(PUBLIC_SEMREP_PATH)/doc
+
+populatebin :
+	mkdir -p $(PUBLIC_SEMREP_PATH)/bin
+	$(RSYNC) -ruva --exclude='.svn*' $(ORIGINBIN)/SEMREPrun.$(VERSION).in \
+			$(ORIGINBIN)/semrep.$(VERSION).in \
+			${ORIGINSKRBIN}/semskr.$(VERSION).in \
+			$(ORIGINBIN)/install.sh \
+			$(ORIGINBIN)/sp-4.2.1 $(PUBLIC_SEMREP_PATH)/bin
+	$(RSYNC) -ruva $(USEMREP)/a.out.$(O_SYSTEM) $(PUBLIC_SEMREP_PATH)/bin/semrep.$(VERSION).BINARY.$(O_SYSTEM)
+	$(RSYNC) -ruva $(SKR_SRC_HOME)/a.out.$(O_SYSTEM) $(PUBLIC_SEMREP_PATH)/bin/semskr.$(VERSION).BINARY.$(O_SYSTEM)
+	$(RSYNC) -ruva $(USEMREP)/SemRep.sav $(USEMREP)/*.so $(PUBLIC_SEMREP_PATH)/bin
+	$(RSYNC) -ruva $(SKR_SRC_HOME)/MetaMap.sav $(PUBLIC_SEMREP_PATH)/bin
+
+populatelib :
+	mkdir -p $(PUBLIC_SEMREP_PATH)/lib
+	$(RSYNC) -ruva $(ABGENE_DIR)/lib/*.so $(PUBLIC_SEMREP_PATH)/lib
+	$(RSYNC) -ruva $(ABGENE_DIR)/lib/Linux-i686/libpcre.so $(PUBLIC_SEMREP_PATH)/lib/libpcre.so.0.0.1
+	$(RSYNC) -ruva $(BERKELEY_LIB)/libdb-4.8.so $(PUBLIC_SEMREP_PATH)/lib
+	ln -s $(PUBLIC_SEMREP_PATH)/lib/libdb-4.8.so $(PUBLIC_SEMREP_PATH)/lib/libdb.so
+	ln -s $(PUBLIC_SEMREP_PATH)/lib/libpcre.so.0.0.1 $(PUBLIC_SEMREP_PATH)/lib/libpcre.so.0
+
+populatedata :
+	mkdir -p $(PUBLIC_SEMREP_PATH)/DATA/ABGENE
+	mkdir -p $(PUBLIC_SEMREP_PATH)/DATA/ENTREZGENE
+	mkdir -p $(PUBLIC_SEMREP_PATH)/DATA/JDI
+	mkdir -p $(PUBLIC_SEMREP_PATH)/DATA/UMLS_HIERARCHY
+	mkdir -p $(PUBLIC_SEMREP_PATH)/DATA/LEXICON
+	mkdir -p $(PUBLIC_SEMREP_PATH)/DATA/DB
+	$(RSYNC) -ruva --exclude='.svn*' $(ABGENE_DATA_DIR)/* $(PUBLIC_SEMREP_PATH)/DATA/ABGENE
+	$(RSYNC) -ruva $(ENTREZGENE_DIR)/HUMAN* $(PUBLIC_SEMREP_PATH)/DATA/ENTREZGENE
+	$(RSYNC) -ruva $(UMLS_HIERARCHY_DIR)/hrel-UMLS_btree.2006AA*  $(PUBLIC_SEMREP_PATH)/DATA/UMLS_HIERARCHY
+	$(RSYNC) -ruva $(UMLS_HIERARCHY_DIR)/hrel-UMLS_btree.2012AA*  $(PUBLIC_SEMREP_PATH)/DATA/UMLS_HIERARCHY
+	$(RSYNC) -ruva $(UMLS_HIERARCHY_DIR)/hrel-UMLS_btree.2014AA*  $(PUBLIC_SEMREP_PATH)/DATA/UMLS_HIERARCHY
+	$(RSYNC) -ruva $(LEXICON_DATA)/lexiconStatic2006*  $(PUBLIC_SEMREP_PATH)/DATA/LEXICON
+	$(RSYNC) -ruva $(LEXICON_DATA)/lexiconStatic2012*  $(PUBLIC_SEMREP_PATH)/DATA/LEXICON
+	$(RSYNC) -ruva $(LEXICON_DATA)/lexiconStatic2014*  $(PUBLIC_SEMREP_PATH)/DATA/LEXICON
+	$(RSYNC) -ruvaL --exclude=*~ --exclude='.svn*' $(MODEL_LOCATION_BASE_DIR)/*USAbase.2006AA*base $(PUBLIC_SEMREP_PATH)/DATA/DB
+	$(RSYNC) -ruvaL --exclude=*~ --exclude='.svn*' $(MODEL_LOCATION_BASE_DIR)/*USAbase.2006AA*strict $(PUBLIC_SEMREP_PATH)/DATA/DB
+	$(RSYNC) -ruvaL --exclude=*~ --exclude='.svn*' $(MODEL_LOCATION_BASE_DIR)/*USAbase.2006AA*relaxed $(PUBLIC_SEMREP_PATH)/DATA/DB
+	$(RSYNC) -ruvaL --exclude=*~ --exclude='.svn*' $(MODEL_LOCATION_BASE_DIR)/*USAbase.2012AA*base $(PUBLIC_SEMREP_PATH)/DATA/DB
+	$(RSYNC) -ruvaL --exclude=*~ --exclude='.svn*' $(MODEL_LOCATION_BASE_DIR)/*USAbase.2012AA*strict $(PUBLIC_SEMREP_PATH)/DATA/DB
+	$(RSYNC) -ruvaL --exclude=*~ --exclude='.svn*' $(MODEL_LOCATION_BASE_DIR)/*USAbase.2012AA*relaxed $(PUBLIC_SEMREP_PATH)/DATA/DB
+	$(RSYNC) -ruvaL --exclude=*~ --exclude='.svn*' $(MODEL_LOCATION_BASE_DIR)/*USAbase.2014AA*base $(PUBLIC_SEMREP_PATH)/DATA/DB
+	$(RSYNC) -ruvaL --exclude=*~ --exclude='.svn*' $(MODEL_LOCATION_BASE_DIR)/*USAbase.2014AA*strict $(PUBLIC_SEMREP_PATH)/DATA/DB
+	$(RSYNC) -ruvaL --exclude=*~ --exclude='.svn*' $(MODEL_LOCATION_BASE_DIR)/*USAbase.2014AA*relaxed $(PUBLIC_SEMREP_PATH)/DATA/DB
+
+populatetest :
+	mkdir -p $(PUBLIC_SEMREP_PATH)/TestSuite
+	$(RSYNC) -ruva $(ORIGINTEST)/test.ml* $(PUBLIC_SEMREP_PATH)/TestSuite
+	$(RSYNC) -ruva  $(ORIGINTEST)/test.plain* $(PUBLIC_SEMREP_PATH)/TestSuite
+	$(RSYNC) -ruva  $(ORIGINTEST)/runTest_$(VERSION).sh.in $(PUBLIC_SEMREP_PATH)/TestSuite
+	$(RSYNC) -ruva  $(ORIGINTEST)/README $(PUBLIC_SEMREP_PATH)/TestSuite
+
+populateresources :
+	mkdir -p $(PUBLIC_SEMREP_PATH)/resources
+	$(RSYNC) -ruva --exclude='.svn*' $(ORIGINRES) $(PUBLIC_SEMREP_PATH)
+
+#populateuima :
+#	mkdir -p src/uima/desc
+#	mkdir -p src/uima/src
+#	$(RSYNC) -ruva $(PUBLIC_MM_COMMON)/bin/install.sh         ./bin
+#	$(RSYNC) -ruva $(PUBLIC_MM_COMMON)/bin/*uima*             ./bin
+#	$(RSYNC) -ruva $(PUBLIC_MM_COMMON)/uima/                  ./src/uima/
+#	$(RSYNC) -ruva $(UIMASRC)/src                             ./src/uima/
+#	$(RSYNC) -ruva $(UIMASRC)/doc                             ./src/uima/
+#	$(RSYNC) -ruva $(UIMASRC)/classes                         ./src/uima/
+#	$(RSYNC) -ruva $(UIMASRC)/desc/BasicMetaMapTypeSystem.xml ./src/uima/desc/
+
+
+#GENERATEDFILES=bin/metamap07 bin/metamap08 bin/skrmedpostctl bin/wsdserverctl \
+#bin/SKRrun bin/uninstall.sh TestSuite/buildTestSuite.sh TestSuite/linuxTestSuite.sh \
+#WSD_Server/config/log4j.properties WSD_Server/config/disambServer.cfg .installrc
+
+#DOCUMENTATION=\
+# MetaMap09-Readme.html MetaMap09_Release_Notes.html MetaMap09_Usage.html \
+# README_dfb.html README_src.html README.html README_solaris.html \
+# README_javaapi.html \
+# MetaMap09-Readme.pdf MetaMap09_Release_Notes.pdf MetaMap09_Usage.pdf \
+# README_dfb.pdf README_src.pdf README.pdf README_solaris.pdf \
+# README_javaapi.pdf
+
+#gendocs : $(DOCUMENTATION)
+
+GENERATEDFILES=$(PUBLIC_SEMREP_DIST_PATH)/public_semrep_$(OS)_$(VERSION)*.tar.bz2
+clean:
+	rm -rf $(GENERATEDFILES)
+
+cleandist:
+	rm -rf ${PUBLIC_SEMREP_PATH}
+#	rm -f public_mm/WSD_Server/wstv-dc/tposts
+#	rm -f public_mm/WSD_Server/wstv-dc/tposts.stats
+
+#%.tex : %.aft
+#	$(AFT) $(AFTFLAGS) --output=$@ --type=tex $<
+
+#%.html : %.aft
+#	$(AFT) $(AFTFLAGS) --output=$@ --type=bn-html $<
+#	$(AFT) $(AFTFLAGS) --output=$@ --type=bn-html $<
+#	$(AFT) $(AFTFLAGS) --output=$@ --type=bn-html $<
+
+#%.xhtml : %.aft
+#	$(AFT) $(AFTFLAGS) --output=$@ --type=xhtml $<
+
+#%.lout : %.aft
+#	$(AFT) $(AFTFLAGS) --output=$@ --type=loutt $<
+
+#%.rtf : %.aft
+#	$(AFT) $(AFTFLAGS) --output=$@ --type=rtf $<
+
+#%.pdf : %.tex
+#	$(PDFLATEX) $<
+#	$(PDFLATEX) $<
+#	$(PDFLATEX) $<
+
+#%.dvi : %.tex
+#	$(LATEX) $<
+#	$(LATEX) $<
+#	$(LATEX) $<
+
+#%.ps : %.dvi
+#	$(DVIPS) -o $@ $<
+

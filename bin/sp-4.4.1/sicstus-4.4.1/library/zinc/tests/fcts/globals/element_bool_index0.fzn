@@ -1,0 +1,13 @@
+array[1 .. 4] of var bool: a :: output_array([1..4]);
+
+var 0..3: x :: output_var;
+var 0..3: y :: output_var;
+var 0..3: z :: output_var;
+
+constraint element_bool_sicstus(x, a, true, 0);
+constraint element_bool_sicstus(y, a, false, 0);
+constraint element_bool_sicstus(z, a, true, 0);
+constraint int_lt(x, y);
+constraint int_lt(y, z);
+
+solve satisfy;

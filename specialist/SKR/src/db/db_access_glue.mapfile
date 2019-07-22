@@ -1,0 +1,6 @@
+db_access_glue {
+  global:
+    sp_main_SPENV_db_0x5Faccess;
+  local:
+    *;
+};

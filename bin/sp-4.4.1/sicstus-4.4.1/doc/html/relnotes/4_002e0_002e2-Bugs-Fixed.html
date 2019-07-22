@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.0.2 Bugs Fixed</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.0.2 Bugs Fixed">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.0.2 Bugs Fixed">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e0_002e2-Changes.html#g_t4_002e0_002e2-Changes" rel="up" title="4.0.2 Changes">
+<link href="4_002e0_002e2-Other-Changes.html#g_t4_002e0_002e2-Other-Changes" rel="next" title="4.0.2 Other Changes">
+<link href="4_002e0_002e2-New-Features.html#g_t4_002e0_002e2-New-Features" rel="prev" title="4.0.2 New Features">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e0_002e2-Bugs-Fixed"></a>
+<hr>
+<a name="Bugs-Fixed-1"></a>
+<h4 class="subsection">14.5.2 Bugs Fixed</h4>
+
+<ul>
+<li> Memory manager: efficiency bug.
+</li><li> <code>library(structs)</code>: unsigned types, 64-bit issues.
+</li><li> PrologBeans: Lists of integers with element values above 255
+broke the communication between Java and SICStus.
+</li><li> Closing a stream would sometimes hang due to a race condition on
+UNIX-like platforms. This was most likely to happen on MacOS X.
+</li><li> <code>set_stream_position/2</code> and <code>seek/4</code> did not work on output
+streams.
+</li><li> Multiple issues with <code>absolute_file_name/3</code>.
+
+<ul class="no-bullet">
+<li>- Option <code>file_errors(fail)</code> would sometimes report permission
+errors (<code>SPIO_E_PERMISSION_ERROR</code>) instead of silently failing.
+
+</li><li>- Option <code>file_errors(fail)</code> now fails instead of raising an
+exception for file name domain errors like malformed file names and
+too many symbolic links (<code>SPIO_E_INVALID_NAME</code>).
+
+</li><li>- Options <code>access(execute)</code> and <code>access(search)</code> now imply
+<code>access(exist)</code>. This is similar to how <code>access(read)</code>
+works.
+
+</li><li>- The undocumented internal option <code>access(directory)</code> was
+allowed. Use <code>file_type(directory)</code> instead.
+</li></ul>
+
+</li><li> <code>library(process)</code>: <code>process_create/[2,3]</code> now skips
+non-executable file and non-files if the <var>File</var>-argument can expand
+to more than one file. This is especially useful when using the symbolic
+name <code>path/1</code> to specify a file.
+</li><li> <code>library(avl)</code>: Bug in <code>avl_delete/4</code>.
+</li><li> <code>library(random)</code>: Document and check validity of the random number
+generator state. 
+Bug in <code>random_numlist/4</code>.
+</li><li> <code>get_atts/2</code>: Could fail incorrectly.
+</li><li> <code>library(clpfd)</code>: A memory management problem. 
+An integer overflow problem.
+Propagation bug in <code>case/[3,4]</code>, affecting <code>automaton/8</code> too.
+</li><li> A problem with shared subterms in copying, asserting, collecting
+and throwing terms.
+</li><li> The Prolog flag <code>title</code> was truncated by <code>spwin.exe</code>
+under Windows.
+
+</li><li> The <code>spdet</code> utility did not automatically add &lsquo;<samp>.pl</samp>&rsquo; and
+&lsquo;<samp>.pro</samp>&rsquo; extensions to file name arguments.
+</li></ul>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e0_002e2-Other-Changes.html#g_t4_002e0_002e2-Other-Changes" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e0_002e2-New-Features.html#g_t4_002e0_002e2-New-Features" accesskey="p" rel="prev">Previous</a>
+<li><a href="4_002e0_002e2-Changes.html#g_t4_002e0_002e2-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e0_002e2-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e0_002e2-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-syn-cpt</title>
+
+<meta name="description" content="SICStus Prolog: ref-syn-cpt">
+<meta name="keywords" content="SICStus Prolog: ref-syn-cpt">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsyn.html#ref_002dsyn" rel="up" title="ref-syn">
+<link href="ref_002dsyn_002dcpt_002dlis.html#ref_002dsyn_002dcpt_002dlis" rel="next" title="ref-syn-cpt-lis">
+<link href="ref_002dsyn_002dtrm_002dfte.html#ref_002dsyn_002dtrm_002dfte" rel="prev" title="ref-syn-trm-fte">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsyn_002dcpt"></a>
+<hr>
+<a name="Compound-Terms"></a>
+<h4 class="subsection">4.1.3 Compound Terms</h4>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002dsyn_002dcpt_002dlis.html#ref_002dsyn_002dcpt_002dlis" accesskey="1">ref-syn-cpt-lis</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Lists
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dsyn_002dcpt_002dsli.html#ref_002dsyn_002dcpt_002dsli" accesskey="2">ref-syn-cpt-sli</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Strings As Lists
+</td></tr>
+</table>
+
+<a name="index-compound_002c-terms"></a>
+
+<a name="index-terms_002c-compound"></a>
+
+<a name="index-syntax_002c-of-compound-terms"></a>
+
+<a name="index-functors"></a>
+
+<a name="index-functor_002c-principal-_0028definition_0029"></a>
+
+<a name="index-name_002c-of-a-functor"></a>
+
+<a name="index-arity_002c-of-a-functor"></a>
+
+
+<a name="index-principal-functor-_0028definition_0029"></a>
+
+<a name="index-argument-_0028definition_0029-1"></a>
+
+<p>The structured data objects of Prolog are compound terms.  A
+compound term comprises a <em>functor</em> (called the <em>principal functor</em>
+of the term) and a sequence of one or more terms called <em>arguments</em>.
+A functor is characterized by its <em>name</em>, which is
+an atom, and its <em>arity</em> or number of arguments.
+For example, the compound term whose principal functor is &lsquo;<samp>point</samp>&rsquo; of
+arity 3, and which has arguments X, Y, and Z, is written
+</p><div class="example">
+<pre class="example">point(X, Y, Z)
+</pre></div>
+
+<p>When we need to refer explicitly to a functor we will normally denote it
+by the form <var>Name</var>/<var>Arity</var>.
+Thus, the functor &lsquo;<samp>point</samp>&rsquo; of arity 3 is denoted
+</p><div class="example">
+<pre class="example">point/3
+</pre></div>
+
+<p>Note that a functor of arity 0 is represented as an atom.
+</p>
+<p>Functors are generally  analogous  to  common  nouns  in  natural
+language.   One  may  think  of  a  functor  as  a record type and the
+arguments of a compound term as the  fields  of  a  record.   Compound
+terms are usefully pictured as trees.  For example, the (compound) term
+</p><div class="example">
+<pre class="example">s(np(john), vp(v(likes), np(mary)))
+</pre></div>
+
+<p>would be pictured as the following tree:
+</p>
+<div class="example">
+<pre class="example">                  s
+                /   \
+             np       vp   
+             |       /  \
+           john     v     np
+                    |     |
+                  likes  mary
+</pre></div>
+
+
+<p>The principal functor of this term is <code>s/2</code>.  Its arguments are also compound
+terms.  In illustration, the principal functor of the first argument is <code>np/1</code>.
+</p>
+<p>Sometimes it is convenient to write certain functors as <em>operators</em>;
+binary functors (that is, functors of two arguments)  may be declared as
+<em>infix</em> operators, and unary functors (that is, functors of one argument) 
+may be declared as either
+<em>prefix</em> or <em>postfix</em> operators.  Thus it is possible to write
+<a name="index-infix-operators"></a>
+</p>
+<a name="index-prefix-operators"></a>
+
+<a name="index-postfix-operators"></a>
+
+<a name="index-operators_002c-prefix"></a>
+
+<a name="index-operators_002c-postfix"></a>
+
+<a name="index-operators_002c-infix"></a>
+
+
+<div class="example">
+<pre class="example">X+Y     P;Q     X&lt;Y      +X     P;
+</pre></div>
+
+<p>as optional alternatives to
+</p><div class="example">
+<pre class="example">+(X,Y)   ;(P,Q)   &lt;(X,Y)   +(X)   ;(P)
+</pre></div>
+
+<p>The use of operators is described fully in <a href="ref_002dsyn_002dops.html#ref_002dsyn_002dops">ref-syn-ops</a>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsyn_002dces.html#ref_002dsyn_002dces" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsyn_002dtrm.html#ref_002dsyn_002dtrm" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsyn.html#ref_002dsyn" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dcpt.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dcpt.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

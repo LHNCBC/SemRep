@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mdb-dsp</title>
+
+<meta name="description" content="SICStus Prolog: ref-mdb-dsp">
+<meta name="keywords" content="SICStus Prolog: ref-mdb-dsp">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmdb.html#ref_002dmdb" rel="up" title="ref-mdb">
+<link href="ref_002dmdb_002ddre.html#ref_002dmdb_002ddre" rel="next" title="ref-mdb-dre">
+<link href="ref_002dmdb_002dbas.html#ref_002dmdb_002dbas" rel="prev" title="ref-mdb-bas">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmdb_002ddsp"></a>
+<hr>
+<a name="Dynamic-and-Static-Procedures"></a>
+<h4 class="subsection">4.12.2 Dynamic and Static Procedures</h4>
+
+<a name="index-dynamic_002c-procedures-and-declarations"></a>
+
+<a name="index-static-procedures"></a>
+
+<a name="index-procedures_002c-dynamic-and-static"></a>
+
+
+<p>All Prolog procedures are classified as being either <em>static</em> or 
+<em>dynamic procedures</em>.
+Static procedures can be changed only by
+completely redefining them using the Load Predicates
+(see <a href="ref_002dlod.html#ref_002dlod">ref-lod</a>).
+Dynamic procedures can be modified by adding or deleting
+individual clauses using the assert and retract procedures.  
+</p>
+<p>If a procedure is defined by loading source code, then it is static by default.
+If you need to be able to add, delete, or inspect the individual clauses
+of such a procedure, then you must make the procedure dynamic.
+</p>
+<p>There are two ways to make a procedure dynamic:
+</p><ul>
+<li> If the procedure is defined by loading source code, then it must be declared to
+be dynamic before it is defined.
+</li><li> If the procedure is to be created by assertions only, then the first
+<code>assert</code> operation on the procedure automatically makes it dynamic.
+</li></ul>
+
+
+<p>A procedure is declared dynamic by preceding its definition with a
+declaration of the form:
+</p><div class="example">
+<pre class="example">:- dynamic <var>:Pred</var>
+</pre></div>
+
+<p>where <var>Pred</var> must be a
+procedure specification of the form <var>Name</var>/<var>Arity</var>, or a
+sequence of such specifications, separated by commas.  For example,
+</p><div class="example">
+<pre class="example">:- dynamic exchange_rate/3, spouse_of/2, 
+           gravitational_constant/1.
+</pre></div>
+
+<p>where &lsquo;<samp>dynamic</samp>&rsquo; is a built-in prefix operator.
+If <var>Pred</var> is not of the specified form, then an exception is raised, and
+the declaration is ignored.
+</p>
+<p>Note that the symbol &lsquo;<samp>:- </samp>&rsquo;
+preceding the word &lsquo;<samp>dynamic</samp>&rsquo; is essential.
+If this symbol is omitted, then a permission error is raised
+because it appears that you are trying to 
+define a
+clause for the built-in predicate <code>dynamic/1</code>.  Although <code>dynamic/1</code> is a
+built-in predicate, it may only be used in declarations.
+</p>
+
+<p>When a dynamic declaration is encountered in a file being
+loaded, it is considered to be a part of the redefinition of the procedures
+specified in its argument.  Thus, if you load a file containing only
+</p><div class="example">
+<pre class="example">:- dynamic hello/0
+</pre></div>
+
+<p>then the effect will be to remove any previous definition of <code>hello/0</code> from
+the database, and to make the procedure dynamic.  You cannot make a
+procedure dynamic retroactively.
+If you wish to make an already-existing procedure dynamic, then it must 
+be redefined.
+</p>
+<p>It is often useful to have a dynamic declaration for a procedure even if it
+is to be created only by assertions.  This helps another person to
+understand your program, since it emphasizes the fact that there are no
+pre-existing clauses for this procedure, and it also avoids the possibility
+of Prolog stopping to tell you there are no clauses for this procedure if
+you should happen to call it before any clauses have been asserted.  This
+is because unknown procedure catching (see <a href="Undefined-Predicates.html#Undefined-Predicates">Undefined Predicates</a>) does
+not apply to dynamic procedures; it is presumed that a call to a dynamic
+procedure should simply fail if there are no clauses for it.
+<a name="index-unknown-procedures_002c-catching"></a>
+<a name="index-catching-unknown-procedures"></a>
+</p>
+
+<p>If a program needs to make an undefined procedure dynamic, then this can be achieved
+by calling <code>clause/2</code> on that procedure.  The call will fail because the
+procedure has no clauses, but as a side-effect it will make the procedure
+dynamic and thus prevent unknown procedure catching on that procedure.  See
+the Reference page for details of <code>clause/2</code>.
+</p>
+<p>Although you can simultaneously declare several procedures to be dynamic,
+as shown above, it is recommended that you use a separate dynamic
+declaration for each procedure placed immediately before the clauses for that
+procedure.  In this way when you reload the procedure using 
+the editor interface, you will be reminded to include its dynamic
+declaration.
+</p>
+<p>Dynamic procedures are implemented by interpretation, even if they are
+included in a file that is compiled.  This means that they are
+executed more slowly than if they were static, and also that they can be
+printed using <code>listing/0</code>.  Dynamic procedures, as well as
+static procedures, are indexed on their first argument; see
+<a href="Indexing.html#Indexing">Indexing</a>.
+<a name="index-indexing-of-dynamic-code"></a>
+<a name="index-dynamic-code_002c-indexing-of"></a>
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmdb_002ddre.html#ref_002dmdb_002ddre" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmdb_002dbas.html#ref_002dmdb_002dbas" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmdb.html#ref_002dmdb" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmdb_002ddsp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmdb_002ddsp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

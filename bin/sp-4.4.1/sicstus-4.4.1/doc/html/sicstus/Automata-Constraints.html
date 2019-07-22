@@ -1,0 +1,439 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Automata Constraints</title>
+
+<meta name="description" content="SICStus Prolog: Automata Constraints">
+<meta name="keywords" content="SICStus Prolog: Automata Constraints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Available-Constraints.html#Available-Constraints" rel="up" title="Available Constraints">
+<link href="User_002dDefined-Constraints.html#User_002dDefined-Constraints" rel="next" title="User-Defined Constraints">
+<link href="Placement-Constraints.html#Placement-Constraints" rel="prev" title="Placement Constraints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Automata-Constraints"></a>
+<hr>
+<a name="Automata-Constraints-1"></a>
+<h4 class="subsubsection">10.10.4.9 Automata Constraints</h4>
+
+<a name="index-constraint-checker"></a>
+<a name="index-checker_002c-constraint"></a>
+
+<p>The following constraint provides a general way of defining any
+constraint involving sequences whose <em>checker</em>, i.e. a procedure
+that classifies ground instances as solutions or non-solutions, can be
+expressed by a finite automaton, deterministic or nondeterministic,
+extended with counter operations on its arcs. The point is that it is
+very much easier to come up with such a checker than to come up with a
+filtering algorithm for the constraint of interest.  In the absence of
+counters, it maintains domain consistency.
+</p>
+<p>Corresponds to <code>regular/6</code> in MiniZinc<!-- /@w -->.
+</p>
+<dl compact="compact">
+<dt><code>automaton(<var>Signature</var>, <var>SourcesSinks</var>, <var>Arcs</var>) &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dt><code>automaton(<var>Sequence</var>, <var>Template</var>, <var>Signature</var>, <var>SourcesSinks</var>, <var>Arcs</var>, <var>Counters</var>, <var>Initial</var>, <var>Final</var>)</code></dt>
+<dt><code>automaton(<var>Sequence</var>, <var>Template</var>, <var>Signature</var>, <var>SourcesSinks</var>, <var>Arcs</var>, <var>Counters</var>, <var>Initial</var>, <var>Final</var>, <var>Options</var>) &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd>
+<a name="index-automaton_002f_005b3_002c8_002c9_005d-_0028clpfd_0029-1"></a>
+<a name="index-automaton_002f_005b3_002c8_002c9_005d-_0028clpfd_0029"></a>
+
+<p>The arguments are described below in terms of their abstract syntax:
+</p>
+<dl compact="compact">
+<dt><var>Sequence</var></dt>
+<dd><p>The sequence of terms of interest; abstract grammar category
+<var>sequence</var>.
+</p>
+</dd>
+<dt><var>Template</var></dt>
+<dd><p>A template for an item of the sequence; abstract grammar category
+<var>template</var>.  Only relevant if some state transition involving
+counter arithmetic mentions a variable occurring in <var>Template</var>, in
+which case the corresponding term in a sequence element will be
+accessed.
+</p>
+</dd>
+<dt><var>Signature</var></dt>
+<dd><p>The <em>signature</em> of <var>Sequence</var>; abstract grammar category
+<var>signature</var>.  The automaton is not driven by <var>Sequence</var> itself,
+but by <var>Signature</var>, which ranges over some alphabet, implicitly
+defined by the values used by <var>Arcs</var>.  In addition to
+<code>automaton/[8,9]</code>, you must call a constraint that maps
+<var>Sequence</var> to <var>Signature</var>.
+</p>
+</dd>
+<dt><var>SourcesSinks</var></dt>
+<dd><p>The source and sink nodes of the automaton; abstract grammar category
+<var>sourcessinks</var>.
+</p>
+</dd>
+<dt><var>Arcs</var></dt>
+<dd><p>The arcs (transitions) of the automaton; abstract grammar category
+<var>arcs</var>.  Any transition not mentioned is assumed to go to an
+implicit failure node. An arc optionally contains expressions for
+updated counter values; by default, the counters remain
+unchanged. Conditional updates can be specified.
+</p>
+</dd>
+<dt><var>Counters</var></dt>
+<dd><p>A list of variables, local to the constraint; abstract grammar category <var>counters</var>.
+</p>
+</dd>
+<dt><var>Initial</var></dt>
+<dd><p>A list of initial values, usually instantiated; abstract grammar category <var>initial</var>.
+</p>
+</dd>
+<dt><var>Final</var></dt>
+<dd><p>A list of final values, usually uninstantiated; abstract grammar category <var>final</var>.
+</p>
+</dd>
+<dt><var>Options</var></dt>
+<dd><p>Abstract grammar category <var>options</var>; a list of zero or more of the
+following terms.  All but the last option are implemented by adding
+auxiliary counters to the automaton including the necessary updates in
+the arcs:
+</p>
+<dl compact="compact">
+<dt><code>valueprec(<var>First</var>,<var>Later</var>,<var>N</var>) &nbsp;<!-- /@w --> <i>since release 4.1.3</i></code></dt>
+<dd><a name="index-valueprec_002f3-_0028automaton_002f9-option_0029"></a>
+<p><var>N</var> is unified with <var>n</var>, computed such that: if the value
+<var>Later</var> occurs in the <var>Signature</var>, then <var>First</var> occurs <var>n</var>
+times before the first occurrence of <var>Later</var>, otherwise <var>n=0</var>.
+</p>
+</dd>
+<dt><code>anystretchocc(<var>N</var>) &nbsp;<!-- /@w --> <i>since release 4.1.3</i></code></dt>
+<dd><a name="index-anystretchocc_002f1-_0028automaton_002f9-option_0029"></a>
+<p><var>N</var> is unified with the number of (nonempty) stretches of any single
+value in the <var>Signature</var>.
+</p>
+</dd>
+<dt><code>stretchocc(<var>ValuePat</var>,<var>N</var>) &nbsp;<!-- /@w --> <i>since release 4.1.3</i></code></dt>
+<dd><a name="index-stretchocc_002f2-_0028automaton_002f9-option_0029"></a>
+<p><var>N</var> is unified with the number of stretches of values matching
+<var>ValuePat</var> (abstract grammar category <var>valuepat</var>) in the
+<var>Signature</var>.
+</p>
+</dd>
+<dt><code>stretchoccmod(<var>ValuePat</var>,<var>Mod</var>,<var>N</var>) &nbsp;<!-- /@w --> <i>since release 4.1.3</i></code></dt>
+<dd><a name="index-stretchoccmod_002f3-_0028automaton_002f9-option_0029"></a>
+<p><var>N</var> is unified with the number (modulo <var>Mod</var>) of stretches of
+values matching <var>ValuePat</var> (abstract grammar category
+<var>valuepat</var>) the <var>Signature</var>.
+</p>
+</dd>
+<dt><code>stretchmaxlen(<var>ValuePat</var>,<var>N</var>) &nbsp;<!-- /@w --> <i>since release 4.1.3</i></code></dt>
+<dd><a name="index-stretchmaxlen_002f2-_0028automaton_002f9-option_0029"></a>
+<p><var>N</var> is unified with <var>n</var>, computed such that: if values matching
+<var>ValuePat</var> (abstract grammar category <var>valuepat</var>) occur the
+<var>Signature</var>, then <var>n</var> is the length of the longest such stretch,
+otherwise <var>n=0</var>.
+</p>
+</dd>
+<dt><code>stretchminlen(<var>ValuePat</var>,<var>N</var>) &nbsp;<!-- /@w --> <i>since release 4.1.3</i></code></dt>
+<dd><a name="index-stretchminlen_002f2-_0028automaton_002f9-option_0029"></a>
+<p><var>N</var> is unified with <var>n</var>, computed such that: if values matching
+<var>ValuePat</var> (abstract grammar category <var>valuepat</var>) occur the
+<var>Signature</var>, then <var>n</var> is the length of the shortest such stretch,
+otherwise <var>n</var> is a large integer.
+</p>
+</dd>
+<dt><code>wordocc(<var>WordPat</var>,<var>N</var>) &nbsp;<!-- /@w --> <i>since release 4.1.3</i></code></dt>
+<dd><a name="index-wordocc_002f2-_0028automaton_002f9-option_0029"></a>
+<p><var>N</var> is unified with the number of words matching <var>WordPat</var>
+(abstract grammar category <var>wordpat</var>) in the <var>Signature</var>.
+</p>
+</dd>
+<dt><code>wordoccmod(<var>WordPat</var>,<var>Mod</var>,<var>N</var>) &nbsp;<!-- /@w --> <i>since release 4.1.3</i></code></dt>
+<dd><a name="index-wordoccmod_002f3-_0028automaton_002f9-option_0029"></a>
+<p><var>N</var> is unified with the number (modulo <var>Mod</var>) of words matching
+<var>WordPat</var> (abstract grammar category <var>wordpat</var>) in the
+<var>Signature</var>.
+</p>
+</dd>
+<dt><code>wordprefix(<var>WordPat</var>,<var>ZO</var>) &nbsp;<!-- /@w --> <i>since release 4.1.3</i></code></dt>
+<dd><a name="index-wordprefix_002f2-_0028automaton_002f9-option_0029"></a>
+<p>If the prefix of the <var>Signature</var> matches <var>WordPat</var> (abstract
+grammar category <var>wordpat</var>), then <var>ZO</var> is unified with 1, otherwise
+with 0.
+</p>
+</dd>
+<dt><code>wordsuffix(<var>WordPat</var>,<var>ZO</var>) &nbsp;<!-- /@w --> <i>since release 4.1.3</i></code></dt>
+<dd><a name="index-wordsuffix_002f2-_0028automaton_002f9-option_0029"></a>
+<p>If the suffix of the <var>Signature</var> matches <var>WordPat</var> (abstract
+grammar category <var>wordpat</var>), then <var>ZO</var> is unified with 1, otherwise
+with 0.
+</p>
+</dd>
+<dt><code>state(<var>Map</var>,<var>StateSequence</var>) &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-state_002f2-_0028automaton_002f9-option_0029"></a>
+<p>For a signature of length <var>k</var>, the constraint is implemented by
+decomposition into <var>k</var> smaller constraints mapping an old state to a
+new state.  The states are represented as domain variables.
+<var>StateSequence</var> forms the list of these <var>k+1</var> domain variables,
+starting with the initial state and ending with the final state.
+<var>Map</var> gives the interpretation of their values: it is a list of
+pairs <var>Node-Value</var> such that if the nth state variable <var>Sn</var>
+equals <var>Value</var>, then the automaton is in state <var>Node</var> having
+read <var>n</var> symbols.
+</p>
+</dd>
+<dt><code>counterseq(<var>CounterSequence</var>) &nbsp;<!-- /@w --> <i>since release 4.2.1</i></code></dt>
+<dd><a name="index-counterseq_002f1-_0028automaton_002f9-option_0029"></a>
+<p>Similarly to the list of states, <var>CounterSequence</var> forms the list of
+the <var>k+1</var> instances of <var>Counters</var>, beginning with <var>Initial</var>
+and ending with <var>Final</var>.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<p>Abstract syntax:
+</p>
+<table>
+<tr><td width="20%"><var>sequence</var></td><td width="40%">::= <var>list of template</var></td><td width="40%"><span class="roman">{all of which of the same shape}</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>template</var></td><td width="40%">::= <var>term</var></td><td width="40%"><span class="roman">{most general shape of the <var>sequence</var>}</span></td></tr>
+<tr><td width="20%"></td><td width="40%"></td><td width="40%"><span class="roman">{its variables should be local to the constraint}</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>signature</var></td><td width="40%">::= <var>list of variable</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>sourcessinks</var></td><td width="40%">::= <var>list of nodespec</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>nodespec</var></td><td width="40%">::= <code>source(<var>node</var>)</code></td><td width="40%"><span class="roman">{an initial state}</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>sink(<var>node</var>)</code></td><td width="40%"><span class="roman">{an accept state}</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>node</var></td><td width="40%">::= <var>term</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>arcs</var></td><td width="40%">::= <var>list of arc</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>arc</var></td><td width="40%">::= <code>arc(<var>node</var>,<var>integer</var>,<var>node</var>)</code></td><td width="40%"><span class="roman">{from node, integer, to node}</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>arc(<var>node</var>,<var>integer</var>,<var>node</var>,<var>exprs</var>)</code></td><td width="40%"><span class="roman">{<var>exprs</var> correspond to new counter values}</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>arc(<var>node</var>,<var>integer</var>,<var>node</var>,<var>conditional</var>)</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>conditional</var></td><td width="40%">::= <var>(cond -&gt; exprs)</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>(conditional ; conditional)</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>exprs</var></td><td width="40%">::= <var>list of Expr</var></td><td width="40%"><span class="roman">{of same length as <var>counters</var>}</span></td></tr>
+<tr><td width="20%"></td><td width="40%"></td><td width="40%"><span class="roman">{<var>Expr</var> as defined in <a href="Syntax-of-Arithmetic-Expressions.html#Syntax-of-Arithmetic-Expressions">Syntax of Arithmetic Expressions</a>}</span></td></tr>
+<tr><td width="20%"></td><td width="40%"></td><td width="40%"><span class="roman">{over <var>counters</var>, <var>template</var> and constants}</span></td></tr>
+<tr><td width="20%"></td><td width="40%"></td><td width="40%"><span class="roman">{variables occurring in <var>counters</var> correspond to old counter values}</span></td></tr>
+<tr><td width="20%"></td><td width="40%"></td><td width="40%"><span class="roman">{variables occurring in <var>template</var> refer to the current element of <var>sequence</var>}</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>cond</var></td><td width="40%">::= <var>constraint</var></td><td width="40%"><span class="roman">{over <var>counters</var>, <var>template</var> and constants}</span></td></tr>
+<tr><td width="20%"></td><td width="40%"></td><td width="40%"><span class="roman">{must be reifiable or <code>true</code>}</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>counters</var></td><td width="40%">::= <var>list of variable</var></td><td width="40%"><span class="roman">{should be local to the constraint}</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>initial</var></td><td width="40%">::= <var>list of dvar</var></td><td width="40%"><span class="roman">{of same length as <var>counters</var>}</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>final</var></td><td width="40%">::= <var>list of dvar</var></td><td width="40%"><span class="roman">{of same length as <var>counters</var>}</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>option</var></td><td width="40%">::= <code>state(<var>list of term</var>,<var>list of dvar</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>valueprec(<var>integer</var>,<var>integer</var>,<var>dvar</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>anystretchocc(<var>dvar</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>stretchocc(<var>valuepat</var>,<var>dvar</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>stretchoccmod(<var>valuepat</var>,<var>dvar</var>,<var>integer</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>stretchmaxlen(<var>valuepat</var>,<var>dvar</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>stretchminlen(<var>valuepat</var>,<var>dvar</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>wordocc(<var>wordpat</var>,<var>dvar</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>wordoccmod(<var>wordpat</var>,<var>dvar</var>,<var>integer</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>wordprefix(<var>wordpat</var>,<var>dvar</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">| <code>wordsuffix(<var>wordpat</var>,<var>dvar</var>)</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>valuepat</var></td><td width="40%">::= <var>integer</var></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>list of integer</var></td><td width="40%"><span class="roman">{alternatives}</span></td></tr>
+<tr><td width="20%"></td><td width="40%">| <var>valuepat</var><code>/</code><var>valuepat</var></td><td width="40%"><span class="roman">{alternatives}</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>wordpat</var></td><td width="40%">::= <var>list of valuepat</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>dvar</var></td><td width="40%">::= <var>variable or integer</var></td></tr>
+</table>
+
+<p>If no counters are used, then the arguments <var>Counters</var>, <var>Initial</var> and
+<var>Final</var> should be <code>[]</code>.  The arguments <var>Template</var> and
+<var>Sequence</var> are only relevant if some <var>Expr</var> mentions a variable
+in <var>Template</var>, in which case the corresponding position in
+<var>Sequence</var> will be used at that point.
+</p>
+<p>The constraint holds for a ground instance <var>Sequence</var> if:
+</p>
+<ul>
+<li> <var>Signature</var> is the signature corresponding to <var>Sequence</var>.
+</li><li> The finite automaton encoded by <var>SourcesSinks</var> and <var>Arcs</var> stops in an
+accept state.
+</li><li> Any counter arithmetic on the transitions map their <var>Initial</var>
+values to the <var>Final</var> values.
+</li><li> Any extra constraint imposed by <var>Options</var> are true.
+</li></ul>
+
+<p>Here is an example.  Suppose that you want to define the predicate
+<code>inflexion(<var>N</var>,<var>L</var>,<var>Opt</var>)</code> which should hold if <var>L</var>
+is a list of domain variables, and <var>N</var> is the number of times that
+the sequence order switches between strictly increasing and strictly
+decreasing.  For example, the sequence <code>[1,1,4,8,8,2,7,1]</code> switches
+order three times.
+</p>
+<p>Such a constraint is conveniently expressed by a finite automaton over
+the alphabet <code>[&lt;,=,&gt;]</code> denoting the order between consecutive list
+elements.  A counter is incremented when the order switches, and is
+mapped to the first argument of the constraint.  The automaton could
+look as follows:
+</p>
+<br>
+<img src="images/inflexion2.png" alt="images/inflexion2">
+<div align="center">Automaton for <code>inflexion/3</code>
+</div>
+<p>The following piece of code encodes this using <code>automaton/9</code>.  The
+auxiliary predicate <code>inflexion_signature/2</code> maps the sequence to a
+signature where the consecutive element order is encoded over the
+alphabet <code>[0,1,2]</code>.  We use one counter with initial value 0 and
+final value <var>N</var> (an argument of <code>inflexion/3</code>).  Two
+transitions increment the counter.  All states are accept states.
+</p>
+<div class="example">
+<pre class="example">inflexion(N, Vars, Opt) :-
+        inflexion_signature(Vars, Sign),
+        automaton(Sign, _, Sign,
+                  [source(s),sink(i),sink(j),sink(s)],
+                  [arc(s,1,s      ),
+                   arc(s,2,i      ),
+                   arc(s,0,j      ),
+                   arc(i,1,i      ),
+                   arc(i,2,i      ),
+                   arc(i,0,j,[C+1]),
+                   arc(j,1,j      ),
+                   arc(j,0,j      ),
+                   arc(j,2,i,[C+1])],
+                  [C],[0],[N],Opt).
+
+inflexion_signature([], []).
+inflexion_signature([_], []) :- !.
+inflexion_signature([X,Y|Ys], [S|Ss]) :-
+        S in 0..2,
+        X #&gt; Y #&lt;=&gt; S #= 0,
+        X #= Y #&lt;=&gt; S #= 1,
+        X #&lt; Y #&lt;=&gt; S #= 2,
+        inflexion_signature([Y|Ys], Ss).
+</pre></div>
+
+<p>Some queries:
+</p>
+<div class="example">
+<pre class="example">/* count the #inflections of a ground string */
+| ?- <kbd>inflexion(N, [1,1,4,8,8,2,7,1], []).</kbd>
+N = 3 ? <span class="key">RET</span>
+yes
+</pre></div>
+
+<div class="example">
+<pre class="example">/* find strings with two inflections */
+| ?- <kbd>length(L,4), domain(L,0,1),</kbd>
+     <kbd>inflexion(2,L,[]), labeling([],L).</kbd>
+L = [0,1,0,1] ? <kbd>;</kbd>
+L = [1,0,1,0] ? <kbd>;</kbd>
+no
+</pre></div>
+
+<div class="example">
+<pre class="example">/* find strings that are strictly increasing, strictly decreasing or all equal */
+| ?- <kbd>length(L,4), domain(L,0,3),</kbd>
+     <kbd>inflexion(I,L,[anystretchocc(1)]), labeling([],L).</kbd>
+I = 0,
+L = [0,0,0,0] ? <kbd>;</kbd>
+I = 0,
+L = [0,1,2,3] ? <kbd>;</kbd>
+I = 0,
+L = [1,1,1,1] ? <kbd>;</kbd>
+I = 0,
+L = [2,2,2,2] ? <kbd>;</kbd>
+I = 0,
+L = [3,2,1,0] ? <kbd>;</kbd>
+I = 0,
+L = [3,3,3,3] ? <kbd>;</kbd>
+no
+</pre></div>
+
+<div class="example">
+<pre class="example">/* find strings that contain an increase followed by a decrease */
+| ?- <kbd>length(L,4), domain(L,0,1),</kbd>
+     <kbd>inflexion(I,L,[wordocc([2,0],1)]), labeling([],L).</kbd>
+I = 1,
+L = [0,0,1,0] ? <kbd>;</kbd>
+I = 1,
+L = [0,1,0,0] ? <kbd>;</kbd>
+I = 2,
+L = [0,1,0,1] ? <kbd>;</kbd>
+I = 2,
+L = [1,0,1,0] ? <kbd>;</kbd>
+no
+</pre></div>
+
+<p>This constraint uses techniques from [Beldiceanu, Carlsson &amp; Petit 04]
+and [Beldiceanu, Carlsson, Flener &amp; Pearson 10].
+</p>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="User_002dDefined-Constraints.html#User_002dDefined-Constraints" accesskey="n" rel="next">Next</a>
+<li><a href="Placement-Constraints.html#Placement-Constraints" accesskey="p" rel="prev">Previous</a>
+<li><a href="Available-Constraints.html#Available-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Automata-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Automata-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

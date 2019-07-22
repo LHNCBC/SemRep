@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPFD Intro</title>
+
+<meta name="description" content="SICStus Prolog: CLPFD Intro">
+<meta name="keywords" content="SICStus Prolog: CLPFD Intro">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dclpfd.html#lib_002dclpfd" rel="up" title="lib-clpfd">
+<link href="Referencing-CLPFD.html#Referencing-CLPFD" rel="next" title="Referencing CLPFD">
+<link href="lib_002dclpfd.html#lib_002dclpfd" rel="prev" title="lib-clpfd">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPFD-Intro"></a>
+<hr>
+<a name="Introduction-8"></a>
+<h4 class="subsection">10.10.1 Introduction</h4>
+
+<p>The clp(FD) solver described in this chapter is an instance of the
+general Constraint Logic Programming scheme introduced in [Jaffar &amp;
+Michaylov 87].  This constraint domain is particularly useful for
+modeling discrete optimization and verification problems such as
+scheduling, planning, packing, timetabling etc.  The treatise [Van
+Hentenryck 89] is an excellent exposition of the theoretical and
+practical framework behind constraint solving in finite domains, and
+summarizes the work up to 1989.
+</p>
+<p>This solver has the following highlights:
+</p>
+<ul>
+<li> A rich set of global constraints with state-of-the-art propagators.
+</li><li> Two classes of propagators are handled internally: indexicals
+and global propagators.
+</li><li> Propagators of both classes can be user-defined, by means of programming
+interfaces.
+</li><li> The constraints described in this chapter are automatically translated
+to sets of propagators.
+</li><li> The truth value of a primitive constraint can be reflected into a
+0/1-variable, i.e. a variable with domain <code>0..1</code> (reification).
+</li></ul>
+
+<p>This library fully supports multiple SICStus runtimes in a process.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Referencing-CLPFD.html#Referencing-CLPFD" accesskey="1">Referencing CLPFD</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Referencing this Software
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Acknowledgments-CLPFD.html#Acknowledgments-CLPFD" accesskey="2">Acknowledgments CLPFD</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Acknowledgments
+</td></tr>
+</table>
+
+<p>The rest of this chapter is organized as follows: How to load the solver
+and how to write simple programs is explained in <a href="CLPFD-Interface.html#CLPFD-Interface">CLPFD Interface</a>.
+A description of all constraints that the solver provides is contained
+in <a href="Available-Constraints.html#Available-Constraints">Available Constraints</a>.  The predicates for searching for
+solution are documented in <a href="Enumeration-Predicates.html#Enumeration-Predicates">Enumeration Predicates</a>.  The predicates
+for getting execution statistics are documented in <a href="Statistics-Predicates.html#Statistics-Predicates">Statistics Predicates</a>.  A few notes on debugging are given in <a href="CLPFD-Debugging.html#CLPFD-Debugging">CLPFD Debugging</a>.
+A few example programs are given in <a href="CLPFD-Example-Programs.html#CLPFD-Example-Programs">CLPFD Example Programs</a>.  Finally, <a href="Syntax-Summary.html#Syntax-Summary">Syntax Summary</a> contains syntax rules for all
+expressions.
+</p>
+<p>The following sections discuss advanced features and are probably only
+relevant to experienced users: How to control the amount of information
+presented in answers to queries is explained in <a href="Answer-Constraints.html#Answer-Constraints">Answer Constraints</a>.  How to add new global constraints via a programming
+interface is described in <a href="Defining-Global-Constraints.html#Defining-Global-Constraints">Defining Global Constraints</a>.  How to
+define new primitive constraints with indexicals is described in
+<a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints">Defining Primitive Constraints</a>.  The fine points of coexisting
+with attributes and blocked goals are described in <a href="CLPFD-Coexisting.html#CLPFD-Coexisting">CLPFD Coexisting</a>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPFD-Caveats.html#CLPFD-Caveats" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dclpfd.html#lib_002dclpfd" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPFD-Intro.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPFD-Intro.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

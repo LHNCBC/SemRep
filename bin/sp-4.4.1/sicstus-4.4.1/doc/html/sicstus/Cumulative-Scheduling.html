@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Cumulative Scheduling</title>
+
+<meta name="description" content="SICStus Prolog: Cumulative Scheduling">
+<meta name="keywords" content="SICStus Prolog: Cumulative Scheduling">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CLPFD-Example-Programs.html#CLPFD-Example-Programs" rel="up" title="CLPFD Example Programs">
+<link href="Syntax-Summary.html#Syntax-Summary" rel="next" title="Syntax Summary">
+<link href="N-Queens.html#N-Queens" rel="prev" title="N Queens">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Cumulative-Scheduling"></a>
+<hr>
+<a name="Cumulative-Scheduling-1"></a>
+<h4 class="subsubsection">10.10.12.3 Cumulative Scheduling</h4>
+
+<p>This example is a very small scheduling problem.  We consider seven
+tasks where each task has a fixed duration and a fixed amount of used
+resource:
+</p>
+<table>
+<tr><td><var>Task</var></td><td><var>Duration</var></td><td><var>Resource</var></td></tr>
+<tr><td><code>t1</code></td><td>16</td><td>2</td></tr>
+<tr><td><code>t2</code></td><td>6</td><td>9</td></tr>
+<tr><td><code>t3</code></td><td>13</td><td>3</td></tr>
+<tr><td><code>t4</code></td><td>7</td><td>7</td></tr>
+<tr><td><code>t5</code></td><td>5</td><td>10</td></tr>
+<tr><td><code>t6</code></td><td>18</td><td>1</td></tr>
+<tr><td><code>t7</code></td><td>4</td><td>11</td></tr>
+</table>
+
+<p>The goal is to find a schedule that minimizes the completion time for
+the schedule while not exceeding the capacity 13 of the resource.  The
+resource constraint is succinctly captured by a <code>cumulative/2</code>
+constraint.  Branch-and-bound search is used to find the minimal
+completion time.
+</p>
+<p>This example was adapted from [Beldiceanu &amp; Contejean 94].
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(clpfd)).
+
+schedule(Ss, End) :-
+        Ss = [S1,S2,S3,S4,S5,S6,S7],
+        Es = [E1,E2,E3,E4,E5,E6,E7],
+        Tasks = [task(S1,16,E1, 2,0),
+                 task(S2, 6,E2, 9,0),
+                 task(S3,13,E3, 3,0),
+                 task(S4, 7,E4, 7,0),
+                 task(S5, 5,E5,10,0),
+                 task(S6,18,E6, 1,0),
+                 task(S7, 4,E7,11,0)],
+        domain(Ss, 1, 30),
+        domain(Es, 1, 50),
+        domain([End], 1, 50),
+        maximum(End, Es),
+        cumulative(Tasks, [limit(13)]),
+        append(Ss, [End], Vars),
+        labeling([minimize(End)], Vars). % label End last
+
+%% End of file
+
+| ?- <kbd>schedule(Ss, End).</kbd>
+Ss = [1,17,10,10,5,5,1],
+End = 23
+</pre></div>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="N-Queens.html#N-Queens" accesskey="p" rel="prev">Previous</a>
+<li><a href="CLPFD-Example-Programs.html#CLPFD-Example-Programs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Cumulative-Scheduling.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Cumulative-Scheduling.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

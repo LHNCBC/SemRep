@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Posting Constraints</title>
+
+<meta name="description" content="SICStus Prolog: Posting Constraints">
+<meta name="keywords" content="SICStus Prolog: Posting Constraints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CLPFD-Interface.html#CLPFD-Interface" rel="up" title="CLPFD Interface">
+<link href="A-Constraint-Satisfaction-Problem.html#A-Constraint-Satisfaction-Problem" rel="next" title="A Constraint Satisfaction Problem">
+<link href="CLPFD-Interface.html#CLPFD-Interface" rel="prev" title="CLPFD Interface">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Posting-Constraints"></a>
+<hr>
+<a name="Posting-Constraints-1"></a>
+<h4 class="subsubsection">10.10.3.1 Posting Constraints</h4>
+
+<a name="index-posting-constraints"></a>
+<a name="index-constraints_002c-posting"></a>
+<p>A constraint is called as any other Prolog predicate.  When called, the
+constraint is <em>posted</em> to the store.  For example:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>X in 1..5, Y in 2..8, X+Y #= T.</kbd>
+X in 1..5,
+Y in 2..8,
+T in 3..13
+
+| ?- <kbd>X in 1..5, T in 3..13, X+Y #= T.</kbd>
+X in 1..5,
+T in 3..13,
+Y in -2..12
+</pre></div>
+
+<p>Note that the answer constraint shows the domains of nonground query
+variables, but does not show any constraints that may be attached to
+them.
+</p>
+<p>Normally, after posting a constraint, propagation to fixpoint is
+performed, which can be an overkill.  The following provides a means of
+posting a set of constraints in one batch, suspending all propagation
+until the whole set has been posted.  Suspending propagation can
+significantly reduce posting overhead.
+</p>
+<dl compact="compact">
+<dt><code>fd_batch(<var>+Constraints</var>) &nbsp;<!-- /@w --> <i>since release 4.2.1</i></code></dt>
+<dd>
+<a name="index-fd_005fbatch_002f1-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fbatch_002f1-_0028clpfd_0029"></a>
+
+<p>where <var>Constraints</var> should be a list of constraints, user-defined or
+exported by <code>library(clpfd)</code>.  General Prolog goals among the
+constraints will have undefined behavior.
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="A-Constraint-Satisfaction-Problem.html#A-Constraint-Satisfaction-Problem" accesskey="n" rel="next">Next</a>
+<li><a href="CLPFD-Interface.html#CLPFD-Interface" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Posting-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Posting-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

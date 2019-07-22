@@ -1,0 +1,164 @@
+#!/bin/bash
+
+#NLS=/nfsvol/nls
+#SKR=$NLS/specialist/SKR
+
+ARCHITECTURE=`uname`
+DEFAULT_SAWENV=SAWenv
+CLEAN=0
+SOURCE_HOME_SAWenv=0
+FORCE=0
+
+COMPILE_DIR=$PWD
+COMPILE_PROLOG=0
+SAVED_STATE=SemRep
+VERBOSE=""
+OUTPUT=a.out
+
+# SPLD=spld
+PROGRAM=`basename $0`
+APP=`basename $COMPILE_DIR`
+LOGFILE=$PROGRAM.$APP
+
+BITS=
+while getopts CD:FHMO:Ps:S:T:vVw:-: option
+do
+    case $option
+    in
+        C) CLEAN=1;;
+	F) FORCE=1;;
+        H) SOURCE_HOME_SAWenv=1;;
+        M) export BITS=m32;;
+	P) COMPILE_PROLOG=1;;
+        S) DEFAULT_SAWENV=$OPTARG;;
+	T) SAVED_STATE=$OPTARG;;
+	O) echo "OPTARG=>$OPTARG<"
+	   OUTPUT=$OPTARG;;
+	v) VERBOSE="-v";;
+	# extra verbose
+	V) VERBOSE="-vv";;
+        w) if [ "$OPTARG" = "." ]
+	   then
+	      OPTARG=`pwd`
+	   fi
+           DEFAULT_FLAG="-w $OPTARG";;
+	*) exit 1;;
+    esac
+done
+
+# echo BITS=$BITS
+shift `expr $OPTIND - 1`
+OPTIND=1
+
+SICStusARGS=$*
+
+# echo SAW is $SAW
+# echo SAW_HOME is $SAW_HOME
+# echo SAW_SRC_HOME is $SAW_SRC_HOME
+
+
+if [ "$OUTPUT" = "a.out" ]
+then
+   OUTPUT=${OUTPUT}.${ARCHITECTURE}
+fi
+
+if [ $SOURCE_HOME_SAWenv -eq 1 ]
+then
+   if [ ! -f $SAW_HOME/bin/$DEFAULT_SAWENV ]
+   then
+      echo $SAW_HOME/bin/$DEFAULT_SAWENV does not exist.
+      exit 1
+   else
+      echo sourcing $SAW_HOME/bin/$DEFAULT_SAWENV $BITS
+      . $SAW_HOME/bin/$DEFAULT_SAWENV $BITS -S 
+   fi
+elif [ ! -f $SAW/bin/$DEFAULT_SAWENV ]
+then
+   echo $SAW/bin/$DEFAULT_SAWENV does not exist.
+   exit 1
+else
+   echo sourcing $SAW/bin/$DEFAULT_SAWENV $BITS -Sp 
+   . $SAW/bin/$DEFAULT_SAWENV -Sp $BITS
+fi
+
+# Ensure that the name of the saved state ends with ".sav"
+case $SAVED_STATE in
+    *.sav) ;;
+        *) SAVED_STATE=${SAVED_STATE}.sav ;;
+esac
+
+if [ "$CLEAN" -eq 1 ]
+then
+    find .  -name '*.po' -exec rm {} \;
+fi
+
+
+if [ "$COMPILE_PROLOG" -eq 1 ]
+then
+   echo $SICSTUS_PROG $SICStusARGS --goal "save_program('$SAVED_STATE'), halt."
+   $SICSTUS_PROG $SICStusARGS --goal "save_program('$SAVED_STATE'), halt." 2>&1 | tee $LOGFILE
+#    sicstus --goal "set_prolog_flag(redefine_warnings,off), compile(loader), save_program('$SAVED_STATE'), halt." 2>&1 | tee $LOGFILE
+#    #sicstus --goal "set_prolog_flag(redefine_warnings,off),save_program('$SAVED_STATE'), halt." 2>&1 | tee $LOGFILE
+fi
+
+ERRMSG=`grep '^[*!]' $LOGFILE`
+
+if [ $FORCE -eq 0 -a "$ERRMSG" != "" ]
+then
+   echo ""
+   echo "### ERRORS FOUND...not proceeding to link step:"
+   echo ""
+   echo "$ERRMSG"
+   exit 1
+elif [ $FORCE -eq 1 -a "$ERRMSG" != "" ]
+then
+   echo ""
+   echo "### ERRORS FOUND...FORCE proceeding to link step:"
+   echo ""
+   echo "$ERRMSG"
+else
+   echo "### Compilation OK"
+fi
+
+echo "### Invoking $SPLD... "
+echo ""
+
+RESPATH=.:$SKR_LIB:$SKR_DB:$SKR_LEXICON/lexicon:$SKR_LEXICON/morph:$USEMREP_LIB
+
+LINK_FILES="$SKR_DEBUG/debug.o
+	    $SKR_LEXICON/functions/linfl.o
+	    $SKR_LEXICON/functions/tokenize.o
+	    $SKR_LEXICON/morph/lm.o
+	    $SKR_LEXICON/morph/util.o
+	    $SKR_LEXICON/query/btree_query.o
+	    $SKR_LEXICON/query/tokenize.o
+	    $SKR_LEXICON/query/wl.o
+	    $SKR_LEXICON/miscutil/miscutil.o
+	    $SKR_DEBUG/get_val.o
+	    $SKR_LEXICON/morph/dm.o
+            $SKR_DB/c_nls_db.a
+	    $BERKELEY_LIB_A
+	    $XML_LIB
+            $ABGENE_LIB
+	    $Z_LIB
+            $CPPSTD_LIB
+	    $PCRE_LIB"
+
+#SPLD_ARGS="$VERBOSE --static ${SAVED_STATE} --respath=$RESPATH --resources=-jasper --output=$OUTPUT $LINK_FILES -L${ABGENE_DIR}/lib -lstdc++ -lgcc_s -lz"
+
+
+SPLD_ARGS="$VERBOSE --moveable  \
+          --respath=$RESPATH    \
+          "'$SP_APP_DIR'/"${SAVED_STATE} --output=$OUTPUT $LINK_FILES -lgcc_s"
+#           "'$SP_APP_DIR'/"${SAVED_STATE} --output=$OUTPUT $LINK_FILES -lstdc++ -lgcc_s -lz"
+
+#          --resources=-jasper \
+#          --resources=-jasper --static --main=restore\
+
+if [ "$ARCHITECTURE" = "SunOS" ]
+then
+        SPLD_ARGS="$SPLD_ARGS -lposix4"
+fi
+echo $SPLD $SPLD_ARGS
+
+$SPLD $SPLD_ARGS

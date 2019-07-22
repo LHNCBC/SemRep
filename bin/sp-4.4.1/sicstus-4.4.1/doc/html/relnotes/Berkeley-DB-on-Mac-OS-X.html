@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: Berkeley DB on Mac OS X</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: Berkeley DB on Mac OS X">
+<meta name="keywords" content="SICStus Prolog Release Notes: Berkeley DB on Mac OS X">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Berkeley-DB-Notes.html#Berkeley-DB-Notes" rel="up" title="Berkeley DB Notes">
+<link href="ODBC-Notes.html#ODBC-Notes" rel="next" title="ODBC Notes">
+<link href="Berkeley-DB-on-MS-Windows.html#Berkeley-DB-on-MS-Windows" rel="prev" title="Berkeley DB on MS Windows">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Berkeley-DB-on-Mac-OS-X"></a>
+<hr>
+<a name="Berkeley-DB-on-Mac-OS-X-1"></a>
+<h3 class="section">10.2 Berkeley DB on Mac OS X</h3>
+
+<p>The prebuilt installation of SICStus for Mac OS X assumes that
+Berkeley DB is installed in the default location
+<samp>/usr/local/BerkeleyDB.VERSION/</samp> (where &ldquo;VERSION&rdquo; can be,
+e.g. &ldquo;6.2&rdquo;.
+</p>
+<p>There is no binary installer available for installing Berkeley DB on
+Mac OS X. Instead you need to build it yourself. To do this you need to
+download and install the Apple C compiler (Xcode) and then download,
+build and install the Berkeley DB library, using something like the
+following in the <samp>Terminal</samp> program:
+</p>
+
+<ol>
+<li> Some tools do not understand the way macOS specifies the
+language. Therefore, set a sensible default language during the build.
+
+<p><code>export LC_ALL=en_US.UTF-8</code>
+</p>
+</li><li> Unpack the downloaded source code archive. At the time of writing,
+6.2.32 is the latest version of Berkeley DB 6.2.
+
+<p><code>tar xzf db-6.2.32.tar.gz</code>
+</p>
+</li><li> Move into the source code folder tree
+
+<p><code>cd db-6.2.32/build_unix/</code>
+</p>
+</li><li> Configure Berkeley DB for (64-bit only)
+
+<p><code>../dist/configure</code>
+</p>
+</li><li> Build
+
+<p><code>make</code>
+</p>
+</li><li> Install in the standard location
+
+<p><code>sudo make install</code>
+</p>
+<p>The installation step requires that you are running as an administrator
+and the <code>sudo</code> command will require that you provide the password.
+</p>
+</li><li> Verify that Berkeley DB was installed
+
+<p><code>/usr/local/BerkeleyDB.6.2/bin/db_archive -V</code>
+</p>
+<p>This should print some version information, e.g. &lsquo;<samp>Berkeley DB 6.2.32: (April  5, 2017)</samp>&rsquo;.
+</p>
+</li></ol>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Berkeley-DB-on-MS-Windows.html#Berkeley-DB-on-MS-Windows" accesskey="p" rel="prev">Previous</a>
+<li><a href="Berkeley-DB-Notes.html#Berkeley-DB-Notes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Berkeley-DB-on-Mac-OS-X.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Berkeley-DB-on-Mac-OS-X.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

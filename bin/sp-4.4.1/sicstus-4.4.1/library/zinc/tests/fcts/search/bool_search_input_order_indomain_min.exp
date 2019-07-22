@@ -1,0 +1,9 @@
+xs = array1d(1..2, [false, false]);
+----------
+xs = array1d(1..2, [false, true]);
+----------
+xs = array1d(1..2, [true, false]);
+----------
+xs = array1d(1..2, [true, true]);
+----------
+==========

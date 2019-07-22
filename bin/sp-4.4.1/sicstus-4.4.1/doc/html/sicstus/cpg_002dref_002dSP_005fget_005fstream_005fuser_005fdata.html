@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_get_stream_user_data</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_get_stream_user_data">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_get_stream_user_data">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fget_005fstring.html#cpg_002dref_002dSP_005fget_005fstring" rel="next" title="cpg-ref-SP_get_string">
+<link href="cpg_002dref_002dSP_005fget_005fstream_005fcounts.html#cpg_002dref_002dSP_005fget_005fstream_005fcounts" rel="prev" title="cpg-ref-SP_get_stream_counts">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata"></a>
+<hr>
+<a name="SP_005fget_005fstream_005fuser_005fdata_0028_0029"></a>
+<h4 class="subsection">12.3.41 <code>SP_get_stream_user_data()</code></h4>
+<a name="index-SP_005fget_005fstream_005fuser_005fdata_0028_0029-_0028C-function_0029"></a>
+
+<a name="Synopsis-321"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+spio_t_error_code
+SP_get_stream_user_data(
+   SP_stream *stream,
+   void const *user_class,
+   void **puser_data);
+</pre></div>
+
+<p>Get the user data of a user defined stream of a particular class.
+</p>
+<a name="Arguments-294"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>stream</var></dt>
+<dd><p>An arbitrary stream. It is legal, and often useful, to call
+<code>SP_get_stream_user_data()</code> on a stream even if it is not known
+whether the stream is in fact a user defined stream of a particular
+class.
+</p>
+</dd>
+<dt><var>puser_data</var></dt>
+<dd><p>On success, <code>*puser_data</code> will be set to the <code>user_data</code>
+value used when the stream was created.
+</p></dd>
+</dl>
+
+<a name="Return-Value-37"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, <code>*puser_data</code> is assigned and
+<code>SPIO_S_NOERR</code> or some other success code is returned.
+</p>
+<p>On failure, e.g. if the stream was not created with this
+<code>user_class</code>, an error code is returned.
+</p>
+<a name="Description-205"></a>
+<h4 class="subheading">Description</h4>
+
+<p>This function is used in order to recognize streams of a particular
+type (or <em>class</em>). At the same time as it verifies the type of
+stream it also returns the <code>user_data</code> which gives the caller a
+handle to the internal state of the user defined stream.
+</p>
+<p>The following sample illustrates how all streams of a particular class
+can be found and closed. This function mimics the behavior of the
+<code>SP_FCLOSE_OPTION_USER_STREAMS</code> option to <code>SP_fclose</code>, see
+<a href="cpg_002dref_002dSP_005ffclose.html#cpg_002dref_002dSP_005ffclose">cpg-ref-SP_fclose</a>.
+</p>
+<div class="example">
+<pre class="example">spio_t_error_code close_streams(void const *user_class, int force)
+{
+  spio_t_error_code ecode = SPIO_E_ERROR;
+  SP_stream *stream;
+  SP_stream *next_stream;
+  void *user_data;
+  spio_t_bits fclose_options = 0;
+
+  if (force) fclose_options |= SP_FCLOSE_OPTION_FORCE;
+
+  stream = NULL;           /<!-- /@w -->* means start of list of stream *<!-- /@w -->/
+  do
+    {
+      /<!-- /@w -->* Note: We need to do this before closing stream *<!-- /@w -->/
+      ecode = SP_next_stream(stream, &amp;next_stream);
+      if (SPIO_FAILED(ecode)) goto barf;
+
+      if (stream != NULL)
+        {
+          if (SPIO_SUCCEEDED(SP_get_stream_user_data(stream, user_class, &amp;user_data)))
+            {
+              /<!-- /@w -->* This is the right class of stream, close it *<!-- /@w -->/
+              ecode = SP_fclose(stream, fclose_options);
+              if (SPIO_FAILED(ecode))
+                {
+                  if (!force) goto barf; /<!-- /@w -->* ignore error if force *<!-- /@w -->/
+                }
+            }
+        }
+      stream = next_stream;
+    }
+  while (stream != NULL);
+
+  return SPIO_S_NOERR;
+
+ barf:
+  return ecode;
+}
+</pre></div>
+
+<a name="See-Also-318"></a>
+<h4 class="subheading">See Also</h4>
+<p><a href="cpg_002dref_002dSP_005fcreate_005fstream.html#cpg_002dref_002dSP_005fcreate_005fstream">cpg-ref-SP_create_stream</a>.
+<a href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fget_005fstring.html#cpg_002dref_002dSP_005fget_005fstring" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005fget_005fstream_005fcounts.html#cpg_002dref_002dSP_005fget_005fstream_005fcounts" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

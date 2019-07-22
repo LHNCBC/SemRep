@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FDBG Customizing Output</title>
+
+<meta name="description" content="SICStus Prolog: FDBG Customizing Output">
+<meta name="keywords" content="SICStus Prolog: FDBG Customizing Output">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" rel="up" title="FDBG Advanced Usage">
+<link href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers" rel="next" title="FDBG Writing Visualizers">
+<link href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" rel="prev" title="FDBG Advanced Usage">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FDBG-Customizing-Output"></a>
+<hr>
+<a name="Customizing-Output"></a>
+<h4 class="subsubsection">10.15.4.1 Customizing Output</h4>
+
+<p>The printing of variable names is customized by defining the
+following hook predicate.
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-fdvar_005fportray_002f3-_0028fdbg_002c-hook_0029-1"></a>
+<a name="index-fdvar_005fportray_002f3-_0028fdbg_002c-hook_0029"></a>
+
+</dd>
+<dt><code>fdbg:fdvar_portray(<var>Name</var>, <var>Var</var>, <var>FDSet</var>)  &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>This hook predicate is called whenever an annotated constraint
+variable (see <a href="FDBG-Annotation.html#FDBG-Annotation">FDBG Annotation</a>) is printed.  <var>Name</var> is the
+assigned name of the variable <var>Var</var>, whose domain <em>will
+be</em> <var>FDSet</var> as soon as the narrowings of the current constraint take
+effect.  The <em>current</em> domain is not passed to the hook, but it
+can be easily determined with a call to <code>fd_set/2</code>.  (Although
+these two sets may be the same if the constraint did not narrow it.)
+</p>
+<p>If <code>fdbg:fdvar_portray/3</code> is undefined or fails, then the default
+representation is printed, which is <var>Name</var> between angle brackets.
+</p></dd>
+</dl>
+
+<p>The printing of legend lines is customized by defining the following
+hook predicate.
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-legend_005fportray_002f3-_0028fdbg_002c-hook_0029-1"></a>
+<a name="index-legend_005fportray_002f3-_0028fdbg_002c-hook_0029"></a>
+
+</dd>
+<dt><code>fdbg:legend_portray(<var>Name</var>, <var>Var</var>, <var>FDSet</var>)  &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>This hook is called for each line of the legend by the built-in
+legend printer.  The arguments are the same as in the case of
+<code>fdbg:fdvar_portray/3</code>.  Note that a prefix of four spaces and a
+closing newline character is always printed by FDBG.
+</p>
+<p>If <code>fdbg:fdvar_portray/3</code> is undefined or fails, then the default
+representation is printed, which is
+</p>
+<div class="example">
+<pre class="example"><var>Name</var> = <var>RangeNow</var> [ -&gt; <var>RangeAfter</var> ]
+</pre></div>
+
+<p>The arrow and <var>RangeAfter</var> are only printed if the constraint narrowed
+the domain of <var>Var</var>.
+</p></dd>
+</dl>
+
+<p>The following example will print a list of all possible values instead
+of the range for each variable in the legend:
+</p>
+<div class="example">
+<pre class="example">:- multifile fdbg:legend_portray/3.
+fdbg:legend_portray(Name, Var, Set) :-
+        fd_set(Var, Set0),
+        fdset_to_list(Set0, L0),
+        fdset_to_list(Set, L),
+        (   L0 == L
+        -&gt;  format('~p = ~p', [Name, L])
+        ;   format('~p = ~p -&gt; ~p', [Name, L0, L])
+        ).
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers" accesskey="n" rel="next">Next</a>
+<li><a href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Customizing-Output.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Customizing-Output.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

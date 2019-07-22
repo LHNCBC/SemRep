@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mgc-ago</title>
+
+<meta name="description" content="SICStus Prolog: ref-mgc-ago">
+<meta name="keywords" content="SICStus Prolog: ref-mgc-ago">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmgc.html#ref_002dmgc" rel="up" title="ref-mgc">
+<link href="ref_002dmgc_002dago_002dagc.html#ref_002dmgc_002dago_002dagc" rel="next" title="ref-mgc-ago-agc">
+<link href="ref_002dmgc_002dgcd.html#ref_002dmgc_002dgcd" rel="prev" title="ref-mgc-gcd">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmgc_002dago"></a>
+<hr>
+<a name="Atom-Garbage-Collection"></a>
+<h4 class="subsection">4.10.7 Atom Garbage Collection</h4>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dago_002dagc.html#ref_002dmgc_002dago_002dagc" accesskey="1">ref-mgc-ago-agc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The Atom Garbage Collector User Interface
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dago_002dpat.html#ref_002dmgc_002dago_002dpat" accesskey="2">ref-mgc-ago-pat</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Protecting Atoms in Foreign Memory
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dago_002dprm.html#ref_002dmgc_002dago_002dprm" accesskey="3">ref-mgc-ago-prm</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Permanent Atoms
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dago_002dare.html#ref_002dmgc_002dago_002dare" accesskey="4">ref-mgc-ago-are</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Details of Atom Registration
+</td></tr>
+</table>
+
+
+<a name="index-garbage-collection_002c-atoms"></a>
+<a name="index-atom-garbage-collection"></a>
+
+<p>By default, atoms created during the execution of a program remain
+permanently in the system until Prolog exits. For the majority of
+applications this behavior is not a problem and can be ignored.
+However, for two classes of application this can present
+problems. Firstly the internal architecture of SICStus Prolog limits
+the number of atoms that be can created to 1,048,575 on 32-bit
+machines, and this can be a problem for database applications that
+read large numbers of atoms from a database. Secondly, the space
+occupied by atoms can become significant and dominate memory usage,
+which can be a problem for processes designed to run perpetually.
+</p>
+<p>These problems can be overcome by using atom garbage collection
+to reclaim atoms that are no longer accessible to the executing program.
+</p>
+<p>Atoms can be created in many ways: when an appropriate
+token is read with <code>read_term/3</code>, when source or PO files are loaded, when
+<code>atom_codes/2</code> is called with a character list, or
+when <code>SP_atom_from_string()</code> is called in C code.
+In any of these contexts an atom is only
+created if it does not already exist;
+all atoms for a given string are given the same identification
+number, which is different from the atom of any other string.  Thus, 
+atom recognition and comparison can be done quickly, without having to
+look at strings.  An occurrence of an atom is
+always of a fixed, small size, so where a given atom is likely to be used
+in several places simultaneously the use of atoms can also be more
+compact than the use of strings.  
+</p>
+<p>A Prolog functor is implemented like an atom, but also has an associated
+arity.  For the purposes of atom garbage collection, a functor is considered 
+to be an occurrence of the atom of that same name.
+</p>
+<p>Atom garbage collection is similar to heap garbage collection, invoked
+automatically as well as through a call to the built-in predicate
+<code>garbage_collect_atoms/0</code>.  The atom garbage collector scans
+Prolog&rsquo;s data areas looking for atoms that are currently in use and
+then throws away all unused atoms, reclaiming their space.
+</p>
+<p>Atom garbage collection can turn an application
+that continually grows and eventually either runs into the atom number limit
+or runs out of space into one that can run perpetually.  It can also
+make feasible applications that load and manipulate huge
+quantities of atom-rich data that would otherwise become full of
+useless atoms.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmgc_002dsum.html#ref_002dmgc_002dsum" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmgc_002dgcd.html#ref_002dmgc_002dgcd" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmgc.html#ref_002dmgc" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmgc_002dago.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmgc_002dago.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

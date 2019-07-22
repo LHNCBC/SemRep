@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-tyi</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-tyi">
+<meta name="keywords" content="SICStus Prolog: ref-mod-tyi">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002ddmo.html#ref_002dmod_002ddmo" rel="next" title="ref-mod-dmo">
+<link href="ref_002dmod_002dsom.html#ref_002dmod_002dsom" rel="prev" title="ref-mod-som">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dtyi"></a>
+<hr>
+<a name="The-Type_002din-Module"></a>
+<h4 class="subsection">4.11.8 The Type-in Module</h4>
+
+<a name="index-type_002din-module_002c-changing"></a>
+<a name="index-changing-type_002din-module"></a>
+
+
+<p>The <em>type-in</em> module is the module that is taken as the source
+module for goals typed in by the user.  The name of the default
+type-in module is <code>user</code>.  That is, the predicates that are available
+to be called directly by the user are those that are visible in the
+module <code>user</code>.
+</p>
+<p>When debugging, it is often useful to call, directly from the top-level,
+predicates that are private to a module, or predicates that are public but
+that are not imported into <code>user</code>.  This can be done by prefixing each
+goal with the module name, as described in <a href="ref_002dmod_002dvis.html#ref_002dmod_002dvis">ref-mod-vis</a>; 
+but rather than doing this extensively, it may be more convenient to make this module the
+type-in module.  
+</p>
+<p>The type-in module can be changed using the built-in predicate
+<code>set_module/1</code>; for example,
+</p><div class="example">
+<pre class="example">| ?- <kbd>set_module(mod).</kbd>
+</pre></div>
+
+
+<a name="index-set_005fmodule_002f1-_0028built_002din_0029-1"></a>
+<a name="index-set_005fmodule_002f1-_0028built_002din_0029"></a>
+
+
+<p>This command will cause subsequent goals typed at the top-level to be
+executed with <code>mod</code> as their source module.  
+</p>
+<p>The name of the type-in module is always displayed, except when it
+is <code>user</code>.  If you are running Prolog under the editor interface, then
+the type-in
+module is displayed in the status line of the Prolog window.  If you are
+running Prolog without the editor interface, then the type-in module is displayed
+before each top-level prompt.  
+</p>
+<p>For example, if you are running Prolog without the editor:
+</p><div class="example">
+<pre class="example">| ?- <kbd>set_module(foo).</kbd>
+
+yes
+[foo]
+| ?- 
+</pre></div>
+
+
+<p>It should be noted that it is unlikely to be useful to change the type-in
+module via a directive embedded in a file to be loaded, because this will
+have no effect on the load&mdash;it will only change the type-in module 
+for commands subsequently entered by the user.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002ddmo.html#ref_002dmod_002ddmo" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod_002dsom.html#ref_002dmod_002dsom" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dtyi.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dtyi.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

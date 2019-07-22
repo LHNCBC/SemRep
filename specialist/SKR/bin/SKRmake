@@ -1,0 +1,325 @@
+#!/bin/ksh
+
+# qpmake is a rudimentary make facility for qpc (the Quintus Prolog compiler)
+#
+# It understands the following arguments:
+#
+#   To produce a QOF file:
+#   -q <filename>: create only a .qof file, not an executable
+
+OPERATING_SYSTEM=`uname`
+NLS=/nfsvol/nls
+SKR=$NLS/specialist/SKR
+DEFAULT_YEAR='10'
+DEFAULT_SKRENV=SKRenv.${DEFAULT_YEAR}
+RUNTIME_DIRECTORY=$NLS/bin/metamap${DEFAULT_YEAR}
+CLEAN_ONLY=0
+FORCE=0
+KEEP=0
+PROGRAM=`basename $0`
+OUTPUT_FILE=a.out.${ARCHITECTURE}
+COMPILE_QOF=0
+
+COPT="-c"
+QPOPT="-v"
+PROLOG_FILE="loader.pl"
+SOURCE_HOME_SKRenv=0
+
+ARGS=$*
+
+while getopts CFdHKO:pq:S:w: option
+do
+   case $option
+   in
+	# CLEAN_ONLY: remove existing .qof files, and do nothing else
+        C) CLEAN_ONLY=1;;
+        d) DEFAULT_FLAG='-d';;
+        F) FORCE=1;;
+        H) SOURCE_HOME_SKRenv=1;;
+	# KEEP: do not delete the existing .qof files
+        K) KEEP=1;;
+	# specify an output file other than the default a.out
+        O) OUTPUT_FILE=$OPTARG.${ARCHITECTURE};;
+        p) DEFAULT_FLAG='-p';;
+	# only create a .qof file -- not an executable
+        q) PROLOG_FILE="$OPTARG"; QOF_FILE=""; COMPILE_QOF=1;;
+	# Use a different file other than SKRenv.${DEFAULT_YEAR}
+        S) DEFAULT_SKRENV=$OPTARG;;
+        w) if [ "$OPTARG" = "." ]
+	   then
+	      OPTARG=`pwd`
+	   fi
+           DEFAULT_FLAG="-w $OPTARG";;
+        ?) exit 1;;
+   esac
+done
+
+shift `expr $OPTIND - 1`
+OPTIND=1
+
+if [ $SOURCE_HOME_SKRenv -eq 1 ]
+then
+   if [ ! -f $HOME/specialist/bin/$DEFAULT_SKRENV ]
+   then
+      echo $HOME/specialist/bin/$DEFAULT_SKRENV does not exist.
+      exit 1
+   else
+      echo sourcing $HOME/specialist/bin/$DEFAULT_SKRENV $DEFAULT_FLAG
+      . $HOME/specialist/bin/$DEFAULT_SKRENV $DEFAULT_FLAG
+   fi
+elif [ ! -f $NLS/specialist/bin/$DEFAULT_SKRENV ]
+then
+   echo $NLS/specialist/bin/$DEFAULT_SKRENV does not exist.
+   exit 1
+else
+   echo sourcing $NLS/specialist/bin/$DEFAULT_SKRENV
+   . $NLS/specialist/bin/$DEFAULT_SKRENV $DEFAULT_FLAG
+fi
+
+OPERATING_SYSTEM=`uname`
+if [ "$OPERATING_SYSTEM" = "SunOS" ]
+then
+
+   OS_VERSION=`uname -r`
+   if [ "$OS_VERSION" != "5.9" ]
+   then
+      ### echo "### WARNING: This machine is not running Solaris 5.9."
+      ### echo "### Please run whatever you are trying to do on a Solaris 5.9 machine."
+      ### exit 1
+      :
+   fi
+
+   export PATH=$GNU_DIR/bin:$PATH
+   export TOOLSDIR=$NLS/tools
+   export QUINTUS=/net/nls3/export/home/quintus
+   export QUINTUS_BIN=$QUINTUS/quintus3.5/bin3.5/sun4-5
+   export QLDFLAG="-S -v -g"
+   export QLDLIB="-lm -lsocket -lnsl -lrt -d"
+   export QLDENDFLAGS=""
+elif [ "$OPERATING_SYSTEM" = "Linux" ]
+then
+   export QUINTUS=/nfsvol/crfiler-ind/II_Research/quintus
+   export QUINTUS_BIN=$QUINTUS/quintus3.5/bin3.5/linux/
+   export QLDFLAG="-S -v -g"
+   export QLDLIB="-lm -d"
+   export QLDENDFLAGS="-LD -m32"
+fi
+
+QLD=$QUINTUS_BIN/qld
+QPC=$QUINTUS_BIN/qpc
+
+# $SKR_DEBUG ane $NLS_CLNT_LIB are set in SKRenv.${DEFAULT_YEAR}
+DEBUG_LIB=$SKR_DEBUG/debug.a
+LINK_LIBS="$BERKELEY_LIB_A $DEBUG_LIB -lpthread $LIBGCC"
+
+OPTIND=1
+
+COMPILE_DIR=$PWD
+
+set -- $ARGS
+
+# ensure that the directory is writeable
+if [ ! -w $COMPILE_DIR ]
+then
+   echo "The directory $COMPILE_DIR is not writeable."
+   exit 1
+fi
+
+# If we're not just trying to compile a .qof file
+# (i.e., we want to compile the binary),
+# make sure the current directory contains a loader.pl file 
+if [ $COMPILE_QOF -eq 0 -a ! -f loader.pl ]
+then
+   echo "$COMPILE_DIR does not contain a loader.pl file."
+   exit 1
+fi
+
+PROLOG_FILE=$COMPILE_DIR/$PROLOG_FILE
+QOF_FILE=`echo $PROLOG_FILE | sed -e 's/.pl$/.qof/'`
+
+SKR_SRC_HOME=`echo $SKR_SRC_HOME | sed -e 's/.SICStus//'`
+
+LEXICON_BASE=$SKR_SRC_HOME/lexicon
+LEXICON=$LEXICON_BASE/lexicon
+MORPH=$LEXICON_BASE/morph
+
+METAMAP=$SKR_SRC_HOME/metamap
+MMI=$SKR_SRC_HOME/mmi
+SKR=$SKR_SRC_HOME/skr
+SKR_DB=$SKR_SRC_HOME/db
+SKR_LIB=$SKR_SRC_HOME/lib
+SKR_TEXT=$SKR_SRC_HOME/text
+TAGGER=$SKR_SRC_HOME/tagger
+WSD=$SKR_SRC_HOME/WSD/WSD
+
+APP=`basename $COMPILE_DIR`
+LOGFILE=$PROGRAM.$APP
+
+echo "SKRmake: Compiling in $COMPILE_DIR"
+sleep 1
+
+echo "OK...here we go."
+echo ""
+
+if [ $KEEP -eq 0 ]
+then
+   cd ..
+   echo "###########################################################################"
+   echo "############# Removing all .qof files in $PWD"
+   echo "###########################################################################"
+   echo ""
+   find . -name \*.qof -ls -exec /bin/rm -f {} \;
+   echo ""
+   echo ""
+   cd $COMPILE_DIR
+fi
+
+if [ $CLEAN_ONLY -eq 1 ]
+then
+   echo All done
+   exit 0
+fi
+
+QPATH="\
+-f lexicon:$LEXICON \
+-f mm_tools_lib:$MM_TOOLS_LIB \
+-f metamap:$METAMAP \
+-f morph:$MORPH     \
+-f mmi:$MMI         \
+-f skr:$SKR         \
+-f skr_db:$SKR_DB   \
+-f skr_lib:$SKR_LIB \
+-f tagger:$TAGGER   \
+-f text:$SKR_TEXT   \
+-f wsd:$WSD"
+
+# temp
+echo "Parameters:"
+echo "COPT:        "   $COPT
+echo "PROLOG_FILE: "   $PROLOG_FILE
+echo "QLDFLAG:     "   $QLDFLAG
+echo "QLDLIB:      "   $QLDLIB
+echo "QOF_FILE:    "   $QOF_FILE
+echo "QPATH:"
+# print the QPATH nicely
+echo $QPATH | sed -e 's/ -f/\
+-f/g'
+
+echo ""
+echo "Invoking $QPC... "
+umask 002
+
+if [ $COMPILE_QOF -eq 1 ]
+then
+   echo Compiling into QOF only
+   echo ""
+   $QPC $QPOPT $COPT $QPATH $PROLOG_FILE
+   exit 0
+fi
+
+### real line:
+echo "### Saving compilation output in $LOGFILE"
+echo ""
+
+$QPC $QPOPT $COPT $QPATH $PROLOG_FILE 2>&1 | tee $LOGFILE
+
+echo "" >> $LOGFILE
+echo "" >> $LOGFILE
+echo "LINK STEP  #################################################" >> $LOGFILE
+echo "" >> $LOGFILE
+
+# This grep call is intended to identify errors generated by QPC
+# OTHER THAN these:
+# * The number of users for this product has exceeded
+# * the number for which it was licensed.
+# * Product: prolog/sun4-5/3.5, Number of licenses: 5
+# * Please contact SICS at +46 8 633 1500 to get a new license
+# * Email: qpadmin@sics.se    WWW: http://www.sics.se/
+
+ERRMSG=""
+
+echo
+echo
+echo "### CHECKING for compilation errors...in $LOGFILE"
+
+ERRMSG=`grep '^[*!]' $LOGFILE	       \
+	   | grep -v '^* The number of users'  \
+	   | grep -v '^* the number for which' \
+	   | grep -v '^* Product:'             \
+	   | grep -v '^* Please contact SICS'  \
+	   | grep -v '^* Email:' `
+   
+
+if [ $FORCE -eq 0 -a "$ERRMSG" != "" ]
+then
+   echo ""
+   echo "### ERRORS FOUND...not proceeding to link step:"
+   echo ""
+   echo "$ERRMSG"
+   exit 1
+elif [ $FORCE -eq 1 -a "$ERRMSG" != "" ]
+then
+   echo ""
+   echo "### ERRORS FOUND...FORCE proceeding to link step:"
+   echo ""
+   echo "$ERRMSG"
+else
+   echo "### Compilation OK"
+fi
+
+echo "### Invoking $QLD... "
+echo ""
+umask 002
+
+echo "### Appending linking output to $LOGFILE"
+echo ""
+
+# real line:
+echo "$QLD $QLDFLAG -o $OUTPUT_FILE $QLDLIB $QPATH $QOF_FILE $LINK_LIBS $QLDENDFLAGS"
+
+$QLD $QLDFLAG -o $OUTPUT_FILE $QLDLIB $QPATH $QOF_FILE $LINK_LIBS $QLDENDFLAGS >> $LOGFILE 2>&1
+
+# echo DEFAULT_FLAG is $DEFAULT_FLAG
+
+# The line a few lines below with /usr/xpg4/bin/grep needs some explanation:
+# QP often generates this message, which we want to ignore:
+
+# * The number of users for this product has exceeded
+# * the number for which it was licensed.
+# * Product: prolog/sun4-5/3.5, Number of licenses: 5
+# * Please contact SICS at +46 8 633 1500 to get a new license
+# * Email: qpadmin@sics.se    WWW: http://www.sics.se/
+
+# However, we do NOT want to ignore other lines beginning with "*",
+# so '\* [^TtPE][^hrlm][^eoa]' is just a regexp that captures those five lines,
+# and (presumably) will not capture any other QP warnings (e.g., singleton variables).
+
+ERRMSG="";
+ERRMSG=`sed -ne '/^LINK/,$p' $LOGFILE \
+       | grep -E '(Undefined|not found|^qld|^\* [^TtPE][^hrlm][^eoa])' \
+       | grep -v 'QU_messages:message/3'`
+
+if [ "$ERRMSG" != "" ]
+then
+   echo ""
+   echo "### ERRORS FOUND...no executable created:"
+   echo ""
+   echo $ERRMSG
+   exit 1
+else
+   echo ""
+   echo "### Linking OK"
+   if [ "$DEFAULT_FLAG" = "-p" ]
+   then
+      echo
+      echo setting runtime directory to $RUNTIME_DIRECTORY
+      qsetpath -r$RUNTIME_DIRECTORY $OUTPUT_FILE
+   fi
+fi
+
+echo ""
+echo "****************************************************************"
+echo "     The $OUTPUT_FILE binary has been deposited in"
+echo "     $COMPILE_DIR"
+echo "****************************************************************"
+echo ""

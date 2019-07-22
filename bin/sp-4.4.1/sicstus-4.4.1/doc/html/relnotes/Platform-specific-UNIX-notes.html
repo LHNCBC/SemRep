@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: Platform specific UNIX notes</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: Platform specific UNIX notes">
+<meta name="keywords" content="SICStus Prolog Release Notes: Platform specific UNIX notes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Release-Notes-and-Installation-Guide-for-UNIX.html#Release-Notes-and-Installation-Guide-for-UNIX" rel="up" title="Release Notes and Installation Guide for UNIX">
+<link href="Release-Notes-and-Installation-Guide-for-Windows.html#Release-Notes-and-Installation-Guide-for-Windows" rel="next" title="Release Notes and Installation Guide for Windows">
+<link href="The-Uninstallation-Script.html#The-Uninstallation-Script" rel="prev" title="The Uninstallation Script">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Platform-specific-UNIX-notes"></a>
+<hr>
+<a name="Platform-Specific-Notes"></a>
+<h3 class="section">3.2 Platform Specific Notes</h3>
+
+<p>This section contains some installation notes that are platform
+specific under UNIX.
+</p>
+<dl compact="compact">
+<dt><strong>Solaris Intel 64-bit, SPARC 64-bit</strong></dt>
+<dd>
+<p>The following libraries are not supported: <code>library(bdb)</code>,
+<code>library(tcltk)</code>.
+</p>
+
+</dd>
+<dt><strong>Mac OS X</strong></dt>
+<dd>
+
+<p>An executable built with <code>spld</code> will only work if there is a
+properly configured subdirectory <samp>sp-4.4.1</samp> in the
+same directory as the executable; see <a href="../sicstus/Runtime-Systems-on-UNIX-Target-Machines.html#Runtime-Systems-on-UNIX-Target-Machines">Runtime Systems on UNIX Target Machines</a> in <cite>the SICStus Prolog Manual</cite>.
+</p>
+<p>Alternatively, the option <samp>--wrapper</samp> can be passed to <code>spld</code>.
+In this case a wrapper script is created that will set up various
+environment variables and invoke the real executable.
+</p>
+<p>When using third-party products like BDB, you may need to set up
+<code>DYLD_LIBRARY_PATH</code> so that the Mac OS X dynamic linker can find
+them. When using the SICStus development executable (<code>sicstus</code>),
+this should happen automatically, if the third-party products have been
+installed in the standard locations; see <a href="Berkeley-DB-on-Mac-OS-X.html#Berkeley-DB-on-Mac-OS-X">Berkeley DB on Mac OS X</a>.
+</p>
+<p>Sometimes, the default limit on the process&rsquo;s data-segment is
+unreasonably small, which may lead to unexpected memory allocation
+failures. To check this limit, do:
+</p><div class="example">
+<pre class="example">bash$ <kbd>ulimit -d</kbd>
+6144
+</pre></div>
+<p>This indicates that the maximum size of the data-segment is only 6
+Mb. To remove the limit, do:
+</p><div class="example">
+<pre class="example">bash$ <kbd>ulimit -d unlimited</kbd>
+bash$ <kbd>ulimit -d</kbd>
+unlimited
+</pre></div>
+
+<blockquote>
+<p><strong>Please note</strong>: <code>ulimit</code> is a shell built-in
+in <code>bash</code>. It may have a different name in other shells.
+</p></blockquote>
+
+
+<p>SICStus will set the data segment size of itself according to the value
+of the system property (or environment variable)
+<code>SP_ULIMIT_DATA_SEGMENT_SIZE</code>. If you set this variable in the
+initialization file for your shell, then you do not have to use the
+<code>ulimit</code> command when SICStus is started from the
+shell. See <a href="../sicstus/System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System
+Properties and Environment Variables</a> in <cite>the SICStus Prolog
+Manual</cite> for more information about
+<code>SP_ULIMIT_DATA_SEGMENT_SIZE</code>. This system property is set
+automatically when SICStus is invoked from the SICStus Prolog IDE
+(SPIDER), from Emacs (via <kbd>M-x run-prolog</kbd>), or from the launcher
+script <samp>SICStus Prolog 4.4.1.term</samp> installed in
+<samp>Applications</samp>.
+</p>
+<p>File names are encoded in UTF-8 under Mac OS X. This is
+handled correctly by SICStus.
+</p>
+<p>If SICStus encounters a file name that is not encoded in UTF-8, then it
+will silently ignore the file or directory.
+This can happen on file systems where files have been created by some
+other OS than Mac OS X, e.g. on network file servers accessed by
+other UNIX flavors or Windows.
+</p>
+<p>The default character encoding for the SICStus standard streams is
+based on the current locale. On some older versions of OS X, the default
+locale is POSIX/C, i.e. US ASCII.
+</p>
+<p>This will come in
+conflict with the default character encoding for the Terminal
+application which is UTF-8. A clickable launcher for SICStus is
+optionally installed in the Applications folder. This launcher will set
+the character encoding of the standard streams to UTF-8 for both the
+Terminal and SICStus. The character encoding is set automatically when
+SICStus is invoked from the SICStus Prolog IDE (SPIDER), or from Emacs
+(via <kbd>M-x run-prolog</kbd>)
+</p>
+
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="UNIX-installation.html#UNIX-installation" accesskey="p" rel="prev">Previous</a>
+<li><a href="Release-Notes-and-Installation-Guide-for-UNIX.html#Release-Notes-and-Installation-Guide-for-UNIX" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Platform-specific-UNIX-notes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Platform-specific-UNIX-notes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

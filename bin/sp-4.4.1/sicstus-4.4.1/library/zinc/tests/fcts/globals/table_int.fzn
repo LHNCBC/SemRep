@@ -1,0 +1,5 @@
+array[1 .. 3] of var 1 .. 3: d :: output_array([1..3]);
+
+constraint table_int_sicstus(d, [1,2,3, 3,2,1]);
+
+solve satisfy;

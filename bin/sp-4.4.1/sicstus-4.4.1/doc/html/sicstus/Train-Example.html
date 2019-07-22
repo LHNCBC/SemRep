@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Train Example</title>
+
+<meta name="description" content="SICStus Prolog: Train Example">
+<meta name="keywords" content="SICStus Prolog: Train Example">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Mixing-C-and-Prolog-Examples.html#Mixing-C-and-Prolog-Examples" rel="up" title="Mixing C and Prolog Examples">
+<link href="Building-for-a-Target-Machine.html#Building-for-a-Target-Machine" rel="next" title="Building for a Target Machine">
+<link href="Mixing-C-and-Prolog-Examples.html#Mixing-C-and-Prolog-Examples" rel="prev" title="Mixing C and Prolog Examples">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Train-Example"></a>
+<hr>
+<a name="Train-Example-_0028connections_0029"></a>
+<h4 class="subsection">6.8.1 Train Example (connections)</h4>
+
+<p>This is an example of how to create a runtime system.  The Prolog
+program <samp>train.pl</samp> will display a route from one train
+station to another.  The C program <samp>train.c</samp> calls the Prolog
+code and writes out all the routes found between two stations:
+</p>
+
+<div class="example">
+<pre class="example"><em>% train.pl</em>
+</pre><pre class="example">connected(From, From, [From], _):- !.
+connected(From, To, [From| Way], Been):-
+        (   no_stop(From, Through)
+        ;   
+            no_stop(Through, From)
+        ),
+        not_been_before(Been, Through),
+        connected(Through, To, Way, Been).
+
+no_stop('Stockholm', 'Katrineholm').
+no_stop('Stockholm', 'Vasteras').
+no_stop('Katrineholm', 'Hallsberg').
+no_stop('Katrineholm', 'Linkoping').
+no_stop('Hallsberg', 'Kumla').
+no_stop('Hallsberg', 'Goteborg').
+no_stop('Orebro', 'Vasteras').
+no_stop('Orebro', 'Kumla').
+
+not_been_before(Way, _) :- var(Way),!.
+not_been_before([Been| Way], Am) :- 
+        Been \== Am,
+        not_been_before(Way, Am).
+</pre></div>
+
+<div class="example">
+<pre class="example"><em>/* train.c */</em>
+</pre><pre class="example">#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;sicstus/sicstus.h&gt;
+
+static void write_path(SP_term_ref path)
+{
+  char const *text = NULL;
+  SP_term_ref 
+    tail = SP_new_term_ref(),
+    via = SP_new_term_ref();
+
+  SP_put_term(tail,path);
+
+  while (SP_get_list(tail,via,tail)) {
+    if (text) 
+      printf(&quot; -&gt; &quot;);
+
+    SP_get_string(via, &amp;text);
+    printf(&quot;%s&quot;,text);
+  }
+  printf(&quot;\n&quot;);  
+}
+
+int user_main(int argc, char **argv)
+{
+  int rval;
+  SP_pred_ref pred;
+  SP_qid goal;
+  SP_term_ref from, to, path;
+  
+  /* Initialize Prolog engine. The third arg to SP_initialize is
+     an option block and can be NULL, for default options. */
+  if (SP_FAILURE == SP_initialize(argc, argv, NULL)) {
+    fprintf(stderr, &quot;SP_initialize failed: %s\n&quot;, 
+            SP_error_message(SP_errno));
+    exit(1);
+  }
+
+  rval = SP_restore(&quot;train.sav&quot;);
+
+  if (rval == SP_ERROR || rval == SP_FAILURE) {
+    fprintf(stderr, &quot;Could not restore \&quot;train.sav\&quot;.\n&quot;);
+    exit(1);
+  }
+</pre><pre class="example"><em>/* train.c */</em>
+</pre><pre class="example">  /* Look up connected/4. */
+  if (!(pred = SP_predicate(&quot;connected&quot;,4,&quot;user&quot;))) {
+    fprintf(stderr, &quot;Could not find connected/4.\n&quot;);
+    exit(1);
+  }
+
+  /* Create the three arguments to connected/4. */
+  SP_put_string(from = SP_new_term_ref(), &quot;Stockholm&quot;);
+  SP_put_string(to = SP_new_term_ref(), &quot;Orebro&quot;);
+  SP_put_variable(path = SP_new_term_ref());
+
+  /* Open the query. In a development system, the query would look like:
+   * 
+   * | ?- connected('Stockholm','Orebro',X).
+   */
+  if (!(goal = SP_open_query(pred,from,to,path,path))) {
+    fprintf(stderr, &quot;Failed to open query.\n&quot;);
+    exit(1);
+  }
+
+  /* 
+   * Loop through all the solutions.
+   */
+  while (SP_next_solution(goal)==SP_SUCCESS) {
+    printf(&quot;Path: &quot;);
+    write_path(path);
+  }
+  
+  SP_close_query(goal);
+
+  exit(0);
+}
+</pre></div>
+
+<p>Create the saved-state containing the Prolog code:
+</p><div class="example">
+<pre class="example">% <kbd>sicstus</kbd>
+SICStus 4.4.1 &hellip;
+Licensed to SICS
+| ?- <kbd>compile(train),save_program('train.sav').</kbd>
+% compiling [&hellip;]/train.pl...
+% compiled [&hellip;]/train.pl in module user, 10 msec 2848 bytes
+% [&hellip;]/train.sav created in 0 msec
+
+| ?- <kbd>halt.</kbd>
+</pre></div>
+
+<p>Create the executable using the application builder:
+</p>
+<div class="example">
+<pre class="example">% <kbd>spld --main=user train.c -o train.exe</kbd>
+</pre></div>
+
+<p>And finally, run the executable:
+</p>
+<div class="example">
+<pre class="example">% <kbd>./train</kbd>
+Path: Stockholm -&gt; Katrineholm -&gt; Hallsberg -&gt; Kumla -&gt; Orebro
+Path: Stockholm -&gt; Vasteras -&gt; Orebro
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Building-for-a-Target-Machine.html#Building-for-a-Target-Machine" accesskey="n" rel="next">Next</a>
+<li><a href="Mixing-C-and-Prolog-Examples.html#Mixing-C-and-Prolog-Examples" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Train-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Train-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

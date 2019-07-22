@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-syn-trm-ato</title>
+
+<meta name="description" content="SICStus Prolog: ref-syn-trm-ato">
+<meta name="keywords" content="SICStus Prolog: ref-syn-trm-ato">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsyn_002dtrm.html#ref_002dsyn_002dtrm" rel="up" title="ref-syn-trm">
+<link href="ref_002dsyn_002dtrm_002dvar.html#ref_002dsyn_002dtrm_002dvar" rel="next" title="ref-syn-trm-var">
+<link href="ref_002dsyn_002dtrm_002dflo.html#ref_002dsyn_002dtrm_002dflo" rel="prev" title="ref-syn-trm-flo">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsyn_002dtrm_002dato"></a>
+<hr>
+<a name="Atoms"></a>
+<h4 class="subsubsection">4.1.2.4 Atoms</h4>
+
+<a name="index-atoms"></a>
+
+<a name="index-syntax_002c-of-atoms"></a>
+
+<p>An atom is identified by its name, which is a sequence characters, and
+can be written in any of the following forms:
+</p>
+<ul>
+<li> Any sequence of alphanumeric characters (including &lsquo;<samp>_</samp>&rsquo;),
+starting with a lowercase letter.  Note that an atom may not begin with
+an underscore.
+The characters that are allowed to occur in such an unquoted atom are
+restricted to a subset of Unicode; see <a href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">ref-syn-syn-tok</a>.
+
+</li><li> Any sequence from the following set 
+of characters (except &lsquo;<samp>/*</samp>&rsquo;, which begins a comment):
+<div class="example">
+<pre class="example">+ - * / \ ^ &lt; &gt; = ~ : . ? @ # $ &amp;
+</pre></div>
+
+</li><li> <a name="index-quote-characters_002c-in-atoms"></a>
+Any sequence of characters delimited by single quotes.  Backslashes in
+the sequence denote escape sequences (see <a href="ref_002dsyn_002dsyn_002desc.html#ref_002dsyn_002dsyn_002desc">ref-syn-syn-esc</a>), and if
+the single quote character is included in the sequence, then it must be
+escaped, e.g. <code>'can\'t'</code>.
+The characters that are allowed to occur in such a quoted atom are
+restricted to a subset of Unicode; see <a href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok">ref-syn-syn-tok</a>.
+Backquotes are allowed as an alternative to quotes.
+
+</li><li> Any of: 
+<div class="example">
+<pre class="example">! ; [] {}
+</pre></div>
+<p>Note that the bracket pairs are special: &lsquo;<samp>[]</samp>&rsquo; and &lsquo;<samp>{}</samp>&rsquo; are
+atoms but &lsquo;<samp>[</samp>&rsquo;, &lsquo;<samp>]</samp>&rsquo;, &lsquo;<samp>{</samp>&rsquo;, and &lsquo;<samp>}</samp>&rsquo; are not.  The
+form <code>[<var>X</var>]</code> is a special notation for lists (see
+<a href="ref_002dsyn_002dcpt_002dlis.html#ref_002dsyn_002dcpt_002dlis">ref-syn-cpt-lis</a>) as an alternative to <code>.(<var>X</var>,[])</code>, and
+the form <code>{<var>X</var>}</code> is allowed as an alternative to
+<code>{}(<var>X</var>)</code>.
+</p></li></ul>
+
+<a name="index-_002c-atom"></a>
+
+<p>Examples of atoms are:
+</p><div class="example">
+<pre class="example">a   void   =   :=   'Anything in quotes'   []
+</pre></div>
+
+
+<blockquote>
+
+<p><strong>Please note:</strong> It is recommended that you do not invent atoms beginning with
+the character &lsquo;<samp>$</samp>&rsquo;, since it is possible that such names may
+conflict with the names of atoms having special significance for
+certain built-in predicates.
+</p></blockquote>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsyn_002dtrm_002dvar.html#ref_002dsyn_002dtrm_002dvar" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsyn_002dtrm_002dflo.html#ref_002dsyn_002dtrm_002dflo" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsyn_002dtrm.html#ref_002dsyn_002dtrm" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dtrm_002dato.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dtrm_002dato.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Block Declarations</title>
+
+<meta name="description" content="SICStus Prolog: Block Declarations">
+<meta name="keywords" content="SICStus Prolog: Block Declarations">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" rel="up" title="ref-lod-dcl">
+<link href="Meta_002dPredicate-Declarations.html#Meta_002dPredicate-Declarations" rel="next" title="Meta-Predicate Declarations">
+<link href="Discontiguous-Declarations.html#Discontiguous-Declarations" rel="prev" title="Discontiguous Declarations">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Block-Declarations"></a>
+<hr>
+<a name="Block-Declarations-1"></a>
+<h4 class="subsubsection">4.3.4.5 Block Declarations</h4>
+<a name="index-block-declaration"></a>
+<a name="index-declaration_002c-block"></a>
+
+<a name="index-block_002f1-_0028declaration_0029-1"></a>
+<a name="index-block_002f1-_0028declaration_0029"></a>
+
+
+<p>The declaration
+</p>
+<div class="example">
+<pre class="example">:- block <var>:BlockSpec</var>, &hellip;, <var>:BlockSpec</var>.
+</pre></div>
+
+<p>where each <var>BlockSpec</var> is a skeletal goal, specifies conditions
+for blocking goals of the predicate referred to by the
+skeletal goal (<code>f/3</code> say).  
+The arguments of the skeletal goal can be:
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>-</samp>&rsquo;</dt>
+<dd><p>see below
+</p>
+</dd>
+<dt>&lsquo;<samp>?</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>anything else</samp>&rsquo;</dt>
+<dd><p>ignored
+</p></dd>
+</dl>
+
+<p>When a goal for <code>f/3</code> is
+to be executed, the mode specs are interpreted as conditions for
+blocking the goal, and if at least one condition evaluates
+to <code>true</code>, the goal is blocked.
+</p>
+<p>A block condition evaluates to <code>true</code> if and only if all arguments
+specified as &lsquo;<samp>-</samp>&rsquo; are uninstantiated, in which case the
+goal is blocked until at least one of those variables
+is instantiated.  If several conditions evaluate to <code>true</code>, then
+the implementation picks one of them and blocks the goal
+accordingly.
+</p>
+<p>The recommended style is to write the block declarations in
+front of the source code of the predicate they refer to.
+Indeed, they are part of the source code of the predicate,
+and must precede the first clause.  For example, with the
+definition:
+</p>
+<div class="example">
+<pre class="example">:- block merge(-,?,-), merge(?,-,-).
+
+merge([], Y, Y).
+merge(X, [], X).
+merge([H|X], [E|Y], [H|Z]) :- H @&lt; E,  merge(X, [E|Y], Z).
+merge([H|X], [E|Y], [E|Z]) :- H @&gt;= E, merge([H|X], Y, Z).
+</pre></div>
+
+<p>calls to <code>merge/3</code> having uninstantiated arguments in
+the first <em>and</em> third position <em>or</em> in the second <em>and</em>
+third position will suspend.
+</p>
+<p>The behavior of blocking goals for a given predicate
+on uninstantiated arguments cannot be switched off, except
+by abolishing or redefining the predicate.
+See <a href="mpg_002dref_002dblock.html#mpg_002dref_002dblock">mpg-ref-block</a>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Meta_002dPredicate-Declarations.html#Meta_002dPredicate-Declarations" accesskey="n" rel="next">Next</a>
+<li><a href="Discontiguous-Declarations.html#Discontiguous-Declarations" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Block-Declarations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Block-Declarations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

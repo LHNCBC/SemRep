@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: A Quick Example of Tcl/Tk in Action</title>
+
+<meta name="description" content="SICStus Prolog: A Quick Example of Tcl/Tk in Action">
+<meta name="keywords" content="SICStus Prolog: A Quick Example of Tcl/Tk in Action">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Introduction-_0028Tcl_0029.html#Introduction-_0028Tcl_0029" rel="up" title="Introduction (Tcl)">
+<link href="Outline-of-This-Tutorial.html#Outline-of-This-Tutorial" rel="next" title="Outline of This Tutorial">
+<link href="What-Is-Tcl_002fTks-Relationship-to-SICStus-Prolog_003f.html#What-Is-Tcl_002fTks-Relationship-to-SICStus-Prolog_003f" rel="prev" title="What Is Tcl/Tks Relationship to SICStus Prolog?">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="A-Quick-Example-of-Tcl_002fTk-in-Action"></a>
+<hr>
+<a name="A-Quick-Example-of-Tcl_002fTk-in-Action-1"></a>
+<h4 class="subsubsection">10.39.1.4 A Quick Example of Tcl/Tk in Action</h4>
+
+<p>As a taster, we will show you two simple examples programs that
+use SICStus Prolog with the Tcl/Tk extensions: the ubiquitous &ldquo;hello
+world&rdquo; example; and a very simple telephone book look up example.
+</p>
+<p>You are not expected to understand how these examples work at this
+stage.  They are something for you to quickly type in to see how easy it
+is to add GUIs to Prolog programs through Tcl/Tk.  After reading
+through the rest of this tutorial you will fully understand these
+examples and be able to write your own GUIs.
+</p>
+
+<p>Here is the &ldquo;Hello World&rdquo; program; also in
+<code>library('tcltk/examples/ex1.pl')</code>:
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(tcltk)).
+
+go :- 
+    tk_new([name('Example 1')], Interp),
+    tcl_eval(Interp, 'button .fred -text &quot;hello world&quot; 
+                      -command { puts &quot;hello world&quot;}', _),
+    tcl_eval(Interp, 'pack .fred', _),
+    tk_main_loop.
+</pre></div>
+
+<br>
+<img src="images/tcltkex1.png" alt="images/tcltkex1">
+<div align="center">SICStus+Tcl/Tk hello world program.
+</div>
+<p>To run it just start up SICStus (under Windows use <code>sicstus</code>, not
+<code>spwin</code>), load the program, and evaluate the Prolog
+goal <code>go</code>. The first line of the <code>go</code> clause calls
+<code>tk_new/2</code>, which creates a Tcl/Tk interpreter and returns a handle
+<code>Interp</code> through which Prolog will interact with the interpreter.
+Next a call to <code>tcl_eval/3</code> is made, which creates a button
+displaying the &lsquo;<samp>hello world</samp>&rsquo; text. Next a call is made to
+<code>tcl_eval/3</code> that causes the button to be displayed in the main
+application window. Finally, a call is make to <code>tk_main_loop/0</code>
+that passes control to Tcl/Tk, making sure that window events are
+serviced.
+</p>
+<p>See how simple it is with just a three line Prolog program to
+create an application window and display a button in it.  Click on the
+button and see what it does.
+</p>
+<p>The reason you should use <code>sicstus</code> under Windows instead of
+<code>spwin</code> is that the latter does not have the C standard
+streams (<code>stdin</code>,<code>stdout</code>,<code>stderr</code>) and the Tcl
+command <code>puts</code> will give an error if there is no <code>stdout</code>.
+</p>
+
+<p>The previous example showed us how to create a button and display some
+text in it. It was basically pure Tcl/Tk generated from within Prolog
+but did not have any interaction with Prolog.  The following example
+demonstrates a simple callback mechanism. A name is typed into a text
+entry box, a button is pressed, which looks up the telephone number
+corresponding to the name in a Prolog database, and the telephone
+number is then displayed.
+</p>
+<p>Here is the code; also in <code>library('tcltk/examples/ex2.pl')</code>:
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(tcltk)).
+
+telephone(fred, '123-456').
+telephone(wilbert, '222-2222').
+telephone(taxi, '200-0000').
+telephone(mary, '00-36-1-666-6666').
+
+go :- 
+     tk_new([name('Example 2')], T),
+     tcl_eval(T, 'entry .name -textvariable name',_),
+     tcl_eval(T, 'button .search -text search -command {
+                      prolog telephone($name,X); 
+                      set result $prolog_variables(X) }', _),
+     tcl_eval(T, 'label .result -relief raised -textvariable result', _),
+     tcl_eval(T, 'pack .name .search .result -side top -fill x', _),
+     tk_main_loop.
+</pre></div>
+
+<br>
+<img src="images/tcltkex2.png" alt="images/tcltkex2">
+<div align="center">SICStus+Tcl/Tk telephone number lookup
+</div>
+<p>Again, to run the example, start up SICStus Prolog, load the code,
+and run the goal <code>go</code>.
+</p>
+<p>You will notice that three widgets will appear in a window:
+one is for entering the name of the person or thing that you want to
+find the telephone number for, the button is for initiating the search,
+and the text box at the bottom is for displaying the result.
+</p>
+<p>Type <kbd>fred</kbd> into the entry box, hit the search button and you
+should see the phone number displayed. You can then try the same thing
+but with <kbd>wilbert</kbd>, <kbd>taxi</kbd> or <kbd>mary</kbd> typed into the text
+entry box.
+</p>
+<p>What is happening is that when the button is pressed, the value in the
+entry box is retrieved, then the <code>telephone/2</code> predicate is
+called in Prolog with the entry box value as first argument, then
+the second argument of telephone is retrieved (by this time
+bound to the number) and is displayed below the button.
+</p>
+<p>This is a very crude example of what can be done with the Tcl/Tk
+module in Prolog. For example, this program does not handle
+cases where there is no corresponding phone number or where there is
+more than one corresponding phone number.  The example is just supposed
+to wet your appetite, but all these problems can be handled by Prolog +
+Tcl/Tk, although with a more sophisticated program. You will learn
+how to do this in the subsequent chapters.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Outline-of-This-Tutorial.html#Outline-of-This-Tutorial" accesskey="n" rel="next">Next</a>
+<li><a href="What-Is-Tcl_002fTks-Relationship-to-SICStus-Prolog_003f.html#What-Is-Tcl_002fTks-Relationship-to-SICStus-Prolog_003f" accesskey="p" rel="prev">Previous</a>
+<li><a href="Introduction-_0028Tcl_0029.html#Introduction-_0028Tcl_0029" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/A-Quick-Example-of-Tcl_002fTk-in-Action.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/A-Quick-Example-of-Tcl_002fTk-in-Action.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

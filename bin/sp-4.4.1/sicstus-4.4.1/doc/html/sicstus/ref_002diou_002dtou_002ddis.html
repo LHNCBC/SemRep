@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-tou-dis</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-tou-dis">
+<meta name="keywords" content="SICStus Prolog: ref-iou-tou-dis">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou_002dtou.html#ref_002diou_002dtou" rel="up" title="ref-iou-tou">
+<link href="ref_002diou_002dtou_002ddsp.html#ref_002diou_002dtou_002ddsp" rel="next" title="ref-iou-tou-dsp">
+<link href="ref_002diou_002dtou_002dcha.html#ref_002diou_002dtou_002dcha" rel="prev" title="ref-iou-tou-cha">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002dtou_002ddis"></a>
+<hr>
+<a name="Distinctions-Among-the-_0060_0060Write_0027_0027-Predicates"></a>
+<h4 class="subsubsection">4.6.4.3 Distinctions Among the &ldquo;Write&rdquo; Predicates</h4>
+
+<a name="index-write-predicates_002c-distinctions-among"></a>
+<a name="index-distinctions-among-write-predicates"></a>
+
+<ul>
+<li> For <code>write</code> and <code>writeq</code>, the term is written with respect to
+current operator declarations (See <a href="ref_002dsyn_002dops.html#ref_002dsyn_002dops">ref-syn-ops</a> for a discussion
+of operators).
+
+<p><code>write_canonical(<var>Term</var>)</code>
+writes <var>Term</var> to the current or specified output stream
+in standard syntax (see <a href="ref_002dsyn.html#ref_002dsyn">ref-syn</a> on Prolog syntax),
+and quotes atoms and functors to make them acceptable as input to
+<code>read/[1,2]</code>.  That is, operator declarations are not used and compound
+terms are always written in the form:
+</p>
+<div class="example">
+<pre class="example"><var>name</var>(<var>arg1</var>, &hellip;, <var>argn</var>)
+</pre></div>
+<p>and the special list syntax, e.g. <code>[a,b,c]</code>, or
+braces syntax, e.g. <code>{a,b,c}</code> are not used.
+</p>
+<p>Calling <code>write_canonical/1</code> is a good way of finding out how Prolog parses a term
+with several operators.
+</p>
+</li><li> Atoms output by <code>write/[1,2]</code> cannot in general be read back using 
+<code>read/[1,2]</code>.  For example,
+<div class="example">
+<pre class="example">| ?- <kbd>write('a b').</kbd>
+a b
+</pre></div>
+
+<p>For this reason <code>write/[1,2]</code> is only useful as a way to treat
+atoms as strings of characters. It is rarely, if ever, useful to use
+<code>write/[1,2]</code> with other kinds of terms, i.e. variables,
+numbers or compound terms.
+</p>
+<p>If you want to be sure that the atom can be read back by <code>read/[1,2]</code>, then you
+should use <code>writeq/[1,2]</code>, or <code>write_canonical/[1,2]</code>, which put 
+quotes around atoms when necessary, or use <code>write_term/[2,3]</code> with the
+<code>quoted</code> option set to <code>true</code>.
+Note also that the printing
+of quoted atoms is sensitive to character escaping (see <a href="ref_002dsyn_002dces.html#ref_002dsyn_002dces">ref-syn-ces</a>).
+<a name="index-quoted_002f1_002c-write_005fterm_002f_005b2_002c3_005d-option"></a>
+</p>
+</li><li> <a name="index-_0027_0024VAR_0027"></a>
+<code>write/[1,2]</code> and <code>writeq/[1,2]</code> use the write option
+<code>numbervars(true)</code>, so treat terms of the form <code>'$VAR'(<var>N</var>)</code>
+specially: they write &lsquo;<samp>A</samp>&rsquo; if <var>N</var>=0, &lsquo;<samp>B</samp>&rsquo; if <var>N</var>=1, &hellip;&lsquo;<samp>Z</samp>&rsquo; if <var>N</var>=25,
+&lsquo;<samp>A1</samp>&rsquo; if <var>N</var>=26, etc.  Terms of this form are generated by
+<code>numbervars/3</code> (see <a href="ref_002dlte_002danv.html#ref_002dlte_002danv">ref-lte-anv</a>).
+<div class="example">
+<pre class="example">| ?- <kbd>writeq(a('$VAR'(0),'$VAR'(1))).</kbd>
+a(A,B)
+</pre></div>
+
+<p><code>write_canonical/1</code> does <em>not</em> treat terms of the form <code>'$VAR'(<var>N</var>)</code>
+specially.
+</p>
+
+</li></ul>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002dtou_002ddsp.html#ref_002diou_002dtou_002ddsp" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002diou_002dtou_002dcha.html#ref_002diou_002dtou_002dcha" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002diou_002dtou.html#ref_002diou_002dtou" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dtou_002ddis.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dtou_002ddis.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

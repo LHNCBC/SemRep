@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-ilm-vis</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-ilm-vis">
+<meta name="keywords" content="SICStus Prolog: ref-mod-ilm-vis">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod_002dilm.html#ref_002dmod_002dilm" rel="up" title="ref-mod-ilm">
+<link href="ref_002dmod_002didp.html#ref_002dmod_002didp" rel="next" title="ref-mod-idp">
+<link href="ref_002dmod_002dilm_002ddef.html#ref_002dmod_002dilm_002ddef" rel="prev" title="ref-mod-ilm-def">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dilm_002dvis"></a>
+<hr>
+<a name="Predicates-Visible-in-a-Module"></a>
+<h4 class="subsubsection">4.11.13.2 Predicates Visible in a Module</h4>
+
+<a name="index-modules_002c-predicates-imported-into"></a>
+<a name="index-predicates-imported-into-modules"></a>
+
+<p>The built-in predicate <code>predicate_property/2</code> can be used to find the
+properties of any predicate that is visible to a particular module.
+</p>
+<p>To backtrack through all of the predicates imported by module <code>m</code>, use
+</p>
+<a name="index-predicate_005fproperty_002f2-_0028built_002din_0029-5"></a>
+<a name="index-predicate_005fproperty_002f2-_0028built_002din_0029-1"></a>
+
+
+<div class="example">
+<pre class="example">| ?- <kbd>predicate_property(m:Goal, imported_from(_)).</kbd>
+</pre></div>
+
+
+<p>To backtrack through all of the predicates imported by module <code>m1</code>
+from module <code>m2</code>, use
+</p>
+<a name="index-predicate_005fproperty_002f2-_0028built_002din_0029-6"></a>
+<a name="index-predicate_005fproperty_002f2-_0028built_002din_0029-2"></a>
+
+
+<div class="example">
+<pre class="example">| ?- <kbd>predicate_property(m1:Goal, imported_from(m2)).</kbd>
+</pre></div>
+
+
+<p>For example, you can load the <code>between</code>
+module from the library and then remind yourself of 
+what predicates it defines like this: 
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>compile(library(between))</kbd>.
+% &hellip; loading messages &hellip;
+
+yes
+| ?- <kbd>predicate_property(P, imported_from(between))</kbd>.
+P = numlist(_A,_B) ? <kbd>;</kbd>
+P = numlist(_A,_B,_C,_D,_E) ? <kbd>;</kbd>
+  .
+  .
+  .
+</pre></div>
+
+<p>This tells you what predicates are imported into the type-in module
+from <code>basics</code>.  
+</p>
+<p>You can also find <em>all</em> imports into <em>all</em> modules using
+</p><div class="example">
+<pre class="example">| ?- <kbd>predicate_property(M1:G, imported_from(M2)).</kbd>
+</pre></div>
+
+
+<p>To backtrack through all of the defined predicates exported by module <code>m</code>, use
+</p>
+<a name="index-predicate_005fproperty_002f2-_0028built_002din_0029-7"></a>
+<a name="index-predicate_005fproperty_002f2-_0028built_002din_0029-3"></a>
+
+
+<div class="example">
+<pre class="example">| ?- <kbd>predicate_property(m:Goal, exported).</kbd>
+</pre></div>
+<p>See <a href="mpg_002dref_002dpredicate_005fproperty.html#mpg_002dref_002dpredicate_005fproperty">mpg-ref-predicate_property</a>.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002dilm_002ddef.html#ref_002dmod_002dilm_002ddef" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod_002dilm.html#ref_002dmod_002dilm" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dilm_002dvis.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dilm_002dvis.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

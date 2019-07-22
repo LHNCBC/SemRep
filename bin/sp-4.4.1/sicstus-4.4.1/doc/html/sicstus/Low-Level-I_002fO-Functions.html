@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Low Level I/O Functions</title>
+
+<meta name="description" content="SICStus Prolog: Low Level I/O Functions">
+<meta name="keywords" content="SICStus Prolog: Low Level I/O Functions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Defining-a-New-Stream.html#Defining-a-New-Stream" rel="up" title="Defining a New Stream">
+<link href="Hookable-Standard-Streams.html#Hookable-Standard-Streams" rel="next" title="Hookable Standard Streams">
+<link href="Defining-a-New-Stream.html#Defining-a-New-Stream" rel="prev" title="Defining a New Stream">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Low-Level-I_002fO-Functions"></a>
+<hr>
+<a name="Low-Level-I_002fO-Functions-1"></a>
+<h4 class="subsubsection">6.6.2.1 Low Level I/O Functions</h4>
+
+<p>For each new stream the appropriate low level I/O functions have
+to be defined.  Error handling, prompt handling and character counting
+is handled in a layer above these functions.  They all operate on a user
+defined private data structure specified when the stream is created.
+</p>
+
+<dl compact="compact">
+<dt><var>user_read()</var></dt>
+<dd><p>Should fill a buffer with data available from the stream. See <a href="cpg_002dref_002duser_005fread.html#cpg_002dref_002duser_005fread">cpg-ref-user_read</a>.
+</p>
+</dd>
+<dt><var>user_write()</var></dt>
+<dd><p>Should write data from a buffer to the stream. See <a href="cpg_002dref_002duser_005fwrite.html#cpg_002dref_002duser_005fwrite">cpg-ref-user_write</a>.
+</p>
+</dd>
+<dt><var>user_flush_output()</var></dt>
+<dd><p>Should flush the (output) stream.
+</p>
+</dd>
+<dt><var>user_close()</var></dt>
+<dd><p>Should close the stream in the specified directions. Note that
+bi-directional streams can be closed one direction at a time.
+</p></dd>
+</dl>
+
+<p><strong>Please note:</strong> A foreign resource that defines user defined
+streams must ensure that all its streams are closed when the foreign
+resource is unloaded. Failure to do this will lead to crashes when
+SICStus tries to close the stream using a <code>user_close</code> method that
+is no longer present.
+</p>
+<p>The easiest way to ensure that all user defined streams of a particular
+class is closed is to use <code>SP_fclose</code> with the
+<code>SP_FCLOSE_OPTION_USER_STREAMS</code>. Another way is to use
+<code>SP_next_stream</code> and <code>SP_get_stream_user_data</code> to find all
+your streams and close them one by one. See <a href="cpg_002dref_002dSP_005ffclose.html#cpg_002dref_002dSP_005ffclose">cpg-ref-SP_fclose</a>,
+<a href="cpg_002dref_002dSP_005fnext_005fstream.html#cpg_002dref_002dSP_005fnext_005fstream">cpg-ref-SP_next_stream</a> and <a href="cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata.html#cpg_002dref_002dSP_005fget_005fstream_005fuser_005fdata">cpg-ref-SP_get_stream_user_data</a>.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Defining-a-New-Stream.html#Defining-a-New-Stream" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Low-Level-I_002fO-Functions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Low-Level-I_002fO-Functions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

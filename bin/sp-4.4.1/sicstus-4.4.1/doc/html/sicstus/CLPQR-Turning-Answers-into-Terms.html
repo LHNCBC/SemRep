@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPQR Turning Answers into Terms</title>
+
+<meta name="description" content="SICStus Prolog: CLPQR Turning Answers into Terms">
+<meta name="keywords" content="SICStus Prolog: CLPQR Turning Answers into Terms">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CLPQR-Projection.html#CLPQR-Projection" rel="up" title="CLPQR Projection">
+<link href="CLPQR-Projecting-Inequalities.html#CLPQR-Projecting-Inequalities" rel="next" title="CLPQR Projecting Inequalities">
+<link href="CLPQR-Variable-Ordering.html#CLPQR-Variable-Ordering" rel="prev" title="CLPQR Variable Ordering">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPQR-Turning-Answers-into-Terms"></a>
+<hr>
+<a name="Turning-Answers-into-Terms"></a>
+<h4 class="subsubsection">10.11.5.2 Turning Answers into Terms</h4>
+<p>In meta-programming applications one needs to get a grip on the results
+computed by the clp(Q,R) solver. You can use the predicate
+<code>dump/3</code> for that purpose:
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>{2*A+B+C=10,C-D=E,A&lt;10}, dump([A,B,C,D,E],[a,b,c,d,e],Constraints).</kbd>
+
+Constraints = [e&lt;10.0,a=10.0-c-d-2.0*e,b=c+d],
+{C=10.0-2.0*A-B},
+{E=10.0-2.0*A-B-D},
+{A&lt;10.0} 
+</pre></div>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPQR-Projecting-Inequalities.html#CLPQR-Projecting-Inequalities" accesskey="n" rel="next">Next</a>
+<li><a href="CLPQR-Variable-Ordering.html#CLPQR-Variable-Ordering" accesskey="p" rel="prev">Previous</a>
+<li><a href="CLPQR-Projection.html#CLPQR-Projection" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Turning-Answers-into-Terms.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Turning-Answers-into-Terms.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

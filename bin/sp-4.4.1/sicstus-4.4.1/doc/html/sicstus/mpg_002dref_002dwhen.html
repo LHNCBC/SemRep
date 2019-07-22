@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-when</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-when">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-when">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dwrite.html#mpg_002dref_002dwrite" rel="next" title="mpg-ref-write">
+<link href="mpg_002dref_002dvolatile.html#mpg_002dref_002dvolatile" rel="prev" title="mpg-ref-volatile">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dwhen"></a>
+<hr>
+<a name="when_002f2"></a>
+<h4 class="subsection">11.3.250 <code>when/2</code></h4>
+<a name="index-when_002f2-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-when_002f2-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-275"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>when(<var>+Condition</var>,<var>+Goal</var>)</code>
+</p>
+<p>Blocks <var>Goal</var> until the <var>Condition</var> is true.
+</p>
+<a name="Arguments-252"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Condition</var></dt>
+<dd><p><em>callable</em>, must be nonvar and one of:
+</p><dl compact="compact">
+<dd><a name="index-nonvar_002f1-_0028when_002f2-condition_0029"></a>
+</dd>
+<dt><code>nonvar(<var>X</var>)</code></dt>
+<dd><p>False until <var>X</var> is nonvar.
+</p>
+<a name="index-ground_002f1-_0028when_002f2-condition_0029"></a>
+</dd>
+<dt><code>ground(<var>X</var>)</code></dt>
+<dd><p>False until <var>X</var> is ground.
+</p>
+<a name="index-_003f_003d_002f2-_0028when_002f2-condition_0029"></a>
+</dd>
+<dt><code>?=(<var>X</var>,<var>Y</var>)</code></dt>
+<dd><p>False while <code>dif(<var>X</var>,<var>Y</var>)</code> would block.
+</p>
+<a name="index-_002c_002f2-_0028when_002f2-condition_0029"></a>
+</dd>
+<dt><code><var>Condition</var>,<var>Condition</var></code></dt>
+<dd><p>True if both conditions are true.
+</p>
+<a name="index-_003b_002f2-_0028when_002f2-condition_0029"></a>
+</dd>
+<dt><code><var>Condition</var>;<var>Condition</var></code></dt>
+<dd><p>True if at least one condition is true.
+</p></dd>
+</dl>
+
+</dd>
+<dt><var>:Goal</var></dt>
+<dd><p><em>callable</em>, must be nonvar
+</p></dd>
+</dl>
+
+<a name="Backtracking-32"></a>
+<h4 class="subheading">Backtracking</h4>
+
+<p>Depends on <var>Goal</var>.
+</p>
+<a name="Examples-98"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">| ?- <kbd>when(((nonvar(X);?=(X,Y)),ground(T)), process(X,Y,T)).</kbd>
+</pre></div>
+
+<a name="Exceptions-266"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+</p>
+<a name="See-Also-272"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dwrite.html#mpg_002dref_002dwrite" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dvolatile.html#mpg_002dref_002dvolatile" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dwhen.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dwhen.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

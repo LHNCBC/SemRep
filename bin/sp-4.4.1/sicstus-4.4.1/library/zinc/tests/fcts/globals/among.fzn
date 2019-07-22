@@ -1,0 +1,8 @@
+%-----------------------------------------------------------------------------%
+% Requires exactly 'n' variables in 'x' to take one of the values in 'v'.
+%-----------------------------------------------------------------------------%
+array[1 .. 4] of var 1 .. 4: a :: output_array([1..4]);
+
+constraint among_sicstus(2, a, {2,3});
+
+solve satisfy;

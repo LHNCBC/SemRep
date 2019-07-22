@@ -1,0 +1,65 @@
+#!/bin/bash
+
+ARCHITECTURE=`/bin/uname`
+
+if [ $ARCHITECTURE = "SunOS" ]
+then
+   EMACS=/nfsvol/nls/tools/emacs-22.1/bin/emacs
+else
+   EMACS=/usr/bin/emacs
+fi  
+
+DEFAULT_SKRENV=SKRenv.13
+SOURCE_HOME_SKRenv=0
+
+EXTRA_SICSTUS_ARGS=
+
+while getopts dF:HL:pw:S: option
+do
+   # echo option: $option
+   # echo OPTARG: $OPTARG
+   case $option
+   in
+        d) DEFAULT_FLAG='-d';;
+	F) EXTRA_SICSTUS_ARGS="$EXTRA_SICSTUS_ARGS $OPTARG";;
+        H) SOURCE_HOME_SKRenv=1;;
+        L) DEFAULT_FLAG="$DEFAULT_FLAG -L $OPTARG";;
+        p) DEFAULT_FLAG="$DEFAULT_FLAG -p";;
+	S) DEFAULT_SKRENV=$OPTARG;;
+        w) DEFAULT_FLAG="$DEFAULT_FLAG -w $OPTARG";;
+   esac
+
+   # echo ALLARGS2: $ALLARSG
+done
+
+shift `expr $OPTIND - 1`
+EXTRA_SICSTUS_ARGS="$EXTRA_SICSTUS_ARGS $*"
+OPTIND=1
+
+if [ $SOURCE_HOME_SKRenv -eq 1 ]
+then
+   if [ ! -f $SKR_HOME/bin/$DEFAULT_SKRENV ]
+   then
+      echo $SKR_HOME/bin/$DEFAULT_SKRENV does not exist.
+      exit 1
+   else
+      echo sourcing $SKR_HOME/bin/$DEFAULT_SKRENV $DEFAULT_FLAG
+      . $SKR_HOME/bin/$DEFAULT_SKRENV $DEFAULT_FLAG
+   fi
+elif [ ! -f $SKR/bin/$DEFAULT_SKRENV ]
+then
+   echo $SKR/bin/$DEFAULT_SKRENV does not exist.
+   exit 1
+else
+   echo sourcing $SKR/bin/$DEFAULT_SKRENV $DEFAULT_FLAG
+   . $SKR/bin/$DEFAULT_SKRENV $DEFAULT_FLAG
+fi
+
+# remove leading and trailing blanks
+EXTRA_SICSTUS_ARGS=`echo $EXTRA_SICSTUS_ARGS | sed -e 's/^ *\([^ ]*\) *$/\1/'`
+
+export EXTRA_SICSTUS_ARGS
+echo "EXTRA_SICSTUS_ARGS = >$EXTRA_SICSTUS_ARGS<"
+COMMAND="$EMACS -geometry 100x65+450+0 --funcall run-prolog"
+echo "COMMAND: $COMMAND"
+$COMMAND &

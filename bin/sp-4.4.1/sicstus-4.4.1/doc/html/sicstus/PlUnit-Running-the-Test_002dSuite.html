@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: PlUnit Running the Test-Suite</title>
+
+<meta name="description" content="SICStus Prolog: PlUnit Running the Test-Suite">
+<meta name="keywords" content="SICStus Prolog: PlUnit Running the Test-Suite">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dplunit.html#lib_002dplunit" rel="up" title="lib-plunit">
+<link href="PlUnit-Tests-and-Production-Systems.html#PlUnit-Tests-and-Production-Systems" rel="next" title="PlUnit Tests and Production Systems">
+<link href="PlUnit-Tests-Expected-to-Raise-Exceptions.html#PlUnit-Tests-Expected-to-Raise-Exceptions" rel="prev" title="PlUnit Tests Expected to Raise Exceptions">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="PlUnit-Running-the-Test_002dSuite"></a>
+<hr>
+<a name="Running-the-Test_002dSuite"></a>
+<h4 class="subsection">10.27.4 Running the Test-Suite</h4>
+
+<p>At any time, the tests can be executed by loading the program and
+running <code>run_tests/[0,1,2]</code>:
+</p>
+<dl compact="compact">
+<dt><code>run_tests</code></dt>
+<dd>
+<a name="index-run_005ftests_002f_005b0_002c1_002c2_005d-_0028plunit_0029-1"></a>
+<a name="index-run_005ftests_002f_005b0_002c1_002c2_005d-_0028plunit_0029"></a>
+
+<p>Run all individual tests of all test-units.
+</p>
+</dd>
+<dt><code>run_tests(<var>Spec</var>)</code></dt>
+<dt><code>run_tests(<var>Spec</var>,<var>Options</var>)</code></dt>
+<dd><p>Run only the specified tests.  The options <code>quiet</code> and
+<code>verbose</code> (the default) are available; see below.
+<var>Spec</var> should be one of:
+</p>
+<ul>
+<li> a term <var>Unit</var> where <var>Unit</var> is the name of a test-unit,
+denotes all individual tests of the test-unit <var>Unit</var>, or
+</li><li> a term <var>Unit:Test</var> where <var>Unit</var> is the name of a test-unit and
+<var>Test</var> is one of its individual tests, denotes the given test only, or
+</li><li> a term <var>Unit:List</var> where <var>Unit</var> is the name of a test-unit and
+<var>List</var> is a list of its individual tests, denotes the given list of tests, or
+</li><li> finally, a list of terms of one of the above forms.
+</li></ul>
+</dd>
+</dl>
+
+<p>Running single tests is particularly useful for tracing a test, e.g.:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>trace, run_tests(lists:member).</kbd>
+</pre></div>
+
+<p><code>run_tests/[0,1,2]</code> prints a report during execution.  The
+<code>quiet</code> options suppresses informational messages; in its absence,
+messages are printed in full as follows.
+</p>
+<p>First, each test-unit report begins with a header:
+</p>
+<div class="display">
+<pre class="display"><code>% PL-Unit: <var>Unit</var></code>
+</pre></div>
+
+<p>Then comes a message (success or failure) for all specified tests not
+marked as <code>blocked</code> or <code>fixme</code>.  Success messages are
+informational; others are error or warning messages. Any errors
+encountered while executing options are also reported.  To close the
+test-unit, a footer is printed:
+</p>
+<div class="display">
+<pre class="display"><code>% done</code>
+</pre></div>
+
+<p>After all test-units, a summary report is printed, stating:
+</p>
+<ul>
+<li> how many tests passed resp. failed
+</li><li> which tests were blocked
+</li><li> details for each test marked as <code>fixme</code> 
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="PlUnit-Tests-and-Production-Systems.html#PlUnit-Tests-and-Production-Systems" accesskey="n" rel="next">Next</a>
+<li><a href="PlUnit-A-Unit-Test-Box.html#PlUnit-A-Unit-Test-Box" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dplunit.html#lib_002dplunit" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PlUnit-Running-the-Test_002dSuite.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PlUnit-Running-the-Test_002dSuite.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

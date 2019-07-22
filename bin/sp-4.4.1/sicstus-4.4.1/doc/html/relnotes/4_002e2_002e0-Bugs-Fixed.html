@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.2.0 Bugs Fixed</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.2.0 Bugs Fixed">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.2.0 Bugs Fixed">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e2_002e0-Changes.html#g_t4_002e2_002e0-Changes" rel="up" title="4.2.0 Changes">
+<link href="4_002e2_002e0-Other-Changes.html#g_t4_002e2_002e0-Other-Changes" rel="next" title="4.2.0 Other Changes">
+<link href="4_002e2_002e0-New-Features.html#g_t4_002e2_002e0-New-Features" rel="prev" title="4.2.0 New Features">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e2_002e0-Bugs-Fixed"></a>
+<hr>
+<a name="Bugs-Fixed-11"></a>
+<h4 class="subsection">14.16.2 Bugs Fixed</h4>
+
+<ul>
+<li> Interrupt latency problem fixed.
+</li><li> Fixed exception handling bug introduced in 4.1.3.
+</li><li> Misencoded and null strings from C are handled gracefully.
+</li><li> <code>write_term(X,[max_depth(D)])</code> did not always respect the depth limit.
+</li><li> <code>seeing/1</code> and <code>telling/1</code> now return <code>user</code> for the
+current input resp. output stream, which was always intended.
+</li><li> If the standard input stream encounters an invalid character, then it will be
+silently replaced with the Unicode replacement character <code>0xFFFD</code>. This
+was already the case for the standard output streams.
+
+<p>The same behavior, for the standard input and output streams, is now
+also in effect when running SICStus in the SPIDER IDE.
+</p></li><li> When <code>open/[3,4]</code> cannot expand a system property, e.g.
+<code>open('$FOO/bar.txt', read, S)</code> when the system property <code>FOO</code>
+is undefined or empty, an exception is raised.  Previosly,
+<code>open/[3,4]</code> silently failed in this case.
+</li><li> The system property <code>SP_ALLOW_CHDIR</code> could not be set using the environment
+variable of the same name.
+</li><li> The <code>spld</code> tool would ignore the <samp>--namebase</samp> argument
+for some generated files.
+</li><li> CLPFD:
+<ul class="no-bullet">
+<li>- Dangling pointer hazard fixed for domain variables with frozen goals.
+</li><li>- Missing propagation problems fixed.
+</li><li>- <code>sorting/3</code> could fall into infinite loop.
+</li><li>- Indexical compilation problems fixed.
+</li></ul>
+</li><li> CLPQ/CLPR: called the undefined predicate <code>'C'/3</code>.
+</li><li> <code>library(terms)</code>: bugs in <code>sub_term/2</code>,  <code>term_variables/2</code>, 
+<code>subsumeschk/2</code> and friends.
+</li><li> 
+Improvements in how <code>library('linda/server')</code> and
+<code>library('linda/client')</code> handle server shutdown.
+
+<p>The server will stop listening for new connections as soon as it
+receives a shutdown request from a client. Among other things this makes
+the socket port available for re-use on the same machine.
+</p>
+<p>A call to <code>linda_client:shutdown_server/0</code>, in the client, will not
+return until the server has acknowledged the command. This removes a
+race condition when the client attempts to re-connect to the server.
+</p>
+</li><li> A number of problems in <code>library(odbc)</code> has been fixed. There are
+also some new features and other changes; see above.
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e2_002e0-Other-Changes.html#g_t4_002e2_002e0-Other-Changes" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e2_002e0-New-Features.html#g_t4_002e2_002e0-New-Features" accesskey="p" rel="prev">Previous</a>
+<li><a href="4_002e2_002e0-Changes.html#g_t4_002e2_002e0-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e0-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e0-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

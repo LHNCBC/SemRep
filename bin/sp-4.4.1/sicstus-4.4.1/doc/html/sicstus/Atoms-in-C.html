@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Atoms in C</title>
+
+<meta name="description" content="SICStus Prolog: Atoms in C">
+<meta name="keywords" content="SICStus Prolog: Atoms in C">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Support-Functions.html#Support-Functions" rel="up" title="Support Functions">
+<link href="Creating-Prolog-Terms.html#Creating-Prolog-Terms" rel="next" title="Creating Prolog Terms">
+<link href="Creating-and-Manipulating-SP_005fterm_005frefs.html#Creating-and-Manipulating-SP_005fterm_005frefs" rel="prev" title="Creating and Manipulating SP_term_refs">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Atoms-in-C"></a>
+<hr>
+<a name="Atoms-in-C-1"></a>
+<h4 class="subsection">6.4.2 Atoms in C</h4>
+
+<a name="index-SP_005fatom_005ffrom_005fstring_0028_0029-_0028C-function_0029"></a>
+
+<a name="index-canonical-representation-of-atoms"></a>
+<a name="index-atoms_002c-canonical-representation-of"></a>
+<a name="index-SP_005fatom-_0028C-type_0029-2"></a>
+
+<p>Each Prolog atom is represented internally by a unique integer, its
+<em>canonical representation</em>, with the corresponding C type
+<code>SP_atom</code>.  This mapping between atoms and integers depends on
+the execution history.  Certain functions require this representation
+as opposed to an SP_term_ref.  It can be obtained by a special
+argument type declaration when calling C from Prolog, by calling
+<code>SP_get_atom()</code>, or by looking up an encoded string <code>s</code> in
+the Prolog symbol table by calling <code>SP_atom_from_string(s)</code> which
+returns the atom, or zero if the given string is malformed (is not a
+valid sequence of UTF-8 encoded characters).
+</p>
+<p>The encoded string containing the characters of a Prolog
+atom <code>a</code> can be obtained by calling
+<code>SP_string_from_atom()</code>.
+</p>
+<a name="index-SP_005fstring_005ffrom_005fatom_0028_0029-_0028C-function_0029"></a>
+
+<p>The length of the encoded string representing a Prolog atom
+<code>a</code> can be obtained by calling
+<code>SP_atom_length()</code>.
+</p>
+<a name="index-SP_005fatom_005flength_0028_0029-_0028C-function_0029"></a>
+
+<p>Prolog atoms, and the space occupied by their print names, are
+subject to garbage collection when the number of atoms has
+reached a certain threshold, under the control of the <code>agc_margin</code>
+Prolog flag, or when the atom garbage
+collector is called explicitly.  The atom garbage collector
+will find all references to atoms from the Prolog specific memory
+areas, including SP_term_refs and arguments passed from
+Prolog to foreign language functions.  However, atoms created by
+<code>SP_atom_from_string()</code> and merely stored in a local variable are
+endangered by garbage collection.  The functions 
+<code>SP_register_atom()</code> and <code>SP_unregister_atom()</code>
+make it
+possible to protect an atom while it is in use.  The operations
+are implemented using reference counters to support multiple,
+independent use of the same atom in different foreign
+resources.
+<a name="index-agc_005fmargin-_0028prolog-flag_0029-2"></a>
+<a name="index-SP_005fregister_005fatom_0028_0029-_0028C-function_0029"></a>
+<a name="index-SP_005funregister_005fatom_0028_0029-_0028C-function_0029"></a>
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Creating-Prolog-Terms.html#Creating-Prolog-Terms" accesskey="n" rel="next">Next</a>
+<li><a href="Creating-and-Manipulating-SP_005fterm_005frefs.html#Creating-and-Manipulating-SP_005fterm_005frefs" accesskey="p" rel="prev">Previous</a>
+<li><a href="Support-Functions.html#Support-Functions" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Atoms-in-C.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Atoms-in-C.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

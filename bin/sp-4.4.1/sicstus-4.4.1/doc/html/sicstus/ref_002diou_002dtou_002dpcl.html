@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-tou-pcl</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-tou-pcl">
+<meta name="keywords" content="SICStus Prolog: ref-iou-tou-pcl">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou_002dtou.html#ref_002diou_002dtou" rel="up" title="ref-iou-tou">
+<link href="ref_002diou_002dcin.html#ref_002diou_002dcin" rel="next" title="ref-iou-cin">
+<link href="ref_002diou_002dtou_002dpor.html#ref_002diou_002dtou_002dpor" rel="prev" title="ref-iou-tou-por">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002dtou_002dpcl"></a>
+<hr>
+<a name="Portraying-a-Clause"></a>
+<h4 class="subsubsection">4.6.4.6 Portraying a Clause</h4>
+
+
+<a name="index-portray_005fclause_002f_005b1_002c2_005d-_0028built_002din_0029-1"></a>
+<a name="index-portray_005fclause_002f_005b1_002c2_005d-_0028built_002din_0029"></a>
+
+
+<a name="index-printing-clauses"></a>
+<a name="index-clauses_002c-printing"></a>
+
+<p>If you want to print a clause, then <code>portray_clause/[1,2]</code> is almost
+certainly the command you want. None of the other term output commands
+puts a full-stop after the written term.  If you are writing a file of
+facts to be loaded by <code>compile/1</code>, then use <code>portray_clause/[1,2]</code>, which
+attempts to ensure that the clauses it writes out can be read in again
+as clauses.
+</p>
+<p>The output format used by <code>portray_clause/[1,2]</code> and <code>listing/[0,1]</code> has been
+carefully designed to be clear.  We recommend that you use a
+similar style.  In particular, never put a semicolon (disjunction symbol)
+at the end of a line in Prolog.
+See <a href="mpg_002dref_002dportray_005fclause.html#mpg_002dref_002dportray_005fclause">mpg-ref-portray_clause</a>.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002dtou_002dpor.html#ref_002diou_002dtou_002dpor" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002diou_002dtou.html#ref_002diou_002dtou" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dtou_002dpcl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dtou_002dpcl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

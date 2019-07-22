@@ -1,0 +1,9 @@
+predicate disjunctive_sicstus(array [int] of var int: s,array [int] of var int: d);
+var 0..2: X_INTRODUCED_0;
+var 0..2: X_INTRODUCED_1;
+var {0,2}: X_INTRODUCED_2;
+var {0,2}: X_INTRODUCED_3;
+array [1..2] of var int: x:: output_array([1..2]) = [X_INTRODUCED_0,X_INTRODUCED_1];
+array [1..2] of var int: d:: output_array([1..2]) = [X_INTRODUCED_2,X_INTRODUCED_3];
+constraint disjunctive_sicstus(x,d);
+solve  satisfy;

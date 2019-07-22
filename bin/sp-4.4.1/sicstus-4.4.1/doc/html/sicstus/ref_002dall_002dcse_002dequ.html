@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-all-cse-equ</title>
+
+<meta name="description" content="SICStus Prolog: ref-all-cse-equ">
+<meta name="keywords" content="SICStus Prolog: ref-all-cse-equ">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dall_002dcse.html#ref_002dall_002dcse" rel="up" title="ref-all-cse">
+<link href="ref_002dall_002dcba.html#ref_002dall_002dcba" rel="next" title="ref-all-cba">
+<link href="ref_002dall_002dcse.html#ref_002dall_002dcse" rel="prev" title="ref-all-cse">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dall_002dcse_002dequ"></a>
+<hr>
+<a name="Existential-Quantifier"></a>
+<h4 class="subsubsection">4.13.2.1 Existential Quantifier</h4>
+
+
+<a name="index-_005e_002f2-_0028built_002din_0029-1"></a>
+<a name="index-_005e_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-existential-quantifier"></a>
+<a name="index-quantifier_002c-existential"></a>
+
+
+<p><var>X</var> <code>^</code> <var>P</var> is recognized as meaning &ldquo;there exists an
+<var>X</var> such that <var>P</var> is true&rdquo;, and is treated as equivalent to
+simply calling <var>P</var>.  The use of the explicit existential
+quantifier outside <code>setof/3</code> and <code>bagof/3</code> is superfluous.
+</p>
+<p>Variables occurring in <var>Generator</var> will not be treated as free if they are
+explicitly bound within <var>Generator</var> by an existential quantifier.
+An existential quantification is written:
+</p><div class="example">
+<pre class="example"><var>Y</var>^<var>Q</var>
+</pre></div>
+
+<p>meaning &ldquo;there exists a <var>Y</var> such that <var>Q</var> is true&rdquo;, where <var>Y</var>
+is some Prolog variable.
+For example:
+</p><div class="example">
+<pre class="example">| ?- <kbd>setof(X, Y^likes(X,Y), S).</kbd>
+</pre></div>
+        
+<p>would produce the single result
+</p><div class="example">
+<pre class="example">S = [bill,dick,harry,jan,tom] <kbd>;</kbd>
+no
+</pre></div>
+
+<p>in contrast to the earlier example.
+</p>
+<p>Furthermore, it is possible to existentially quantify a term, where
+all the variables in that term are taken to be existentially quantified
+in the goal.  E.g.
+</p>
+<div class="example">
+<pre class="example">A=term(X,Y), setof(Z, A^foo(X,Y,Z), L).
+</pre></div>
+
+<p>will treat <var>X</var> and <var>Y</var> as if they are existentially quantified.  
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dall_002dcse.html#ref_002dall_002dcse" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dall_002dcse_002dequ.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dall_002dcse_002dequ.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

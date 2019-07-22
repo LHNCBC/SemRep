@@ -1,0 +1,196 @@
+# -*- Mode:makefile -*-
+#
+# Copyright (C) 2004 Swedish Institute of Computer Science.
+#
+# NOTE: This Makefile requires GNU make.
+#
+
+SRCDIR=.
+SRCROOT = $(SRCDIR)/../..
+
+.PHONY: default
+default: all
+
+# Include common Makefile parts.
+# [PM] 4.2 $(SRCROOT)/... should really be configure-output-directory or some such
+include $(SRCROOT)/Common
+vpath config.status $(SRCROOT)/
+vpath env_vsnet.sh.in $(SRCROOT)/Distrib/Win32
+
+ifeq ($(WIN32),no)		# unix
+# No J# on unix yet.
+else				# win32
+
+SP_ROOTLIBDIR=$(SP_BINDIR)
+
+# [PM] 3.11.3 this is now done in Utils/Makefile library-post
+PBDLL := 
+# PBDLL=$(SP_ROOTLIBDIR)/prologbeans.dll
+
+# [M] 4.3.2 FIXME: Remove the examples-related cruft. The J# examples are gone.
+JSHARP_EXAMPLES_DIR = examples_jsharp
+
+.PHONY: all
+all:  $(PBDLL) prologbeansjsharp.dll
+
+# [PM] 4.3.2 There are no C#-specific examples anymore; the C#
+# examples are build by the C# Makefile
+# all: examples
+
+
+# .LOW_RESOLUTION_TIME: $(PBDLL)
+$(PBDLL): $(JSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.dll
+	$(INSTALL) "$<" "$@"
+GENERATED_FILES += $(PBDLL)
+
+env_vsnet.sh := env_vsnet.sh
+
+# [PM] 4.2 generate on demand.
+env_vsnet.sh : % : %.in config.status
+	$(POSIX_SHELL) $(filter %config.status,$^) '--file=$@:$<'
+	if test -f '$@'; then : ; else echo 'Did not create $@' 1>&2; exit 1 ; fi
+	if test -s '$@'; then : ; else echo 'Created empty $@' 1>&2; exit 1 ; fi
+GENERATED_FILES += env_vsnet.sh
+GENERATED_FILES += config.log
+
+
+OutputDirectoryRoot = ./docs
+GENERATED_FILES += $(OutputDirectoryRoot)
+
+HtmlHelp2OutputDirectory = $(OutputDirectoryRoot)/HtmlHelp2
+GENERATED_FILES += $(HtmlHelp2OutputDirectory)
+JavaDocOutputDirectory = $(OutputDirectoryRoot)/JavaDoc
+GENERATED_FILES += $(JavaDocOutputDirectory)
+
+PROLOGBEANS_SOURCES_EXTRA = Context.java HttpSession.java HttpSessionBindingEvent.java HttpSessionBindingListener.java InitialContext.java
+# [PD] 4.0.0beta2 Source files for Prologbeans. Common to both Java and .NET.
+PROLOGBEANS_SOURCES = $(wildcard $(SRCROOT)/se/sics/prologbeans/*.java) $(PROLOGBEANS_SOURCES_EXTRA)
+
+# [PM] 4.0beta3 of course, we need to use $(foreach F, $^, $(call NATIVEPATHBACKSLASH, $(F))) or some such
+# [PD] 4.0.0beta1 For some reason the second NATIVEPATHBACKSLASH (i.e. cygwin -w)
+#                 fails here with the error message:
+# cygpath: error converting "AppSession.cs AssemblyInfo.cs Bindings.cs FastParser.cs FastWriter.cs PBAtom.cs PBAtomic.cs PBBignum.cs PBCompound.cs PBFloat.cs PBInteger.cs PBListCell.cs PBMonitor.cs PBNil.cs PBTerm.cs PBVariable.cs PrologSession.cs QueryAnswer.cs SupportClass.cs" - File name too long
+#                 Replaced the following with the foreach below.
+#               $(patsubst %, '%', $(call NATIVEPATHBACKSLASH, $^))
+
+# [PM] 4.2 updated but not tested
+# prologbeans.dll: $(PROLOGBEANS_SOURCES) $(env_vsnet.sh)
+# 	. $(filter %$(env_vsnet.sh),$^) && $(CSC) $(CSCFLAGS) \
+#                '/out:$(call NATIVEPATHBACKSLASH, $@)' \
+#                /doc:prologbeans.NET.xml \
+#                /target:library \
+#                $(patsubst %, '%', $(foreach PBFILE,$(filter %.cs,$^),$(call NATIVEPATHBACKSLASH, $(PBFILE))))
+
+JSHARP_DLL_OUTPUT_DIR_PREFIX = jsharp_bin/
+
+$(JSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.dll: $(PROLOGBEANS_SOURCES) $(env_vsnet.sh)	
+	mkdir -p '$(@D)'
+	. $(dir $(filter %$(env_vsnet.sh),$^))$(notdir $(filter %$(env_vsnet.sh),$^)) && $(VJC) $(VJCFLAGS) \
+               '/out:$(call NATIVEPATHBACKSLASH, $@)' \
+               /target:library \
+               $(patsubst %, '%', $(foreach PBFILE,$(filter %.java,$^),$(call NATIVEPATHBACKSLASH, $(PBFILE))))
+GENERATED_FILES += $(JSHARP_DLL_OUTPUT_DIR_TMPDIR_PREFIX)
+GENERATED_FILES += $(JSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.dll
+GENERATED_FILES += $(JSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.pdb
+GENERATED_FILES += prologbeans.NET.xml
+
+prologbeansjsharp.dll: $(JSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.dll
+	$(CP) $< $@
+GENERATED_FILES += prologbeansjsharp.dll
+
+
+# # [PM] 3.11.3 Set this to VS.NET 2003 with NDOC 1.3, HtmlHelp2 with NDOC 1.2
+NDOCHELPDOCUMENTER ?= $(error NDOCHELPDOCUMENTER should be set in Common)
+
+DOCTYPES = javadoc
+
+ifeq ($(ENABLE_HtmlHelp2), yes)
+DOCTYPES += htmlhelp2
+endif				# ENABLE_HtmlHelp2
+
+DOCTYPES = htmlhelp2
+
+.PHONY: doc
+doc: $(addsuffix _doc, $(DOCTYPES))
+
+# NDOCFLAGS = -verbose
+
+# [PM] 3.11.3 NOTE: For some reason you cannot build the HtmlHelp2
+# docs via Cygwin sshd. You get a
+# System.UnauthorizedAccessException. Probably somthing to do with the
+# hxconv COM objects.
+
+.PHONY: htmlhelp2_doc
+htmlhelp2_doc: prologbeans.NET.HtmlHelp2.ndoc $(JSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.dll
+	mkdir -p $(HtmlHelp2OutputDirectory)
+	$(NDOC) $(NDOCFLAGS) -documenter='$(NDOCHELPDOCUMENTER)' -project=$<
+	rm -f $(HtmlHelp2OutputDirectory)/*.log
+
+.PHONY: javadoc_doc
+javadoc_doc: prologbeans.NET.JavaDoc.ndoc $(JSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.dll
+	mkdir -p $(JavaDocOutputDirectory)
+	$(NDOC) -documenter=JavaDoc -project=$<
+
+.PHONY: install_docs
+install_docs: HtmlHelp2OutputDirectory = $(HtmlHelp2DOCSDIR)
+install_docs: JavaDocOutputDirectory = $(JavaDocDOCSDIR)
+install_docs: doc
+
+
+# [PD] 4.0.0beta2 Generate an XML-file from the Javadoc comments. This
+#                 XML is processed by NDoc (above) to create
+#                 API-documentations. Unfortunately NDoc does not (yet?)
+#                 handle .NET 2.0 assemblies which is what we get when
+#                 compiling with vjc.exe.
+#                 *** FIXME: What to do, what to do?
+DOCLETDIR=$(SRCROOT)/se/sics/sicstus/doctools
+
+prologbeans.NET.xml: PBDoclet.class $(PROLOGBEANS_SOURCES)
+	$(JAVADOC) -assembly prologbeans -doclet $(patsubst %.class,%,$<) -docletpath $(DOCLETDIR) $(PROLOGBEANS_SOURCES)
+	cp prologbeans.xml $@
+GENERATED_FILES += prologbeans.NET.xml prologbeans.xml
+
+JAVADOC_CLASSPATH=$(call NATIVEPATH, $(JAVAC)/../../lib/tools.jar)
+
+PBDoclet.class: $(DOCLETDIR)/PBDoclet.java
+	$(JAVAC) -classpath $(JAVADOC_CLASSPATH) $<
+GENERATED_FILES += $(DOCLETDIR)/PBDoclet.class
+
+prologbeans.NET.JavaDoc.ndoc prologbeans.NET.HtmlHelp2.ndoc: prologbeans.NET.ndoc.in prologbeans.NET.xml
+	sed -e 's,@HtmlHelp2OutputDirectory@,$(subst \,\\,$(call NATIVEPATHBACKSLASH, $(HtmlHelp2OutputDirectory))),g' \
+	    -e 's,@JavaDocOutputDirectory@,$(subst \,\\,$(call NATIVEPATHBACKSLASH, $(JavaDocOutputDirectory))),g' < "$<" > "$@"
+GENERATED_FILES += prologbeans.NET.JavaDoc.ndoc prologbeans.NET.HtmlHelp2.ndoc
+
+EXAMPLE_EXES := $(JSHARP_EXAMPLES_DIR)/evaluate.NET/EvaluateGUI.exe $(JSHARP_EXAMPLES_DIR)/pbtest.NET/PBTest.exe
+
+.PHONY: examples
+examples: $(EXAMPLE_EXES)
+
+# [PM] 4.3.2 we no longer force 32-bit in the CSCFLAGS but it is still
+# needed by code that uses our J# library (but why, did not J# come in
+# a 64-bit capable version at some point?)
+
+CSSFLAGS_FOR_JSHARP_COMPATIBILITY = /platform:x86
+
+$(EXAMPLE_EXES): %.exe: $(JSHARP_DLL_OUTPUT_DIR_PREFIX)prologbeans.dll %.cs $(env_vsnet.sh)
+	. $(dir $(filter %$(env_vsnet.sh),$^))$(notdir $(filter %$(env_vsnet.sh),$^)) && $(CSC) $(CSCFLAGS) $(CSSFLAGS_FOR_JSHARP_COMPATIBILITY) \
+                '/reference:$(call NATIVEPATHBACKSLASH, $<)' \
+		$(if $(DOCLETDIR), '/reference:$(call NATIVEPATHBACKSLASH, $(DOTNET2DIR)/vjslib.dll)') \
+		$(csc_flags_extra) \
+                '/out:$(call NATIVEPATHBACKSLASH, $@)' \
+                $(patsubst %, '%', $(foreach F, $(filter %.cs, $^), $(call NATIVEPATHBACKSLASH, $(F))))
+GENERATED_FILES += $(EXAMPLE_EXES)
+
+endif				# win32
+
+.PHONY: clean distclean mostlyclean
+clean distclean mostlyclean:
+	rm -rf  $(GENERATED_FILES)
+	find . -name 'prologbeans.dll' -print -exec rm {} \;
+	find . -name '*.pdb' -print -exec rm {} \;
+	find . -name '*.suo' -print -exec rm {} \;
+
+.PHONY:  maintainerclean
+maintainerclean: clean
+	rm -f $(JSHARP_EXAMPLES_DIR)/pbtest.NET/pbtest.exe.config
+

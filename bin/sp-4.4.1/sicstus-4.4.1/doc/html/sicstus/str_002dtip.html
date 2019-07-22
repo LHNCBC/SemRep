@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: str-tip</title>
+
+<meta name="description" content="SICStus Prolog: str-tip">
+<meta name="keywords" content="SICStus Prolog: str-tip">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dstructs.html#lib_002dstructs" rel="up" title="lib-structs">
+<link href="str_002dexa.html#str_002dexa" rel="next" title="str-exa">
+<link href="str_002detr.html#str_002detr" rel="prev" title="str-etr">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="str_002dtip"></a>
+<hr>
+<a name="Tips-2"></a>
+<h4 class="subsection">10.37.9 Tips</h4>
+
+<ol>
+<li> Most important tip: do not subvert the <code>structs</code> type
+system by looking inside foreign terms to get the address, or use
+<code>functor/3</code> to get the type.  This has two negative effects: firstly, if
+the <code>structs</code> package should change its representation of foreign terms, then
+your code will not work.  But more importantly, you are more likely to
+get type mismatches, and likely to get unwrapped terms or even doubly
+wrapped terms where you expect wrapped ones.
+</li><li> Remember that a foreign term <code>fred(123456)</code> is not of type <code>fred</code>, but a
+pointer to <code>fred</code>.  Looked at another way, what resides in memory at
+address 123456 is of type <code>fred</code>.
+</li><li> The wrapper put on a foreign term signifies the type of that foreign
+term.  If you declare a type to be <code>pointer(opaque)</code> because you want to
+view that pointer to be opaque, when you get something of this
+type, then it will be printed as <code>opaque(456123)</code>.  This is not very
+informative.  It is better to declare
+<div class="example">
+<pre class="example">fred = opaque,
+thing = struct([&hellip;,
+            part:pointer(fred),
+            &hellip;
+        ]).
+</pre></div>
+
+<p>so that when you get the contents of the <code>part</code> member of a <code>thing</code>, it is
+wrapped as <code>fred(456123)</code>.
+</p></li></ol>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="str_002dexa.html#str_002dexa" accesskey="n" rel="next">Next</a>
+<li><a href="str_002detr.html#str_002detr" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dstructs.html#lib_002dstructs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002dtip.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002dtip.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

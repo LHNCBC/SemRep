@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-ere-leg</title>
+
+<meta name="description" content="SICStus Prolog: ref-ere-leg">
+<meta name="keywords" content="SICStus Prolog: ref-ere-leg">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dere.html#ref_002dere" rel="up" title="ref-ere">
+<link href="ref_002dere_002dint.html#ref_002dere_002dint" rel="next" title="ref-ere-int">
+<link href="ref_002dere_002dexa.html#ref_002dere_002dexa" rel="prev" title="ref-ere-exa">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dere_002dleg"></a>
+<hr>
+<a name="Legacy-Predicates"></a>
+<h4 class="subsection">4.15.6 Legacy Predicates</h4>
+
+<p>Exception handling for Prolog was originally introduced in Quintus
+Prolog, and later inherited by SICStus Prolog, with an API that predated
+the ISO standard.  This API is still supported but should be regarded as
+legacy, and consists of the two predicates <code>raise_exception/1</code> and
+<code>on_exception/3</code>:
+</p>
+<a name="index-raise_005fexception_002f1-_0028built_002din_0029-1"></a>
+<a name="index-raise_005fexception_002f1-_0028built_002din_0029"></a>
+
+
+<a name="index-on_005fexception_002f3-_0028built_002din_0029-1"></a>
+<a name="index-on_005fexception_002f3-_0028built_002din_0029"></a>
+
+
+<dl compact="compact">
+<dt><code>on_exception(<var>?Template</var>, <var>:ProtectedGoal</var>, <var>:Handler</var>)</code></dt>
+<dd><p>Equivalent to <code>catch(<var>:ProtectedGoal</var>, <var>?Template</var>,
+<var>:Handler</var>)</code>.  Any exception term matching <var>Template</var> is caught
+and handled.
+See <a href="mpg_002dref_002don_005fexception.html#mpg_002dref_002don_005fexception">mpg-ref-on_exception</a>.
+</p>
+</dd>
+<dt><code>raise_exception(<var>+ExceptionTerm</var>)</code></dt>
+<dd><p>If <var>ExceptionTerm</var> matches one of the SICStus error terms listed in
+<a href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>, then the corresponding error term
+<code>error(<var>ISO_Error</var>, <var>SICStus_Error</var>)</code> is constructed and thrown.
+Otherwise, <var>ExceptionTerm</var> is thrown as is.
+</p></dd>
+</dl>
+
+<p>Prior to release 4.3, <code>throw/1</code> and <code>raise_exception/3</code> used
+to be equivalent and throw their argument as is, whereas <code>catch/3</code>
+and <code>on_exception/3</code> both used to attempt to recognize and expand
+SICStus error terms into <code>error/2</code> terms.  Unless a forged SICStus
+error term is thrown by <code>throw/1</code>, the net behavior is unchanged.
+See <a href="mpg_002dref_002draise_005fexception.html#mpg_002dref_002draise_005fexception">mpg-ref-raise_exception</a>.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dere_002dint.html#ref_002dere_002dint" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dere_002dexa.html#ref_002dere_002dexa" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dere.html#ref_002dere" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002dleg.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002dleg.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

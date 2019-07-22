@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-mod</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-mod">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-mod">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dref.html#mpg_002dref" rel="up" title="mpg-ref">
+<link href="mpg_002dref_002dcat.html#mpg_002dref_002dcat" rel="next" title="mpg-ref-cat">
+<link href="mpg_002dref_002dove.html#mpg_002dref_002dove" rel="prev" title="mpg-ref-ove">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dmod"></a>
+<hr>
+<a name="Mode-Annotations"></a>
+<h4 class="subsection">11.1.2 Mode Annotations</h4>
+
+<a name="index-mode-annotations"></a>
+
+<a name="index-_002d_002c-mode-annotation"></a>
+
+<a name="index-_002b_002c-mode-annotation"></a>
+
+<a name="index-_003f_002c-mode-annotation"></a>
+
+<p>The mode annotations are useful to tell whether an argument is input
+or output or both. They also describe formally the instantiation
+pattern to the call that makes the call to the built-ins determinate.
+</p>
+<p>The mode annotations in the above example are &lsquo;<samp>+</samp>&rsquo; and &lsquo;<samp>-</samp>&rsquo;.
+Following is a complete description of the mode annotations you will
+find in the reference pages:
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>+</samp>&rsquo;</dt>
+<dd><p>Input argument. This argument will be inspected by the predicate, and
+affects the behavior of the predicate. An exception is raised if the
+argument is not of the expected type. Note that an input argument can
+be an unbound variable in some cases.
+</p>
+</dd>
+<dt>&lsquo;<samp>-</samp>&rsquo;</dt>
+<dd><p>Output argument. This argument is unified with the
+output value of the predicate. An output argument is only tested to be
+of the same type as the possible output value if this is prescribed
+by the ISO standard, or if such testing is deemed helpful to the user.
+</p>
+</dd>
+<dt>&lsquo;<samp>?</samp>&rsquo;</dt>
+<dd><p>An argument that could be either input or output. This mode annotation
+is normally only used for predicates that behave as pure relations and
+do not type test their arguments.
+</p>
+</dd>
+</dl>
+
+<p>If the synopsis of a predicate has more than one mode declaration, then the
+first (the topmost) that satisfies the types (of a goal instance) is
+the one to be applied (to that goal instance).
+</p>
+<p>All built-in predicates of arity zero are determinate
+(with the exception of <code>repeat/0</code>).
+</p>
+<p>For <em>input</em> arguments, an exception <em>will</em> be raised if the argument
+is not of the specified type.
+</p>
+<p>For <em>output</em> arguments, an exception <em>might</em> be raised if the argument
+is <em>nonvar</em>, and not of the specified type. The generated <em>value</em>
+of the argument <em>will</em> be of the specified type.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dcat.html#mpg_002dref_002dcat" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dove.html#mpg_002dref_002dove" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dref.html#mpg_002dref" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dmod.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dmod.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

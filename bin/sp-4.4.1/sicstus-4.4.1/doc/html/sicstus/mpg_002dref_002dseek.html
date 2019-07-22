@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-seek</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-seek">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-seek">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dseen.html#mpg_002dref_002dseen" rel="next" title="mpg-ref-seen">
+<link href="mpg_002dref_002dseeing.html#mpg_002dref_002dseeing" rel="prev" title="mpg-ref-seeing">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dseek"></a>
+<hr>
+<a name="seek_002f4"></a>
+<h4 class="subsection">11.3.201 <code>seek/4</code></h4>
+<a name="index-seek_002f4-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-seek_002f4-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-226"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>seek(<var>+Stream</var>, <var>+Offset</var>, <var>+Method</var>, <var>-NewLocation</var>)</code>
+</p>
+<p>Seeks to an arbitrary position in <var>Stream</var>.
+</p>
+<a name="Arguments-208"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Stream</var></dt>
+<dd><p><em>stream_object</em>, must be ground
+</p>
+<p>A valid Prolog stream.
+</p>
+</dd>
+<dt><var>Offset</var></dt>
+<dd><p><em>integer</em>, must be nonvar
+</p>
+<p>The offset, in <em>items</em>, to seek relative to the specified <var>Method</var>.
+Items are bytes for binary streams, characters for text streams.
+</p>
+</dd>
+<dt><var>Method</var></dt>
+<dd><p><em>one of <code>[bof,current,eof]</code></em>, must be nonvar
+</p>
+<p>Where start seeking, one of the following:
+</p>
+<dl compact="compact">
+<dt><code>bof</code></dt>
+<dd><a name="index-bof-_0028seek_002f4-method_0029"></a>
+<p>Seek from beginning of the file stream.
+</p>
+</dd>
+<dt><code>current</code></dt>
+<dd><a name="index-current-_0028seek_002f4-method_0029"></a>
+<p>Seek from current position of the file stream.
+</p>
+</dd>
+<dt><code>eof</code></dt>
+<dd><a name="index-eof-_0028seek_002f4-method_0029"></a>
+<p>Seek from end of the file stream.
+</p></dd>
+</dl>
+
+</dd>
+<dt><var>NewLocation</var></dt>
+<dd><p><em>integer</em>
+</p>
+<p>The offset from beginning of the file after
+seeking operation.
+</p></dd>
+</dl>
+
+<a name="Description-162"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Sets the current position
+of the file stream <var>Stream</var> to a new position according to
+<var>Offset</var> and <var>Method</var>.  If <var>Method</var> is:
+</p>
+<dl compact="compact">
+<dt><code>bof</code></dt>
+<dd><p>then the new position is set to <var>Offset</var> <em>items</em> from
+beginning of the file stream.
+</p>
+</dd>
+<dt><code>current</code></dt>
+<dd><p>then the new position is <var>Offset</var> plus the
+current position of <var>Stream</var>.
+</p>
+</dd>
+<dt><code>eof</code></dt>
+<dd><p>then the new position is <var>Offset</var>,
+plus the current size of the stream.
+</p>
+<p>Avoid using this <var>Method</var>. Determining the size of the stream may
+be expensive or unsupported for some streams.
+</p>
+</dd>
+</dl>
+
+
+
+<p>Positions and offsets are measured in <em>items</em>, bytes for binary
+streams and characters for text streams. Note that there may not be
+any simple relationship between the number of characters read and the
+byte offset of a text file.
+</p>
+<p>After applying
+this operation on a text stream, the
+line counts and line position
+aspects of the stream position of <var>Stream</var> will be undefined.
+</p>
+<p>The term &ldquo;file&rdquo; above is used even though the stream may be
+connected to other seekable objects that are not files, e.g. an
+in-memory buffer.
+</p>
+<a name="Exceptions-217"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+</p>
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Offset</var> or <var>Method</var> is not instantiated.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd>
+<p><var>Stream</var> is not a stream object, or
+<var>Offset</var> is not an integer, or
+<var>Method</var> is not an atom.
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p><var>Method</var> is not one of <code>bof</code>, <code>current</code> or <code>eof</code>, or
+the resulting position would refer to an unsupported location.
+Some streams supports setting the position past the current end of the
+stream, in this case the stream is padded with zero bytes or
+characters as soon as an item is written to the new location.
+</p>
+
+
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>Seeking was not possible. Common reasons include: the stream has not
+been opened with <code>reposition(true)</code>, the stream is a text stream
+that does not implement seeking, or an I/O error happened during seek.
+</p>
+</dd>
+</dl>
+
+<a name="See-Also-223"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>stream_position/2</code>, <code>set_stream_position/2</code>,
+<code>open/[3,4]</code>, <code>byte_count/2</code>, <code>character_count/2</code>,
+<code>line_count/2</code>, <code>line_position/2</code>, <a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh">ref-iou-sfh</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dseen.html#mpg_002dref_002dseen" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dseeing.html#mpg_002dref_002dseeing" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dseek.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dseek.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-sem-ctr</title>
+
+<meta name="description" content="SICStus Prolog: ref-sem-ctr">
+<meta name="keywords" content="SICStus Prolog: ref-sem-ctr">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsem.html#ref_002dsem" rel="up" title="ref-sem">
+<link href="ref_002dsem_002dctr_002dcut.html#ref_002dsem_002dctr_002dcut" rel="next" title="ref-sem-ctr-cut">
+<link href="ref_002dsem_002dtyp_002drpr.html#ref_002dsem_002dtyp_002drpr" rel="prev" title="ref-sem-typ-rpr">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsem_002dctr"></a>
+<hr>
+<a name="Control-Structures"></a>
+<h4 class="subsection">4.2.3 Control Structures</h4>
+
+<a name="index-control-structure"></a>
+<a name="index-structure_002c-control"></a>
+
+
+<a name="index-conjunction"></a>
+<a name="index-and"></a>
+
+<a name="index-_002c_002f2_002c-conjunction-1"></a>
+<a name="index-_002c_002f2_002c-conjunction"></a>
+
+<p>As we have seen, the goals in the body of a sentence are linked by the
+operator &lsquo;<samp>,</samp>&rsquo;, which can be interpreted as conjunction (and).  The
+Prolog language provides a number of other operators, known as
+<em>control structures</em>, for building complex goals.  Apart from
+being built-in predicates, these control structures play a special
+role in certain language features, namely Grammar Rules
+(see <a href="ref_002dgru.html#ref_002dgru">ref-gru</a>), and when code is loaded or asserted in the context
+of modules (see <a href="ref_002dmod.html#ref_002dmod">ref-mod</a>).  The set of control structures is
+described in this section, and consists of:
+</p>
+<dl compact="compact">
+<dt><code><var>:P</var>,<var>:Q</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>prove <var>P</var> and <var>Q</var>
+</p>
+</dd>
+<dt><code><var>:P</var>;<var>:Q</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>prove <var>P</var> or <var>Q</var>
+</p>
+</dd>
+<dt><code><var>+M</var>:<var>:P</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>call <var>P</var> in module <var>M</var>
+</p>
+</dd>
+<dt><code><var>:P</var>-&gt;<var>:Q</var>;<var>:R</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>if <var>P</var> succeeds, then prove <var>Q</var>; if not, then prove <var>R</var>
+</p>
+</dd>
+<dt><code><var>:P</var>-&gt;<var>:Q</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>if <var>P</var> succeeds, then prove <var>Q</var>; if not, then fail
+</p>
+</dd>
+<dt><code>! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>cut any choices taken in the current procedure
+</p>
+</dd>
+<dt><code>\+ <var>:P</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>goal <var>P</var> is not provable
+</p>
+</dd>
+<dt><code><var>?X</var> ^ <var>:P</var></code></dt>
+<dd><p>there exists an <var>X</var> such that <var>P</var> is provable (used in <code>setof/3</code> and <code>bagof/3</code>)
+</p>
+</dd>
+<dt><code><var>+Iterators</var> do <var>:Body</var></code></dt>
+<dd><p>executes <var>Body</var> iteratively according to <var>Iterators</var>
+</p>
+</dd>
+<dt><code>if(<var>:P</var>,<var>:Q</var>,<var>:R</var>)</code></dt>
+<dd><p>for each solution of  <var>P</var> succeeds, prove <var>Q</var>; if none, then prove <var>R</var>
+</p>
+</dd>
+<dt><code>once(<var>:P</var>) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>Find the first solution, if any, of goal <var>P</var>.
+</p></dd>
+</dl>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002dsem_002dctr_002dcut.html#ref_002dsem_002dctr_002dcut" accesskey="1">ref-sem-ctr-cut</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The Cut
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dsem_002dctr_002ddis.html#ref_002dsem_002dctr_002ddis" accesskey="2">ref-sem-ctr-dis</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Disjunctions
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dsem_002dctr_002dite.html#ref_002dsem_002dctr_002dite" accesskey="3">ref-sem-ctr-ite</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">If-Then-Else
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dsem_002dctr_002dnaf.html#ref_002dsem_002dctr_002dnaf" accesskey="4">ref-sem-ctr-naf</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Negation as Failure
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dsem_002dctr_002ddol.html#ref_002dsem_002dctr_002ddol" accesskey="5">ref-sem-ctr-dol</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Do-Loops
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dsem_002dctr_002doth.html#ref_002dsem_002dctr_002doth" accesskey="6">ref-sem-ctr-oth</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Other Control Structures
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsem_002dtyp.html#ref_002dsem_002dtyp" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsem.html#ref_002dsem" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dctr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dctr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

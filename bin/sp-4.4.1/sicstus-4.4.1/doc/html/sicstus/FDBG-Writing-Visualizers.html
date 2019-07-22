@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FDBG Writing Visualizers</title>
+
+<meta name="description" content="SICStus Prolog: FDBG Writing Visualizers">
+<meta name="keywords" content="SICStus Prolog: FDBG Writing Visualizers">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" rel="up" title="FDBG Advanced Usage">
+<link href="FDBG-Writing-Legend-Printers.html#FDBG-Writing-Legend-Printers" rel="next" title="FDBG Writing Legend Printers">
+<link href="FDBG-Customizing-Output.html#FDBG-Customizing-Output" rel="prev" title="FDBG Customizing Output">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FDBG-Writing-Visualizers"></a>
+<hr>
+<a name="Writing-Visualizers"></a>
+<h4 class="subsubsection">10.15.4.2 Writing Visualizers</h4>
+
+<p>For more complicated problems you might want to change the output more
+drastically.  In this case you have to write and use your own
+visualizers, which could naturally be problem specific, not like
+<code>fdbg_show/2</code> and <code>fdbg_label_show/3</code>.  As we described
+earlier, currently there are two types of visualizers:
+</p>
+<dl compact="compact">
+<dt><em>constraint visualizer</em></dt>
+<dd>
+<div class="example">
+<pre class="example"><var>MyGlobalVisualizer</var>([<var>+Arg1</var>, <var>+Arg2</var>, &hellip;] <var>+Constraint</var>, <var>+Actions</var>)
+</pre></div>
+
+<p>This visualizer is passed in the <code>constraint_hook</code> option.  It must
+take at least two arguments, the last two of which being:
+</p>
+<dl compact="compact">
+<dt><var>Constraint</var></dt>
+<dd><p>the constraint that was handled by the dispatcher
+</p></dd>
+<dt><var>Actions</var></dt>
+<dd><p>the action list returned by the dispatcher
+</p></dd>
+</dl>
+
+<p>Other arguments can be used for any purpose, for example to select
+the verbosity level of the visualizer.  This way you do not have to
+modify your code if you would like to see less or more information.
+Note however, that the two obligatory arguments must appear at the
+<em>end</em> of the argument list.
+</p>
+<p>When passing as an option to <code>fdbg_on/1</code>, only the optional
+arguments have to be specified; the two mandatory arguments
+should be omitted.  See <a href="FDBG-Debugging-Global-Constraints.html#FDBG-Debugging-Global-Constraints">FDBG Debugging Global Constraints</a> for an
+example.
+</p>
+</dd>
+<dt><em>labeling visualizer</em></dt>
+<dd>
+<div class="example">
+<pre class="example"><var>MyLabelingVisualizer</var>([<var>+Arg1</var>, <var>+Arg2</var>, &hellip;] <var>+Event</var>, <var>+ID</var>, <var>+Var</var>)
+</pre></div>
+
+<p>This visualizer is passed in the <code>labeling_hook</code> option.  It must
+have at least three arguments, the last three of which being:
+</p>
+<dl compact="compact">
+<dt><var>Event</var></dt>
+<dd><p>a term representing the labeling event, can be one of the
+following:
+</p>
+<dl compact="compact">
+<dt>start</dt>
+<dd><p>labeling has just started for a variable
+</p></dd>
+<dt>fail</dt>
+<dd><p>labeling has just failed for a variable
+</p></dd>
+<dt>step(<var>Step</var>)</dt>
+<dd><p>variable has been constrained in a labeling step described by the
+compound term <var>Step</var>, which is either created by <code>library(clpfd)</code>&rsquo;s labeling
+predicates (in this case, simply print it&mdash;FDBG will know how to
+handle it) or by you; see <a href="FDBG-Annotation.html#FDBG-Annotation">FDBG Annotation</a>.
+</p></dd>
+</dl>
+
+</dd>
+<dt><var>ID</var></dt>
+<dd><p>identifies the labeling session, i.e. binds step and fail events
+to the corresponding start event
+</p></dd>
+<dt><var>Var</var></dt>
+<dd><p>the variable being the subject of labeling
+</p></dd>
+</dl>
+
+</dd>
+</dl>
+
+<p>The failure of a visualizer is ignored and multiple choices are
+cut by FDBG.  Exceptions, on the other hand, are not caught.
+</p>
+<p>FDBG provides several predicates to ease the work of the
+visualizer writers.  These predicates are the following:
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-fdbg_005fannotate_002f_005b3_002c4_005d-_0028fdbg_0029-1"></a>
+<a name="index-fdbg_005fannotate_002f_005b3_002c4_005d-_0028fdbg_0029"></a>
+
+</dd>
+<dt><code>fdbg_annotate(<var>+Term0</var>, <var>-Term</var>, <var>-Variables</var>)</code></dt>
+<dt><code>fdbg_annotate(<var>+Term0</var>, <var>+Actions</var>, <var>-Term</var>, <var>-Variables</var>)</code></dt>
+<dd><p>Replaces each constraint variable in <var>Term0</var> by a
+compound term describing it and returns the result in <var>Term</var>.
+Also, collects these compound terms into the list
+<var>Variables</var>.  These compound terms have the following form:
+</p>
+<div class="example">
+<pre class="example">fdvar(<var>Name</var>, <var>Var</var>, <var>FDSet</var>)
+</pre></div>
+
+<dl compact="compact">
+<dt><var>Name</var></dt>
+<dd><p>is the name of the variable (auto-generated, if necessary;
+see <a href="FDBG-Name-Auto_002dGeneration.html#FDBG-Name-Auto_002dGeneration">FDBG Name Auto-Generation</a>)
+</p></dd>
+<dt><var>Var</var></dt>
+<dd><p>is the variable itself
+</p></dd>
+<dt><var><var>FDSet</var></var></dt>
+<dd><p>is the domain of the variable <em>after</em> narrowing with <var>Actions</var>,
+if specified; otherwise, it is the <em>current</em> domain of the variable
+</p></dd>
+</dl>
+
+
+<a name="index-fdbg_005flegend_002f_005b1_002c2_005d-_0028fdbg_0029-1"></a>
+<a name="index-fdbg_005flegend_002f_005b1_002c2_005d-_0028fdbg_0029"></a>
+
+</dd>
+<dt><code>fdbg_legend(<var>+Vars</var>)</code></dt>
+<dd><p>Prints a legend of <var>Vars</var>, which is a list of <code>fdvar/3</code>
+compound terms returned by <code>fdbg_annotate/[3,4]</code>.
+</p>
+</dd>
+<dt><code>fdbg_legend(<var>+Vars</var>, <var>+Actions</var>)</code></dt>
+<dd><p>Prints a legend of <var>Vars</var> followed by some conclusions regarding the
+constraint (exiting, failing, etc.) based on <var>Actions</var>.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FDBG-Writing-Legend-Printers.html#FDBG-Writing-Legend-Printers" accesskey="n" rel="next">Next</a>
+<li><a href="FDBG-Customizing-Output.html#FDBG-Customizing-Output" accesskey="p" rel="prev">Previous</a>
+<li><a href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Writing-Visualizers.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Writing-Visualizers.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

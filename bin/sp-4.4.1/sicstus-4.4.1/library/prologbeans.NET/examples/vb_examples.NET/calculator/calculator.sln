@@ -1,0 +1,21 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "calculator", "calculator.vbproj", "{61E06327-661D-440A-9CCB-9DD9E97C2FD4}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{61E06327-661D-440A-9CCB-9DD9E97C2FD4}.Debug.ActiveCfg = Debug|.NET
+		{61E06327-661D-440A-9CCB-9DD9E97C2FD4}.Debug.Build.0 = Debug|.NET
+		{61E06327-661D-440A-9CCB-9DD9E97C2FD4}.Release.ActiveCfg = Release|.NET
+		{61E06327-661D-440A-9CCB-9DD9E97C2FD4}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

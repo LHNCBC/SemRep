@@ -1,0 +1,139 @@
+#!/bin/sh
+
+PROGRAM=`basename $0`
+
+USAGE="$PROGRAM -d | -p | -w HOME"
+
+NLS=/nfsvol/nls
+
+LEXICON_VERSION="2008"
+
+MODEL_LOCATION_BASE_DIR=/nfsvol/nls3aux18/DB/
+export MODEL_LOCATION_BASE_DIR
+
+SKR_LEXICON=$NLS/specialist/SKR/src/lexicon
+export SKR_LEXICON
+
+# Mats Carlsson's fix for the "Toronto" citation
+PROLOGMAXSIZE=1000M
+export PROLOGMAXSIZE
+
+ARCHITECTURE=`/bin/uname`
+
+if [ $ARCHITECTURE = "SunOS" ]
+then
+   ulimit -n 2047
+else
+   ulimit -n 1024
+fi
+
+MORPH_CHOICE=""
+
+while getopts L:M:w: option
+do
+   # echo SKRrun option is $option
+   case $option
+   in
+	L) LEXICON_VERSION=$OPTARG;;
+	M) MORPH_CHOICE="."$OPTARG;;
+	w) SKR_LEXICON=$OPTARG;;
+	?) echo Unknown option $option
+ 	   exit 1;;
+   esac
+done
+
+export SKR_LEXICON
+export LEXICON_VERSION
+
+shift `expr $OPTIND - 1`
+OPTIND=1
+export OPTIND
+
+DATABASE_HOME=$SKR_LEXICON/data
+export DATABASE_HOME
+
+SKR_MORPH=$SKR_LEXICON/morph${MORPH_CHOICE}
+export SKR_MORPH
+
+DEFAULT_LEXICON_FILE=$DATABASE_HOME/lexiconStatic${LEXICON_VERSION}
+export DEFAULT_LEXICON_FILE
+
+DEFAULT_LEXICON_INDEX_FILE=${DEFAULT_LEXICON_FILE}Ind
+export DEFAULT_LEXICON_INDEX_FILE
+
+DM_TRANSLATED_RULES_FILE=$SKR_MORPH/dm_translated_rules
+export DM_TRANSLATED_RULES_FILE
+
+DM_TRANSLATED_FACTS_FILE=$SKR_MORPH/dm_translated_facts
+export DM_TRANSLATED_FACTS_FILE
+
+IM_TRANSLATED_RULES_FILE=$SKR_MORPH/im_translated_rules
+export IM_TRANSLATED_RULES_FILE
+
+IM_TRANSLATED_FACTS_FILE=$SKR_MORPH/im_translated_facts
+export IM_TRANSLATED_FACTS_FILE
+
+LM_TRANSLATED_RULES_FILE=$SKR_MORPH/lm_translated_rules
+export LM_TRANSLATED_RULES_FILE
+
+TAGGER_SERVER_HOST_0=indsc1
+export TAGGER_SERVER_HOST_0
+
+TAGGER_SERVER_HOST_1=indsc2
+export TAGGER_SERVER_HOST_1
+
+TAGGER_SERVER_TCP_PORT_0=1795
+export TAGGER_SERVER_TCP_PORT_0
+
+TAGGER_SERVER_TCP_PORT_1=1795
+export TAGGER_SERVER_TCP_PORT_1
+
+TAGGER_SERVER_DELIMITER='^THE_END^\n'
+export TAGGER_SERVER_DELIMITER
+
+DISAMB_SERVER_HOST_0=mti2
+export DISAMB_SERVER_HOST_0
+
+DISAMB_SERVER_HOST_1=skr2
+export DISAMB_SERVER_HOST_1
+
+DISAMB_SERVER_TCP_PORT_0=5554
+export DISAMB_SERVER_TCP_PORT_0
+
+DISAMB_SERVER_TCP_PORT_1=5554
+export DISAMB_SERVER_TCP_PORT_1
+
+DISAMB_SERVER_BEGIN_DELIMITER='<Response>'
+export DISAMB_SERVER_BEGIN_DELIMITER
+
+DISAMB_SERVER_END_DELIMITER='</Response>'
+export DISAMB_SERVER_END_DELIMITER
+
+DISAMB_METHODS='['\''STI_METHOD'\'']'
+export DISAMB_METHODS
+
+DISAMB_WEIGHTS='[1.0]'
+export DISAMB_WEIGHTS
+
+XML_VERSION="<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+export XML_VERSION
+
+XML_DOCTYPE="DOCTYPE MMO PUBLIC"
+export XML_DOCTYPE
+
+XML_DOCNAME="-//NLM//DTD MetaMap Machine Output//EN"
+export XML_DOCNAME
+
+XML_DTD="http://ii-public.nlm.nih.gov/DTD/MMOtoXML_v2.dtd"
+export XML_DTD
+
+DTD="http://ii-public.nlm.nih.gov/DTD/MMOtoXML.dtd"
+export DTD
+
+if [ $# -gt 0 ]
+then
+   case $1 in
+   -*) ;;
+    *) exec $* ;;
+   esac
+fi

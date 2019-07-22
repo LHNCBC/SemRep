@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Debug Format</title>
+
+<meta name="description" content="SICStus Prolog: Debug Format">
+<meta name="keywords" content="SICStus Prolog: Debug Format">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Debug-Intro.html#Debug-Intro" rel="up" title="Debug Intro">
+<link href="Debug-Commands.html#Debug-Commands" rel="next" title="Debug Commands">
+<link href="Plain-Spypoint.html#Plain-Spypoint" rel="prev" title="Plain Spypoint">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Debug-Format"></a>
+<hr>
+<a name="Format-of-Debugging-Messages"></a>
+<h3 class="section">5.4 Format of Debugging Messages</h3>
+<a name="index-debugging-messages"></a>
+<a name="index-messages_002c-debugging"></a>
+
+<p>We shall now look at the exact format of the message output by the
+system at a port.  All trace messages are output to the standard
+error stream, using the <code>print_message/2</code> predicate;
+see <a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>.  This allows you to trace programs
+while they are performing file I/O.  The basic format is as follows:
+</p>
+<div class="example">
+<pre class="example"><var>N</var> <var>S</var>    23     <var>F</var>6 Call: <var>T</var> foo(hello,there,_123) ?
+</pre></div>
+
+<p><var>N</var> is only used at Exit ports and indicates whether the
+invocation could backtrack and find alternative solutions.
+Unintended nondeterminacy is a source of inefficiency, and this
+annotation can help spot such efficiency bugs.  It is printed as
+&lsquo;<samp>?</samp>&rsquo;, indicating that <code>foo/3</code> could backtrack and find
+alternative solutions, or &lsquo;<samp>&nbsp;</samp>&rsquo; otherwise.
+</p>
+<p><var>S</var> is a spypoint indicator.  If there is a plain
+spypoint on <code>foo/3</code>, then it is printed as &lsquo;<samp>+</samp>&rsquo;. In case of
+conditional and generic spypoints it takes the form &lsquo;<samp>*</samp>&rsquo; and
+&lsquo;<samp>#</samp>&rsquo;, respectively. Finally, it is printed as &lsquo;<samp>&nbsp;</samp>&rsquo;, if there is
+no spypoint on the predicate being traced.
+</p>
+<p>The first number is the unique invocation identifier.  It is increasing
+regardless of whether or not debugging messages are output for the
+invocations (provided that the debugger is switched on).  This number
+can be used to cross correlate the trace messages for the various
+ports, since it is unique for every invocation.  It will also give
+an indication of the number of procedure calls made since the
+start of the execution.  The invocation counter starts again for every
+fresh execution of a command, and it is also reset when retries (see
+later) are performed.
+</p>
+<a name="index-current-frame"></a>
+<a name="index-frame_002c-current"></a>
+<p>Just before the second number is an optional <em>frame marker</em>, printed
+as &lsquo;<samp>@</samp>&rsquo; if present.  This marks the location of the current frame,
+the meaning of which is explained in the next section.
+</p>
+<a name="index-ancestor-goal"></a>
+<a name="index-goal_002c-ancestor"></a>
+<p>The second number is the <em>current depth</em>; i.e. the number
+of direct ancestors this goal has, for which a
+procedure box has been built by the debugger.
+</p>
+<p>The next word specifies the particular port (Call, Exit, Redo,
+Fail, or Exception).
+</p>
+<p><var>T</var> is a subterm trace.  This is used in conjunction with the
+&lsquo;<samp>^</samp>&rsquo; command (set subterm), described below.  If a subterm has been
+selected, then <var>T</var> is printed as the sequence of commands used to select
+the subterm.  Normally, however, <var>T</var> is printed as &lsquo;<samp>&nbsp;</samp>&rsquo;,
+indicating that no subterm has been selected.
+</p>
+<p>The goal is then printed so that you can inspect its current
+instantiation state.
+</p>
+<p>The final &lsquo;<samp>?</samp>&rsquo; is the prompt indicating that you should type in one
+of the commands allowed (see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>).  If this particular
+port is unleashed, then you will not get this prompt since
+you have specified that you do not wish to interact at this point.
+</p>
+<p>At Exception ports, the trace message is preceded by a message
+about the pending exception, formatted as if it would arrive uncaught at
+the top-level.
+</p>
+<p>Note that calls that are compiled inline 
+are not traced.
+</p>  
+<p>Block and Unblock ports are exceptions to the above debugger message
+format.  A message 
+</p>
+<div class="example">
+<pre class="example">       <var>S</var> -  -  Block: p(_133)
+</pre></div>
+
+<a name="index-blocked-goal"></a>
+<a name="index-goal_002c-blocked"></a>
+<p>indicates that the debugger has encountered a blocked goal,
+i.e. one which is temporarily suspended due to insufficiently
+instantiated arguments (see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>).  By default, no
+interaction takes place at this point, and the debugger simply proceeds
+to the next goal in the execution stream.  The suspended
+goal will be eligible for execution once the blocking
+condition ceases to exist, at which time a message
+</p>
+
+<div class="example">
+<pre class="example">       <var>S</var> -  -  Unblock: p(_133)
+</pre></div>
+
+<p>is printed. Although Block and Unblock ports are unleashed
+by default in trace mode, you can make the debugger interact at
+these ports by using conditional spypoints.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Debug-Commands.html#Debug-Commands" accesskey="n" rel="next">Next</a>
+<li><a href="Plain-Spypoint.html#Plain-Spypoint" accesskey="p" rel="prev">Previous</a>
+<li><a href="Debug-Intro.html#Debug-Intro" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Debug-Format.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Debug-Format.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

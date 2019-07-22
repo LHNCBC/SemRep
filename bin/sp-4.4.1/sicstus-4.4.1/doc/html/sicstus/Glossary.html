@@ -1,0 +1,1483 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Glossary</title>
+
+<meta name="description" content="SICStus Prolog: Glossary">
+<meta name="keywords" content="SICStus Prolog: Glossary">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Run-Intro.html#Run-Intro" rel="next" title="Run Intro">
+<link href="ISO-Compliance.html#ISO-Compliance" rel="prev" title="ISO Compliance">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Glossary"></a>
+<hr>
+<a name="Glossary-1"></a>
+<h2 class="chapter">2 Glossary</h2>
+
+<dl compact="compact">
+<dt><em>abolish</em></dt>
+<dd><a name="index-abolish-_0028definition_0029"></a>
+<p>To abolish a predicate is to retract all the
+predicate&rsquo;s clauses and to remove all information about it
+from the Prolog system, to make it as if that predicate had never
+existed.
+</p>
+</dd>
+<dt><em>advice-point</em></dt>
+<dd><a name="index-advice_002dpoint-_0028definition_0029"></a>
+<p>A special case of breakpoint, the advice breakpoint. It is
+distinguished from spypoints in that it is intended for
+non-interactive debugging, such as checking of program invariants,
+collecting information, profiling, etc.
+</p>
+
+</dd>
+<dt><em>alphanumeric</em></dt>
+<dd><a name="index-alphanumeric-_0028definition_0029"></a>
+<p>An alphanumeric character is any of the lowercase characters from
+&lsquo;<samp>a</samp>&rsquo; to &lsquo;<samp>z</samp>&rsquo;, the uppercase characters from &lsquo;<samp>A</samp>&rsquo; to
+&lsquo;<samp>Z</samp>&rsquo;, the numerals from &lsquo;<samp>0</samp>&rsquo; to &lsquo;<samp>9</samp>&rsquo;, or underscore
+(&lsquo;<samp>_</samp>&rsquo;).
+</p>
+</dd>
+<dt><em>ancestors</em></dt>
+<dd><a name="index-ancestors-_0028definition_0029"></a>
+<p>An ancestor of a goal is any goal that the system is
+trying to solve when it calls that goal.  The most distant
+ancestor is the goal that was typed at the top-level prompt.
+</p>
+</dd>
+<dt><em>anonymous variable</em></dt>
+<dd><a name="index-anonymous-variable-_0028definition_0029"></a>
+<a name="index-variable_002c-anonymous-_0028definition_0029"></a>
+<p>An anonymous variable is one that has no unique name, and whose
+value is therefore inaccessible.  An anonymous variable is denoted
+by an underscore (&lsquo;<samp>_</samp>&rsquo;).
+</p>
+</dd>
+<dt><em>argument</em></dt>
+<dd><a name="index-argument-_0028definition_0029"></a>
+<p>See predicate, structure, and arity.
+</p>
+</dd>
+<dt><em>arity</em></dt>
+<dd><a name="index-arity-_0028definition_0029"></a>
+<p>The arity of a structure is its number of arguments.
+For example, the structure <code>customer(jones,85)</code> has an arity
+of 2.
+</p>
+</dd>
+<dt><em>atom</em></dt>
+<dd><a name="index-atom-_0028definition_0029"></a>
+<a name="index-SP_005fatom-_0028C-type_0029"></a>
+<p>A character sequence used to uniquely denote some entity in the problem
+domain.  A number is <em>not</em> an atom.  Examples of legal atoms are:
+</p>
+<div class="example">
+<pre class="example">hello   *   :=   '#$%'   'New York'   'don\'t'
+</pre></div>
+
+<p>See <a href="ref_002dsyn_002dtrm_002dato.html#ref_002dsyn_002dtrm_002dato">ref-syn-trm-ato</a>.  Atoms are recognized by the built-in
+predicate <code>atom/1</code>.  Each Prolog atom is represented
+internally by a unique integer, represented in C as an <code>SP_atom</code>.
+</p>
+</dd>
+<dt><em>atomic term</em></dt>
+<dd><a name="index-atomic-term-_0028definition_0029"></a>
+<a name="index-term_002c-atomic-_0028definition_0029"></a>
+<p>Synonym for constant.
+</p>
+</dd>
+<dt><em>backtrace</em></dt>
+<dd><a name="index-backtrace-_0028definition_0029"></a>
+<p>A collection of information on the control flow of the program,
+gathered by the debugger. Also the display of this information produced
+by the debugger. The backtrace includes data on goals that
+were called but not exited and also on goals that exited
+nondeterminately.
+</p>
+</dd>
+<dt><em>backtracking</em></dt>
+<dd><a name="index-backtracking-_0028definition_0029"></a>
+<p>The process of reviewing the goals that have been satisfied and
+attempting to resatisfy these goals by finding alternative
+solutions.
+</p>
+</dd>
+<dt><em>binding</em></dt>
+<dd><a name="index-binding-_0028definition_0029"></a>
+<p>The process of assigning a value to a variable; used in
+unification.
+</p>
+</dd>
+<dt><em>blocked goal</em></dt>
+<dd><a name="index-blocked-goal-_0028definition_0029"></a>
+<a name="index-goal_002c-blocked-_0028definition_0029"></a>
+<p>A goal that is suspended because it is not instantiated
+enough.
+</p>
+</dd>
+<dt><em>body</em></dt>
+<dd><a name="index-body-_0028definition_0029"></a>
+<p>The body of a clause consists of the part of a Prolog
+clause following the &lsquo;<samp>:-</samp>&rsquo; symbol.
+</p>
+</dd>
+<dt><em>breakpoint</em></dt>
+<dd><a name="index-breakpoint-_0028definition_0029"></a>
+<p>A description of certain invocations in the program where the user
+wants the debugger to stop, or to perform some other actions.  A
+breakpoint is specific if it applies to the calls of a
+specific predicate, possibly under some conditions; otherwise, it
+is generic. Depending on the intended usage, breakpoints can
+be classified as debugger breakpoints, also known as
+spypoints, or advice breakpoints, also called
+advice-points; see <a href="Advanced-Debugging.html#Advanced-Debugging">Advanced Debugging</a>.
+</p>
+</dd>
+<dt><em>breakpoint spec</em></dt>
+<dd><a name="index-breakpoint-spec-_0028definition_0029"></a>
+<p>A term describing a breakpoint. Composed of a test
+part, specifying the conditions under which the breakpoint should
+be applied, and an action part, specifying the effects of the
+breakpoint on the execution.
+</p>
+</dd>
+<dt><em>byte-list</em></dt>
+<dd><a name="index-byte_002dlist-_0028definition_0029"></a>
+<p>A byte-list is a list of bytes, i.e. integers in [0,&hellip;,255].
+</p>
+</dd>
+<dt><em>buffer</em></dt>
+<dd><a name="index-buffer-_0028definition_0029"></a>
+<p>A temporary workspace in Emacs that contains a file being edited.
+</p>
+</dd>
+<dt><em>built-in predicate</em></dt>
+<dd><a name="index-built_002din-predicate-_0028definition_0029"></a>
+<a name="index-predicate_002c-built_002din-_0028definition_0029"></a>
+<p>A predicate that comes with the system and that does not have to
+be explicitly loaded before it is used.
+</p>
+</dd>
+<dt><em>callable term</em></dt>
+<dd><a name="index-callable-term-_0028definition_0029"></a>
+<a name="index-term_002c-callable-_0028definition_0029"></a>
+<p>A callable term is either a compound term or an atom.
+Callable terms are recognized by the built-in predicate
+<code>callable/1</code>.
+</p>
+</dd>
+<dt><em>character code</em></dt>
+<dd><a name="index-character-code-_0028definition_0029"></a>
+<a name="index-code_002c-character-_0028definition_0029"></a>
+<p>An integer that is the numeric representation of a character in the
+character code set.
+</p>
+</dd>
+<dt><em>character code set</em></dt>
+<dd><a name="index-character-code-set-_0028definition_0029"></a>
+<p>A subset of the set {0, &hellip;, 2^31-1} that can be handled in
+input/output. SICStus Prolog fixes the character code set to a
+superset of Unicode, which includes the ASCII code set, i.e. codes
+0..127, and these codes are interpreted as ASCII characters
+</p>
+
+
+
+
+
+
+</dd>
+<dt><em>character-conversion mapping</em></dt>
+<dd><a name="index-character_002dconversion-mapping-_0028definition_0029"></a>
+<p>SICStus Prolog maintains a character-conversion mapping, which is
+used while reading terms and programs. Initially, the
+mapping prescribes no character conversions. It can be modified by the
+built-in predicate <code>char_conversion(<var>In</var>, <var>Out</var>)</code>,
+following which <var>In</var> will be converted to <var>Out</var>. Character
+coversion can be switched off by the <code>char_conversion</code> Prolog flag.
+</p>
+<p><strong>Please note</strong>: the mapping is <em>global</em>, as opposed to being
+local to the current module, Prolog text, or otherwise.
+<a name="index-char_005fconversion-_0028prolog-flag_0029"></a>
+</p>
+</dd>
+<dt><em>character-type mapping</em></dt>
+<dd><a name="index-character_002dtype-mapping-_0028definition_0029"></a>
+<p>A function mapping each element of the character code set to one
+of the character categories (whitespace, letter, symbol-char, etc.),
+required for parsing tokens.
+</p>
+</dd>
+<dt><em>choicepoints</em></dt>
+<dd><a name="index-choicepoints-_0028definition_0029"></a>
+<p>A memory block representing outstanding choices for some goals or
+disjunctions.
+</p>
+</dd>
+<dt><em>clause</em></dt>
+<dd><a name="index-clause-_0028definition_0029"></a>
+<p>A fact or a rule.  A rule comprises a <em>head</em> and a
+body.  A fact consists of a head only, and is
+equivalent to a rule with the body <code>true</code>.
+</p>
+</dd>
+<dt><em>code-list</em></dt>
+<dd><a name="index-code_002dlist-_0028definition_0029"></a>
+<p>A code-list is a list of character codes.
+</p>
+</dd>
+<dt><em>conditional compilation</em></dt>
+<dd><a name="index-conditional-compilation-_0028definition_0029"></a>
+<p>Conditionally including or excluding parts of a file at compile time.
+</p>
+</dd>
+<dt><em>compactcode</em></dt>
+<dd><a name="index-compactcode-_0028definition_0029"></a>
+<p>Virtual code representation of compiled code.  A reasonable
+compromise between performance and space requirement.  A valid value for
+the <code>compiling</code> Prolog flag.
+<a name="index-compiling-_0028prolog-flag_0029"></a>
+</p>
+</dd>
+<dt><em>compile</em></dt>
+<dd><a name="index-compile-_0028definition_0029"></a>
+<p>To load a program (or a portion thereof) into Prolog through
+the compiler.  Compiled code runs more quickly than
+interpreted code, and provides better precision for execution profiling
+and coverage analysis.  On the other hand, you cannot debug compiled code in as
+much detail as interpreted code.
+</p>
+</dd>
+<dt><em>compound term</em></dt>
+<dd><a name="index-compound-term-_0028definition_0029"></a>
+<a name="index-term_002c-compound-_0028definition_0029"></a>
+<p>A compound term is a term that is an atom together
+with one or more arguments.  For example, in the term
+<code>father(X)</code>, <code>father</code> is the name, and <code>X</code> is the first
+and only argument.  The argument to a compound term
+can be another compound term, as in <code>father(father(X))</code>.
+Compound terms are recognized by the built-in predicate
+<code>compound/1</code>.
+</p>
+</dd>
+<dt><em>conjunction</em></dt>
+<dd><a name="index-conjunction-_0028definition_0029"></a>
+<p>A series of goals connected by the connective &ldquo;and&rdquo; (that is, a
+series of goals whose principal operator is &lsquo;<samp>,</samp>&rsquo;).
+</p>
+</dd>
+<dt><em>console-based executable</em></dt>
+<dd><a name="index-console_002dbased-executable-_0028definition_0029"></a>
+<a name="index-executable_002c-console_002dbased-_0028definition_0029"></a>
+<p>An executable that inherits the standard streams from the process
+that invoked it, e.g. a UNIX shell or a DOS-prompt.
+</p>
+</dd>
+<dt><em>constant</em></dt>
+<dd><a name="index-constant-_0028definition_0029"></a>
+<p>An integer (for example: 1, 20, -10), a floating-point number (for
+example: 12.35), or an atom.  Constants are recognized by
+the built-in predicate <code>atomic/1</code>.
+</p>
+</dd>
+<dt><em>consult</em></dt>
+<dd><a name="index-consult-_0028definition_0029"></a>
+<p>To load a program (or a portion thereof) into Prolog through the
+interpreter.  Interpreted code runs more slowly than compiled code, and
+does not provide as good precision for execution profiling and coverage
+analysis.  On the other hand, you can debug interpreted code in more
+detail than compiled code.
+</p>
+</dd>
+<dt><em>control structure</em></dt>
+<dd><a name="index-control-structure-_0028definition_0029"></a>
+<a name="index-structure_002c-control-_0028definition_0029"></a>
+<p>A built-in predicate that is &ldquo;part of the language&rdquo; in the sense
+that it is treated specially in certain language features.  The set of
+such control structures and language features is enuemrated in
+<a href="ref_002dsem_002dctr.html#ref_002dsem_002dctr">ref-sem-ctr</a>.
+</p>
+</dd>
+<dt><em>creep</em></dt>
+<dd><a name="index-creep-_0028definition_0029"></a>
+<p>What the debugger does in trace mode, also known as
+single-stepping.  It goes to the next port of a procedure
+box and prints the goal, then prompts you for input.  See <a href="Basic-Debug.html#Basic-Debug">Basic Debug</a>.
+</p>
+</dd>
+<dt><em>cursor</em></dt>
+<dd><a name="index-cursor-_0028definition_0029"></a>
+<p>The point on the screen at which typed characters appear.  This is
+usually highlighted by a line or rectangle the size of one space, which
+may or may not blink.
+</p>
+</dd>
+<dt><em>cut</em></dt>
+<dd><a name="index-cut-_0028definition_0029"></a>
+<p>Written as <code>!</code>.  A built-in predicate that succeeds when
+encountered; if backtracking should later return to the cut,
+then the goal that matched the head of the clause
+containing the cut fails immediately.
+</p>
+</dd>
+<dt><em>database</em></dt>
+<dd><a name="index-database-_0028definition_0029"></a>
+<p>The Prolog database comprises all of the clauses that have
+been loaded or asserted into the Prolog system or that have been
+asserted, except those clauses that have been retracted or
+abolished.
+</p>
+</dd>
+<dt><em>db_reference</em></dt>
+<dd><a name="index-db_005freference-_0028definition_0029"></a>
+<p>A compound term denoting a unique reference to a dynamic clause.
+Recognized by the built-in predicate <code>db_reference/1</code>.
+</p>
+</dd>
+<dt><em>debug</em></dt>
+<dd><a name="index-debug-_0028definition_0029"></a>
+<p>A mode of program execution in which the debugger stops to print
+the current goal only at predicates that have
+spypoints set on them (see leap).
+</p>
+</dd>
+<dt><em>debugcode</em></dt>
+<dd><a name="index-debugcode-_0028definition_0029"></a>
+<p>Interpreted representation of compiled code.  A valid value
+for the <code>compiling</code> Prolog flag.
+</p>
+</dd>
+<dt><em>declaration</em></dt>
+<dd><a name="index-declaration-_0028definition_0029"></a>
+<p>A declaration looks like a directive, but is not executed
+but rather conveys information about predicates about to be loaded.
+</p>
+</dd>
+<dt><em>deinit function</em></dt>
+<dd><a name="index-deinit-function-_0028definition_0029"></a>
+<a name="index-function_002c-deinit-_0028definition_0029"></a>
+<p>A function in a foreign resource that is called prior to unloading
+the resource.
+</p>
+</dd>
+<dt><em>determinate</em></dt>
+<dd><a name="index-determinate-_0028definition_0029"></a>
+<p>A predicate is determinate if it can supply only one answer.
+</p>
+</dd>
+<dt><em>development system</em></dt>
+<dd><a name="index-development-system-_0028definition_0029"></a>
+<a name="index-system_002c-development-_0028definition_0029"></a>
+<p>A stand-alone executable with the full programming environment,
+including top-level, compiler, debugger etc.  The default
+<code>sicstus</code> executable is a development system; new
+development systems containing prelinked foreign resources
+can also be created.
+</p>
+</dd>
+<dt><em>directive</em></dt>
+<dd><a name="index-directive-_0028definition_0029"></a>
+<p>A directive is a goal preceded by the prefix operator
+&lsquo;<samp>:-</samp>&rsquo;, whose intuitive meaning is &ldquo;execute this as a query,
+but do not print out any variable bindings.&rdquo;
+</p>
+</dd>
+<dt><em>disjunction</em></dt>
+<dd><a name="index-disjunction-_0028definition_0029"></a>
+<p>A series of goals connected by the connective &ldquo;or&rdquo; (that is, a
+series of goals whose principal operator is &lsquo;<samp>;</samp>&rsquo;).
+</p>
+</dd>
+<dt><em>do-loop</em></dt>
+<dd><a name="index-do_002dloop-_0028definition_0029"></a>
+<p>A control structure of the form <code>(<var>Iterators</var> do <var>Body</var>)</code>.
+It expresses a simple iteration. See <a href="ref_002dsem_002dctr_002ddol.html#ref_002dsem_002dctr_002ddol">ref-sem-ctr-dol</a>.
+</p>
+</dd>
+<dt><em>dynamic predicate</em></dt>
+<dd><a name="index-dynamic-predicate-_0028definition_0029"></a>
+<a name="index-predicate_002c-dynamic-_0028definition_0029"></a>
+<p>A predicate that can be modified while a program is running.
+The semantics of such updates is described in <a href="ref_002dmdb_002dbas.html#ref_002dmdb_002dbas">ref-mdb-bas</a>.
+A predicate must explicitly be declared to be dynamic or it
+must be added to the database via one of the assertion
+predicates.
+</p>
+</dd>
+<dt><em>encoded string</em></dt>
+<dd><a name="index-encoded-string-_0028definition_0029"></a>
+<a name="index-string_002c-encoded-_0028definition_0029"></a>
+<p>A sequence of bytes representing a sequence of possibly wide character
+codes, using the UTF-8 encoding.
+</p>
+</dd>
+<dt><em>escape sequence</em></dt>
+<dd><a name="index-escape-sequence-_0028definition_0029"></a>
+<a name="index-sequence_002c-escape-_0028definition_0029"></a>
+<p>A sequence of characters beginning with &lsquo;<samp>\</samp>&rsquo; inside certain
+syntactic tokens (see <a href="ref_002dsyn_002dsyn_002desc.html#ref_002dsyn_002dsyn_002desc">ref-syn-syn-esc</a>).
+</p>
+</dd>
+<dt><em>export</em></dt>
+<dd><a name="index-export-_0028definition_0029"></a>
+<p>A module exports a predicate so that other
+modules can import it.
+</p>
+</dd>
+<dt><em>extended runtime system</em></dt>
+<dd><a name="index-extended-runtime-system-_0028definition_0029"></a>
+<a name="index-runtime-system_002c-extended-_0028definition_0029"></a>
+<a name="index-system_002c-extended-runtime-_0028definition_0029"></a>
+<p>A stand-alone executable.  In addition to the normal set of
+built-in runtime system predicates, extended runtime systems
+include the compiler.  Extended runtime systems require the
+extended runtime library, available from SICS as an add-on product.
+</p>
+</dd>
+<dt><em>fact</em></dt>
+<dd><a name="index-fact-_0028definition_0029"></a>
+<p>A clause with no conditions&mdash;that is, with an empty
+body.  A fact is a statement that a relationship exists
+between its arguments.  Some examples, with possible
+interpretations, are:
+</p>
+<div class="example">
+<pre class="example">king(louis, france).   % Louis was king of France.
+have_beaks(birds).     % Birds have beaks.
+employee(nancy, data_processing, 55000).  
+                     % Nancy is an employee in the
+                     % data processing department.
+</pre></div>
+
+</dd>
+<dt><em>file specification</em></dt>
+<dd><a name="index-file-specification-_0028definition_0029"></a>
+<a name="index-specification_002c-file-_0028definition_0029"></a>
+<p>An atom or a compound term denoting the name of a file.  The
+rules for mapping such terms to absolute file names are described
+in <a href="ref_002dfdi.html#ref_002dfdi">ref-fdi</a>.
+</p>
+</dd>
+<dt><em>floundered query</em></dt>
+<dd><a name="index-floundered-query-_0028definition_0029"></a>
+<a name="index-query_002c-floundered-_0028definition_0029"></a>
+<p>A query where all unsolved goals are blocked.
+</p>
+</dd>
+<dt><em>foreign predicate</em></dt>
+<dd><a name="index-foreign-predicate-_0028definition_0029"></a>
+<a name="index-predicate_002c-foreign-_0028definition_0029"></a>
+<p>A predicate that is defined in a language other than Prolog, and
+explicitly bound to Prolog predicates by the Foreign Language
+Interface.
+</p>
+</dd>
+<dt><em>foreign resource</em></dt>
+<dd><a name="index-foreign-resource-_0028definition_0029"></a>
+<a name="index-resource_002c-foreign-_0028definition_0029"></a>
+<p>A named set of foreign predicates.
+</p>
+</dd>
+<dt><em>functor</em></dt>
+<dd><a name="index-functor-_0028definition_0029"></a>
+<p>The functor of a compound term is its name and arity.
+For example, the compound term <code>foo(a,b)</code> is said to have
+&ldquo;the functor <code>foo</code> of arity two&rdquo;, which is generally
+written <code>foo/2</code>.
+</p>
+<p>The functor of a constant is the term itself paired
+with zero.  For example, the constant <code>nl</code> is said to have
+&ldquo;the functor <code>nl</code> of arity zero&rdquo;, which is generally
+written <code>nl/0</code>.
+</p>
+</dd>
+<dt><em>garbage collection</em></dt>
+<dd><a name="index-garbage-collection-_0028definition_0029"></a>
+<a name="index-collection_002c-garbage-_0028definition_0029"></a>
+<p>The freeing up of space for computation by making the space occupied by
+terms that are no longer available for use by the Prolog system.
+</p>
+</dd>
+<dt><em>generalized predicate spec</em></dt>
+<dd><a name="index-generalized-predicate-spec-_0028definition_0029"></a>
+<a name="index-predicate-spec_002c-generalized-_0028definition_0029"></a>
+<p>A generalized predicate spec corresponds to the argument type
+<em>pred_spec_tree</em> (see <a href="mpg_002dref_002daty_002dety.html#mpg_002dref_002daty_002dety">mpg-ref-aty-ety</a>) and is a term of one of
+the following forms.  It is always interpreted wrt. a given module
+context:
+</p>
+<dl compact="compact">
+<dt><var>Name</var></dt>
+<dd><p>all predicates called <var>Name</var> no matter what arity, where
+<var>Name</var> is an atom for a specific name or a variable for
+all names, or
+</p>
+</dd>
+<dt><var>Name/Arity</var></dt>
+<dd><p>the predicate of that name and arity, or
+</p>
+</dd>
+<dt><var>Module:Spec</var></dt>
+<dd><p>specifying a particular module <var>Module</var> instead of the default
+module, where <var>Module</var> is an atom for a specific
+module or a variable for all modules, or
+</p>
+</dd>
+<dt>[Spec,&hellip;,Spec]</dt>
+<dd><p>the set of all predicates covered by the <var>Specs</var>.
+</p></dd>
+</dl>
+
+
+</dd>
+<dt><em>glue code</em></dt>
+<dd><a name="index-glue-code-_0028definition_0029"></a>
+<a name="index-code_002c-glue-_0028definition_0029"></a>
+<p>Interface code between the Prolog engine and foreign predicates.
+Automatically generated by the foreign language interface as part of
+building a linked foreign resource.
+</p>
+</dd>
+<dt><em>goal</em></dt>
+<dd><a name="index-goal-_0028definition_0029"></a>
+<p>A simple goal is a predicate call.  When called, it will
+either succeed or fail.
+</p>
+<p>A compound goal is a formula consisting of simple goals
+connected by connectives such as &ldquo;and&rdquo; (&lsquo;<samp>,</samp>&rsquo;) or &ldquo;or&rdquo;
+(&lsquo;<samp>;</samp>&rsquo;).
+</p>
+<p>A goal typed at the top-level is called a query.
+</p>
+</dd>
+<dt><em>ground</em></dt>
+<dd><a name="index-ground-_0028definition_0029"></a>
+<p>A term is ground when it is free of (unbound)
+variables.  Ground terms are recognized by the
+built-in predicate <code>ground/1</code>.
+</p>
+</dd>
+<dt><em>guarded clause</em></dt>
+<dd><a name="index-guarded-clause-_0028definition_0029"></a>
+<a name="index-clause_002c-guarded-_0028definition_0029"></a>
+<p>A clause of the form
+</p><div class="example">
+<pre class="example"><var>Head</var> :- <var>Goals</var>, !, <var>Goals</var>.
+</pre></div>
+
+</dd>
+<dt><em>head</em></dt>
+<dd><a name="index-head-_0028definition_0029"></a>
+<p>The head of a clause is the single goal, which will be
+satisfied if the conditions in the body (if any) are true;
+the part of a rule before the &lsquo;<samp>:-</samp>&rsquo; symbol.  The head of
+a list is the first element of the list.
+</p>
+</dd>
+<dt><em>extendible predicate</em></dt>
+<dd><a name="index-extendible-predicate-_0028definition_0029"></a>
+<a name="index-predicate_002c-extendible-_0028definition_0029"></a>
+<p>An extendible predicate is a multifile
+predicate, to which new clauses can be added by the user.
+</p>
+</dd>
+<dt><em>hook predicate</em></dt>
+<dd><a name="index-hook-predicate-_0028definition_0029"></a>
+<a name="index-predicate_002c-hook-_0028definition_0029"></a>
+<p>A hook predicate is a predicate that somehow alters or
+customizes the behavior of a hookable predicate.
+<strong>Please note</strong>: any exception thrown by a hook predicate is caught
+locally and printed as an error message.
+</p>
+</dd>
+<dt><em>hookable predicate</em></dt>
+<dd><a name="index-hookable-predicate-_0028definition_0029"></a>
+<a name="index-predicate_002c-hookable-_0028definition_0029"></a>
+<p>A hookable predicate is a built-in predicate whose behavior
+is somehow altered or customized by a hook predicate.
+</p>
+</dd>
+<dt><em>interactive stream</em></dt>
+<dd><a name="index-interactive-stream-_0028definition_0029"></a>
+<a name="index-alias_002c-stream-_0028definition_0029"></a>
+<p>A stream with the <code>interactive</code> stream property. Certain behavior
+of interactive streams are optimized for the case where a human is
+at the other end of the stream.
+</p>
+
+</dd>
+<dt><em>import</em></dt>
+<dd><a name="index-import-_0028definition_0029"></a>
+<p>Exported predicates in a module can be imported
+by other modules.  Once a predicate has been imported
+by a module, it can be called, or exported, as if it were
+defined in that module.
+</p>
+<p>There are two kinds of importation: predicate-importation, in which
+only specified predicates are imported from a module; and
+module-importation, in which all the predicates exported by a module
+are imported.
+</p>
+</dd>
+<dt><em>indexing</em></dt>
+<dd><a name="index-indexing-_0028definition_0029"></a>
+<p>The process of filtering a set of potentially matching clauses of a
+predicate given a goal.
+</p>
+<p>For both interpreted and compiled code, indexing is done on the
+principal functor of the first argument. Additionally, for interpreted
+code only, principal functor filtering is done on each argument, but
+the filtering done for the first argument is more efficient.
+</p>
+</dd>
+<dt><em>init function</em></dt>
+<dd><a name="index-init-function-_0028definition_0029"></a>
+<a name="index-function_002c-init-_0028definition_0029"></a>
+<p>A function in a foreign resource that is called upon loading the
+resource.
+</p>
+</dd>
+<dt><em>initialization</em></dt>
+<dd><a name="index-initialization-_0028definition_0029"></a>
+<p>An initialization is a goal that is executed when the file
+in which the initialization is declared is loaded.  An
+initialization is declared as a directive <code>:- initialization <var>Goal</var></code>.
+They are executed in input order.
+</p>
+</dd>
+<dt><em>instantiation</em></dt>
+<dd><a name="index-instantiation-_0028definition_0029"></a>
+<p>A variable is instantiated if it is bound to a
+non-variable term; that is, to an atomic term or a
+compound term.
+</p>
+</dd>
+<dt><em>interpret</em></dt>
+<dd><a name="index-interpret-_0028definition_0029"></a>
+<p>Load a program or set of clauses into Prolog through the interpreter
+(also known as consulting).  Interpreted code runs more slowly than
+compiled code, does not provide as good precision for execution
+profiling and coverage analysis.  On the other hand, more extensive
+facilities are available for debugging interpreted code.
+</p>
+</dd>
+<dt><em>invocation box</em></dt>
+<dd><a name="index-invocation-box-_0028definition_0029"></a>
+<a name="index-box_002c-invocation-_0028definition_0029"></a>
+<p>Same as procedure box.
+</p>
+</dd>
+<dt><em>iterator</em></dt>
+<dd><a name="index-iterator-_0028definition_0029"></a>
+<p>A compound term expressing how a do-loop should be iterated.
+See <a href="ref_002dsem_002dctr_002ddol.html#ref_002dsem_002dctr_002ddol">ref-sem-ctr-dol</a>.
+</p>
+</dd>
+<dt><em>large integer</em></dt>
+<dd><a name="index-large-integer-_0028definition_0029"></a>
+<a name="index-integer_002c-large-_0028definition_0029"></a>
+<p>An integer that is not a small integer.
+</p>
+</dd>
+<dt><em>layout term</em></dt>
+<dd><a name="index-layout-term-_0028definition_0029"></a>
+<a name="index-term_002c-layout-_0028definition_0029"></a>
+<p>In the context of handling line number information for source code, a
+source term <var>Source</var> gets associated to a layout term
+<var>Layout</var>, which is one of the following:
+</p>
+<ul>
+<li> <code>[]</code>, if no line number information is available for <var>Source</var>.
+
+</li><li> If <var>Source</var> is a simple term, then <var>Layout</var> is the number of the line where
+<var>Source</var> occurs.
+
+</li><li> If <var>Source</var> is a compound term, then <var>Layout</var> is a list whose head is
+the number of the line where the first token of <var>Source</var> occurs,
+and whose remaining elements are the layouts of the arguments of
+<var>Source</var>.
+</li></ul>
+
+</dd>
+<dt><em>leap</em></dt>
+<dd><a name="index-leap-_0028definition_0029"></a>
+<p>What the debugger does in debug mode.  The debugger shows only the
+ports of predicates that have spypoints on them. It
+then normally prompts you for input, at which time you may leap
+again to the next spypoint (see trace).
+</p>
+</dd>
+<dt><em>leashing</em></dt>
+<dd><a name="index-leashing-_0028definition_0029"></a>
+<p>Determines how frequently the debugger will stop and prompt you for
+input when you are tracing.  A port at which the debugger
+stops is called a &ldquo;leashed port&rdquo;.
+</p>
+</dd>
+<dt><em>linked foreign resource</em></dt>
+<dd><a name="index-linked-foreign-resource-_0028definition_0029"></a>
+<a name="index-resource_002c-linked-foreign-_0028definition_0029"></a>
+<p>A foreign resource that is ready to be installed in an atomic
+operation, normally represented as a shared object or DLL.
+</p>
+</dd>
+<dt><em>list</em></dt>
+<dd><a name="index-list-_0028definition_0029"></a>
+<a name="index-partial-list-_0028definition_0029"></a>
+<a name="index-list_002c-partial-_0028definition_0029"></a>
+<a name="index-proper-list-_0028definition_0029"></a>
+<a name="index-list_002c-proper-_0028definition_0029"></a>
+<a name="index-list-constructor-_0028definition_0029"></a>
+<a name="index-empty-list-_0028definition_0029"></a>
+<a name="index-list_002c-empty-_0028definition_0029"></a>
+<a name="index-list-syntax"></a>
+<a name="index-cyclic-list"></a>
+<a name="index-list_002c-cyclic"></a>
+
+<p>A <em>partial list</em> is either a variable, or a compound term whose
+principal functor is the <em>list constructor</em> (<code>'.'/2</code>) and whose
+second argument is a partial list. Often it is implied that the partial
+list is not a variable.
+</p>
+<p>A <em>proper list</em> is either the <em>empty list</em>, i.e. the atom
+<code>[]</code>, or a compound term whose principal functor is the list
+constructor (<code>'.'/2</code>) and whose second argument is a proper list.
+</p>
+<p>A partial list or a proper list that is a compound term is said to be
+<em>non-empty</em>.
+</p>
+<p>In many cases <em>list</em> is used to denote both the case of a proper
+list and the case of a, most often non-variable, partial list.
+</p>
+<p>A <em>cyclic list</em> is a compound term whose principal functor is the
+list constructor (<code>'.'/2</code>) and whose second argument is a cyclic
+list, e.g. what could be constructed using <code>L='.'(a,L)</code>, or
+<code>L=[a,b|L]</code>. Passing a cyclic list as an argument to a predicate
+that expects a partial or proper list should be avoided as not all
+predictes are prepared to handle such input.
+</p>
+<p>A list is often written using <em>list syntax</em>, e.g. using
+<code>[a,b]</code> to denote the (proper) list <code>'.'(a,'.'(b,[]))</code>, or
+using <code>[a,b|End]</code> to denote the (partial) list
+<code>'.'(a,'.'(b,End))</code>.
+</p>
+
+
+
+
+
+
+</dd>
+<dt><em>load</em></dt>
+<dd><a name="index-load-_0028definition_0029"></a>
+<p>To load a Prolog clause or set of clauses, in source
+or binary form, from a file or set of files.
+</p>
+</dd>
+<dt><em>meta-call</em></dt>
+<dd><a name="index-meta_002dcall-_0028definition_0029"></a>
+<p>The process of interpreting a callable term as a goal.
+This is done e.g. by the built-in predicate <code>call/1</code>.
+</p>
+</dd>
+<dt><em>meta-logical predicate</em></dt>
+<dd><a name="index-meta_002dlogical-predicate-_0028definition_0029"></a>
+<a name="index-predicate_002c-meta_002dlogical-_0028definition_0029"></a>
+<p>A predicate that performs operations that require reasoning about
+the current instantiation of terms or decomposing
+terms into their constituents.  Such operations cannot be
+expressed using predicate definitions with a finite number of
+clauses.
+</p>
+</dd>
+<dt><em>meta-predicate</em></dt>
+<dd><a name="index-meta_002dpredicate-_0028definition_0029"></a>
+<p>A meta-predicate is one that calls one or more of its
+arguments; more generally, any predicate that needs to
+assume some module in order to operate is called a
+meta-predicate.  Some arguments of a meta-predicate
+are subject to module name expansion.
+</p>
+
+</dd>
+<dt><em>module</em></dt>
+<dd><a name="index-module-_0028definition_0029"></a>
+<p>Every predicate belongs to a module.  The name of a module is an atom.
+Some predicates in a module are exported.  The default module is
+<code>user</code>.  
+</p>
+</dd>
+<dt><em>module name expansion</em></dt>
+<dd><a name="index-module-name-expansion-_0028definition_0029"></a>
+<a name="index-expansion_002c-module-name-_0028definition_0029"></a>
+<p>The process by which certain arguments of meta-predicates
+get prefixed by the source module.  See <a href="ref_002dmod_002dmne.html#ref_002dmod_002dmne">ref-mod-mne</a>.
+</p>
+</dd>
+<dt><em>module-file</em></dt>
+<dd><a name="index-module_002dfile-_0028definition_0029"></a>
+<p>A module-file is a file that is headed with a module
+declaration of the form:
+</p>
+<div class="example">
+<pre class="example">:- module(<var>ModuleName</var>, <var>ExportedPredList</var>).
+</pre></div>
+
+<p>which must appear as the first term in the file.
+When a module-file or its corresponding object file is loaded, 
+all predicates defined in the module are removed,
+and all predicate imported into the module are unimported.
+</p>
+</dd>
+<dt><em>multifile predicate</em></dt>
+<dd><a name="index-multifile-predicate-_0028definition_0029"></a>
+<a name="index-predicate_002c-multifile-_0028definition_0029"></a>
+<p>A predicate whose definition is to be spread over more than one
+file. Such a predicate must be preceded by an explicit
+multifile declaration in all files containing clauses
+for it.
+</p>
+</dd>
+<dt><em>mutable term</em></dt>
+<dd><a name="index-mutable-term-_0028definition_0029"></a>
+<a name="index-term_002c-mutable-_0028definition_0029"></a>
+<p>A special form of compound term subject to destructive assignment.
+See <a href="ref_002dlte_002dmut.html#ref_002dlte_002dmut">ref-lte-mut</a>.  Mutable terms are recognized by the
+built-in predicate <code>mutable/1</code>.
+</p>
+</dd>
+<dt><em>name clash</em></dt>
+<dd><a name="index-name-clash-_0028definition_0029"></a>
+<a name="index-clash_002c-name-_0028definition_0029"></a>
+<p>A name clash occurs when a module attempts to define or
+import a predicate that it has already defined or
+imported.
+</p>
+</dd>
+<dt><em>occurs-check</em></dt>
+<dd><a name="index-occurs_002dcheck-_0028definition_0029"></a>
+<p>A test to ensure that binding a variable does not bind
+it to a term where that variable occurs.
+</p>
+</dd>
+<dt><em>one-char atom</em></dt>
+<dd><a name="index-one_002dchar-atom-_0028definition_0029"></a>
+<a name="index-atom_002c-one_002dchar-_0028definition_0029"></a>
+<p>An atom that consists of a single character.
+</p>
+</dd>
+<dt><em>operator</em></dt>
+<dd><a name="index-operator-_0028definition_0029"></a>
+<p>A notational convenience that allows you to express any compound
+term in a different format.  For example, if <code>likes</code> in
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>likes(sue, cider).</kbd>
+</pre></div>
+
+<p>is declared an infix operator, then the query above could be
+written:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>sue likes cider.</kbd>
+</pre></div>
+
+<p>An operator does not have to be associated with a predicate.
+However, certain built-in predicates are declared as
+operators.  For example,
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>=..(X, Y).</kbd>
+</pre></div>
+
+<p>can be written as 
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>X =.. Y.</kbd>
+</pre></div>
+
+<p>because <code>=..</code> has been declared an infix operator.
+</p>
+<p>Those predicates that correspond to built-in operators are
+written using infix notation in the list of built-in
+predicates at the beginning of the part that contains the reference
+pages.
+</p>
+<p>Some built-in operators do <em>not</em> correspond to built-in
+predicates; for example, arithmetic operators.  See
+<a href="ref_002dsyn_002dops_002dbop.html#ref_002dsyn_002dops_002dbop">ref-syn-ops-bop</a> for a list of built-in operators.
+</p>
+</dd>
+<dt><em>pair</em></dt>
+<dd><a name="index-pair-_0028definition_0029"></a>
+<p>A compound term <code><var>K</var>-<var>V</var></code>.  Pairs are used by
+the built-in predicate <code>keysort/2</code> and by many library
+modules.
+</p>
+</dd>
+<dt><em>parent</em></dt>
+<dd><a name="index-parent-_0028definition_0029"></a>
+<p>The parent of the current goal is a goal that, in its
+attempt to obtain a successful solution to itself, is calling the
+current goal.
+</p>
+</dd>
+<dt><em>port</em></dt>
+<dd><a name="index-port-_0028definition_0029"></a>
+<p>One of the seven key points of interest in the execution of a Prolog
+predicate.  See <a href="Procedure-Box.html#Procedure-Box">Procedure Box</a> for a definition.
+</p>
+</dd>
+<dt><em>prelinked foreign resource</em></dt>
+<dd><a name="index-prelinked-foreign-resource-_0028definition_0029"></a>
+<a name="index-foreign-resource_002c-prelinked-_0028definition_0029"></a>
+<p>A linked foreign resource that is linked into a stand-alone
+executable as part of building the executable.
+</p>
+</dd>
+<dt><em>precedence</em></dt>
+<dd><a name="index-precedence-_0028definition_0029"></a>
+<p>A number associated with each Prolog operator, which is used to
+disambiguate the structure of the term represented by an
+expression containing a number of operators.  Operators of
+lower precedence are applied before those of higher
+precedence; the operator with the highest precedence
+is considered the principal functor of the expression.  To
+disambiguate operators of the same precedence, the
+associativity type is also necessary.  See <a href="ref_002dsyn_002dops.html#ref_002dsyn_002dops">ref-syn-ops</a>.
+</p>
+</dd>
+<dt><em>predicate</em></dt>
+<dd><a name="index-predicate-_0028definition_0029"></a>
+<p>A functor that specifies some relationship existing in the problem
+domain.  For example, <code>&lt; /2</code> is a built-in predicate
+specifying the relationship of one number being less than another.  In
+contrast, the functor <code>+ /2</code> is not (normally used as) a
+predicate.
+</p>
+<p>A predicate is either built-in or is implemented by a
+procedure.
+</p>
+</dd>
+<dt><em>predicate spec</em></dt>
+<dd><a name="index-predicate-spec-_0028definition_0029"></a>
+<a name="index-spec_002c-predicate-_0028definition_0029"></a>
+<p>A compound term <code><var>name</var>/<var>arity</var></code> or
+<code><var>module</var>:<var>name</var>/<var>arity</var></code> denoting a predicate.
+</p>
+</dd>
+<dt><em>procedure</em></dt>
+<dd><a name="index-procedure-_0028definition_0029"></a>
+<p>A set of clauses in which the head of each clause has
+the same predicate.  For instance, a group of clauses of the
+following form:
+</p>
+<div class="example">
+<pre class="example">connects(san_francisco, oakland, bart_train).
+connects(san_francisco, fremont, bart_train).
+connects(concord, daly_city, bart_train).
+</pre></div>
+
+<p>is identified as belonging to the predicate <code>connects/3</code>.
+</p>
+</dd>
+<dt><em>procedure box</em></dt>
+<dd><a name="index-procedure-box-_0028definition_0029"></a>
+<a name="index-box_002c-procedure-_0028definition_0029"></a>
+<p>A way of visualizing the execution of a Prolog procedure, A
+procedure box is entered and exited via ports.
+</p>
+</dd>
+<dt><em>profiling</em></dt>
+<dd><a name="index-profiling-_0028definition_0029"></a>
+<p>The process of gathering execution statistics of the
+program, essentially counting the number of times selected program
+points have been reached.
+</p>
+</dd>
+<dt><em>program</em></dt>
+<dd><a name="index-program-_0028definition_0029"></a>
+<p>A set of procedures designed to perform a given task.
+</p>
+</dd>
+<dt><em>PO file</em></dt>
+<dd><a name="index-PO-file-_0028definition_0029"></a>
+<a name="index-file_002c-PO-_0028definition_0029"></a>
+<p>A PO (Prolog object) file contains a binary representation of a set of
+modules, predicates, clauses and directives.
+They are portable between different platforms, except between 32-bit and
+64-bit platforms.  They are created by <code>save_files/2</code>,
+<code>save_modules/2</code>, and <code>save_predicates/2</code>.
+</p>
+
+</dd>
+<dt><em>query</em></dt>
+<dd><a name="index-query-_0028definition_0029"></a>
+<p>A query is a question put by the user to the Prolog system.  A
+query is written as a goal followed by a full-stop in
+response to the top-level prompt.  For example,
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>father(edward, ralph).</kbd>
+</pre></div>
+
+<p>refers to the predicate <code>father/2</code>.  If a query has no
+variables in it, then the system will respond either &lsquo;<samp>yes</samp>&rsquo; or
+&lsquo;<samp>no</samp>&rsquo;. If a query contains variables, then the system will
+try to find values of those variables for which the query is
+true.  For example,
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>father(edward, X).</kbd>
+X = ralph
+</pre></div>
+
+<p>After the system has found one answer, the user can direct the system to
+look for additional answers to the query by typing <kbd>;</kbd>.
+</p>
+</dd>
+<dt><em>recursion</em></dt>
+<dd><a name="index-recursion-_0028definition_0029"></a>
+<p>The process in which a running predicate calls itself, presumably
+with different arguments and for the purpose of solving some
+subset of the original problem.
+</p>
+
+</dd>
+<dt><em>region</em></dt>
+<dd><a name="index-region-_0028definition_0029"></a>
+<p>The text between the cursor and a previously set mark in an Emacs
+buffer.
+</p>
+</dd>
+<dt><em>rule</em></dt>
+<dd><a name="index-rule-_0028definition_0029"></a>
+<p>A clause with one or more conditions.  For a rule to
+be true, all of its conditions must also be true.  For example,
+</p>
+<div class="example">
+<pre class="example">has_stiff_neck(ralph) :-
+   hacker(ralph).
+</pre></div>
+
+<p>This rule states that if the individual <code>ralph</code> is a hacker,
+then he must also have a stiff neck.  The constant <code>ralph</code> is
+replaced in
+</p>
+<div class="example">
+<pre class="example">has_stiff_neck(X) :-
+   hacker(X).
+</pre></div>
+
+<p>by the variable <code>X</code>.  <code>X</code> unifies with anything,
+so this rule can be used to prove that any hacker has a stiff
+neck.
+</p>
+</dd>
+<dt><em>runtime kernel</em></dt>
+<dd><a name="index-runtime-kernel-_0028definition_0029"></a>
+<a name="index-kernel_002c-runtime-_0028definition_0029"></a>
+<p>A shared object or DLL containing the SICStus virtual machine and other
+runtime support for stand-alone executables.
+</p>
+</dd>
+<dt><em>runtime system</em></dt>
+<dd><a name="index-runtime-system-_0028definition_0029"></a>
+<a name="index-system_002c-runtime-_0028definition_0029"></a>
+<p>A stand-alone executable with a restricted set of built-in
+predicates and no top-level.  Stand-alone applications containing
+debugged Prolog code and destined for end-users are typically packaged
+as runtime systems.
+</p>
+</dd>
+<dt><em>saved-state</em></dt>
+<dd><a name="index-saved_002dstate-_0028definition_0029"></a>
+<p>A snapshot of the state of Prolog saved in a file by
+<code>save_program/[1,2]</code>.  
+</p>
+</dd>
+<dt><em>semantics</em></dt>
+<dd><a name="index-semantics-_0028definition_0029"></a>
+<p>The relation between the set of Prolog symbols and their combinations
+(as Prolog terms and clauses), and their meanings.  Compare
+syntax.
+</p>
+</dd>
+<dt><em>sentence</em></dt>
+<dd><a name="index-sentence-_0028definition_0029"></a>
+<p>A clause or directive.
+</p>
+</dd>
+<dt><em>side-effect</em></dt>
+<dd><a name="index-side_002deffect-_0028definition_0029"></a>
+<p>A predicate that produces a side-effect is one that has any
+effect on the &ldquo;outside world&rdquo; (the user&rsquo;s terminal, a file, etc.), or
+that changes the Prolog database.
+</p>
+</dd>
+<dt><em>simple term</em></dt>
+<dd><a name="index-simple-term-_0028definition_0029"></a>
+<a name="index-term_002c-simple-_0028definition_0029"></a>
+<p>A simple term is a constant or a variable.
+Simple terms are recognized by the built-in predicate
+<code>simple/1</code>.
+</p>
+</dd>
+<dt><em>skeletal goal</em></dt>
+<dd><a name="index-skeletal-goal-_0028definition_0029"></a>
+<a name="index-goal_002c-skeletal-_0028definition_0029"></a>
+<p>A compound term <code><var>name</var>(<var>arg</var>, &hellip;, <var>arg</var>)</code> or
+<code><var>module</var>:<var>name</var>(<var>arg</var>, &hellip;, <var>arg</var>)</code> denoting a predicate.
+</p>
+</dd>
+<dt><em>small integer</em></dt>
+<dd><a name="index-small-integer-_0028definition_0029"></a>
+<a name="index-integer_002c-small-_0028definition_0029"></a>
+<p>An integer in the range <code>[-2^28,2^28-1]</code> on 32-bit platforms, or
+<code>[-2^60,2^60-1]</code> on 64-bit platforms. The start and end of this
+range is available as the value of the Prolog flags
+<code>min_tagged_integer</code> and <code>max_tagged_integer</code>, respectively.
+<a name="index-min_005ftagged_005finteger-_0028prolog-flag_0029"></a>
+<a name="index-max_005ftagged_005finteger-_0028prolog-flag_0029"></a>
+</p>
+
+</dd>
+<dt><em>source code</em></dt>
+<dd><a name="index-source-code-_0028definition_0029"></a>
+<a name="index-code_002c-source-_0028definition_0029"></a>
+<p>The human-readable, as opposed to the machine-executable, representation
+of a program.
+</p>
+</dd>
+<dt><em>source module</em></dt>
+<dd><a name="index-source-module-_0028definition_0029"></a>
+<a name="index-module_002c-source-_0028definition_0029"></a>
+<p>The module that is the context of a file being loaded.  For
+module-files, the source module is named in the file&rsquo;s
+module declaration.  For other files, the source
+module is inherited from the context.
+</p>
+</dd>
+<dt><em>SP_atom &nbsp;<!-- /@w --> <i>since release 4.3</i></em></dt>
+<dd><a name="index-SP_005fatom-_0028definition_0029"></a>
+<a name="index-SP_005fatom-_0028C-type_0029-1"></a>
+<p>A C type for the internal representation of Prolog atoms.
+Used in SICStus API functions.
+</p>
+</dd>
+<dt><em>SP_integer &nbsp;<!-- /@w --> <i>since release 4.3</i></em></dt>
+<dd><a name="index-SP_005finteger-_0028definition_0029"></a>
+<a name="index-SP_005finteger-_0028C-type_0029"></a>
+<p>A C type denoting an integer that is large enough to hold a pointer.
+Used in SICStus API functions.
+</p>
+</dd>
+<dt><em>SP_term_ref</em></dt>
+<dd><a name="index-SP_005fterm_005fref-_0028definition_0029"></a>
+<p>A C type denoting a &ldquo;handle&rdquo; object providing an interface from C to Prolog terms.
+Used in SICStus API functions.
+</p>
+</dd>
+<dt><em>spypoint</em></dt>
+<dd><a name="index-spypoint-_0028definition_0029"></a>
+<p>A special case of breakpoint, the <em>debugger breakpoint</em>,
+intended for interactive debugging.  Its simplest form, the <em>plain
+spypoint</em> instructs the debugger to stop at all ports of all
+invocations of a specified predicate. <em>Conditional spypoints</em>
+apply to a single predicate, but are more selective: the user can
+supply applicability <em>tests</em> and prescribe the <em>actions</em> to be
+carried out by the debugger. A <em>generic spypoint</em> is like a
+conditional spypoint, but not restricted to a single
+predicate. See <a href="Advanced-Debugging.html#Advanced-Debugging">Advanced Debugging</a>.
+</p>
+</dd>
+<dt><em>stand-alone executable</em></dt>
+<dd><a name="index-stand_002dalone-executable-_0028definition_0029"></a>
+<a name="index-executable_002c-stand_002dalone-_0028definition_0029"></a>
+<p>A binary program that can be invoked from the operating system,
+containing the SICStus runtime kernel.  A stand-alone
+executable is a development system (e.g. the default
+<code>sicstus</code> executable), or a runtime system.  Both kinds are
+created by the application builder.  A stand-alone executable does
+not itself contain any Prolog code; all Prolog code must be loaded
+upon startup.
+</p>
+</dd>
+<dt><em>static predicate</em></dt>
+<dd><a name="index-static-predicate-_0028definition_0029"></a>
+<a name="index-predicate_002c-static-_0028definition_0029"></a>
+<p>A predicate that can be modified only by being reloaded or by
+being abolished.  See dynamic predicate.
+</p>
+</dd>
+<dt><em>steadfast</em></dt>
+<dd><a name="index-steadfast-predicate-_0028definition_0029"></a>
+<a name="index-predicate_002c-steadfast-_0028definition_0029"></a>
+<p>A predicate is steadfast if it refuses to give the wrong answer even
+when the query has an unexpected form, typically with values supplied
+for arguments intended as output.
+</p>
+</dd>
+<dt><em>stream</em></dt>
+<dd><a name="index-stream-_0028definition_0029"></a>
+<p>An input/output channel.  See <a href="ref_002diou.html#ref_002diou">ref-iou</a>.
+</p>
+
+
+
+
+
+
+
+
+
+
+</dd>
+<dt><em>stream alias</em></dt>
+<dd><a name="index-stream-alias-_0028definition_0029"></a>
+<a name="index-alias_002c-stream-_0028definition_0029-1"></a>
+<p>A name assigned to a stream at the time of opening, which can be
+referred to in I/O predicates.  Must be an atom.  There are
+also three predefined aliases for the standard streams:
+<code>user_input</code>, <code>user_output</code> and <code>user_error</code>.
+Although not a stream alias proper, the atom <code>user</code>
+also stands for the standard input
+or output stream, depending on context.
+</p>
+</dd>
+<dt><em>stream object</em></dt>
+<dd><a name="index-stream-object-_0028definition_0029"></a>
+<p>A term denoting an open Prolog stream.  See <a href="ref_002diou.html#ref_002diou">ref-iou</a>.
+</p>
+</dd>
+<dt><em>stream position</em></dt>
+<dd><a name="index-stream-position-_0028definition_0029"></a>
+<a name="index-position_002c-stream-_0028definition_0029"></a>
+<p>A term representing the current position of a stream.  This
+position is determined by the current byte, character and line counts
+and line position.  Standard term comparison on stream
+position terms works as expected.  When <code>SP1</code> and <code>SP2</code>
+refer to positions in the same stream, <code>SP1@&lt;SP2</code> if and
+only if <code>SP1</code> is before <code>SP2</code> in the stream.  You should
+not otherwise rely on their internal representation.
+</p>
+</dd>
+<dt><em>stream property</em></dt>
+<dd><a name="index-stream-property-_0028definition_0029"></a>
+<a name="index-property_002c-stream-_0028definition_0029"></a>
+<p>A term representing the property of an open Prolog stream. The
+possible forms of this term are defined in <a href="ref_002diou_002dsfh_002dbos.html#ref_002diou_002dsfh_002dbos">ref-iou-sfh-bos</a>.
+</p>
+</dd>
+<dt><em>string</em></dt>
+<dd><a name="index-string-_0028definition_0029"></a>
+<p>A special syntactic notation, which, by default, denotes a
+code-list, e.g.:
+</p>
+<div class="example">
+<pre class="example">&quot;SICStus&quot;
+</pre></div>
+
+<p>By setting the Prolog flag <code>double_quotes</code>, the meaning of
+strings can be changed. With an appropriate setting, a
+string can be made to denote a char-list, or an atom.
+Strings are <em>not</em> a separate data type.
+<a name="index-double_005fquotes-_0028prolog-flag_0029"></a>
+</p>
+</dd>
+<dt><em>subterm selector</em></dt>
+<dd><a name="index-subterm-selector-_0028definition_0029"></a>
+<a name="index-selector_002c-subterm-_0028definition_0029"></a>
+<p>A list of argument positions selecting a subterm within a
+term (i.e. the subterm can be reached from the term by
+successively selecting the argument positions listed in the
+selector). Example: within the term <code>q, (r, s; t)</code> the
+subterm <code>s</code> is selected by the selector <code>[2, 1, 2]</code>.
+</p>
+</dd>
+<dt><em>syntax</em></dt>
+<dd><a name="index-syntax-_0028definition_0029"></a>
+<p>The part of Prolog grammar dealing with the way in which symbols are put
+together to form legal Prolog terms.  Compare semantics.
+</p>
+
+</dd>
+<dt><em>system property</em></dt>
+<dd><a name="index-system-property-_0028definition_0029"></a>
+<p>SICStus Prolog stores some information in named variables called system
+properties. System properties are used as of release 4.1, where
+previous releases used environment variables.
+</p>
+<p>The default value for a system property is taken from the corresponding
+environment variable. Any exceptions to this rule is explicitly
+mentioned in the documentation. See <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a> for more information.
+</p>
+
+</dd>
+<dt><em>term</em></dt>
+<dd><a name="index-term-_0028definition_0029"></a>
+<p>A basic data object in Prolog.  A term can be a constant, a
+variable, or a compound term.
+</p>
+</dd>
+<dt><em>trace</em></dt>
+<dd><a name="index-trace-_0028definition_0029"></a>
+<p>A mode of program execution in which the debugger creeps to
+the next port and prints the goal.
+</p>
+</dd>
+<dt><em>type-in module</em></dt>
+<dd><a name="index-type_002din-module-_0028definition_0029"></a>
+<a name="index-module_002c-type_002din-_0028definition_0029"></a>
+<p>The module that is the context of queries.
+</p>
+</dd>
+<dt><em>unblocked goal</em></dt>
+<dd><a name="index-unblocked-goal-_0028definition_0029"></a>
+<a name="index-goal_002c-unblocked-_0028definition_0029"></a>
+<p>A goal that is not blocked any more.
+</p>
+</dd>
+<dt><em>unbound</em></dt>
+<dd><a name="index-unbound-_0028definition_0029"></a>
+<p>A variable is unbound if it has not yet been
+instantiated.
+</p>
+</dd>
+<dt><em>unification</em></dt>
+<dd><a name="index-unification-_0028definition_0029"></a>
+<p>The process of matching a goal with the head of a
+clause during the evaluation of a query, or of matching
+arbitrary terms with one another during program execution.
+</p>
+<p>The rules governing the unification of terms are:
+</p>
+<ul>
+<li> Two constants unify with one another if they are identical.
+
+</li><li> A variable unifies with a constant or a compound
+term.  As a result of the unification, the variable is
+instantiated to the constant or compound term.
+
+</li><li> A variable unifies with another variable.  As a result
+of the unification, they become the same variable.
+
+</li><li> A compound term unifies with another compound term if
+they have the same functor and if all of the arguments can
+be unified.
+</li></ul>
+
+</dd>
+<dt><em>unit clause</em></dt>
+<dd><a name="index-unit-clause-_0028definition_0029"></a>
+<a name="index-clause_002c-unit-_0028definition_0029"></a>
+<p>See fact.
+</p>
+</dd>
+<dt><em>variable</em></dt>
+<dd><a name="index-variable-_0028definition_0029"></a>
+<p>A logical variable is a name that stands for objects that may or
+may not be determined at a specific point in a Prolog program.
+When the object for which the variable stands is determined in the
+Prolog program, the variable becomes instantiated.  A
+logical variable may be unified with a constant, a
+compound term, or another variable.  Variables become
+uninstantiated when the predicate they occur in
+backtracks past the point at which they were instantiated.
+</p>
+<p>Variables may be written as any sequence of alphanumeric
+characters starting with either a capital letter or &lsquo;<samp>_</samp>&rsquo;; e.g.:
+</p>
+<div class="example">
+<pre class="example">X   Y   Z   Name   Position   _c   _305  One_stop
+</pre></div>
+
+<p>See <a href="ref_002dsyn_002dtrm_002dvar.html#ref_002dsyn_002dtrm_002dvar">ref-syn-trm-var</a>.
+</p>
+</dd>
+<dt><em>volatile</em></dt>
+<dd><a name="index-volatile-_0028definition_0029"></a>
+<p>Predicate property.  The clauses of a volatile
+predicate are not saved in saved-states.
+</p>
+</dd>
+<dt><em>windowed executable</em></dt>
+<dd><a name="index-windowed-executable-_0028definition_0029"></a>
+<a name="index-executable_002c-windowed-_0028definition_0029"></a>
+<p>An executable that pops up its own window when run, and that directs the
+standard streams to that window.
+</p>
+</dd>
+<dt><em>zip</em></dt>
+<dd><a name="index-zip-_0028definition_0029"></a>
+<p>Same as debug mode, except no debugging information is collected
+while zipping.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Run-Intro.html#Run-Intro" accesskey="n" rel="next">Next</a>
+<li><a href="Notation.html#Notation" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Glossary.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Glossary.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

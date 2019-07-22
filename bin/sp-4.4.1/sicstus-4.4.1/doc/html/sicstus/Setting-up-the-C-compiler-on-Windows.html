@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Setting up the C compiler on Windows</title>
+
+<meta name="description" content="SICStus Prolog: Setting up the C compiler on Windows">
+<meta name="keywords" content="SICStus Prolog: Setting up the C compiler on Windows">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Application-Builder.html#The-Application-Builder" rel="up" title="The Application Builder">
+<link href="Extended-Runtime-Systems.html#Extended-Runtime-Systems" rel="next" title="Extended Runtime Systems">
+<link href="All_002din_002done-Executables.html#All_002din_002done-Executables" rel="prev" title="All-in-one Executables">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Setting-up-the-C-compiler-on-Windows"></a>
+<hr>
+<a name="Setting-up-the-C-compiler-on-Windows-1"></a>
+<h4 class="subsubsection">6.7.3.3 Setting up the C compiler on Windows</h4>
+
+<p><code>spld</code> (and <code>splfr</code>) are command line tools and need to
+have access to a working C compiler and linker. This is typically not a
+problem on UNIX-like systems but on Windows there are some special steps
+needed in order to set up the environment so that the C compiler can be
+used.
+</p>
+<p>The easiest way to get a command prompt where the C compiler works is to
+open the &lsquo;<samp>Visual Studio 2005 Command Prompt</samp>&rsquo; from the Start
+menu. On Windows Vista this is located under &lsquo;<samp>All Programs/Microsoft
+Visual Studio 2005/Visual Studio Tools/</samp>&rsquo;. This opens up a command prompt
+where <code>cl.exe</code> (the C compiler) can be found via the <code>PATH</code>
+environment variable.
+</p>
+<p>An alternative is to run the Visual Studio set up script from the
+command prompt, something like:
+</p><div class="example">
+<pre class="example">C:\&gt;&quot;C:\Program Files\Microsoft Visual Studio 8\VC\vcvarsall.bat&quot; x86
+</pre></div>
+
+<p>This is in fact what the &lsquo;<samp>Visual Studio 2005 Command
+Prompt</samp>&rsquo; shortcut does.
+</p>
+<p>Similar steps will work for other versions of Visual Studio. Note that
+there are different versions of SICStus Prolog for different versions
+of Visual Studio. This is necessary since each version of Visual
+Studio comes with its own version of the C library.
+</p>
+<p>Once the environment is set up for using the C compiler you should be
+able to use the <code>spld</code> (and <code>splfr</code>) tools without
+problem.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Extended-Runtime-Systems.html#Extended-Runtime-Systems" accesskey="n" rel="next">Next</a>
+<li><a href="All_002din_002done-Executables.html#All_002din_002done-Executables" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Application-Builder.html#The-Application-Builder" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Setting-up-the-C-compiler-on-Windows.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Setting-up-the-C-compiler-on-Windows.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

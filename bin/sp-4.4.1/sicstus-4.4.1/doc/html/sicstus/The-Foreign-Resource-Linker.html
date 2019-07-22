@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: The Foreign Resource Linker</title>
+
+<meta name="description" content="SICStus Prolog: The Foreign Resource Linker">
+<meta name="keywords" content="SICStus Prolog: The Foreign Resource Linker">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" rel="up" title="Calling C from Prolog">
+<link href="Customizing-splfr.html#Customizing-splfr" rel="next" title="Customizing splfr">
+<link href="Interface-Predicates.html#Interface-Predicates" rel="prev" title="Interface Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="The-Foreign-Resource-Linker"></a>
+<hr>
+<a name="The-Foreign-Resource-Linker-1"></a>
+<h4 class="subsection">6.2.5 The Foreign Resource Linker</h4>
+
+<a name="index-foreign-resource-linker"></a>
+<a name="index-linker_002c-foreign-resource"></a>
+<a name="index-splfr"></a>
+<p>The foreign resource linker, <code>splfr</code>, is used for creating
+foreign resources (see <a href="Foreign-Resources.html#Foreign-Resources">Foreign Resources</a>).  <code>splfr</code>
+reads terms from a Prolog file
+extracting any <code>foreign_resource/2</code> fact with first
+argument matching the resource name and all <code>foreign/[2,3]</code>
+facts.  Based on this information, it generates the necessary
+glue code, including a header file that the user code should include, 
+and combines it with any additional C or object files
+provided by the user into a linked foreign resource.  The output
+file name will be the resource name with a suitable extension.
+</p>
+<p>Note that no pathnames passed to <code>splfr</code> should contain spaces.
+Under Windows, this can be avoided by using the short version of
+pathnames as necessary.
+</p>
+<p>See <a href="too_002dsplfr.html#too_002dsplfr">too-splfr</a> for detailed information about <code>splfr</code> options etc..
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Customizing-splfr.html#Customizing-splfr" accesskey="1">Customizing splfr</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Customizing <code>splfr</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Manual-splfr.html#Manual-splfr" accesskey="2">Manual splfr</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Creating Linked Foreign Resources Manually under UNIX
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Windows_002dspecific-splfr-issues.html#Windows_002dspecific-splfr-issues" accesskey="3">Windows-specific splfr issues</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Windows-specific splfr issues
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Init-and-Deinit-Functions.html#Init-and-Deinit-Functions" accesskey="n" rel="next">Next</a>
+<li><a href="Interface-Predicates.html#Interface-Predicates" accesskey="p" rel="prev">Previous</a>
+<li><a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-Foreign-Resource-Linker.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-Foreign-Resource-Linker.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-tech-syn</title>
+
+<meta name="description" content="SICStus Prolog: obj-tech-syn">
+<meta name="keywords" content="SICStus Prolog: obj-tech-syn">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dtech.html#obj_002dtech" rel="up" title="obj-tech">
+<link href="obj_002dtech_002dlim.html#obj_002dtech_002dlim" rel="next" title="obj-tech-lim">
+<link href="obj_002dtech.html#obj_002dtech" rel="prev" title="obj-tech">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dtech_002dsyn"></a>
+<hr>
+<a name="Syntax-of-Class-Definitions"></a>
+<h4 class="subsubsection">10.23.5.1 Syntax of Class Definitions</h4>
+
+
+<p>The following BNF grammar gives a concise description of the syntax of
+class definitions. It assumes an understanding of Prolog syntax for
+the following items: <em>variable</em>, <em>atom</em>, <em>compound_term</em>,
+and <em>constant</em>. Slot types, particularly the <code>address</code>, <code>class</code> and 
+<code>pointer</code> types, were discussed in an earlier section.
+</p>
+<table>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>class_def</var></td><td width="75%">::= <var>class_begin</var> { <var>clause</var> | <var>method</var> } <var>class_end</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>class_begin</var></td><td width="75%">::= <code>:- class</code> <var>class_name</var> <var>opt_class_spec</var> <code>.</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>opt_class_spec</var></td><td width="75%">::= <var>empty</var> | <code>=</code> <var>class_spec</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>class_spec</var></td><td width="75%">::= <var>multi_parent_or_slots</var> | <var>term_class_spec</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>clause</var></td><td width="75%">::= <var>head</var> <var>opt_body</var> <code>.</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>head</var></td><td width="75%">::= <var>atom</var> | <var>compound_term</var> <code>.</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>method</var></td><td width="75%">::= <var>message_head</var> <var>opt_body</var> <code>.</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>message_head</var></td><td width="75%">::= <var>message_goal</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>class_end</var></td><td width="75%">::= <code>:- end_class</code> <var>opt_class_name</var> <code>.</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <var>empty</var> <span class="roman">/* if followed by <var>class_begin</var> or <var>eof</var> */</span></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>message</var></td><td width="75%">::= <var>atom</var> | <var>compound_term</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>multi_parent_or_slots</var></td><td width="75%">::= <var>parent_or_slots</var> { <code>+</code> <var>parent_or_slots</var> }</td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>parent_or_slots</var></td><td width="75%">::= <var>class_name</var> | <code>[]</code> | <code>[</code> <var>slot_def</var> {<code>,</code> <var>slot_def</var> } <code>]</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>slot_def</var></td><td width="75%">::= <var>opt_visibility</var> <var>slot_name</var> <code>:</code> <var>slot_type</var> <var>opt_init_value</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>opt_visibility</var></td><td width="75%">::= <var>empty</var> | <code>private</code> | <code>protected</code> | <code>public</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>opt_init_value</var></td><td width="75%">::= <var>empty</var> | <code>=</code> <var>constant</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>term_class_spec</var></td><td width="75%">::= <code>term(</code><var>term</var> <var>opt_goal_essence</var><code>)</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>opt_goal_essence</var></td><td width="75%">::= <var>empty</var> | <code>,</code> <var>goal</var> <var>opt_essence</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>opt_essence</var></td><td width="75%">::= <var>empty</var> | <code>,</code> <var>essence</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>essence</var></td><td width="75%">::= <code>[</code>  <var>variable</var> <code>:</code> <var>slot_type</var> { <code>,</code> <var>variable</var> <code>:</code> <var>slot_type</var> } <code>]</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>opt_body</var></td><td width="75%">::= <var>empty</var> | <code>:-</code> <var>body</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>body</var></td><td width="75%">::= <var>message_or_goal</var> { <code>,</code> <var>message_or_goal</var> }</td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>message_or_goal</var></td><td width="75%">::= <var>message_goal</var> | <var>goal</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>message_goal</var></td><td width="75%">::= <var>variable</var> <var>message_operator</var> <var>message</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>message_operator</var></td><td width="75%">::= <code>&lt;&lt;</code> | <code>&gt;&gt;</code> | <code>&lt;-</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>opt_class_name</var></td><td width="75%">::= <var>empty</var> | <var>class_name</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>class_name</var></td><td width="75%">::= <var>atom</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>slot_name</var></td><td width="75%">::= <var>atom</var></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>slot_type</var></td><td width="75%">::= <code>integer</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>short</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>char</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>unsigned_short</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>unsigned_char</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>float</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>double</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>atom</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>address</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>term</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <var>class_name</var></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>pointer(<var>atom</var>)</code></td></tr>
+<tr><td width="25%"></td></tr>
+</table>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dtech_002dlim.html#obj_002dtech_002dlim" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dtech.html#obj_002dtech" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dtech_002dsyn.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dtech_002dsyn.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

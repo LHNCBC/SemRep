@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-top-con</title>
+
+<meta name="description" content="SICStus Prolog: mpg-top-con">
+<meta name="keywords" content="SICStus Prolog: mpg-top-con">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dtop.html#mpg_002dtop" rel="up" title="mpg-top">
+<link href="mpg_002dtop_002ddat.html#mpg_002dtop_002ddat" rel="next" title="mpg-top-dat">
+<link href="mpg_002dtop_002dcio.html#mpg_002dtop_002dcio" rel="prev" title="mpg-top-cio">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dtop_002dcon"></a>
+<hr>
+<a name="Control"></a>
+<h4 class="subsection">11.2.4 Control</h4>
+
+
+<a name="index-control_002c-predicates-for-1"></a>
+<a name="index-predicates-for-control-1"></a>
+
+<dl compact="compact">
+<dt><code><var>:P</var>,<var>:Q</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>prove <var>P</var> and <var>Q</var>
+</p>
+</dd>
+<dt><code><var>:P</var>;<var>:Q</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>prove <var>P</var> or <var>Q</var>
+</p>
+</dd>
+<dt><code><var>+M</var>:<var>:P</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>call <var>P</var> in module <var>M</var>
+</p>
+</dd>
+<dt><code><var>:P</var>-&gt;<var>:Q</var>;<var>:R</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>if <var>P</var> succeeds, prove <var>Q</var>; if not, prove <var>R</var>
+</p>
+</dd>
+<dt><code><var>:P</var>-&gt;<var>:Q</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>if <var>P</var> succeeds, prove <var>Q</var>; if not, fail
+</p>
+</dd>
+<dt><code>! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>cut any choices taken in the current procedure
+</p>
+</dd>
+<dt><code>\+ <var>:P</var> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>goal <var>P</var> is not provable
+</p>
+</dd>
+<dt><code><var>?X</var> ^ <var>:P</var></code></dt>
+<dd><p>there exists an <var>X</var> such that <var>P</var> is provable (used in <code>setof/3</code> and <code>bagof/3</code>)
+</p>
+</dd>
+<dt><code>block <var>:P</var> &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>declaration that predicates specified by <var>P</var> should
+block until sufficiently instantiated
+</p>
+</dd>
+<dt><code>call(<var>:P</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>call(<var>:P</var>,&hellip;) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>execute <var>P</var> or <code><var>P</var>(&hellip;)</code>
+</p>
+</dd>
+<dt><code>call_cleanup(<var>:Goal</var>,<var>:Cleanup</var>)</code></dt>
+<dd><p>Executes the procedure call <var>Goal</var>.  When <var>Goal</var> succeeds
+determinately, is cut, fails, or raises an exception,
+<var>Cleanup</var> is executed.
+</p>
+</dd>
+<dt><code>call_residue_vars(<var>:Goal</var>,<var>?Vars</var>)</code></dt>
+<dd><p>Executes the procedure call <var>Goal</var>.  <var>Vars</var> is unified
+with the list of new variables created during the call that remain
+unbound and have blocked goals or attributes attached to them.
+</p>
+</dd>
+<dt><code><var>+Iterators</var> do <var>:Body</var></code></dt>
+<dd><p>executes <var>Body</var> iteratively according to <var>Iterators</var>
+</p>
+</dd>
+<dt><code>fail &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>fail (start backtracking)
+</p>
+</dd>
+<dt><code>false &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>same as <code>fail</code>
+</p>
+</dd>
+<dt><code>freeze(<var>+Var</var>,<var>:Goal</var>)</code></dt>
+<dd><p>Blocks <var>Goal</var> until <code>nonvar(<var>Var</var>)</code> holds.
+</p>
+</dd>
+<dt><code>if(<var>:P</var>,<var>:Q</var>,<var>:R</var>)</code></dt>
+<dd><p>for each solution of <var>P</var> that succeeds, prove <var>Q</var>; if none, prove <var>R</var>
+</p>
+</dd>
+<dt><code>once(<var>:P</var>) &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>Find the first solution, if any, of goal <var>P</var>.
+</p>
+</dd>
+<dt><code>otherwise</code></dt>
+<dd><p>same as true
+</p>
+</dd>
+<dt><code>repeat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>succeed repeatedly on backtracking
+</p>
+</dd>
+<dt><code>true &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>succeed
+</p>
+
+</dd>
+<dt><code>when(<var>+Cond</var>,<var>:Goal</var>)</code></dt>
+<dd><p>block <var>Goal</var> until <var>Cond</var> holds
+</p>
+</dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dtop_002ddat.html#mpg_002dtop_002ddat" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dtop_002dcio.html#mpg_002dtop_002dcio" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dtop.html#mpg_002dtop" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dcon.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dcon.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

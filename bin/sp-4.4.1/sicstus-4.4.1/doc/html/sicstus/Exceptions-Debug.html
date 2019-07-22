@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Exceptions Debug</title>
+
+<meta name="description" content="SICStus Prolog: Exceptions Debug">
+<meta name="keywords" content="SICStus Prolog: Exceptions Debug">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Debug-Intro.html#Debug-Intro" rel="up" title="Debug Intro">
+<link href="Debug-Summary.html#Debug-Summary" rel="next" title="Debug Summary">
+<link href="Consult.html#Consult" rel="prev" title="Consult">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Exceptions-Debug"></a>
+<hr>
+<a name="Catching-Exceptions"></a>
+<h3 class="section">5.11 Catching Exceptions</h3>
+
+<a name="index-exception-handling"></a>
+<a name="index-handling_002c-exception"></a>
+<a name="index-error-handling"></a>
+<a name="index-handling_002c-error"></a>
+<p>Usually, exceptions that occur during debugging sessions are displayed
+only in trace mode and for invocation boxes for
+predicates with spypoints on them, and not during skips.
+However, it is sometimes useful to make exceptions trap to the debugger
+at the earliest opportunity instead.  The hook predicate
+<code>user:error_exception/1</code> provides such a possibility:
+</p>
+<dl compact="compact">
+<dt><code>error_exception(<var>+Exception</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dt><code>user:error_exception(<var>+Exception</var>)</code></dt>
+<dd>
+<a name="index-error_005fexception_002f1-_0028user_002c-hook_0029-3"></a>
+<a name="index-error_005fexception_002f1-_0028user_002c-hook_0029-1"></a>
+
+
+<a name="index-user_003aerror_005fexception_002f1-_0028hook_0029-3"></a>
+<a name="index-user_003aerror_005fexception_002f1-_0028hook_0029-1"></a>
+
+<p>This predicate is called at all Exception ports.  If it
+succeeds, then the debugger enters trace mode and prints an exception
+port message.  Otherwise, the debugger mode is unchanged and a
+message is printed only in trace mode or if a spypoint is
+reached, and not during skips.
+See <a href="mpg_002dref_002derror_005fexception.html#mpg_002dref_002derror_005fexception">mpg-ref-error_exception</a>.
+</p></dd>
+</dl>
+
+<p>Note that this hook takes effect when the debugger arrives at an
+Exception port. For this to happen, procedure boxes have to
+be built, e.g. by running (the relevant parts of) the program in
+debug mode.
+</p>
+<p>A useful definition that ensures that all standard error exceptions
+causes the debugger to enter trace mode, is as follows:
+</p><div class="example">
+<pre class="example">:- multifile user:error_exception/1.
+user:error_exception(error(_,_)).
+</pre></div>
+<p>(this example would not have worked prior to release 4.0.5).
+</p>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Debug-Summary.html#Debug-Summary" accesskey="n" rel="next">Next</a>
+<li><a href="Consult.html#Consult" accesskey="p" rel="prev">Previous</a>
+<li><a href="Debug-Intro.html#Debug-Intro" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Exceptions-Debug.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Exceptions-Debug.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Xref Practice and Experience</title>
+
+<meta name="description" content="SICStus Prolog: Xref Practice and Experience">
+<meta name="keywords" content="SICStus Prolog: Xref Practice and Experience">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Cross_002dReferencer.html#The-Cross_002dReferencer" rel="up" title="The Cross-Referencer">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="next" title="The Prolog Library">
+<link href="Xref-Introduction.html#Xref-Introduction" rel="prev" title="Xref Introduction">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Xref-Practice-and-Experience"></a>
+<hr>
+<a name="Practice-and-Experience"></a>
+<h4 class="subsection">9.12.2 Practice and Experience</h4>
+
+<p>Your code will probably rely on operator declarations and
+possibly term expansion. The cross-referencer handles this
+in the following way:
+you must supply an
+initialization file, using the <samp>-i</samp> <var>ifile</var> option.  
+<code>spxref</code> will execute any operator
+declaration it encounters.
+</p>
+<p>Supply meta-predicate declarations for your
+meta-predicates.  Otherwise, the cross-referencer will not follow
+the meta-predicates&rsquo; arguments.  Be sure the
+cross-referencer encounters the meta-predicate declarations
+<em>before</em> it encounters calls to the declared predicates.
+</p>
+
+<p>The cross-referencer traces from initializations, hooks,
+predicates declared <code>public</code>, and optionally from
+<code>user:runtime_entry/1</code> and module declarations.  The
+way it handles meta-predicates requires that your application
+load its module-files before its non-module-files.
+</p>
+<p>This cross-referencer was written in order to tear out the copious dead
+code from the application that the author became responsible for. If you
+are doing such a thing, then the cross-referencer is an invaluable tool. Be
+sure to save the output from the first run that you get from the cross
+referencer: this is very useful resource to help you find things that
+you&rsquo;ve accidentally ripped out and that you really needed after all.
+</p>
+<p>There are situations where the cross-referencer does not follow certain
+predicates. This can happen if the predicate name is
+constructed on the fly, or if it is retrieved from the
+database. In this case, add <code>public</code> declarations for
+these.  Alternatively, you could create term expansions that are
+peculiar to the cross-referencer.  
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Xref-Introduction.html#Xref-Introduction" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Cross_002dReferencer.html#The-Cross_002dReferencer" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Xref-Practice-and-Experience.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Xref-Practice-and-Experience.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

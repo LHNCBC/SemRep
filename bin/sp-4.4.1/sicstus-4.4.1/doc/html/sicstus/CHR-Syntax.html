@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CHR Syntax</title>
+
+<meta name="description" content="SICStus Prolog: CHR Syntax">
+<meta name="keywords" content="SICStus Prolog: CHR Syntax">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CHR-Syntax-and-Semantics.html#CHR-Syntax-and-Semantics" rel="up" title="CHR Syntax and Semantics">
+<link href="CHR-Semantics.html#CHR-Semantics" rel="next" title="CHR Semantics">
+<link href="CHR-Syntax-and-Semantics.html#CHR-Syntax-and-Semantics" rel="prev" title="CHR Syntax and Semantics">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CHR-Syntax"></a>
+<hr>
+<a name="Syntax-1"></a>
+<h4 class="subsubsection">10.8.2.1 Syntax</h4>
+
+<p>The syntax of CHR rules is the following:
+</p>
+<table>
+<tr><td width="20%"><var>rules</var></td><td width="80%">::= <var>rule</var> <var>rules</var></td></tr>
+<tr><td width="20%"><var>rules</var></td><td width="80%">::= <var>empty</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>rule</var></td><td width="80%">::= <var>name</var> <var>actual_rule</var> <var>pragma</var> <code>.</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>name</var></td><td width="80%">::= <var>atom</var> <code>@</code></td></tr>
+<tr><td width="20%"><var>name</var></td><td width="80%">::= <var>empty</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>actual_rule</var></td><td width="80%">::= <var>simplification_rule</var></td></tr>
+<tr><td width="20%"><var>actual_rule</var></td><td width="80%">::= <var>propagation_rule</var></td></tr>
+<tr><td width="20%"><var>actual_rule</var></td><td width="80%">::= <var>simpagation_rule</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>simplification_rule</var></td><td width="80%">::= <var>head</var> <code>&lt;=&gt;</code> <var>guard</var> <var>body</var></td></tr>
+<tr><td width="20%"><var>propagation_rule</var></td><td width="80%">::= <var>head</var> <code>==&gt;</code> <var>guard</var> <var>body</var></td></tr>
+<tr><td width="20%"><var>simpagation_rule</var></td><td width="80%">::= <var>head</var> <code>\</code> <var>head</var> <code>&lt;=&gt;</code> <var>guard</var> <var>body</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>head</var></td><td width="80%">::= <var>constraints</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>constraints</var></td><td width="80%">::= <var>constraint</var> <var>constraint_id</var></td></tr>
+<tr><td width="20%"><var>constraints</var></td><td width="80%">::= <var>constraint</var> <var>constraint_id</var> <code>,</code> <var>constraints</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>constraint</var></td><td width="80%">::= <var>compound_term</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>constraint_id</var></td><td width="80%">::= <var>empty</var></td></tr>
+<tr><td width="20%"><var>constraint_id</var></td><td width="80%">::= <code>#</code> <var>variable</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>guard</var></td><td width="80%">::= <var>empty</var></td></tr>
+<tr><td width="20%"><var>guard</var></td><td width="80%">::= <var>goal</var> <var>disj</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>body</var></td><td width="80%">::= <var>goal</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>pragma</var></td><td width="80%">::= <var>empty</var></td></tr>
+<tr><td width="20%"><var>pragma</var></td><td width="80%">::= <code>pragma</code> <var>actual_pragmas</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>actual_pragmas</var></td><td width="80%">::= <var>actual_pragma</var></td></tr>
+<tr><td width="20%"><var>actual_pragmas</var></td><td width="80%">::= <var>actual_pragma</var> <code>,</code> <var>actual_pragmas</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>actual_pragma</var></td><td width="80%">::= <code>passive(<var>variable</var>)</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>disj</var></td><td width="80%">::= <code>;</code> | <code>|</code> <span class="roman">{ read as <code>;</code> unless <code>|</code> is declared infix }</span></td></tr>
+</table>
+
+<p>Note that the guard of a rule may not contain any goal that binds a variable
+in the head of the rule with a non-variable or with another variable in the
+head of the rule. It may however bind variables that do not appear in the
+head of the rule, e.g. an auxiliary variable introduced in the guard.
+</p>
+<p>Note also that, unless <code>|</code> has been declared as an operator,
+<code>|</code> and <code>;</code> are indistinguishable as infix
+operators&mdash;both are read as <code>;</code> (see <a href="ref_002dsyn_002dsyn_002dsen.html#ref_002dsyn_002dsyn_002dsen">ref-syn-syn-sen</a>). So if
+e.g. a simplification rule is given as:
+</p>
+<div class="display">
+<pre class="display"><var>head</var> <code>&lt;=&gt;</code> <code>(<var>P</var> ; <var>Q</var>)</code>
+</pre></div>
+<p>then CHR will break the ambiguity by treating <var>P</var> as the guard and <var>Q</var> as
+the body, which is probably not what you want. To get the intended interpretation,
+you must supply a dummy guard &lsquo;<samp>true |</samp>&rsquo;:
+</p>
+<div class="display">
+<pre class="display"><var>head</var> <code>&lt;=&gt;</code> <code>true | (<var>P</var> ; <var>Q</var>)</code>
+</pre></div>
+
+<p><strong>Please note</strong>: the above is true as long as you do not declare <code>|</code>
+as an infix operator, which is possible since release 4.3 for ISO compliance.
+Declaring <code>|</code> as an infix operator will confuse CHR.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CHR-Semantics.html#CHR-Semantics" accesskey="n" rel="next">Next</a>
+<li><a href="CHR-Syntax-and-Semantics.html#CHR-Syntax-and-Semantics" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CHR-Syntax.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CHR-Syntax.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

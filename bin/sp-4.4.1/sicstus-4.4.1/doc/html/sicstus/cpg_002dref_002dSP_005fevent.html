@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_event</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_event">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_event">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fexception_005fterm.html#cpg_002dref_002dSP_005fexception_005fterm" rel="next" title="cpg-ref-SP_exception_term">
+<link href="cpg_002dref_002dSP_005ferror_005fmessage.html#cpg_002dref_002dSP_005ferror_005fmessage" rel="prev" title="cpg-ref-SP_error_message">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fevent"></a>
+<hr>
+<a name="SP_005fevent_0028_0029"></a>
+<h4 class="subsection">12.3.14 <code>SP_event()</code></h4>
+<a name="index-SP_005fevent_0028_0029-_0028C-function_0029-1"></a>
+
+<a name="Synopsis-294"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+int
+SP_event(int (*func)(void*), void *arg)
+</pre></div>
+
+<p>Schedules a function for execution in the main thread
+in contexts where queries cannot be issued.
+</p>
+<a name="Arguments-269"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>func</var></dt>
+<dd><p>The function to schedule for execution.
+</p>
+</dd>
+<dt><var>arg</var></dt>
+<dd><p>Its argument.
+</p></dd>
+</dl>
+
+<a name="Return-Value-12"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>Nonzero on success, and 0 otherwise.
+</p>
+<a name="Description-196"></a>
+<h4 class="subheading">Description</h4>
+
+<p>If you wish to call Prolog back from a signal handler that has been
+installed with <code>SP_signal</code> or a thread
+other than the thread that called <code>SP_initialize()</code>, that is, the
+<em>main thread</em>, you cannot use <code>SP_query()</code> etc. directly.
+The call to Prolog has to be delayed until such time that the Prolog
+execution can accept an interrupt and the call has to be performed
+from the main thread (the Prolog execution thread).  This function
+serves this purpose, and installs <code>func</code> to be
+called from Prolog (in the main thread) when the execution can accept
+a callback.
+</p>
+<p>A queue of functions, with corresponding arguments, is maintained;
+that is, if several calls to <code>SP_event()</code> occur before Prolog can
+accept an interrupt, the functions are queued and executed in turn at
+the next possible opportunity. A <code>func</code> installed with
+<code>SP_event()</code> will not be called until SICStus is actually
+running. One way of ensuring that all pending functions installed with
+<code>SP_event()</code> are run is to call, from the main thread, some dummy
+goal, such as,
+</p>
+<div class="example">
+<pre class="example">SP_query_cut_fail(SP_predicate(&quot;true&quot;,0,&quot;user&quot;));
+</pre></div>
+
+<p>While <code>SP_event()</code> is safe to call from any thread, it is not safe
+to call from arbitrary signal handlers. If you want to call
+<code>SP_event()</code> when a signal is delivered, you need to install your
+signal handler with <code>SP_signal()</code>.
+</p>
+<p>Note that <code>SP_event()</code> is one of the <em>very</em> few functions in
+the SICStus API that can safely be called from another thread than the
+main thread.
+</p>
+<p>Depending on the value returned from <code>func</code>, the interrupted Prolog
+execution will just continue (<code>SP_SUCCESS</code>) or backtrack
+(<code>SP_FAILURE</code> or <code>SP_ERROR</code>).  An exception raised by
+<code>func</code>, using <code>SP_raise_exception()</code>, will be processed in the
+interrupted Prolog execution. If <code>func</code> calls <code>SP_fail()</code> or
+<code>SP_raise_exception()</code> the return value from <code>func</code> is ignored
+and handled as if <code>func</code> returned <code>SP_FAILURE</code> or
+<code>SP_ERROR</code>, respectively.  In case of failure or exception, the
+event queue is flushed.
+</p>
+<p>It is generally not robust to let <code>func</code> raise an exception or
+(even worse) fail. The reason is that not all Prolog code is written
+such that it gracefully handles being interrupted. If you want to
+interrupt some long-running Prolog code, it is better to let the event
+handler set a flag (in C) and let your Prolog code test the flag
+(using a foreign predicate) in some part of your code that is executed
+repeatedly.
+</p>
+<a name="Examples-102"></a>
+<h4 class="subheading">Examples</h4>
+
+<p>How to install the predicate <code>user:event_pred/1</code> as the
+signal handler for <code>SIGUSR1</code> and <code>SIGUSR2</code> signals.
+</p>
+<p>The function <code>signal_init()</code> installs the function
+<code>signal_handler()</code> as the primary signal handler for the signals
+<code>SIGUSR1</code> and <code>SIGUSR2</code>.  That function invokes the
+predicate as the actual signal handler, passing the signal number as
+an argument to the predicate.
+</p>
+<div class="example">
+<pre class="example">SP_pred_ref event_pred;
+
+static int signal_event(void *handle)
+{
+  int signal_no = (int) handle;
+  SP_term_ref x=SP_new_term_ref();
+  int rc;
+
+  SP_put_integer(x, signal_no); // Should not give an error
+  rc = SP_query_cut_fail(event_pred, x);
+  if (rc == SP_ERROR &amp;&amp; SP_exception_term(x))
+    SP_raise_exception(x);        // Propagate any raised exception
+  return rc;
+}
+
+static void signal_handler(int signal_no)
+{
+  SP_event(signal_event, (void *)signal_no);
+}
+
+void signal_init(void)
+{
+  event_pred = SP_predicate(&quot;prolog_handler&quot;,1,&quot;user&quot;);
+
+  SP_signal(SIGUSR1, signal_handler);
+  SP_signal(SIGUSR2, signal_handler);
+}
+
+</pre></div>
+
+<a name="See-Also-291"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously">Calling Prolog Asynchronously</a>,
+<code>SP_signal()</code>,
+<code>SP_fail()</code>,
+<code>SP_raise_exception()</code>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fexception_005fterm.html#cpg_002dref_002dSP_005fexception_005fterm" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005ferror_005fmessage.html#cpg_002dref_002dSP_005ferror_005fmessage" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fevent.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fevent.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

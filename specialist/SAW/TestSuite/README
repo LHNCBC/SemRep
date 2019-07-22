@@ -1,0 +1,13 @@
+This Test Suite ensures that the distributable version of SemRep matches our internal version.
+
+runTest_<version>.sh - Script for testing of semrep.<version>.
+
+To run the Test Suite, simply update the SEMREP_TEST variable in the file to
+point to where your version of SemRep is located and the run
+
+     ./runTest_<version>.sh
+
+You will see locator notes scroll on the screen as the Test Suite proceeds
+through its set of tests.  At the end, the script does a "diff" of the
+"out" results file created by running this script and the corresponding standard
+results file.  There should be no differences in the files.

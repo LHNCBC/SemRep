@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-sem-pro</title>
+
+<meta name="description" content="SICStus Prolog: ref-sem-pro">
+<meta name="keywords" content="SICStus Prolog: ref-sem-pro">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsem.html#ref_002dsem" rel="up" title="ref-sem">
+<link href="ref_002dsem_002dtyp.html#ref_002dsem_002dtyp" rel="next" title="ref-sem-typ">
+<link href="ref_002dsem.html#ref_002dsem" rel="prev" title="ref-sem">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsem_002dpro"></a>
+<hr>
+<a name="Programs"></a>
+<h4 class="subsection">4.2.1 Programs</h4>
+
+<a name="index-procedure-call"></a>
+<a name="index-call_002c-procedure"></a>
+
+<a name="index-goal"></a>
+<a name="index-predicate"></a>
+
+
+<p>A fundamental unit of a logic program is the  <em>goal</em> or 
+<em>procedure call</em> for example:
+</p><div class="example">
+<pre class="example">gives(tom, apple, teacher) 
+
+reverse([1,2,3], L)   
+
+X &lt; Y
+</pre></div>
+
+<p>A goal is merely a special kind of term,  distinguished  only  by  the
+context  in  which it appears in the program.  The principal functor
+of a goal is called a <em>predicate</em>.  It corresponds roughly to a verb  in
+natural language, or to a procedure name in a conventional programming
+language.
+</p>
+<a name="index-sentence"></a>
+<a name="index-clause"></a>
+<a name="index-directive-2"></a>
+
+
+<p>A logic <em>program</em> consists  simply  of  a  sequence  of  statements
+called <em>sentences</em>,  which  are  analogous  to  sentences in  natural
+language.
+</p>
+<a name="index-body-of-a-clause"></a>
+
+<a name="index-head-of-a-clause"></a>
+
+
+<p>A sentence comprises a <em>head</em> and a <em>body</em>.
+The  head  either consists  of  a  single  goal  or  is  empty.
+The body consists of a
+sequence of zero or more goals (it may be empty).  If the head
+is not empty, then the sentence is called a <em>clause</em>.
+</p>
+<a name="index-unit-clause"></a>
+<a name="index-clause_002c-unit"></a>
+
+
+<p>If the body of a clause is empty, then the clause is called a <em>unit
+clause</em>, and is written in the form (A) where <var>P</var> is the head
+goal.  We interpret this <em>declaratively</em> as (B) and <em>procedurally</em>
+as (C).
+</p><div class="display">
+<pre class="display">
+<var>P</var>. <!-- /@w --> (A)
+</pre></div>
+
+<div class="display">
+<pre class="display">
+&ldquo;<var>P</var> is true.&rdquo; <!-- /@w --> (B)
+</pre></div>
+
+<div class="display">
+<pre class="display">
+&ldquo;Goal <var>P</var> is satisfied.&rdquo; <!-- /@w --> (C)
+</pre></div>
+
+
+<p>If the body of a clause is non-empty, then the clause is called a
+<em>non-unit clause</em>, and is written in the form (D) where <var>P</var>
+is the head goal and <var>Q</var>, <var>R</var>, and <var>S</var> are the goals
+that make up the body.  We can read such a clause either
+declaratively as (E) or procedurally as (F).
+</p><div class="display">
+<pre class="display">
+<var>P</var> :- <var>Q, R, S</var>. <!-- /@w --> (D)
+</pre></div>
+
+<div class="display">
+<pre class="display">
+&ldquo;<var>P</var> is true if <var>Q</var> and <var>R</var> and <var>S</var> are true.&rdquo; <!-- /@w --> (E)
+</pre></div>
+
+<div class="display">
+<pre class="display">
+&ldquo;To satisfy goal <var>P</var>, satisfy goals <var>Q</var>, <var>R</var>, and <var>S</var>.&rdquo; <!-- /@w --> (F)
+</pre></div>
+
+
+<a name="index-query-2"></a>
+
+<a name="index-directive-3"></a>
+
+
+<p>A sentence with an empty head is called a <em>directive</em>, of which
+the most important kind is called a <em>query</em> and is written in the
+form (G). Such a query is read declaratively as (H), and procedurally as (I).
+</p><div class="display">
+<pre class="display">
+?- <var>P</var>, <var>Q</var>. <!-- /@w --> (G)
+</pre></div>
+
+<div class="display">
+<pre class="display">
+&ldquo;Are <var>P</var> and <var>Q</var> true?&rdquo; <!-- /@w --> (H)
+</pre></div>
+
+<div class="display">
+<pre class="display">
+&ldquo;Satisfy goals <var>P</var> and <var>Q</var>.&rdquo; <!-- /@w --> (I)
+</pre></div>
+
+
+<a name="index-variables_002c-scope-of"></a>
+<a name="index-scope-of-variables"></a>
+
+
+<p>Sentences generally contain variables.  A variable should be thought
+of as standing for some definite but unidentified object.  This is
+analogous to the use of a pronoun in natural language.  Note that a
+variable is not simply a writable storage location as in most
+programming languages; rather it is a local name for some data object,
+like the variable of pure Lisp.  Note that variables in different
+sentences are completely independent, even if they have the same
+name&mdash;the <em>lexical scope</em> of a variable is limited to a single
+sentence.  To illustrate this, here are some examples of sentences
+containing variables, with possible declarative and procedural
+readings:
+</p>
+<dl compact="compact">
+<dt><code>employed(X) :- employs(Y, X).</code></dt>
+<dd>
+<p>&ldquo;Any X is employed if any Y employs X.&rdquo;
+</p>
+<p>&ldquo;To find whether a person X is employed,
+find whether any Y employs X.&rdquo;
+</p>
+</dd>
+<dt><code>derivative(X, X, 1).</code></dt>
+<dd>
+<p>&ldquo;For any X, the derivative of X with respect to X is 1.&rdquo;
+</p>
+<p>&ldquo;The goal of finding a derivative for the 
+expression X with respect to X itself is 
+satisfied by the result 1.&rdquo;
+</p>
+</dd>
+<dt><code>?- ungulate(X), aquatic(X).</code></dt>
+<dd>
+<p>&ldquo;Is it true, for any X, that X is an ungulate and X 
+is aquatic?&rdquo;
+</p>
+<p>&ldquo;Find an X that is both an ungulate and aquatic.&rdquo;
+</p></dd>
+</dl>
+
+
+<a name="index-procedure"></a>
+
+
+<p>In any program, the <em>procedure</em> for a particular predicate is the
+sequence of clauses in the program whose head goals have that
+predicate as principal functor.  For example, the procedure for a
+predicate <code>concatenate</code> of three arguments might well consist of the
+two clauses shown in (J) where <code>concatenate(L1, L2, L3)</code> means
+&ldquo;the list L1 concatenated with the list L2 is the list L3&rdquo;.
+</p>
+<div class="example">
+<pre class="example">concatenate([], L, L). <!-- /@w --> (J)
+concatenate([X|L1], L2, [X|L3]) :- 
+            concatenate(L1, L2, L3). <!-- /@w --> (K)
+</pre></div>
+
+
+<p>In Prolog, several predicates may have the same name but different arities.
+Therefore, when it is important to specify a predicate unambiguously, the
+form <var>Name</var>/<var>Arity</var> is used, for example <code>concatenate/3</code>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsem_002dtyp.html#ref_002dsem_002dtyp" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsem.html#ref_002dsem" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dpro.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dpro.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPB Introduction</title>
+
+<meta name="description" content="SICStus Prolog: CLPB Introduction">
+<meta name="keywords" content="SICStus Prolog: CLPB Introduction">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dclpb.html#lib_002dclpb" rel="up" title="lib-clpb">
+<link href="CLPB-Interface.html#CLPB-Interface" rel="next" title="CLPB Interface">
+<link href="lib_002dclpb.html#lib_002dclpb" rel="prev" title="lib-clpb">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPB-Introduction"></a>
+<hr>
+<a name="Introduction-7"></a>
+<h4 class="subsection">10.9.1 Introduction</h4>
+
+<p>The clp(B) system provided by this library module is an instance
+of the general Constraint Logic Programming scheme introduced in [Jaffar
+&amp; Michaylov 87].  It is a solver for constraints over the Boolean
+domain, i.e. the values 0 and 1.  The library module is a direct port from
+SICStus Prolog 3. It is not supported by SICS in any way.
+</p>
+<p>The Boolean domain is particularly useful for modeling digital circuits,
+and the constraint solver can be used for verification, design,
+optimization etc. of such circuits.
+</p>
+<p>To load the solver, enter the query:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>use_module(library(clpb)).</kbd>
+</pre></div>
+
+<p>The solver contains predicates for checking the consistency and
+entailment of a constraint wrt. previous constraints, and for
+computing particular solutions to the set of previous constraints.
+</p>
+<p>The underlying representation of Boolean functions is based on Boolean
+Decision Diagrams [Bryant 86].
+This representation is very efficient, and allows many combinatorial
+problems to be solved with good performance.
+</p>
+<p>Boolean expressions are composed from the following operands: the
+constants 0 and 1 (<code>FALSE</code> and <code>TRUE</code>), logical
+variables, and symbolic constants, and from the following
+connectives.  <var>P</var> and <var>Q</var> are Boolean expressions, <var>X</var> is a
+logical variable, <var>Is</var> is a list of integers or integer
+ranges, and <var>Es</var> is a list of Boolean expressions:
+</p>
+<dl compact="compact">
+<dt><code>~ <var>P</var></code></dt>
+<dd><a name="index-_007e-_002f1_002c-boolean-not"></a>
+<p>True if <var>P</var> is false.
+</p>
+</dd>
+<dt><code><var>P</var> * <var>Q</var></code></dt>
+<dd><a name="index-_002a-_002f2_002c-boolean-and"></a>
+<p>True if <var>P</var> and <var>Q</var> are both true.
+</p>
+</dd>
+<dt><code><var>P</var> + <var>Q</var></code></dt>
+<dd><a name="index-_002b-_002f2_002c-boolean-ior"></a>
+<p>True if at least one of <var>P</var> and <var>Q</var> is true.
+</p>
+</dd>
+<dt><code><var>P</var> # <var>Q</var></code></dt>
+<dd><a name="index-_0023-_002f2_002c-boolean-eor"></a>
+<p>True if exactly one of <var>P</var> and <var>Q</var> is true.
+</p>
+</dd>
+<dt><code><var>X</var> ^ <var>P</var></code></dt>
+<dd><a name="index-_005e-_002f2_002c-boolean-existential-quantifier"></a>
+<p>True if there exists an <var>X</var> such that <var>P</var> is true.  Same as
+<code><var>P</var>[<var>X</var>/0] + <var>P</var>[<var>X</var>/1]</code>.
+</p>
+</dd>
+<dt><code><var>P</var> =:= <var>Q</var></code></dt>
+<dd><a name="index-_003d_003a_003d-_002f2_002c-boolean-equal"></a>
+<p>Same as <code>~<var>P</var> # <var>Q</var></code>.
+</p>
+</dd>
+<dt><code><var>P</var> =\= <var>Q</var></code></dt>
+<dd><a name="index-_003d_005c_003d-_002f2_002c-boolean-not-equal"></a>
+<p>Same as <code><var>P</var> # <var>Q</var></code>.
+</p>
+</dd>
+<dt><code><var>P</var> =&lt; <var>Q</var></code></dt>
+<dd><a name="index-_003d_003c-_002f2_002c-boolean-less-or-equal"></a>
+<p>Same as <code>~<var>P</var> + <var>Q</var></code>.
+</p>
+</dd>
+<dt><code><var>P</var> &gt;= <var>Q</var></code></dt>
+<dd><a name="index-_003e_003d-_002f2_002c-boolean-greater-or-equal"></a>
+<p>Same as <code><var>P</var> + ~<var>Q</var></code>.
+</p>
+</dd>
+<dt><code><var>P</var> &lt; <var>Q</var></code></dt>
+<dd><a name="index-_003c-_002f2_002c-boolean-less"></a>
+<p>Same as <code>~<var>P</var> * <var>Q</var></code>.
+</p>
+</dd>
+<dt><code><var>P</var> &gt; <var>Q</var></code></dt>
+<dd><a name="index-_003e-_002f2_002c-boolean-greater"></a>
+<p>Same as <code><var>P</var> * ~<var>Q</var></code>.
+</p>
+</dd>
+<dt><code>card(<var>Is</var>, <var>Es</var>)</code></dt>
+<dd><a name="index-card_002f2_002c-boolean-cardinality"></a>
+<p>True if the number of true expressions in <var>Es</var> is a member of the
+set denoted by <var>Is</var>.
+</p></dd>
+</dl>
+
+<p>Symbolic constants (Prolog atoms) denote parametric values and can
+be viewed as all-quantified variables whose quantifiers are placed
+outside the entire expression.  They are useful for forcing certain
+variables of an equation to be treated as input parameters.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPB-Interface.html#CLPB-Interface" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dclpb.html#lib_002dclpb" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPB-Introduction.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPB-Introduction.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

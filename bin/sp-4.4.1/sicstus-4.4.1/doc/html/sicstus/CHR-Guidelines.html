@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CHR Guidelines</title>
+
+<meta name="description" content="SICStus Prolog: CHR Guidelines">
+<meta name="keywords" content="SICStus Prolog: CHR Guidelines">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dchr.html#lib_002dchr" rel="up" title="lib-chr">
+<link href="lib_002dclpb.html#lib_002dclpb" rel="next" title="lib-clpb">
+<link href="CHR-Examples.html#CHR-Examples" rel="prev" title="CHR Examples">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CHR-Guidelines"></a>
+<hr>
+<a name="Guidelines"></a>
+<h4 class="subsection">10.8.6 Guidelines</h4>
+
+<p>In this subsection we cover several guidelines on how to use CHR to write
+constraint solvers and how to do so efficiently.
+</p>
+<dl compact="compact">
+<dt><b>Check guard bindings yourself.</b></dt>
+<dd><p>It is considered bad practice to write guards that bind variables of 
+the head and to rely on the system to detect this at runtime. It is
+inefficient and obscures the working of the program.
+</p>
+</dd>
+<dt><b>Set semantics.</b></dt>
+<dd><p>The CHR system allows the presence of identical constraints, i.e.
+multiple constraints with the same functor, arity and arguments. For
+most constraint solvers, this is not desirable: it affects efficiency
+and possibly termination. Hence appropriate simpagation rules should be
+added of the form: 
+</p>
+<div class="example">
+<pre class="example"><var>constraint</var> \ <var>constraint</var> &lt;=&gt; <var>true</var>.
+</pre></div>
+
+</dd>
+<dt><b>Multi-headed rules.</b></dt>
+<dd><p>Multi-headed rules are executed more efficiently when the constraints
+share one or more variables.
+</p>
+</dd>
+<dt><b>Mode and type declarations.</b></dt>
+<dd><p>Provide mode and type declarations to get more efficient program execution.
+</p>
+</dd>
+<dt><b>Compile once, run many times.</b></dt>
+<dd><p>Does consulting your CHR program take a long time? Probably
+it takes the CHR compiler a long time to compile the CHR rules into Prolog
+code. When you disable optimizations the CHR compiler will be a lot quicker,
+but you may lose performance. 
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CHR-Examples.html#CHR-Examples" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dchr.html#lib_002dchr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CHR-Guidelines.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CHR-Guidelines.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

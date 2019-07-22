@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-exp-undefine_method</title>
+
+<meta name="description" content="SICStus Prolog: obj-exp-undefine_method">
+<meta name="keywords" content="SICStus Prolog: obj-exp-undefine_method">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dexp.html#obj_002dexp" rel="up" title="obj-exp">
+<link href="obj_002dexp_002duninherit.html#obj_002dexp_002duninherit" rel="next" title="obj-exp-uninherit">
+<link href="obj_002dexp_002dstore_005fslot.html#obj_002dexp_002dstore_005fslot" rel="prev" title="obj-exp-store_slot">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dexp_002dundefine_005fmethod"></a>
+<hr>
+<a name="undefine_005fmethod_002f3"></a>
+<h4 class="subsubsection">10.23.6.24 <code>undefine_method/3</code></h4>
+
+
+
+
+
+<a name="index-undefine_005fmethod_002f3-_0028objects_0029-1"></a>
+<a name="index-undefine_005fmethod_002f3-_0028objects_0029"></a>
+
+
+
+
+
+
+<a name="Synopsis-23"></a>
+<h4 class="subheading">Synopsis</h4>
+<p><code>undefine_method(<var>+Obj</var>, <var>+Name</var>, <var>+Arity</var>)</code>
+</p>
+
+<a name="Arguments-21"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Obj</var></dt>
+<dd><p><em>object</em>
+</p>
+</dd>
+<dt><var>Name</var></dt>
+<dd><p><em>atom</em>
+</p>
+</dd>
+<dt><var>Arity</var></dt>
+<dd><p><em>integer</em>
+</p>
+</dd>
+</dl>
+
+
+<a name="Description-23"></a>
+<h4 class="subheading">Description</h4>
+<p>Removes <var>Obj</var>&rsquo;s current instance method for the
+<var>Name</var>/<var>Arity</var> message. After executing this goal, sending this message to
+<var>Obj</var> executes the class&rsquo;s default method for the message.
+</p>
+<p><var>Name</var>/<var>Arity</var> must have been declared to be an instance method
+for the class of <var>Obj</var>.  
+</p>
+<p>If <var>Obj</var> has no current instance method
+for the <var>Name</var>/<var>Arity</var> message, then the predicate has no effect.
+</p>
+<a name="Exceptions-14"></a>
+<h4 class="subheading">Exceptions</h4>
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd>
+<p>any argument is unbound.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd>
+
+<p><var>Obj</var> is not a compound term, <var>Name</var> is not an atom, or <var>Arity</var>
+is not an integer.
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd>
+
+<p><var>Message</var> does not specify an instance method for the class of
+<var>Obj</var>.
+</p></dd>
+</dl>
+
+
+<a name="See-Also-21"></a>
+<h4 class="subheading">See Also</h4>
+<p><code>define_method/3</code>, <code>instance_method/1</code>
+</p>
+
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dexp_002duninherit.html#obj_002dexp_002duninherit" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dexp_002dstore_005fslot.html#obj_002dexp_002dstore_005fslot" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dexp.html#obj_002dexp" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp_002dundefine_005fmethod.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp_002dundefine_005fmethod.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

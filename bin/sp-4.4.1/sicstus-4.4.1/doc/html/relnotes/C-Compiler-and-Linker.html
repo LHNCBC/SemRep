@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: C Compiler and Linker</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: C Compiler and Linker">
+<meta name="keywords" content="SICStus Prolog Release Notes: C Compiler and Linker">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="UNIX-Installation-Prerequisites.html#UNIX-Installation-Prerequisites" rel="up" title="UNIX Installation Prerequisites">
+<link href="The-Installation-Script.html#The-Installation-Script" rel="next" title="The Installation Script">
+<link href="UNIX-Installation-Prerequisites.html#UNIX-Installation-Prerequisites" rel="prev" title="UNIX Installation Prerequisites">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="C-Compiler-and-Linker"></a>
+<hr>
+<a name="C-Compiler-and-Linker-1"></a>
+<h4 class="subsubsection">3.1.1.1 C Compiler and Linker</h4>
+<p>A full SICStus installation requires a C compiler and a linker to
+perform final link steps on the installation machine.
+</p>
+<p>For Solaris you can download the Oracle Developer Studio C compiler from
+<a href="https://www.oracle.com/">https://www.oracle.com/</a>. For Mac OS X you can download Xcode,
+which contains a C compiler, from the App Store. Linux distributions typically has a C
+compiler installed or installable through the system software update
+utility.
+</p>
+<p>If a C compiler is not available, then it is possible to use a <em>prebuilt
+installation</em> on some platforms.
+</p>
+<p>If it is not enabled by default, then
+prebuilt installation is only recommended as a last resort; it is
+available
+by invoking
+<code>InstallSICStus</code> with the <samp>--prebuilt</samp> argument.
+</p>
+<p>A disadvantage with the prebuilt installation is that SICStus
+libraries that interface to third-party products (Tcl/Tk, Berkeley DB,
+Java) may not work, or may require environment variables such as
+<code>LD_LIBRARY_PATH</code> to be set.  Another disadvantage is that
+<code>spld</code> and <code>splfr</code> may not work unless you manually adjust the
+<code>spld</code> configure file. Of course, neither <code>spld</code> nor
+<code>splfr</code> will work anyway if you do not have a C compiler.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="UNIX-Installation-Prerequisites.html#UNIX-Installation-Prerequisites" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/C-Compiler-and-Linker.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/C-Compiler-and-Linker.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

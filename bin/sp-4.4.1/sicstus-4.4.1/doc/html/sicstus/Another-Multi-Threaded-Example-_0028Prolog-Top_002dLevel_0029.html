@@ -1,0 +1,238 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Another Multi Threaded Example (Prolog Top-Level)</title>
+
+<meta name="description" content="SICStus Prolog: Another Multi Threaded Example (Prolog Top-Level)">
+<meta name="keywords" content="SICStus Prolog: Another Multi Threaded Example (Prolog Top-Level)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-Prolog-from-Java.html#Calling-Prolog-from-Java" rel="up" title="Calling Prolog from Java">
+<link href="Jasper-Package-Class-Reference.html#Jasper-Package-Class-Reference" rel="next" title="Jasper Package Class Reference">
+<link href="Multi-Threaded-Example.html#Multi-Threaded-Example" rel="prev" title="Multi Threaded Example">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Another-Multi-Threaded-Example-_0028Prolog-Top_002dLevel_0029"></a>
+<hr>
+<a name="Another-Multi-Threaded-Example-_0028Prolog-Top_002dLevel_0029-1"></a>
+<h4 class="subsubsection">10.19.3.3 Another Multi Threaded Example (Prolog Top-Level)</h4>
+
+<p>This is another multi threaded version of the <code>train</code> example
+(see <a href="Train-Example.html#Train-Example">Train Example</a>).
+</p>
+<p>In this example, Prolog is the toplevel and Java is invoked via
+<samp>library(jasper)</samp>.
+</p>
+<div class="example">
+<pre class="example"><em>// MultiSimple2.java</em>
+</pre><pre class="example">import se.sics.jasper.Jasper;
+import se.sics.jasper.Query;
+import se.sics.jasper.Prolog;
+import se.sics.jasper.SICStus;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ListIterator;
+
+public class MultiSimple2
+{
+    class Client extends Thread
+    {
+        Prolog jp;
+        SICStus sp;
+        String qs;
+
+        Client(Prolog p, SICStus s, String queryString)
+        {
+            jp = p;
+            sp = s;
+            qs = queryString;
+        }
+        public void run()
+        {
+            HashMap WayMap = new HashMap();
+            try {
+                synchronized(jp) {
+                    Query query = jp.openPrologQuery(qs, WayMap);
+                    try {
+                        while (query.nextSolution()) {
+                            System.out.println(WayMap);
+                        }
+                    } finally {
+                        query.close();
+                    }
+                }
+            } catch ( Exception e ) {
+                e.printStackTrace();
+            }
+        }
+    }
+</pre><pre class="example">    class Watcher extends Thread
+    {
+        SICStus mySp;
+        ArrayList threadList = new ArrayList(2);
+
+        public boolean add(Client cl)
+        {
+            return threadList.add((Object)cl);
+        }
+        boolean at_least_one_is_alive(ArrayList tl)
+        {
+            ListIterator li = tl.listIterator();
+            boolean f = false;
+            while (li.hasNext()) {
+                boolean alive = ((Client)(li.next())).isAlive();
+                f = f || alive;
+            }
+            return f;
+        }
+        public void run()
+        {
+            while (at_least_one_is_alive(threadList)) {
+                try {
+                    this.sleep(1000);
+                } catch (InterruptedException ie) {
+                    System.err.println(&quot;Watcher interrupted.&quot;);
+                }
+            }
+            mySp.stopServer();
+        }
+        Watcher(SICStus sp)
+        {
+            mySp = sp;
+        }
+    }
+</pre><pre class="example">    public void CallBack()
+    {
+        try {
+            SICStus sp = SICStus.getCaller(); // get the SICStus object
+            sp.load(&quot;train.ql&quot;);
+            Prolog jp = sp.newProlog(); // Create a new Prolog Interface
+            Client c1 =
+                new Client(jp, sp,
+                           &quot;connected('Örebro', 'Hallsberg', Way1, Way1).&quot;);
+            c1.start();
+            // The prolog variable names in the Map are different from above so
+            // we can tell which query gives what solution.
+            Client c2 =
+                new Client(jp, sp,
+                           &quot;connected('Stockholm', 'Hallsberg', Way2, Way2).&quot;);
+            c2.start();
+            Watcher w = new Watcher(sp);
+            w.add(c1);
+            w.add(c2);
+            w.start();
+            sp.startServer();   // And finally start the server. This
+                                //  method call does not return until
+                                //  some other thread calls sp.stopServer().
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+}
+</pre></div>
+<div class="example">
+<pre class="example"><em>% multisimple2.pl</em>
+</pre><pre class="example">:- use_module(library(jasper)). 
+main:-
+        jasper_initialize(JVM),
+        jasper_new_object(JVM,
+                          'MultiSimple2',
+                          init,
+                          init,
+                          Obj),
+        jasper_call(JVM,
+                    method('', 'CallBack', [instance]),
+                    'CallBack'(+object('')),
+                    'CallBack'(Obj)).
+
+</pre></div>
+
+<ol>
+<li> This example is similar to the previous multi threaded example
+See <a href="Multi-Threaded-Example.html#Multi-Threaded-Example">Multi Threaded Example</a>, but in this case Prolog is the
+top-level.
+
+</li><li> Since a SICStus object already exists when the java method
+<code>CallBack</code> is called, we cannot use <code>Jasper.newProlog</code> to
+obtain a <code>Prolog</code> interface. Instead we can use the <code>SICStus</code>
+method <code>getCaller</code> to get a handle on the <code>SICStus</code> object.
+
+</li><li> In this example we cannot use the <code>restore</code> method to load the
+Prolog saved-state, since it unloads all foreign
+resources. This includes <code>library(jasper)</code> from which the call to
+Java was made.  Instead the method <code>SICStus.load</code> can be used to
+load a compiled Prolog file. See the HTML Jasper
+documentation for details on this method. See <a href="ref_002dlod_002dlod.html#ref_002dlod_002dlod">ref-lod-lod</a> for
+how to create a &lsquo;<samp>.ql</samp>&rsquo; file.
+
+</li><li> The rest of the example is similar to the previous multi threaded
+example with the addition of a watcher class, which is used to monitor
+the client threads. This is necessary if the method <code>startServer</code>
+is to return. See the HTML Jasper documentation on the methods
+<code>SICStus.startServer</code> and <code>SICStus.stopServer</code>.
+
+</li></ol>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Multi-Threaded-Example.html#Multi-Threaded-Example" accesskey="p" rel="prev">Previous</a>
+<li><a href="Calling-Prolog-from-Java.html#Calling-Prolog-from-Java" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Another-Multi-Threaded-Example-_0028Prolog-Top_002dLevel_0029.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Another-Multi-Threaded-Example-_0028Prolog-Top_002dLevel_0029.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

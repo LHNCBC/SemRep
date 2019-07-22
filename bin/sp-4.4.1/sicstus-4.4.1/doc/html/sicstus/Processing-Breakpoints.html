@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Processing Breakpoints</title>
+
+<meta name="description" content="SICStus Prolog: Processing Breakpoints">
+<meta name="keywords" content="SICStus Prolog: Processing Breakpoints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="up" title="Advanced Debugging">
+<link href="Breakpoint-Tests.html#Breakpoint-Tests" rel="next" title="Breakpoint Tests">
+<link href="Creating-Breakpoints.html#Creating-Breakpoints" rel="prev" title="Creating Breakpoints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Processing-Breakpoints"></a>
+<hr>
+<a name="Processing-Breakpoints-1"></a>
+<h4 class="subsection">5.6.2 Processing Breakpoints</h4>
+
+<p>We first give a somewhat simplified sketch of how the debugger treats
+the breakpoints. This description will be refined in the sequel.
+</p>
+<p>The debugger allows us to prescribe some activities to be performed at
+certain points of execution, namely at the ports of procedure
+boxes. In principle, the debugger is entered at each port of each
+procedure invocation. It then considers the current
+breakpoints one by one, most recent first. The first
+breakpoint for which the evaluation of the test part succeeds is
+then activated, and the execution continues according to its action
+part. The activated breakpoint &ldquo;hides&rdquo; the remaining (older)
+ones, i.e. those are not tried here. If none of the current
+breakpoints is activated, then the debugger behaves according to the
+actual debugging mode (trace, debug or zip).
+</p>
+<p>Both the test and the action part can be simple or composite. Evaluating
+a simple test amounts to checking whether it holds in the current state
+of execution, e.g. <code>pred(foo/2)</code> holds if the debugger is at a
+port of predicate <code>foo/2</code>.
+</p>
+<p>Composite conditions can be built from simple ones by forming lists, or
+using the &lsquo;<samp>,</samp>&rsquo;, &lsquo;<samp>;</samp>&rsquo;, &lsquo;<samp>-&gt;</samp>&rsquo;, and &lsquo;<samp>\+</samp>&rsquo; operators,
+with the usual meaning of conjunction, disjunction,
+if-then-else and negation. A list of conditions is equivalent to a
+conjunction of the same conditions. For example, the condition
+<code>[pred(foo/2), \+port(fail)]</code> will hold for all ports of
+<code>foo/2</code>, except for the Fail port.
+</p>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Breakpoint-Tests.html#Breakpoint-Tests" accesskey="n" rel="next">Next</a>
+<li><a href="Creating-Breakpoints.html#Creating-Breakpoints" accesskey="p" rel="prev">Previous</a>
+<li><a href="Advanced-Debugging.html#Advanced-Debugging" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Processing-Breakpoints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Processing-Breakpoints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

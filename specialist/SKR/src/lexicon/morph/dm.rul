@@ -1,0 +1,1064 @@
+
+#############################################################################
+#
+#                          PUBLIC DOMAIN NOTICE                         
+#         Lister Hill National Center for Biomedical Communications
+#                      National Library of Medicine
+#                      National Institues of Health
+#           United States Department of Health and Human Services
+#                                                                         
+#  This software is a United States Government Work under the terms of the
+#  United States Copyright Act. It was written as part of the authors'
+#  official duties as United States Government employees and contractors
+#  and thus cannot be copyrighted. This software is freely available
+#  to the public for use. The National Library of Medicine and the
+#  United States Government have not placed any restriction on its
+#  use or reproduction.
+#                                                                        
+#  Although all reasonable efforts have been taken to ensure the accuracy 
+#  and reliability of the software and data, the National Library of Medicine
+#  and the United States Government do not and cannot warrant the performance
+#  or results that may be obtained by using this software or data.
+#  The National Library of Medicine and the U.S. Government disclaim all
+#  warranties, expressed or implied, including warranties of performance,
+#  merchantability or fitness for any particular purpose.
+#                                                                         
+#  For full details, please see the MetaMap Terms & Conditions, available at
+#  http://metamap.nlm.nih.gov/MMTnCs.shtml.
+#
+############################################################################
+
+# File: dm.rul
+#
+# @(#)dm.rul	1.1 09/18/06
+#
+# This file contains the suffix rules for generating derivational
+# variants.
+#
+# All lines starting with a '#' are comment lines.
+# Whitespace is ignored.
+#
+# Format of non-comment lines is:
+#
+#   in_suffix|in_cat|out_suffix|out_cat
+#
+# where,
+#
+#   in_suffix: is the matching suffix of input term
+#   out_suffix: is the generated output suffix
+#   in_cat: is the part of speech of the input term
+#   out_cat: is the part of speech of the output term
+#
+# Part of speech can be one of:
+#
+#   adj: adjective
+#   adv: adverb
+#   noun: noun
+#   verb: verb
+#
+# For example, ability|noun|able|adj
+#
+# Says that a noun ending in "ability" generates an adjective form with "able"
+# replacing "ability", e.g., readability -> readable
+ 
+ 
+# e.g. readability|readable
+ability$|noun|able$|adj
+ 
+# e.g. washable|wash
+able$|adj|$|noun
+   available|avail;
+   ballotable|ballot;
+   capable|cap;
+   finable|fin;
+   habitable|habit;
+   potable|pot;
+   sable|s;
+   suitable|suit;
+   tractable|tract;
+   trainable|train;
+   treatable|treat;
+   able|;
+   amenable|Amen;
+   amenable|amen;
+   bearable|bear;
+   datable|DAT;
+   reusable|reus;
+
+# e.g. washable|wash
+able$|adj|$|verb
+   ballotable|ballot;
+   capable|cap;
+   disagreeable|disagree;
+   incurable|incur;
+   able|;
+   bearable|bear;
+   potable|pot;
+
+# e.g. irritable|irritate
+able$|adj|ate$|verb
+   probable|probate;
+   sable|sate;
+   stable|state;
+   tractable|tractate;
+
+# e.g. improvable|improve
+able$|adj|e$|verb
+   educable|educe;
+   liable|lie;
+   viable|vie;
+
+# e.g. passably|pass
+ably$|adv|$|verb
+
+# e.g. adequacy|adequate, celibacy|celibate
+acy$|noun|ate$|adj
+
+# e.g. assemblage|assemble
+age$|noun|e$|verb
+   borage|bore;
+   salvage|salve;
+   savage|save;
+   mirage|mire;
+
+# e.g. functional|function
+al$|adj|$|noun
+   ammoniacal|ammoniac;
+   banal|ban;
+   carpal|carp;
+   choreal|chore;
+   costal|cost;
+   dental|dent;
+   fatal|fat;
+   final|fin;
+   fundal|fund;
+   genal|gen;
+   genual|genu;
+   hemal|hem;
+   humoral|humor;
+   incidental|incident;
+   jugal|jug;
+   legal|leg;
+   limbal|limb;
+   literal|liter;
+   meatal|meat;
+   nodal|nod;
+   papal|pap;
+   partal|part;
+   penal|pen;
+   proal|pro;
+   pupal|pup;
+   ramal|ram;
+   rational|ration;
+   rimal|rim;
+   sinal|sin;
+   spinal|spin;
+   sternal|stern;
+   total|tot;
+   tubal|tub;
+   internal|intern;
+   lateral|later;
+   mineral|miner;
+   oral|or;
+   mal|m;
+   al|;
+   amoral|amor;
+   basal|bas;
+   bursal|burs;
+   cemental|cement;
+   cereal|cere;
+   dorsal|dors;
+   modal|mod;
+   mortal|mort;
+   renal|ren;
+   lienal|lien;
+   royal|roy;
+
+# e.g. universal|universe
+al$|adj|e$|noun
+   acral|acre;
+   banal|bane;
+   caval|cave;
+   conjunctival|conjunctive;
+   coral|core;
+   dual|due;
+   fetal|fete;
+   final|fine;
+   formal|forme;
+   genal|gene;
+   hemal|heme;
+   internal|interne;
+   moral|more;
+   oral|ore;
+   pial|pie;
+   primal|prime;
+   prodromal|prodrome;
+   special|specie;
+   vasal|vase;
+   morsal|morse;
+   callosal|callose;
+   teal|tee;
+   rimal|rime;
+   sinal|sine;
+
+# e.g.  protozoal|protozoa, vaginal|vagina, visceral|viscera
+al$|adj|a$|noun
+   aural|aura;
+   ideal|idea;
+   material|materia;
+   medial|media;
+   oral|ora;
+   prodromal|prodroma;
+   spinal|spina;
+   venal|vena;
+   plasmal|plasma;
+   anorectal|anorecta;
+   antebrachial|antebrachia;
+   antral|antra;
+   astral|astra;
+   atlantal|atlanta;
+   atrial|atria;
+   bigeminal|bigemina;
+   brachial|brachia;
+   bronchial|bronchia;
+   cacuminal|cacumina;
+   calcaneal|calcanea;
+   callosal|callosa;
+   capital|capita;
+   cecal|ceca;
+   central|centra;
+   cerebral|cerebra;
+   corporal|corpora;
+   dorsal|dorsa;
+   ilial|ilia;
+   jugal|juga;
+   marsupial|marsupia;
+   menstrual|menstrua;
+   pectoral|pectora;
+   primordial|primordia;
+   ramal|rama;
+   tergal|terga;
+   vaccinal|vaccina;
+   angelical|angelica;
+   tubal|tuba;
+   vital|vita;
+   zonal|zona;
+   moral|mora;
+   real|rea;
+   mesal|mesa;
+   molal|mola;
+   papal|papa;
+   teal|tea;
+
+# e.g. bacterial|bacterium
+al$|adj|um$|noun
+   oval|ovum;
+   radial|radium;
+   seral|serum;
+   caval|cavum;
+   aural|aurum;
+   central|centrum;
+   jugal|jugum;
+   cordial|cordium;
+
+# e.g. governance|govern
+ance$|noun|$|verb
+   importance|import;
+   penance|pen;
+   balance|BAL;
+   balance|bal;
+   Formance|form;
+
+# e.g. defiance|defiant, conformance|conformant
+ance$|noun|ant$|adj
+   ambulance|ambulant;
+
+# e.g. insurance|insure
+ance$|noun|e$|verb
+   balance|bale;
+   finance|fine;
+
+# e.g. relaxant|relax
+ant$|adj|$|verb
+   errant|err;
+   gallant|gall;
+   important|import;
+   rampant|ramp;
+   trenchant|trench;
+   Protestant|protest;
+   idant|id;
+   ant|;
+
+# e.g. triumphant|triumph
+ant$|noun|$|verb
+   formant|form;
+   gallant|gall;
+   spinant|spin;
+   ant|;
+   Protestant|protest;
+   idant|id;
+
+# e.g. radiant|radiate
+ant$|adj|ate$|verb
+   arrogant|arrogate;
+   pellant|pellate;
+
+# e.g. stimulant|stimulate
+ant$|noun|ate$|verb
+   grant|grate;
+   plant|plate;
+   rant|rate;
+   slant|slate;
+
+# e.g. fumigant|fumigation
+ant$|adj|ation$|noun
+   conversant|conversation;
+   dilatant|dilatation;
+   important|importation;
+   pellant|pellation;
+   vacant|vacation;
+   Protestant|protestation;
+
+# e.g. servant|serve
+ant$|noun|e$|verb
+   fusant|fuse;
+   maturant|mature;
+   mutant|mute;
+   truant|true;
+   savant|save;
+
+# e.g. Cambodian|Cambodia
+an$|adj|a$|noun
+   median|media;
+   span|spa;
+   Dirian|diria;
+   Dominican|dominica;
+   Raman|rama;
+   lean|lea;
+   nonan|nona;
+
+# e.g. amphibian|amphibia
+an$|noun|a$|noun
+   loan|loa;
+   median|media;
+   span|spa;
+   Dirian|diria;
+   Dominican|dominica;
+   Duran|dura;
+   Milian|milia;
+   ban|ba;
+   bran|bra;
+   lean|lea;
+   pean|pea;
+   aran|ara;
+   evan|eva;
+   ratan|rata;
+   nonan|nona;
+   nyhan|nyha;
+   saran|sara;
+
+# e.g. inflationary|inflation, cautionary|caution
+ary$|adj|$|noun
+   binary|bin;
+   literary|liter;
+   rotary|rot;
+   cavitary|cavit;
+
+# e.g. insular|insulate, modular|modulate
+ar$|adj|ate$|verb
+   far|fate;
+   insular|insulate;
+
+# e.g. fibular|fibula
+ar$|adj|a$|noun
+   amygdalar|amygdala;
+   columnar|columna;
+   pilar|pila;
+   velar|vela;
+   sear|sea;
+   lunar|luna;
+   molar|mola;
+   pylar|pyla;
+
+# e.g. modular|module
+ar$|adj|e$|noun
+   alar|ale;
+   hoar|hoe;
+   pilar|pile;
+   solar|sole;
+   volar|vole;
+   lunar|lune;
+   malar|male;
+   talar|tale;
+   lazar|laze;
+   mular|mule;
+
+# e.g. alveolar|alveolus
+ar$|adj|us$|noun
+   popular|populus;
+
+# e.g. fantasia|fantastic
+asia$|noun|astic$|adj
+
+# e.g. flirtation|flirt
+ation$|noun|$|verb
+   designation|design;
+   donation|don;
+   revelation|revel;
+   rotation|rot;
+   situation|situ;
+   oration|or;
+   conation|con;
+   fellation|fell;
+
+# e.g. alienation|alienate
+ation$|noun|ate$|verb
+   ration|rate;
+   station|state;
+   creation|create;
+   aspiration|aspirate;
+   predation|predate;
+   recreation|recreate;
+   vacation|vacate;
+
+# e.g. admiration|admire
+ation$|noun|e$|verb
+   education|educe;
+   machination|machine;
+   probation|probe;
+   salvation|salve;
+   aspiration|aspire;
+   conation|cone;
+   mutation|mute;
+
+# e.g. narrative|narrate
+ative$|noun|ate$|verb
+
+# e.g. pigmented|pigment
+ed$|adj|$|noun
+   abed|ab;
+   armed|arm;
+   bated|bat;
+   collected|collect;
+   fated|fat;
+   lobed|lob;
+   striped|strip;
+   united|unit;
+   wicked|wick;
+   cared|car;
+   rated|rat;
+   ed|;
+   armoured|Armour;
+   spined|spin;
+   tubed|tub;
+   wooded|Wood;
+   naked|nak;
+
+# e.g. glued|glue
+ed$|adj|e$|noun
+   closed|close;
+   jaded|jade;
+   incensed|incense;
+   tired|tire;
+   pied|pie;
+
+# e.g. fluency|fluent cogency|cogent
+ency$|noun|ent$|adj
+   emergency|emergent;
+
+# e.g. absorbency|absorbent
+ency$|noun|ent$|noun
+
+# e.g. deferential|deference
+ential$|adj|ence$|noun
+
+# e.g. corpulent|corpulence
+ent$|adj|ence$|noun
+   influent|influence;
+   eminent|eminence;
+   bent|bence;
+
+# e.g. machinery|machine
+ery$|noun|e$|noun
+   forgery|forge;
+   surgery|surge;
+   misery|mise;
+
+# e.g. employer|employ
+er$|noun|$|verb
+   buffer|buff;
+   bunker|bunk;
+   butter|butt;
+   canter|cant;
+   caper|cap;
+   career|care;
+   charter|chart;
+   corner|corn;
+   dresser|dress;
+   flicker|flick;
+   flower|flow;
+   rider|rid;
+   sewer|sew;
+   shower|show;
+   skewer|skew;
+   sweater|sweat;
+   taper|tap;
+   tender|tend;
+   tower|tow;
+   trimer|trim;
+   wager|wag;
+   whisker|whisk;
+   fiber|fib;
+   venter|vent;
+   wither|with;
+   er|;
+   Bender|bend;
+   Cooper|coop;
+   Crocker|crock;
+   Fisher|fish;
+   Fowler|fowl;
+   Gruber|grub;
+   Horner|horn;
+   Hunter|hunt;
+   Hurler|hurl;
+   Letterer|letter;
+   Lister|list;
+   Palmer|palm;
+   Parker|park;
+   Ringer|ring;
+   Senter|sent;
+   Turner|turn;
+   Walker|walk;
+   Wheeler|wheel;
+   adder|add;
+   banter|bant;
+   dimer|dim;
+   former|form;
+   gruber|grub;
+   hunger|hung;
+   liter|lit;
+   meter|met;
+   number|numb;
+   plumber|plumb;
+   porter|port;
+   rooster|roost;
+   roter|rot;
+   scraper|scrap;
+   snicker|snick;
+   solder|sold;
+   splinter|splint;
+   luster|lust;
+   liner|lin;
+   muller|mull;
+
+# e.g. pursuer|pursue
+er$|noun|e$|verb
+   crater|crate;
+   liver|live;
+   river|rive;
+   singer|singe;
+   baker|bake;
+   piper|pipe;
+   shaker|shake;
+   analyser|analyse;
+   meter|mete;
+   wager|wage;
+
+# e.g. hypothetic|hypothesis
+etic$|adj|esis$|noun
+   genetic|genesis;
+
+# e.g. maniac|mania
+iac$|noun|ia$|noun
+   ammoniac|ammonia;
+
+# e.g. colonial|colony
+ial$|adj|y$|noun
+   partial|party;
+
+# e.g. reliance|reliant
+iance$|noun|iant$|adj
+
+# e.g. Algerian|Algeria
+ian$|adj|ia$|noun
+   median|media;
+   Dirian|diria;
+
+# e.g. Syrian|Syria
+ian$|noun|ia$|noun
+   median|media;
+   Dirian|diria;
+   Milian|milia;
+
+# e.g. trombiculiasis|trombicula
+iasis$|noun|a$|noun
+   auriasis|aura;
+   loiasis|loa;
+
+# e.g. critical|critic
+ical$|adj|ic$|noun
+
+# e.g. anatomical|anatomy
+ical$|adj|y$|noun
+
+# e.g. elasticity|elastic
+icity$|noun|ic$|adj
+
+# e.g. alcoholic|alcohol
+ic$|adj|$|noun
+   actinic|actin;
+   classic|class;
+   conic|con;
+   formic|form;
+   genic|gen;
+   pediatric|pediatr;
+   rustic|rust;
+   sonic|son;
+   tonic|ton;
+   manic|man;
+   genetic|genet;
+   genetic|Genet;
+   limbic|limb;
+   ic|;
+   Gallic|gall;
+   Homeric|homer;
+   Masonic|mason;
+   abasic|abas;
+   adenic|aden;
+   allelic|allel;
+   anisic|anis;
+   arsonic|arson;
+   ataraxic|Atarax;
+   balanic|balan;
+   basic|bas;
+   basilic|basil;
+   biotic|Biot;
+   caloric|calor;
+   choreic|chore;
+   crotonic|Croton;
+   cryptic|crypt;
+   cubic|cub;
+   enzymic|enzym;
+   folic|fol;
+   fundic|fund;
+   funic|fun;
+   gallic|gall;
+   genesic|genes;
+   hemic|hem;
+   ironic|iron;
+   lipasic|lipas;
+   lyssic|lyss;
+   maleic|male;
+   phasic|phas;
+   plumbic|plumb;
+   tabic|tab;
+   tactic|tact;
+   toric|tor;
+   biotic|biot;
+   malic|mal;
+   rabic|rab;
+
+# e.g. amnesic|amnesia; and  academic|academia
+ia$|noun|ic$|adj
+   acidophilia|acidophilic;
+   media|medic;
+   olympia|Olympic;
+   Eugenia|eugenic;
+
+# e.g. barbaric|barbarism
+ic$|adj|ism$|noun
+   bimetallic|bimetallism;
+   boric|borism;
+   bromic|bromism;
+   camphoric|camphorism;
+   telluric|tellurism;
+   cubic|Cubism;
+
+# e.g. demagogic|demagogy
+ic$|adj|y$|noun
+   autonomic|autonomy;
+   colonic|colony;
+   ferric|ferry;
+   Germanic|germany;
+   caffeic|caffey;
+   italic|Italy;
+   academic|academy;
+   sympathic|sympathy;
+
+# e.g. deficient|deficiency
+ient$|adj|iency$|noun
+
+# e.g. easily|easy
+ily$|adv|y$|adj
+
+# e.g. ambition|ambitious religion|religious
+ion$|noun|ious$|adj
+   fraction|fractious;
+   pion|pious;
+
+# e.g. glorious|glory
+ious$|adj|y$|noun
+   copious|copy;
+
+# e.g. capitalism|capital
+ism$|noun|$|noun
+   actinism|actin;
+   humanism|human;
+   ism|;
+   Catholicism|catholic;
+   Expressionism|expression;
+   Impressionism|impression;
+   cubism|cub;
+
+# e.g. anachronism|anachronistic atavism|atavistic
+ism$|noun|istic$|adj
+   ballism|ballistic;
+
+# e.g. artist|art
+ist$|noun|$|noun
+   dentist|dent;
+   grist|gr;
+   list|l;
+   methodist|method;
+   humanist|human;
+   mist|m;
+
+# e.g. fatalist|fatalism; and atheist|atheism
+ist$|noun|ism$|noun
+   agonist|agonism;
+   Baptist|baptism;
+
+# e.g. abnormality|abnormal
+ity$|noun|$|adj
+   dimity|dim;
+   dexterity|dexter;
+   hilarity|hilar;
+   majority|major;
+   density|dens;
+   severity|sever;
+
+# e.g. adversity|adverse
+ity$|noun|e$|adj
+   relativity|relative;
+   cooperativity|Cooperative;
+   gentility|Gentile;
+   adversity|adverse;
+
+# e.g. frivolity|frivolous
+ity$|noun|ous$|adj
+   ingenuity|ingenuous;
+
+# e.g. explosive|explosion
+ive$|noun|ion$|noun
+   accusative|accusation;
+   defective|defection;
+   determinative|determination;
+   native|nation;
+   objective|objection;
+   passive|passion;
+   positive|position;
+   subjunctive|subjunction;
+   reflexive|reflexion;
+   conservative|conservation;
+   cooperative|cooperation;
+
+# e.g. civilization|civilize
+ization$|noun|ize$|verb
+
+# e.g. actively|active
+ly$|adv|$|adj
+   hardly|hard;
+   lately|late;
+   early|ear;
+   singly|sing;
+   ly|;
+   awfully|awful;
+   badly|bad;
+   barely|bare;
+   deeply|deep;
+   openly|open;
+   poorly|poor;
+   really|real;
+   sharply|sharp;
+   shortly|short;
+   wildly|wild;
+
+# e.g. invariably|invariable
+ly$|adv|le$|adj
+   supply|supple;
+   apply|apple;
+
+# e.g. editor|edit
+or$|noun|$|verb
+   armor|arm;
+   demeanor|demean;
+   donor|don;
+   door|do;
+   or|;
+   humor|hum;
+   meteor|mete;
+   rigor|rig;
+   tailor|tail;
+   Castor|cast;
+   Tendor|tend;
+   cantor|cant;
+   castor|cast;
+   clamor|clam;
+   furor|fur;
+   rotor|rot;
+   tumor|tum;
+   rubor|rub;
+
+# e.g. conductor|conduct
+or$|noun|e$|verb
+   dolor|dole;
+   equator|equate;
+   honor|hone;
+   livor|live;
+   minor|mine;
+   razor|raze;
+   stridor|stride;
+   primor|prime;
+   timor|time;
+   dicor|dice;
+   donor|done;
+   fetor|fete;
+   pavor|pave;
+   savor|save;
+   tensor|tense;
+
+# e.g. diagnosis|diagnose
+osis$|noun|ose$|verb
+
+# e.g. porosity|porous
+osity$|noun|ous$|adj
+
+# e.g. ichthyotic|ichthyosis
+otic$|adj|osis$|noun
+
+# e.g. cancerous|cancer
+ous$|adj|$|noun
+   bullous|bull;
+   hideous|hide;
+   parous|par;
+   ous|;
+   amorous|amor;
+   androgenous|androgen;
+   caseous|case;
+   circuitous|circuit;
+   genetous|Genet;
+   momentous|moment;
+   spinous|spin;
+   sanous|san;
+   torous|tor;
+
+# e.g. analogous|analogy
+ous$|adj|y$|noun
+   bullous|bully;
+   ferrous|ferry;
+
+# e.g. diffusion|diffuse
+sion$|noun|se$|verb
+   basion|base;
+   conversion|converse;
+
+# e.g. diversion|divert
+sion$|noun|t$|verb
+   basion|bat;
+   lesion|let;
+   mission|mist;
+   scansion|scant;
+   version|vert;
+
+# e.g. obsession|obsess
+ssion$|noun|ss$|verb
+   compassion|compass;
+   mission|miss;
+   passion|pass;
+
+# e.g. aseptic|asepsis
+tic$|adj|sis$|noun
+   genetic|genesis;
+
+# e.g. tabular|table
+ular$|adj|le$|noun
+   articular|article;
+   particular|particle;
+
+# e.g. nebular|nebula
+ular$|adj|ula$|noun
+
+# e.g. bushy|bush
+y$|adj|$|noun
+   army|arm;
+   bandy|band;
+   bully|bull;
+   busy|bus;
+   dilatory|dilator;
+   dumpy|dump;
+   handy|hand;
+   husky|husk;
+   jaunty|jaunt;
+   lacy|lac;
+   naughty|naught;
+   pasty|past;
+   perky|perk;
+   ready|read;
+   ruby|rub;
+   scary|scar;
+   seedy|seed;
+   shiny|shin;
+   silly|sill;
+   steady|stead;
+   sticky|stick;
+   slippery|slipper;
+   stingy|sting;
+   stuffy|stuff;
+   testy|test;
+   tiny|tin;
+   wary|war;
+   weary|wear;
+   early|earl;
+   hearty|heart;
+   study|stud;
+   mousey|mouse;
+   y|;
+   astray|astra;
+   bally|ball;
+   butoxy|Butox;
+   downy|Down;
+   earthy|Earth;
+   hilly|Hill;
+   lazy|Laz;
+   malay|mala;
+   okay|Oka;
+   okay|oka;
+   potty|Pott;
+   potty|pott;
+   silvery|Silver;
+   thorny|Thorn;
+   bay|ba;
+   flaky|flak;
+   shady|shad;
+   lazy|laz;
+   massy|mass;
+   spiny|spin;
+
+# e.g. bristly|bristle
+y$|adj|e$|noun
+   fey|fee;
+   heavy|heave;
+   holy|hole;
+   nosy|nose;
+   poky|poke;
+   racy|race;
+   tidy|tide;
+   wary|ware;
+   mousy|mouse;
+   steely|steele;
+   airy|aire;
+   foy|foe;
+   ley|lee;
+   may|mae;
+   roy|roe;
+   tiny|tine;
+
+# e.g. abundancy|abundance
+y$|noun|e$|noun
+   copy|cope;
+   gravy|grave;
+   heavy|heave;
+   policy|police;
+   poly|pole;
+   story|store;
+   tidy|tide;
+   toy|toe;
+   mousy|mouse;
+   steely|steele;
+   foy|foe;
+   ley|lee;
+   may|mae;
+   roy|roe;
+
+# some neo-classical terminal rules added: 24-Sep-92
+
+#e.g. thermograph|thermogram
+graph$|noun|gram$|noun
+   diagraph|diagram;
+   graph|gram;
+   hysterograph|hysterogram;
+   micrograph|microgram;
+
+#e.g. thermogram|thermography
+gram$|noun|graphy$|noun
+   histogram|histography;
+   microgram|micrography;
+   osteogram|osteography;
+
+#e.g. photograph|photography
+graph$|noun|graphy$|noun
+   urethrograph|urethrography;
+
+#e.g. thermogram|thermographic
+gram$|noun|graphic$|adj
+   gram|graphic;
+
+#e.g.
+meter$|noun|metry$|noun
+   auxometer|auxometry;
+   biometer|biometry;
+   oscillometer|oscillometry;
+   pathometer|pathometry;
+   skiameter|skiametry;
+   urometer|urometry;
+
+#e.g.
+physis$|noun|physeal$|adj
+
+#NOMINALIZATION Rules:
+#
+# This is an extreemly productive nominalization formation rule!
+# reflected in the "nominalization=" and "nominalization_of=" slots
+# in the lexicon. Aronoff (1976) discusses the productivity of "ness"
+# versus "ity".
+# e.g. aptness|apt
+ness$|noun|$|adj
+   chilliness|chilli;
+   likeness|like;
+   witness|wit;
+   wilderness|wilder;
+
+# e.g. retire|retirement
+ment$|noun|$|verb
+   Enlightenment|enlighten;
+   Government|govern;
+   abutment|abut;
+   ailment|ail;
+   apartment|apart;
+   basement|base;
+   catchment|catch;
+   department|depart;
+   deportment|deport;
+   environment|environ;
+   filament|fila;
+   foment|fo;
+   lament|la;
+   moment|mo;
+   parchment|parch;
+   pavement|pave;
+   pigment|pig;
+   supplement|supple;
+   temperament|tempera;
+   wonderment|wonder;
+
+#e.g. 
+y$|verb|ication$|noun
+   comply|complication;
+   fry|frication;
+   reply|replication;
+   rusty|rustication;
+   supply|supplication;
+
+# e.g. provide|provision
+de$|verb|sion$|noun
+   bade|basion;

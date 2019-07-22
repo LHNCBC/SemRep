@@ -1,0 +1,6 @@
+qp_lexicon_glue {
+  global:
+    sp_main_SPENV_qp_0x5Flexicon;
+  local:
+    *;
+};

@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-print_coverage</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-print_coverage">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-print_coverage">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dprint_005fmessage.html#mpg_002dref_002dprint_005fmessage" rel="next" title="mpg-ref-print_message">
+<link href="mpg_002dref_002dprint.html#mpg_002dref_002dprint" rel="prev" title="mpg-ref-print">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dprint_005fcoverage"></a>
+<hr>
+<a name="print_005fcoverage_002f_005b0_002c1_005d---development"></a>
+<h4 class="subsection">11.3.161 <code>print_coverage/[0,1]</code> &nbsp;<!-- /@w --> <i>development</i></h4>
+<a name="index-print_005fcoverage_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-print_005fcoverage_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-186"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>print_coverage</code> &nbsp;<!-- /@w --> <i>since release 4.2</i>
+</p>
+<p>Prints the coverage data accumulated so far, to the current output
+stream, in a hierarchical format.
+</p>
+<p><code>print_coverage(<var>+Data</var>)</code> &nbsp;<!-- /@w --> <i>since release 4.2</i>
+</p>
+<p>Prints the coverage data <var>Data</var>, to the current output stream, in
+a hierarchical format.  <var>Data</var> should be of type <em>list of
+coverage_pair</em>; see <code>coverage_data/1</code>.
+</p>
+<a name="Arguments-170"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Data</var></dt>
+<dd><p><em>list of coverage_pair</em>
+</p></dd>
+</dl>
+
+<a name="Description-136"></a>
+<h4 class="subheading">Description</h4>
+
+<p>The output is formatted hierarchically into blocks of lines,
+one block per source file. A typical block looks like:
+</p>
+<div class="example">
+<pre class="example">/home/matsc/tmp/primes.pl
+    user:integers/3
+        clause 1
+           5:        100
+           8:         99
+        clause 2
+           9:          1
+    user:primes/2
+        clause 1
+           1:          1
+           2:          1
+           3:         *1
+    user:remove/3
+        clause 1
+          16:        436
+        clause 2
+          17:        411
+          20:       *337
+        clause 3
+          21:         74
+          22:        *74
+    user:sift/2
+        clause 1
+          11:          1
+        clause 2
+          12:         25
+          13:        *25
+          14:        *25
+</pre></div>
+
+<p>This block lists all the coverage sites for the given file.
+They are distributed over 4 predicates, 8 clauses, and 16 active lines of code.
+The coverage site on line 8 was hit 99 times.
+The coverage site on line 20 was hit 337 times, making at least one nondet call.
+And so on.
+</p>
+<p>The variant <code>print_coverage/1</code> is useful e.g. if you want to somehow filter
+the execution coverage computed by <code>coverage_data/1</code> before printing it.
+</p>
+<a name="Exceptions-177"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+</p>
+<a name="See-Also-183"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Coverage-Analysis.html#Coverage-Analysis">Coverage Analysis</a>.  The Emacs interface has commands for code coverage
+highlighting of the current buffer (<kbd>C-c C-o</kbd>, or use the Prolog menu;
+see <a href="Usage.html#Usage">Usage</a>).
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dprint_005fmessage.html#mpg_002dref_002dprint_005fmessage" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dprint.html#mpg_002dref_002dprint" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dprint_005fcoverage.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dprint_005fcoverage.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

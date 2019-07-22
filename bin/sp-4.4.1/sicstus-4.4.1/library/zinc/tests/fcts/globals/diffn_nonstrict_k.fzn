@@ -1,0 +1,17 @@
+predicate diffn_nonstrict_sicstus(array [int] of var int: x,array [int] of var int: y,array [int] of var int: dx,array [int] of var int: dy);
+var 0..2: X_INTRODUCED_0;
+var 0..2: X_INTRODUCED_1;
+var 0..2: X_INTRODUCED_2;
+var 0..2: X_INTRODUCED_3;
+var {0,2}: X_INTRODUCED_4;
+var {0,2}: X_INTRODUCED_5;
+var {0,2}: X_INTRODUCED_6;
+var {0,2}: X_INTRODUCED_7;
+array [1..4] of var int: x:: output_array([1..2,1..2]) = [X_INTRODUCED_0,X_INTRODUCED_1,X_INTRODUCED_2,X_INTRODUCED_3];
+array [1..4] of var int: dx:: output_array([1..2,1..2]) = [X_INTRODUCED_4,X_INTRODUCED_5,X_INTRODUCED_6,X_INTRODUCED_7];
+array [1..2] of var int: X_INTRODUCED_8 ::var_is_introduced  = [X_INTRODUCED_5,X_INTRODUCED_7];
+array [1..2] of var int: X_INTRODUCED_9 ::var_is_introduced  = [X_INTRODUCED_4,X_INTRODUCED_6];
+array [1..2] of var int: X_INTRODUCED_10 ::var_is_introduced  = [X_INTRODUCED_1,X_INTRODUCED_3];
+array [1..2] of var int: X_INTRODUCED_11 ::var_is_introduced  = [X_INTRODUCED_0,X_INTRODUCED_2];
+constraint diffn_nonstrict_sicstus(X_INTRODUCED_11,X_INTRODUCED_10,X_INTRODUCED_9,X_INTRODUCED_8);
+solve  satisfy;

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SemRepAnnotation PUBLIC "-//NLM//DTD SemRep Output//EN" "http://semrep.nlm.nih.gov/DTD/SemRepXML_v1.8.dtd">
+<SemRepAnnotation>
+ <Document id="D15996060" text="PMID- 15996060 OWN - NLM STAT- MEDLINE DA  - 20050704 DCOM- 20050823 LR  - 20061115 IS  - 0315-162X (Print) IS  - 0315-162X (Linking) VI  - 32 IP  - 7 DP  - 2005 Jul TI  - Sex hormone concentrations in patients with rheumatoid arthritis are not       normalized during 12 weeks of anti-tumor necrosis factor therapy. PG  - 1253-8 AB  - OBJECTIVE: Androgens such as dehydroepiandrosterone sulfate (DHEAS) and       testosterone are markedly lower in postmenopausal women with rheumatoid       arthritis (RA) than in controls. In contrast, compared to controls, serum       levels of estrogens are normal or elevated in women with RA. Since tumor       necrosis factor (TNF) alters production of these hormones, we investigated       changes of these hormones during anti-TNF antibody (anti-TNF) therapy with       adalimumab in longstanding RA. METHODS: In this longitudinal anti-TNF       therapy study in 13 patients with long-standing RA without prior       prednisolone (7 infusions of anti-TNF: Week 0, 2, 4, 6, 8, 10, and 12), we       measured serum concentrations of interleukin 6 (IL-6), androstenedione,       DHEA, DHEAS, free testosterone, estrone, and 17ss-estradiol. Levels of       these hormones in patients were compared to serum levels of 31 age and sex       matched healthy controls. RESULTS: Upon treatment with anti-TNF, there was       an impressive decrease of clinical markers of inflammation, erythrocyte       sedimentation rate, and serum levels of IL-6. Serum levels of DHEAS and       free testosterone were markedly lower at baseline in patients compared to       controls, but this did not change during anti-TNF therapy. Serum levels of       DHEA and 17ss-estradiol were significantly elevated in patients compared       to controls, but similarly, anti-TNF therapy did not change initially       increased levels. Molar ratios of hormones, which reflect hormone shifts       via converting enzymes, showed typical alterations at baseline, but did       not change markedly during anti-TNF therapy. CONCLUSION: Longterm therapy       with anti-TNF did not change altered serum levels of typical sex hormones       in patients with RA, although baseline values were largely different. In       patients with RA, this indicates that alterations of sex hormones and       altered activity of respective converting enzymes are imprinted for a       long-lasting period over at least 12 weeks. AD  - Department of Internal Medicine I, Laboratory of Neuroendocrinoimmunology,       University Medical Center, Regensburg, Germany.       rainer.straub@klinik.uni-regensburg.de FAU - Straub, Rainer H AU  - Straub RH FAU - Harle, Peter AU  - Harle P FAU - Atzeni, Fabiola AU  - Atzeni F FAU - Weidler, Claudia AU  - Weidler C FAU - Cutolo, Maurizio AU  - Cutolo M FAU - Sarzi-Puttini, Piercarlo AU  - Sarzi-Puttini P LA  - eng PT  - Clinical Trial PT  - Controlled Clinical Trial PT  - Journal Article PT  - Research Support, Non-U.S. Gov&#39;t PL  - Canada TA  - J Rheumatol JT  - The Journal of rheumatology JID - 7501984 RN  - 0 (Antibodies, Monoclonal) RN  - 0 (Antirheumatic Agents) RN  - 0 (Gonadal Steroid Hormones) RN  - 0 (Interleukin-6) RN  - 0 (Tumor Necrosis Factor-alpha) RN  - 0 (adalimumab) RN  - 50-28-2 (Estradiol) RN  - 53-16-7 (Estrone) RN  - 58-22-0 (Testosterone) RN  - 63-05-8 (Androstenedione) RN  - 651-48-9 (Dehydroepiandrosterone Sulfate) SB  - IM MH  - Aged MH  - Androstenedione/blood MH  - Antibodies, Monoclonal/*administration &amp; dosage MH  - Antirheumatic Agents/*administration &amp; dosage MH  - Arthritis, Rheumatoid/blood/*drug therapy MH  - Dehydroepiandrosterone Sulfate/blood MH  - Estradiol/blood MH  - Estrone/blood MH  - Female MH  - Gonadal Steroid Hormones/*blood MH  - Humans MH  - Interleukin-6/blood MH  - Male MH  - Middle Aged MH  - Testosterone/blood MH  - Treatment Outcome MH  - Tumor Necrosis Factor-alpha/*antagonists &amp; inhibitors EDAT- 2005/07/05 09:00 MHDA- 2005/08/24 09:00 CRDT- 2005/07/05 09:00 AID - 0315162X-32-1253 [pii] PST - ppublish SO  - J Rheumatol. 2005 Jul;32(7):1253-8." >
+ <Utterance id="D15996060.ti.1" section="ti" number="1" begin="172" end="317" text="Sex hormone concentrations in patients with rheumatoid arthritis are not       normalized during 12 weeks of anti-tumor necrosis factor therapy.">
+  <Entity id="D15996060.E1" cui="C0036884" name="Gonadal Steroid Hormones" semtypes="horm" text="Sex hormone" score="901" negated="false" begin="172" end="183" />
+  <Entity id="D15996060.E2" cui="C0030705" name="Patients" semtypes="podg" text="patients" score="1000" negated="false" begin="202" end="210" />
+  <Entity id="D15996060.E3" cui="C0003873" name="Rheumatoid Arthritis" semtypes="dsyn" text="rheumatoid arthritis" score="1000" negated="false" begin="216" end="236" />
+  <Entity id="D15996060.E4" cui="C1518422" name="Not" semtypes="ftcn" text="not" score="1000" negated="false" begin="241" end="244" />
+  <Entity id="D15996060.E5" cui="C0439230" name="week" semtypes="tmco" text="weeks" score="861" negated="false" begin="272" end="277" />
+  <Entity id="D15996060.E6" cui="C0281481" name="anti-tumor necrosis factor therapy" semtypes="topp" text="anti-tumor necrosis factor therapy" score="1000" negated="false" begin="281" end="315" />
+  <Predication id="D15996060.P1" negated="false" inferred="true">
+   <Subject maxDist="0" dist="0" entityID="D15996060.E1" relSemType="horm" />
+   <Predicate type="TREATS" indicatorType="INFER" begin="199" end="201" />
+   <Object maxDist="0" dist="0" entityID="D15996060.E3" relSemType="dsyn" />
+  </Predication>
+  <Predication id="D15996060.P2" negated="false" inferred="false">
+   <Subject maxDist="1" dist="1" entityID="D15996060.E1" relSemType="horm" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="199" end="201" />
+   <Object maxDist="4" dist="1" entityID="D15996060.E2" relSemType="podg" />
+  </Predication>
+  <Predication id="D15996060.P3" negated="false" inferred="false">
+   <Subject maxDist="3" dist="1" entityID="D15996060.E3" relSemType="dsyn" />
+   <Predicate type="PROCESS_OF" indicatorType="PREP" begin="211" end="215" />
+   <Object maxDist="2" dist="1" entityID="D15996060.E2" relSemType="humn" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D15996060.ab.1" section="ab" number="1" begin="336" end="525" type="OBJECTIVE" text="OBJECTIVE: Androgens such as dehydroepiandrosterone sulfate (DHEAS) and       testosterone are markedly lower in postmenopausal women with rheumatoid       arthritis (RA) than in controls.">
+  <Entity id="D15996060.E7" cui="C0002844" name="Androgens" semtypes="horm,phsu" text="Androgens" score="1000" negated="false" begin="347" end="356" />
+  <Entity id="D15996060.E8" cui="C0057277" name="Dehydroepiandrosterone Sulfate" semtypes="bacs,phsu,strd" text="dehydroepiandrosterone sulfate" score="1000" negated="false" begin="365" end="395" />
+  <Entity id="D15996060.E9" cui="C0039601" name="Testosterone" semtypes="horm,phsu,strd" text="testosterone" score="1000" negated="false" begin="414" end="426" />
+  <Entity id="D15996060.E10" cui="C0522501" name="Massive" semtypes="qlco" text="markedly" score="888" negated="false" begin="431" end="439" />
+  <Entity id="D15996060.E11" cui="C0441994" name="Lower" semtypes="ftcn" text="lower" score="888" negated="false" begin="440" end="445" />
+  <Entity id="D15996060.E12" cui="C0043210" name="Woman" semtypes="popg" text="women" score="861" negated="false" begin="464" end="469" />
+  <Entity id="D15996060.E13" cui="C0003873" name="Rheumatoid Arthritis" semtypes="dsyn" text="rheumatoid       arthritis" score="1000" negated="false" begin="475" end="501" />
+  <Entity id="D15996060.E14" cui="C0243148" name="control" semtypes="ftcn" text="controls" score="966" negated="false" begin="515" end="523" />
+  <Predication id="D15996060.P4" negated="false" inferred="false">
+   <Subject maxDist="0" dist="0" entityID="D15996060.E9" relSemType="horm" />
+   <Predicate type="ISA" indicatorType="SPEC" begin="347" end="395" />
+   <Object maxDist="0" dist="0" entityID="D15996060.E7" relSemType="horm" />
+  </Predication>
+  <Predication id="D15996060.P5" negated="false" inferred="true">
+   <Subject maxDist="0" dist="0" entityID="D15996060.E9" relSemType="phsu" />
+   <Predicate type="TREATS" indicatorType="INFER" begin="446" end="448" />
+   <Object maxDist="0" dist="0" entityID="D15996060.E13" relSemType="dsyn" />
+  </Predication>
+  <Predication id="D15996060.P6" negated="false" inferred="false">
+   <Subject maxDist="0" dist="0" entityID="D15996060.E8" relSemType="bacs" />
+   <Predicate type="ISA" indicatorType="SPEC" begin="347" end="395" />
+   <Object maxDist="0" dist="0" entityID="D15996060.E7" relSemType="horm" />
+  </Predication>
+  <Predication id="D15996060.P7" negated="false" inferred="true">
+   <Subject maxDist="0" dist="0" entityID="D15996060.E8" relSemType="phsu" />
+   <Predicate type="TREATS" indicatorType="INFER" begin="446" end="448" />
+   <Object maxDist="0" dist="0" entityID="D15996060.E13" relSemType="dsyn" />
+  </Predication>
+  <Predication id="D15996060.P8" negated="false" inferred="false">
+   <Subject maxDist="2" dist="1" entityID="D15996060.E13" relSemType="dsyn" />
+   <Predicate type="PROCESS_OF" indicatorType="PREP" begin="470" end="474" />
+   <Object maxDist="6" dist="1" entityID="D15996060.E12" relSemType="humn" />
+  </Predication>
+  <Predication id="D15996060.P9" negated="false" inferred="false">
+   <Subject maxDist="5" dist="2" entityID="D15996060.E9" relSemType="phsu" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="446" end="448" />
+   <Object maxDist="3" dist="1" entityID="D15996060.E12" relSemType="popg" />
+  </Predication>
+  <Predication id="D15996060.P10" negated="false" inferred="false">
+   <Subject maxDist="5" dist="2" entityID="D15996060.E8" relSemType="phsu" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="446" end="448" />
+   <Object maxDist="3" dist="1" entityID="D15996060.E12" relSemType="popg" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D15996060.ab.2" section="ab" number="2" begin="525" end="633" type="OBJECTIVE" text="In contrast, compared to controls, serum       levels of estrogens are normal or elevated in women with RA.">
+  <Entity id="D15996060.E15" cui="C0243148" name="control" semtypes="ftcn" text="controls" score="966" negated="false" begin="550" end="558" />
+  <Entity id="D15996060.E16" cui="C0229671" name="Serum" semtypes="bdsu" text="serum" score="888" negated="false" begin="560" end="565" />
+  <Entity id="D15996060.E17" cui="C0441889" name="Levels" semtypes="inpr" text="levels" score="888" negated="false" begin="572" end="578" />
+  <Entity id="D15996060.E18" cui="C0014939" name="Estrogens" semtypes="horm,phsu,strd" text="estrogens" score="1000" negated="false" begin="582" end="591" />
+  <Entity id="D15996060.E19" cui="C0205307" name="Normal" semtypes="qlco" text="normal" score="1000" negated="false" begin="596" end="602" />
+  <Entity id="D15996060.E20" cui="C0043210" name="Woman" semtypes="popg" text="women" score="1000" negated="false" begin="618" end="623" />
+  <Entity id="D15996060.E21" cui="C0003873" name="Rheumatoid Arthritis" semtypes="dsyn" text="RA" score="1000" negated="false" begin="629" end="631" />
+  <Predication id="D15996060.P11" negated="false" inferred="true">
+   <Subject maxDist="0" dist="0" entityID="D15996060.E18" relSemType="phsu" />
+   <Predicate type="TREATS" indicatorType="INFER" begin="615" end="617" />
+   <Object maxDist="0" dist="0" entityID="D15996060.E21" relSemType="dsyn" />
+  </Predication>
+  <Predication id="D15996060.P12" negated="false" inferred="false">
+   <Subject maxDist="1" dist="1" entityID="D15996060.E21" relSemType="dsyn" />
+   <Predicate type="PROCESS_OF" indicatorType="PREP" begin="624" end="628" />
+   <Object maxDist="6" dist="1" entityID="D15996060.E20" relSemType="humn" />
+  </Predication>
+  <Predication id="D15996060.P13" negated="false" inferred="false">
+   <Subject maxDist="5" dist="2" entityID="D15996060.E18" relSemType="phsu" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="615" end="617" />
+   <Object maxDist="2" dist="1" entityID="D15996060.E20" relSemType="popg" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D15996060.ab.3" section="ab" number="3" begin="633" end="844" type="OBJECTIVE" text="Since tumor       necrosis factor (TNF) alters production of these hormones, we investigated       changes of these hormones during anti-TNF antibody (anti-TNF) therapy with       adalimumab in longstanding RA.">
+  <Entity id="D15996060.E22" cui="C0041368" name="Tumor Necrosis Factors" semtypes="aapp,imft" entrezID="7124" entrezName="TNF" text="tumor       necrosis factor" score="1000" negated="false" begin="639" end="666" />
+  <Entity id="D15996060.E23" cui="C0033268" name="production" semtypes="ocac" text="production" score="1000" negated="false" begin="680" end="690" />
+  <Entity id="D15996060.E24" cui="C0019932" name="Hormones" semtypes="horm" text="hormones" score="1000" negated="false" begin="700" end="708" />
+  <Entity id="D15996060.E25" cui="C0019932" name="Hormones" semtypes="horm" text="hormones" score="1000" negated="false" begin="749" end="757" />
+  <Entity id="D15996060.E26" cui="C0041368" name="Tumor Necrosis Factors" semtypes="aapp,imft" entrezID="7124" entrezName="TNF" text="TNF" score="882" negated="false" begin="770" end="773" />
+  <Entity id="D15996060.E27" cui="C0003242" name="Antibodies, Anti-Idiotypic" semtypes="aapp,imft" text="anti-TNF antibody" score="882" negated="false" begin="765" end="782" />
+  <Entity id="D15996060.E28" cui="C0041368" name="Tumor Necrosis Factors" semtypes="aapp,imft" entrezID="7124" entrezName="TNF" text="TNF" score="923" negated="false" begin="789" end="792" />
+  <Entity id="D15996060.E29" cui="C0087111" name="Therapeutic procedure" semtypes="topp" text="therapy" score="1000" negated="false" begin="794" end="801" />
+  <Entity id="D15996060.E30" cui="C1122087" name="adalimumab" semtypes="aapp,imft,phsu" text="adalimumab" score="1000" negated="false" begin="813" end="823" />
+  <Entity id="D15996060.E31" cui="C0003873" name="Rheumatoid Arthritis" semtypes="dsyn" text="RA" score="901" negated="false" begin="840" end="842" />
+  <Predication id="D15996060.P14" negated="false" inferred="false">
+   <Subject maxDist="1" dist="1" entityID="D15996060.E22" relSemType="aapp" />
+   <Predicate type="INTERACTS_WITH" indicatorType="VERB" begin="673" end="679" />
+   <Object maxDist="9" dist="2" entityID="D15996060.E24" relSemType="horm" />
+  </Predication>
+  <Predication id="D15996060.P15" negated="false" inferred="false">
+   <Subject maxDist="5" dist="1" entityID="D15996060.E25" relSemType="horm" />
+   <Predicate type="COEXISTS_WITH" indicatorType="PREP" begin="758" end="764" />
+   <Object maxDist="5" dist="1" entityID="D15996060.E27" relSemType="aapp" />
+  </Predication>
+  <Predication id="D15996060.P16" negated="false" inferred="false">
+   <Subject maxDist="8" dist="1" entityID="D15996060.E29" relSemType="topp" />
+   <Predicate type="USES" indicatorType="PREP" begin="802" end="806" />
+   <Object maxDist="2" dist="1" entityID="D15996060.E30" relSemType="aapp" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D15996060.ab.4" section="ab" number="4" begin="844" end="1180" type="METHODS" text="METHODS: In this longitudinal anti-TNF       therapy study in 13 patients with long-standing RA without prior       prednisolone (7 infusions of anti-TNF: Week 0, 2, 4, 6, 8, 10, and 12), we       measured serum concentrations of interleukin 6 (IL-6), androstenedione,       DHEA, DHEAS, free testosterone, estrone, and 17ss-estradiol.">
+  <Entity id="D15996060.E32" cui="C0025663" name="Methods" semtypes="inpr" text="METHODS" score="1000" negated="false" begin="844" end="851" />
+  <Entity id="D15996060.E33" cui="C0281481" name="anti-tumor necrosis factor therapy" semtypes="topp" text="anti-TNF       therapy" score="909" negated="false" begin="874" end="896" />
+  <Entity id="D15996060.E34" cui="C0023981" name="Longitudinal Studies" semtypes="qnco,resa" text="longitudinal anti-TNF       therapy study" score="909" negated="false" begin="861" end="902" />
+  <Entity id="D15996060.E35" cui="C0030705" name="Patients" semtypes="podg" text="patients" score="861" negated="false" begin="909" end="917" />
+  <Entity id="D15996060.E36" cui="C0205166" name="Long" semtypes="qlco" text="long" score="861" negated="false" begin="923" end="927" />
+  <Entity id="D15996060.E37" cui="C0231472" name="Orthostatic body position" semtypes="spco" text="standing" score="861" negated="false" begin="928" end="936" />
+  <Entity id="D15996060.E38" cui="C0003873" name="Rheumatoid Arthritis" semtypes="dsyn" text="RA" score="861" negated="false" begin="937" end="939" />
+  <Entity id="D15996060.E39" cui="C0332152" name="Status pre-" semtypes="tmco" text="prior" score="888" negated="true" begin="948" end="953" />
+  <Entity id="D15996060.E40" cui="C0032950" name="prednisolone" semtypes="phsu,strd" text="prednisolone" score="888" negated="true" begin="960" end="972" />
+  <Entity id="D15996060.E41" cui="C0574032" name="Infusion procedures" semtypes="topp" text="infusions" score="827" negated="false" begin="976" end="985" />
+  <Entity id="D15996060.E42" cui="C0041368" name="Tumor Necrosis Factors" semtypes="aapp,imft" entrezID="7124" entrezName="TNF" text="TNF" score="923" negated="false" begin="994" end="997" />
+  <Entity id="D15996060.E43" cui="C0439230" name="week" semtypes="tmco" text="Week" score="861" negated="false" begin="999" end="1003" />
+  <Entity id="D15996060.E44" cui="C0683149" name="serum drug concentration" semtypes="qnco" text="serum concentrations" score="983" negated="false" begin="1050" end="1070" />
+  <Entity id="D15996060.E45" cui="C0021760" name="Interleukin-6" semtypes="aapp,imft" text="interleukin 6" score="1000" negated="false" begin="1074" end="1087" />
+  <Entity id="D15996060.E46" cui="C0002860" name="Androstenedione" semtypes="horm,phsu,strd" text="androstenedione" score="1000" negated="false" begin="1096" end="1111" />
+  <Entity id="D15996060.E47" cui="C0011185" name="dehydroepiandrosterone" semtypes="horm,phsu,strd" text="DHEA" score="1000" negated="false" begin="1119" end="1123" />
+  <Entity id="D15996060.E48" cui="C0057277" name="Dehydroepiandrosterone Sulfate" semtypes="bacs,phsu,strd" text="DHEAS" score="1000" negated="false" begin="1125" end="1130" />
+  <Entity id="D15996060.E49" cui="C0443483" name="Free testosterone" semtypes="horm,strd" text="free testosterone" score="1000" negated="false" begin="1132" end="1149" />
+  <Entity id="D15996060.E50" cui="C0014942" name="Estrone" semtypes="horm,phsu,strd" text="estrone" score="1000" negated="false" begin="1151" end="1158" />
+  <Entity id="D15996060.E51" cui="C0014912" name="Estradiol" semtypes="horm,phsu,strd" text="estradiol" score="861" negated="false" begin="1169" end="1178" />
+  <Predication id="D15996060.P17" negated="false" inferred="false">
+   <Subject maxDist="0" dist="0" entityID="D15996060.E34" relSemType="resa" />
+   <Predicate type="USES" indicatorType="MOD_HEAD" begin="874" end="902" />
+   <Object maxDist="0" dist="0" entityID="D15996060.E33" relSemType="topp" />
+  </Predication>
+  <Predication id="D15996060.P18" negated="false" inferred="false">
+   <Subject maxDist="7" dist="6" entityID="D15996060.E34" relSemType="resa" />
+   <Predicate type="MEASURES" indicatorType="VERB" begin="1041" end="1049" />
+   <Object maxDist="7" dist="1" entityID="D15996060.E44" relSemType="qnco" />
+  </Predication>
+  <Predication id="D15996060.P19" negated="false" inferred="false">
+   <Subject maxDist="11" dist="1" entityID="D15996060.E38" relSemType="dsyn" />
+   <Predicate type="PROCESS_OF" indicatorType="PREP" begin="918" end="922" />
+   <Object maxDist="3" dist="1" entityID="D15996060.E35" relSemType="humn" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D15996060.ab.5" section="ab" number="5" begin="1180" end="1303" type="METHODS" text="Levels of       these hormones in patients were compared to serum levels of 31 age and sex       matched healthy controls.">
+  <Entity id="D15996060.E52" cui="C0441889" name="Levels" semtypes="inpr" text="Levels" score="1000" negated="false" begin="1180" end="1186" />
+  <Entity id="D15996060.E53" cui="C0019932" name="Hormones" semtypes="horm" text="hormones" score="1000" negated="false" begin="1202" end="1210" />
+  <Entity id="D15996060.E54" cui="C0030705" name="Patients" semtypes="podg" text="patients" score="1000" negated="false" begin="1214" end="1222" />
+  <Entity id="D15996060.E55" cui="C0229671" name="Serum" semtypes="bdsu" text="serum" score="888" negated="false" begin="1240" end="1245" />
+  <Entity id="D15996060.E56" cui="C0441889" name="Levels" semtypes="inpr" text="levels" score="888" negated="false" begin="1246" end="1252" />
+  <Entity id="D15996060.E57" cui="C0001779" name="Age" semtypes="orga" text="age" score="861" negated="false" begin="1259" end="1262" />
+  <Entity id="D15996060.E58" cui="C0150103" name="MATCHING" semtypes="resa" text="matched" score="808" negated="false" begin="1277" end="1284" />
+  <Entity id="D15996060.E59" cui="C1456614" name="Sexual Health" semtypes="clna" text="sex       matched healthy" score="808" negated="false" begin="1267" end="1292" />
+  <Entity id="D15996060.E60" cui="C0243148" name="control" semtypes="ftcn" text="controls" score="808" negated="false" begin="1293" end="1301" />
+  <Predication id="D15996060.P20" negated="false" inferred="false">
+   <Subject maxDist="2" dist="1" entityID="D15996060.E53" relSemType="horm" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="1211" end="1213" />
+   <Object maxDist="4" dist="1" entityID="D15996060.E54" relSemType="podg" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D15996060.ab.6" section="ab" number="6" begin="1303" end="1482" type="RESULTS" text="RESULTS: Upon treatment with anti-TNF, there was       an impressive decrease of clinical markers of inflammation, erythrocyte       sedimentation rate, and serum levels of IL-6.">
+  <Entity id="D15996060.E61" cui="C1274040" name="result" semtypes="ftcn" text="RESULTS" score="966" negated="false" begin="1303" end="1310" />
+  <Entity id="D15996060.E62" cui="C0087111" name="Therapeutic procedure" semtypes="topp" text="treatment" score="1000" negated="false" begin="1317" end="1326" />
+  <Entity id="D15996060.E63" cui="C0041368" name="Tumor Necrosis Factors" semtypes="aapp,imft" entrezID="7124" entrezName="TNF" text="TNF" score="923" negated="false" begin="1337" end="1340" />
+  <Entity id="D15996060.E64" cui="C0547047" name="Decrease" semtypes="qnco" text="decrease" score="861" negated="false" begin="1372" end="1380" />
+  <Entity id="D15996060.E65" cui="C0008963" name="Markers, Clinical" semtypes="qlco" text="clinical markers" score="1000" negated="false" begin="1384" end="1400" />
+  <Entity id="D15996060.E66" cui="C0021368" name="Inflammation" semtypes="patf" text="inflammation" score="1000" negated="false" begin="1404" end="1416" />
+  <Entity id="D15996060.E67" cui="C0086250" name="Erythrocyte Sedimentation Rate" semtypes="celf" text="erythrocyte       sedimentation rate" score="1000" negated="false" begin="1418" end="1454" />
+  <Entity id="D15996060.E68" cui="C0229671" name="Serum" semtypes="bdsu" text="serum" score="888" negated="false" begin="1460" end="1465" />
+  <Entity id="D15996060.E69" cui="C0441889" name="Levels" semtypes="inpr" text="levels" score="888" negated="false" begin="1466" end="1472" />
+  <Entity id="D15996060.E70" cui="C0021760" name="Interleukin-6" semtypes="aapp,imft" text="IL-6" score="1000" negated="false" begin="1476" end="1480" />
+  <Predication id="D15996060.P21" negated="false" inferred="false">
+   <Subject maxDist="2" dist="1" entityID="D15996060.E62" relSemType="topp" />
+   <Predicate type="USES" indicatorType="PREP" begin="1327" end="1331" />
+   <Object maxDist="6" dist="1" entityID="D15996060.E63" relSemType="aapp" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D15996060.ab.7" section="ab" number="7" begin="1482" end="1653" type="RESULTS" text="Serum levels of DHEAS and       free testosterone were markedly lower at baseline in patients compared to       controls, but this did not change during anti-TNF therapy.">
+  <Entity id="D15996060.E71" cui="C0229671" name="Serum" semtypes="bdsu" text="Serum" score="888" negated="false" begin="1482" end="1487" />
+  <Entity id="D15996060.E72" cui="C0441889" name="Levels" semtypes="inpr" text="levels" score="888" negated="false" begin="1488" end="1494" />
+  <Entity id="D15996060.E73" cui="C0057277" name="Dehydroepiandrosterone Sulfate" semtypes="bacs,phsu,strd" text="DHEAS" score="1000" negated="false" begin="1498" end="1503" />
+  <Entity id="D15996060.E74" cui="C0443483" name="Free testosterone" semtypes="horm,strd" text="free testosterone" score="1000" negated="false" begin="1514" end="1531" />
+  <Entity id="D15996060.E75" cui="C0522501" name="Massive" semtypes="qlco" text="markedly" score="888" negated="false" begin="1537" end="1545" />
+  <Entity id="D15996060.E76" cui="C0441994" name="Lower" semtypes="ftcn" text="lower" score="888" negated="false" begin="1546" end="1551" />
+  <Entity id="D15996060.E77" cui="C1442488" name="BASELINE" semtypes="qnco" text="baseline" score="1000" negated="false" begin="1555" end="1563" />
+  <Entity id="D15996060.E78" cui="C0030705" name="Patients" semtypes="podg" text="patients" score="1000" negated="false" begin="1567" end="1575" />
+  <Entity id="D15996060.E79" cui="C0243148" name="control" semtypes="ftcn" text="controls" score="966" negated="false" begin="1594" end="1602" />
+  <Entity id="D15996060.E80" cui="C1518422" name="Not" semtypes="ftcn" text="not" score="1000" negated="false" begin="1617" end="1620" />
+  <Entity id="D15996060.E81" cui="C0281481" name="anti-tumor necrosis factor therapy" semtypes="topp" text="anti-TNF therapy" score="1000" negated="false" begin="1635" end="1651" />
+  <Predication id="D15996060.P22" negated="false" inferred="false">
+   <Subject maxDist="5" dist="3" entityID="D15996060.E73" relSemType="strd" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="1564" end="1566" />
+   <Object maxDist="3" dist="1" entityID="D15996060.E78" relSemType="podg" />
+  </Predication>
+  <Predication id="D15996060.P23" negated="false" inferred="false">
+   <Subject maxDist="5" dist="3" entityID="D15996060.E74" relSemType="horm" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="1564" end="1566" />
+   <Object maxDist="3" dist="1" entityID="D15996060.E78" relSemType="podg" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D15996060.ab.8" section="ab" number="8" begin="1653" end="1848" type="RESULTS" text="Serum levels of       DHEA and 17ss-estradiol were significantly elevated in patients compared       to controls, but similarly, anti-TNF therapy did not change initially       increased levels.">
+  <Entity id="D15996060.E82" cui="C0229671" name="Serum" semtypes="bdsu" text="Serum" score="888" negated="false" begin="1653" end="1658" />
+  <Entity id="D15996060.E83" cui="C0441889" name="Levels" semtypes="inpr" text="levels" score="888" negated="false" begin="1659" end="1665" />
+  <Entity id="D15996060.E84" cui="C0011185" name="dehydroepiandrosterone" semtypes="horm,phsu,strd" text="DHEA" score="1000" negated="false" begin="1675" end="1679" />
+  <Entity id="D15996060.E85" cui="C0014912" name="Estradiol" semtypes="horm,phsu,strd" text="estradiol" score="861" negated="false" begin="1689" end="1698" />
+  <Entity id="D15996060.E86" cui="C0030705" name="Patients" semtypes="podg" text="patients" score="1000" negated="false" begin="1730" end="1738" />
+  <Entity id="D15996060.E87" cui="C0243148" name="control" semtypes="ftcn" text="controls" score="966" negated="false" begin="1757" end="1765" />
+  <Entity id="D15996060.E88" cui="C0281481" name="anti-tumor necrosis factor therapy" semtypes="topp" text="anti-TNF therapy" score="1000" negated="false" begin="1782" end="1798" />
+  <Entity id="D15996060.E89" cui="C1518422" name="Not" semtypes="ftcn" text="not" score="1000" negated="false" begin="1803" end="1806" />
+  <Entity id="D15996060.E90" cui="C0205265" name="Initially" semtypes="tmco" text="initially" score="851" negated="true" begin="1814" end="1823" />
+  <Entity id="D15996060.E91" cui="C0205217" name="Increased" semtypes="qnco" text="increased" score="851" negated="true" begin="1830" end="1839" />
+  <Entity id="D15996060.E92" cui="C0441889" name="Levels" semtypes="inpr" text="levels" score="851" negated="true" begin="1840" end="1846" />
+  <Predication id="D15996060.P24" negated="false" inferred="false">
+   <Subject maxDist="3" dist="1" entityID="D15996060.E84" relSemType="horm" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="1727" end="1729" />
+   <Object maxDist="4" dist="1" entityID="D15996060.E86" relSemType="podg" />
+  </Predication>
+  <Predication id="D15996060.P25" negated="false" inferred="false">
+   <Subject maxDist="3" dist="1" entityID="D15996060.E85" relSemType="horm" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="1727" end="1729" />
+   <Object maxDist="4" dist="1" entityID="D15996060.E86" relSemType="podg" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D15996060.ab.9" section="ab" number="9" begin="1848" end="2032" type="RESULTS" text="Molar ratios of hormones, which reflect hormone shifts       via converting enzymes, showed typical alterations at baseline, but did       not change markedly during anti-TNF therapy.">
+  <Entity id="D15996060.E93" cui="C1610540" name="Kind of quantity - Ratios" semtypes="qnco" text="ratios" score="861" negated="false" begin="1854" end="1860" />
+  <Entity id="D15996060.E94" cui="C0019932" name="Hormones" semtypes="horm" text="hormones" score="1000" negated="false" begin="1864" end="1872" />
+  <Entity id="D15996060.E95" cui="C0019932" name="Hormones" semtypes="horm" text="hormone" score="1000" negated="false" begin="1888" end="1895" />
+  <Entity id="D15996060.E96" cui="C1550513" name="via" semtypes="idcn" text="via" score="802" negated="false" begin="1909" end="1912" />
+  <Entity id="D15996060.E97" cui="C0014442" name="Enzymes" semtypes="enzy,orch" text="enzymes" score="802" negated="false" begin="1924" end="1931" />
+  <Entity id="D15996060.E98" cui="C1515926" name="Alteration" semtypes="idcn" text="alterations" score="827" negated="false" begin="1948" end="1959" />
+  <Entity id="D15996060.E99" cui="C1442488" name="BASELINE" semtypes="qnco" text="baseline" score="1000" negated="false" begin="1963" end="1971" />
+  <Entity id="D15996060.E100" cui="C1518422" name="Not" semtypes="ftcn" text="not" score="1000" negated="false" begin="1987" end="1990" />
+  <Entity id="D15996060.E101" cui="C0522501" name="Massive" semtypes="qlco" text="markedly" score="1000" negated="true" begin="1998" end="2006" />
+  <Entity id="D15996060.E102" cui="C0281481" name="anti-tumor necrosis factor therapy" semtypes="topp" text="anti-TNF therapy" score="1000" negated="false" begin="2014" end="2030" />
+ </Utterance>
+ <Utterance id="D15996060.ab.10" section="ab" number="10" begin="2032" end="2217" type="CONCLUSION" text="CONCLUSION: Longterm therapy       with anti-TNF did not change altered serum levels of typical sex hormones       in patients with RA, although baseline values were largely different.">
+  <Entity id="D15996060.E103" cui="C0087111" name="Therapeutic procedure" semtypes="topp" text="therapy" score="861" negated="false" begin="2053" end="2060" />
+  <Entity id="D15996060.E104" cui="C0041368" name="Tumor Necrosis Factors" semtypes="aapp,imft" entrezID="7124" entrezName="TNF" text="TNF" score="923" negated="false" begin="2077" end="2080" />
+  <Entity id="D15996060.E105" cui="C1518422" name="Not" semtypes="ftcn" text="not" score="1000" negated="false" begin="2085" end="2088" />
+  <Entity id="D15996060.E106" cui="C0205349" name="Altered" semtypes="ftcn" text="altered" score="851" negated="true" begin="2096" end="2103" />
+  <Entity id="D15996060.E107" cui="C0229671" name="Serum" semtypes="bdsu" text="serum" score="851" negated="false" begin="2104" end="2109" />
+  <Entity id="D15996060.E108" cui="C0441889" name="Levels" semtypes="inpr" text="levels" score="851" negated="false" begin="2110" end="2116" />
+  <Entity id="D15996060.E109" cui="C0036884" name="Gonadal Steroid Hormones" semtypes="horm" text="sex hormones" score="901" negated="false" begin="2128" end="2140" />
+  <Entity id="D15996060.E110" cui="C0030705" name="Patients" semtypes="podg" text="patients" score="1000" negated="false" begin="2150" end="2158" />
+  <Entity id="D15996060.E111" cui="C0003873" name="Rheumatoid Arthritis" semtypes="dsyn" text="RA" score="1000" negated="false" begin="2164" end="2166" />
+  <Entity id="D15996060.E112" cui="C1442488" name="BASELINE" semtypes="qnco" text="baseline" score="888" negated="false" begin="2177" end="2185" />
+  <Entity id="D15996060.E113" cui="C0042295" name="Values" semtypes="qlco" text="values" score="888" negated="false" begin="2186" end="2192" />
+  <Entity id="D15996060.E114" cui="C1547020" name="*Difference" semtypes="qnco" text="different" score="789" negated="false" begin="2206" end="2215" />
+  <Predication id="D15996060.P26" negated="false" inferred="true">
+   <Subject maxDist="0" dist="0" entityID="D15996060.E109" relSemType="horm" />
+   <Predicate type="TREATS" indicatorType="INFER" begin="2147" end="2149" />
+   <Object maxDist="0" dist="0" entityID="D15996060.E111" relSemType="dsyn" />
+  </Predication>
+  <Predication id="D15996060.P27" negated="false" inferred="false">
+   <Subject maxDist="2" dist="1" entityID="D15996060.E103" relSemType="topp" />
+   <Predicate type="USES" indicatorType="PREP" begin="2067" end="2071" />
+   <Object maxDist="7" dist="1" entityID="D15996060.E104" relSemType="aapp" />
+  </Predication>
+  <Predication id="D15996060.P28" negated="false" inferred="false">
+   <Subject maxDist="3" dist="1" entityID="D15996060.E111" relSemType="dsyn" />
+   <Predicate type="PROCESS_OF" indicatorType="PREP" begin="2159" end="2163" />
+   <Object maxDist="6" dist="1" entityID="D15996060.E110" relSemType="humn" />
+  </Predication>
+  <Predication id="D15996060.P29" negated="false" inferred="false">
+   <Subject maxDist="5" dist="1" entityID="D15996060.E109" relSemType="horm" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="2147" end="2149" />
+   <Object maxDist="4" dist="1" entityID="D15996060.E110" relSemType="podg" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D15996060.ab.11" section="ab" number="11" begin="2217" end="2421" type="CONCLUSION" text="In       patients with RA, this indicates that alterations of sex hormones and       altered activity of respective converting enzymes are imprinted for a       long-lasting period over at least 12 weeks.">
+  <Entity id="D15996060.E115" cui="C0030705" name="Patients" semtypes="podg" text="patients" score="1000" negated="false" begin="2226" end="2234" />
+  <Entity id="D15996060.E116" cui="C0003873" name="Rheumatoid Arthritis" semtypes="dsyn" text="RA" score="1000" negated="false" begin="2240" end="2242" />
+  <Entity id="D15996060.E117" cui="C1515926" name="Alteration" semtypes="idcn" text="alterations" score="966" negated="false" begin="2264" end="2275" />
+  <Entity id="D15996060.E118" cui="C0036884" name="Gonadal Steroid Hormones" semtypes="horm" text="sex hormones" score="1000" negated="false" begin="2279" end="2291" />
+  <Entity id="D15996060.E119" cui="C0205349" name="Altered" semtypes="ftcn" text="altered" score="888" negated="false" begin="2302" end="2309" />
+  <Entity id="D15996060.E120" cui="C0014442" name="Enzymes" semtypes="enzy,orch" text="enzymes" score="827" negated="false" begin="2344" end="2351" />
+  <Entity id="D15996060.E121" cui="C0205166" name="Long" semtypes="qlco" text="long" score="763" negated="false" begin="2378" end="2382" />
+  <Entity id="D15996060.E122" cui="C0439531" name="/period" semtypes="tmco" text="period" score="763" negated="false" begin="2391" end="2397" />
+  <Entity id="D15996060.E123" cui="C0439230" name="week" semtypes="tmco" text="weeks" score="827" negated="false" begin="2415" end="2420" />
+  <Predication id="D15996060.P30" negated="false" inferred="false">
+   <Subject maxDist="7" dist="1" entityID="D15996060.E116" relSemType="dsyn" />
+   <Predicate type="PROCESS_OF" indicatorType="PREP" begin="2235" end="2239" />
+   <Object maxDist="1" dist="1" entityID="D15996060.E115" relSemType="humn" />
+  </Predication>
+ </Utterance>
+</Document>
+ <Document id="D167592" text="PMID- 167592 OWN - NLM STAT- MEDLINE DA  - 19750913 DCOM- 19750913 LR  - 20111117 IS  - 0002-9513 (Print) IS  - 0002-9513 (Linking) VI  - 228 IP  - 1 DP  - 1975 Jan TI  - Control of hepatic glycogen metabolism in the rhesus monkey: effect of glucose,       insulin, and glucagon administration. PG  - 80-7 AB  - The effects of intravenous glucose, insulin and glucagon admininistration on the        hepatic glycogen synthase and glycogen phosphorylase systems were assessed in the       anesthetized rhesus monkey. Results were correlated with measurements of hepatic        cyclic AMP (cAMP) concentrations and plasma glucose, insulin, and glucagon       concentrations. Both glucose and insulin administration promoted significant       inactivation of phosphorylase by 1 min, which was followed by more gradual       activation of synthase. Neither glucose nor insulin caused significant changes in       hepatic cAMP. Marked hyperglucagonemia resulting from insulin-induced       hypoglycemia did not cause increases IN in hepatic cAMP, suggesting that the       elevated insulin levels possibly inhibited glucagon action on the hepatic       adenylate cyclase-cAMP system. Glucagon administration caused large increases in        hepatic cAMP and activation of phosphorylase within 1 min, followed by more       gradual inactivation of synthase when it had been previously activated by       glucose. Concomitant glucose infusion, with resulting increased plasma insulin       concentrations, markedly diminished the duration of hepatic cAMP elevations       following glucagon adminstration, again suggesting an insulin inhibition of       glucagon action on the hepatic adenylate-cAMP system. FAU - Curnow, R T AU  - Curnow RT FAU - Rayfield, E J AU  - Rayfield EJ FAU - George, D T AU  - George DT FAU - Zenser, T V AU  - Zenser TV FAU - De Rubertis, F AU  - De Rubertis F LA  - eng PT  - Journal Article PL  - UNITED STATES TA  - Am J Physiol JT  - The American journal of physiology JID - 0370511 RN  - 0 (Blood Glucose) RN  - 0 (Insulin) RN  - 0 (Liver Glycogen) RN  - 50-99-7 (Glucose) RN  - 60-92-4 (Cyclic AMP) RN  - 9007-92-5 (Glucagon) RN  - EC 2.4.1.- (Phosphorylases) RN  - EC 2.4.1.11 (Glycogen Synthase) SB  - IM MH  - Animals MH  - Blood Glucose MH  - Cyclic AMP/metabolism MH  - Glucagon/blood/*pharmacology MH  - Glucose/*pharmacology MH  - Glycogen Synthase/metabolism MH  - Insulin/blood/*pharmacology MH  - Liver/enzymology/metabolism MH  - Liver Glycogen/*metabolism MH  - Macaca MH  - Male MH  - Phosphorylases/metabolism MH  - Time Factors EDAT- 1975/01/01 MHDA- 1975/01/01 00:01 CRDT- 1975/01/01 00:00 PST - ppublish SO  - Am J Physiol. 1975 Jan;228(1):80-7." >
+ <Utterance id="D167592.ti.1" section="ti" number="1" begin="171" end="295" text="Control of hepatic glycogen metabolism in the rhesus monkey: effect of glucose,       insulin, and glucagon administration.">
+  <Entity id="D167592.E1" cui="C0243148" name="control" semtypes="ftcn" text="Control" score="1000" negated="false" begin="171" end="178" />
+  <Entity id="D167592.E2" cui="C0017911" name="Glycogen" semtypes="bacs,carb" text="glycogen" score="901" negated="false" begin="190" end="198" />
+  <Entity id="D167592.E3" cui="C1373178" name="Hepatic Metabolism" semtypes="ortf" text="hepatic glycogen metabolism" score="901" negated="false" begin="182" end="209" />
+  <Entity id="D167592.E4" cui="C0024400" name="Macaca mulatta" semtypes="mamm" text="rhesus monkey" score="1000" negated="false" begin="217" end="230" />
+  <Entity id="D167592.E5" cui="C1280500" name="Effect" semtypes="qlco" text="effect" score="1000" negated="false" begin="232" end="238" />
+  <Entity id="D167592.E6" cui="C0017725" name="Glucose" semtypes="bacs,carb,phsu" text="glucose" score="1000" negated="false" begin="242" end="249" />
+  <Entity id="D167592.E7" cui="C0021641" name="Insulin" semtypes="aapp,horm,phsu" text="insulin" score="1000" negated="false" begin="257" end="264" />
+  <Entity id="D167592.E8" cui="C0017687" name="Glucagon" semtypes="aapp,horm,nsba,phsu" entrezID="2641" entrezName="GCG" text="glucagon" score="888" negated="false" begin="270" end="278" />
+  <Predication id="D167592.P1" negated="false" inferred="false">
+   <Subject maxDist="2" dist="1" entityID="D167592.E3" relSemType="ortf" />
+   <Predicate type="PROCESS_OF" indicatorType="PREP" begin="210" end="212" />
+   <Object maxDist="5" dist="1" entityID="D167592.E4" relSemType="mamm" />
+  </Predication>
+  <Predication id="D167592.P2" negated="false" inferred="false">
+   <Subject maxDist="6" dist="5" entityID="D167592.E8" relSemType="aapp" />
+   <Predicate type="AFFECTS" indicatorType="NOM" begin="171" end="178" />
+   <Object maxDist="6" dist="1" entityID="D167592.E3" relSemType="ortf" />
+  </Predication>
+  <Predication id="D167592.P3" negated="false" inferred="false">
+   <Subject maxDist="6" dist="5" entityID="D167592.E6" relSemType="phsu" />
+   <Predicate type="AFFECTS" indicatorType="NOM" begin="171" end="178" />
+   <Object maxDist="6" dist="1" entityID="D167592.E3" relSemType="ortf" />
+  </Predication>
+  <Predication id="D167592.P4" negated="false" inferred="false">
+   <Subject maxDist="6" dist="5" entityID="D167592.E7" relSemType="aapp" />
+   <Predicate type="AFFECTS" indicatorType="NOM" begin="171" end="178" />
+   <Object maxDist="6" dist="1" entityID="D167592.E3" relSemType="ortf" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D167592.ab.1" section="ab" number="1" begin="312" end="516" text="The effects of intravenous glucose, insulin and glucagon admininistration on the        hepatic glycogen synthase and glycogen phosphorylase systems were assessed in the       anesthetized rhesus monkey.">
+  <Entity id="D167592.E9" cui="C1280500" name="Effect" semtypes="qlco" text="effects" score="966" negated="false" begin="316" end="323" />
+  <Entity id="D167592.E10" cui="C0357164" name="Parenteral form glucose" semtypes="carb,phsu" text="intravenous glucose" score="1000" negated="false" begin="327" end="346" />
+  <Entity id="D167592.E11" cui="C0021641" name="Insulin" semtypes="aapp,horm,phsu" text="insulin" score="1000" negated="false" begin="348" end="355" />
+  <Entity id="D167592.E12" cui="C0017687" name="Glucagon" semtypes="aapp,horm,nsba,phsu" entrezID="2641" entrezName="GCG" text="glucagon" score="694" negated="false" begin="360" end="368" />
+  <Entity id="D167592.E13" cui="C0205054" name="Hepatic" semtypes="blor" text="hepatic" score="901" negated="false" begin="400" end="407" />
+  <Entity id="D167592.E14" cui="C0017932" name="Glycogen (Starch) Synthase" semtypes="aapp,enzy" text="glycogen synthase" score="901" negated="false" begin="408" end="425" />
+  <Entity id="D167592.E15" cui="C0917785" name="Glycogen Phosphorylase" semtypes="aapp,enzy" text="glycogen phosphorylase" score="901" negated="false" begin="430" end="452" />
+  <Entity id="D167592.E16" cui="C0449913" name="System" semtypes="ftcn" text="systems" score="901" negated="false" begin="453" end="460" />
+  <Entity id="D167592.E17" cui="C0024400" name="Macaca mulatta" semtypes="mamm" text="rhesus monkey" score="901" negated="false" begin="501" end="514" />
+  <Predication id="D167592.P5" negated="false" inferred="false">
+   <Subject maxDist="0" dist="0" entityID="D167592.E14" relSemType="gngm" />
+   <Predicate type="PART_OF" indicatorType="MOD_HEAD" begin="400" end="425" />
+   <Object maxDist="0" dist="0" entityID="D167592.E13" relSemType="blor" />
+  </Predication>
+  <Predication id="D167592.P6" negated="false" inferred="false">
+   <Subject maxDist="6" dist="4" entityID="D167592.E12" relSemType="aapp" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="475" end="477" />
+   <Object maxDist="1" dist="1" entityID="D167592.E17" relSemType="mamm" />
+  </Predication>
+  <Predication id="D167592.P7" negated="false" inferred="false">
+   <Subject maxDist="6" dist="4" entityID="D167592.E11" relSemType="horm" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="475" end="477" />
+   <Object maxDist="1" dist="1" entityID="D167592.E17" relSemType="mamm" />
+  </Predication>
+  <Predication id="D167592.P8" negated="false" inferred="false">
+   <Subject maxDist="6" dist="4" entityID="D167592.E10" relSemType="phsu" />
+   <Predicate type="TREATS" indicatorType="PREP" begin="475" end="477" />
+   <Object maxDist="1" dist="1" entityID="D167592.E17" relSemType="mamm" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D167592.ab.2" section="ab" number="2" begin="516" end="673" text="Results were correlated with measurements of hepatic        cyclic AMP (cAMP) concentrations and plasma glucose, insulin, and glucagon       concentrations.">
+  <Entity id="D167592.E18" cui="C1274040" name="result" semtypes="ftcn" text="Results" score="966" negated="false" begin="516" end="523" />
+  <Entity id="D167592.E19" cui="C0242485" name="Measurement" semtypes="ftcn" text="measurements" score="1000" negated="false" begin="545" end="557" />
+  <Entity id="D167592.E20" cui="C0205054" name="Hepatic" semtypes="blor" text="hepatic" score="861" negated="false" begin="561" end="568" />
+  <Entity id="D167592.E21" cui="C0001455" name="Cyclic AMP" semtypes="bacs,nnon" text="cyclic AMP" score="861" negated="false" begin="576" end="586" />
+  <Entity id="D167592.E22" cui="C0032105" name="Plasma" semtypes="bdsu" text="plasma" score="888" negated="false" begin="613" end="619" />
+  <Entity id="D167592.E23" cui="C0017725" name="Glucose" semtypes="bacs,carb,phsu" text="glucose" score="888" negated="false" begin="620" end="627" />
+  <Entity id="D167592.E24" cui="C0021641" name="Insulin" semtypes="aapp,horm,phsu" text="insulin" score="1000" negated="false" begin="629" end="636" />
+  <Entity id="D167592.E25" cui="C0017687" name="Glucagon" semtypes="aapp,horm,nsba,phsu" entrezID="2641" entrezName="GCG" text="glucagon" score="888" negated="false" begin="642" end="650" />
+  <Predication id="D167592.P9" negated="false" inferred="false">
+   <Subject maxDist="0" dist="0" entityID="D167592.E22" relSemType="bdsu" />
+   <Predicate type="LOCATION_OF" indicatorType="MOD_HEAD" begin="613" end="627" />
+   <Object maxDist="0" dist="0" entityID="D167592.E23" relSemType="bacs" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D167592.ab.3" section="ab" number="3" begin="673" end="845" text="Both glucose and insulin administration promoted significant       inactivation of phosphorylase by 1 min, which was followed by more gradual       activation of synthase.">
+  <Entity id="D167592.E26" cui="C0017725" name="Glucose" semtypes="bacs,carb,phsu" text="glucose" score="1000" negated="false" begin="678" end="685" />
+  <Entity id="D167592.E27" cui="C0021641" name="Insulin" semtypes="aapp,horm,phsu" text="insulin" score="888" negated="false" begin="690" end="697" />
+  <Entity id="D167592.E28" cui="C0750502" name="Significant" semtypes="idcn" text="significant" score="888" negated="false" begin="722" end="733" />
+  <Entity id="D167592.E29" cui="C0544461" name="Inactivation" semtypes="comd" text="inactivation" score="888" negated="false" begin="740" end="752" />
+  <Entity id="D167592.E30" cui="C0917783" name="Glycogen Phosphorylase, Muscle Form" semtypes="aapp,enzy" text="phosphorylase" score="1000" negated="false" begin="756" end="769" />
+  <Entity id="D167592.E31" cui="C0439232" name="Minute of time" semtypes="tmco" text="min" score="861" negated="false" begin="775" end="778" />
+  <Entity id="D167592.E32" cui="C0205172" name="More" semtypes="ftcn" text="more" score="623" negated="false" begin="802" end="806" />
+  <Entity id="D167592.E33" cui="C0439833" name="Gradual" semtypes="qlco" text="gradual" score="623" negated="false" begin="807" end="814" />
+  <Predication id="D167592.P10" negated="false" inferred="false">
+   <Subject maxDist="2" dist="2" entityID="D167592.E26" relSemType="bacs" />
+   <Predicate type="PREDISPOSES" indicatorType="VERB" begin="713" end="721" />
+   <Object maxDist="5" dist="1" entityID="D167592.E29" relSemType="comd" />
+  </Predication>
+  <Predication id="D167592.P11" negated="false" inferred="false">
+   <Subject maxDist="2" dist="2" entityID="D167592.E27" relSemType="phsu" />
+   <Predicate type="PREDISPOSES" indicatorType="VERB" begin="713" end="721" />
+   <Object maxDist="5" dist="1" entityID="D167592.E29" relSemType="comd" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D167592.ab.4" section="ab" number="4" begin="845" end="923" text="Neither glucose nor insulin caused significant changes in       hepatic cAMP.">
+  <Entity id="D167592.E34" cui="C0017725" name="Glucose" semtypes="bacs,carb,phsu" text="glucose" score="1000" negated="true" begin="853" end="860" />
+  <Entity id="D167592.E35" cui="C0021641" name="Insulin" semtypes="aapp,horm,phsu" text="insulin" score="1000" negated="true" begin="865" end="872" />
+  <Entity id="D167592.E36" cui="C0750502" name="Significant" semtypes="idcn" text="significant" score="872" negated="false" begin="880" end="891" />
+  <Entity id="D167592.E37" cui="C0205054" name="Hepatic" semtypes="blor" text="hepatic" score="901" negated="false" begin="909" end="916" />
+  <Entity id="D167592.E38" cui="C0001455" name="Cyclic AMP" semtypes="bacs,nnon" text="cAMP" score="901" negated="false" begin="917" end="921" />
+  <Predication id="D167592.P12" negated="true" inferred="false">
+   <Subject maxDist="3" dist="2" entityID="D167592.E34" relSemType="phsu" />
+   <Predicate type="COEXISTS_WITH" indicatorType="PREP" begin="900" end="902" />
+   <Object maxDist="1" dist="1" entityID="D167592.E38" relSemType="bacs" />
+  </Predication>
+  <Predication id="D167592.P13" negated="true" inferred="false">
+   <Subject maxDist="3" dist="2" entityID="D167592.E35" relSemType="aapp" />
+   <Predicate type="COEXISTS_WITH" indicatorType="PREP" begin="900" end="902" />
+   <Object maxDist="1" dist="1" entityID="D167592.E38" relSemType="bacs" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D167592.ab.5" section="ab" number="5" begin="923" end="1179" text="Marked hyperglucagonemia resulting from insulin-induced       hypoglycemia did not cause increases IN in hepatic cAMP, suggesting that the       elevated insulin levels possibly inhibited glucagon action on the hepatic       adenylate cyclase-cAMP system.">
+  <Entity id="D167592.E39" cui="C0522501" name="Massive" semtypes="qlco" text="Marked" score="888" negated="false" begin="923" end="929" />
+  <Entity id="D167592.E40" cui="C0342218" name="Excessive glucagon secretion" semtypes="patf" text="hyperglucagonemia" score="888" negated="false" begin="930" end="947" />
+  <Entity id="D167592.E41" cui="C0205263" name="Induced" semtypes="ftcn" text="induced" score="901" negated="false" begin="971" end="978" />
+  <Entity id="D167592.E42" cui="C0858734" name="Insulin hypoglycemia" semtypes="dsyn" text="insulin-induced       hypoglycemia" score="901" negated="false" begin="963" end="997" />
+  <Entity id="D167592.E43" cui="C1518422" name="Not" semtypes="ftcn" text="not" score="1000" negated="false" begin="1002" end="1005" />
+  <Entity id="D167592.E44" cui="C0442805" name="Increase" semtypes="ftcn" text="increases" score="966" negated="false" begin="1012" end="1021" />
+  <Entity id="D167592.E45" cui="C0205054" name="Hepatic" semtypes="blor" text="hepatic" score="901" negated="false" begin="1028" end="1035" />
+  <Entity id="D167592.E46" cui="C0001455" name="Cyclic AMP" semtypes="bacs,nnon" text="cAMP" score="901" negated="false" begin="1036" end="1040" />
+  <Entity id="D167592.E47" cui="C0205250" name="High" semtypes="qlco" text="elevated" score="890" negated="false" begin="1068" end="1076" />
+  <Entity id="D167592.E48" cui="C0202098" name="Insulin measurement" semtypes="lbpr" text="insulin levels" score="890" negated="false" begin="1077" end="1091" />
+  <Entity id="D167592.E49" cui="C0332149" name="Possible" semtypes="qlco" text="possibly" score="1000" negated="false" begin="1092" end="1100" />
+  <Entity id="D167592.E50" cui="C0017687" name="Glucagon" semtypes="aapp,horm,nsba,phsu" entrezID="2641" entrezName="GCG" text="glucagon" score="694" negated="false" begin="1111" end="1119" />
+  <Entity id="D167592.E51" cui="C0205054" name="Hepatic" semtypes="blor" text="hepatic" score="839" negated="false" begin="1134" end="1141" />
+  <Entity id="D167592.E52" cui="C0001492" name="Adenylate Cyclase" semtypes="aapp,enzy" text="adenylate cyclase" score="839" negated="false" begin="1148" end="1165" />
+  <Entity id="D167592.E53" cui="C0001455" name="Cyclic AMP" semtypes="bacs,nnon" text="cAMP" score="839" negated="false" begin="1166" end="1170" />
+  <Entity id="D167592.E54" cui="C0449913" name="System" semtypes="ftcn" text="system" score="839" negated="false" begin="1171" end="1177" />
+  <Predication id="D167592.P14" negated="false" inferred="false">
+   <Subject maxDist="5" dist="2" entityID="D167592.E46" relSemType="bacs" />
+   <Predicate type="INTERACTS_WITH" indicatorType="NOM" begin="1120" end="1126" />
+   <Object maxDist="5" dist="0" entityID="D167592.E50" relSemType="aapp" />
+  </Predication>
+  <Predication id="D167592.P15" negated="false" inferred="false">
+   <Subject maxDist="6" dist="1" entityID="D167592.E42" relSemType="dsyn" />
+   <Predicate type="CAUSES" indicatorType="VERB" begin="948" end="957" />
+   <Object maxDist="1" dist="1" entityID="D167592.E40" relSemType="patf" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D167592.ab.6" section="ab" number="6" begin="1179" end="1407" text="Glucagon administration caused large increases in        hepatic cAMP and activation of phosphorylase within 1 min, followed by more       gradual inactivation of synthase when it had been previously activated by       glucose.">
+  <Entity id="D167592.E55" cui="C0017687" name="Glucagon" semtypes="aapp,horm,nsba,phsu" entrezID="2641" entrezName="GCG" text="Glucagon" score="888" negated="false" begin="1179" end="1187" />
+  <Entity id="D167592.E56" cui="C0549177" name="Large" semtypes="qnco" text="large" score="872" negated="false" begin="1210" end="1215" />
+  <Entity id="D167592.E57" cui="C0442805" name="Increase" semtypes="ftcn" text="increases" score="872" negated="false" begin="1216" end="1225" />
+  <Entity id="D167592.E58" cui="C0205054" name="Hepatic" semtypes="blor" text="hepatic" score="901" negated="false" begin="1236" end="1243" />
+  <Entity id="D167592.E59" cui="C0001455" name="Cyclic AMP" semtypes="bacs,nnon" text="cAMP" score="901" negated="false" begin="1244" end="1248" />
+  <Entity id="D167592.E60" cui="C0917783" name="Glycogen Phosphorylase, Muscle Form" semtypes="aapp,enzy" text="phosphorylase" score="1000" negated="false" begin="1267" end="1280" />
+  <Entity id="D167592.E61" cui="C0439232" name="Minute of time" semtypes="tmco" text="min" score="861" negated="false" begin="1290" end="1293" />
+  <Entity id="D167592.E62" cui="C0205172" name="More" semtypes="ftcn" text="more" score="851" negated="false" begin="1307" end="1311" />
+  <Entity id="D167592.E63" cui="C0439833" name="Gradual" semtypes="qlco" text="gradual" score="851" negated="false" begin="1318" end="1325" />
+  <Entity id="D167592.E64" cui="C0544461" name="Inactivation" semtypes="comd" text="inactivation" score="851" negated="false" begin="1326" end="1338" />
+  <Entity id="D167592.E65" cui="C0017725" name="Glucose" semtypes="bacs,carb,phsu" text="glucose" score="1000" negated="false" begin="1398" end="1405" />
+  <Predication id="D167592.P16" negated="false" inferred="false">
+   <Subject maxDist="1" dist="1" entityID="D167592.E65" relSemType="bacs" />
+   <Predicate type="STIMULATES" indicatorType="VERB" begin="1379" end="1388" />
+   <Object maxDist="8" dist="4" entityID="D167592.E60" relSemType="gngm" />
+  </Predication>
+ </Utterance>
+ <Utterance id="D167592.ab.7" section="ab" number="7" begin="1407" end="1700" text="Concomitant glucose infusion, with resulting increased plasma insulin       concentrations, markedly diminished the duration of hepatic cAMP elevations       following glucagon adminstration, again suggesting an insulin inhibition of       glucagon action on the hepatic adenylate-cAMP system.">
+  <Entity id="D167592.E66" cui="C1516780" name="Concomitant" semtypes="qlco" text="Concomitant" score="851" negated="false" begin="1407" end="1418" />
+  <Entity id="D167592.E67" cui="C0017725" name="Glucose" semtypes="bacs,carb,phsu" text="glucose" score="851" negated="false" begin="1419" end="1426" />
+  <Entity id="D167592.E68" cui="C0574032" name="Infusion procedures" semtypes="topp" text="infusion" score="851" negated="false" begin="1427" end="1435" />
+  <Entity id="D167592.E69" cui="C1274040" name="result" semtypes="ftcn" text="resulting" score="833" negated="false" begin="1442" end="1451" />
+  <Entity id="D167592.E70" cui="C0205217" name="Increased" semtypes="qnco" text="increased" score="833" negated="false" begin="1452" end="1461" />
+  <Entity id="D167592.E71" cui="C0857690" name="Plasma insulin" semtypes="lbpr" text="plasma insulin" score="833" negated="false" begin="1462" end="1476" />
+  <Entity id="D167592.E72" cui="C0522501" name="Massive" semtypes="qlco" text="markedly" score="1000" negated="false" begin="1499" end="1507" />
+  <Entity id="D167592.E73" cui="C0449238" name="Duration" semtypes="tmco" text="duration" score="1000" negated="false" begin="1523" end="1531" />
+  <Entity id="D167592.E74" cui="C0205054" name="Hepatic" semtypes="blor" text="hepatic" score="850" negated="false" begin="1535" end="1542" />
+  <Entity id="D167592.E75" cui="C0001455" name="Cyclic AMP" semtypes="bacs,nnon" text="cAMP" score="850" negated="false" begin="1543" end="1547" />
+  <Entity id="D167592.E76" cui="C0702240" name="Elevation" semtypes="spco" text="elevations" score="850" negated="false" begin="1548" end="1558" />
+  <Entity id="D167592.E77" cui="C0017687" name="Glucagon" semtypes="aapp,horm,nsba,phsu" entrezID="2641" entrezName="GCG" text="glucagon" score="694" negated="false" begin="1575" end="1583" />
+  <Entity id="D167592.E78" cui="C0021641" name="Insulin" semtypes="aapp,horm,phsu" text="insulin" score="888" negated="false" begin="1619" end="1626" />
+  <Entity id="D167592.E79" cui="C0017687" name="Glucagon" semtypes="aapp,horm,nsba,phsu" entrezID="2641" entrezName="GCG" text="glucagon" score="694" negated="false" begin="1647" end="1655" />
+  <Entity id="D167592.E80" cui="C0205054" name="Hepatic" semtypes="blor" text="hepatic" score="840" negated="false" begin="1670" end="1677" />
+  <Entity id="D167592.E81" cui="C0597765" name="adenylate" semtypes="bacs,nnon" text="adenylate" score="840" negated="false" begin="1678" end="1687" />
+  <Entity id="D167592.E82" cui="C0001455" name="Cyclic AMP" semtypes="bacs,nnon" text="cAMP" score="840" negated="false" begin="1688" end="1692" />
+  <Entity id="D167592.E83" cui="C0449913" name="System" semtypes="ftcn" text="system" score="840" negated="false" begin="1693" end="1699" />
+  <Predication id="D167592.P17" negated="false" inferred="false">
+   <Subject maxDist="3" dist="3" entityID="D167592.E67" relSemType="bacs" />
+   <Predicate type="STIMULATES" indicatorType="NOM" begin="1548" end="1558" />
+   <Object maxDist="3" dist="0" entityID="D167592.E75" relSemType="bacs" />
+  </Predication>
+  <Predication id="D167592.P18" negated="false" inferred="false">
+   <Subject maxDist="5" dist="5" entityID="D167592.E67" relSemType="bacs" />
+   <Predicate type="INHIBITS" indicatorType="NOM" begin="1627" end="1637" />
+   <Object maxDist="5" dist="0" entityID="D167592.E78" relSemType="gngm" />
+  </Predication>
+  <Predication id="D167592.P19" negated="false" inferred="false">
+   <Subject maxDist="6" dist="6" entityID="D167592.E67" relSemType="bacs" />
+   <Predicate type="INTERACTS_WITH" indicatorType="NOM" begin="1656" end="1662" />
+   <Object maxDist="6" dist="0" entityID="D167592.E79" relSemType="aapp" />
+  </Predication>
+ </Utterance>
+</Document>
+</SemRepAnnotation>

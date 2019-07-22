@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-syn-syn-sen</title>
+
+<meta name="description" content="SICStus Prolog: ref-syn-syn-sen">
+<meta name="keywords" content="SICStus Prolog: ref-syn-syn-sen">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" rel="up" title="ref-syn-syn">
+<link href="ref_002dsyn_002dsyn_002dtrm.html#ref_002dsyn_002dsyn_002dtrm" rel="next" title="ref-syn-syn-trm">
+<link href="ref_002dsyn_002dsyn_002dnot.html#ref_002dsyn_002dsyn_002dnot" rel="prev" title="ref-syn-syn-not">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsyn_002dsyn_002dsen"></a>
+<hr>
+<a name="Syntax-of-Sentences-as-Terms"></a>
+<h4 class="subsubsection">4.1.7.3 Syntax of Sentences as Terms</h4>
+
+<a name="index-syntax_002c-of-sentences-as-terms"></a>
+
+
+<table>
+<tr><td width="20%"><var>sentence</var></td><td width="40%">::= <var>module</var> <code>:</code> <var>sentence</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>list</var></td><td width="40%"><span class="roman">{ where <var>list</var> is a list of <var>sentence</var> }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>clause</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>directive</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>query</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>grammar-rule</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>clause</var></td><td width="40%">::= <var>rule</var> | <var>unit-clause</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>rule</var></td><td width="40%">::= <var>head</var> <code>:-</code> <var>body</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>unit-clause</var></td><td width="40%">::= <var>head</var></td><td width="40%"><span class="roman">{ where <var>head</var> is not otherwise a <var>sentence</var> }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>directive</var></td><td width="40%">::= <code>:-</code> <var>body</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>query</var></td><td width="40%">::= <code>?-</code> <var>body</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>head</var></td><td width="40%">::= <var>module</var> <code>:</code> <var>head</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>goal</var></td><td width="40%"><span class="roman">{ where <var>goal</var> is not a <var>variable</var> }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>body</var></td><td width="40%">::= <var>module</var> <code>:</code> <var>body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>body</var> <code>-&gt;</code> <var>body</var> <var>disj</var> <var>body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>body</var> <code>-&gt;</code> <var>body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <code>\+</code> <var>body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>body</var> <var>disj</var> <var>body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>body</var> <code>,</code> <var>body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <code>once(<var>body</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <code>do(<var>iter</var>,<var>body</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <code>if(<var>body</var>,<var>body</var>,<var>body</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>term</var> <code>^</code> <var>body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>goal</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>goal</var></td><td width="40%">::= <var>term</var></td><td width="40%"><span class="roman">{ where <var>term</var> is not otherwise a <var>body</var> }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>grammar-rule</var></td><td width="40%">::= <var>gr-head</var> <code>--&gt;</code> <var>gr-body</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>gr-head</var></td><td width="40%">::= <var>module</var> <code>:</code> <var>gr-head</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>gr-head</var> <code>,</code> <var>terminals</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>non-terminal</var></td><td width="40%"><span class="roman">{ where <var>non-terminal</var> is not a <var>variable</var> }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>gr-body</var></td><td width="40%">::= <var>module</var> <code>:</code> <var>gr-body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>gr-body</var> <code>-&gt;</code> <var>gr-body</var> <var>disj</var> <var>gr-body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>gr-body</var> <code>-&gt;</code> <var>gr-body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <code>\+</code> <var>gr-body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>gr-body</var> <var>disj</var> <var>gr-body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>gr-body</var> <code>,</code> <var>gr-body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <code>once(<var>gr-body</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <code>do(<var>iter</var>,<var>gr-body</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <code>if(<var>gr-body</var>,<var>gr-body</var>,<var>gr-body</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>term</var> <code>^</code> <var>gr-body</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>non-terminal</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>terminals</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>gr-condition</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>non-terminal</var></td><td width="40%">::= <var>term</var></td><td width="40%"><span class="roman">{ where <var>term</var> is not otherwise a <var>gr-body</var> }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>terminals</var></td><td width="40%">::= <var>list</var> | <var>string</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>gr-condition</var></td><td width="40%">::= <code>!</code> | <code>{<var>body</var>}</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>module</var></td><td width="40%">::= <var>atom</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>disj</var></td><td width="40%">::= <code>;</code> | <code>|</code></td><td width="40%"><span class="roman">{ read as <code>;</code> unless <code>|</code> is declared infix }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>iter</var></td><td width="40%">::= <var>iter</var> <code>,</code> <var>iter</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|   <code>fromto(<var>term</var>,<var>term</var>,<var>term</var>,<var>term</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|   <code>foreach(<var>term</var>,<var>term</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|   <code>foreacharg(<var>term</var>,<var>term</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|   <code>foreacharg(<var>term</var>,<var>term</var>,<var>term</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|   <code>count(<var>term</var>,<var>term</var>,<var>term</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|   <code>for(<var>term</var>,<var>term</var>,<var>term</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|   <code>param(<var>term</var>)</code></td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsyn_002dsyn_002dtrm.html#ref_002dsyn_002dsyn_002dtrm" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsyn_002dsyn_002dnot.html#ref_002dsyn_002dsyn_002dnot" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dsyn_002dsen.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dsyn_002dsen.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

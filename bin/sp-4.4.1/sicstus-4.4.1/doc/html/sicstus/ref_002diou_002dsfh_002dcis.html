@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-sfh-cis</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-sfh-cis">
+<meta name="keywords" content="SICStus Prolog: ref-iou-sfh-cis">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" rel="up" title="ref-iou-sfh">
+<link href="ref_002diou_002dsfh_002dcos.html#ref_002diou_002dsfh_002dcos" rel="next" title="ref-iou-sfh-cos">
+<link href="ref_002diou_002dsfh_002denc.html#ref_002diou_002dsfh_002denc" rel="prev" title="ref-iou-sfh-enc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002dsfh_002dcis"></a>
+<hr>
+<a name="Finding-the-Current-Input-Stream"></a>
+<h4 class="subsubsection">4.6.7.6 Finding the Current Input Stream</h4>
+
+<ul>
+<li> <code>current_input(<var>Stream</var>)</code> unifies <var>Stream</var> with the current input 
+stream.
+
+<a name="index-current_005finput_002f1-_0028built_002din_0029-1"></a>
+<a name="index-current_005finput_002f1-_0028built_002din_0029"></a>
+
+
+<a name="index-current-input-streams-1"></a>
+<a name="index-streams_002c-current-input-1"></a>
+<a name="index-current-output-streams-1"></a>
+<a name="index-streams_002c-current-output-1"></a>
+
+</li><li> If the current input stream is <code>user_input</code>, then
+<code>seeing(<var>S</var>)</code> unifies <var>S</var> with <code>user</code>.  Otherwise,
+if the current input stream was opened by <code>see(<var>F</var>)</code>, then
+<code>seeing(<var>S</var>)</code> unifies <var>S</var> with <var>F</var>.  Otherwise, if
+the current input stream was opened by <code>open/[3,4]</code>, then
+<code>seeing(<var>S</var>)</code> unifies <var>S</var> with the corresponding stream
+object.
+
+<a name="index-seeing_002f1-_0028built_002din_0029-1"></a>
+<a name="index-seeing_002f1-_0028built_002din_0029"></a>
+
+
+<p><code>seeing/1</code> can be used to verify that a section of code leaves
+the current input stream unchanged as follows:
+</p><div class="example">
+<pre class="example">/* nonvar(FileNameOrStream), */
+see(FileNameOrStream),
+&hellip;
+seeing(FileNameOrStream)
+</pre></div>
+
+
+<blockquote>
+<p><em>WARNING</em>:  The sequence
+</p><div class="example">
+<pre class="example">seeing(File),
+&hellip;
+set_input(File),
+</pre></div>
+
+<p>will signal an error if the current input stream was opened by <code>see/1</code>.  
+The only sequences that are guaranteed to succeed are
+</p><div class="example">
+<pre class="example">seeing(FileOrStream),
+&hellip;
+see(FileOrStream)
+</pre></div>
+
+<p>and
+</p><div class="example">
+<pre class="example">current_input(Stream),
+&hellip;
+set_input(Stream)
+</pre></div>
+</blockquote>
+</li></ul>
+
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002dsfh_002dcos.html#ref_002diou_002dsfh_002dcos" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002diou_002dsfh_002denc.html#ref_002diou_002dsfh_002denc" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh_002dcis.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh_002dcis.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

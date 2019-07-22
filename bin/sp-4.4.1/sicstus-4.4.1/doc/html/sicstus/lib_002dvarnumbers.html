@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-varnumbers</title>
+
+<meta name="description" content="SICStus Prolog: lib-varnumbers">
+<meta name="keywords" content="SICStus Prolog: lib-varnumbers">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dwgraphs.html#lib_002dwgraphs" rel="next" title="lib-wgraphs">
+<link href="lib_002dugraphs.html#lib_002dugraphs" rel="prev" title="lib-ugraphs">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dvarnumbers"></a>
+<hr>
+<a name="An-Inverse-of-numbervars_002f3_002d_002d_002dlibrary_0028varnumbers_0029"></a>
+<h3 class="section">10.45 An Inverse of numbervars/3&mdash;<code>library(varnumbers)</code></h3>
+<a name="index-numbervars"></a>
+<p>The built-in predicate <code>numbervars/3</code> makes a term
+ground by binding the variables in it to subterms of the form <code>'$VAR'(<var>N</var>)</code>
+where <var>N</var> is an integer.  Most of the calls to <code>numbervars/3</code> look like
+</p><div class="example">
+<pre class="example">    numbervars(Term, 0, _)
+</pre></div>
+<p>which can be abbreviated to
+</p><div class="example">
+<pre class="example">    numbervars(Term)
+</pre></div>
+<p>if you use this package.
+</p>
+<p><code>varnumbers/3</code> is a partial inverse to <code>numbervars/3</code>:
+</p><div class="example">
+<pre class="example">    varnumbers(Term, N0, Copy)
+</pre></div>
+<p>unifies <var>Copy</var> with a copy of <var>Term</var> in which subterms of the form
+<code>'$VAR'(<var>N</var>)</code> where <var>N</var> is an integer not less than <var>N0</var> (that is, subterms
+which might have been introduced by <code>numbervars/3</code> with second argument
+<var>N0</var>) have been consistently replaced by new variables.  Since 0 is the
+usual second argument of <code>numbervars/3</code>, there is also
+</p><div class="example">
+<pre class="example">    varnumbers(Term, Copy)
+</pre></div>
+
+<p>This provides a facility whereby a Prolog-like data base can be
+kept as a term.  For example, we might represent <code>append/3</code> thus:
+</p><div class="example">
+<pre class="example">    Clauses = [
+        (append([], '$VAR'(0), '$VAR'(0)) :- true),
+        (append(['$VAR'(0)|'$VAR'(1), '$VAR'(2), ['$VAR'(0)|'$VAR(3)]) :-
+            append('$VAR'(1), '$VAR'(2), '$VAR'(3)))
+    ]
+</pre></div>
+<p>and we might access clauses from it by doing
+</p><div class="example">
+<pre class="example">    prove(Goal, Clauses) :-
+            member(Clause, Clauses),
+            varnumbers(Clause, (Goal:-Body)),
+            prove(Goal).
+</pre></div>
+
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>numbervars(<var>+Term</var>)</code></dt>
+<dd>
+<a name="index-numbervars_002f1-_0028varnumbers_0029-1"></a>
+<a name="index-numbervars_002f1-_0028varnumbers_0029"></a>
+
+<p>makes <var>Term</var> ground by binding variables to subterms <code>'$VAR'(<var>N</var>)</code> with
+values of <var>N</var> ranging from 0 up.
+</p></dd>
+<dt><code>varnumbers(<var>+Term</var>, <var>-Copy</var>)</code></dt>
+<dd>
+<a name="index-varnumbers_002f_005b2_002c3_005d-_0028varnumbers_0029-1"></a>
+<a name="index-varnumbers_002f_005b2_002c3_005d-_0028varnumbers_0029"></a>
+<p>xo
+succeeds when <var>Term</var> was a term producing by calling <code>numbervars(<var>Term</var>)</code>
+and <var>Copy</var> is a copy of <var>Term</var> with such subterms replaced by variables.
+</p></dd>
+<dt><code>varnumbers(<var>+Term</var>, <var>+N0</var>, <var>-Copy</var>)</code></dt>
+<dd><p>succeeds when <var>Term</var> was a term produced by calling
+  <code>numbervars(<var>Term</var>, <var>N0</var>, <var>N</var>)</code>
+(so that all subterms <code>'$VAR'(<var>X</var>)</code> have <code>integer(<var>X</var>)</code>, <code><var>X</var> &gt;= <var>N0</var></code>)
+and <var>Copy</var> is a copy of <var>Term</var> with such subterms replaced by variables.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dwgraphs.html#lib_002dwgraphs" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dugraphs.html#lib_002dugraphs" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dvarnumbers.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dvarnumbers.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

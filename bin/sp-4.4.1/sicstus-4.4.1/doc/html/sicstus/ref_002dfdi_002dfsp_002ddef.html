@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-fdi-fsp-def</title>
+
+<meta name="description" content="SICStus Prolog: ref-fdi-fsp-def">
+<meta name="keywords" content="SICStus Prolog: ref-fdi-fsp-def">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dfdi_002dfsp.html#ref_002dfdi_002dfsp" rel="up" title="ref-fdi-fsp">
+<link href="ref_002dfdi_002dfsp_002dffs.html#ref_002dfdi_002dfsp_002dffs" rel="next" title="ref-fdi-fsp-ffs">
+<link href="ref_002dfdi_002dfsp.html#ref_002dfdi_002dfsp" rel="prev" title="ref-fdi-fsp">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dfdi_002dfsp_002ddef"></a>
+<hr>
+<a name="Defining-File-Search-Paths"></a>
+<h4 class="subsubsection">4.5.1.1 Defining File Search Paths</h4>
+
+
+<a name="index-file_005fsearch_005fpath_002f2-_0028user_002c-hook_0029-1"></a>
+<a name="index-file_005fsearch_005fpath_002f2-_0028user_002c-hook_0029"></a>
+
+
+<a name="index-user_003afile_005fsearch_005fpath_002f2-_0028hook_0029-1"></a>
+<a name="index-user_003afile_005fsearch_005fpath_002f2-_0028hook_0029"></a>
+
+
+
+<p>The information about which directories to search when an alias is
+encountered is extended by clauses for the hook predicate
+<code>user:file_search_path/2</code>, of the following form:
+</p>
+<div class="example">
+<pre class="example">user:file_search_path(<var>PathAlias</var>, <var>DirectorySpec</var>).
+</pre></div>
+
+<dl compact="compact">
+<dt><var>PathAlias</var></dt>
+<dd><p>must be an atom. It can be used as an alias for
+<var>DirectorySpec</var>.
+</p>
+</dd>
+<dt><var>DirectorySpec</var></dt>
+<dd><p>Can either be an atom, spelling out the name of
+a directory, or a compound term using other path aliases to define the location
+of the directory.
+</p></dd>
+</dl>
+
+<p>The directory path may be absolute, as in (A) or relative as in (B),
+which defines a path relative to the current working directory.
+</p>
+<p>Then, files may be referred to by using file specifications of the
+form similar to <code>library(<var>file</var>)</code>.  For example, (C), names the file
+<samp>/usr/jackson/.login</samp>, while (D) specifies the path <samp>etc/demo/my_demo</samp>
+relative to the current working directory.
+</p>
+<div class="example">
+<pre class="example">user:file_search_path(home, '/usr/jackson'). <!-- /@w --> (A)
+
+user:file_search_path(demo, 'etc/demo'). <!-- /@w --> (B)
+
+home('.login') <!-- /@w --> (C)
+
+demo(my_demo) <!-- /@w --> (D)
+</pre></div>
+
+
+<p>As mentioned above, it is also possible to have multiple definitions
+for the same alias. If clauses (E) and (F) define the <code>home</code> alias,
+then to locate the file specified by (G) each <code>home</code> directory is
+searched in sequence for the file <samp>.login</samp>.  If <samp>/usr/jackson/.login</samp>
+exists, then it is used.  Otherwise, <samp>/u/jackson/.login</samp> is used if it
+exists.
+</p>
+
+<div class="example">
+<pre class="example">user:file_search_path(home, '/usr/jackson'). <!-- /@w --> (E)
+user:file_search_path(home, '/u/jackson'). <!-- /@w --> (F)
+
+home('.login') <!-- /@w --> (G)
+</pre></div>
+
+
+<p>The directory specification may also be a term of arity 1, in which
+case it specifies that the argument of the term is relative to the
+<code>user:file_search_path/2</code> defined by its functor.  For example, (H)
+defines a directory relative to the directory given by the <code>home</code>
+alias.  Therefore, the alias <code>sp_directory</code> represents the search
+path <samp>/usr/jackson/prolog/sp</samp> followed by <samp>/u/jackson/prolog/sp</samp>.  Then,
+the file specification (I) refers to the file (J), if it exists.
+Otherwise, it refers to the file (K), if it exists.
+</p>
+<div class="example">
+<pre class="example">user:file_search_path(sp_directory, home('prolog/sp')). <!-- /@w --> (H)
+
+sp_directory(test) <!-- /@w --> (I)
+
+/usr/jackson/prolog/sp/test <!-- /@w --> (J)
+
+/u/jackson/prolog/sp/test <!-- /@w --> (K)
+</pre></div>
+
+
+<p>Aliases such as <code>home</code> or <code>sp_directory</code> are useful
+because even if the <code>home</code> directory changes, or the
+<code>sp_directory</code> is moved to a different location, only the
+appropriate <code>user:file_search_path/2</code> facts need to be changed.
+Programs relying on these paths are not affected by the change of
+directories because they make use of file specifications of the form
+<code>home(<var>file</var>)</code> and <code>sp_directory(<var>file</var>)</code>.
+</p>
+<p>All built-in predicates that take file specification arguments allow
+these specifications to include path aliases defined by
+<code>user:file_search_path/2</code> facts.
+The main predicate for expanding file specifications is <code>absolute_file_name/[2,3]</code>.
+See <a href="mpg_002dref_002dfile_005fsearch_005fpath.html#mpg_002dref_002dfile_005fsearch_005fpath">mpg-ref-file_search_path</a>.
+</p>
+<p><strong>Please note:</strong>
+The <code>user:file_search_path/2</code> database may contain directories that do
+not exist or are syntactically invalid (as far as the operating system
+is concerned).  If an invalid directory is part of the database, then the
+system will fail to find any files in it, and the directory will
+effectively be ignored.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dfdi_002dfsp_002dffs.html#ref_002dfdi_002dfsp_002dffs" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dfdi_002dfsp.html#ref_002dfdi_002dfsp" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dfdi_002dfsp_002ddef.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dfdi_002dfsp_002ddef.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

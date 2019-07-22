@@ -1,0 +1,23 @@
+FILES.txt		this file
+Makefile		GNU Makefile for UNIX like platforms
+bug.c			produces the page handling bug of Berkeley DB
+dbaux.c			file system, statistics and identity functions
+dbaux.h
+dbbug.txt.bz2		GDB script containing the input for bug.c
+duptest.c		tests the performance of duplicate handling
+hash.c			hash code generation (form the orig. library(db))
+ixkeys.c		collects the functors on indexing positions
+libdb.texi		documentation for the new library
+ltimer.h		header file for duptest.c
+mini.pl			minimalistic testing
+newdb.c			the main C source
+newdb.h
+newdb.pl		the main Prolog source
+nmakefile		nmake Makefile for Windows
+notes.txt		some notes
+osuite.pl		a version of suite.pl for the orig. library(db)
+osuite1.pl		a version of suite1.pl for the orig. library(db)
+rsuite.pl		a test doing reading on the database used by suite1.pl
+suite.pl		a test storing many duplicates
+suite1.pl		a test not storing many duplicates
+test.pl			an elementary test

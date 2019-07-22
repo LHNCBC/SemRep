@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Checker Output</title>
+
+<meta name="description" content="SICStus Prolog: Checker Output">
+<meta name="keywords" content="SICStus Prolog: Checker Output">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Determinacy-Checker.html#The-Determinacy-Checker" rel="up" title="The Determinacy Checker">
+<link href="Det-Example.html#Det-Example" rel="next" title="Det Example">
+<link href="Declaring-Nondeterminacy.html#Declaring-Nondeterminacy" rel="prev" title="Declaring Nondeterminacy">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Checker-Output"></a>
+<hr>
+<a name="Checker-Output-1"></a>
+<h4 class="subsection">9.7.3 Checker Output</h4>
+
+<p>The output of the determinacy checker is quite simple.  For each
+clause containing unexpected nondeterminacy, a single line is
+printed showing the module, name, arity, and clause
+number (counting from 1).  The form of the information is:
+</p><div class="example">
+<pre class="example">* Non-determinate: <var>module:name/arity</var> (clause <var>number</var>)
+</pre></div>
+
+<p>A second line for each nondeterminate clause indicates the
+cause of the nondeterminacy.  The recognized causes are:
+</p>
+<ul>
+<li> The clause contains a disjunction that is not forced to be
+determinate with a cut or by ending the clause with a
+call to <code>fail/0</code> or <code>raise_exception/1</code>.
+
+</li><li> The clause calls a nondeterminate predicate.  In this
+case the predicate is named.
+
+</li><li> There is a later clause for the same predicate whose first
+argument has the same principal functor (or one of the two
+clauses has a variable for the first argument), and
+this clause does not contain a cut or end with a call to
+<code>fail/0</code> or <code>raise_exception/1</code>.  In this case, the
+clause number of the other clause is mentioned.
+
+</li><li> If the predicate is multifile, then clause indexing
+is not considered sufficient to ensure determinacy.  This is because
+other clauses may be added to the predicate in other files,
+so the determinacy checker cannot be sure it has seen all the
+clauses for the predicate.  It is good practice to include a
+cut (or fail) in every clause of a multifile
+predicate.
+</li></ul>
+
+<p>The determinacy checker also occasionally prints warnings when
+declarations are made too late in the file or not at all.  For
+example, if you include a <code>dynamic</code>, <code>nondet</code>, or
+<code>discontiguous</code> declaration for a predicate after some
+clauses for that predicate, or if you put a <code>dynamic</code>
+or <code>nondet</code> declaration for a predicate after a
+clause that includes a call to that predicate, then the
+determinacy checker may have missed some nondeterminacy in your
+program.  The checker also detects undeclared discontiguous
+predicates, which may also have undetected nondeterminacy.
+Finally, the checker looks for goals in your program that
+indicate that predicates are dynamic; if no <code>dynamic</code>
+declaration for those predicates exists, then you will be warned.
+</p>
+<p>These warnings take the following form:
+</p><div class="example">
+<pre class="example">! warning: predicate module:name/arity is <var>property</var>.
+!          Some nondeterminacy may have been missed.
+!          Add (or move) the directive
+!              :- <var>property</var> module:name/arity.
+!          near the top of this file.
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Det-Example.html#Det-Example" accesskey="n" rel="next">Next</a>
+<li><a href="Declaring-Nondeterminacy.html#Declaring-Nondeterminacy" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Determinacy-Checker.html#The-Determinacy-Checker" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Checker-Output.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Checker-Output.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

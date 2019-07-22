@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: A Global Constraint Example</title>
+
+<meta name="description" content="SICStus Prolog: A Global Constraint Example">
+<meta name="keywords" content="SICStus Prolog: A Global Constraint Example">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Defining-Global-Constraints.html#Defining-Global-Constraints" rel="up" title="Defining Global Constraints">
+<link href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" rel="next" title="Defining Primitive Constraints">
+<link href="FD-Set-Operations.html#FD-Set-Operations" rel="prev" title="FD Set Operations">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="A-Global-Constraint-Example"></a>
+<hr>
+<a name="A-Global-Constraint-Example-1"></a>
+<h4 class="subsubsection">10.10.9.4 A Global Constraint Example</h4>
+
+<p>The following example defines a new global constraint
+<code>exactly(<var>X</var>,<var>L</var>,<var>N</var>)</code>, which is true if <var>X</var> occurs
+exactly <var>N</var> times in the list <var>L</var> of domain variables.  <var>N</var>
+must be an integer when the constraint is posted.  A version without
+this restriction and defined in terms of reified equalities was
+presented earlier; see <a href="Reified-Constraints.html#Reified-Constraints">Reified Constraints</a>.
+</p>
+<p>This example illustrates the use of state information.  The state has
+two components: the list of variables that could still be <var>X</var>, and
+the number of variables still required to be <var>X</var>.
+</p>
+<p>The constraint is defined to wake up on any domain change.
+</p>
+<div class="example">
+<pre class="example"><em>% exactly.pl</em>
+</pre><pre class="example">/*
+An implementation of exactly(I, X[1]...X[m], N):
+
+Necessary condition: 0 &lt;= N &lt;= m.
+Rewrite rules:
+
+[1] |= X[i]=I  &rarr; exactly(I, X[1]...X[i-1],X[i+1]...X[m], N-1):
+[2] |= X[i]!=I &rarr; exactly(I, X[1]...X[i-1],X[i+1]...X[m], N):
+[3] |= N=0     &rarr; X[1]!=I ... X[m]!=I
+[4] |= N=m     &rarr; X[1]=I  ... X[m]=I
+*/
+:- use_module(library(clpfd)).
+
+% the entrypoint
+exactly(I, Xs, N) :-
+        dom_suspensions(Xs, Susp),
+        fd_global(exactly(I,Xs,N), state(Xs,N), Susp).
+
+dom_suspensions([], []).
+dom_suspensions([X|Xs], [dom(X)|Susp]) :- 
+        dom_suspensions(Xs, Susp).
+
+% the solver method
+:- multifile clpfd:dispatch_global/4.
+clpfd:dispatch_global(exactly(I,_,_), state(Xs0,N0), state(Xs,N), Actions) :-
+        exactly_solver(I, Xs0, Xs, N0, N, Actions).
+
+exactly_solver(I, Xs0, Xs, N0, N, Actions) :-
+        ex_filter(Xs0, Xs, N0, N, I),
+        length(Xs, M),
+        (   N=:=0 -&gt; Actions = [exit|Ps], ex_neq(Xs, I, Ps)
+        ;   N=:=M -&gt; Actions = [exit|Ps], ex_eq(Xs, I, Ps)
+        ;   N&gt;0, N&lt;M -&gt; Actions = []
+        ;   Actions = [fail]
+        ).
+</pre><pre class="example"><em>% exactly.pl</em>
+</pre><pre class="example">% rules [1,2]: filter the X's, decrementing N
+ex_filter([], [], N, N, _).
+ex_filter([X|Xs], Ys, L, N, I) :- X==I, !,
+        M is L-1,
+        ex_filter(Xs, Ys, M, N, I).
+ex_filter([X|Xs], Ys0, L, N, I) :-
+        fd_set(X, Set),
+        fdset_member(I, Set), !,
+        Ys0 = [X|Ys],
+        ex_filter(Xs, Ys, L, N, I).
+ex_filter([_|Xs], Ys, L, N, I) :-
+        ex_filter(Xs, Ys, L, N, I).
+
+% rule [3]: all must be neq I
+ex_neq(Xs, I, Ps) :-
+        fdset_singleton(Set0, I),
+        fdset_complement(Set0, Set),
+        eq_all(Xs, Set, Ps).
+
+% rule [4]: all must be eq I
+ex_eq(Xs, I, Ps) :-
+        fdset_singleton(Set, I),
+        eq_all(Xs, Set, Ps).
+
+eq_all([], _, []).
+eq_all([X|Xs], Set, [X in_set Set|Ps]) :- 
+        eq_all(Xs, Set, Ps).
+
+end_of_file.
+
+% sample queries: 
+
+| ?- <kbd>exactly(5,[A,B,C],1), A=5.</kbd>  
+A = 5, 
+B in(inf..4)\/(6..sup), C in(inf..4)\/(6..sup)
+
+| ?- <kbd>exactly(5,[A,B,C],1), A in 1..2, B in 3..4.</kbd>
+C = 5,
+A in 1..2,
+B in 3..4
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FD-Set-Operations.html#FD-Set-Operations" accesskey="p" rel="prev">Previous</a>
+<li><a href="Defining-Global-Constraints.html#Defining-Global-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/A-Global-Constraint-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/A-Global-Constraint-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

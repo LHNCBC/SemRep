@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ODBC Exceptions</title>
+
+<meta name="description" content="SICStus Prolog: ODBC Exceptions">
+<meta name="keywords" content="SICStus Prolog: ODBC Exceptions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dodbc.html#lib_002dodbc" rel="up" title="lib-odbc">
+<link href="ODBC-Predicates.html#ODBC-Predicates" rel="next" title="ODBC Predicates">
+<link href="ODBC-Writing.html#ODBC-Writing" rel="prev" title="ODBC Writing">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ODBC-Exceptions"></a>
+<hr>
+<a name="Exceptions"></a>
+<h4 class="subsection">10.24.4 Exceptions</h4>
+
+
+<p>When an error in the ODBC layer occurs, predicates in
+<code>library(odbc)</code> throw <code>error/2</code> exceptions. Both arguments of the
+<code>error/2</code> exception are the same and has the following form
+<code>odbc_error(<var>Detail</var>, <var>Goal</var>)</code>, where <code>Goal</code> is
+some goal where the error occurred, and <var>Detail</var> gives more
+information about the error. The <var>Detail</var> term can have the
+following form:
+</p>
+<dl compact="compact">
+<dt><code>data_conversion</code></dt>
+<dd><p>Thrown in case of a error when converting to or from a SICStus data
+type from or to an ODBC data type.
+</p>
+</dd>
+<dt><code>unsupported_datatype</code></dt>
+<dd><p>Thrown when an SQL data type is unsupported when converting to or
+from a SICStus data type from or to an ODBC data type.
+</p>
+</dd>
+<dt><code>unknown_datatype</code></dt>
+<dd><p>Thrown when an unknown SQL data type is found when converting to or
+from a SICStus data type from or to an ODBC data type.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p>Thrown when the Prolog data is of a type incompatible with the SQL data type
+when converting from a SICStus data type to an ODBC data type.
+</p>
+</dd>
+<dt><code>native_code</code></dt>
+<dd><p>Thrown in case of a error in the native code of <code>library(odbc)</code>.
+</p>
+</dd>
+<dt><code>invalid_handle(handle_type, <var>InvalidHandle</var>, <var>ReturnCode</var>)</code></dt>
+<dd><p>Thrown when an invalid handle type is specified.
+</p>
+</dd>
+<dt><code>invalid_handle('HandleType'-<var>HandleType</var>, 'Handle'-<var>Handle</var>)</code></dt>
+<dd><p>Thrown when an invalid handle is specified.
+</p>
+</dd>
+<dt><code>invalid_handle(result_set, <var>ResultSet</var>)</code></dt>
+<dd>
+<p>Thrown when a Result Set handle is invalid.
+</p>
+
+</dd>
+<dt><code>unknown_connection_option(<var>Options</var>)</code></dt>
+<dd>
+<p>Thrown when an unknown option was given when calling <code>odbc_db_open/[3,4,5]</code>.
+</p>
+
+</dd>
+<dt><code>internal_error</code></dt>
+<dd><p>Thrown when an internal error occurs in <code>library(odbc)</code>. Please
+report this to SICStus Support.
+</p>
+</dd>
+<dt><code>diag(<var>ReturnCode</var>, <var>Recs</var>)</code></dt>
+<dd><p>Thrown when an error occurs in the ODBC layer, e.g. a SQL syntax error.
+<var>Recs</var> is bound to the diagnostic records reported from ODBC.
+</p>
+</dd>
+<dt><code>out_of_memory</code></dt>
+<dd><p>Thrown when some operation runs out of memory.
+</p></dd>
+</dl>
+<p>there may be other <var>Details</var> and new <var>Details</var>
+may be added in the future.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ODBC-Predicates.html#ODBC-Predicates" accesskey="n" rel="next">Next</a>
+<li><a href="ODBC-Datatypes.html#ODBC-Datatypes" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dodbc.html#lib_002dodbc" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ODBC-Exceptions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ODBC-Exceptions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,38 @@
+CC = gcc
+CFLAGS = -D__DEBUG -g -m32
+INC = .
+NLS_INC = $(NLS)/include
+INCLUDES = -I$(NLS_INC) -I$(INC)
+HDR = nls_srvr.h
+SRC = add_str.c cfg_util.c debug.c get_val.c is_null.c llip.c luip.c \
+	messages.c strcmp.c strip.c utils.c
+OBJ = $(SRC:%.c=%.o)
+
+all : debug.so debug.a
+
+%.o : %.c
+	$(CC) -c -fpic $(CFLAGS) $(INCLUDES) -o $@ $<
+
+debug.so : $(OBJ)
+	$(CC) $(CFLAGS) -shared -o $@ $?
+
+debug.a :  $(OBJ)
+	$(AR) cru $@ $?
+
+clean :
+	rm -f *.o *.a *.so
+
+test : test.c debug.a
+	$(CC) $(CFLAGS) $? -o $@
+
+install: debug.a debug.so
+	cp debug.a $(NLS)/lib
+	cp debug.so $(NLS)/lib
+	cp *.h $(NLS)/include
+	chmod ugo+r $(NLS)/lib/debug.a 
+	chmod ugo+r $(NLS)/lib/debug.so
+	chmod ugo+r $(NLS)/lib/debug.so
+	chmod ugo+r $(NLS)/include/debug*.h
+	chmod ugo+r $(NLS)/include/derrno.h
+	chmod ugo+r $(NLS)/include/messages.h
+	chmod ugo+r $(NLS)/include/useful.h

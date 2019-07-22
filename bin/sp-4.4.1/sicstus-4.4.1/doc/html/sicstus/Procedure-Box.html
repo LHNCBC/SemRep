@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Procedure Box</title>
+
+<meta name="description" content="SICStus Prolog: Procedure Box">
+<meta name="keywords" content="SICStus Prolog: Procedure Box">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Debug-Intro.html#Debug-Intro" rel="up" title="Debug Intro">
+<link href="Basic-Debug.html#Basic-Debug" rel="next" title="Basic Debug">
+<link href="Debug-Intro.html#Debug-Intro" rel="prev" title="Debug Intro">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Procedure-Box"></a>
+<hr>
+<a name="The-Procedure-Box-Control-Flow-Model"></a>
+<h3 class="section">5.1 The Procedure Box Control Flow Model</h3>
+<a name="index-procedure-box"></a>
+<a name="index-box_002c-procedure"></a>
+
+<p>During debugging, the debugger prints out a sequence of goals in
+various states of instantiation in order to show the state the
+program has reached in its execution.  However, in order to
+understand what is occurring it is necessary to understand when and why
+the debugger prints out goals.  As in other programming languages,
+key points of interest are predicate entry and return, but in
+Prolog there is the additional complexity of backtracking.  One of
+the major confusions that novice Prolog programmers have to face is the
+question of what actually happens when a goal fails and the system
+suddenly starts backtracking.  The Procedure Box model of
+Prolog execution views program control flow in terms of movement
+about the program text.  This model provides a basis for the
+debugging mechanism in development systems, and enables the user
+to view the behavior of the program in a consistent way.
+</p>
+<p>Let us look at an example Prolog predicate :
+</p>
+<div class="example">
+<pre class="example">           *--------------------------------------*
+   Call    |                                      |    Exit
+---------&gt; +  descendant(X,Y) :- offspring(X,Y).  + ---------&gt;
+           |                                      |
+           |  descendant(X,Z) :-                  |
+&lt;--------- +     offspring(X,Y), descendant(Y,Z). + &lt;---------
+   Fail    |                                      |    Redo
+           *-------------------+------------------*
+                               |
+&lt;------------------------------+
+   Exception
+</pre></div>
+
+<a name="index-port-debugger"></a>
+<a name="index-debugger_002c-port"></a>
+
+<p>The first clause states that <var>Y</var> is a descendant of <var>X</var> if
+<var>Y</var> is an offspring of <var>X</var>, and the second clause states
+that <var>Z</var> is a descendant of <var>X</var> if <var>Y</var> is an offspring of
+<var>X</var> and if <var>Z</var> is a descendant of <var>Y</var>.  In the diagram a box
+has been drawn around the whole predicate and labeled arrows
+indicate the control flow in and out of this box.  There are five such
+arrows, which we shall look at in turn.
+</p>
+<dl compact="compact">
+<dt><var>Call</var></dt>
+<dd><p>This arrow represents initial invocation of the predicate.  When a
+goal of the form <code>descendant(X,Y)</code> is required to be
+satisfied, control passes through the <var>Call</var> port of the
+descendant box with the intention of matching a component clause
+and then satisfying the subgoals in the body of that clause.
+Note that this is independent of whether such a match is possible;
+i.e. first the box is called, and then the attempt to match takes
+place.  Textually we can imagine moving to the code for descendant when
+meeting a call to descendant in some other part of the code.
+</p>
+</dd>
+<dt><var>Exit</var></dt>
+<dd><p>This arrow represents a successful return from the predicate.
+This occurs when the initial goal has been unified with one
+of the component clauses and the subgoals have been satisfied.
+Control now passes out of the <var>Exit</var> port of the descendant
+box.  Textually we stop following the code for descendant and go back to
+the place we came from.
+</p>
+</dd>
+<dt><var>Redo</var></dt>
+<dd><p>This arrow indicates that a subsequent goal has failed and that
+the system is backtracking in an attempt to find alternatives to
+previous solutions.  Control passes through the <var>Redo</var> port of
+the descendant box.  An attempt will now be made to resatisfy one of the
+component subgoals in the body of the clause that last
+succeeded; or, if that fails, to completely rematch the original
+goal with an alternative clause and then try to satisfy any
+subgoals in the body of this new clause.  Textually we
+follow the code backwards up the way we came looking for new ways of
+succeeding, possibly dropping down on to another clause and
+following that if necessary.
+</p>
+</dd>
+<dt><var>Fail</var></dt>
+<dd><p>This arrow represents a failure of the initial goal, which might
+occur if no clause is matched, or if subgoals are never satisfied,
+or if any solution produced is always rejected by later processing.
+Control now passes out of the <var>Fail</var> port of the descendant
+box and the system continues to backtrack.  Textually we move back
+to the code that called this predicate and keep moving backwards
+up the code looking for choicepoints.
+</p>
+</dd>
+<dt><var>Exception</var></dt>
+<dd><p>This arrow represents an exception that was raised in the initial
+goal, either by a call to <code>throw/1</code> or
+<code>raise_exception/1</code> or by an error in a built-in predicate.
+See <a href="ref_002dere.html#ref_002dere">ref-ere</a>.  Control now passes out of the <var>Exception</var>
+port of the descendant box and the system continues to pass the
+exception to outer levels.  Textually we move back to the code that
+called this predicate and keep moving backwards up the code
+looking for a call to <code>catch/3</code> or <code>on_exception/3</code>.
+</p></dd>
+</dl>
+
+<p>In terms of this model, the information we get about the procedure box
+is only the control flow through these five ports.  This means that at
+this level we are not concerned with identifying the matching clause,
+and how any subgoals are satisfied, but rather we only wish to know
+the initial goal and the final outcome.  However, it can be seen that
+whenever we are trying to satisfy subgoals, what we are actually doing
+is passing through the ports of <em>their</em> respective boxes.  If we
+were to follow this, then we would have complete information about the
+control flow inside the procedure box.
+</p>
+<a name="index-invocation-box"></a>
+<a name="index-box_002c-invocation"></a>
+<p>Note that the box we have drawn round the predicate should really
+be seen as an <em>invocation box</em>.  That is, there will be a different
+box for each different invocation of the predicate.  Obviously,
+with something like a recursive predicate, there will be many
+different <var>Calls</var> and <var>Exits</var> in the control flow, but these
+will be for different invocations.  Since this might get confusing each
+invocation box is given a unique integer identifier.
+</p>
+<p>In addition to the five basic ports discussed above, there are two
+more ports for invocations involving a blocked goal:
+</p>
+<dl compact="compact">
+<dt><var>Block</var></dt>
+<dd><p>This port is passed through when a goal is blocked.
+</p></dd>
+<dt><var>Unblock</var></dt>
+<dd><p>This port is passed through when a previously blocked goal is unblocked.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Basic-Debug.html#Basic-Debug" accesskey="n" rel="next">Next</a>
+<li><a href="Debug-Intro.html#Debug-Intro" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Procedure-Box.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Procedure-Box.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

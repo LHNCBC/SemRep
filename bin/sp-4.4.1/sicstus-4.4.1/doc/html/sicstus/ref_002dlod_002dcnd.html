@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lod-cnd</title>
+
+<meta name="description" content="SICStus Prolog: ref-lod-cnd">
+<meta name="keywords" content="SICStus Prolog: ref-lod-cnd">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlod.html#ref_002dlod" rel="up" title="ref-lod">
+<link href="ref_002dlod_002dlis.html#ref_002dlod_002dlis" rel="next" title="ref-lod-lis">
+<link href="ref_002dlod_002dexp.html#ref_002dlod_002dexp" rel="prev" title="ref-lod-exp">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlod_002dcnd"></a>
+<hr>
+<a name="Conditional-Compilation"></a>
+<h4 class="subsection">4.3.6 Conditional Compilation</h4>
+
+<a name="index-conditional-compilation"></a>
+
+<a name="index-if_002f1-_0028conditional-directive_0029-1"></a>
+<a name="index-if_002f1-_0028conditional-directive_0029"></a>
+
+
+<a name="index-elif_002f1-_0028conditional-directive_0029-1"></a>
+<a name="index-elif_002f1-_0028conditional-directive_0029"></a>
+
+
+<a name="index-else_002f0-_0028conditional-directive_0029-1"></a>
+<a name="index-else_002f0-_0028conditional-directive_0029"></a>
+
+
+<a name="index-endif_002f0-_0028conditional-directive_0029-1"></a>
+<a name="index-endif_002f0-_0028conditional-directive_0029"></a>
+
+
+
+<p>A pair of directives
+</p>
+<div class="example">
+<pre class="example">:- if(<var>:Goal</var>).
+&hellip;
+:- endif.
+</pre></div>
+
+<p>will evaluate <var>Goal</var> and, if the goal succeeds, then the sentences
+between the <code>if/1</code> directive and the matching <code>endif/0</code>
+directive will be processed as usual.
+</p>
+<p>If the evaluation of <var>Goal</var> does not succeed, i.e. fails or raises
+an exception, then the sentences between the <code>if/1</code> directive and the
+<code>endif/0</code> directive are completely ignored, except that any
+conditional directives must be properly nested. In particular, term
+expansion will not be performed on such ignored sentences and the goals
+of any nested conditional directives will not be evaluated.
+</p>
+<p>The full form of conditional compilation directives include
+optional <code>else/0</code> and <code>elif/1</code> and are used as follows
+</p>
+<div class="example">
+<pre class="example">:- if(<var>:Goal1</var>).
+&hellip;
+:- else.
+&hellip;
+:- endif.
+</pre></div>
+
+<p>If the goal of the <code>if/1</code> directive succeeds, then the sentences up
+to the matching <code>else/0</code> directive are processed as usual.
+Otherwise, if the goal fails or raises an exception, then the sentences between
+the <code>else/0</code> directive and the matching <code>endif/0</code> directive are
+processed as usual.
+</p>
+<p>Finally, <code>elif/1</code> is available as a shorthand for nested uses of
+<code>if/1</code> and <code>else/0</code>
+</p>
+<div class="example">
+<pre class="example">:- if(<var>:Goal1</var>).
+&hellip;
+:- elif(<var>:Goal2</var>).
+&hellip;
+:- elif(<var>:Goal3</var>).
+&hellip;
+:- else.
+&hellip;
+:- endif.
+</pre></div>
+
+<p>will evaluate the goals in turn, until one of them succeeds in which
+case the following sentences will be processed as usual up to the
+corresponding <code>else/0</code>, <code>endif/0</code> or <code>elif/1</code>.
+</p>
+<p>A valid sequence of conditional compilation directives
+must contain exactly one <code>if/1</code> directive followed by zero or more
+<code>elif/1</code> directives followed by at most one <code>else/0</code> directive
+followed by exactly one <code>endif/0</code> directive. Valid sequences of
+conditional directives can be nested.
+</p>
+<p>All directives that make up a sequence of conditional compilation
+directives must be in the same file. For instance, you cannot have a
+<code>if/1</code> directive in one file and then have the corresponding
+<code>endif/0</code> directive in a file included with an <code>include/1</code>
+directive. Nested conditional compilation sequences can of course be
+located in included files.
+</p>
+<p>Conditional compilation directives are handled very early in the
+processing of an input file. In particular, term expansion hooks will
+never see <code>if/1</code>, <code>else/0</code>, <code>elif/1</code> or <code>endif/0</code>
+directives. Also, neither of <code>if/1</code>, <code>else/0</code>, <code>elif/1</code>
+or <code>endif/0</code> are defined as predicates.
+</p>
+<p>If evaluation of a goal for <code>if/1</code> directive or an <code>elif/1</code>
+directive raises an exception, then an error message will be written and the goal
+will be treated as if it failed.
+</p>
+<a name="Conditional-Compilation-Examples"></a>
+<h4 class="subsubsection">4.3.6.1 Conditional Compilation Examples</h4>
+
+<a name="index-dialect-_0028prolog-flag_0029"></a>
+<p>Conditional compilation is useful for writing portable Prolog code
+since it makes it possible to adapt to peculiarities of various
+implementations. The Prolog flag <code>dialect</code>, used by several
+Prolog implementations, is especially useful here.
+</p>
+<div class="example">
+<pre class="example">:- if(current_prolog_flag(dialect, sicstus).
+%% We are being compiled in SICStus
+%% Only SICStus has this library
+:- use_module(library(process), [process_create/2]).
+
+:- elif(current_prolog_flag(dialect, othervendor)).
+
+%% We are being compiled in Other Vendor, we need to provide our own
+%% compatibility layer
+
+:- use_module(...).
+process_create(A,B) :- ...
+
+:- else.
+%% We are being compiled in some unknown Prolog, give up.
+
+process_create(_,_) :- throw(not_implemented).
+
+:- endif.
+</pre></div>
+
+<p>Another possible usage is for disabling, perhaps costly,
+debugging code when building an optimized version of the code.
+</p>
+<div class="example">
+<pre class="example">%% Only need environ/2 at compile-time for conditional compilation
+:- load_files(library(system), [when(compile_time), imports([environ/2])]).
+
+:- if(\+ environ(optimize, true)).
+
+%% This clause does some expensive sanity checks. Disabled when building
+%% an optimized version.
+foo(X) :-
+   \+ valid_x(X),
+   throw(invalid_x(X)).
+
+:- endif.
+
+%% This clause is always present.
+foo(X) :-
+   do_x_things(X).
+
+</pre></div>
+
+<p>Invoking the SICStus development system with an option
+<samp>-Doptimize=true</samp>, to set the system property <code>optimize</code>,
+and then compiling the above code will ensure that the first, sanity
+checking, clause is not part of the <code>foo/1</code> predicate. Invoking the
+development system without such an option will ensure that the sanity
+checking clause is part of the <code>foo/1</code> predicate.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlod_002dlis.html#ref_002dlod_002dlis" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlod_002dexp.html#ref_002dlod_002dexp" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlod.html#ref_002dlod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlod_002dcnd.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlod_002dcnd.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lte</title>
+
+<meta name="description" content="SICStus Prolog: ref-lte">
+<meta name="keywords" content="SICStus Prolog: ref-lte">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Prolog-Intro.html#Prolog-Intro" rel="up" title="Prolog Intro">
+<link href="ref_002dlte_002dmet.html#ref_002dlte_002dmet" rel="next" title="ref-lte-met">
+<link href="ref_002dari_002dsum.html#ref_002dari_002dsum" rel="prev" title="ref-ari-sum">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlte"></a>
+<hr>
+<a name="Looking-at-Terms"></a>
+<h3 class="section">4.8 Looking at Terms</h3>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlte_002dmet.html#ref_002dlte_002dmet" accesskey="1">ref-lte-met</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Meta-logical Predicates
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlte_002dact.html#ref_002dlte_002dact" accesskey="2">ref-lte-act</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Analyzing and Constructing Terms
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlte_002dacl.html#ref_002dlte_002dacl" accesskey="3">ref-lte-acl</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Analyzing and Constructing Lists
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlte_002dc2t.html#ref_002dlte_002dc2t" accesskey="4">ref-lte-c2t</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Converting between Constants and Text
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlte_002datm.html#ref_002dlte_002datm" accesskey="5">ref-lte-atm</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Atom Operations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlte_002danv.html#ref_002dlte_002danv" accesskey="6">ref-lte-anv</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Assigning Names to Variables
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt" accesskey="7">ref-lte-cpt</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Copying Terms
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlte_002dcte.html#ref_002dlte_002dcte" accesskey="8">ref-lte-cte</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Comparing Terms
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlte_002dmut.html#ref_002dlte_002dmut" accesskey="9">ref-lte-mut</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Mutable Terms
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlte_002dsum.html#ref_002dlte_002dsum">ref-lte-sum</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Summary of Predicates
+</td></tr>
+</table>
+
+
+<a name="index-terms_002c-predicates-for-looking-at"></a>
+<a name="index-predicates-for-looking-at-terms"></a>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlps.html#ref_002dlps" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dari.html#ref_002dari" accesskey="p" rel="prev">Previous</a>
+<li><a href="Prolog-Intro.html#Prolog-Intro" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

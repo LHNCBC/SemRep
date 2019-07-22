@@ -1,0 +1,196 @@
+/*  -*- buffer-read-only:t -*- DO NOT EDIT LIGHTLY, see below
+
+This is a copy of the original file and should not be edited without
+also changing the original file.
+
+The original of this file is in Emulator/spio/qsort.ic KEEP IN SYNC
+*/
+/*-
+ * Copyright (c) 1992, 1993
+ *      The Regents of the University of California.  All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *      This product includes software developed by the University of
+ *      California, Berkeley and its contributors.
+ * 4. Neither the name of the University nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ */
+
+/* This file provides a quicksort function which takes an unsorted array
+   as input and sorts it in-place. This macrofied
+   version can be used to generate different versions of this function
+   for different kinds of lists and objects.
+   To use this quicksort package you have to #define the following macros
+   and then #include this file to get your customized copy of quicksort.
+   The maros needed are:
+   
+   QType 	- type of the objects to sort
+   QCmp(wam, QType *a,QType b) - returns -1 if a<b, 1 if a>b, 0 if a=b.
+   QSort		- name of the quicksort function
+*/
+
+#define QMin(a, b)       (a) < (b) ? (a) : (b)
+
+#define SWAPFUNC(R) CONC(R,swap)
+
+#define MEDFUNC(R) CONC(R,med3)
+
+#define CONC(A,B) A##B
+
+/*
+ * Qsort routine from Bentley & McIlroy's "Engineering a Sort Function".
+ */
+
+#define swap(a, b) {				\
+        QType t = *(a);				\
+        *(a) = *(b);				\
+        *(b) = t;				\
+        }
+
+#define vecswap(a, b, n)			\
+	if ((n) > 0) SWAPFUNC(QSort)(a, b, n)
+
+static
+#ifdef INLINE
+ INLINE
+#endif
+ void SWAPFUNC(QSort) (QType *a, QType *b, ptrdiff_t n)
+{
+  do {
+    swap(a, b);
+    a++;
+    b++;
+  } while (--n > 0);
+}
+
+static
+#ifdef INLINE
+ INLINE
+#endif
+ QType * MEDFUNC(QSort) (Wam wam, QType *a, QType *b, QType *c)
+{
+  return QCmp(wam, a, b) < 0 ?
+    (QCmp(wam, b, c) < 0 ? b : (QCmp(wam, a, c) < 0 ? c : a ))
+    :(QCmp(wam, b, c) > 0 ? b : (QCmp(wam, a, c) < 0 ? a : c ));
+}
+
+static void QSort (Wam wam, QType *a, ptrdiff_t n)
+{
+  QType *pa;
+  QType *pb;
+  QType *pc;
+  QType *pd;
+  QType *pl;
+  QType *pm;
+  QType *pn;
+  ptrdiff_t d, d2, r;
+  int swap_cnt;
+
+ loop:
+  swap_cnt = 0;
+  if (n < 7) {
+    for (pm = a+1; pm<a+n; pm++)
+      for (pl=pm; pl>a && QCmp(wam,pl-1,pl)>0; pl--)
+	swap(pl,pl-1);
+    return;
+  }
+  pm = a + (n>>1);
+  if (n > 7) {
+    pl = a;
+    pn = a+n-1;
+    if (n > 40) {
+      d = (n>>3);
+      d2 = d<<1;
+      pl = MEDFUNC(QSort)(wam, pl, pl + d, pl + d2);
+      pm = MEDFUNC(QSort)(wam, pm - d, pm, pm + d);
+      pn = MEDFUNC(QSort)(wam, pn - d2, pn - d, pn);
+    }
+    pm = MEDFUNC(QSort)(wam, pl, pm, pn);
+  }
+  swap(a, pm);
+  pa = pb = a+1;
+  pc = pd = a+n-1;
+  for (;;) {
+    while (pb <= pc && (r = QCmp(wam,pb,a)) <= 0) {
+      if (r == 0) {
+	swap_cnt = 1;
+	swap(pa, pb);
+	pa++;
+      }
+      pb++;
+    }
+    while (pb <= pc && (r = QCmp(wam,pc, a)) >= 0) {
+      if (r == 0) {
+	swap_cnt = 1;
+	swap(pc, pd);
+	pd--;
+      }
+      pc--;
+    }
+    if (pb > pc)
+      break;
+    swap(pb, pc);
+    swap_cnt = 1;
+    pb++;
+    pc--;
+  }
+  if (swap_cnt == 0) {  /* Switch to insertion sort */
+    for (pm=a+1; pm<a+n; pm++)
+      for (pl=pm; pl>a && QCmp(wam,pl-1, pl) > 0; pl--)
+	swap(pl, pl-1);
+    return;
+  }
+  pn = a+n;
+  d = pa - a;
+  d2 = pb - pa;
+  r = QMin(d,d2);
+  vecswap(a, pb - r, r);
+  d = pd - pc;
+  d2 = pn - pd - 1;
+  r = QMin(d,d2);
+  vecswap(pb, pn - r, r);
+  if ((r = pb - pa) > 1)
+    QSort(wam, a, r);
+  if ((r = pd - pc) > 1) {
+    /* Iterate rather than recurse to save stack space */
+    a = pn - r;
+    n = r;
+    goto loop;
+  }
+}
+
+
+/* cleanup for loading the same file with different defs. */
+
+#undef QType
+#undef QCmp
+#undef QSort
+#undef QMin
+#undef SWAPFUNC
+#undef MEDFUNC
+#undef CONC
+#undef swap
+#undef vecswap

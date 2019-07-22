@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-timeout</title>
+
+<meta name="description" content="SICStus Prolog: lib-timeout">
+<meta name="keywords" content="SICStus Prolog: lib-timeout">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dtrees.html#lib_002dtrees" rel="next" title="lib-trees">
+<link href="lib_002dterms.html#lib_002dterms" rel="prev" title="lib-terms">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dtimeout"></a>
+<hr>
+<a name="Meta_002dCall-with-Limit-on-Execution-Time_002d_002d_002dlibrary_0028timeout_0029"></a>
+<h3 class="section">10.41 Meta-Call with Limit on Execution Time&mdash;<code>library(timeout)</code></h3>
+<p>This module contains utilities for computing a goal with limit on execution time.
+</p>
+<p>As of release 4.4, this library no longer uses a foreign resource,
+and it can be used by more than one SICStus instance in the same process.
+</p>
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>time_out(<var>:Goal</var>, <var>+Time</var>, <var>-Result</var>)</code></dt>
+<dd>
+<a name="index-time_005fout_002f3-_0028timeout_0029-1"></a>
+<a name="index-time_005fout_002f3-_0028timeout_0029"></a>
+
+<p>The <var>Goal</var> is executed as if by <code>call/1</code>.  If computing any
+solution takes more than <var>Time</var> milliseconds, the goal will be
+aborted, as if by <code>throw/1</code>, and <var>Result</var> unified with the atom
+<code>time_out</code>.  If the goal succeeds within the specified time,
+<var>Result</var> is unified with the atom <code>success</code>.
+<var>Time</var> must be a positive integer, less than 2147483647.
+</p>
+<p>Currently, time is measured in runtime (as opposed to walltime),
+i.e. the time does not increment while the program is waiting,
+e.g. during a blocking read.
+</p>
+<p>Ideally, the measured runtime should be thread-specific, i.e. it should
+not be affected by computations done in other
+threads in the process (of course, thread-specific time is the same
+as process runtime for a single-threaded process). 
+Thread-specific runtime measurement is only implemented on Windows.
+</p>
+<p>The precision of the timeout interval is usually not better than
+several tens of milliseconds. This is due to limitations in the timing
+mechanisms used to implement <samp>library(timeout)</samp>.
+</p>
+</dd>
+</dl>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dtrees.html#lib_002dtrees" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dterms.html#lib_002dterms" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dtimeout.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dtimeout.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-append</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-append">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-append">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002darg.html#mpg_002dref_002darg" rel="next" title="mpg-ref-arg">
+<link href="mpg_002dref_002dand.html#mpg_002dref_002dand" rel="prev" title="mpg-ref-and">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dappend"></a>
+<hr>
+<a name="append_002f3"></a>
+<h4 class="subsection">11.3.7 <code>append/3</code></h4>
+<a name="index-append_002f3-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-append_002f3-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-32"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>append(<var>?List1</var>, <var>?List2</var>, <var>?List3</var>)</code>
+</p>
+<a name="Arguments-29"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>List1</var></dt>
+<dd><p><em>list of term</em>
+</p></dd>
+<dt><var>List2</var></dt>
+<dd><p><em>list of term</em>
+</p></dd>
+<dt><var>List3</var></dt>
+<dd><p><em>list of term</em>
+</p>
+<p>A list consisting of <var>List1</var> followed by <var>List2</var>.
+</p></dd>
+</dl>
+
+<a name="Description-30"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Appends lists <var>List1</var> and <var>List2</var> to form <var>List3</var>:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>append([a,b], [a,d], X).</kbd>
+
+X = [a,b,a,d]
+
+| ?- <kbd>append([a], [a], [a]).</kbd>
+
+no
+| ?- <kbd>append(2, [a], X).</kbd>
+
+no
+</pre></div>
+
+
+<p>Takes <var>List3</var> apart:
+</p><div class="example">
+<pre class="example">| ?- <kbd>append(X, [e], [b,e,e]).</kbd>
+
+X = [b,e]
+
+| ?- <kbd>append([b|X], [e,r], [b,o,r,e,r]).</kbd>
+
+X = [o,r]
+
+| ?- <kbd>append(X, Y, [h,i]).</kbd>
+
+X = [], 
+Y = [h,i] <kbd>;</kbd>
+
+X = [h], 
+Y = [i] <kbd>;</kbd>
+
+X = [h,i], 
+Y = [] <kbd>;</kbd>
+
+no
+</pre></div>
+
+<a name="Backtracking-2"></a>
+<h4 class="subheading">Backtracking</h4>
+
+<p>Suppose L is bound to a proper list.  That is, it has the form
+[<var>T1</var>,&hellip;,<var>Tn</var>] for some <var>n</var>.  In that instance, the
+following things apply:
+</p>
+<ol>
+<li> <code>append(<var>L</var>, <var>X</var>, <var>Y</var>)</code> has at most one solution, whatever <var>X</var> and <var>Y</var> are, and
+cannot backtrack at all.
+</li><li> <code>append(<var>X</var>, <var>Y</var>, <var>L</var>)</code> has at most <var>n+1</var> solutions, whatever <var>X</var> and <var>Y</var> are, and
+though it can backtrack over these it cannot run away without finding
+a solution.
+</li><li> <code>append(<var>X</var>, <var>L</var>, <var>Y</var>)</code>, however, can backtrack indefinitely if <var>X</var> and <var>Y</var> are
+variables.
+</li></ol>
+
+<a name="Examples-13"></a>
+<h4 class="subheading">Examples</h4>
+<p>The following examples are
+perfectly ordinary uses of <code>append/3</code>:
+</p>
+
+<p>To enumerate adjacent pairs of elements from a list:  
+</p><div class="example">
+<pre class="example">next_to(X, Y, (*in*) List3) :-
+        append(_, [X,Y|_], List3).
+</pre></div>
+
+
+<p>To check whether Word1 and Word2 are the same except for
+a single transposition.  (<code>append/5</code> in <code>library(lists)</code> would be
+better for this task.)  
+</p><div class="example">
+<pre class="example">one_transposition(Word1, Word2) :-
+        append(Prefix, [X,Y|Suffix], Word1),
+        append(Prefix, [Y,X|Suffix], Word2).
+
+| ?- <kbd>one_transposition(&quot;fred&quot;, X).</kbd>
+X = &quot;rfed&quot; <kbd>;</kbd>
+X = &quot;ferd&quot; <kbd>;</kbd>
+X = &quot;frde&quot; <kbd>;</kbd>
+no
+</pre></div>
+
+
+<p>Given a list of words and commas, to backtrack through the phrases
+delimited by commas: 
+</p><div class="example">
+<pre class="example">comma_phrase(List3, Phrase) :-
+        append(F, [','|Rest], List3),
+        !,
+        (   Phrase = F
+        ;   comma_phrase(Rest, Phrase)
+        ).
+comma_phrase(List3, List3).
+
+| ?- <kbd>comma_phrase([this,is,',',um,',',an, example], X).</kbd>
+X = [this,is] <kbd>;</kbd>
+X = [um] <kbd>;</kbd>
+X = [an,example] <kbd>;</kbd>
+no
+</pre></div>
+
+<a name="Exceptions-23"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+</p>
+<a name="See-Also-29"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlte_002dacl.html#ref_002dlte_002dacl">ref-lte-acl</a>,
+<code>library(lists)</code>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002darg.html#mpg_002dref_002darg" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dand.html#mpg_002dref_002dand" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dappend.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dappend.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

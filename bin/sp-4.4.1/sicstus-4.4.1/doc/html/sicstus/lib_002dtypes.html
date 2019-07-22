@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-types</title>
+
+<meta name="description" content="SICStus Prolog: lib-types">
+<meta name="keywords" content="SICStus Prolog: lib-types">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dugraphs.html#lib_002dugraphs" rel="next" title="lib-ugraphs">
+<link href="lib_002dtrees.html#lib_002dtrees" rel="prev" title="lib-trees">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dtypes"></a>
+<hr>
+<a name="Type-Checking_002d_002d_002dlibrary_0028types_0029"></a>
+<h3 class="section">10.43 Type Checking&mdash;<code>library(types)</code></h3>
+<p>This library module provides more and better type tests.
+For the purposes of this library, we first define an abstract type
+<var>typeterm</var>, as follows:
+</p>
+<table>
+<tr><td width="25%"><var>typeterm</var></td><td width="75%">::= <code>atom</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>atomic</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>boolean</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>callable</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>character</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>character_code</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>compound</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>db_reference</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>float</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>float(<var>rangeterm</var>)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>ground</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>integer</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>integer(<var>rangeterm</var>)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>list</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>list(<var>Type</var>)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>mutable</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>nonvar</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>number</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>number(<var>rangeterm</var>)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>oneof(<var>L</var>)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>order</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>pair</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>pred_spec</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>pred_spec_tree</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>proper_list</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>proper_list(<var>Type</var>)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>simple</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>term</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>var</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>var_or(<var>Type</var>)</code></td></tr>
+<tr><td width="25%"></td></tr>
+<tr><td width="25%"><var>rangeterm</var></td><td width="75%">::= <code>between(L,U)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>&gt;=(L)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>&gt;(L)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>&lt;(L)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>=&lt;(L)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>=:=(L)</code></td></tr>
+<tr><td width="25%"></td><td width="75%">| <code>=\=(L)</code></td></tr>
+</table>
+
+<p>Culprit information:
+</p>
+<p>These predicates takes arguments that are used when reporting the reason and location of errors.
+The arguments are:
+</p><dl compact="compact">
+<dt><var>Goal</var></dt>
+<dd><p>must be a callable term, without <code>(:)/2</code> module wrapping, with arity at least <var>ArgNo</var>.
+</p></dd>
+<dt><var>ArgNo</var></dt>
+<dd><p>must be a non-negative integer, where zero means no specific argument postition.
+</p></dd>
+<dt><var>Culprit</var></dt>
+<dd><p>the term that has the offending value.
+</p></dd>
+</dl>
+
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>must_be(<var>+Term</var>, <var>+Type</var>, <var>+Goal</var>, <var>+ArgNo</var>)</code></dt>
+<dd>
+<a name="index-must_005fbe_002f4-_0028types_0029-1"></a>
+<a name="index-must_005fbe_002f4-_0028types_0029"></a>
+
+<p>checks whether the <var>Term</var> belongs to the indicated <var>Type</var>,
+which should be a <var>typeterm</var>.  If it doesn&rsquo;t, several different
+error exceptions can be thrown: the <var>Term</var> may not be instantiated
+enough to tell yet (Instantiation Error); it may be instantiated when
+an unbound variable was expected (Uninstantiation Error); it may be
+definitely not of the right type (Type Error); it may be of the right
+type but not representable (Representation Error); or it may be of the
+right type but in the wrong domain (Domain Error).  If an error
+exception is thrown, it will include <var>Goal</var> and <var>ArgNo</var> and,
+if possible, the line of code in the scope of which the error
+occurred.  See <a href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>.
+</p>
+</dd>
+<dt><code>illarg(<var>+ErrorTerm</var>, <var>+Goal</var>, <var>+ArgNo</var>)</code></dt>
+<dt><code>illarg(<var>+ErrorTerm</var>, <var>+Goal</var>, <var>+ArgNo</var>, <var>+Culprit</var>)</code></dt>
+<dd>
+<a name="index-illarg_002f_005b3_002c4_005d-_0028types_0029-1"></a>
+<a name="index-illarg_002f_005b3_002c4_005d-_0028types_0029"></a>
+
+<p>is the way to raise an error exception, if you
+would like the exception to pinpoint the line of code in the scope of
+which the error occurs.  This is especially useful in the context of
+source-linked debugging. <var>Culprit</var> defaults to argument number
+<var>ArgNo</var> of <var>Goal</var>. These three arguments are passed to the
+exception being raised, if appropriate. <var>ErrorTerm</var> should be one
+of the following.  See <a href="ref_002dere_002derr.html#ref_002dere_002derr">ref-ere-err</a>.
+</p>
+<dl compact="compact">
+<dt><code>var</code></dt>
+<dd><p>An Instantiation error is raised.
+</p>
+</dd>
+<dt><code>type(<var>ErrorType</var>)</code></dt>
+<dd><p>Same as <code>must_be(<var>Culprit</var>, <var>ErrorType</var>, <var>Goal</var>, <var>ArgNo</var>)</code>.
+</p>
+</dd>
+<dt><code>domain(<var>ErrorType</var>,<var>ErrorDomain</var>)</code></dt>
+<dd><p>First, the type is checked by <code>must_be(<var>Culprit</var>, <var>ErrorType</var>, <var>Goal</var>, <var>ArgNo</var>)</code>.
+If the type is valid, a
+Domain Error is raised with the expected domain being
+<var>ErrorDomain</var>.
+</p>
+</dd>
+<dt><code>force_type(<var>ExpType</var>)</code></dt>
+<dd><p>A Type Error is raised.
+</p>
+</dd>
+<dt><code>context(<var>ContextType</var>,<var>CommandType</var>)</code></dt>
+<dd><p>A Context Error is raised.
+</p>
+</dd>
+<dt><code>existence(<var>ObjType</var>,<var>Culprit</var>,<var>Message</var>)</code></dt>
+<dd><p>An Existence Error is raised.
+</p>
+</dd>
+<dt><code>permission(<var>Operation</var>,<var>ObjType</var>,<var>Message</var>)</code></dt>
+<dd><p>A Permission Error is raised.
+</p>
+</dd>
+<dt><code>representation(<var>ErrorType</var>)</code></dt>
+<dd><p>A Representation Error is raised.
+</p>
+</dd>
+<dt><code>evaluation(<var>ErrorType</var>)</code></dt>
+<dd><p>An Evaluation Error is raised.
+</p>
+</dd>
+<dt><code>consistency(<var>Culprit1</var>,<var>Culprit2</var>,<var>Message</var>)</code></dt>
+<dd><p>A Consistency Error is raised.
+</p>
+</dd>
+<dt><code>syntax(<var>Pos</var>,<var>Msg</var>,<var>Tokens</var>,<var>AfterError</var>)</code></dt>
+<dd><p>A Syntax Error is raised.
+</p>
+</dd>
+<dt><code>resource(<var>Resource</var>)</code></dt>
+<dd><p>A Resource Error is raised.
+</p>
+</dd>
+<dt><code>system(<var>Message</var>)</code></dt>
+<dd><p>A System Error is raised.
+</p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dugraphs.html#lib_002dugraphs" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dtrees.html#lib_002dtrees" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dtypes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dtypes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Action Conditions</title>
+
+<meta name="description" content="SICStus Prolog: Action Conditions">
+<meta name="keywords" content="SICStus Prolog: Action Conditions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Breakpoint-Conditions.html#Breakpoint-Conditions" rel="up" title="Breakpoint Conditions">
+<link href="Past-States.html#Past-States" rel="next" title="Past States">
+<link href="Other-Tests.html#Other-Tests" rel="prev" title="Other Tests">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Action-Conditions"></a>
+<hr>
+<a name="Conditions-Usable-in-the-Action-Part"></a>
+<h4 class="subsection">5.9.6 Conditions Usable in the Action Part</h4>
+<a name="index-breakpoint-action-condition"></a>
+<a name="index-action-condition_002c-breakpoint"></a>
+
+<p>The meaning of the following conditions, if they appear  in the action part,
+is different from their meaning in the test part.
+</p>
+<dl compact="compact">
+<dt><code>mode(<var>Mode</var>)</code></dt>
+<dd><a name="index-mode_002f1-_0028debugger-condition_0029-2"></a>
+<p>Set the debugger mode to <var>Mode</var>.
+</p></dd>
+<dt><code>command(<var>Command</var>)</code></dt>
+<dd><a name="index-command_002f1-_0028debugger-condition_0029-2"></a>
+<p>Set the command to be executed to <var>Command</var>.
+</p></dd>
+<dt><code>show(<var>Show</var>)</code></dt>
+<dd><a name="index-show_002f1-_0028debugger-condition_0029-2"></a>
+<p>Set the show method to <var>Show</var>.
+</p></dd>
+</dl>
+
+<p>The values admissible for <var>Mode</var>, <var>Command</var> and <var>Show</var> are
+described in <a href="Action-Variables.html#Action-Variables">Action Variables</a>.
+</p>
+<p>Furthermore, any other condition can be used in the action part, except
+for the ones specifying the breakpoint type (<code>advice</code> and
+<code>debugger</code>). Specifically, the <code>get</code> condition can be used to
+access the value of an action variable.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Past-States.html#Past-States" accesskey="n" rel="next">Next</a>
+<li><a href="Other-Tests.html#Other-Tests" accesskey="p" rel="prev">Previous</a>
+<li><a href="Breakpoint-Conditions.html#Breakpoint-Conditions" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Action-Conditions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Action-Conditions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

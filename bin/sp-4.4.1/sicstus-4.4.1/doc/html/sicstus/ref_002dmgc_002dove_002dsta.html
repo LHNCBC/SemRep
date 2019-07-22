@@ -1,0 +1,480 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mgc-ove-sta</title>
+
+<meta name="description" content="SICStus Prolog: ref-mgc-ove-sta">
+<meta name="keywords" content="SICStus Prolog: ref-mgc-ove-sta">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmgc_002dove.html#ref_002dmgc_002dove" rel="up" title="ref-mgc-ove">
+<link href="ref_002dmgc_002dgcp.html#ref_002dmgc_002dgcp" rel="next" title="ref-mgc-gcp">
+<link href="ref_002dmgc_002dove_002drsp.html#ref_002dmgc_002dove_002drsp" rel="prev" title="ref-mgc-ove-rsp">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmgc_002dove_002dsta"></a>
+<hr>
+<a name="Displaying-Statistics"></a>
+<h4 class="subsubsection">4.10.1.2 Displaying Statistics</h4>
+
+<a name="index-memory-statistics"></a>
+<a name="index-statistics_002c-memory"></a>
+
+
+<a name="index-statistics_002f_005b0_002c2_005d-_0028built_002din_0029-2"></a>
+<a name="index-statistics_002f_005b0_002c2_005d-_0028built_002din_0029"></a>
+
+
+<a name="index-displaying-statistics"></a>
+<a name="index-statistics_002c-displaying"></a>
+
+
+<p>Statistics relating to memory usage, run time, and garbage collection,
+including information about which areas of memory have overflowed and
+how much time has been spent expanding them, can be displayed by
+calling <code>statistics/0</code>.
+</p>
+
+<p>The output from <code>statistics/0</code> looks like this:
+</p>
+<div class="example">
+<pre class="example">memory (total)       3334072 bytes
+   global stack      1507184 bytes:       2516 in use,   1504668 free
+   local stack         49296 bytes:        276 in use,     49020 free
+   trail stack         34758 bytes:        248 in use,     34510 free
+   control stack       34874 bytes:        364 in use,     34510 free
+   program space     1707960 bytes:    1263872 in use,    444088 free
+   program space breakdown:
+            compiled code               575096 bytes
+            atom                        166528 bytes
+            predicate                   157248 bytes
+            try_node                    144288 bytes
+            sw_on_key                   105216 bytes
+            incore_info                  51096 bytes
+            atom table                   36864 bytes
+            interpreted code             13336 bytes
+            atom buffer                   2560 bytes
+            SP_malloc                     2288 bytes
+            FLI stack                     2048 bytes
+            miscellaneous                 1640 bytes
+            BDD hash table                1560 bytes
+            source info (B-tree)          1024 bytes
+            numstack                      1024 bytes
+            int_info                       880 bytes
+            file table                     400 bytes
+            source info (itable)           328 bytes
+            module                         320 bytes
+            source info (lheap)             80 bytes
+            foreign resource                32 bytes
+            all solutions                   16 bytes
+    4323 atoms (151927 bytes) in use, 1044252 free
+    No memory resource errors
+ 
+       0.020 sec. for 7 global, 20 local, and 0 choice stack overflows
+       0.060 sec. for 15 garbage collections which collected 5461007 bytes
+       0.000 sec. for 0 atom garbage collections which collected 0 atoms (0 bytes)
+       0.000 sec. for 4 defragmentations
+       0.000 sec. for 7 dead clause reclamations
+       0.000 sec. for 0 dead predicate reclamations
+      39.410 sec. runtime
+    ========
+      39.490 sec. total runtime
+     109.200 sec. elapsed time
+</pre></div>
+
+
+<p>Note the use of indentation to indicate sub-areas.  That is, memory
+contains the program space and the four stacks: global, local, choice,
+and trail.
+</p>
+<p>The memory (total) figure shown as &ldquo;in use&rdquo; is the sum of the spaces
+for the program space and stacks. The &ldquo;free&rdquo; figures for the stacks
+are for free space within those areas.  However, this free space is
+considered used as far as the memory (total) area is concerned,
+because it has been allocated to the stacks. The program space is not
+considered to have its own free space.  It always allocates new space
+from the general memory (total) free area.
+</p>
+<p>If a memory resource error has occurred previously in the execution, then
+the memory area for which memory could not be allocated is displayed.
+</p>
+<p>Individual statistics can be obtained by <code>statistics/2</code>, which
+accepts a keyword and returns a list of statistics related to that
+keyword.  
+</p>
+<p>The keys and values for <code>statistics(<var>Keyword</var>, <var>Value</var>)</code>
+are summarized below.  The keywords <code>core</code> and <code>heap</code> are
+included to retain compatibility with other Prologs.  Times are given
+in milliseconds and sizes are given in bytes.
+</p>
+
+<dl compact="compact">
+<dt><code><var>Keyword</var></code></dt>
+<dd><p><var>Value</var>
+</p>
+</dd>
+<dt><code>runtime</code></dt>
+<dd><a name="index-runtime-_0028statistics-key_0029"></a>
+<p><code>[<var>since start of Prolog</var>,<var>since previous statistics</var>]</code><br>
+These refer to CPU time used while executing, excluding time spent
+in memory management tasks or or in system calls.
+The second element is the time since the latest call to
+<code>statistics/2</code> with this key or to <code>statistics/0</code>.
+</p>
+</dd>
+<dt><code>total_runtime</code></dt>
+<dd><a name="index-total_005fruntime-_0028statistics-key_0029"></a>
+<p><code>[<var>since start of Prolog</var>,<var>since previous statistics</var>]</code><br>
+These refer to total CPU time used while executing, including memory
+management tasks such as garbage collection but excluding system calls.
+The second element is the time since the latest call to
+<code>statistics/2</code> with this key or to <code>statistics/0</code>.
+</p>
+</dd>
+<dt><code>walltime</code></dt>
+<dd><a name="index-walltime-_0028statistics-key_0029"></a>
+<p><code>[<var>since start of Prolog</var>,<var>since previous statistics</var>]</code><br>
+These refer to absolute time elapsed.
+The second element is the time since the latest call to
+<code>statistics/2</code> with this key or to <code>statistics/0</code>.
+</p>
+</dd>
+<dt><code>global_stack</code></dt>
+<dd><a name="index-global_005fstack-_0028statistics-key_0029"></a>
+<p><code>[<var>size used</var>,<var>free</var>]</code><br> 
+This refers to the global stack, where compound terms are stored. The
+values are gathered before the list holding the answers is allocated.
+Formed from basic values below.
+</p>
+</dd>
+<dt><code>local_stack</code></dt>
+<dd><a name="index-local_005fstack-_0028statistics-key_0029"></a>
+<p><code>[<var>size used</var>,<var>free</var>]</code><br> 
+This refers to the local stack, where recursive predicate environments
+are stored.  Formed from basic values below.
+</p>
+</dd>
+<dt><code>trail</code></dt>
+<dd><a name="index-trail-_0028statistics-key_0029"></a>
+<p><code>[<var>size used</var>,<var>free</var>]</code><br> 
+This refers to the trail stack, where conditional variable bindings are
+recorded.  Formed from basic values below.
+</p>
+</dd>
+<dt><code>choice</code></dt>
+<dd><a name="index-choice-_0028statistics-key_0029"></a>
+<p><code>[<var>size used</var>,<var>free</var>]</code><br> 
+This refers to the choice stack, where partial states are stored
+for backtracking purposes.  Formed from basic values below.
+</p>
+</dd>
+<dt><code>memory</code></dt>
+<dd><a name="index-memory-_0028statistics-key_0029"></a>
+</dd>
+<dt><code>core</code></dt>
+<dd><a name="index-core-_0028statistics-key_0029"></a>
+<p><code>[<var>size used</var>,0]</code><br>
+These refer to the amount of memory actually allocated by the Prolog
+engine.  The zero is there for compatibility with other Prolog
+implementations.  Formed from basic values below.
+</p>
+</dd>
+<dt><code>program</code></dt>
+<dd><a name="index-program-_0028statistics-key_0029"></a>
+</dd>
+<dt><code>heap</code></dt>
+<dd><a name="index-heap-_0028statistics-key_0029"></a>
+<p><code>[<var>size used</var>,<var>size free</var>]</code><br> 
+These refer to the amount of memory allocated for the database, symbol
+tables, and the like.  Formed from basic values below.
+</p>
+</dd>
+<dt><code>garbage_collection</code></dt>
+<dd><a name="index-garbage_005fcollection-_0028statistics-key_0029"></a>
+<p><code>[<var>no. of GCs</var>,<var>bytes freed</var>,<var>time spent</var>]</code><br>
+Formed from basic values below.
+</p>
+</dd>
+<dt><code>stack_shifts</code></dt>
+<dd><a name="index-stack_005fshifts-_0028statistics-key_0029"></a>
+<p><code>[<var>no. of global shifts</var>,<var>no. of local/choice shifts</var>,<var>time spent</var>]</code><br>
+Formed from basic values below.
+</p>
+</dd>
+<dt><code>atoms</code></dt>
+<dd><a name="index-atoms-_0028statistics-key_0029"></a>
+<p><code>[<var>no. of atoms</var>,<var>bytes used</var>,<var>atoms free</var>]</code><br>
+The number of atoms free is the number of atoms allocated (the
+first element in the list) subtracted from the maximum number of atoms,
+i.e. 262143 (33554431) on 32-bit (64-bit) architectures. Note that
+atom garbage collection may be able to reclaim some of the
+allocated atoms.  Formed from basic values below.
+</p>
+</dd>
+<dt><code>atom_garbage_collection</code></dt>
+<dd><a name="index-atom_005fgarbage_005fcollection-_0028statistics-key_0029"></a>
+<p><code>[<var>no. of AGCs</var>,<var>bytes freed</var>,<var>time spent</var>]</code><br>
+Formed from basic values below.
+</p>
+</dd>
+<dt><code>defragmentation</code></dt>
+<dd><a name="index-defragmentation-_0028statistics-key_0029"></a>
+<p><code>[<var>no. of defragmentations</var>,<var>time spent</var>]</code><br>
+Formed from basic values below.
+</p>
+</dd>
+<dt><code>memory_used &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-memory_005fused-_0028statistics-key_0029"></a>
+<p><var>bytes used</var><br>
+</p>
+</dd>
+<dt><code>memory_free &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-memory_005ffree-_0028statistics-key_0029"></a>
+<p><var>bytes free</var><br>
+</p>
+</dd>
+<dt><code>global_stack_used &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-global_005fstack_005fused-_0028statistics-key_0029"></a>
+<p><var>bytes used</var><br>
+</p>
+</dd>
+<dt><code>global_stack_free &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-global_005fstack_005ffree-_0028statistics-key_0029"></a>
+<p><var>bytes free</var><br>
+</p>
+</dd>
+<dt><code>local_stack_used &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-local_005fstack_005fused-_0028statistics-key_0029"></a>
+<p><var>bytes used</var><br>
+</p>
+</dd>
+<dt><code>local_stack_free &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-local_005fstack_005ffree-_0028statistics-key_0029"></a>
+<p><var>bytes free</var><br>
+</p>
+</dd>
+<dt><code>trail_used &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-trail_005fused-_0028statistics-key_0029"></a>
+<p><var>bytes used</var><br>
+</p>
+</dd>
+<dt><code>trail_free &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-trail_005ffree-_0028statistics-key_0029"></a>
+<p><var>bytes free</var><br>
+</p>
+</dd>
+<dt><code>choice_used &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-choice_005fused-_0028statistics-key_0029"></a>
+<p><var>bytes used</var><br>
+</p>
+</dd>
+<dt><code>choice_free &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-choice_005ffree-_0028statistics-key_0029"></a>
+<p><var>bytes free</var><br>
+</p>
+</dd>
+<dt><code>atoms_used &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-atoms_005fused-_0028statistics-key_0029"></a>
+<p><var>bytes used</var><br>
+</p>
+</dd>
+<dt><code>atoms_nbused &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-atoms_005fnbused-_0028statistics-key_0029"></a>
+<p><var>atoms used</var><br>
+</p>
+</dd>
+<dt><code>atoms_nbfree &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-atoms_005fnbfree-_0028statistics-key_0029"></a>
+<p><var>atoms free</var><br>
+</p>
+</dd>
+<dt><code>ss_global &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-ss_005fglobal-_0028statistics-key_0029"></a>
+<p><var>number of global stack shifts</var><br>
+</p>
+</dd>
+<dt><code>ss_local &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-ss_005flocal-_0028statistics-key_0029"></a>
+<p><var>number of local stack shifts</var><br>
+</p>
+</dd>
+<dt><code>ss_choice &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-ss_005fchoice-_0028statistics-key_0029"></a>
+<p><var>number of choice stack shifts</var><br>
+</p>
+</dd>
+<dt><code>ss_time &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-ss_005ftime-_0028statistics-key_0029"></a>
+<p><var>time spent stack shifting</var><br>
+</p>
+</dd>
+<dt><code>gc_count &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-gc_005fcount-_0028statistics-key_0029"></a>
+<p><var>number of garbage collections</var><br>
+</p>
+</dd>
+<dt><code>gc_freed &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-gc_005ffreed-_0028statistics-key_0029"></a>
+<p><var>number of bytes freed</var><br>
+</p>
+</dd>
+<dt><code>gc_time &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-gc_005ftime-_0028statistics-key_0029"></a>
+<p><var>time spent collecting garbage</var><br>
+</p>
+</dd>
+<dt><code>agc_count &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-agc_005fcount-_0028statistics-key_0029"></a>
+<p><var>number of atom garbage collections</var><br>
+</p>
+</dd>
+<dt><code>agc_nbfreed &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-agc_005fnbfreed-_0028statistics-key_0029"></a>
+<p><var>number of garbage collected atoms</var><br>
+</p>
+</dd>
+<dt><code>agc_freed &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-agc_005ffreed-_0028statistics-key_0029"></a>
+<p><var>number of bytes freed by atom garbage collected</var><br>
+</p>
+</dd>
+<dt><code>agc_time &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-agc_005ftime-_0028statistics-key_0029"></a>
+<p><var>time spent garbage collected atoms</var><br>
+</p>
+</dd>
+<dt><code>defrag_count &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-defrag_005fcount-_0028statistics-key_0029"></a>
+<p><var>number of memory defragmentations</var><br>
+</p>
+</dd>
+<dt><code>defrag_time &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-defrag_005ftime-_0028statistics-key_0029"></a>
+<p><var>time spent defragmenting memory</var><br>
+</p>
+</dd>
+<dt><code>dpgc_count &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-dpgc_005fcount-_0028statistics-key_0029"></a>
+<p><var>number of dead predicate reclamations</var><br>
+</p>
+</dd>
+<dt><code>dpgc_time &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-dpgc_005ftime-_0028statistics-key_0029"></a>
+<p><var>time spent reclaiming dead predicates</var><br>
+</p>
+</dd>
+<dt><code>dcgc_count &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-dcgc_005fcount-_0028statistics-key_0029"></a>
+<p><var>number of dead clause reclamations</var><br>
+</p>
+</dd>
+<dt><code>dcgc_time &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-dcgc_005ftime-_0028statistics-key_0029"></a>
+<p><var>time spent reclaiming dead clauses</var><br>
+</p>
+</dd>
+<dt><code>memory_culprit &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-memory_005fculprit-_0028statistics-key_0029"></a>
+<p><var>memory bucket in which latest memory resource error occurred</var><br>
+</p>
+</dd>
+<dt><code>memory_buckets &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><a name="index-memory_005fbuckets-_0028statistics-key_0029"></a>
+<p><var>list of bucket-size pair</var><br>
+where <var>size</var> is the amount of memory in use for memory bucket <var>bucket</var>.
+</p>
+</dd>
+<dt><code>jit_count &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-jit_005fcount-_0028statistics-key_0029"></a>
+<p><var>number of JIT-compiled predicates</var><br>
+This is zero when JIT compilation is not available.
+</p>
+</dd>
+<dt><code>jit_time &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-jit_005ftime-_0028statistics-key_0029"></a>
+<p><var>time spent JIT-compiling predicates</var><br>
+This is zero when JIT compilation is not available.
+</p>
+</dd>
+</dl>
+
+<p>To see an example of the use of each of these keywords, type
+</p><div class="example">
+<pre class="example">| ?- <kbd>statistics(K, L).</kbd>
+</pre></div>
+
+<p>and then repeatedly type &lsquo;<samp>;</samp>&rsquo; to backtrack through all the possible 
+keywords.  As an additional example, to report information on the runtime of
+a predicate <code>p/0</code>, add the following to your program:
+</p>
+<div class="example">
+<pre class="example">:- statistics(runtime, [T0| _]),
+   p, 
+   statistics(runtime, [T1|_]), 
+   T is T1 - T0,
+   format('p/0 took ~3d sec.~n', [T]).
+</pre></div>
+<p>See <a href="mpg_002dref_002dstatistics.html#mpg_002dref_002dstatistics">mpg-ref-statistics</a>.
+</p>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmgc_002dove_002drsp.html#ref_002dmgc_002dove_002drsp" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmgc_002dove.html#ref_002dmgc_002dove" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmgc_002dove_002dsta.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmgc_002dove_002dsta.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

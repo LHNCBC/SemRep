@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-gru-exa</title>
+
+<meta name="description" content="SICStus Prolog: ref-gru-exa">
+<meta name="keywords" content="SICStus Prolog: ref-gru-exa">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dgru.html#ref_002dgru" rel="up" title="ref-gru">
+<link href="ref_002dgru_002dtra.html#ref_002dgru_002dtra" rel="next" title="ref-gru-tra">
+<link href="ref_002dgru_002dgru.html#ref_002dgru_002dgru" rel="prev" title="ref-gru-gru">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dgru_002dexa"></a>
+<hr>
+<a name="An-Example"></a>
+<h4 class="subsection">4.14.3 An Example</h4>
+
+<p>As an example, here is a simple grammar that parses an arithmetic
+expression (made up of digits and operators) and computes its value.
+Create a file containing the following rules:
+</p>
+<div class="example">
+<pre class="example"><em>grammar.pl</em>
+</pre><pre class="example">
+expr(Z) --&gt; term(X), &quot;+&quot;, expr(Y), {Z is X + Y}.
+expr(Z) --&gt; term(X), &quot;-&quot;, expr(Y), {Z is X - Y}.
+expr(X) --&gt; term(X).
+
+term(Z) --&gt; number(X), &quot;*&quot;, term(Y), {Z is X * Y}.
+term(Z) --&gt; number(X), &quot;/&quot;, term(Y), {Z is X / Y}.
+term(Z) --&gt; number(Z).
+
+number(C) --&gt; &quot;+&quot;, number(C).
+number(C) --&gt; &quot;-&quot;, number(X), {C is -X}.
+number(X) --&gt; [C], {&quot;0&quot;=&lt;C, C=&lt;&quot;9&quot;, X is C - &quot;0&quot;}.
+</pre></div>
+
+<p>In the last rule, C is the character code of a decimal digit.
+</p>
+<p>This grammar can now be used to parse and evaluate an expression by means
+of the built-in predicates <code>phrase/[2,3]</code>.  
+See <a href="mpg_002dref_002dphrase.html#mpg_002dref_002dphrase">mpg-ref-phrase</a>.  For example,
+</p>
+
+<a name="index-phrase_002f_005b2_002c3_005d-_0028built_002din_0029-1"></a>
+<a name="index-phrase_002f_005b2_002c3_005d-_0028built_002din_0029"></a>
+
+
+<div class="example">
+<pre class="example">| ?- <kbd>[grammar]</kbd>.
+| ?- <kbd>phrase(expr(Z), &quot;-2+3*5+1&quot;).</kbd>
+
+Z = 14
+
+| ?- <kbd>phrase(expr(Z), &quot;-2+3*5&quot;, Rest).</kbd>
+
+Z = 13,
+Rest = [] <kbd>;</kbd>
+
+Z = 1,
+Rest = &quot;*5&quot; <kbd>;</kbd>
+
+Z = -2,
+Rest = &quot;+3*5&quot; <kbd>;</kbd>
+
+no
+</pre></div>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dgru_002dtra.html#ref_002dgru_002dtra" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dgru_002dgru.html#ref_002dgru_002dgru" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dgru.html#ref_002dgru" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dgru_002dexa.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dgru_002dexa.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

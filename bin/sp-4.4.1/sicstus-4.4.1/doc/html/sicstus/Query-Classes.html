@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Query Classes</title>
+
+<meta name="description" content="SICStus Prolog: Query Classes">
+<meta name="keywords" content="SICStus Prolog: Query Classes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Query-Processing.html#Query-Processing" rel="up" title="Query Processing">
+<link href="Query-Phases.html#Query-Phases" rel="next" title="Query Phases">
+<link href="Query-Processing.html#Query-Processing" rel="prev" title="Query Processing">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Query-Classes"></a>
+<hr>
+<a name="Query-Classes-1"></a>
+<h4 class="subsubsection">4.16.3.1 Query Classes</h4>
+
+<p>Queries posed by the system can be classified according to the kind of
+input they expect, the way the input is processed, etc.  Queries of the
+same kind form a <em>query class</em>.
+</p>
+<p>For example, queries requiring a yes/no answer form a query class with
+the following characteristics:
+</p>
+<ul>
+<li> the text &lsquo;<samp> (y or n) </samp>&rsquo; is used as the prompt;
+
+</li><li> a single line of text is input;
+
+</li><li> if the first non-whitespace character of the input is <kbd>y</kbd> or
+<kbd>n</kbd> (possibly in capitals), then the query returns the atom
+<code>yes</code> or <code>no</code>, respectively, as the abstract answer;
+
+</li><li> otherwise a help message is displayed and the query is repeated.
+</li></ul>
+
+<p>There are built-in query classes for reading in yes/no answers, toplevel
+queries, debugger commands, etc.
+</p>
+<p>A query class is characterized by a ground Prolog term,
+which is supplied as the first argument to the query processing
+predicate <code>ask_query/4</code>.  The characteristics of a query
+class are normally described by the extendible predicate
+</p><div class="example">
+<pre class="example">'SU_messages':query_class(<var>QueryClass</var>, <var>Prompt</var>, <var>InputMethod</var>,
+                          <var>MapMethod</var>, <var>FailureMode</var>).
+</pre></div>
+
+<p>The arguments of the <code>query_class</code> predicate have the
+following meaning:
+</p><dl compact="compact">
+<dt><var>Prompt</var></dt>
+<dd><p>an atom to be used for prompting the user.
+</p>
+</dd>
+<dt><var>InputMethod</var></dt>
+<dd><p>a non-variable term, which specifies how to
+obtain input from the user.
+</p>
+<p>For example, a built-in input method is described by the atom
+<code>line</code>.  This requests that a line is input from the user, and the
+code-list is returned.  Another built-in input method is
+<code>term(<var>Options</var>)</code>; here, a Prolog term is read and
+returned.
+</p>
+<p>The input obtained using <var>InputMethod</var> is called <em>raw input</em>, as it
+may undergo further processing.
+</p>
+<p>In addition to the built-in input methods, the user can define his/her
+own extensions.
+</p>
+</dd>
+<dt><var>MapMethod</var></dt>
+<dd><p>a non-variable term, which specifies how to
+process the raw input to get the abstract answer to the query.
+</p>
+<p>For example, the built-in map method <code>char([yes-&quot;yY&quot;, no-&quot;nN&quot;])</code>
+expects a code-list as raw input, and gives the answer term
+<code>yes</code> or <code>no</code> depending on the first non-whitespace character
+of the input.  For another example, the built-in map method <code>=</code>
+requests that the raw input itself be returned as the answer
+term&mdash;this is often used in conjunction with the input method
+<code>term(<var>Options</var>)</code>.
+</p>
+<p>In addition to the built-in map methods the user can define his/her
+own extensions.
+</p>
+</dd>
+<dt><var>FailureMode</var></dt>
+<dd><p>This is used only when the mapping of raw input fails, and
+the query must be repeated.  This happens for example if the user typed
+a character other than <kbd>y</kbd> or <kbd>n</kbd> in case of the
+<code>yes_or_no</code> query class.  <var>FailureMode</var> determines what to
+print before re-querying the user.  Possible values are:
+</p>
+<dl compact="compact">
+<dt><code>help_query</code></dt>
+<dd><p>print a help message, then print the text of the query again
+</p>
+</dd>
+<dt><code>help</code></dt>
+<dd><p>only print the help message
+</p>
+</dd>
+<dt><code>query</code></dt>
+<dd><p>only print the text of the query
+</p>
+</dd>
+<dt><code>none</code></dt>
+<dd><p>do not print anything
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Query-Phases.html#Query-Phases" accesskey="n" rel="next">Next</a>
+<li><a href="Query-Processing.html#Query-Processing" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Query-Classes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Query-Classes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

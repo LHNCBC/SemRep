@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-sem-sec</title>
+
+<meta name="description" content="SICStus Prolog: ref-sem-sec">
+<meta name="keywords" content="SICStus Prolog: ref-sem-sec">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsem.html#ref_002dsem" rel="up" title="ref-sem">
+<link href="ref_002dsem_002dcal.html#ref_002dsem_002dcal" rel="next" title="ref-sem-cal">
+<link href="ref_002dsem_002dctr_002doth.html#ref_002dsem_002dctr_002doth" rel="prev" title="ref-sem-ctr-oth">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsem_002dsec"></a>
+<hr>
+<a name="Declarative-and-Procedural-Semantics"></a>
+<h4 class="subsection">4.2.4 Declarative and Procedural Semantics</h4>
+
+<a name="index-interpretation-of-clauses_002c-declarative"></a>
+
+<a name="index-clauses_002c-declarative-interpretation-of"></a>
+
+<a name="index-interpretation-of-clauses_002c-procedural"></a>
+
+<a name="index-clauses_002c-procedural-interpretation-of"></a>
+
+<a name="index-declarative-semantics"></a>
+<a name="index-semantics_002c-declarative"></a>
+
+<a name="index-procedural-semantics"></a>
+<a name="index-semantics_002c-procedural"></a>
+
+<a name="index-full_002dstop"></a>
+
+
+<p>The semantics of definite clauses should be fairly clear from the
+informal  interpretations already given.  However, it is useful to have
+a precise definition.  The <em>declarative semantics</em> of  definite  clauses
+tells  us  which  goals  can  be  considered true according to a given
+program, and is defined recursively as follows:
+</p>
+<a name="index-clause_002c-instance-of"></a>
+<a name="index-instance-of-clause"></a>
+
+
+<blockquote>
+
+<p>A goal is <em>true</em> if it is the head of some clause instance and
+     each  of  the  goals  (if  any)  in  the body of that clause
+     instance is true, where an <em>instance</em>
+     of a clause (or term) is
+     obtained  by  substituting,  for each of zero or more of its
+     variables, a new term for all occurrences of the variable.
+</p></blockquote>
+
+
+<p>For example, if a program contains the procedure for <code>concatenate/3</code>,
+declared in <a href="ref_002dsem_002dpro.html#ref_002dsem_002dpro">ref-sem-pro</a>, then the declarative semantics tells us that
+(A) is true, because this goal is the head of a certain instance of
+the second clause (K) for <code>concatenate/3</code>, namely (B), and we
+know that the only goal in the body of this clause instance is true,
+because it is an instance of the unit clause that is the first clause
+for <code>concatenate/3</code>.
+</p><div class="example">
+<pre class="example">concatenate([a], [b], [a,b])
+</pre></div>
+
+<div class="example">
+<pre class="example">concatenate([a], [b], [a,b]):-
+   concatenate([], [b], [b]).
+</pre></div>
+
+
+<a name="index-procedural-semantics-1"></a>
+<a name="index-semantics_002c-procedural-1"></a>
+
+<p>Note that the declarative semantics makes  no  reference  to  the
+sequencing of goals within the body of a clause, nor to the sequencing
+of clauses within a program.  This sequencing information is, however,
+very  relevant  for  the  <em>procedural semantics</em> that Prolog gives to
+definite clauses.  The procedural semantics defines  exactly  how  the
+Prolog  system  will execute a goal, and the sequencing information is
+the means by which the Prolog programmer directs the system to execute
+his  program  in a sensible way.  The effect of executing a goal is to
+enumerate, one by one, its true instances.  Here is  an  informal
+definition of the procedural semantics.
+</p>
+<a name="index-backtracking"></a>
+
+<a name="index-unification"></a>
+
+
+<blockquote>
+
+<p>To <em>execute</em> a goal, the system searches forwards from the
+beginning of the program for the first clause whose head <em>matches</em>
+or <em>unifies</em> with the goal.  The <em>unification</em> process
+[Robinson 65] finds the most general common instance of the two terms,
+which is unique if it exists.  If a match is found, then the matching
+clause instance is then <em>activated</em> by executing in turn, from
+left to right, each of the goals (if any) in its body.  If at any time
+the system fails to find a match for a goal, then it <em>backtracks</em>; that
+is, it rejects the most recently activated clause, undoing any
+substitutions made by the match with the head of the clause.  Next it
+reconsiders the original goal that activated the rejected clause, and
+tries to find a subsequent clause that also matches the goal.
+</p></blockquote>
+
+
+<p>For example, if we execute the goal expressed by the query (A), then we find
+that it matches the head of the second clause for <code>concatenate/3</code>, with
+<code>X</code> instantiated to <code>[a|X1]</code>. The new variable <code>X1</code> is constrained by the
+new goal produced, which is the recursive procedure call (B) and this
+goal matches the second clause, instantiating <code>X1</code> to <code>[b|X2]</code>, and
+yielding the new goal (C).
+</p><div class="example">
+<pre class="example">| ?- <kbd>concatenate(X, Y, [a,b]).</kbd> <!-- /@w --> (A)
+</pre></div>
+
+<div class="example">
+<pre class="example">concatenate(X1, Y, [b]) <!-- /@w --> (B)
+</pre></div>
+
+<div class="example">
+<pre class="example">concatenate(X2, Y, []) <!-- /@w --> (C)
+</pre></div>
+
+<p>Now this goal will only match the first clause, instantiating both <code>X2</code>
+and <code>Y</code> to <code>[]</code>. Since there are no further goals to be executed, we have
+a solution
+</p><div class="example">
+<pre class="example">X = [a,b]
+Y = []
+</pre></div>
+
+<p>That is, the following is a true instance of the original goal:
+</p><div class="example">
+<pre class="example">concatenate([a,b], [], [a,b])
+</pre></div>
+
+<p>If this solution is rejected, then backtracking will generate  the  further
+solutions
+</p><div class="example">
+<pre class="example">X = [a]
+Y = [b]
+
+X = []
+Y = [a,b]
+</pre></div>
+
+<p>in  that  order,  by  re-matching goals already solved once using the first
+clause of <code>concatenate/3</code>, against the second clause.
+</p>
+
+<p>Thus, in the procedural semantics, the set of clauses
+</p>
+<div class="example">
+<pre class="example"><var>H</var> :- <var>B1</var>, &hellip;, <var>Bm</var>.
+<var>H'</var> :- <var>B1'</var>, &hellip;, <var>Bm'</var>.
+&hellip;
+</pre></div>
+
+<a name="index-procedure-definition"></a>
+<a name="index-definition_002c-procedure"></a>
+<p>are regarded as a <em>procedure definition</em> for some predicate
+<var>H</var>, and in a query
+</p>
+<div class="example">
+<pre class="example">?- <var>G1</var>, &hellip;, <var>Gn</var>.
+</pre></div>
+
+<a name="index-procedure-call-1"></a>
+<a name="index-call_002c-procedure-1"></a>
+<a name="index-computation-rule"></a>
+<a name="index-rule_002c-computation"></a>
+<a name="index-search-rule"></a>
+<a name="index-rule_002c-search"></a>
+<a name="index-unification-1"></a>
+<a name="index-most-general-unifier"></a>
+<a name="index-unifier_002c-most-general"></a>
+<p>each <var>Gi</var> is regarded as a <em>procedure call</em>.  To execute a
+query, the system selects by its <em>computation rule</em> a
+goal, <var>Gj</var> say, and searches by its <em>search rule</em> a
+clause whose head matches <var>Gj</var>.  Matching is done by the
+<em>unification</em> algorithm (see [Robinson 65]), which computes the most
+general unifier, <em>mgu</em>, of <var>Gj</var> and <var>H</var>).  The
+<var>mgu</var> is unique if it exists.  If a match is found, then the current
+query is <em>reduced</em> to a new query
+</p>
+<div class="example">
+<pre class="example">?- (<var>G1</var>, &hellip;, <var>Gj-1</var>, <var>B1</var>, &hellip;, <var>Bm</var>, <var>Gj+1</var>, &hellip;, <var>Gn</var>)<var>mgu</var>.
+</pre></div>
+
+<p>and a new cycle is started.  The execution terminates when the empty
+query has been produced.
+</p>
+<a name="index-backtracking-1"></a>
+<p>If there is no matching head for a goal, then the execution
+backtracks to the most recent successful match in an attempt to
+find an alternative match.  If such a match is found, then an alternative new
+query is produced, and a new cycle is started.
+</p>
+<p>In SICStus Prolog, as in other Prolog systems, the search rule is
+simple: &ldquo;search forward from the beginning of the program&rdquo;.  
+</p>
+<p>The computation rule in traditional Prolog systems is also simple:
+&ldquo;pick the leftmost goal of the current query&rdquo;.  However,
+SICStus Prolog and other modern implementations have a somewhat more
+complex computation rule &ldquo;pick the leftmost unblocked goal
+of the current query&rdquo;.
+</p>
+<p>A goal can be blocked on one ore more uninstantiated
+variables, and a variable may block several
+goals.  Thus binding a variable can cause
+blocked goals to become unblocked, and
+backtracking can cause currently unblocked goals to
+become blocked again.  Moreover, if the current query is
+</p>
+<div class="example">
+<pre class="example">?- <var>G1</var>, &hellip;, <var>Gj-1</var>, <var>Gj</var>, <var>Gj+1</var>, &hellip;, <var>Gn</var>.
+</pre></div>
+
+<p>where <var>Gj</var> is the first unblocked goal, and matching
+<var>Gj</var> against a clause head causes several blocked
+goals in <var>G1</var>, &hellip;, <var>Gj-1</var> to become unblocked,
+then these goals may become reordered.  The internal order of any
+two goals that were blocked on the <em>same</em>
+variable is retained, however.
+</p>
+<a name="index-floundering"></a>
+<p>Another consequence is that a query may be derived consisting
+entirely of blocked goals.  Such a query is said to
+have <em>floundered</em>.  The top-level checks for this condition.  If
+detected, then the outstanding blocked subgoals are printed on the
+standard error stream along with the answer substitution, to
+notify the user that the answer (s)he has got is really a speculative
+one, since it is only valid if the blocked goals can be
+satisfied.
+</p>
+
+<p>A goal is blocked if certain arguments are
+uninstantiated and its predicate definition is annotated
+with a matching block declaration (see <a href="Block-Declarations.html#Block-Declarations">Block Declarations</a>).  Goals of certain built-in predicates may
+also be blocked if their arguments are not sufficiently
+instantiated.
+</p>
+<p>When this mechanism is used, the control structure resembles that of
+coroutines, suspending and resuming different threads of control.  When
+a computation has left blocked goals behind, the situation
+is analogous to spawning a new suspended thread.  When a blocked
+goal becomes unblocked, the situation is analogous to
+temporarily suspending the current thread and resuming the thread to
+which the blocked goal belongs.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsem_002dcal.html#ref_002dsem_002dcal" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsem_002dctr.html#ref_002dsem_002dctr" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsem.html#ref_002dsem" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dsec.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dsec.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mdb-exa-rtr</title>
+
+<meta name="description" content="SICStus Prolog: ref-mdb-exa-rtr">
+<meta name="keywords" content="SICStus Prolog: ref-mdb-exa-rtr">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmdb_002dexa.html#ref_002dmdb_002dexa" rel="up" title="ref-mdb-exa">
+<link href="ref_002dmdb_002dexa_002dabo.html#ref_002dmdb_002dexa_002dabo" rel="next" title="ref-mdb-exa-abo">
+<link href="ref_002dmdb_002dexa_002dasz.html#ref_002dmdb_002dexa_002dasz" rel="prev" title="ref-mdb-exa-asz">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmdb_002dexa_002drtr"></a>
+<hr>
+<a name="Example_003a-retract"></a>
+<h4 class="subsubsection">4.12.7.2 Example: retract</h4>
+
+
+<div class="example">
+<pre class="example">| ?- <kbd>assert(p(1)), assert(p(2)), assert(p(3)).</kbd>
+
+yes
+| ?- <kbd>p(N), write(N), nl, retract(p(2)), 
+     retract(p(3)), fail.</kbd>
+1
+2
+3
+
+no
+| ?- <kbd>p(N), write(N), fail.</kbd>
+1
+no
+| ?- 
+</pre></div>
+
+
+<p>At the first call to <code>p/1</code>, the procedure has three clauses.
+These remain visible throughout execution of the call to <code>p/1</code>.
+Thus, when backtracking is forced by <code>fail/0</code>, <var>N</var> is bound
+to 2 and written.  The retraction is again attempted, causing
+backtracking into <code>p/1</code>.  <var>N</var> is bound to 3 and written out.
+The call to <code>retract/1</code> fails.  There are no more clauses in
+<code>p/1</code>, so the query finally fails.  A subsequent call to
+<code>p/1</code>, made after the retractions, sees only one clause.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmdb_002dexa_002dabo.html#ref_002dmdb_002dexa_002dabo" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmdb_002dexa_002dasz.html#ref_002dmdb_002dexa_002dasz" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmdb_002dexa.html#ref_002dmdb_002dexa" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmdb_002dexa_002drtr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmdb_002dexa_002drtr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

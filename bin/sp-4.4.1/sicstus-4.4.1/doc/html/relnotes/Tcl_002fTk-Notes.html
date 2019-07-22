@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: Tcl/Tk Notes</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: Tcl/Tk Notes">
+<meta name="keywords" content="SICStus Prolog Release Notes: Tcl/Tk Notes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="The-Tcl_002fTk-Terminal.html#The-Tcl_002fTk-Terminal" rel="next" title="The Tcl/Tk Terminal">
+<link href="REX.html#REX" rel="prev" title="REX">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Tcl_002fTk-Notes"></a>
+<hr>
+<a name="Tcl_002fTk-Notes-1"></a>
+<h2 class="chapter">7 Tcl/Tk Notes</h2>
+
+<p><code>library(tcltk)</code> is built on top of Tcl/Tk<!-- /@w -->. It is an optional
+component of SICStus and you can safely ignore this section if you do
+not intend to use <code>library(tcltk)</code>.
+</p>
+
+<p>Tcl/Tk itself is not included in the SICStus distribution. It must be
+installed in order to use the interface. Many operating systems have
+build-in support for Tcl/Tk, either preinstalled or available via
+some software update utility. If a default version is not available, then
+Tcl/Tk can be downloaded from the Tcl/Tk primary website:
+</p>
+<div class="display">
+<pre class="display"><a href="https://www.tcl.tk/">https://www.tcl.tk/</a>
+</pre></div>
+
+<p>A better alternative may be to use one of the free installers
+available from:
+</p>
+<div class="display">
+<pre class="display"><a href="https://www.activestate.com">https://www.activestate.com</a>
+</pre></div>
+
+<p>SICStus for Mac OS X uses the Tcl/Tk that comes with Mac OS X. Some
+versions of Tcl/Tk provided by Apple have bugs that may cause SICStus
+Prolog to crash when using <code>library(tcltk)</code>. If this happens,
+then you can try to update to a newer version of Tcl/Tk, e.g. by
+using the installers from <a href="https://www.activestate.com/">https://www.activestate.com/</a>.
+</p>
+<p><code>library(tcltk)</code> is built using a particular version of Tcl/Tk
+but it is possible to recompile it, if needed, to work with other
+versions as well. The version differs between platform, see
+<a href="https://sicstus.sics.se/">https://sicstus.sics.se/</a> for details.
+</p>
+
+<p>Under UNIX, the installation program automatically detects the Tcl/Tk
+version (if the user does not specify it explicitly).
+</p>
+
+<blockquote>
+<p><strong>Please note</strong>: On Windows, you need to have the Tcl/Tk binaries accessible
+from your <code>PATH</code> environment variable, e.g.
+<samp>C:\Program&nbsp;Files\Tcl\bin</samp><!-- /@w -->.
+</p></blockquote>
+
+<p>The GUI version of SICStus, <code>spwin</code>, like all Windows non-console
+applications, lacks the C standard streams
+(<code>stdin</code>, <code>stdout</code>, <code>stderr</code>) and the Tcl command
+<code>puts</code> and others that use these streams will therefore give
+errors. The solution is to use <code>sicstus</code> instead of
+<code>spwin</code> if the standard streams are required.
+</p>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="The-Tcl_002fTk-Terminal.html#The-Tcl_002fTk-Terminal" accesskey="1">The Tcl/Tk Terminal</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The Tcl/Tk Terminal Window
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Jasper-Notes.html#Jasper-Notes" accesskey="n" rel="next">Next</a>
+<li><a href="REX.html#REX" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Tcl_002fTk-Notes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Tcl_002fTk-Notes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

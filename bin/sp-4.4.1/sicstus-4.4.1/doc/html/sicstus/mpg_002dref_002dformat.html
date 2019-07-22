@@ -1,0 +1,522 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-format</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-format">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-format">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dfreeze.html#mpg_002dref_002dfreeze" rel="next" title="mpg-ref-freeze">
+<link href="mpg_002dref_002dforeign_005fresource.html#mpg_002dref_002dforeign_005fresource" rel="prev" title="mpg-ref-foreign_resource">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dformat"></a>
+<hr>
+<a name="format_002f_005b2_002c3_005d"></a>
+<h4 class="subsection">11.3.85 <code>format/[2,3]</code></h4>
+<a name="index-format_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-format_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-110"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>format(<var>+Control</var>, <var>+Arguments</var>)</code>
+</p>
+<p><code>format(<var>+Stream</var>, <var>+Control</var>, <var>+Arguments</var>)</code>
+</p>
+<p>Interprets the <var>Arguments</var> according to the <var>Control</var> string and
+prints the result on <var>Stream</var>.
+</p>
+<a name="Arguments-101"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Stream</var></dt>
+<dd><p><em>stream_object</em>, must be ground
+</p>
+<p>Defaults to the current output stream.
+</p>
+</dd>
+<dt><var>Control</var></dt>
+<dd><p><em>chars</em> or <em>codes</em> or <em>atom</em>, must be ground
+</p>
+<p>A string, which can contain control sequences of the form
+&lsquo;<samp>~<var>N</var><var>&lt;c&gt;</var></samp>&rsquo;:
+</p>
+<dl compact="compact">
+<dt><var>&lt;c&gt;</var></dt>
+<dd><p>a format control option
+</p>
+</dd>
+<dt><var>N</var></dt>
+<dd><p>optional; if given, must be &lsquo;<samp>*</samp>&rsquo; or an integer.
+</p></dd>
+</dl>
+
+<p>Any characters that are not part of a control sequence are written
+to the specified output stream.
+</p>
+</dd>
+<dt><var>:Arguments</var></dt>
+<dd><p><em>list of term</em>, must be proper list
+</p>
+<p>List of arguments, which will be interpreted and
+possibly printed by format control options.
+</p>
+</dd>
+</dl>
+
+<a name="Description-82"></a>
+<h4 class="subheading">Description</h4>
+
+<p>If a parameter <var>N</var> can be specified, then it can be either an
+integer, specified as an optional minus sign followed by a sequence of
+decimal digits, or the character &lsquo;<samp>*</samp>&rsquo;.
+</p>
+<p>If the parameter is specified as &lsquo;<samp>*</samp>&rsquo;, then the value used will be
+the truncated integer value of the next element from <var>Arguments</var>
+interpreted as a numerical expression.
+</p>
+<p>The following control options cause formatted printing of the next
+element from <var>Arguments</var> to the current output stream.  
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>~a</samp>&rsquo;</dt>
+<dd><p>The argument is an atom.  The atom is printed without
+quoting.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>c</samp>&rsquo;</dt>
+<dd><p>(Print character.)  The argument is a number that will be
+interpreted as a <em>code</em>.  <var>N</var> defaults to one and is
+interpreted as the number of times to print the character.
+If <var>N</var> is zero, or negative, then the character is not printed.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>e</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>~<var>N</var>E</samp>&rsquo;</dt>
+<dd><p>(Print float in exponential notation.)  
+The argument is a float, which will be printed in exponential
+notation with one digit before the decimal point and <var>N</var> digits
+after it.  If <var>N</var> is zero, or negative, then one digit appears after the decimal
+point.  A sign and at least two digits appear in the exponent, which is
+introduced by the letter used in the control sequence. <var>N</var> defaults
+to 6.
+</p>
+<p>The magnitude of <var>N</var> must be less than 100000, but useful values are much smaller than that.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>f</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>~<var>N</var>F</samp>&rsquo;</dt>
+<dd><p>(Print float in fixed-point notation.)
+The argument is a float, which will be printed in fixed-point
+notation with <var>N</var> digits after the decimal point.  <var>N</var> may be
+zero, or negative, in which case a single zero appears after the decimal point.
+At least one digit appears before the decimal point and at least one after it.
+<var>N</var> defaults to 6.
+</p>
+<p>The magnitude of <var>N</var> must be less than 100000, but useful values are much smaller than that.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>g</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>~<var>N</var>G</samp>&rsquo;</dt>
+<dd><p>(Print float in generic notation.)
+The argument is a float, which will be printed in &lsquo;<samp>f</samp>&rsquo; or
+&lsquo;<samp>e</samp>&rsquo; (or &lsquo;<samp>E</samp>&rsquo; if &lsquo;<samp>G</samp>&rsquo; is used) notation with <var>N</var>
+significant digits.  If <var>N</var> is zero, then one significant digit is
+printed.  &lsquo;<samp>E</samp>&rsquo; notation is used if the exponent from its conversion
+is less than -4 or greater than or equal to <var>N</var>, otherwise &lsquo;<samp>f</samp>&rsquo;
+notation. Trailing zeroes are removed from the fractional part of the
+result.  A decimal point and at least one digit after it always appear.
+<var>N</var> defaults to 6.
+</p>
+<p>The magnitude of <var>N</var> must be less than 100000, but useful values are much smaller than that.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>h</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>~<var>N</var>H</samp>&rsquo;</dt>
+<dd><p>(Print float precisely.)  
+The argument is a float, which will be printed in &lsquo;<samp>f</samp>&rsquo; or
+&lsquo;<samp>e</samp>&rsquo; (or &lsquo;<samp>E</samp>&rsquo; if &lsquo;<samp>H</samp>&rsquo; is used) notation with <var>d</var>
+significant digits, where <var>d</var> is the smallest number of digits that
+will yield the same float when read in.  &lsquo;<samp>E</samp>&rsquo; notation is used if
+<var>N&lt;0</var> or if the exponent is less than <var>-N-1</var> or greater than or
+equal to <var>N+d</var>, otherwise &lsquo;<samp>f</samp>&rsquo; notation.  <var>N</var> defaults to 3.
+</p>
+<p>The intuition is that for numbers like 123000000.0, at most <var>N</var>
+consecutive zeroes before the decimal point are allowed in &lsquo;<samp>f</samp>&rsquo;
+notation.  Similarly for numbers like 0.000000123.
+</p>
+<p>&lsquo;<samp>E</samp>&rsquo; notation is forced by using &lsquo;<samp>~-1H</samp>&rsquo;.
+&lsquo;<samp>F</samp>&rsquo; is forced by using &lsquo;<samp>~999H</samp>&rsquo;.
+</p>
+<p>The magnitude of <var>N</var> must be less than 100000, but useful values are much smaller than that.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>d</samp>&rsquo;</dt>
+<dd><p>(Print decimal.) The argument is an integer.  <var>N</var> is
+interpreted as the number of digits after the decimal point.  If <var>N</var>
+is 0 or missing, then no decimal point will be printed.
+</p>
+<p><var>N</var> must be non-negative.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>D</samp>&rsquo;</dt>
+<dd><p>(Print decimal.) The argument is an integer.  Identical to
+&lsquo;<samp>~<var>N</var>d</samp>&rsquo; except that &lsquo;<samp>,</samp>&rsquo; will separate groups of three
+digits to the left of the decimal point.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>r</samp>&rsquo;</dt>
+<dd><p>(Print radix.) The argument is an integer.  <var>N</var> is interpreted
+as a radix, <em>2 \leq N \leq 36</em>.  If <var>N</var> is missing, then the radix
+defaults to 8.  The letters &lsquo;<samp>a-z</samp>&rsquo; will denote digits larger than 9.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>R</samp>&rsquo;</dt>
+<dd><p>(Print radix.) The argument is an integer.  Identical to
+&lsquo;<samp>~<var>N</var>r</samp>&rsquo; except that the letters &lsquo;<samp>A-Z</samp>&rsquo; will denote digits
+larger than 9.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>s</samp>&rsquo;</dt>
+<dd><p>(Print string.) The argument is a code-list.
+If <var>N</var> is zero, or negative, then no characters are output.
+</p>
+<p>If <var>N</var> is positive, then the first <var>N</var> characters of the code-list
+will be written, and if the code-list is exhausted, then extra <tt class="key">SPC</tt>
+characters will be written, for a total of <var>N</var> characters output.
+</p>
+</dd>
+<dt>&lsquo;<samp>~i</samp>&rsquo;</dt>
+<dd><p>(Ignore.) The argument, which may be of any type, is ignored.
+</p>
+</dd>
+<dt>&lsquo;<samp>~k</samp>&rsquo;</dt>
+<dd><p>(Print canonical.) The argument may be of any type.  The
+argument will be passed to <code>write_canonical/1</code> (see <a href="ref_002diou_002dtou.html#ref_002diou_002dtou">ref-iou-tou</a>).
+</p>
+</dd>
+<dt>&lsquo;<samp>~p</samp>&rsquo;</dt>
+<dd><p>(Print.) The argument may be of any type.  The argument will
+be passed to <code>print/1</code> (see <a href="ref_002diou_002dtou.html#ref_002diou_002dtou">ref-iou-tou</a>).
+</p>
+</dd>
+<dt>&lsquo;<samp>~q</samp>&rsquo;</dt>
+<dd><p>(Print quoted.) The argument may be of any type.  The
+argument will be passed to <code>writeq/1</code> (see <a href="ref_002diou_002dtou.html#ref_002diou_002dtou">ref-iou-tou</a>).
+</p>
+</dd>
+<dt>&lsquo;<samp>~w</samp>&rsquo;</dt>
+<dd><p>(Write.) The argument may be of any type.  The argument will
+be passed to <code>write/1</code> (see <a href="ref_002diou_002dtou.html#ref_002diou_002dtou">ref-iou-tou</a>).
+</p>
+</dd>
+<dt>&lsquo;<samp>~@</samp>&rsquo;</dt>
+<dd><p>(Call.) The argument <var>Arg</var> is a goal, which will be called as if by <code>\+ \+ <var>Arg</var></code>
+and is expected to print on the current output stream.  If the goal
+performs other side-effects, then the behavior is undefined.
+</p>
+</dd>
+<dt>&lsquo;<samp>~~</samp>&rsquo;</dt>
+<dd><p>(Print tilde.)  Takes no argument.  Prints &lsquo;<samp>~</samp>&rsquo;.  
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>n</samp>&rsquo;</dt>
+<dd><p>(Print newline.) Takes no argument.  Prints <var>N</var> newlines.
+<var>N</var> defaults to 1.
+</p>
+<p>If <var>N</var> is negative or zero, then no newlines are output.
+</p>
+</dd>
+<dt>&lsquo;<samp>~N</samp>&rsquo;</dt>
+<dd><p>(Print Newline.) Prints a newline if not at the beginning of a line.
+</p>
+</dd>
+</dl>
+
+<p>The following control sequences set column boundaries and specify
+padding.  A column is defined as the available space between two
+consecutive column boundaries on the same line.  A boundary is
+initially assumed at line position 0.  The specifications only apply
+to the line currently being written.
+</p>
+<p>When a column boundary is set (&lsquo;<samp>~|</samp>&rsquo; or &lsquo;<samp>~+</samp>&rsquo;) and there are
+fewer characters written in the column than its specified width, the
+remaining space is divided equally amongst the pad sequences
+(&lsquo;<samp>~t</samp>&rsquo;) in the column.  If there are no pad sequences, then the column
+is space padded at the end.
+</p>
+<p>If &lsquo;<samp>~|</samp>&rsquo; or &lsquo;<samp>~+</samp>&rsquo; specifies a position preceding the
+current position, then the boundary is set at the current position.
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>~<var>N</var>|</samp>&rsquo;</dt>
+<dd><p>Set a column boundary at line position <var>N</var>. <var>N</var> defaults to the
+current position.
+</p>
+
+<p>The control sequence &lsquo;<samp>~<var>N</var>|</samp>&rsquo; (with explicit <var>N</var>) will not
+work correctly on bi-directional streams<a name="DOCF10" href="#FOOT10"><sup>10</sup></a>, e.g. those created by
+<code>library(sockets)</code>. A workaround for bi-directional streams may
+be to use &lsquo;<samp>~|</samp>&rsquo; (without explicit <var>N</var>) and &lsquo;<samp>~<var>N</var>+</samp>&rsquo;,
+see below.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>+</samp>&rsquo;</dt>
+<dd><p>Set a column boundary at <var>N</var> positions past the previous column
+boundary. <var>N</var> defaults to 8.
+</p>
+</dd>
+<dt>&lsquo;<samp>~<var>N</var>t</samp>&rsquo;</dt>
+<dd><p>Specify padding in a column. <var>N</var> is the fill character
+code. <var>N</var> may also be specified as <code>`<var>C</var></code> where <var>C</var> is
+the fill character. The default fill character is <tt class="key">SPC</tt>. Any
+(&lsquo;<samp>~t</samp>&rsquo;) after the last column boundary on a line is ignored.
+</p></dd>
+</dl>
+
+<a name="Exceptions-101"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+</p>
+<dl compact="compact">
+<dt><code>consistency_error</code></dt>
+<dd><p>Wrong number of <var>Arguments</var>.
+</p></dd>
+<dt><code>type_error</code></dt>
+<dt><code>domain_error</code></dt>
+<dd><p>Argument of the wrong type or domain.
+</p></dd>
+</dl>
+
+<a name="Examples-37"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">| ?- <kbd>Pi=3.14159265, format('~e ~2E ~0E\n', [Pi,Pi,Pi]).</kbd>
+3.141593e+00 3.14E+00 3.0E+00
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>Pi=3.14159265, format('~f, ~2F, ~0F\n', [Pi,Pi,Pi]).</kbd>
+3.141593, 3.14, 3.0
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('~g ~2G ~0G\n', [1.23456789e+10, 3.14159265, 0.0123]).</kbd>
+1.23457e+10 3.1 0.01
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>F = 123000.0, G = 0.000123,</kbd>
+     <kbd>format('~h ~h ~2h ~2H ~-1H\n', [F,G,F,G,3.14]).</kbd>
+123000.0 0.000123 1.23e+05 1.23E-04 3.14E+00
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~1d world!\n', [42]).</kbd>
+Hello 4.2 world!
+
+| ?- <kbd>format('Hello ~d world!\n', [42]).</kbd>
+Hello 42 world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~1D world!\n', [12345]).</kbd>
+Hello 1,234.5 world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~2r world!\n', [15]).</kbd>
+Hello 1111 world!
+
+| ?- <kbd>format('Hello ~16r world!\n', [15]).</kbd>
+Hello f world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~16R world!\n', [15]).</kbd>
+Hello F world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~4s ~4s!\n', [&quot;new&quot;,&quot;world&quot;]).</kbd>
+Hello new  worl!
+
+| ?- <kbd>format('Hello ~s world!\n', [&quot;new&quot;]).</kbd>
+Hello new world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~i~s world!\n', [&quot;old&quot;,&quot;new&quot;]).</kbd>
+Hello new world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~k world!\n', [[a,b,c]]).</kbd>
+Hello '.'(a,'.'(b,'.'(c,[]))) world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>assert((portray([X|Y]) :- print(cons(X,Y)))).</kbd>
+| ?- <kbd>format('Hello ~p world!\n', [[a,b,c]]).</kbd>
+Hello cons(a,cons(b,cons(c,[]))) world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~q world!\n', [['A','B']]).</kbd>
+Hello ['A','B'] world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~w world!\n', [['A','B']]).</kbd>
+Hello [A,B] world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~@ world!\n', [write(new)]).</kbd>
+Hello new world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~~ world!\n', []).</kbd>
+Hello ~ world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>format('Hello ~n world!\n', []).</kbd>
+Hello
+ world!
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?-    <kbd>format('~`*t NICE TABLE ~`*t~61|~n', []),</kbd>
+        <kbd>format('*~t*~61|~n', []),</kbd>
+        <kbd>format('*~t~a~20|~t~a~t~20+~a~t~20+~t*~61|~n',</kbd>
+               <kbd>['Right aligned','Centered','Left aligned']),</kbd>
+        <kbd>format('*~t~d~20|~t~d~t~20+~d~t~20+~t*~61|~n',</kbd>
+               <kbd>[123,45,678]),</kbd>
+        <kbd>format('*~t~d~20|~t~d~t~20+~d~t~20+~t*~61|~n',</kbd>
+               <kbd>[1,2345,6789]),</kbd>
+        <kbd>format('~`*t~61|~n', []).</kbd>
+</pre></div>
+
+<div class="example">
+<pre class="example">************************ NICE TABLE *************************
+*                                                           *
+*      Right aligned      Centered      Left aligned        *
+*                123         45         678                 *
+*                  1        2345        6789                *
+*************************************************************
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?-
+    <kbd>format('Table of Contents ~t ~a~72|~*n', [i,3]),</kbd>
+    <kbd>format('~tTable of Contents~t~72|~*n', 2),</kbd>
+    <kbd>format(&quot;1. Documentation supplement for ~s~1f ~`.t ~d~72|~*n&quot;, [&quot;Quintus Prolog Release &quot;,1.5,2,2]),</kbd>
+    <kbd>format(&quot;~t~*+~w Definition of the term \&quot;loaded\&quot; ~`.t ~d~72|~n&quot;, [3,1-1,2]),</kbd>
+    <kbd>format(&quot;~t~*+~w Finding all solutions ~`.t ~d~72|~n&quot;, [3,1-2,3]),</kbd>
+    <kbd>format(&quot;~t~*+~w Searching for a file in a library ~`.t ~d~72|~n&quot;, [3,1-3,4]),</kbd>
+    <kbd>format(&quot;~t~*+~w New Built-in Predicates ~`.t ~d~72|~n&quot;, [3,1-4,5]),</kbd>
+    <kbd>format(&quot;~t~*+~w write_canonical (?Term) ~`.t ~d~72|~n&quot;, [7,1-4-1,5]),</kbd>
+    <kbd>format(&quot;~*+.~n~*+.~n~*+.~n&quot;, [20,20,20]),</kbd>
+    <kbd>format(&quot;~t~*+~w File Specifications ~`.t ~d~72|~n&quot;, [3,1-7,17]),</kbd>
+    <kbd>format(&quot;~t~*+~w multifile(+PredSpec) ~`.t ~d~72|~n&quot;, [7,1-7-1,18]).</kbd>
+</pre></div>
+
+<div class="example">
+<pre class="example">                           Table of Contents
+
+1. Documentation supplement for Quintus Prolog Release 1.5 ........... 2
+
+   1-1 Definition of the term &quot;loaded&quot; ............................... 2
+   1-2 Finding all solutions ......................................... 3
+   1-3 Searching for a file in a library ............................. 4
+   1-4 New Built-in Predicates ....................................... 5
+       1-4-1 write_canonical (?Term) ................................. 5
+                    .
+                    .
+                    .
+   1-7 File Specifications .......................................... 17
+       1-7-1 multifile(+PredSpec) ................................... 18
+</pre></div>
+
+<a name="See-Also-107"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002diou_002dtou.html#ref_002diou_002dtou">ref-iou-tou</a>.
+</p><div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT10" href="#DOCF10">(10)</a></h3>
+<p>This is because
+streams only have one counter for line position, and for bidirectional
+streams that counter tracks the input direction
+(see <a href="cpg_002dref_002dSP_005fget_005fstream_005fcounts.html#cpg_002dref_002dSP_005fget_005fstream_005fcounts">cpg-ref-SP_get_stream_counts</a>).</p>
+</div>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dfreeze.html#mpg_002dref_002dfreeze" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dforeign_005fresource.html#mpg_002dref_002dforeign_005fresource" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dformat.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dformat.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

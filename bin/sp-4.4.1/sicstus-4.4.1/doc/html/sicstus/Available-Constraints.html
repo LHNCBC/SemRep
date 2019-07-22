@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Available Constraints</title>
+
+<meta name="description" content="SICStus Prolog: Available Constraints">
+<meta name="keywords" content="SICStus Prolog: Available Constraints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dclpfd.html#lib_002dclpfd" rel="up" title="lib-clpfd">
+<link href="Arithmetic-Constraints.html#Arithmetic-Constraints" rel="next" title="Arithmetic Constraints">
+<link href="Reified-Constraints.html#Reified-Constraints" rel="prev" title="Reified Constraints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Available-Constraints"></a>
+<hr>
+<a name="Available-Constraints-1"></a>
+<h4 class="subsection">10.10.4 Available Constraints</h4>
+
+<p>This section describes constraints that can be used with this solver,
+organized into classes.  Unless documented otherwise, constraints are
+not reifiable and do not guarantee any particular level of consistency.
+Whenever a domain variable is required in the argument of a constraint,
+a small integer can be given instead.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Arithmetic-Constraints.html#Arithmetic-Constraints" accesskey="1">Arithmetic Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Arithmetic Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Membership-Constraints.html#Membership-Constraints" accesskey="2">Membership Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Membership Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Propositional-Constraints.html#Propositional-Constraints" accesskey="3">Propositional Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Propositional Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Arithmetic_002dLogical-Constraints.html#Arithmetic_002dLogical-Constraints" accesskey="4">Arithmetic-Logical Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Arithmetic-Logical Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Extensional-Constraints.html#Extensional-Constraints" accesskey="5">Extensional Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Extensional Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Graph-Constraints.html#Graph-Constraints" accesskey="6">Graph Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Graph Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Scheduling-Constraints.html#Scheduling-Constraints" accesskey="7">Scheduling Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Scheduling Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Placement-Constraints.html#Placement-Constraints" accesskey="8">Placement Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Placement Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Automata-Constraints.html#Automata-Constraints" accesskey="9">Automata Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Automata Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="User_002dDefined-Constraints.html#User_002dDefined-Constraints">User-Defined Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">User-Defined Constraints
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Enumeration-Predicates.html#Enumeration-Predicates" accesskey="n" rel="next">Next</a>
+<li><a href="CLPFD-Interface.html#CLPFD-Interface" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dclpfd.html#lib_002dclpfd" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Available-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Available-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Last Clause Determinacy Detection</title>
+
+<meta name="description" content="SICStus Prolog: Last Clause Determinacy Detection">
+<meta name="keywords" content="SICStus Prolog: Last Clause Determinacy Detection">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" rel="up" title="Writing Efficient Programs">
+<link href="The-Determinacy-Checker.html#The-Determinacy-Checker" rel="next" title="The Determinacy Checker">
+<link href="Determinacy-Detection.html#Determinacy-Detection" rel="prev" title="Determinacy Detection">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Last-Clause-Determinacy-Detection"></a>
+<hr>
+<a name="Last-Clause-Determinacy-Detection-1"></a>
+<h3 class="section">9.6 Last Clause Determinacy Detection</h3>
+
+<a name="index-last-clause-determinacy-detection"></a>
+<a name="index-determinacy-detection_002c-last-clause"></a>
+<p>Even if the determinacy detection made possible by indexing is
+unavailable to a predicate call, SICStus Prolog still can detect
+determinacy before determinate exit from the predicate.
+Space for backtracking information can thus be recovered as early
+as possible, reducing memory requirements and increasing performance.
+For instance, the predicate <code>member/2</code> (found in the SICStus
+Prolog library) could be defined by:
+</p><div class="example">
+<pre class="example">member(Element, [Element|_]).
+member(Element, [_|Rest]) :-
+        member(Element, Rest).
+</pre></div>
+
+<p><code>member/2</code> might be called with an instantiated first
+argument in order to check for membership of the argument in
+a list, which is passed as a second argument, as in
+</p><div class="example">
+<pre class="example">| ?- <kbd>member(4, [1,2,3,4]).</kbd>
+</pre></div>
+
+<p>The first arguments of both clauses of <code>member/2</code> are
+variables, so first argument indexing cannot be used.
+However, determinacy can still be detected before determinate exit
+from the predicate.  This is because on entry to the last
+clause of a nondeterminate predicate, a call becomes
+effectively determinate; it can tell that it has no more
+clauses to backtrack to.  Thus, backtracking
+information is no longer needed, and its space can be reclaimed.  In the
+example, each time a call fails to match the first clause and
+backtracks to the second (last) clause, backtracking
+information for the call is automatically deleted.
+</p>
+<p>Because of last clause determinacy detection, a cut is never
+needed as the first subgoal in the last clause of a
+predicate.  Backtracking information will have been deleted
+before a cut in the last clause is executed, so the
+cut will have no effect except to waste time.
+</p>
+<p>Note that last clause determinacy detection is exploited by
+dynamic code as well as static code in SICStus Prolog.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="The-Determinacy-Checker.html#The-Determinacy-Checker" accesskey="n" rel="next">Next</a>
+<li><a href="Indexing.html#Indexing" accesskey="p" rel="prev">Previous</a>
+<li><a href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Last-Clause-Determinacy-Detection.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Last-Clause-Determinacy-Detection.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

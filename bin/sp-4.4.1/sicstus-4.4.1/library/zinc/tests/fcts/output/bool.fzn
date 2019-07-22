@@ -1,0 +1,9 @@
+% RUNS ON flatzinc
+% RUNS ON fzn_fd
+% RUNS ON fzn_fdlp
+% RUNS ON fzn_lazyfd
+var bool: x1 :: output_var;
+var bool: x2 :: output_var;
+constraint bool_eq(x1, false);
+constraint bool_eq(x2, true);
+solve satisfy;

@@ -1,0 +1,243 @@
+#!/bin/bash
+
+OPERATING_SYSTEM=`uname`
+
+DEFAULT_SAWENV=SAWenv
+
+export NLS=/nfsvol/nls
+
+if [ "$OPERATING_SYSTEM" = "SunOS" ]
+then
+  export PATH=$NLS/bin:$PATH
+  export PATH=$NLS/tools/gnu/bin:$PATH   
+  export SAW=$NLS/specialist/SAW
+elif [ "$OPERATING_SYSTEM" = "Linux" ]
+then
+  export PATH=$NLS/bin/Linux-i686:$PATH
+  export SAW=$NLS/specialist/SAW.Linux
+fi
+
+PROGRAM=`basename $0`
+
+USAGE="Usage: $PROGRAM [ -d | -p | -w <WORKING_DIR> ]"
+
+MAKE="make -f"
+SOURCE_HOME_SAWenv=0
+ERROR_DIRS=""
+ERROR_FILES=""
+QUIT=0
+SLEEP=2
+DEFAULT_FLAG="-d"
+CLEAN_ONLY=0
+#WORKING_DIR=""
+
+SICStus=
+BITS=
+while getopts CdD:HIMpS:w: option
+do
+   case $option
+   in
+        C) CLEAN_ONLY=1;;
+        I) SICStus='-S';;
+        d) DEFAULT_FLAG='-d';;
+        H) SOURCE_HOME_SAWenv=1;;
+        M) BITS=m32;;
+        p) DEFAULT_FLAG='-p';;
+        S) DEFAULT_SAWENV=$OPTARG;;
+        w) if [ "$OPTARG" = "." ]
+	   then
+	      OPTARG=`pwd`
+	   fi
+           DEFAULT_FLAG="-w $OPTARG";;
+   esac
+done
+
+MAKE_DIRS="usemrep_lib abgene/src abgene"
+
+shift `expr $OPTIND - 1`
+OPTIND=1
+
+if [ $SOURCE_HOME_SAWenv -eq 1 ]
+then
+   if [ ! -f $SAW_HOME/bin/$DEFAULT_SAWENV ]
+   then
+      echo $SAW_HOME/bin/$DEFAULT_SAWENV does not exist.
+      exit 1
+   else
+      echo sourcing $SAW_HOME/bin/$DEFAULT_SAWENV $BITS $DEFAULT_FLAG
+      . $SAW_HOME/bin/$DEFAULT_SAWENV $BITS $DEFAULT_FLAG
+   fi
+elif [ ! -f $SAW/bin/$DEFAULT_SAWENV ]
+then
+   echo $SAW/bin/$DEFAULT_SAWENV does not exist.
+   exit 1
+else
+   echo sourcing $SAW/bin/$DEFAULT_SAWENV $BITS $DEFAULT_FLAG
+   . $SAW/bin/$DEFAULT_SAWENV $BITS $DEFAULT_FLAG
+fi
+
+export SAW_SRC_HOME
+
+# ensure that the directory is writeable
+if [ ! -w "$SAW_SRC_HOME" ]
+then
+   echo "The directory $SAW_SRC_HOME is not writeable."
+   exit 1
+fi
+
+# ensure that $SAW_SRC_HOME contains all the necessary subdirectories
+QUIT=0
+for DIR in $MAKE_DIRS
+do
+   if [ ! -d "$SAW_SRC_HOME/$DIR" ]
+   then
+      echo "$SAW_SRC_HOME does not contain a $DIR subdirectory."
+      QUIT=1
+   fi
+done
+
+if [ $QUIT -eq 1 ]
+then
+   exit 1
+fi
+
+echo ""
+echo "Make will run in the following directories under $SAW_SRC_HOME"
+echo ""
+
+for DIR in $MAKE_DIRS
+do
+   echo "   $DIR"
+done
+
+if [ "$SLEEP" -ne 0 ]
+then
+   echo ""
+   echo "beginning in $SLEEP seconds. Interrupt with Control-C if desired."
+   sleep $SLEEP
+fi
+
+ERROR_DIRS=
+for DIR in $MAKE_DIRS
+do
+   cd $DIR
+   BASENAME=`basename $PWD`
+   BASENAME=`echo $BASENAME | sed -e 's/\..*//'`
+   CLEAN=clean
+   echo ""
+   echo ""
+   echo "----------------------------------------------------------------"
+   echo "making in $DIR dir: $PWD"
+   echo "----------------------------------------------------------------"
+   echo ""
+   echo ""
+
+   MAKEFILES=`ls -1 Makefile.*`
+   for MAKEFILE in $MAKEFILES 
+   do
+
+   # FML added for converting to 64-bit version
+   echo $MAKE $MAKEFILE $CLEAN
+   $MAKE $MAKEFILE $CLEAN
+   # if CLEAN_ONLY is 0, that means we remake in addition to doing the make clean
+   if [ "$CLEAN_ONLY" -eq 0 ]
+   then
+      echo $MAKE $MAKEFILE
+      $MAKE $MAKEFILE
+      MAKEFILE_STATUS=$?
+
+      if [ $MAKEFILE_STATUS -eq 0 ]
+      then
+         echo "----------------------------------------------------------------"
+         echo "making in $DIR dir: $PWD succeeded"
+         echo "----------------------------------------------------------------"
+      else
+         ERROR_DIRS="$ERROR_DIRS $DIR"
+         echo "################################################################"
+         echo "making in $DIR dir: $PWD GENERATED ERRORS"
+         echo "################################################################"
+      fi
+   fi
+   done
+   echo ""
+   cd $SAW_SRC_HOME
+done
+#       if [ $# -eq 0 ]
+#       then
+#	   echo $DEFAULT_SAWENV $MAKE $MAKEFILE $CLEAN
+#	   $DEFAULT_SAWENV $MAKE $MAKEFILE $CLEAN
+
+#	   echo $DEFAULT_SAWENV $MAKE $MAKEFILE
+#	   $DEFAULT_SAWENV $MAKE $MAKEFILE 2> $MAKEFILE.err
+#	   MAKEFILE_STATUS=$?
+#       fi
+#       echo ""
+#       if [ $MAKEFILE_STATUS -eq 0 ]
+#       then
+#	   BANNER='----------------------------------------------------------------'
+#       else
+#	   BANNER='#?#?#? ERROR!! #?#?#? ERROR!! #?#?#? ERROR!! #?#?#? ERROR!! #?#?#? ERROR!!'
+#       fi
+
+#       echo $BANNER
+#       if [ ! -s $MAKEFILE.err ]
+#       then
+#           echo "Removing zero-length file $MAKEFILE.err"
+#           /bin/rm -f $MAKEFILE.err
+#	   echo $BANNER
+#       else
+#      	   ERROR_DIRS="$ERROR_DIRS $DIR"
+#      	   ERROR_FILES="$ERROR_FILES $PWD/$MAKEFILE.err"
+#       fi
+#   done
+
+#   echo "Done making dir $DIR; status is $MAKEFILE_STATUS"
+#   echo $BANNER
+
+#   cd $SAW_SRC_HOME
+#done
+
+echo ""
+echo ""
+
+if [ "$ERROR_DIRS" = "" ]
+then
+   echo "No compilation errors."
+else
+   echo '################################  ERROR!! ################################'
+   echo 'Compilation errors occurred in the following area(s):' "$ERROR_DIRS"
+   echo '################################  ERROR!! ################################'
+#   echo '#?#?#? ERROR!! #?#?#? ERROR!! #?#?#? ERROR!! #?#?#? ERROR!! #?#?#? ERROR!!'
+#   echo 'Compilation errors occurred in the following area(s):' "$ERROR_DIRS"
+#   echo '#?#?#? ERROR!! #?#?#? ERROR!! #?#?#? ERROR!! #?#?#? ERROR!! #?#?#? ERROR!!'
+#   for ERR_FILE in $ERROR_FILES
+#   do
+#      echo ""
+#      ls -l $ERR_FILE
+#      echo ""
+#      cat $ERR_FILE
+#      echo ""
+#   done
+fi
+
+echo ""
+echo ""
+NUMSO=0
+echo "Copying MetaMap shared libraries..."
+for sofile in ${SKR_SRC_HOME}/*.so
+do
+    echo cp $sofile ${USEMREP} 
+    cp $sofile ${USEMREP} 
+    NUMSO=`expr $NUMSO + 1`
+done
+echo "$NUMSO files copied."
+
+echo "Copying SemRep shared libraries..."
+for sofile in ${USEMREP_LIB}/*.so
+do
+    echo cp $sofile ${USEMREP} 
+    cp $sofile ${USEMREP} 
+    NUMSO=`expr $NUMSO + 1`
+done
+echo "$NUMSO files copied."
+echo ""

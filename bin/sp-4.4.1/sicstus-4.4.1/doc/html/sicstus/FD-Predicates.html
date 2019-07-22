@@ -1,0 +1,235 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FD Predicates</title>
+
+<meta name="description" content="SICStus Prolog: FD Predicates">
+<meta name="keywords" content="SICStus Prolog: FD Predicates">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" rel="up" title="Defining Primitive Constraints">
+<link href="Execution-of-Propagating-Indexicals.html#Execution-of-Propagating-Indexicals" rel="next" title="Execution of Propagating Indexicals">
+<link href="Monotonicity-of-Ranges.html#Monotonicity-of-Ranges" rel="prev" title="Monotonicity of Ranges">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FD-Predicates"></a>
+<hr>
+<a name="FD-Predicates-1"></a>
+<h4 class="subsubsection">10.10.10.7 FD Predicates</h4>
+<a name="index-FD-predicate-1"></a>
+<a name="index-predicate_002c-FD-1"></a>
+<p>The following example defines the constraint <var>X+Y=T</var> as an FD
+predicate in terms of three indexicals.  Each indexical is a rule
+responsible for removing values detected as incompatible from one
+particular constraint argument.  Indexicals are <em>not</em> Prolog goals;
+thus, the example does not express a conjunction.  However, an indexical
+may make the store contradictory, in which case backtracking is
+triggered:
+</p>
+<div class="example">
+<pre class="example">plus(X,Y,T) +:
+        X in min(T) - max(Y) .. max(T) - min(Y),
+        Y in min(T) - max(X) .. max(T) - min(X),
+        T in min(X) + min(Y) .. max(X) + max(Y).
+</pre></div>
+
+<p>The above definition contains a single clause used for constraint
+solving.  The first indexical wakes up whenever the bounds of <var>S(T)</var>
+or <var>S(Y)</var> are updated, and removes from <var>D(X,S)</var> any values that
+are not compatible with the new bounds of <var>T</var> and <var>Y</var>.  Note
+that in the event of &ldquo;holes&rdquo; in the domains of <var>T</var> or <var>Y</var>,
+<var>D(X,S)</var> may contain some values that are incompatible with
+<var>X+Y=T</var> but go undetected.  Like most built-in arithmetic
+constraints, the above definition maintains bounds consistency, which is
+significantly cheaper to maintain than domain consistency and suffices
+in most cases.  The constraint could for example be used as follows:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>X in 1..5, Y in 2..8, plus(X,Y,T).</kbd>
+X in 1..5,
+Y in 2..8,
+T in 3..13
+</pre></div>
+
+<p>Thus, when an FD predicate is called, the &lsquo;<samp>+:</samp>&rsquo; clause is activated.
+</p>
+<p>The definition of a user constraint has to specify the variables
+involved and the finite domains with which their domains should be
+intersected when the propagator is run.  Therefore the FD predicate with
+<var>n</var> arguments consists of <var>n</var> indexicals, each specifying a left
+hand side variable and a right hand side expression that evaluates to a
+finite domain, which is a function of the expression and of the
+constraint store.  For example, the third indexical in the above FD
+predicate evaluates to the finite domain <var>3..13</var> for <var>T</var> if
+<var>D(X,S) = 1..5</var> and <var>D(Y,S) = 2..8</var>.  As the domain of some
+variables gets smaller, the indexical may further narrow the domain of
+other variables.  Therefore such an indexical (called a propagating
+indexical) acts as a coroutine reacting to the changes in the store by
+enforcing further changes in the store.
+</p>
+<p>In general there are three stages in the lifetime of a propagating
+indexical.  When it is posted it may not be evaluated immediately
+(e.g. has to wait until some variables are ground before being able to
+modify the store).  Until the preconditions for the evaluation are
+satisfied, the coroutine is blocked.  When the indexical becomes
+unblocked, it computes a finite domain for intersecting with the domain
+of its left hand side.  The coroutine then waits until some change
+occurs in a domain of a variable occurring in its right hand side.
+Eventually, the computation reaches a point when the indexical is
+entailed by the store, i.e. no changes in its right hand side can
+prune its left hand side any longer, and the coroutine can cease to
+exist.
+</p>
+<p>Note that FD predicates must be correct and checking (see <a href="CLPFD-Interface.html#CLPFD-Interface">CLPFD Interface</a>).
+</p>
+<p>There can be several alternative definitions for the same user
+constraint with different strengths in propagation.  For example, the
+definition of <code>plusd</code> below encodes the same <code>X+Y=T</code>
+constraint as the <code>plus</code> predicate above, but maintaining
+domain consistency:
+</p>
+<div class="example">
+<pre class="example">plusd(X,Y,T) +:
+        X in dom(T) - dom(Y),
+        Y in dom(T) - dom(X),
+        T in dom(X) + dom(Y).
+
+| ?- <kbd>X in {1}\/{3}, Y in {10}\/{20}, plusd(X, Y, T).</kbd>
+X in{1}\/{3},
+Y in{10}\/{20},
+T in{11}\/{13}\/{21}\/{23}
+</pre></div>
+
+<p>This costs more in terms of execution time, but gives more precise
+results. For singleton domains <code>plus</code> and <code>plusd</code> behave in
+the same way.
+</p>
+<p>In our design, general indexicals can only appear in the context of FD
+predicate definitions.  The rationale for this restriction is the need
+for general indexicals to be able to suspend and resume, and this
+ability is only provided by the FD predicate mechanism.
+</p>
+<p>If the program merely posts a constraint, then it suffices for the definition
+to contain a single clause for solving the constraint.  If a constraint
+is reified or occurs in a propositional formula, then the definition must
+contain four clauses for solving and checking entailment of the
+constraint and its negation.  The role of each clause is reflected in
+the &ldquo;neck&rdquo; operator.  The following table summarizes the different
+forms of indexical clauses corresponding to a constraint <var>C</var>.  In
+all cases, <var>Head</var> should be a compound term with all arguments being
+distinct variables:
+</p>
+<dl compact="compact">
+<dt><code><var>Head</var> +: <var>Indexicals</var>.</code></dt>
+<dd><p>The body consists of propagating indexicals for solving <var>C</var>.  The
+body can in fact be of a more general form&mdash;see <a href="Compiled-Indexicals.html#Compiled-Indexicals">Compiled Indexicals</a>.
+</p>
+</dd>
+<dt><code><var>Head</var> -: <var>Indexicals</var>.</code></dt>
+<dd><p>The body consists of propagating indexicals for solving the negation of
+<var>C</var>.
+</p>
+</dd>
+<dt><code><var>Head</var> +? <var>Indexical</var>.</code></dt>
+<dd><p>The body consists of a single checking indexical for testing entailment
+of <var>C</var>.
+</p>
+</dd>
+<dt><code><var>Head</var> -? <var>Indexical</var>.</code></dt>
+<dd><p>The body consists of a single checking indexical for testing entailment
+of the negation of <var>C</var>.
+</p></dd>
+</dl>
+
+<p>When a constraint is reified as in <code><var>Constraint</var> #&lt;=&gt; <var>B</var></code>,
+the solver spawns two coroutines corresponding to detecting entailment
+and disentailment.  Eventually, one of them will succeed in this and
+consequently will bind <var>B</var> to 0 or 1.  A third coroutine is spawned,
+waiting for <var>B</var> to become assigned, at which time the constraint (or
+its negation) is posted.  In the mean time, the constraint may have been
+detected as (dis)entailed, in which case the third coroutine is
+dismissed.  
+</p>
+<p>As an example of a constraint with all methods defined, consider the
+following library constraint defining a disequation between two domain
+variables:
+</p>
+<div class="example">
+<pre class="example">'x\\=y'(X,Y) +:
+        X in \{Y},
+        Y in \{X}.
+'x\\=y'(X,Y) -:
+        X in dom(Y),
+        Y in dom(X).
+'x\\=y'(X,Y) +?
+        X in \dom(Y).
+'x\\=y'(X,Y) -?
+        X in {Y}.
+</pre></div>
+
+<p>The following sections provide more precise coding rules and operational
+details for indexicals.  <code><var>X</var> in <var>R</var></code> denotes an indexical
+corresponding to a constraint <var>C</var>.  <var>S</var> denotes the current
+store.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Execution-of-Propagating-Indexicals.html#Execution-of-Propagating-Indexicals" accesskey="n" rel="next">Next</a>
+<li><a href="Monotonicity-of-Ranges.html#Monotonicity-of-Ranges" accesskey="p" rel="prev">Previous</a>
+<li><a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FD-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FD-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

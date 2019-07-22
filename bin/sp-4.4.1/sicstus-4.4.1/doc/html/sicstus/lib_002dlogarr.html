@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-logarr</title>
+
+<meta name="description" content="SICStus Prolog: lib-logarr">
+<meta name="keywords" content="SICStus Prolog: lib-logarr">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dobjects.html#lib_002dobjects" rel="next" title="lib-objects">
+<link href="lib_002dlists.html#lib_002dlists" rel="prev" title="lib-lists">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dlogarr"></a>
+<hr>
+<a name="Array-Operations_002d_002d_002dlibrary_0028logarr_0029"></a>
+<h3 class="section">10.22 Array Operations&mdash;<code>library(logarr)</code></h3>
+<p>This libary module provides extendible arrays with logarithmic access time.
+<strong>Please note:</strong> the atom <code>$</code> is used to indicate an unset element, and the
+functor <code>$/4</code> is used to indicate a subtree.  In general, array
+elements whose principal function symbol is <code>$</code> will not work.
+</p>
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dd><p>new_array(<var>-A</var>)
+    returns a new empty array <var>A</var>.
+</p></dd>
+<dt><code>is_array(<var>+A</var>)</code></dt>
+<dd><p>checks whether <var>A</var> is an array.
+</p></dd>
+<dt><code>alist(<var>+Array</var>, <var>-List</var>)</code></dt>
+<dd><p>returns a list of pairs <var>Index-Element</var> of all the elements
+of <var>Array</var> that have been set.
+</p></dd>
+<dt><code>aref(<var>+Index</var>, <var>+Array</var>, <var>-Element</var>)</code></dt>
+<dd><p>unifies <var>Element</var> with <var>Array[Index]</var>, or fails if <var>Array[Index]</var>
+has not been set.
+</p></dd>
+<dt><code>arefa(<var>+Index</var>, <var>+Array</var>, <var>-Element</var>)</code></dt>
+<dd><p>is as <code>aref/3</code>, except that it unifies <var>Element</var> with a new array if
+<var>Array[Index]</var> is undefined.  This is useful for multidimensional
+arrays implemented as arrays of arrays.
+</p></dd>
+<dt><code>arefl(<var>+Index</var>, <var>+Array</var>, <var>-Element</var>)</code></dt>
+<dd><p>is as <code>aref/3</code>, except that <var>Element</var> appears as <code>[]</code> for
+undefined cells.
+</p></dd>
+<dt><code>aset(<var>+Index</var>, <var>+Array</var>, <var>+Element</var>, <var>-NewArray</var>)</code></dt>
+<dd><p>unifies <var>NewArray</var> with the result of setting <var>Array[Index]</var>
+to <var>Element</var>.
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dobjects.html#lib_002dobjects" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dlists.html#lib_002dlists" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dlogarr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dlogarr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: Use of Machine Registers and Stack Frame Slots for x86_64 (non-Windows)</title>
+
+<meta name="description" content="SICStus JIT White Paper: Use of Machine Registers and Stack Frame Slots for x86_64 (non-Windows)">
+<meta name="keywords" content="SICStus JIT White Paper: Use of Machine Registers and Stack Frame Slots for x86_64 (non-Windows)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Register-Allocation.html#Register-Allocation" rel="up" title="Register Allocation">
+<link href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028Windows_0029.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028Windows_0029" rel="next" title="Use of Machine Registers and Stack Frame Slots for x86_64 (Windows)">
+<link href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86" rel="prev" title="Use of Machine Registers and Stack Frame Slots for x86">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028non_002dWindows_0029"></a>
+<hr>
+<a name="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028non_002dWindows_0029-1"></a>
+<h3 class="section">4.3 Use of Machine Registers and Stack Frame Slots for x86_64 (non-Windows)</h3>
+
+<table>
+<tr><td width="10%"><code>%rax</code></td><td width="10%"><code>gpr(0)</code></td><td width="80%"><code>val,</code> <code>arg0</code></td></tr>
+<tr><td width="10%"><code>%rcx</code></td><td width="10%"><code>gpr(1)</code></td><td width="80%"><code>cp</code></td></tr>
+<tr><td width="10%"><code>%rdx</code></td><td width="10%"><code>gpr(2)</code></td><td width="80%"><code>s</code></td></tr>
+<tr><td width="10%"><code>%rbx</code></td><td width="10%"><code>gpr(3)</code></td><td width="80%"><code>w</code></td></tr>
+<tr><td width="10%"><code>%rsp</code></td><td width="10%"><code>gpr(4)</code></td><td width="80%"><code>SP</code></td></tr>
+<tr><td width="10%"><code>%rbp</code></td><td width="10%"><code>gpr(5)</code></td><td width="80%"><code>a</code></td></tr>
+<tr><td width="10%"><code>%rsi</code></td><td width="10%"><code>gpr(6)</code></td><td width="80%"><code>h</code></td></tr>
+<tr><td width="10%"><code>%rdi</code></td><td width="10%"><code>gpr(7)</code></td><td width="80%"><code>e</code></td></tr>
+<tr><td width="10%"><code>%r8</code></td><td width="10%"><code>gpr(8)</code></td><td width="80%"><code>b</code></td></tr>
+<tr><td width="10%"><code>%r9</code></td><td width="10%"><code>gpr(9)</code></td><td width="80%"><code>tr</code></td></tr>
+<tr><td width="10%"><code>%r10</code></td><td width="10%"><code>gpr(10)</code></td><td width="80%"><code>arg1</code></td></tr>
+<tr><td width="10%"><code>%r11</code></td><td width="10%"><code>gpr(11)</code></td><td width="80%"><code>arg2</code></td></tr>
+<tr><td width="10%"><code>%r12</code></td><td width="10%"><code>gpr(12)</code></td><td width="80%"><code>x(0)</code></td></tr>
+<tr><td width="10%"><code>%r13</code></td><td width="10%"><code>gpr(13)</code></td><td width="80%"><code>x(1)</code></td></tr>
+<tr><td width="10%"><code>%r14</code></td><td width="10%"><code>gpr(14)</code></td><td width="80%"><code>x(2)</code></td></tr>
+<tr><td width="10%"><code>%r15</code></td><td width="10%"><code>gpr(15)</code></td><td width="80%"><code>x(3)</code></td></tr>
+<tr><td width="10%"><code>0(%rsp)</code></td><td width="10%"></td><td width="80%"><code>%rbx</code> callee save</td></tr>
+<tr><td width="10%"><code>8(%rsp)</code></td><td width="10%"></td><td width="80%"><code>%rbp</code> callee save</td></tr>
+<tr><td width="10%"><code>16(%rsp)</code></td><td width="10%"></td><td width="80%"><code>%r12</code> callee save</td></tr>
+<tr><td width="10%"><code>24(%rsp)</code></td><td width="10%"></td><td width="80%"><code>%r13</code> callee save</td></tr>
+<tr><td width="10%"><code>32(%rsp)</code></td><td width="10%"></td><td width="80%"><code>%r14</code> callee save</td></tr>
+<tr><td width="10%"><code>40(%rsp)</code></td><td width="10%"></td><td width="80%"><code>%r15</code> callee save</td></tr>
+<tr><td width="10%"><code>48(%rsp)</code></td><td width="10%"></td><td width="80%"><code>ac0</code></td></tr>
+<tr><td width="10%"><code>56(%rsp)</code></td><td width="10%"></td><td width="80%"><code>ac1</code></td></tr>
+<tr><td width="10%"><code>64(%rsp)</code></td><td width="10%"></td><td width="80%"><code>arg0</code> spill slot</td></tr>
+<tr><td width="10%"><code>72(%rsp)</code></td><td width="10%"></td><td width="80%"><code>pad</code></td></tr>
+<tr><td width="10%"><code>80(%rsp)</code></td><td width="10%"></td><td width="80%">ret address</td></tr>
+</table>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028Windows_0029.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028Windows_0029" accesskey="n" rel="next">Next</a>
+<li><a href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86" accesskey="p" rel="prev">Previous</a>
+<li><a href="Register-Allocation.html#Register-Allocation" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028non_002dWindows_0029.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028non_002dWindows_0029.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

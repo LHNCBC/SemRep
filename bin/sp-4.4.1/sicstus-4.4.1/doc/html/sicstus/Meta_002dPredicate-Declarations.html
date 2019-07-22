@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Meta-Predicate Declarations</title>
+
+<meta name="description" content="SICStus Prolog: Meta-Predicate Declarations">
+<meta name="keywords" content="SICStus Prolog: Meta-Predicate Declarations">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" rel="up" title="ref-lod-dcl">
+<link href="Module-Declarations.html#Module-Declarations" rel="next" title="Module Declarations">
+<link href="Block-Declarations.html#Block-Declarations" rel="prev" title="Block Declarations">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Meta_002dPredicate-Declarations"></a>
+<hr>
+<a name="Meta_002dPredicate-Declarations-1"></a>
+<h4 class="subsubsection">4.3.4.6 Meta-Predicate Declarations</h4>
+<a name="index-meta_002dpredicate-declaration"></a>
+<a name="index-declaration_002c-meta_002dpredicate"></a>
+
+<a name="index-meta_005fpredicate_002f1-_0028declaration_0029-2"></a>
+<a name="index-meta_005fpredicate_002f1-_0028declaration_0029"></a>
+
+
+<p>To ensure correct semantics in the context of multiple modules, some
+predicates are subject to module name expansion.  Clauses or
+directives containing goals for such predicates need to have certain
+arguments annotated by a module prefix.  A declaration:
+</p>
+<div class="example">
+<pre class="example">:- meta_predicate <var>:MetaPredSpec</var>, &hellip;, <var>:MetaPredSpec</var>.
+</pre></div>
+
+<p>where each <var>MetaPredSpec</var> is a skeletal goal, informs the
+compiler which predicates and which of its arguments should be subject
+to such annotations.  See <a href="ref_002dmod_002dmet.html#ref_002dmod_002dmet">ref-mod-met</a> and <a href="ref_002dmod_002dmne.html#ref_002dmod_002dmne">ref-mod-mne</a> for details.
+<a name="index-module-name-expansion-1"></a>
+<a name="index-expansion_002c-module-name-1"></a>
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Module-Declarations.html#Module-Declarations" accesskey="n" rel="next">Next</a>
+<li><a href="Block-Declarations.html#Block-Declarations" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Meta_002dPredicate-Declarations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Meta_002dPredicate-Declarations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

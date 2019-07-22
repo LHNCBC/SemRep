@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-csv</title>
+
+<meta name="description" content="SICStus Prolog: lib-csv">
+<meta name="keywords" content="SICStus Prolog: lib-csv">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dcomclient.html#lib_002dcomclient" rel="next" title="lib-comclient">
+<link href="lib_002dcodesio.html#lib_002dcodesio" rel="prev" title="lib-codesio">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dcsv"></a>
+<hr>
+<a name="I_002fO-on-Comma_002dSeparated-Values-_0028CSV_0029-Files-and-Strings_002d_002d_002dlibrary_0028csv_0029"></a>
+<h3 class="section">10.13 I/O on Comma-Separated Values (CSV) Files and Strings&mdash;<code>library(csv)</code></h3>
+<p>This library module provides some utilities for Comma-Separated Values (CSV) files and strings.
+In this context, a file is a sequence of <em>records</em>, and a record is a sequence of <em>fields</em>.
+In a CSV file, fields are separated by commas, and each record is terminated by <tt class="key">RET</tt>.
+</p>
+<p>This module does not report any syntax errors.  In the event of prematurely terminated input file,
+the current field and record will be terminated silently.
+</p>
+<p>Then a CSV record is read, it will yield a list of fields of the following form:
+</p>
+<dl compact="compact">
+<dt><code>integer(<var>Number</var>,<var>Codes</var>)</code></dt>
+<dd><p>Stands for the integer <var>Number</var>, where <code>number_codes(<var>Number</var>,<var>Codes</var>)</code> holds,
+and <var>Codes</var> is the list of character codes actually read.
+</p>
+</dd>
+<dt><code>float(<var>Number</var>,<var>Codes</var>)</code></dt>
+<dd><p>Stands for the float <var>Number</var>, where <code>number_codes(<var>Number</var>,<var>Codes</var>)</code> holds,
+and <var>Codes</var> is the list of character codes actually read.
+</p>
+</dd>
+<dt><code>string(<var>Codes</var>)</code></dt>
+<dd><p>Stands for the text string (list of character codes) <var>Codes</var>, and <code>number_codes(<var>Number</var>,<var>Codes</var>)</code>
+does not hold.
+</p></dd>
+</dl>
+
+<p>When a CSV records is written, the <var>Codes</var> argument of the above terms is used, but
+the following fields are also allowed:
+</p>
+<dl compact="compact">
+<dt><code>integer(<var>Number</var>)</code></dt>
+<dd><p>Stands for the integer <var>Number</var>.
+</p>
+</dd>
+<dt><code>float(<var>Number</var>)</code></dt>
+<dd><p>Stands for the float <var>Number</var>.
+</p>
+</dd>
+<dt><code>atom(<var>Atom</var>)</code></dt>
+<dd><p>Stands for the atom <var>Atom</var>.
+</p></dd>
+</dl>
+
+<p>Adapted to the conventions of this manual, RFC 4180 specifies the following.  Where this module relaxes
+the requirements, that is explicitly mentioned:
+</p>
+<ol>
+<li> Each record is located on a separate line, delimited by a line
+break. For example:
+<div class="example">
+<pre class="example">aaa,bbb,ccc <span class="key">RET</span>
+zzz,yyy,xxx <span class="key">RET</span>
+</pre></div>
+
+</li><li> The last record in the file may or may not have an ending line
+break. For example:
+<div class="example">
+<pre class="example">aaa,bbb,ccc <span class="key">RET</span>
+zzz,yyy,xxx
+</pre></div>
+
+</li><li> There may be an optional header line appearing as the first line
+of the file with the same format as normal record lines. This
+header will contain names corresponding to the fields in the file
+and should contain the same number of fields as the records in
+the rest of the file. For example:
+<div class="example">
+<pre class="example">field_name,field_name,field_name <span class="key">RET</span>
+aaa,bbb,ccc <span class="key">RET</span>
+zzz,yyy,xxx <span class="key">RET</span>
+</pre></div>
+<p>This module does not attempt to detect a header line nor
+treat it in any special way.
+</p>
+</li><li> Within the header and each record, there may be one or more
+fields, separated by commas. Each record should contain the same
+number of fields throughout the file. Spaces are considered part
+of a field and should not be ignored. The last field in the
+record must not be followed by a comma, so if the record ends with a
+comma, the last field is treated as empty.  For example, the following
+is treated as four fields:
+<div class="example">
+<pre class="example">aaa,bbb,ccc,
+</pre></div>
+<p>This module does not require or check that each record contains
+the same number of fields.
+</p>
+</li><li> Each field may or may not be enclosed in double quotes.
+If fields contain line breaks (<tt class="key">RET</tt>), double quotes or commas,
+then they should be enclosed in double quotes, otherwise the double quotes may be omitted.
+For example:
+<div class="example">
+<pre class="example">&quot;aaa&quot;,&quot;bbb&quot;,&quot;ccc&quot; <span class="key">RET</span>
+&quot;aaa&quot;,&quot;b <span class="key">RET</span>
+bb&quot;,&quot;ccc&quot; <span class="key">RET</span>
+zzz,yyy,xxx
+</pre></div>
+<p>If an unenclosed field is immediately followed by a <kbd>&quot;</kbd>, (or vice versa), then this module
+treats that as a new enclosed (or unenclosed) field to be read and appended to the field read so far.
+</p>
+</li><li> If double quotes are used to enclose fields, then a double quote
+appearing inside a field must be escaped by preceding it with
+another double quote. For example:
+<div class="example">
+<pre class="example">&quot;aaa&quot;,&quot;b&quot;&quot;bb&quot;,&quot;ccc&quot;
+</pre></div>
+</li></ol>
+
+<p>Exported predicates:
+</p><dl compact="compact">
+<dt><code>read_record(<var>-Record</var>)</code></dt>
+<dt><code>read_record(<var>+Stream</var>, <var>-Record</var>)</code></dt>
+<dd>
+<a name="index-read_005frecord_002f_005b1_002c2_005d-_0028csv_0029-1"></a>
+<a name="index-read_005frecord_002f_005b1_002c2_005d-_0028csv_0029"></a>
+
+<p>Reads a single record from the stream <var>Stream</var>, which defaults to the current input stream,
+and unifies it with <var>Record</var>.  On end of file, <var>Record</var> is unified with <code>end_of_file</code>.
+</p></dd>
+<dt><code>read_records(<var>-Records</var>)</code></dt>
+<dt><code>read_records(<var>+Stream</var>, <var>-Records</var>)</code></dt>
+<dd>
+<a name="index-read_005frecords_002f_005b1_002c2_005d-_0028csv_0029-1"></a>
+<a name="index-read_005frecords_002f_005b1_002c2_005d-_0028csv_0029"></a>
+
+<p>Reads records from the stream <var>Stream</var>, which defaults to the current input stream,
+up to the end of the stream, and unifies them with <var>Records</var>.  
+</p></dd>
+<dt><code>read_record_from_codes(<var>-Record</var>, <var>+Codes</var>)</code></dt>
+<dt><code>read_record_from_codes(<var>-Record</var>, <var>+Codes</var>, <var>-Suffix</var>)</code></dt>
+<dd>
+<a name="index-read_005frecord_005ffrom_005fcodes_002f_005b2_002c3_005d-_0028csv_0029-1"></a>
+<a name="index-read_005frecord_005ffrom_005fcodes_002f_005b2_002c3_005d-_0028csv_0029"></a>
+
+<p>Reads a record from the code-list <var>Codes</var>.  
+In the arity 2 variant, there must be no trailing character codes after the record.
+In the arity 3 variant, any trailing character codes are unified with <var>Suffix</var>,
+which can be used for reading subsequent records.
+</p></dd>
+<dt><code>write_record(<var>+Record</var>)</code></dt>
+<dt><code>write_record(<var>+Stream</var>, <var>+Record</var>)</code></dt>
+<dd>
+<a name="index-write_005frecord_002f_005b1_002c2_005d-_0028csv_0029-1"></a>
+<a name="index-write_005frecord_002f_005b1_002c2_005d-_0028csv_0029"></a>
+
+<p>Writes a single record to the stream <var>Stream</var>, which defaults to the current output stream.
+</p></dd>
+<dt><code>write_records(<var>+Records</var>)</code></dt>
+<dt><code>write_records(<var>+Stream</var>, <var>+Records</var>)</code></dt>
+<dd>
+<a name="index-write_005frecords_002f_005b1_002c2_005d-_0028csv_0029-1"></a>
+<a name="index-write_005frecords_002f_005b1_002c2_005d-_0028csv_0029"></a>
+
+<p>Writes records to the stream <var>Stream</var>, which defaults to the current output stream.
+</p></dd>
+<dt><code>write_record_to_codes(<var>+Record</var>, <var>-Codes</var>)</code></dt>
+<dd>
+<a name="index-write_005frecord_005fto_005fcodes_002f2-_0028csv_0029-1"></a>
+<a name="index-write_005frecord_005fto_005fcodes_002f2-_0028csv_0029"></a>
+
+<p>Writes a single record to the code-list <var>Codes</var>, without the terminating <tt class="key">RET</tt>.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dcomclient.html#lib_002dcomclient" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dcodesio.html#lib_002dcodesio" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dcsv.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dcsv.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

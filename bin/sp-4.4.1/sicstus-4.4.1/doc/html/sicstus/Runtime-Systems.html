@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Runtime Systems</title>
+
+<meta name="description" content="SICStus Prolog: Runtime Systems">
+<meta name="keywords" content="SICStus Prolog: Runtime Systems">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables" rel="up" title="Stand-Alone Executables">
+<link href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines" rel="next" title="Runtime Systems on Target Machines">
+<link href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables" rel="prev" title="Stand-Alone Executables">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Runtime-Systems"></a>
+<hr>
+<a name="Runtime-Systems-1"></a>
+<h4 class="subsection">6.7.1 Runtime Systems</h4>
+
+<p>Stand-alone applications containing debugged Prolog code and destined
+for end-users are typically packaged as runtime systems.  No
+SICStus license is needed by a runtime system.  A runtime
+system has the following limitations:
+</p>
+<ul>
+<li> No top-level.  The executable will restore a saved-state and/or
+load code, and call <code>user:runtime_entry(start)</code>.
+Alternatively, you may supply a main program and explicitly
+initialize the Prolog engine with <code>SP_initialize()</code>.
+<code>break/0</code> and <code>require/1</code> are unavailable.
+
+</li><li> No debugger.  
+<code>debugging</code>, <code>debug</code> and <code>debugger_print_options</code> have no
+effect.  Predicates annotated as <em>[development]</em> in the reference
+pages are unavailable.
+<a name="index-debugging-_0028prolog-flag_0029-1"></a>
+<a name="index-debug-_0028prolog-flag_0029-1"></a>
+<a name="index-debugger_005fprint_005foptions-_0028prolog-flag_0029-5"></a>
+
+</li><li> Except in extended runtime systems: no compiler;
+compiling is replaced by consulting.  
+Extended runtime systems do provide the compiler.
+
+</li><li> The <code>discontiguous_warnings</code>, <code>single_var_warnings</code>,
+<code>redefine_warnings</code>, and <code>informational</code> Prolog flags are off
+by default, suppressing warnings about clauses not being together,
+singleton variables, queries and warnings about name clashes and
+redefinitions, and informational messages.  Note that they can be
+switched on though, to enable such warnings, queries and messages.
+<a name="index-discontiguous_005fwarnings-_0028prolog-flag_0029-3"></a>
+<a name="index-single_005fvar_005fwarnings-_0028prolog-flag_0029-2"></a>
+<a name="index-redefine_005fwarnings-_0028prolog-flag_0029-2"></a>
+<a name="index-informational-_0028prolog-flag_0029-1"></a>
+
+</li><li> No profiler or coverage analysis.  The predicates
+<code>profile_reset/0</code>, <code>profile_data/1</code>,
+<code>print_profile/[0,1]</code> <code>coverage_data/1</code>, and
+<code>print_coverage/[0,1]</code> are unavailable.  The Prolog flag
+<code>profiling</code> is unavailable.
+<a name="index-profiling-_0028prolog-flag_0029-1"></a>
+
+</li><li> No signal handling except as installed by <code>SP_signal()</code>.
+</li></ul>
+
+<p>It is possible to tell a runtime system to start a development system
+instead, for debugging purposes. See <a href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems">Debugging Runtime Systems</a> for
+details.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines" accesskey="n" rel="next">Next</a>
+<li><a href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Runtime-Systems.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Runtime-Systems.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

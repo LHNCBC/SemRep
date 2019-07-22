@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: Use of Machine Registers and Stack Frame Slots for PPC64</title>
+
+<meta name="description" content="SICStus JIT White Paper: Use of Machine Registers and Stack Frame Slots for PPC64">
+<meta name="keywords" content="SICStus JIT White Paper: Use of Machine Registers and Stack Frame Slots for PPC64">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Register-Allocation.html#Register-Allocation" rel="up" title="Register Allocation">
+<link href="Runtime-System.html#Runtime-System" rel="next" title="Runtime System">
+<link href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028Windows_0029.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028Windows_0029" rel="prev" title="Use of Machine Registers and Stack Frame Slots for x86_64 (Windows)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-PPC64"></a>
+<hr>
+<a name="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-PPC64-1"></a>
+<h3 class="section">4.5 Use of Machine Registers and Stack Frame Slots for PPC64</h3>
+<p><b>[PERM:</b> Would it be better to have the four special TOC-entries on the
+stack (like &rsquo;$ref&rsquo;/2 functor) so not all predicates would need to
+allocate/maintain a TOC.<b>]</b>
+</p><table>
+<tr><td width="10%"><code>r0</code></td><td width="10%"><code>gpr(0)</code></td><td width="80%"><code>scratch</code></td></tr>
+<tr><td width="10%"><code>r1</code></td><td width="10%"><code>gpr(1)</code></td><td width="80%"><code>sp</code> stack ptr</td></tr>
+<tr><td width="10%"><code>r2</code></td><td width="10%"><code>gpr(2)</code></td><td width="80%"><code>toc</code> JIT-TOC ptr callee save</td></tr>
+<tr><td width="10%"><code>r3</code></td><td width="10%"><code>gpr(3)</code></td><td width="80%"><code>arg0/val</code></td></tr>
+<tr><td width="10%"><code>r4</code></td><td width="10%"><code>gpr(4)</code></td><td width="80%"><code>arg1</code></td></tr>
+<tr><td width="10%"><code>r5</code></td><td width="10%"><code>gpr(5)</code></td><td width="80%"><code>arg2</code></td></tr>
+<tr><td width="10%"><code>r6</code></td><td width="10%"><code>gpr(6)</code></td><td width="80%"><code>arg3</code></td></tr>
+<tr><td width="10%"><code>r7</code></td><td width="10%"><code>gpr(7)</code></td><td width="80%"><code>arg4</code></td></tr>
+<tr><td width="10%"><code>r8</code></td><td width="10%"><code>gpr(8)</code></td><td width="80%"><code>arg5</code></td></tr>
+<tr><td width="10%"><code>r9</code></td><td width="10%"><code>gpr(9)</code></td><td width="80%"><code>ac0/s</code></td></tr>
+<tr><td width="10%"><code>r10</code></td><td width="10%"><code>gpr(10)</code></td><td width="80%"><code>ac1</code></td></tr>
+<tr><td width="10%"><code>r11</code></td><td width="10%"><code>gpr(11)</code></td><td width="80%"><code>ab</code></td></tr>
+<tr><td width="10%"><code>r12</code></td><td width="10%"><code>gpr(12)</code></td><td width="80%"><code>hb</code></td></tr>
+<tr><td width="10%"><code>r13</code></td><td width="10%"><code>gpr(13)</code></td><td width="80%">thread ptr</td></tr>
+<tr><td width="10%"><code>r14</code></td><td width="10%"><code>gpr(14)</code></td><td width="80%"><code>b</code> callee save</td></tr>
+<tr><td width="10%"><code>r15</code></td><td width="10%"><code>gpr(15)</code></td><td width="80%"><code>a</code> callee save</td></tr>
+<tr><td width="10%"><code>r16</code></td><td width="10%"><code>gpr(16)</code></td><td width="80%"><code>h</code> callee save</td></tr>
+<tr><td width="10%"><code>r17</code></td><td width="10%"><code>gpr(17)</code></td><td width="80%"><code>tr</code> callee save</td></tr>
+<tr><td width="10%"><code>r18</code></td><td width="10%"><code>gpr(18)</code></td><td width="80%"><code>e</code> callee save</td></tr>
+<tr><td width="10%"><code>r19</code></td><td width="10%"><code>gpr(19)</code></td><td width="80%"><code>cp</code> callee save</td></tr>
+<tr><td width="10%"><code>r20</code></td><td width="10%"><code>gpr(20)</code></td><td width="80%"><code>w</code> callee save</td></tr>
+<tr><td width="10%"><code>r21</code></td><td width="10%"><code>gpr(21)</code></td><td width="80%"><code>insn</code> callee save</td></tr>
+<tr><td width="10%"><code>r22</code></td><td width="10%"><code>gpr(22)</code></td><td width="80%"><code>x(0)</code> callee save</td></tr>
+<tr><td width="10%"><code>r23</code></td><td width="10%"><code>gpr(23)</code></td><td width="80%"><code>x(1)</code> callee save</td></tr>
+<tr><td width="10%"><code>r24</code></td><td width="10%"><code>gpr(24)</code></td><td width="80%"><code>x(2)</code> callee save</td></tr>
+<tr><td width="10%"><code>r25</code></td><td width="10%"><code>gpr(25)</code></td><td width="80%"><code>x(3)</code> callee save</td></tr>
+<tr><td width="10%"><code>r26</code></td><td width="10%"><code>gpr(26)</code></td><td width="80%"><code>x(4)</code> callee save</td></tr>
+<tr><td width="10%"><code>r27</code></td><td width="10%"><code>gpr(27)</code></td><td width="80%"><code>x(5)</code> callee save</td></tr>
+<tr><td width="10%"><code>r28</code></td><td width="10%"><code>gpr(28)</code></td><td width="80%"><code>x(6)</code> callee save</td></tr>
+<tr><td width="10%"><code>r29</code></td><td width="10%"><code>gpr(29)</code></td><td width="80%"><code>x(7)</code> callee save</td></tr>
+<tr><td width="10%"><code>r30</code></td><td width="10%"><code>gpr(30)</code></td><td width="80%"><code>x(8)</code> callee save</td></tr>
+<tr><td width="10%"><code>r31</code></td><td width="10%"><code>gpr(31)</code></td><td width="80%"><code>x(9)</code> callee save</td></tr>
+<tr><td width="10%"><code>32(sp)</code></td><td width="10%"></td><td width="80%"><code>'$mutable'/2</code></td></tr>
+<tr><td width="10%"><code>40(sp)</code></td><td width="10%"></td><td width="80%"><code>'$ref'/2</code></td></tr>
+<tr><td width="10%"><code>48(sp)</code></td><td width="10%"></td><td width="80%"><code>ld 0, 16(toc)</code> for case analysis in <code>native_nonjit</code></td></tr>
+</table>
+
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028Windows_0029.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028Windows_0029" accesskey="p" rel="prev">Previous</a>
+<li><a href="Register-Allocation.html#Register-Allocation" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/Use-of-Machine-Registers-and-Stack-Frame-Slots-for-PPC64.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/Use-of-Machine-Registers-and-Stack-Frame-Slots-for-PPC64.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

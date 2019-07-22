@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Definitions</title>
+
+<meta name="description" content="SICStus Prolog: Definitions">
+<meta name="keywords" content="SICStus Prolog: Definitions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" rel="up" title="Defining Primitive Constraints">
+<link href="Pitfalls-of-Interval-Reasoning.html#Pitfalls-of-Interval-Reasoning" rel="next" title="Pitfalls of Interval Reasoning">
+<link href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" rel="prev" title="Defining Primitive Constraints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Definitions"></a>
+<hr>
+<a name="Definitions-1"></a>
+<h4 class="subsubsection">10.10.10.1 Definitions</h4>
+
+<p>For constraint store <var>S</var>, variable <var>X</var>, and finite domain
+<var>R</var>:
+</p>
+<ul>
+<li> <var>D(X,S)</var> denotes the domain of <var>X</var> in <var>S</var>.
+
+</li><li> <var>(X in R)(S)</var> denotes the extension of <var>S</var> where 
+<var>D(X,S)</var> has been intersected with <var>R</var>.
+</li></ul>
+
+<p>The following definitions, adapted from [Van Hentenryck et al. 95],
+define important notions of consistency and entailment of constraints
+wrt. stores.
+</p>
+<p>A ground constraint is <em>true</em> if it holds and <em>false</em> otherwise.
+</p>
+<a name="index-domain_002dconsistent"></a>
+<p>A constraint <var>C</var> is <em>domain-consistent wrt. <var>S</var></em> iff, for
+each variable <var>Xi</var> and value <var>Vi</var> in <var>D(Xi,S)</var>, there exist
+values <var>Vj</var> in <var>D(Xj,S)</var>, <var>1 &lt;= j &lt;= n /\ i != j</var>, such
+that <var>C(V1,&hellip;,Vn)</var> is true.
+</p>
+<a name="index-domain_002dentailed"></a>
+<a name="index-domain_002ddisentailed"></a>
+<p>A constraint <var>C</var> is <em>domain-entailed by <var>S</var></em> iff, for all
+values <var>Vj</var> in <var>D(Xj,S)</var>, <var>1 &lt;= j &lt;= n</var>,
+<var>C(V1,&hellip;,Vn)</var> is true.
+</p>
+<p>Let <var>D&rsquo;(X,S)</var> denote the interval <var>[min(D(X,S)),max(D(X,S))]</var>.
+</p>
+<a name="index-bounds_002dconsistent"></a>
+<p>A constraint <var>C</var> is <em>bounds-consistent wrt. <var>S</var></em> iff, for
+each variable <var>Xi</var>, there exist values <var>Vj</var> and <var>Wj</var> in
+<var>D&rsquo;(Xj,S)</var>, <var>1 &lt;= j &lt;= n, i != j</var>, such that
+<var>C(V1,&hellip;,min(D(Xi,S)),&hellip;,Vn)</var> and
+<var>C(W1,&hellip;,max(D(Xi,S)),&hellip;,Wn)</var> are both true.
+</p>
+<a name="index-bounds_002dentailed"></a>
+<a name="index-bounds_002ddisentailed"></a>
+<p>A constraint <var>C</var> is <em>bounds-entailed by <var>S</var></em> iff, for all
+values <var>Vj</var> in <var>D&rsquo;(Xj,S)</var>, <var>1 &lt;= j &lt;= n</var>,
+<var>C(V1,&hellip;,Vn)</var> is true.
+</p>
+<p>Finally, a constraint is <em>domain-disentailed (bounds-disentailed)</em> by
+<var>S</var> iff its negation is domain-entailed (bounds-entailed) by
+<var>S</var>.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Pitfalls-of-Interval-Reasoning.html#Pitfalls-of-Interval-Reasoning" accesskey="n" rel="next">Next</a>
+<li><a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Definitions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Definitions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

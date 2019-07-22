@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_query</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_query">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_query">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fquery_005fcut_005ffail.html#cpg_002dref_002dSP_005fquery_005fcut_005ffail" rel="next" title="cpg-ref-SP_query_cut_fail">
+<link href="cpg_002dref_002dSP_005fput_005fvariable.html#cpg_002dref_002dSP_005fput_005fvariable" rel="prev" title="cpg-ref-SP_put_variable">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fquery"></a>
+<hr>
+<a name="SP_005fquery_0028_0029"></a>
+<h4 class="subsection">12.3.84 <code>SP_query()</code></h4>
+<a name="index-SP_005fquery_0028_0029-_0028C-function_0029-1"></a>
+
+<a name="Synopsis-364"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+int
+SP_query(SP_pred_ref predicate,
+         SP_term_ref arg1,
+         &hellip;);
+</pre></div>
+
+<p>Calls a predicate, committing to its first solution.
+</p>
+<a name="Arguments-333"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>predicate</var></dt>
+<dd><p>The predicate to call.
+</p>
+</dd>
+<dt><var>arg1...</var></dt>
+<dd><p>The arguments to pass.
+</p></dd>
+</dl>
+
+<a name="Return-Value-79"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p><code>SP_SUCCESS</code> if the goal succeeded,
+<code>SP_FAILURE</code> if it failed, and
+<code>SP_ERROR</code> if an error condition occurred.
+</p>
+<a name="Description-215"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Use this if you are only interested in the first solution.  It will
+create a goal from the
+predicate definition and the arguments, call it, and commit to the
+first solution found, if any.  If it returns <code>SP_SUCCESS</code>, values in the
+query arguments valid, and will remain so until
+backtracking into any enclosing query.
+</p>
+<a name="See-Also-361"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Finding-One-Solution-of-a-Call.html#Finding-One-Solution-of-a-Call">Finding One Solution of a Call</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fquery_005fcut_005ffail.html#cpg_002dref_002dSP_005fquery_005fcut_005ffail" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005fput_005fvariable.html#cpg_002dref_002dSP_005fput_005fvariable" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fquery.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fquery.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Calling Prolog from C</title>
+
+<meta name="description" content="SICStus Prolog: Calling Prolog from C">
+<meta name="keywords" content="SICStus Prolog: Calling Prolog from C">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" rel="up" title="Mixing C and Prolog">
+<link href="Finding-One-Solution-of-a-Call.html#Finding-One-Solution-of-a-Call" rel="next" title="Finding One Solution of a Call">
+<link href="OS-Threads.html#OS-Threads" rel="prev" title="OS Threads">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Calling-Prolog-from-C"></a>
+<hr>
+<a name="Calling-Prolog-from-C-1"></a>
+<h3 class="section">6.5 Calling Prolog from C</h3>
+<a name="index-calling-Prolog-from-C"></a>
+
+<p>In development and runtime systems alike, Prolog and C code may
+call each other to arbitrary depths.
+</p>
+<a name="index-SP_005fpredicate_0028_0029-_0028C-function_0029"></a>
+<p>Before calling a predicate from C you must look up the
+predicate definition by module, name, and arity.  The
+function <code>SP_predicate()</code> will return a pointer to this definition
+or return <code>NULL</code> if the predicate is not visible in the
+module.  This definition can be used in more than one call to
+the same predicate.  
+</p>
+<a name="index-SP_005fpred_0028_0029-_0028C-function_0029"></a>
+<p>The function <code>SP_pred()</code> may be used as an alternative to the
+above.  The only difference is that the name and module
+arguments are passed as Prolog atoms rather than strings,
+and the module argument is mandatory.  This saves the cost
+of looking up the two arguments in the Prolog symbol table.  This
+cost dominates the cost of the operation.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Finding-One-Solution-of-a-Call.html#Finding-One-Solution-of-a-Call" accesskey="1">Finding One Solution of a Call</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Finding One Solution of a Call
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Finding-Multiple-Solutions-of-a-Call.html#Finding-Multiple-Solutions-of-a-Call" accesskey="2">Finding Multiple Solutions of a Call</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Finding Multiple Solutions of a Call
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Backtracking-Loops.html#Backtracking-Loops" accesskey="3">Backtracking Loops</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Backtracking Loops
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously" accesskey="4">Calling Prolog Asynchronously</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Calling Prolog Asynchronously
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Exception-Handling-in-C.html#Exception-Handling-in-C" accesskey="5">Exception Handling in C</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Exception Handling in C
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Reading-a-goal-from-a-string.html#Reading-a-goal-from-a-string" accesskey="6">Reading a goal from a string</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Reading a goal from a string
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="SICStus-Streams.html#SICStus-Streams" accesskey="n" rel="next">Next</a>
+<li><a href="Support-Functions.html#Support-Functions" accesskey="p" rel="prev">Previous</a>
+<li><a href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Calling-Prolog-from-C.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Calling-Prolog-from-C.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

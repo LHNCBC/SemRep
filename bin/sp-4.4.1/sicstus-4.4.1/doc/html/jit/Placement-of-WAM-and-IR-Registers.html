@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: Placement of WAM and IR Registers</title>
+
+<meta name="description" content="SICStus JIT White Paper: Placement of WAM and IR Registers">
+<meta name="keywords" content="SICStus JIT White Paper: Placement of WAM and IR Registers">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Register-Allocation.html#Register-Allocation" rel="up" title="Register Allocation">
+<link href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86" rel="next" title="Use of Machine Registers and Stack Frame Slots for x86">
+<link href="Register-Allocation.html#Register-Allocation" rel="prev" title="Register Allocation">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Placement-of-WAM-and-IR-Registers"></a>
+<hr>
+<a name="Placement-of-WAM-and-IR-Registers-1"></a>
+<h3 class="section">4.1 Placement of WAM and IR Registers</h3>
+
+<p>The &ldquo;WAM registers&rdquo; <code>arg0..arg2</code> are for passing parameters
+from the JIT code to the runtime system. These &ldquo;WAM registers&rdquo; must
+be preserved by the machine code that implements the IR instructions
+(i.e. the generated machine code must not used any of
+<code>arg0..arg2</code> as scratchpad registers).
+</p>
+<p>The &ldquo;WAM registers&rdquo; <code>arg3..arg5</code> are scratchpad registers of the
+runtime system and may also be freely used by the machine code that
+implements the IR instructions.
+</p>
+<p>For x86_64, the exact offsets of <code>ac0</code> and <code>ac1</code> are ABI
+dependent (Windows vs. non-Windows).
+</p>
+<p>For PPC64, the <code>CTR</code> register is used by <code>context(_)</code> instructions,
+in predicate-to-predicate calls, and for jumping to continuations.
+The link register is used in <code>call</code> and <code>ccall</code> instructions.
+Otherwise, <code>CTR</code> can be used freely, and so can the link
+register. Additionally <code>R0</code> and <code>arg3..arg5</code> can be used
+freely by the machine code that implements the IR instructions.
+</p>
+<table>
+<thead><tr><th width="22%">WAM</th><th width="28%">x86</th><th width="28%">x86_64</th><th width="28%">PPC64</th></tr></thead>
+<tr><td width="22%"><code>sp</code></td><td width="28%"><code>%esp</code></td><td width="28%"><code>%rsp</code></td><td width="28%"><code>r1</code></td></tr>
+<tr><td width="22%"><code>toc</code></td><td width="28%">&mdash;</td><td width="28%">&mdash;</td><td width="28%"><code>r2</code></td></tr>
+<tr><td width="22%"><code>val</code></td><td width="28%"><code>%eax</code></td><td width="28%"><code>%rax</code></td><td width="28%"><code>r3</code></td></tr>
+<tr><td width="22%"><code>arg0</code></td><td width="28%"><code>0(%esp)</code></td><td width="28%"><code>%rax</code></td><td width="28%"><code>r3</code></td></tr>
+<tr><td width="22%"><code>arg1</code></td><td width="28%"><code>4(%esp)</code></td><td width="28%"><code>%r10</code></td><td width="28%"><code>r4</code></td></tr>
+<tr><td width="22%"><code>arg2</code></td><td width="28%"><code>8(%esp)</code></td><td width="28%"><code>%r11</code></td><td width="28%"><code>r5</code></td></tr>
+<tr><td width="22%"><code>arg3</code></td><td width="28%">&mdash;</td><td width="28%">&mdash;</td><td width="28%"><code>r6</code></td></tr>
+<tr><td width="22%"><code>arg4</code></td><td width="28%">&mdash;</td><td width="28%">&mdash;</td><td width="28%"><code>r7</code></td></tr>
+<tr><td width="22%"><code>arg5</code></td><td width="28%">&mdash;</td><td width="28%">&mdash;</td><td width="28%"><code>r8</code></td></tr>
+<tr><td width="22%"><code>s</code></td><td width="28%"><code>%edx</code></td><td width="28%"><code>%rdx</code></td><td width="28%"><code>r9</code></td></tr>
+<tr><td width="22%"><code>ac0</code></td><td width="28%"><code>28(%esp)</code></td><td width="28%"><code>OFF(%rsp)</code></td><td width="28%"><code>r9</code></td></tr>
+<tr><td width="22%"><code>ac1</code></td><td width="28%"><code>32(%esp)</code></td><td width="28%"><code>OFF(%rsp)</code></td><td width="28%"><code>r10</code></td></tr>
+<tr><td width="22%"><code>ab</code></td><td width="28%"><code>W_LOCAL_UNCOND(w)</code></td><td width="28%"><code>NODE_LOCAL_TOP(b)</code></td><td width="28%"><code>r11</code></td></tr>
+<tr><td width="22%"><code>hb</code></td><td width="28%"><code>W_GLOBAL_UNCOND(w)</code></td><td width="28%"><code>NODE_GLOBAL_TOP(b)</code></td><td width="28%"><code>r12</code></td></tr>
+<tr><td width="22%"><code>b</code></td><td width="28%"><code>W_NODE(w)</code></td><td width="28%"><code>r8</code></td><td width="28%"><code>r14</code></td></tr>
+<tr><td width="22%"><code>a</code></td><td width="28%"><code>%ebp</code></td><td width="28%"><code>%rbp</code></td><td width="28%"><code>r15</code></td></tr>
+<tr><td width="22%"><code>h</code></td><td width="28%"><code>%esi</code></td><td width="28%"><code>%rsi</code></td><td width="28%"><code>r16</code></td></tr>
+<tr><td width="22%"><code>tr</code></td><td width="28%"><code>W_TRAIL_TOP(w)</code></td><td width="28%"><code>r9</code></td><td width="28%"><code>r17</code></td></tr>
+<tr><td width="22%"><code>e</code></td><td width="28%"><code>%edi</code></td><td width="28%"><code>%rdi</code></td><td width="28%"><code>r18</code></td></tr>
+<tr><td width="22%"><code>cp</code></td><td width="28%"><code>%ecx</code></td><td width="28%"><code>%rcx</code></td><td width="28%"><code>r19</code></td></tr>
+<tr><td width="22%"><code>w</code></td><td width="28%"><code>%ebx</code></td><td width="28%"><code>%rbx</code></td><td width="28%"><code>r20</code></td></tr>
+<tr><td width="22%"><code>w_insn</code></td><td width="28%"><code>W_INSN(w)</code></td><td width="28%"><code>W_INSN(w)</code></td><td width="28%"><code>r21</code></td></tr>
+<tr><td width="22%"><code>w_heap_warn_soft</code></td><td width="28%"><code>W_HEAP_WARN_SOFT(w)</code></td><td width="28%"><code>W_HEAP_WARN_SOFT(w)</code></td><td width="28%"><code>W_HEAP_WARN_SOFT(w)</code></td></tr>
+<tr><td width="22%"><code>w_next_node</code></td><td width="28%"><code>W_NEXT_NODE(w)</code></td><td width="28%"><code>W_NEXT_NODE(w)</code></td><td width="28%"><code>W_NEXT_NODE(w)</code></td></tr>
+<tr><td width="22%"><code>w_numstack_end</code></td><td width="28%"><code>W_NUMSTACK_END(w)</code></td><td width="28%"><code>W_NUMSTACK_END(w)</code></td><td width="28%"><code>W_NUMSTACK_END(w)</code></td></tr>
+<tr><td width="22%"><code>w_stack_start</code></td><td width="28%"><code>W_STACK_START(w)</code></td><td width="28%"><code>W_STACK_START(w)</code></td><td width="28%"><code>W_STACK_START(w)</code></td></tr>
+<tr><td width="22%"><code>w_stack_warn</code></td><td width="28%"><code>W_STACK_WARN(w)</code></td><td width="28%"><code>W_STACK_WARN(w)</code></td><td width="28%"><code>W_STACK_WARN(w)</code></td></tr>
+<tr><td width="22%"><code>w_fli_stack_start</code></td><td width="28%"><code>W_FLI_STACK_START(w)</code></td><td width="28%"><code>W_FLI_STACK_START(w)</code></td><td width="28%"><code>W_FLI_STACK_START(w)</code></td></tr>
+<tr><td width="22%"><code>x(0)</code></td><td width="28%"><code>W_TERM0(w)</code></td><td width="28%"><code>%r12</code></td><td width="28%"><code>r22</code></td></tr>
+<tr><td width="22%"><code>x(1)</code></td><td width="28%"><code>W_TERM1(w)</code></td><td width="28%"><code>%r13</code></td><td width="28%"><code>r23</code></td></tr>
+<tr><td width="22%"><code>x(2)</code></td><td width="28%"><code>W_TERM2(w)</code></td><td width="28%"><code>%r14</code></td><td width="28%"><code>r24</code></td></tr>
+<tr><td width="22%"><code>x(3)</code></td><td width="28%"><code>W_TERM3(w)</code></td><td width="28%"><code>%r15</code></td><td width="28%"><code>r25</code></td></tr>
+<tr><td width="22%"><code>x(4)</code></td><td width="28%"><code>W_TERM4(w)</code></td><td width="28%"><code>W_TERM4(w)</code></td><td width="28%"><code>r26</code></td></tr>
+<tr><td width="22%"><code>x(5)</code></td><td width="28%"><code>W_TERM5(w)</code></td><td width="28%"><code>W_TERM5(w)</code></td><td width="28%"><code>r27</code></td></tr>
+<tr><td width="22%"><code>x(6)</code></td><td width="28%"><code>W_TERM6(w)</code></td><td width="28%"><code>W_TERM6(w)</code></td><td width="28%"><code>r28</code></td></tr>
+<tr><td width="22%"><code>x(7)</code></td><td width="28%"><code>W_TERM7(w)</code></td><td width="28%"><code>W_TERM7(w)</code></td><td width="28%"><code>r29</code></td></tr>
+<tr><td width="22%"><code>x(8)</code></td><td width="28%"><code>W_TERM8(w)</code></td><td width="28%"><code>W_TERM8(w)</code></td><td width="28%"><code>r30</code></td></tr>
+<tr><td width="22%"><code>x(9)</code></td><td width="28%"><code>W_TERM9(w)</code></td><td width="28%"><code>W_TERM9(w)</code></td><td width="28%"><code>r31</code></td></tr>
+</table>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86" accesskey="n" rel="next">Next</a>
+<li><a href="Register-Allocation.html#Register-Allocation" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/Placement-of-WAM-and-IR-Registers.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/Placement-of-WAM-and-IR-Registers.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

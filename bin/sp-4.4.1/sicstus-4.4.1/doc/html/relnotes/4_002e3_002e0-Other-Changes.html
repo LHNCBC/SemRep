@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.3.0 Other Changes</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.3.0 Other Changes">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.3.0 Other Changes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e3_002e0-Changes.html#g_t4_002e3_002e0-Changes" rel="up" title="4.3.0 Changes">
+<link href="4_002e3_002e0-Known-Issues.html#g_t4_002e3_002e0-Known-Issues" rel="next" title="4.3.0 Known Issues">
+<link href="4_002e3_002e0-Standard-Conformance-Changes.html#g_t4_002e3_002e0-Standard-Conformance-Changes" rel="prev" title="4.3.0 Standard Conformance Changes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e3_002e0-Other-Changes"></a>
+<hr>
+<a name="Other-Changes-14"></a>
+<h4 class="subsection">14.20.4 Other Changes</h4>
+
+<ul>
+<li> Windows XP is no longer supported since it has reached its end of
+life (<a href="https://www.microsoft.com/en-us/windows/enterprise/endofsupport.aspx">https://www.microsoft.com/en-us/windows/enterprise/endofsupport.aspx</a>)
+</li><li> Solaris 8 and 9 are no longer supported. Solaris 10 is still supported
+on both SPARC and x86/x86_64 platforms.
+</li><li> Mac OS X 10.5 Leopard and Mac OS X 10.6 Snow Leopard are no longer
+supported. Mac OS X 10.7 and later are supported (64-bit only).
+</li><li> The Emacs mode will not actively be maintained for XEmacs.  GNU Emacs is still
+fully supported and we will consider fixing reported XEmacs problems.
+Users are encouraged to migrate to SPIDER
+(see <a href="../sicstus/SPIDER.html#SPIDER">SICStus Prolog IDE</a> in <cite>the SICStus Prolog Manual</cite>).
+</li><li> The Prolog flags <code>single_var_warnings</code> and <code>discontiguous_warnings</code>
+are now volatile with default value <code>off</code> in runtime systems.
+This means that, as before, in runtime systems, these warnings are off by default,
+but now they can be switched on.
+</li><li> <code>absolute_file_name/[2,3]</code> no longer treats the file name
+<code>user</code> in a special way, by default. The new option
+<code>if_user/1</code> is available if the old behavior is needed.
+</li><li> <code>absolute_file_name/[2,3]</code> now applies the same kind of
+case-normalization to the <code>extensions/1</code> and <code>glob/1</code>
+arguments as to
+the file name. This affects Windows, where <code>extensions(['.pl'])</code>
+now will have the same effect as <code>extensions(['.PL'])</code>. Prior to
+release 4.3 the <code>extensions/1</code> and <code>glob/1</code> options were case sensitive on all
+platforms.
+</li><li> On Windows, <code>open/[3,4]</code>,
+and other built-in predicates that creates files and directories,
+no longer applies
+case-normalization on the file name before creating a file. This
+means that <code>open/[3,4]</code> creates files using the same
+character case as specified in the file argument. The stream property
+<code>file_name/1</code> is not affected, i.e. it still shows a
+case-normalized name.
+This change is mostly invisible from Prolog but it means that creating
+a file with <code>open('HelloWorld.txt', write, S)</code> will now create
+file named &lsquo;<samp>HelloWorld.txt</samp>&rsquo; whereas earlier releases would create
+a file &lsquo;<samp>helloworld.txt</samp>&rsquo;.
+</li><li> <code>library(types)</code>:
+<var>Goal</var> and <var>Arity</var> arguments are now checked.
+</li><li> Jasper:
+Java 6, e.g. JDK 1.6, or later is required for all Java code.
+</li><li> Jasper:
+On OS X, the file suffix for the SICStus Java Native Library has
+changed from &lsquo;<samp>.jnilib</samp>&rsquo; to &lsquo;<samp>.dylib</samp>&rsquo;, for compatibility with
+Java 8.
+</li><li> <code>library(lists)</code>:
+<code>is_list/1</code> and <code>proper_length/2</code> now fail for
+cyclic lists. They used to not terminate.
+</li><li> CLPFD:
+<ul class="no-bullet">
+<li>- Some options of <code>table/3</code> and <code>case/4</code> have gone obsolete.
+</li><li>- Machine capacities of <code>cumulatives/3</code> do not need to be fixed.
+</li></ul>
+</li><li> ZINC:
+The Flatzinc parser is significantly faster, and solving is often
+faster too.  Several search options now have support in C.  
+</li><li> The unsupported <code>library(tkconsole)</code> and
+<code>tcltk:tk_terminal/5</code> has been ported from SICStus 3 to SICStus
+4.
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e3_002e0-Known-Issues.html#g_t4_002e3_002e0-Known-Issues" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e3_002e0-Standard-Conformance-Changes.html#g_t4_002e3_002e0-Standard-Conformance-Changes" accesskey="p" rel="prev">Previous</a>
+<li><a href="4_002e3_002e0-Changes.html#g_t4_002e3_002e0-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e3_002e0-Other-Changes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e3_002e0-Other-Changes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

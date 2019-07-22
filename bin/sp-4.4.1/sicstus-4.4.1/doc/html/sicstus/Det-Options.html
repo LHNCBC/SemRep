@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Det Options</title>
+
+<meta name="description" content="SICStus Prolog: Det Options">
+<meta name="keywords" content="SICStus Prolog: Det Options">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Determinacy-Checker.html#The-Determinacy-Checker" rel="up" title="The Determinacy Checker">
+<link href="What-is-Detected.html#What-is-Detected" rel="next" title="What is Detected">
+<link href="Det-Example.html#Det-Example" rel="prev" title="Det Example">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Det-Options"></a>
+<hr>
+<a name="Options"></a>
+<h4 class="subsection">9.7.5 Options</h4>
+
+<p>When run from the command line, the determinacy checker has a few
+options to control its workings.
+</p>
+<p>The <samp>-r</samp> option specifies that the checker should recursively
+check files in such a way that it finds nondeterminacy caused by calls
+to other nondeterminate predicates, whether they are
+declared so or not.  Also, predicates that appear to be
+determinate will be treated as such, whether declared
+<code>nondet</code> or not.  This option is quite useful when first running
+the checker on a file, as it will find all predicates that should
+be either made determinate or declared <code>nondet</code> at once.
+Without this option, each time a <code>nondet</code> declaration is
+added, the checker may find previously unnoticed nondeterminacy.
+</p>
+<p>For example, if the original example above, without any <code>nondet</code>
+declarations, were checked with the <samp>-r</samp> option, then the output
+would be:
+</p><div class="example">
+<pre class="example">* Non-determinate: user:parent/2 (clause 1)
+*     Indexing cannot distinguish this from clause 2.
+* Non-determinate: user:parent/2 (clause 3)
+*     Indexing cannot distinguish this from clause 4.
+* Non-determinate: user:is_parent/1 (clause 1)
+*     Calls nondet predicate user:parent/2.
+</pre></div>
+
+<p>The <samp>-d</samp> option causes the tool to print out the needed
+<code>nondet</code> declarations.  These can be readily pasted into the
+source files.  Note that it only prints the <code>nondet</code>
+declarations that are not already present in the files.  However,
+these declarations should not be pasted into your code without
+each one first being checked to see if the reported nondeterminacy is
+intended.
+</p>
+<p>The <samp>-D</samp> option is like <samp>-d</samp>, except that it prints out
+all <code>nondet</code> declarations that should appear, whether they
+are already in the file or not.  This is useful if you prefer to replace
+all old <code>nondet</code> declarations with new ones.
+</p>
+<p>Your code will probably rely on operator declarations and
+possibly term expansion. The determinacy checker handles this
+in the following way:
+you must supply an
+initialization file, using the <samp>-i</samp> <var>ifile</var> option.  
+<code>spdet</code> will execute any operator
+declaration it encounters.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="What-is-Detected.html#What-is-Detected" accesskey="n" rel="next">Next</a>
+<li><a href="Det-Example.html#Det-Example" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Determinacy-Checker.html#The-Determinacy-Checker" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Det-Options.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Det-Options.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

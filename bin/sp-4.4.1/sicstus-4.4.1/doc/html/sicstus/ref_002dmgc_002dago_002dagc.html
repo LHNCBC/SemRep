@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mgc-ago-agc</title>
+
+<meta name="description" content="SICStus Prolog: ref-mgc-ago-agc">
+<meta name="keywords" content="SICStus Prolog: ref-mgc-ago-agc">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmgc_002dago.html#ref_002dmgc_002dago" rel="up" title="ref-mgc-ago">
+<link href="ref_002dmgc_002dago_002dpat.html#ref_002dmgc_002dago_002dpat" rel="next" title="ref-mgc-ago-pat">
+<link href="ref_002dmgc_002dago.html#ref_002dmgc_002dago" rel="prev" title="ref-mgc-ago">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmgc_002dago_002dagc"></a>
+<hr>
+<a name="The-Atom-Garbage-Collector-User-Interface"></a>
+<h4 class="subsubsection">4.10.7.1 The Atom Garbage Collector User Interface</h4>
+
+
+<p>Because the creation of atoms does not follow any other system behaviors
+like memory growth or heap garbage collection, SICStus has chosen to
+keep the invocation of atom garbage collection independent of any other
+operation and to keep the invocation of atom garbage collection explicit
+rather than making it automatic.  It is often preferable for the programmer to 
+control when it will occur in case preparations need to be made for it.
+</p>
+<a name="index-agc_005fmargin-_0028prolog-flag_0029-1"></a>
+<p>Atom garbage collection is invoked automatically when the number of
+new atoms created since the last atom garbage collection reaches the
+value of the <code>agc_margin</code> flag.
+</p>
+
+<a name="index-garbage_005fcollect_005fatoms_002f0-_0028built_002din_0029-1"></a>
+<a name="index-garbage_005fcollect_005fatoms_002f0-_0028built_002din_0029"></a>
+
+<p>Atom garbage collection can be invoked explicitly by calling
+<code>garbage_collect_atoms/0</code>.
+The predicate normally succeeds silently.  The user may determine whether
+to invoke atom garbage collection at a given point based on information
+returned from a call to <code>statistics/2</code> with the keyword <code>atoms</code>.
+That call returns a list of the form
+</p>
+<div class="example">
+<pre class="example">[<var>number of atoms</var>, <var>atom space in use</var>, <var>atom space free</var>]
+</pre></div>
+
+
+<p>For example,
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>statistics(atoms, Stats).</kbd>
+
+Stats = [4313,121062,31032]
+</pre></div>
+
+
+<p>One would typically choose to call <code>garbage_collect_atoms/0</code> prior
+to each iteration of an iterative application, when
+either the number of atoms or the atom space in use passes some threshold,
+e.g.
+</p>
+<div class="example">
+<pre class="example">&lt;driver loop&gt; :-
+        &hellip;
+        repeat,
+           maybe_atom_gc,
+           &lt;do next iteration&gt;
+           &hellip;
+        fail.
+&lt;driver loop&gt;.
+</pre></div>
+
+
+<p>where
+</p>
+<div class="example">
+<pre class="example">maybe_atom_gc :-
+        statistics(atoms, [_,Inuse,_]),
+        atom_gc_space_threshold(Space),
+        ( Inuse &gt; Space -&gt; garbage_collect_atoms ; true ).
+
+% Atom GC if there are more than 100000 bytes of atoms:
+atom_gc_space_threshold(100000).
+</pre></div>
+
+
+<p>More sophisticated approaches might use both atom number, atom space
+and <code>agc_margin</code>
+thresholds, or could adjust a threshold if atom garbage collection
+did not free an adequate number of atoms.  
+</p>
+<p>To be most effective, atom
+garbage collection should be called when as few as possible atoms are
+actually in use.  In the above example, for instance, it makes the most
+sense to do atom garbage collection at the beginning of each iteration
+rather than at the end, as at the beginning of the iteration the previous
+failure may just have freed large amounts of atom-rich global and local stack.
+Similarly, it is better to invoke atom garbage collection after abolishing
+or retracting a large database than to do so before.
+See <a href="mpg_002dref_002dgarbage_005fcollect_005fatoms.html#mpg_002dref_002dgarbage_005fcollect_005fatoms">mpg-ref-garbage_collect_atoms</a>.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmgc_002dago_002dpat.html#ref_002dmgc_002dago_002dpat" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmgc_002dago.html#ref_002dmgc_002dago" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmgc_002dago_002dagc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmgc_002dago_002dagc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Terminating a Backtracking Loop</title>
+
+<meta name="description" content="SICStus Prolog: Terminating a Backtracking Loop">
+<meta name="keywords" content="SICStus Prolog: Terminating a Backtracking Loop">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Cut.html#The-Cut" rel="up" title="The Cut">
+<link href="Indexing.html#Indexing" rel="next" title="Indexing">
+<link href="Placement-of-Cuts.html#Placement-of-Cuts" rel="prev" title="Placement of Cuts">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Terminating-a-Backtracking-Loop"></a>
+<hr>
+<a name="Terminating-a-Backtracking-Loop-1"></a>
+<h4 class="subsection">9.4.4 Terminating a Backtracking Loop</h4>
+<a name="index-cut-and-generate_002dand_002dtest"></a>
+<a name="index-generate_002dand_002dtest_002c-use-with-cut"></a>
+
+<p>Cut is also commonly used in conjunction with the
+generate-and-test programming paradigm.  For example, consider the
+predicate <code>find_solution/1</code> defined by
+</p><div class="example">
+<pre class="example">find_solution(X) :- 
+        candidate_solution(X),
+        test_solution(X),
+        !.
+</pre></div>
+
+<a name="index-backtracking_002c-terminating-a-loop"></a>
+<a name="index-terminating-a-backtracking-loop"></a>
+
+<p>where <code>candidate_solution/1</code> generates possible answers on
+backtracking.  The intent is to stop generating candidates as soon
+as one is found that satisfies <code>test_solution/1</code>.  If the cut
+were omitted, then a future failure could cause backtracking into this
+clause and restart the generation of candidate solutions.  A
+similar example is shown below:
+</p>
+<div class="example">
+<pre class="example">process_file(F) :-
+        see(F),
+        repeat,
+            read(X),
+            process_and_fail(X),
+        !,
+        seen.
+
+process_and_fail(end_of_file) :- !.
+process_and_fail(X) :-
+        process(X),
+        fail.
+</pre></div>
+
+<p>The cut in <code>process_file/1</code> is another example of terminating
+a generate-and-test loop.  In general, a cut should always be
+placed after a <code>repeat/0</code> so that the backtracking loop is
+clearly terminated.  If the cut were omitted in this case, then on
+later backtracking Prolog might try to read another term
+after the end of the file had been reached.
+</p>
+<p>The cut in <code>process_and_fail/1</code> might be considered
+unnecessary because, assuming the call shown is the only call to it, the
+cut in <code>process_file/1</code> ensures that backtracking into
+<code>process_and_fail/1</code> can never happen.  While this is true, it is
+also a good safeguard to include a cut in
+<code>process_and_fail/1</code> because someone may unwittingly change
+<code>process_file/1</code> in the future.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Placement-of-Cuts.html#Placement-of-Cuts" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Cut.html#The-Cut" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Terminating-a-Backtracking-Loop.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Terminating-a-Backtracking-Loop.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

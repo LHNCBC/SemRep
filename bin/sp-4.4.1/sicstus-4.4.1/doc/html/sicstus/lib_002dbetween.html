@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-between</title>
+
+<meta name="description" content="SICStus Prolog: lib-between">
+<meta name="keywords" content="SICStus Prolog: lib-between">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dchr.html#lib_002dchr" rel="next" title="lib-chr">
+<link href="Exporting-and-importing-a-database.html#Exporting-and-importing-a-database" rel="prev" title="Exporting and importing a database">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dbetween"></a>
+<hr>
+<a name="Generating-Integers_002d_002d_002dlibrary_0028between_0029"></a>
+<h3 class="section">10.7 Generating Integers&mdash;<code>library(between)</code></h3>
+<p>This library module provides some means of generating integers.
+Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>between(<var>+Lower</var>, <var>+Upper</var>, <var>-Number</var>)</code></dt>
+<dd>
+<a name="index-between_002f3-_0028between_0029-1"></a>
+<a name="index-between_002f3-_0028between_0029"></a>
+
+<p>is true when <var>Lower</var>, <var>Upper</var>, and <var>Number</var> are integers,
+and <var>Lower =&lt; Number =&lt; Upper</var>.  If <var>Lower</var> and <var>Upper</var> are given,
+<var>Number</var> can be tested or enumerated.  If either <var>Lower</var> or <var>Upper</var>
+is absent, there is not enough information to find it, and an
+error will be reported.
+</p></dd>
+<dt><code>gen_nat(<var>?N</var>)</code></dt>
+<dd>
+<a name="index-gen_005fnat_002f1-_0028between_0029-1"></a>
+<a name="index-gen_005fnat_002f1-_0028between_0029"></a>
+
+<p>is true when <var>N</var> is a natural number.  If <var>N</var> is a variable, it will
+enumerate the natural numbers 0,1,2,... and of course not terminate.
+It is not meant to be applied to anything but integers and variables.
+</p></dd>
+<dt><code>gen_int(<var>?I</var>)</code></dt>
+<dd>
+<a name="index-gen_005fint_002f1-_0028between_0029-1"></a>
+<a name="index-gen_005fint_002f1-_0028between_0029"></a>
+
+<p>is true when I is an integer.  If I is a variable, it will
+enumerate the integers in the order 0, 1, -1, 2, -2, 3, -3, &amp;c.
+Of course this sequence has no end.
+It is not meant to be applied to anything but integers and variables.
+</p></dd>
+<dt><code>repeat(<var>+N</var>)</code></dt>
+<dd>
+<a name="index-repeat_002f1-_0028between_0029-1"></a>
+<a name="index-repeat_002f1-_0028between_0029"></a>
+
+<p>(where <var>N</var> is a non-negative integer) succeeds exactly <var>N</var> times.
+You can only understand it procedurally, and really it is only
+included for compatibility with some other Prologs.
+</p></dd>
+<dt><code>numlist(<var>?Upper</var>, <var>?List</var>)</code></dt>
+<dd>
+<a name="index-numlist_002f_005b2_002c3_002c5_005d-_0028between_0029-1"></a>
+<a name="index-numlist_002f_005b2_002c3_002c5_005d-_0028between_0029"></a>
+
+<p>is true when <var>List</var> is the list of integers <var>[1, ..., Upper]</var>.
+For example, <code>numlist(3,L)</code> binds <code>L = [1,2,3]</code>.
+</p></dd>
+<dt><code>numlist(<var>?Lower</var>, <var>?Upper</var>, <var>?List</var>)</code></dt>
+<dd><p>is true when <var>List</var> is <var>[Lower, ..., Upper]</var>, <var>Lower</var> and <var>Upper</var> integers.
+For example, <code>numlist(1, 3, L)</code> binds <code>L = [1,2,3]</code>.
+</p></dd>
+<dt><code>numlist(<var>?Lower</var>, <var>?Step</var>, <var>?Upper</var>, <var>?Length</var>, <var>?List</var>)</code></dt>
+<dd><p>is true when <var>List</var> is the list of integers <var>[Lower, Lower+Step, ..., Upper]</var> and
+of length <var>Length</var>.
+For example, <code>numlist(L,2,U,S,[1,X,Y,Z])</code> binds <code>L=1, S=4, U=7, X=3, U=5, Z=7</code>.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dchr.html#lib_002dchr" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dbdb.html#lib_002dbdb" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dbetween.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dbetween.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

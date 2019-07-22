@@ -1,0 +1,460 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: System Properties and Environment Variables</title>
+
+<meta name="description" content="SICStus Prolog: System Properties and Environment Variables">
+<meta name="keywords" content="SICStus Prolog: System Properties and Environment Variables">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002doth.html#ref_002doth" rel="up" title="ref-oth">
+<link href="Debug-Intro.html#Debug-Intro" rel="next" title="Debug Intro">
+<link href="ref_002doth.html#ref_002doth" rel="prev" title="ref-oth">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="System-Properties-and-Environment-Variables"></a>
+<hr>
+<a name="System-Properties-and-Environment-Variables-1"></a>
+<h4 class="subsection">4.17.1 System Properties and Environment Variables</h4>
+
+<a name="index-system-properties"></a>
+<a name="index-environment-variables"></a>
+
+<p>SICStus Prolog stores some information in named variables called
+system properties. System properties are used since release 4.1,
+whereas previous releases used environment variables.
+</p>
+<p>The default value when reading a system property is taken from the
+corresponding environment variable. This makes system properties largely
+backward compatible with how environment variables were used in previous
+releases. Any exceptions to this rule are explicitly mentioned in the
+documentation.
+</p>
+<p>You can obtain the value of system properties and environment variables
+using <code>system:environ/[2,3]</code> (see <a href="lib_002dsystem.html#lib_002dsystem">lib-system</a>) and
+<code>SP_getenv()</code>.
+</p>
+<p>Some system properties affect the SICStus Prolog initialization process
+and must therefore be set before SICStus Prolog has been
+initialized. There are three ways to affect the initial values of system
+properties:
+</p>
+<ol>
+<li> Set the corresponding environment variable.
+
+<p>System properties get their default value from the environment
+so this is often a convenient method. It was the only method available
+prior to release 4.1.
+</p>
+</li><li> Pass the <samp>-D<var>var</var>=<var>value</var></samp> option to the <code>sicstus</code>
+command line tool. See <a href="too_002dsicstus.html#too_002dsicstus">too-sicstus</a>.
+
+</li><li> Pass an option block to <code>SP_initialize()</code> if you initialize
+the SICStus runtime from C. See <a href="Initializing-the-Prolog-Engine.html#Initializing-the-Prolog-Engine">Initializing the Prolog Engine</a>.
+
+</li></ol>
+
+<p>Looking up system properties follows the platform convention for
+environment variables. This means that the lookup is case sensitive on
+UNIX-like platforms and case insensitive on Windows.
+</p>
+<p>On UNIX-like systems, the environment is assumed to use the UTF-8
+character encoding; on Windows, the native Unicode encoding is used.
+</p>
+<p>SICStus reads and copies the process environment during
+initialization, e.g. in <code>SP_initialize()</code>. Any subsequent
+changes to the proces environment will not be detected by
+SICStus. Note that, at least on UNIX-like systems, changing the
+process environment, e.g. using <code>setenv()</code>, has undefined behavior
+when the process has multiple threads, which is the case for any
+process running SICStus.
+</p>
+<p>While copying the environment, each entry in the environment is
+normalized as follows:
+</p><ul>
+<li> If it does not contain an equal sign, then the entry is ignored.
+</li><li> On Windows only, if it starts with an equal sign but has no other
+equal signs, then the entry is ignored.
+</li><li> If the entry consists of valid UTF-8, then it is kept as is. This is
+always true on Windows where a Unicode encoding is used internally by
+the operating system.
+</li><li> If the entry does not consist of valid UTF-8, then it is treated as
+Latin-1 and converted to UTF-8. This cannot happen on Windows.
+</li><li> On Windows only, if the entry starts with an equal sign, then the equal
+sign is treated as part of the variable name.
+</li></ul>
+
+<p>In particular, on UNIX-like systems, this means that the environment
+should preferably be in UTF-8.
+</p>
+<a name="System-Properties-Set-by-SICStus-Prolog"></a>
+<h4 class="subsubsection">4.17.1.1 System Properties Set by SICStus Prolog</h4>
+
+<p>The following system properties are set automatically on startup.
+</p>
+<dl compact="compact">
+<dd><a name="index-SP_005fAPP_005fDIR-_0028system-property_0029"></a>
+</dd>
+<dt><code>SP_APP_DIR</code></dt>
+<dd><p>The absolute path to the directory that contains the executable.
+Also available as the <code>application</code> file search path.
+</p>
+<a name="index-SP_005fAPP_005fPATH-_0028system-property_0029"></a>
+</dd>
+<dt><code>SP_APP_PATH</code></dt>
+<dd><p>The absolute path to the executable. Unlike <code>SP_APP_DIR</code>, this
+system property may not be available under all circumstances.
+</p>
+<a name="index-SP_005fRT_005fDIR-_0028system-property_0029"></a>
+</dd>
+<dt><code>SP_RT_DIR</code></dt>
+<dd><p>The full path to the directory that contains the SICStus runtime. If
+the application was linked statically to the SICStus runtime, then <code>SP_RT_DIR</code>
+is the same as <code>SP_APP_DIR</code>.
+Also available as the <code>runtime</code> file search path.
+</p>
+<a name="index-SP_005fRT_005fPATH-_0028system-property_0029"></a>
+</dd>
+<dt><code>SP_RT_PATH</code></dt>
+<dd><p>The absolute path to the SICStus runtime. Unlike <code>SP_RT_DIR</code>, this
+system property may not be available under all circumstances, e.g. if
+the runtime is not a shared library.
+</p>
+<a name="index-SP_005fLIBRARY_005fDIR-_0028system-property_0029"></a>
+</dd>
+<dt><code>SP_LIBRARY_DIR</code></dt>
+<dd><p>The absolute path to the directory that contains the SICStus library files.
+Also available as the initial value of the <code>library</code> file search path.
+</p>
+<a name="index-SP_005fTEMP_005fDIR-_0028system-property_0029"></a>
+</dd>
+<dt><code>SP_TEMP_DIR</code></dt>
+<dd><p>A directory suitable for storing temporary files. It is particularly
+useful with the <code>open/4</code> option
+<code>if_exists(generate_unique_name)</code>.
+Also available as the <code>temp</code> file search path.
+</p>
+</dd>
+<dt><code>SP_STARTUP_DIR</code></dt>
+<dd><p>During initialization the <code>SP_STARTUP_DIR</code> system property will be
+set to the working directory used by SICStus.
+</p>
+<p>Note that this system property can also be set prior to initialization,
+in order to tell SICStus which working directory to use. See below.
+</p>
+</dd>
+</dl>
+
+<a name="System-Properties-Affecting-Initialization"></a>
+<h4 class="subsubsection">4.17.1.2 System Properties Affecting Initialization</h4>
+
+<p>The following system properties can be set before starting SICStus
+Prolog.
+</p>
+<p>Some of these override the default sizes of certain areas.
+For variables ending with &lsquo;<samp>SIZE</samp>&rsquo;, the size is in bytes, but may
+be followed by &lsquo;<samp>K</samp>&rsquo;, &lsquo;<samp>M</samp>&rsquo;, or &lsquo;<samp>G</samp>&rsquo; meaning 2**10, 2**20
+and 2**30 respectively.
+</p>
+<p>Boolean values true and false are represented by &lsquo;<samp>yes</samp>&rsquo; and
+&lsquo;<samp>no</samp>&rsquo;, respectively.
+</p>
+<p>See <a href="ref_002dmgc.html#ref_002dmgc">Memory Use and Garbage Collection</a> for more information
+about the properties that affect memory management.
+</p>
+<dl compact="compact">
+<dt><code>SP_PATH</code></dt>
+<dd><a name="index-SP_005fPATH-_0028system-property_0029"></a>
+<p>Can be used to specify the location of the Runtime Library.  In most
+cases there is no need to use it, but see <a href="CPL-Notes.html#CPL-Notes">CPL Notes</a>.
+</p>
+</dd>
+<dt><code>SP_STARTUP_DIR</code></dt>
+<dd><a name="index-SP_005fSTARTUP_005fDIR-_0028system-property_0029"></a>
+<p>The value of this system property, if set, is used as the initial
+working directory. Note that this system property is also set
+automatically during initialization; see above.
+</p>
+<p>This value of this system property is <em>not</em> read from the
+corresponding environment variable.
+</p>
+</dd>
+<dt><code>SP_ALLOW_CHDIR</code></dt>
+<dd><a name="index-SP_005fALLOW_005fCHDIR-_0028system-property_0029"></a>
+
+<p>If this system property is set to &lsquo;<samp>no</samp>&rsquo;, then SICStus will not
+change the process&rsquo;s working directory when the SICStus working directory
+changes. This is useful when embedding SICStus and would probably be the
+better default behavior except for backwards compatibility.
+</p>
+</dd>
+<dt><code>GLOBALSTKSIZE</code></dt>
+<dd><a name="index-GLOBALSTKSIZE-_0028system-property_0029"></a>
+<p>Controls the initial size of the global stack.
+<strong>Please note</strong>: The global stack will not be subsequently
+trimmed to a size smaller than this initial size.
+</p>
+</dd>
+<dt><code>LOCALSTKSIZE</code></dt>
+<dd><a name="index-LOCALSTKSIZE-_0028system-property_0029"></a>
+<p>Controls the initial size of the local stack.
+<strong>Please note</strong>: The local stack will not be subsequently
+trimmed to a size smaller than this initial size.
+</p>
+</dd>
+<dt><code>CHOICESTKSIZE</code></dt>
+<dd><a name="index-CHOICESTKSIZE-_0028system-property_0029"></a>
+<p>Controls the initial size of the choicepoint stack.
+<strong>Please note</strong>: The choicepoint stack will not be subsequently
+trimmed to a size smaller than this initial size.
+</p>
+</dd>
+<dt><code>TRAILSTKSIZE</code></dt>
+<dd><a name="index-TRAILSTKSIZE-_0028system-property_0029"></a>
+<p>Controls the initial size of the trail stack.
+<strong>Please note</strong>: The trail stack will not be subsequently
+trimmed to a size smaller than this initial size.
+</p>
+</dd>
+<dt><code>GROWTHFACTOR &nbsp;<!-- /@w --> <i>since release 4.0.8</i></code></dt>
+<dd><a name="index-GROWTHFACTOR-_0028system-property_0029"></a>
+<p>Meaningful values are between 10 and 100; the default is 62.
+Controls the rate at which the Prolog stacks grow when they are
+expanded.  These stacks are stored in two data areas: one holding
+the global and local stacks; another one holding the choicepoint and
+trail stacks.  In addition, both data areas hold some memory
+reserved for the garbage collector.
+</p>
+<p>The sizes of the two data areas are constrained to take certain
+discrete values only.  The initial size as well as the size after
+expansion is constrained to be <var>w*((1+g)^n)</var> kilobytes, rounded up
+to an integral number of words, where <var>w</var> is the word length in
+bits, <var>g</var> is <code>GROWTHFACTOR</code>/100, and <var>n</var> is an integer.
+</p>
+</dd>
+<dt><code>PROLOGINITSIZE</code></dt>
+<dd><a name="index-PROLOGINITSIZE-_0028system-property_0029-1"></a>
+<p>Controls the size of Prolog&rsquo;s initial memory allocation.
+Only used by the default memory allocator
+(see <a href="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks">SP_set_memalloc_hooks</a>).
+<strong>Please note</strong>: This initially allocated memory will be kept by
+the Prolog process until <code>SP_deinitialize()</code> is called or the
+process exits.
+</p>
+</dd>
+<dt><code>PROLOGMAXSIZE</code></dt>
+<dd><a name="index-PROLOGMAXSIZE-_0028system-property_0029"></a>
+<p>Defines an upper bound on the amount of memory that Prolog will use.
+If not set, then Prolog will try to use the available address space.
+Only used by the default memory allocator
+(see <a href="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks">SP_set_memalloc_hooks</a>).
+Thus if Prolog needs to allocate memory beyond this bound, then a memory
+resource error will be raised.
+</p>
+</dd>
+<dt><code>PROLOGINCSIZE</code></dt>
+<dd><a name="index-PROLOGINCSIZE-_0028system-property_0029"></a>
+<p>Controls the amount of memory Prolog asks the operating system for in any
+given memory expansion.
+Only used by the default memory allocator
+(see <a href="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks">SP_set_memalloc_hooks</a>).
+</p>
+</dd>
+<dt><code>PROLOGKEEPSIZE</code></dt>
+<dd><a name="index-PROLOGKEEPSIZE-_0028system-property_0029-1"></a>
+<p>Defines a lower bound on the amount of memory retained by
+<code>trimcore/0</code>.  By default, Prolog gets memory from the O/S as the
+user program executes, whereas <code>trimcore/0</code> endeavors to return
+free memory back to the O/S.  If the programmer knows that her
+program, once it has grown to a certain size, then is likely to need as
+much memory for future computations, she can advise Prolog not to
+return all the free memory back to the operating system by setting
+this variable.  <code>trimcore/0</code> only endeavors to return memory that is
+allocated above and beyond <code>PROLOGKEEPSIZE</code>; the rest will be
+kept.  Only used by the default memory allocator
+(see <a href="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks">SP_set_memalloc_hooks</a>).
+<strong>Please note</strong>: The initially allocated memory will be kept by
+the Prolog process forever, so it is not meaningful to set
+<code>PROLOGKEEPSIZE</code> smaller than <code>PROLOGINITSIZE</code>.
+</p>
+</dd>
+<dt><code>SP_ULIMIT_DATA_SEGMENT_SIZE</code></dt>
+<dd><a name="index-SP_005fULIMIT_005fDATA_005fSEGMENT_005fSIZE-_0028system-property_0029"></a>
+<p>Sets the maximum size of the data segment of the Prolog process. The
+value can be <code>unlimited</code> or a numeric value as described in the
+first paragraph in this section. A numeric value of zero (0) is
+equivalent to <code>unlimited</code>. Not used under Windows.
+</p>
+</dd>
+<dt><code>SP_USE_MALLOC</code></dt>
+<dd><a name="index-SP_005fUSE_005fMALLOC-_0028system-property_0029"></a>
+<p>If <code>yes</code>, then <code>malloc()</code> et al. will be used for memory
+management instead of the default memory allocator. This is sometimes
+useful, e.g$: with debugging tools like
+<code>valgrind</code>.
+</p>
+<p><strong>Please note</strong>: Enabling <code>malloc()</code> allocation is not
+compatible with JIT compilation.
+</p>
+</dd>
+<dt><code>SP_JIT &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-SP_005fJIT-_0028system-property_0029"></a>
+
+<a name="index-JIT-compilation-1"></a>
+<a name="index-compilation_002c-JIT-1"></a>
+<p>Affects whether the JIT (Just In Time) compiler should be used to
+compile Prolog code inte native (machine) code. One of:
+</p>
+<dl compact="compact">
+<dt><code>yes</code></dt>
+<dd><p>JIT compilation is enabled and happens automatically. This is the default on
+platforms that support JIT compilation.
+</p></dd>
+<dt><code>no</code></dt>
+<dd><p>JIT compilation is enabled but does not happen automatically. Currently, there
+is no documented way to JIT compile predicates manually.
+</p></dd>
+<dt><code>disabled</code></dt>
+<dd><p>JIT compilation is disabled completely. Please report if you encounter any
+reason to disable the JIT compiler.
+</p>
+<p>JIT compilation may need to be disabled on certain security-hardened
+operating systems, e.g. because they do not permit memory to be both
+writeable and executable.
+</p></dd>
+</dl>
+
+<p>This system property is ignored on platforms that do not support the
+JIT compiler.
+</p>
+</dd>
+<dt><code>SP_JIT_COUNTER_LIMIT &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-SP_005fJIT_005fCOUNTER_005fLIMIT-_0028system-property_0029"></a>
+
+<p>Determines how many times a predicate can be called before it is JIT
+compiled. The default is 0.
+</p>
+<p>The heuristics used in order to decide when, and whether, a predicate
+should be JIT compiled, is subject to change without notice. In
+particular, this system property may be treated differently in some
+future release.
+</p>
+</dd>
+<dt><code>SP_JIT_CLAUSE_LIMIT &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-SP_005fJIT_005fCLAUSE_005fLIMIT-_0028system-property_0029"></a>
+
+<p>Sets an upper bound on the number of clauses of a predicate for JIT
+compilation to be attempted.  The default is 1024.
+</p>
+</dd>
+<dt><code>SP_SPTI_PATH &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-SP_005fSPTI_005fPATH-_0028system-property_0029"></a>
+
+<p>Specify a plugin that will be told when predicates are JIT
+compiled. The details of writing or using such plugins are currently
+not documented, and subject to change without notice.
+</p>
+<p>There are two predefined plugins,
+</p><dl compact="compact">
+<dt><code>verbose</code></dt>
+<dd><p>Write verbose information when a predicate is JIT compiled. This can
+be useful when troubleshooting problems with JIT compilation, e.g.
+if some predicate takes too long to JIT-compile.
+</p>
+<p>This plugin can be activated by passing
+<samp>-DSP_SPTI_PATH=verbose</samp> to <code>sicstus</code>.
+</p>
+</dd>
+<dt><code>oprofile</code></dt>
+<dd>
+<p>Tell OProfile profiler about the location and name of the JIT compiled
+predicates. This makes it possible to use OProfile for getting
+accurate and low-overhead profiling info about JIT compiled
+code. Information about using OProfile for profiling jitted code is
+available at the OProfile site,
+<a href="http://oprofile.sourceforge.net/">http://oprofile.sourceforge.net/</a>.
+</p>
+<p>This plugin can be activated either by passing
+<samp>-DSP_SPTI_PATH=oprofile</samp> to <code>sicstus</code>, or, once
+SICStus has started, with the goal
+<code>use_module(library(oprofile))</code>.
+</p>
+<p>OProfile integration is only available on Linux.
+</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+
+<a name="Other-System-Properties"></a>
+<h4 class="subsubsection">4.17.1.3 Other System Properties</h4>
+
+<p>In addition some system properties are read during normal execution. In
+this case the system property is typically not meant to be explicitly
+set, instead the value is intended to be taken from the corresponding
+environment variable. Examples of such system properties include
+<code>PATH</code> and <code>HOME</code>.
+</p>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002doth.html#ref_002doth" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/System-Properties-and-Environment-Variables.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/System-Properties-and-Environment-Variables.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

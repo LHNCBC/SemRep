@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-exp-class</title>
+
+<meta name="description" content="SICStus Prolog: obj-exp-class">
+<meta name="keywords" content="SICStus Prolog: obj-exp-class">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dexp.html#obj_002dexp" rel="up" title="obj-exp">
+<link href="obj_002dexp_002dclass_005fancestor.html#obj_002dexp_002dclass_005fancestor" rel="next" title="obj-exp-class_ancestor">
+<link href="obj_002dexp_002dget.html#obj_002dexp_002dget" rel="prev" title="obj-exp-get">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dexp_002dclass"></a>
+<hr>
+<a name="class_002f1--declaration"></a>
+<h4 class="subsubsection">10.23.6.4 <code>class/1</code>&nbsp;<!-- /@w --> <i>declaration</i></h4>
+
+
+
+
+
+<a name="index-class_002f1-_0028objects_0029-1"></a>
+<a name="index-class_002f1-_0028objects_0029"></a>
+
+
+
+
+
+<a name="Synopsis-3"></a>
+<h4 class="subheading">Synopsis</h4>
+<p><code>:- class <var>ClassName</var>.</code>
+</p>
+<p><code>:- class <var>ClassName</var> = [<var>SlotDef</var>, <var>&hellip;</var>].</code>
+</p>
+<p><code>:- class <var>ClassName</var> = <var>Super</var>.</code>
+</p>
+<p><code>:- class <var>ClassName</var> = [<var>SlotDef</var>, <var>&hellip;</var>] + <var>Super</var> + <var>&hellip;</var>.</code>
+</p>
+<p><code>:- class <var>ClassName</var> = term(<var>Term</var>).</code>
+</p>
+<p><code>:- class <var>ClassName</var> = term(<var>Term</var>, <var>Goal</var>).</code>
+</p>
+<p><code>:- class <var>ClassName</var> = term(<var>Term</var>, <var>Goal</var>, <var>Essence</var>).</code>
+</p>
+<a name="Arguments-3"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>ClassName</var></dt>
+<dd><p><em>atom</em>
+</p>
+</dd>
+<dt><var>SlotDef</var></dt>
+<dd><p><em>term</em>
+</p>
+</dd>
+<dt><var>Super</var></dt>
+<dd><p><em>atom</em>
+</p>
+</dd>
+</dl>
+
+
+<a name="Description-3"></a>
+<h4 class="subheading">Description</h4>
+<p>The definition of class <var>ClassName</var> begins
+with this <code>class/1</code> directive and ends with the next <code>class/1</code>
+directive, the next <code>end_class/[0,1]</code> directive, or the end of the file,
+whichever comes first.  All clauses that look like method
+definitions within the scope of the class definition (that is,
+which have one of <code>&lt;-/2</code>, <code>&lt;&lt;/2</code> or <code>&gt;&gt;/2</code> as the principal
+functors of their heads) are considered method definitions of
+the class.
+</p>
+<p>You may provide as many slot definitions (<var>SlotDef</var>) and
+superclasses (<var>Super</var>) as you like. All superclasses must be
+previously defined classes.
+</p>
+<p>A slot definition (SlotDef) has the form
+</p>
+<div class="example">
+<pre class="example"><var>Visibility</var> <var>SlotName</var>:<var>Type</var> = <var>InitialValue</var>
+</pre></div>
+
+
+<p>where <var>Visibility</var> and &lsquo;<samp>= <var>InitialValue</var></samp>&rsquo; are optional.
+</p>
+<p><var>Visibility</var> is either <code>public</code>, <code>protected</code>, or
+<code>private</code>. If it is omitted, then the slot is private.
+</p>
+<p><var>SlotName</var> must be an atom.
+</p>
+<p><var>SlotType</var> must be one of the following:
+</p>
+<dl compact="compact">
+<dt><code>integer</code></dt>
+<dd><p>signed integer, large enough to hold a pointer
+</p>
+</dd>
+<dt><code>integer_64 &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><p>64-bit signed integer
+</p>
+</dd>
+<dt><code>integer_32</code></dt>
+<dd><p>32-bit signed integer
+</p>
+</dd>
+<dt><code>integer_16</code></dt>
+<dd><p>16-bit signed integer
+</p>
+</dd>
+<dt><code>integer_8</code></dt>
+<dd><p>8-bit signed integer
+</p>
+</dd>
+<dt><code>unsigned</code></dt>
+<dd><p>unsigned integer, large enough to hold a pointer
+</p>
+</dd>
+<dt><code>unsigned_64 &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><p>64-bit unsigned integer
+</p>
+</dd>
+<dt><code>unsigned_32</code></dt>
+<dd><p>32-bit unsigned integer
+</p>
+</dd>
+<dt><code>unsigned_16</code></dt>
+<dd><p>16-bit unsigned integer
+</p>
+</dd>
+<dt><code>unsigned_8</code></dt>
+<dd><p>8-bit unsigned integer
+</p>
+</dd>
+<dt><code>float</code></dt>
+<dd><p>64-bit floating point number
+</p>
+</dd>
+<dt><code>float_32</code></dt>
+<dd><p>32-bit floating point number
+</p>
+</dd>
+<dt><code>atom</code></dt>
+<dd><p>Prolog atom
+</p>
+</dd>
+<dt><code>address</code></dt>
+<dd><p>pointer
+</p>
+</dd>
+<dt><code>term</code></dt>
+<dd><p>Prolog term
+</p>
+</dd>
+<dt><code><var>Class</var></code></dt>
+<dd><p>pointer to an instance of <var>Class</var>, which must be a
+previously defined class
+</p>
+</dd>
+<dt><code>pointer(<var>Type</var>)</code></dt>
+<dd><p>like <code>address</code>, except that access to this slot
+yields, and update of this slot expects, a unary term whose functor
+is <var>Type</var>
+</p></dd>
+</dl>
+
+
+<p><var>InitialValue</var> may be any constant appropriate for the slot&rsquo;s type. 
+</p>
+<p><var>Term</var>, if specified, is any compound Prolog term.  Class
+declarations of any of the last three forms introduce a <em>term
+class</em>, which defines any term that unifies with <var>Term</var> as an
+instance of the class being defined.
+</p>
+<p><var>Goal</var>, if specified, is any Prolog goal.  This goal may be used
+to restrict which terms that unify with <var>Term</var> will be considered to 
+be instance of the class being defined.  The default <var>Goal</var> is
+<code>true</code>.  Other than when it is <code>true</code>, <var>Goal</var> will usually share
+variables with <var>Term</var>.
+</p>
+<p><var>Essence</var>, if specified, is a list of terms of the form
+</p><div class="example">
+<pre class="example"><var>Variable</var>:<var>Type</var>
+</pre></div>
+
+<p>where <var>Variable</var> is a variable apprearing somewhere in <var>Term</var> and
+<var>Type</var> is one of the possible <var>Slottype</var> types listed above.
+There should be a <var>Variable</var><code>:</code><var>Type</var> pair for every variable in
+<var>Term</var>.  By specifying an essence, you permit much more space- and
+time-efficient storage of and access to term slots.
+</p>
+<a name="Caveat-3"></a>
+<h4 class="subheading">Caveat</h4>
+<p>Note that every class for which you want to be
+able to create instances must define at least one create method.
+</p>
+<a name="Examples-6"></a>
+<h4 class="subheading">Examples</h4>
+<p>The following class definition is for a class
+named <code>point</code>, with two public slots, named <code>x</code> and <code>y</code>. Both
+slots are of type <code>integer</code> and have initial values of 1 and 2,
+respectively.
+</p>
+<div class="example">
+<pre class="example">:- class point =
+        [public x:integer=1,
+         public y:integer=2].
+
+Self &lt;- create.
+:- end_class point.
+</pre></div>
+
+
+<p>Because the slots are public, they have get and put methods
+generated automatically. Because the class has a create method
+defined, it is possible to create an instance with the command
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(point, PointObj).</kbd>
+</pre></div>
+
+
+<p>which creates a <code>point</code> object and binds the variable <code>PointObj</code> to it.
+</p>
+<p>Using the <code>point</code> class, we could create a class, <code>named_point</code>, which has
+an extra public slot, <code>name</code>.
+</p>
+<div class="example">
+<pre class="example">:- class named_point =
+        [public name:atom] + point. 
+
+Self &lt;- create(Name, X, Y) :-
+        Self &lt;&lt; name(Name), 
+        Self &lt;&lt; x(X),
+        Self &lt;&lt; y(Y).
+
+:- end_class named_point.
+</pre></div>
+
+
+<p>The only way to create a <code>named_point</code> object requires specifying values
+for all three slots.
+</p>
+
+<a name="See-Also-3"></a>
+<h4 class="subheading">See Also</h4>
+<p><code>end_class/[0,1]</code>
+</p>
+<p><a href="obj_002dscl.html#obj_002dscl">obj-scl</a>, <a href="obj_002dtcl.html#obj_002dtcl">obj-tcl</a>.
+</p>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dexp_002dclass_005fancestor.html#obj_002dexp_002dclass_005fancestor" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dexp_002dget.html#obj_002dexp_002dget" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dexp.html#obj_002dexp" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp_002dclass.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp_002dclass.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

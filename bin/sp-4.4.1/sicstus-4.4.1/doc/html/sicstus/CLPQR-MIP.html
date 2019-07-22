@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPQR MIP</title>
+
+<meta name="description" content="SICStus Prolog: CLPQR MIP">
+<meta name="keywords" content="SICStus Prolog: CLPQR MIP">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dclpqr.html#lib_002dclpqr" rel="up" title="lib-clpqr">
+<link href="CLPQR-Implementation-Architecture.html#CLPQR-Implementation-Architecture" rel="next" title="CLPQR Implementation Architecture">
+<link href="CLPQR-Monash-Examples.html#CLPQR-Monash-Examples" rel="prev" title="CLPQR Monash Examples">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPQR-MIP"></a>
+<hr>
+<a name="A-Mixed-Integer-Linear-Optimization-Example"></a>
+<h4 class="subsection">10.11.8 A Mixed Integer Linear Optimization Example</h4>
+
+<p>The predicates <code>bb_inf/[3,5]</code> implement a simple Branch and
+Bound search algorithm for Mixed Integer Linear (MIP) Optimization
+examples. Serious MIP is not trivial. The implementation
+<code>library('clpqr/bb.pl')</code> is to be understood as a starting point
+for more ambitious users who need control over branching, or who want to
+add cutting planes, for example.
+</p>
+<p>Anyway, here is a small
+problem from miplib, a collection of MIP models, housed at 
+Rice University:
+</p><div class="example">
+<pre class="example">NAME:         flugpl
+ROWS:         18
+COLUMNS:      18
+INTEGER:      11
+NONZERO:      46
+BEST SOLN:    1201500 (opt)
+LP SOLN:      1167185.73
+SOURCE:       Harvey M. Wagner              
+              John W. Gregory (Cray Research)
+              E. Andrew Boyd (Rice University)
+APPLICATION:  airline model
+COMMENTS:     no integer variables are binary 
+</pre></div>
+
+<div class="example">
+<pre class="example"><em>% library('clpqr/examples/mip')</em>
+</pre><pre class="example">example(flugpl, Obj, Vs, Ints, []) :-
+  Vs = [ Anm1,Anm2,Anm3,Anm4,Anm5,Anm6,
+         Stm1,Stm2,Stm3,Stm4,Stm5,Stm6,
+         UE1,UE2,UE3,UE4,UE5,UE6],
+  Ints = [Stm6, Stm5, Stm4, Stm3, Stm2,
+          Anm6, Anm5, Anm4, Anm3, Anm2, Anm1],
+
+  Obj =    2700*Stm1 + 1500*Anm1 + 30*UE1
+         + 2700*Stm2 + 1500*Anm2 + 30*UE2 
+         + 2700*Stm3 + 1500*Anm3 + 30*UE3
+         + 2700*Stm4 + 1500*Anm4 + 30*UE4 
+         + 2700*Stm5 + 1500*Anm5 + 30*UE5
+         + 2700*Stm6 + 1500*Anm6 + 30*UE6,
+
+  allpos(Vs),
+  {  Stm1 = 60, 0.9*Stm1 +1*Anm1 -1*Stm2 = 0, 
+     0.9*Stm2 +1*Anm2 -1*Stm3 = 0, 0.9*Stm3 +1*Anm3 -1*Stm4 = 0, 
+     0.9*Stm4 +1*Anm4 -1*Stm5 = 0, 0.9*Stm5 +1*Anm5 -1*Stm6 = 0,
+     150*Stm1 -100*Anm1 +1*UE1 &gt;= 8000,
+     150*Stm2 -100*Anm2 +1*UE2 &gt;= 9000,
+     150*Stm3 -100*Anm3 +1*UE3 &gt;= 8000,
+     150*Stm4 -100*Anm4 +1*UE4 &gt;= 10000,
+     150*Stm5 -100*Anm5 +1*UE5 &gt;= 9000,
+     150*Stm6 -100*Anm6 +1*UE6 &gt;= 12000,
+     -20*Stm1 +1*UE1 =&lt; 0, -20*Stm2 +1*UE2 =&lt; 0, -20*Stm3 +1*UE3 =&lt; 0, 
+     -20*Stm4 +1*UE4 =&lt; 0, -20*Stm5 +1*UE5 =&lt; 0, -20*Stm6 +1*UE6 =&lt; 0,
+     Anm1 =&lt; 18, 57 =&lt; Stm2, Stm2 =&lt; 75, Anm2 =&lt; 18,
+     57 =&lt; Stm3, Stm3 =&lt; 75, Anm3 =&lt; 18, 57 =&lt; Stm4,
+     Stm4 =&lt; 75, Anm4 =&lt; 18, 57 =&lt; Stm5, Stm5 =&lt; 75,
+     Anm5 =&lt; 18, 57 =&lt; Stm6, Stm6 =&lt; 75, Anm6 =&lt; 18
+   }.
+
+  allpos([]).
+  allpos([X|Xs]) :- {X &gt;= 0}, allpos(Xs).
+</pre></div>
+
+<p>We can first check whether the relaxed problem has indeed the quoted
+infimum:
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>example(flugpl, Obj, _, _, _), inf(Obj, Inf).</kbd>
+
+Inf = 1167185.7255923203
+</pre></div>
+
+<p>Computing the infimum under the additional constraints that <code>Stm6</code>,
+<code>Stm5</code>, <code>Stm4</code>, <code>Stm3</code>, <code>Stm2</code>, <code>Anm6</code>,
+<code>Anm5</code>, <code>Anm4</code>, <code>Anm3</code>, <code>Anm2</code>, <code>Anm1</code> assume
+integer values at the infimum is computationally harder, but the
+query does not change much:
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>example(flugpl, Obj, _, Ints, _),</kbd>
+          <kbd>bb_inf(Ints, Obj, Inf, Vertex, 0.001).</kbd>
+
+Inf = 1201500.0000000005,
+Vertex = [75.0,70.0,70.0,60.0,60.0,0.0,12.0,7.0,16.0,6.0,6.0]
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPQR-Implementation-Architecture.html#CLPQR-Implementation-Architecture" accesskey="n" rel="next">Next</a>
+<li><a href="CLPQR-Monash-Examples.html#CLPQR-Monash-Examples" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dclpqr.html#lib_002dclpqr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-MIP.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-MIP.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

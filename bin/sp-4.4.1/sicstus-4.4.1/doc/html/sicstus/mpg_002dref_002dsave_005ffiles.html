@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-save_files</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-save_files">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-save_files">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dsave_005fmodules.html#mpg_002dref_002dsave_005fmodules" rel="next" title="mpg-ref-save_modules">
+<link href="mpg_002dref_002dretractall.html#mpg_002dref_002dretractall" rel="prev" title="mpg-ref-retractall">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dsave_005ffiles"></a>
+<hr>
+<a name="save_005ffiles_002f2"></a>
+<h4 class="subsection">11.3.195 <code>save_files/2</code></h4>
+<a name="index-save_005ffiles_002f2-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-save_005ffiles_002f2-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-220"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>save_files(<var>+SourceFiles</var>, <var>+File</var>)</code> 
+</p>
+<p>Any code loaded from <var>SourceFiles</var>,
+as well as from any file included by them,
+is saved into <var>File</var> in PO format.
+</p>
+<a name="Arguments-202"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>SourceFiles</var></dt>
+<dd><p><em>file_spec</em> or <em>list of file_spec</em>, must be ground
+</p>
+<p>A file specification or a list of file specifications;
+extensions optional.
+</p>
+</dd>
+<dt><var>File</var></dt>
+<dd><p><em>file_spec</em>, must be ground
+</p>
+<p>A file specification, &lsquo;<samp>.po</samp>&rsquo; extension optional.
+</p></dd>
+</dl>
+
+<a name="Description-156"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Any module declarations, predicates, multifile
+clauses, or directives encountered in <var>SourceFiles</var>,
+as well as from any file included by them,
+are saved in object format into the file denoted by <var>File</var>.  Source
+file information as provided by <code>source_file/[1,2]</code> for the
+relevant predicates and modules is also saved.
+</p>
+<p><var>File</var> can later be loaded by <code>load_files/[1,2]</code>, at which
+time any saved directives will be re-executed.  If any of the
+<var>SourceFiles</var> declares a module, then <var>FileSpec</var> too will behave as
+a module-file and export the predicates listed in the first module
+declaration encountered in <var>SourceFiles</var>.  See <a href="ref_002dsls.html#ref_002dsls">ref-sls</a>.
+</p>
+<a name="Exceptions-211"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>SourceFiles</var> or <var>File</var> is not bound.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>SourceFiles</var> or <var>File</var> is not a valid file specification.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p><var>File</var> is not writable.
+</p></dd>
+</dl>
+
+<a name="See-Also-217"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>load_files/[1,2]</code>, <a href="Saving.html#Saving">Saving</a>, 
+<a href="ref_002dsls.html#ref_002dsls">ref-sls</a>, <a href="ref_002dsls_002dssl.html#ref_002dsls_002dssl">ref-sls-ssl</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dsave_005fmodules.html#mpg_002dref_002dsave_005fmodules" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dretractall.html#mpg_002dref_002dretractall" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dsave_005ffiles.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dsave_005ffiles.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

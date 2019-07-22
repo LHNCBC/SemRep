@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: A Constraint Satisfaction Problem</title>
+
+<meta name="description" content="SICStus Prolog: A Constraint Satisfaction Problem">
+<meta name="keywords" content="SICStus Prolog: A Constraint Satisfaction Problem">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CLPFD-Interface.html#CLPFD-Interface" rel="up" title="CLPFD Interface">
+<link href="Reified-Constraints.html#Reified-Constraints" rel="next" title="Reified Constraints">
+<link href="Posting-Constraints.html#Posting-Constraints" rel="prev" title="Posting Constraints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="A-Constraint-Satisfaction-Problem"></a>
+<hr>
+<a name="A-Constraint-Satisfaction-Problem-1"></a>
+<h4 class="subsubsection">10.10.3.2 A Constraint Satisfaction Problem</h4>
+
+<p>Constraint satisfaction problems (CSPs) are a major class of problems
+for which this solver is ideally suited.  In a CSP, the goal is to pick
+values from predefined domains for certain variables so that the given
+constraints on the variables are all satisfied.
+</p>
+<p>As a simple CSP example, let us consider the Send More Money puzzle.  In
+this problem, the variables are the letters S, E, N, D, M, O, R, and Y.
+Each letter represents a digit between 0 and 9.  The problem is to
+assign a value to each digit, such that SEND + MORE equals MONEY.
+</p>
+<p>A program that solves the puzzle is given below.  The program contains
+the typical three steps of a clp(FD) program:
+</p>
+<ol>
+<li> declare the domains of the variables
+</li><li> post the problem constraints
+</li><li> look for a feasible solution via backtrack search, or
+look for an optimal solution via branch-and-bound search
+</li></ol>
+
+<p>Sometimes, an extra step precedes the search for a solution: the posting
+of surrogate constraints to break symmetries or to otherwise help prune
+the search space.  No surrogate constraints are used in this example.
+</p>
+<p>The domains of this puzzle are stated via the <code>domain/3</code> goal and
+by requiring that S and M be greater than zero.  The two problem
+constraint of this puzzle are the equation (<code>sum/8</code>) and the
+constraint that all letters take distinct values
+(<code>all_different/1</code>).  Finally, the backtrack search is performed by
+<code>labeling/2</code>.  Different search strategies can be encoded in the
+<code>Type</code> parameter.  In the example query, the default search
+strategy is used (select the leftmost variable, try values in ascending
+order).
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(clpfd)).
+
+mm([S,E,N,D,M,O,R,Y], Type) :-
+     domain([S,E,N,D,M,O,R,Y], 0, 9),      % step 1
+     S#&gt;0, M#&gt;0,
+     all_different([S,E,N,D,M,O,R,Y]),     % step 2
+     sum(S,E,N,D,M,O,R,Y),
+     labeling(Type, [S,E,N,D,M,O,R,Y]).    % step 3
+
+sum(S, E, N, D, M, O, R, Y) :-
+                  1000*S + 100*E + 10*N + D 
+     +            1000*M + 100*O + 10*R + E
+     #= 10000*M + 1000*O + 100*N + 10*E + Y.
+
+| ?- <kbd>mm([S,E,N,D,M,O,R,Y], []).</kbd>
+D = 7,
+E = 5,
+M = 1,
+N = 6,
+O = 0,
+R = 8,
+S = 9,
+Y = 2
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Reified-Constraints.html#Reified-Constraints" accesskey="n" rel="next">Next</a>
+<li><a href="Posting-Constraints.html#Posting-Constraints" accesskey="p" rel="prev">Previous</a>
+<li><a href="CLPFD-Interface.html#CLPFD-Interface" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/A-Constraint-Satisfaction-Problem.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/A-Constraint-Satisfaction-Problem.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

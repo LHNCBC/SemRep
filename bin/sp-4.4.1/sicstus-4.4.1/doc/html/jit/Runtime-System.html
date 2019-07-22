@@ -1,0 +1,475 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: Runtime System</title>
+
+<meta name="description" content="SICStus JIT White Paper: Runtime System">
+<meta name="keywords" content="SICStus JIT White Paper: Runtime System">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Misc.html#Misc" rel="next" title="Misc">
+<link href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-PPC64.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-PPC64" rel="prev" title="Use of Machine Registers and Stack Frame Slots for PPC64">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Runtime-System"></a>
+<hr>
+<a name="Runtime-System-1"></a>
+<h2 class="chapter">5 Runtime System</h2>
+
+<p>The runtime system contains 140 subroutines, each of which is briefly
+described in the following table.  The arguments and return values are
+&ldquo;typed&rdquo; by the registers in which they are passed.  Many arithmetic
+subroutines act on the accumulators <code>ac0</code> and <code>ac1</code>, each of
+which can be <em>unboxed</em>, i.e. contain a raw integer, or
+<em>boxed</em>, i.e. contain a tagged pointer to a big integer or float,
+either on the global stack or on a scratchpad area.  If both
+accumulators are live, then either both are boxed or both are unboxed.
+</p>
+<p>The type <code>cc</code> denotes a return value passed as a condition code,
+with the following conventions:
+</p>
+<dl compact="compact">
+<dt><code>o</code></dt>
+<dd><p>Signals an arithmetic overflow or other error. Other condition codes are undefined.
+</p>
+</dd>
+<dt><code>e</code> vs. <code>ne</code></dt>
+<dd><p>Continue in write mode vs. read mode. Other condition codes are undefined.
+</p>
+</dd>
+<dt><code>e</code> vs. <code>ne</code></dt>
+<dd><p>Continue with unboxed accumulators vs. boxed accumulators. Other condition codes are undefined.
+</p>
+</dd>
+<dt><code>e</code> vs. <code>ne</code></dt>
+<dd><p>Reflects the outcome of <code>native_test_numbers()</code>; see below. Other condition codes are undefined.
+</p>
+</dd>
+<dt><code>e</code> vs. <code>ne</code></dt>
+<dd><p>Failure vs. success of a type test. Other condition codes are undefined.
+</p>
+</dd>
+<dt><code>e</code>, <code>ne</code>, <code>l</code>, <code>le</code>, <code>g</code>, <code>ge</code></dt>
+<dd><p>Reflects the outcome of a comparison. Other condition codes are undefined.
+</p></dd>
+</dl>
+
+<p>Following are the subroutines:
+</p>
+<dl compact="compact">
+<dt><code>void native_nonjit()</code></dt>
+<dd><p>Handle general events as well as calls to non-<em>jitex</em> predicates.
+</p>
+</dd>
+<dt><code>void native_restore_link()</code></dt>
+<dd><p>Patch the caller, which corresponds to an IR instructions of the form
+<code>call(native_entry(M:F/A))</code>, to call the lead-in sequence, and
+remake the call.  For x86/x86_64, this affects a <code>call</code> machine
+instruction, in the main body or in a trampoline.  For PPC64, this never
+affects any machine instructions. Only TOC slots are affected.
+</p>
+</dd>
+<dt><code>void native_shunt_link()</code></dt>
+<dd><p>Patch the caller, which corresponds to an IR instructions of the form
+<code>call(native_entry(M:F/A))</code>, to call the prefix sequence, and
+jump there.  For x86/x86_64, this affects a <code>call</code> machine
+instruction, in the main body or in a trampoline.  For PPC64, this never
+affects any machine instructions. Only TOC slots are affected.
+</p>
+</dd>
+<dt><code>void native_get_constant(val Xj, arg1 C)</code></dt>
+<dd><p>Unify <code>Xj</code> with the constant <code>C</code>.
+</p>
+</dd>
+<dt><code>cc native_get_list(val Xj)</code></dt>
+<dd><p>Unify <code>Xj</code> with a list, setting <code>s</code> if read mode. Condition
+</p>
+</dd>
+<dt><code>void native_get_nil(val Xj)</code></dt>
+<dd><p>Unify <code>Xj</code> with the constant <code>[]</code>.
+</p>
+</dd>
+<dt><code>cc native_get_structure(val Xj, arg1 F)</code></dt>
+<dd><p>Unify <code>Xj</code> with a structure with principal functor <code>F</code>, setting <code>s</code> if read mode.
+</p>
+</dd>
+<dt><code>void native_get_subconstant(val Xj, arg1 C)</code></dt>
+<dd><p>Unify <code>Xj</code> with the constant <code>C</code>, where Xj occurs in compound term.
+</p>
+</dd>
+<dt><code>cc native_get_sublist(val Xj)</code></dt>
+<dd><p>Unify <code>Xj</code> with a list, setting <code>s</code> if read mode, where Xj occurs in compound term.
+</p>
+</dd>
+<dt><code>void native_get_subnil(val Xj)</code></dt>
+<dd><p>Unify <code>Xj</code> with the constant <code>[]</code>, where Xj occurs in compound term.
+</p>
+</dd>
+<dt><code>cc native_get_substructure(val Xj, arg1 F)</code></dt>
+<dd><p>Unify <code>Xj</code> with a structure with principal functor <code>F</code>,
+setting <code>s</code> if read mode, where Xj occurs in compound term.
+</p>
+</dd>
+<dt><code>void native_get_value(val X, arg1 Y)</code></dt>
+<dd><p>Unify <code>X</code> and <code>Y</code>.
+</p>
+</dd>
+<dt><code>void native_bind(val X)</code></dt>
+<dd><p>Trail the binding of X that just took place if necessary.
+</p>
+</dd>
+<dt><code>void native_trail_unsafe(val X)</code></dt>
+<dd><p>Trail local variable <code>X</code> if needed, in the context of <code>*_unsafe_variable</code>.
+</p>
+</dd>
+<dt><code>void native_make_global(val X)</code></dt>
+<dd><p>Globalize variable X if needed.
+</p>
+</dd>
+<dt><code>cc native_compareop(arg0 X, arg1 Y)</code></dt>
+<dd><p>Term compare <code>X</code> and <code>Y</code> with the condition code 
+reflecting the output.
+</p>
+</dd>
+<dt><code>void native_cut(val B)</code></dt>
+<dd><p>Execute a cut (!) back to the choicepoint <code>B</code>.
+</p>
+</dd>
+<dt><code>void native_fail()</code></dt>
+<dd><p>Backtrack.
+</p>
+</dd>
+<dt><code>void native_if()</code></dt>
+<dd><p>Support for <code>ANOP_IF</code>.
+</p>
+</dd>
+<dt><code>void native_metacall(val Callee)</code></dt>
+<dd><p>Support for a metacall to <code>Callee</code>.
+</p>
+</dd>
+<dt><code>void native_proceed()</code></dt>
+<dd><p>Handle <code>PROCEED</code>, continuing into native code for <code>NATIVE_OP</code> continuations.
+</p>
+</dd>
+<dt><code>void native_progress()</code></dt>
+<dd><p>A general event has occurred; fall back on the WAM emulator to handle it
+and to proceed with a <code>PROGRESS</code> operation.
+</p>
+</dd>
+<dt><code>void native_subproceed()</code></dt>
+<dd><p>Tell the WAM emulator to proceed at address <code>w-&gt;insn</code>.
+</p>
+</dd>
+<dt><code>void native_switch(val key, arg1 sw)</code></dt>
+<dd><p>Dispatch on <code>key</code>, the principal functor of <code>x(0)</code>.  <code>arg1</code>
+points at possible padding followed by an aligned <code>switch_on_key</code>
+struct.
+</p>
+</dd>
+<dt><code>void native_try(val Label)</code></dt>
+<dd><p>Push a choicepoint with a chain of alternatives at <code>Label</code>,
+and branch to the first alternative.
+</p>
+</dd>
+<dt><code>void native_spill(val V, arg1 Xi)</code></dt>
+<dd><p>Support <code>SPILL</code>.
+</p>
+</dd>
+<dt><code>val native_unspill(val V)</code></dt>
+<dd><p>Support <code>UNSPILL</code>.
+</p>
+</dd>
+<dt><code>void native_first_float()</code></dt>
+<dd><p>Support for converting unboxed <code>ac0</code> to a boxed float, allocated on the numstack.
+</p>
+</dd>
+<dt><code>void native_first_long()</code></dt>
+<dd><p>Support for boxing unboxed <code>ac0</code>.
+</p>
+</dd>
+<dt><code>cc native_first_value(val X)</code></dt>
+<dd><p>Load <code>ac0</code> with the value of <code>X</code>.
+<code>cc</code> reflects read/write mode.
+</p>
+</dd>
+<dt><code>void native_fli_close()</code></dt>
+<dd><p>Close the foreign call: restore C and SP_term_ref stacks, reset FLI
+exception flag, free any mems for <code>+codes</code> arguments, and <code>proceed</code>.
+</p>
+</dd>
+<dt><code>val native_fli_get_atom(val X)</code></dt>
+<dd><p>Check a <code>+atom</code> foreign argument.  Escape to the emulator in case
+of error.
+</p>
+</dd>
+<dt><code>void native_fli_get_codes(val X, val arg1)</code></dt>
+<dd><p>Check a <code>+codes</code> foreign argument.  Escape to the emulator in case
+of error.  Otherwise, convert it to a string, allocate a mem, and add it
+to the mem ring in <code>arg1</code>.  Returns the augmented mem ring.
+</p>
+</dd>
+<dt><code>fpr(8) native_fli_get_float(val X)</code></dt>
+<dd><p>Check a <code>+float</code> foreign argument.  Escape to the emulator in case
+of error.  Otherwise, convert it and return as a float.
+</p>
+</dd>
+<dt><code>val native_fli_get_integer(val X)</code></dt>
+<dd><p>Check a <code>+integer</code> foreign argument.  Escape to the emulator in case
+of error.  Otherwise, convert it and return as an integer.
+</p>
+</dd>
+<dt><code>val native_fli_get_string(val X)</code></dt>
+<dd><p>Check a <code>+string</code> foreign argument.  Escape to the emulator in case
+of error.  Otherwise, convert it and return as a string.
+</p>
+</dd>
+<dt><code>void native_fli_open(inline Pred, inline Size, inline Arity)</code></dt>
+<dd><p>Open a foreign call, with <code>w_insn</code> pointing to the corresponding
+WAM instruction.  Push a C stack frame of size <code>Size</code>.  Save 
+SP_term_ref stack index and FLI exception flag.  Push a WAM stack frame
+with the dereferenced argument registers of size <code>Arity</code>.  Point
+<code>cp</code> to an inline <code>KONTINUE</code> instruction just after
+<code>Arity</code>.
+</p>
+</dd>
+<dt><code>val native_fli_refresh(val X)</code></dt>
+<dd><p>Check FLI exception flag, and if set, close the foreign call and fail.
+call <code>heap_overflow()</code> if necessary.  Must preserve <code>val</code> and
+<code>fpr(0)</code>.
+</p>
+</dd>
+<dt><code>void native_fli_unify_atom(val X, arg1 Y)</code></dt>
+<dd><p>Unify a foreign <code>-atom</code> or <code>[-atom]</code> argument with <code>X</code>.
+</p>
+</dd>
+<dt><code>void native_fli_unify_codes(val X, arg1 Y)</code></dt>
+<dd><p>Unify a foreign <code>-codes</code> or <code>[-codes]</code> argument with
+<code>X</code>.  If the received value is misencoded, close the call and raise an error.
+</p>
+</dd>
+<dt><code>void native_fli_unify_float(val X, arg1 Y)</code></dt>
+<dd><p>Unify a foreign <code>-float</code> or <code>[-float]</code> argument with <code>X</code>.
+If the received value is not a proper float, close the call and raise an
+error.
+</p>
+</dd>
+<dt><code>void native_fli_unify_integer(val X, arg1 Y)</code></dt>
+<dd><p>Unify a foreign <code>-integer</code> or <code>[-integer]</code> argument with <code>X</code>.
+</p>
+</dd>
+<dt><code>void native_fli_unify_string(val X, arg1 Y)</code></dt>
+<dd><p>Unify a foreign <code>-string</code> or <code>[-string]</code> argument with
+<code>X</code>.  If the received value is misencoded, close the call and raise an error.
+</p>
+</dd>
+<dt><code>void native_fli_unify_term(val X, arg1 Y)</code></dt>
+<dd><p>Unify a foreign <code>-term</code> or <code>[-term]</code> argument with <code>X</code>.
+</p>
+</dd>
+<dt><code>void native_later_float()</code></dt>
+<dd><p>Convert unboxed <code>ac1</code> to a boxed float, allocated on the numstack.
+</p>
+</dd>
+<dt><code>void native_later_long()</code></dt>
+<dd><p>Box unboxed <code>ac1</code>.
+</p>
+</dd>
+<dt><code>void native_later_value_boxed(val X)</code></dt>
+<dd><p>Load <code>ac1</code> with the value of <code>X</code> where <code>ac0</code> is boxed.
+</p>
+</dd>
+<dt><code>cc native_later_value_unboxed(val X)</code></dt>
+<dd><p>Load <code>ac1</code> with the value of <code>X</code> where <code>ac0</code> is
+unboxed.
+<code>cc</code> reflects read/write mode.
+</p>
+</dd>
+<dt><code>void native_store_value_boxed(val X)</code></dt>
+<dd><p>Support for unifying boxed <code>ac0</code> with the value of <code>X</code>.
+</p>
+</dd>
+<dt><code>void native_store_value_unboxed(val X)</code></dt>
+<dd><p>Support for unifying unboxed <code>ac0</code> with the value of <code>X</code>.
+</p>
+</dd>
+<dt><code>val native_store_variable_boxed()</code></dt>
+<dd><p>Support for storing the value of boxed <code>ac0</code> in <code>val</code>.
+</p>
+</dd>
+<dt><code>val native_store_variable_unboxed()</code></dt>
+<dd><p>Support for storing the value of unboxed <code>ac0</code> in <code>val</code>.
+</p>
+</dd>
+<dt><code>cc native_compare_numbers()</code></dt>
+<dd><p>Compare the numbers in the accumulators with the condition code 
+reflecting the output.  Overflow reflects an error.
+ <b>[PERM:</b> Who clears Overflow on non-error? Not <code>native_compare_numbers()</code>, it seems.<b>]</b>
+</p>
+</dd>
+<dt><code>void native_test_numbers()</code></dt>
+<dd><p>Perform a logical and of the boxed accumulators.
+The condition code reflects whether the result is zero.
+</p>
+</dd>
+<dt><code>cc native_fdivide_unboxed()</code></dt>
+<dt><code>cc native_gcd_unboxed()</code></dt>
+<dt><code>cc native_idivide_unboxed()</code></dt>
+<dt><code>cc native_ipower2_unboxed()</code></dt>
+<dt><code>cc native_lsh_unboxed()</code></dt>
+<dt><code>cc native_modulus_unboxed()</code></dt>
+<dt><code>cc native_msb_unboxed()</code></dt>
+<dt><code>cc native_remainder_unboxed()</code></dt>
+<dt><code>cc native_rsh_unboxed()</code></dt>
+<dd><p>Support for binary operations on unboxed accumulators.
+</p>
+</dd>
+<dt><code>void native_float1()</code></dt>
+<dt><code>cc native_integer1()</code></dt>
+<dt><code>cc native_left_shift()</code></dt>
+<dt><code>cc native_minus()</code></dt>
+<dt><code>cc native_right_shift()</code></dt>
+<dt><code>cc native_sign()</code></dt>
+<dd><p>Support for unary and binary operations on boxed accumulators.
+</p>
+</dd>
+<dt><code>cc native_atom(val X)</code></dt>
+<dt><code>cc native_atomic(val X)</code></dt>
+<dt><code>cc native_float(val X)</code></dt>
+<dt><code>cc native_integer(val X)</code></dt>
+<dt><code>cc native_number(val X)</code></dt>
+<dt><code>cc native_nonvar(val X)</code></dt>
+<dt><code>cc native_var(val X)</code></dt>
+<dt><code>cc native_simple(val X)</code></dt>
+<dt><code>cc native_compound(val X)</code></dt>
+<dt><code>cc native_callable(val X)</code></dt>
+<dt><code>cc native_ground(val X)</code></dt>
+<dt><code>cc native_mutable(val X)</code></dt>
+<dt><code>cc native_db_reference(val X)</code></dt>
+<dd><p>Support for type-test instructions.  Condition code <code>e</code> signals failure.
+</p>
+</dd>
+<dt><code>void native_append(arg0 X, arg1 Y, arg2 Z)</code></dt>
+<dt><code>void native_arg(arg0 X, arg1 Y, arg2 Z)</code></dt>
+<dt><code>void native_compare(arg0 X, arg1 Y, arg2 Z)</code></dt>
+<dt><code>void native_create_mutable(arg0 X, arg1 Y)</code></dt>
+<dt><code>void native_get_mutable(arg0 X, arg1 Y)</code></dt>
+<dt><code>void native_update_mutable(arg0 X, arg1 Y)</code></dt>
+<dt><code>void native_functor(arg0 X, arg1 Y, arg2 Z)</code></dt>
+<dt><code>void native_length(arg0 X, arg1 Y)</code></dt>
+<dt><code>void native_univ(arg0 X, arg1 Y)</code></dt>
+<dd><p>Support for the corresponding built-in predicates, which all compile inline.
+</p>
+</dd>
+<dt><code>cc native_abs()</code></dt>
+<dt><code>cc native_acos()</code></dt>
+<dt><code>cc native_acosh()</code></dt>
+<dt><code>cc native_acot()</code></dt>
+<dt><code>cc native_acot2()</code></dt>
+<dt><code>cc native_acoth()</code></dt>
+<dt><code>cc native_add()</code></dt>
+<dt><code>cc native_and()</code></dt>
+<dt><code>cc native_asin()</code></dt>
+<dt><code>cc native_asinh()</code></dt>
+<dt><code>cc native_atan()</code></dt>
+<dt><code>cc native_atan2()</code></dt>
+<dt><code>cc native_atanh()</code></dt>
+<dt><code>cc native_ceiling()</code></dt>
+<dt><code>cc native_complement()</code></dt>
+<dt><code>cc native_cos()</code></dt>
+<dt><code>cc native_cosh()</code></dt>
+<dt><code>cc native_cot()</code></dt>
+<dt><code>cc native_coth()</code></dt>
+<dt><code>cc native_divide()</code></dt>
+<dt><code>cc native_exp()</code></dt>
+<dt><code>cc native_exp2()</code></dt>
+<dt><code>cc native_fdivide()</code></dt>
+<dt><code>cc native_float_fractional_part()</code></dt>
+<dt><code>cc native_float_integer_part()</code></dt>
+<dt><code>cc native_floor()</code></dt>
+<dt><code>cc native_gcd()</code></dt>
+<dt><code>cc native_idivide()</code></dt>
+<dt><code>cc native_ipower2()</code></dt>
+<dt><code>cc native_log()</code></dt>
+<dt><code>cc native_log2()</code></dt>
+<dt><code>cc native_maximum()</code></dt>
+<dt><code>cc native_minimum()</code></dt>
+<dt><code>cc native_modulus()</code></dt>
+<dt><code>cc native_msb()</code></dt>
+<dt><code>cc native_multiply()</code></dt>
+<dt><code>cc native_or()</code></dt>
+<dt><code>cc native_power2()</code></dt>
+<dt><code>cc native_remainder()</code></dt>
+<dt><code>cc native_round()</code></dt>
+<dt><code>cc native_sin()</code></dt>
+<dt><code>cc native_sinh()</code></dt>
+<dt><code>cc native_sqrt()</code></dt>
+<dt><code>cc native_subtract()</code></dt>
+<dt><code>cc native_tan()</code></dt>
+<dt><code>cc native_tanh()</code></dt>
+<dt><code>cc native_truncate()</code></dt>
+<dt><code>cc native_xor()</code></dt>
+<dd><p>Arithmetic support acting on boxed accumulators.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Misc.html#Misc" accesskey="n" rel="next">Next</a>
+<li><a href="Register-Allocation.html#Register-Allocation" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/Runtime-System.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/Runtime-System.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

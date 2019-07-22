@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Conditionals and Disjunction</title>
+
+<meta name="description" content="SICStus Prolog: Conditionals and Disjunction">
+<meta name="keywords" content="SICStus Prolog: Conditionals and Disjunction">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" rel="up" title="Writing Efficient Programs">
+<link href="Programming-Examples.html#Programming-Examples" rel="next" title="Programming Examples">
+<link href="Building-and-Dismantling-Terms.html#Building-and-Dismantling-Terms" rel="prev" title="Building and Dismantling Terms">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Conditionals-and-Disjunction"></a>
+<hr>
+<a name="Conditionals-and-Disjunction-1"></a>
+<h3 class="section">9.10 Conditionals and Disjunction</h3>
+
+<a name="index-conditionals"></a>
+<a name="index-disjunction-1"></a>
+<p>There is an efficiency advantage in using conditionals whose test part
+consists only of arithmetic comparisons or type tests.  Consider the
+following alternative definitions of the predicate
+<code>type_of_character/2</code>.  In the first definition, four clauses
+are used to group characters on the basis of arithmetic comparisons.
+</p>
+<div class="example">
+<pre class="example">type_of_character(Ch, Type) :-
+        Ch &gt;= &quot;a&quot;, Ch =&lt; &quot;z&quot;,
+        !,
+        Type = lowercase.
+type_of_character(Ch, Type) :-
+        Ch &gt;= &quot;A&quot;, Ch =&lt; &quot;Z&quot;,
+        !,
+        Type = uppercase.
+type_of_character(Ch, Type) :-
+        Ch &gt;= &quot;0&quot;, Ch =&lt; &quot;9&quot;,
+        !,
+        Type = digit.
+type_of_character(_Ch, Type) :-
+        Type = other.
+</pre></div>
+
+<p>In the second definition, a single clause with a conditional is
+used.  The compiler generates equivalent, optimized code for both
+versions.
+</p>
+<div class="example">
+<pre class="example">type_of_character(Ch, Type) :-
+        (   Ch &gt;= &quot;a&quot;, Ch =&lt; &quot;z&quot; -&gt;
+                Type = lowercase
+        ;   Ch &gt;= &quot;A&quot;, Ch =&lt; &quot;Z&quot; -&gt;
+                Type = uppercase
+        ;   Ch &gt;= &quot;0&quot;, Ch =&lt; &quot;9&quot; -&gt;
+                Type = digit
+        ;   otherwise -&gt;
+                Type = other
+        ).
+</pre></div>
+
+
+<p>Following is a list of built-in predicates that are compiled
+efficiently in conditionals:
+</p>
+<ul>
+<li> <code>atom/1</code>
+</li><li> <code>atomic/1</code>
+</li><li> <code>callable/1</code>
+</li><li> <code>compound/1</code>
+</li><li> <code>db_reference/1</code>
+</li><li> <code>float/1</code>
+</li><li> <code>ground/1</code>
+</li><li> <code>integer/1</code>
+</li><li> <code>nonvar/1</code>
+</li><li> <code>mutable/1</code>
+</li><li> <code>number/1</code>
+</li><li> <code>simple/1</code>
+</li><li> <code>var/1</code>
+</li><li> <code>&lt;/2</code>
+</li><li> <code>=&lt;/2</code>
+</li><li> <code>=:=/2</code>
+</li><li> <code>=\=/2</code>
+</li><li> <code>&gt;=/2</code>
+</li><li> <code>&gt;/2</code>
+</li><li> <code>@&lt;/2</code>
+</li><li> <code>@=&lt;/2</code>
+</li><li> <code>==/2</code>
+</li><li> <code>\==/2</code>
+</li><li> <code>@&gt;=/2</code>
+</li><li> <code>@&gt;/2</code>
+</li></ul>
+
+<a name="index-guarded-clause"></a>
+<a name="index-clause_002c-guarded"></a>
+<p>This optimization is actually somewhat more general than what is
+described above.  A sequence of guarded clauses:
+</p>
+<div class="example">
+<pre class="example"><var>Head1</var> :- <var>Guard1</var>, !, <var>Body1</var>.
+&hellip;
+<var>Headm</var> :- <var>Guardm</var>, !, <var>Bodym</var>.
+<var>Headn</var> :- <var>Bodym</var>.
+</pre></div>
+
+<p>is eligible for the same optimization, provided that the arguments
+of the clause heads are all unique variables and that
+the &ldquo;guards&rdquo; are simple tests as listed above.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Programming-Examples.html#Programming-Examples" accesskey="n" rel="next">Next</a>
+<li><a href="Building-and-Dismantling-Terms.html#Building-and-Dismantling-Terms" accesskey="p" rel="prev">Previous</a>
+<li><a href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Conditionals-and-Disjunction.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Conditionals-and-Disjunction.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

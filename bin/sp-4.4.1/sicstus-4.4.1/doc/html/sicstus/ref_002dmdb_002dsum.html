@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mdb-sum</title>
+
+<meta name="description" content="SICStus Prolog: ref-mdb-sum">
+<meta name="keywords" content="SICStus Prolog: ref-mdb-sum">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmdb.html#ref_002dmdb" rel="up" title="ref-mdb">
+<link href="ref_002dall.html#ref_002dall" rel="next" title="ref-all">
+<link href="ref_002dmdb_002dbbd.html#ref_002dmdb_002dbbd" rel="prev" title="ref-mdb-bbd">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmdb_002dsum"></a>
+<hr>
+<a name="Summary-of-Predicates-3"></a>
+<h4 class="subsection">4.12.10 Summary of Predicates</h4>
+
+
+<a name="index-database_002c-predicates-for"></a>
+<a name="index-predicates-for-database"></a>
+
+<dl compact="compact">
+<dt><code>abolish(<var>:F</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>abolish the predicate(s) specified by <var>F</var>
+</p>
+</dd>
+<dt><code>abolish(<var>:F</var>,<var>+O</var>)</code></dt>
+<dd><p>abolish the predicate(s) specified by <var>F</var> with options <var>O</var>
+</p>
+</dd>
+<dt><code>assert(<var>:C</var>)</code></dt>
+<dt><code>assert(<var>:C</var>,<var>-R</var>)</code></dt>
+<dd><p>clause <var>C</var> is asserted; reference <var>R</var> is returned
+</p>
+</dd>
+<dt><code>asserta(<var>:C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>asserta(<var>:C</var>,<var>-R</var>)</code></dt>
+<dd><p>clause <var>C</var> is asserted before existing clauses; reference
+<var>R</var> is returned
+</p>
+</dd>
+<dt><code>assertz(<var>:C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>assertz(<var>:C</var>,<var>-R</var>)</code></dt>
+<dd><p>clause <var>C</var> is asserted after existing clauses; reference <var>R</var>
+is returned
+</p>
+</dd>
+<dt><code>bb_delete(<var>:Key</var>,<var>-Term</var>)</code></dt>
+<dd><p>Delete from the blackboard <var>Term</var> stored under <var>Key</var>.
+</p>
+</dd>
+<dt><code>bb_get(<var>:Key</var>,<var>-Term</var>)</code></dt>
+<dd><p>Get from the blackboard <var>Term</var> stored under <var>Key</var>.
+</p>
+</dd>
+<dt><code>bb_put(<var>:Key</var>,<var>+Term</var>)</code></dt>
+<dd><p>Store <var>Term</var> under <var>Key</var> on the blackboard.
+</p>
+</dd>
+<dt><code>bb_update(<var>:Key</var>, <var>-OldTerm</var>, <var>+NewTerm</var>)</code></dt>
+<dd><p>Replace <var>OldTerm</var> by <var>NewTerm</var> under <var>Key</var>
+on the blackboard.
+</p>
+</dd>
+<dt><code>clause(<var>:P</var>,<var>?Q</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>clause(<var>:P</var>,<var>?Q</var>,<var>?R</var>)</code></dt>
+<dd><p>there is a clause for a dynamic predicate with head <var>P</var>,
+body <var>Q</var>, and reference <var>R</var>
+</p>
+</dd>
+<dt><code>current_key(<var>?N</var>, <var>?K</var>)</code></dt>
+<dd><p><var>N</var> is the name and <var>K</var> is the key of a recorded term
+</p>
+</dd>
+<dt><code>dynamic <var>:P</var> &nbsp;<!-- /@w --> <i>declaration</i>,<i>ISO</i></code></dt>
+<dd><p>predicates specified by <var>P</var> are dynamic
+</p>
+</dd>
+<dt><code>erase(<var>+R</var>)</code></dt>
+<dd><p>erase the clause or record with reference <var>R</var>
+</p>
+</dd>
+<dt><code>instance(<var>+R</var>,<var>-T</var>)</code></dt>
+<dd><p><var>T</var> is an instance of the clause or term referenced by <var>R</var>
+</p>
+</dd>
+<dt><code>recorda(<var>+K</var>,<var>+T</var>,<var>-R</var>)</code></dt>
+<dd><p>make term <var>T</var> the first record under key <var>K</var>; reference <var>R</var>
+is returned
+</p>
+</dd>
+<dt><code>recorded(<var>?K</var>,<var>?T</var>,<var>?R</var>)</code></dt>
+<dd><p>term <var>T</var> is recorded under key <var>K</var> with reference <var>R</var>
+</p>
+</dd>
+<dt><code>recordz(<var>+K</var>,<var>+T</var>,<var>-R</var>)</code></dt>
+<dd><p>make term <var>T</var> the last record under key <var>K</var>; reference <var>R</var> is
+returned
+</p>
+</dd>
+<dt><code>retract(<var>:C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>erase the first dynamic clause that matches <var>C</var>
+</p>
+</dd>
+<dt><code>retractall(<var>:H</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>erase every clause whose head matches <var>H</var>
+</p></dd>
+</dl>
+
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmdb_002dbbd.html#ref_002dmdb_002dbbd" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmdb.html#ref_002dmdb" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmdb_002dsum.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmdb_002dsum.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Multi Threaded Example</title>
+
+<meta name="description" content="SICStus Prolog: Multi Threaded Example">
+<meta name="keywords" content="SICStus Prolog: Multi Threaded Example">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-Prolog-from-Java.html#Calling-Prolog-from-Java" rel="up" title="Calling Prolog from Java">
+<link href="Another-Multi-Threaded-Example-_0028Prolog-Top_002dLevel_0029.html#Another-Multi-Threaded-Example-_0028Prolog-Top_002dLevel_0029" rel="next" title="Another Multi Threaded Example (Prolog Top-Level)">
+<link href="Single-Threaded-Example.html#Single-Threaded-Example" rel="prev" title="Single Threaded Example">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Multi-Threaded-Example"></a>
+<hr>
+<a name="Multi-Threaded-Example-1"></a>
+<h4 class="subsubsection">10.19.3.2 Multi Threaded Example</h4>
+
+<p>Following is a Java version of the <code>train</code> example.
+</p>
+<p>This is a multi threaded version of the <code>train</code> example.  In this
+mode several threads can access the SICStus runtime via a <code>Prolog
+interface</code>. The static method <code>Jasper.newProlog()</code> returns an
+object that implements a <code>Prolog interface</code>. A thread can make
+queries by calling the query-methods of the Prolog object.
+The calls will be sent to a separate server thread that does the actual
+call to SICStus runtime.
+</p>
+<div class="example">
+<pre class="example"><em>// MultiSimple.java</em>
+</pre><pre class="example">import se.sics.jasper.Jasper;
+import se.sics.jasper.Query;
+import se.sics.jasper.Prolog;
+import java.util.HashMap;
+
+public class MultiSimple
+{
+    class Client extends Thread
+    {
+        Prolog jp;
+        String qs;
+
+        Client(Prolog p,String queryString)
+        {
+            jp = p;
+            qs = queryString;
+        }
+        public void run()
+        {
+            HashMap WayMap = new HashMap();
+            try {
+                synchronized(jp) {
+                    Query query = jp.openPrologQuery(qs, WayMap);
+                    try {
+                        while (query.nextSolution()) {
+                            System.out.println(WayMap);
+                        }
+                    } finally {
+                        query.close();
+                    }
+                }
+            } catch ( Exception e ) {
+                e.printStackTrace();
+            }
+        }
+    }
+</pre><pre class="example">    {
+        try {
+            Prolog jp = Jasper.newProlog(argv,null,&quot;train.sav&quot;);
+
+            Client c1 =
+                new Client(jp,&quot;connected('Örebro', 'Hallsberg',
+                           Way1, Way1).&quot;);
+            c1.start();
+            // The prolog variable names are different from above 
+            // so we can tell which query gives what solution.
+            Client c2 =
+                new Client(jp,&quot;connected('Stockholm', 'Hallsberg', 
+                           Way2, Way2).&quot;);
+            c2.start();
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String argv[])
+    {
+        new MultiSimple(argv);
+    }
+}
+</pre></div>
+
+<ol>
+<li> The <code>Prolog</code> object <code>jp</code> is the interface to SICStus. It
+implements the methods of <code>interface Prolog</code>, making it possible
+to write quite similar code for single threaded and multi threaded
+usage of Jasper.
+The static method <code>Jasper.newProlog()</code> returns such an object.
+
+</li><li> In this example, the Prolog code is loaded by the server thread
+just after creating the SICStus object (which is invisible to the user).
+The third argument to the method <code>Jasper.newProlog</code> is the
+.sav file to restore.  Two threads are then started, which will make
+different queries with the <code>connected</code> predicate.
+
+</li><li> <code>openPrologQuery</code> is not recommended in multi threaded mode, but
+if you must use it from more than one Java thread, then you should enclose
+the call to <code>openPrologQuery</code> and the closing of the query
+in a single synchronized block, synchronizing on the Prolog object.
+See <a href="SPTerm-and-Memory.html#SPTerm-and-Memory">SPTerm and Memory</a> for details on one of the reasons why this
+is necessary.
+
+</li></ol>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Another-Multi-Threaded-Example-_0028Prolog-Top_002dLevel_0029.html#Another-Multi-Threaded-Example-_0028Prolog-Top_002dLevel_0029" accesskey="n" rel="next">Next</a>
+<li><a href="Single-Threaded-Example.html#Single-Threaded-Example" accesskey="p" rel="prev">Previous</a>
+<li><a href="Calling-Prolog-from-Java.html#Calling-Prolog-from-Java" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Multi-Threaded-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Multi-Threaded-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,9 @@
+Entrezgene DB update procedure:
+
+- Download compressed ASN1 file from ncbi FTP site.  (ftp://ftp.ncbi.nlm.nih.gov/gene/DATA/ASN). Homo_sapiens.gz
+- Convert it to xml format using gene2xml 
+gene2xml -i [compressed file]  -b -c -t 9606 -o [output file]
+- split xml using extract_entrezgene_xml.pl. 
+- parse xml into plain text files using bin/parse_xml.sh
+- add records from plain text files using bin/add_records.sh
+

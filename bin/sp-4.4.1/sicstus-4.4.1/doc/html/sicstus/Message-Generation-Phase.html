@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Message Generation Phase</title>
+
+<meta name="description" content="SICStus Prolog: Message Generation Phase">
+<meta name="keywords" content="SICStus Prolog: Message Generation Phase">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Message-Processing.html#Message-Processing" rel="up" title="Message Processing">
+<link href="Message-Printing-Phase.html#Message-Printing-Phase" rel="next" title="Message Printing Phase">
+<link href="Message-Phases.html#Message-Phases" rel="prev" title="Message Phases">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Message-Generation-Phase"></a>
+<hr>
+<a name="Message-Generation-Phase-1"></a>
+<h4 class="subsubsection">4.16.1.2 Message Generation Phase</h4>
+
+<p>The default message generation predicates are located in the
+<samp>library('SU_messages')</samp> file, in the <code>'SU_messages'</code>
+module, together with other message and query related
+predicates.  This is advantageous when these predicates have
+to be changed as a whole (for example when translating all messages to
+another language), because this can be done simply by replacing the file
+<samp>library('SU_messages')</samp> by a new one.
+</p>
+<p>In the message generation phase three alternative methods are tried:
+</p>
+<ul>
+<li> First the hook predicate <code>generate_message_hook/3</code> is
+executed, if it succeeds, then it is assumed to deliver the output of this
+phase.
+
+</li><li> Next the default message generation is invoked via
+<code>'SU_messages':generate_message/3</code>.
+
+</li><li> In the case that neither of the above methods succeed, a built-in
+fall-back message generation method is used.
+</li></ul>
+
+<p>The hook predicate <code>generate_message_hook/3</code> can be used to
+override the default behavior, or to handle new messages defined by the
+programmer that do not fit the default message generation schemes.
+The latter can also be achieved by adding new clauses to the
+extendible <code>'SU_messages':generate_message/3</code> predicate.
+</p>
+<p>If both the hook and the default method refuses to handle the
+message, then the following simple format-command list is
+generated from the abstract message term <var>Message</var>:
+</p><div class="example">
+<pre class="example">['~q'-[<var>Message</var>],nl]
+</pre></div>
+<p>This will result in displaying the abstract message term itself, as if
+printed by <code>writeq/1</code>.
+</p>
+<p>For messages of the severity <code>silent</code> the message generation phase
+is skipped, and the <code>[]</code> format-command list is returned as
+the output.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Message-Printing-Phase.html#Message-Printing-Phase" accesskey="n" rel="next">Next</a>
+<li><a href="Message-Phases.html#Message-Phases" accesskey="p" rel="prev">Previous</a>
+<li><a href="Message-Processing.html#Message-Processing" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Message-Generation-Phase.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Message-Generation-Phase.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

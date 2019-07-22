@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-library_directory</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-library_directory">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-library_directory">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dline_005fcount.html#mpg_002dref_002dline_005fcount" rel="next" title="mpg-ref-line_count">
+<link href="mpg_002dref_002dless_005fthan.html#mpg_002dref_002dless_005fthan" rel="prev" title="mpg-ref-less_than">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dlibrary_005fdirectory"></a>
+<hr>
+<a name="library_005fdirectory_002f1---hook"></a>
+<h4 class="subsection">11.3.113 <code>library_directory/1</code> &nbsp;<!-- /@w --> <i>hook</i></h4>
+<a name="index-library_005fdirectory_002f1-_0028hook_002c-ref-page_0029-1"></a>
+<a name="index-library_005fdirectory_002f1-_0028hook_002c-ref-page_0029"></a>
+
+<a name="Synopsis-138"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile user:library_directory/1.</code>
+</p>
+<p><code>user:library_directory(<var>+DirSpec</var>)</code>
+</p>
+<p>Defines a library directory. Used by predicates taking
+<em>file_spec</em> as input argument.
+</p>
+<a name="Arguments-127"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>DirSpec</var></dt>
+<dd><p><em>file_spec</em>
+</p>
+<p>Either an atom giving the path to
+a file or directory, or <var>PathAlias(DirSpec)</var>, where <var>PathAlias</var> is
+defined by a <code>file_search_path/2</code> rule.
+</p></dd>
+</dl>
+
+<a name="Description-104"></a>
+<h4 class="subheading">Description</h4>
+
+<p>These facts define directories to search when a file specification
+<code>library(<var>File</var>)</code> is expanded to the full path, in addition
+to the predefined library path, which is tried first.
+</p>
+<p>The <code>file_search_path</code> mechanism is an extension of the
+<code>library_directory</code> scheme and is preferred.
+</p>
+
+<a name="Examples-51"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">| ?- <kbd>[user].</kbd>
+% compiling user...
+| <kbd>:- multifile user:library_directory/1.</kbd>
+| <kbd>library_directory('/usr/joe_bob/prolog/libs').</kbd>
+| <kbd>end_of_file.</kbd>
+% compiled user in module user, 0 msec 384 bytes
+yes
+| ?- <kbd>ensure_loaded(library(flying)).</kbd>
+% loading file /usr/joe_bob/prolog/libs/flying.qof
+&hellip;
+</pre></div>
+
+
+<a name="Exceptions-129"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>All error handling is done by the predicates extended by this hook.
+</p>
+<a name="See-Also-135"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>absolute_file_name/[2,3]</code>,
+<code>file_search_path/2</code>,
+<code>load_files/[1,2]</code>,
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dline_005fcount.html#mpg_002dref_002dline_005fcount" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dless_005fthan.html#mpg_002dref_002dless_005fthan" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dlibrary_005fdirectory.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dlibrary_005fdirectory.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

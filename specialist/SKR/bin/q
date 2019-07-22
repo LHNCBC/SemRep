@@ -1,0 +1,307 @@
+#!/usr/bin/perl -w
+
+use strict;
+use File::Copy;
+
+my $SERVER;
+my $COPY_DIR = "/var/tmp/";
+my $FILENAME = "scheduler.queue";
+
+my $SCHEDULER_DIR;
+my $SCHEDULER_FILE;
+my $COPY_FILE;
+
+my ( %FullCommands, $FullCommand, $Command );
+my $Pos = 0;
+my $DataCommand;
+my $CommandMaxLength = 15;
+
+# The "a ", "b ", "c ", etc. is just to ensure that the fields maintain this order.
+my %Headers = 
+     ( "a Pos"           => 3,
+       "b Prty"          => 5,
+       "c Status"        => 12,
+       # The two spaces at the end of JobID are for the " M" mega marker
+       "d JobID  "       => 12,
+       "e UserID"        => 15,
+       "f Command"       => $CommandMaxLength + 3,
+       "g Items"         => 9, 
+       "h Done"          => 8, 
+       "i Errs"          => 7, 
+       "j JobStartTime"  => 16, 
+       "k ETOC"          => 8
+      );
+
+foreach $SERVER ( "ii-server3" ) {
+	&setup($SERVER);
+	&display_main;
+	&display_abbrs;
+	&cleanup;
+} # foreach $SERVER ( "ii-server3" )
+
+
+sub setup {
+
+   $SERVER = $_[0];
+   $SCHEDULER_DIR = "/net/" . $SERVER . "/Scheduler/";
+   $SCHEDULER_FILE = $SCHEDULER_DIR . $FILENAME;
+   $COPY_FILE = $COPY_DIR . $FILENAME . "." . $$;
+
+   copy($SCHEDULER_FILE, $COPY_FILE) or die "File copy failed $!\n";
+   
+   # print "Copied $SCHEDULER_FILE to $COPY_FILE\n\n";
+   
+   open INFILE, $COPY_FILE;
+   
+   # The first line of the scheduleer.queue file looks like
+   # <<< 2 >>>  QUEUE_LENGTH
+   
+   my $QueueLength = <INFILE>;
+   chomp $QueueLength;
+   
+   # QueueLength looks like
+   # <<< 2 >>>  QUEUE_LENGTH
+   # remove all non-digit chars from $QueueLength
+   $QueueLength =~ s/[^\d]//g;
+   
+   # The logic in the ternary operator "?:" simply adds an "s" to the word "job"
+   # if the number of jobs in the queue is > 1
+   my $Plural = ( $QueueLength == 1 ? "" : "s" );
+
+   printf "\n############ %d job%s in %s queue at ", $QueueLength, $Plural, $SERVER;
+
+   my ( $Second, $Minute, $Hour, $Day, $Month, $Year ) = (localtime)[0,1,2,3,4,5];
+
+   printf "%02d/%02d/%04d at %02d:%02d:%02d\n\n",
+          $Month+1, $Day, $Year+1900, $Hour, $Minute, $Second;
+   
+   # The foreach loop below builds the following strings based on the %Headers hash
+   # (the double quotes are part of the strings):
+   
+   # $Format = '"%3s%5s%9s%12s%18s%9s%8s%7s%16s%8s\n"'
+   
+   # $HeaderArgs = '"Pos", "Prty", "JobID", "UserID", "Command", "Items", "Done", "Errs", "JobStartTime", "ETOC"'
+   
+   # $DataArgs = ' ++$Pos, $Prty, $JobID, $UserID, $Command, $Items, $Done, $Errs, $JobStartTime, $ETOC'
+   
+   # We then assemble $HeaderCommand and $DataCommand,
+   # which will be Perl printf statements, by concatenating
+   # (1) 'printf "'
+   # (2) $Format
+   # (3) $HeaderArgs or $DataArgs
+   # and finally just eval the commands to make them do what they say!
+   
+   my $HeaderCommand = "printf \"";
+   $DataCommand = "printf \"";
+   my $HeaderArgs = "";
+   my $DataArgs = "++";
+   
+   my $Format = "";
+   foreach my $OrigField ( sort keys %Headers ) {
+     # Remove from beginning of $OrigField all alphanumerics and following blank spaces;
+     # this changes "a Pos", "b Prty" to "Pos", "Prty", etc.
+     ( my $Field = $OrigField ) =~ s/^[\w]* *//;
+     $Format     .= "%" . $Headers{$OrigField} . "s";
+     # printf "FIELD:  %s\n", $Field;
+     # printf "FORMAT: %s\n", $Format;
+   
+     # $Format is built up as
+     # %3s
+     # %3s%5s
+     # %3s%5s%12s
+     # %3s%5s%12s%12s
+     # etc.
+
+     # $HeaderArgs is built up as
+     # "Pos", 
+     # "Pos", "Prty", 
+     # "Pos", "Prty", "Status", 
+     # "Pos", "Prty", "Status", "JobID  ", 
+     # etc.
+   
+     # $DataArgs is built up as
+     #  ++$Pos, 
+     #  ++$Pos, $Prty, 
+     #  ++$Pos, $Prty, $Status,
+     #  ++$Pos, $Prty, $Status, $JobID,
+     # etc.
+   
+     $HeaderArgs .= "\"$Field\", ";
+     # printf "HEADER: %s\n", $HeaderArgs;
+     $DataArgs   .= "\$$Field, ";
+     # printf "DATA:   %s\n\n", $DataArgs;
+     # printf "HeaderArgs: $HeaderArgs\n";
+     # printf "DataArgs: $DataArgs\n";
+     
+   } # foreach $Field (sort keys %Headers )
+   
+   $Format .= "\\n\"";
+   # get rid of the trailing ", "
+   substr($HeaderArgs, -2) = "";
+   substr($DataArgs, -2)   = "";
+   
+   $HeaderCommand .= $Format . ", " . $HeaderArgs . ";";
+   substr($Format, -4) = ".2f\\n\"";
+   $DataCommand   .= $Format . ", " . $DataArgs . ";";
+   
+   # print "HEAD: $HeaderCommand\n";
+   # print "DATA: $DataCommand\n";
+   eval $HeaderCommand;
+} # sub setup
+
+sub cleanup {
+   close INFILE;
+   
+   unlink $COPY_FILE;
+} # sub cleanup
+
+sub display_main {
+   while (<INFILE>) {
+      chomp;
+      my $line = $_;
+      # print "LINE: $line\n";
+      my @fields = split /\|/, $line;
+      my $IsMega = "  ";
+      # fake out Perl to make array indices 1-based!
+      unshift @fields, "";
+      my $JobID   = $fields[1];
+      my $Prty    = $fields[2];
+      my $UserID  = $fields[4];
+      $UserID =~ s/^Mega_//;
+      $IsMega = " M" if $fields[4] =~ /^Mega/;
+      $JobID .= $IsMega;
+      $FullCommand = $fields[7];
+   
+      # remove "/nvsfol/nls/bin/"   
+      $FullCommand =~ s@/nfsvol/nls/bin/@@;
+      $Command = $FullCommand;
+   
+      if ( length $FullCommand > $CommandMaxLength ) {
+        $Command = substr($FullCommand, 0, $CommandMaxLength) . "*";
+        ${$FullCommands{$Command}}{$FullCommand} = 1;
+        # keep only first 15 chars
+      } # if ( length $FullCommand > 15 )
+   
+      my $Mode         = $fields[10];
+      my $Status       = $fields[10];
+      my $Items        = $fields[14];
+      my $Done         = $fields[16];
+      my $Errs         = $fields[17];
+      my $JobStartTime = get_localtime($fields[18]);
+      # ETOC is relevant only for jobs that are actually running
+      my $ETOC         = ( $Mode == 1 ? $fields[21] : 0 );
+   
+      eval $DataCommand;
+      #    printf "%3s%5s%9s%12s%" . ($CommandMaxLength+3) . "s",
+      #    	  ++$Pos, $Prty, $JobID, $UserID, $Command;
+
+      #    printf "%9s%8s%7s%16s%8.2f\n",
+      #    	  $Items, $Done, $Errs, $JobStartTime, $ETOC;
+   
+   } # while (<INFILE>)
+} # sub display_main
+
+sub display_abbrs {
+   if ( scalar keys %FullCommands > 0 ) {
+     printf "\nAbbreviated Commands:\n\n";
+     foreach $Command ( sort keys %FullCommands ) {
+        my $i = 0;     
+        foreach $FullCommand ( keys %{$FullCommands{$Command}} ) {
+           $Command = ( $i++ == 0 ? "$Command ==> " : " "x($CommandMaxLength+6) );
+           printf "%s%s\n\n", $Command, $FullCommand;
+        } # foreach $FullCommand ( sort @{$FullCommands{$Command}}
+     } # foreach $Command ( sort keys @ShortCommands )
+   } # if ( scalar @ShortCommands > 0 )
+   
+   # print "Deleted $COPY_FILE\n\n";
+} # sub display_abbrs
+
+
+sub get_localtime {
+
+   my $InputTime;
+   if ( scalar @_ == 0 ) {
+     $InputTime = time();
+   }
+   else {
+     $InputTime = $_[0];
+   }
+
+   my ( undef, $min, $hour, $mday, $mon, undef, undef, undef, undef ) = localtime($InputTime);
+   my $timestring;
+   # see perldoc -f gmtime for the next two lines
+   $mon += 1;
+   $timestring = sprintf "%02d/%02d %02d:%02d",
+                         $mon, $mday, $hour, $min;
+   return $timestring;
+} # sub get_localtime
+
+=begin comment
+################################################################
+
+     Fields:
+ 1     refnum - Batch Job Number
+ 2     priority - Priority (-1, 0, 1, 2, 3)
+ 3     dload - Flag as to whether we create a dload.gz file upon completion or not
+ 4     user - username
+ 5     filename - uploaded filename
+ 6     email - user's email address
+ 7     cmd - Full command to run
+ 8     env - Environment for the command (default is NOENV)
+ 9     wdir - Full path to this batch job
+10     mode - What state is the job (0 - Queued, 1 - Running, 2 - Done, 3 - Paused)
+11     restart - Flag denoting that we are "resuming" the batch job from where
+               we left-off and not restarting from the beginning.
+12     which_prog - Which program associated with job
+           SKR       0
+           GENERIC   1
+           GENERIC_V 2
+           MTI       3
+           SEMREP    4
+
+13     change_flag - Flag denoting that the batch job is due for a checkpoint
+                    or not (0 - No, 1 - Yes)
+14     num_items - Final count of items for this job
+15     est_num_items - Original estimate of number of items based on file size
+         and which program is running
+16     processed_items - Number of items processed so far
+17     num_errors - Number of errors so far
+18     submitted - Number of seconds since 00:00:00 UTC, January 1, 1970 for
+         time when the job was submitted.
+19     file_offset - Current location we are pulling the next item from in
+20         the input file
+21     last_chkpnt_pos - Last item number that we successfully saved to
+         text.out (zero based)
+22     ETOC - Estimated Time of Completion based on current processing speed
+23     ETOC_orig - Original Estimated Time of Completion
+24     TTP - Time to Process each item for this batch job
+25     backup_flag - Flag denoting whether to backup the batch files before
+         starting
+26     phrases_only_flag - Flag denoting whether request was for just MetaMap
+         phrases (0 - No, 1 - Yes)
+27     act_proc_time - Sum of Actual processing time for each of the batch's
+         items.
+28     tot_proc_time - Total time to process items - includes time when job
+         isn't actually running.
+29     ESilent_flag - Flag denoting whether we show "*** ERROR ***" lines in
+         the output file or not (0 - Yes show lines, 1 - No don't show lines).
+30     SingLine_flag - Flag denoting whether input file is single lines versus
+         blank line separated
+31     Mega_flag - Flag denoting whether this is a Mega job or not (0 - No,
+         1 - Yes)
+32     SilentEmail - Flag denoting whether to send email when batch job finishes
+         mainly for Mega jobs so emails are not sent between each file/command
+         but only at the end.  (0 - Send emails, 1 - Don't send emails until
+         the very end).
+33     SingLineID_flag - Flag denoting whether input file is single lines with
+         PMID at beginning (PMID|Test).
+34     SKR_API - Flag denoting whether this is a SKR_API job or not (0 - No,
+         1 - Yes)
+35     noSecondTry - Flag denoting user's wishes as to whether we do the default
+         second try on an  error (0 - Default we do second try,
+         1 - No second try)
+36     itemTimeout - Number of seconds to allow each item to run before
+         declaring an error (0 - default of 900 seconds)
+
+################################################################
+=end comment

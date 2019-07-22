@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-trees</title>
+
+<meta name="description" content="SICStus Prolog: lib-trees">
+<meta name="keywords" content="SICStus Prolog: lib-trees">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dtypes.html#lib_002dtypes" rel="next" title="lib-types">
+<link href="lib_002dtimeout.html#lib_002dtimeout" rel="prev" title="lib-timeout">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dtrees"></a>
+<hr>
+<a name="Updatable-Binary-Trees_002d_002d_002dlibrary_0028trees_0029"></a>
+<h3 class="section">10.42 Updatable Binary Trees&mdash;<code>library(trees)</code></h3>
+<p>This libary module provides updatable binary trees with logarithmic access time.
+Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>gen_label(<var>?Index</var>, <var>+Tree</var>, <var>?Value</var>)</code></dt>
+<dd>
+<a name="index-gen_005flabel_002f3-_0028trees_0029-1"></a>
+<a name="index-gen_005flabel_002f3-_0028trees_0029"></a>
+
+<p>assumes that Tree is a proper binary tree, and is true when <var>Value</var>
+is the <var>Index-th</var> element in <var>Tree</var>.  Can be used to enumerate
+all <var>Values</var> by ascending <var>Index</var>.
+</p></dd>
+<dt><code>get_label(<var>+Index</var>, <var>+Tree</var>, <var>-Label</var>)</code></dt>
+<dd>
+<a name="index-get_005flabel_002f3-_0028trees_0029-1"></a>
+<a name="index-get_005flabel_002f3-_0028trees_0029"></a>
+
+<p>treats the tree as an array of <var>N</var> elements and returns the <var>Index-th</var>.
+If <var>Index &lt; 1</var> or <var>&gt; N</var> it simply fails, there is no such element.  As
+Tree need not be fully instantiated, and is potentially unbounded,
+we cannot enumerate <var>Indices</var>.
+</p></dd>
+<dt><code>list_to_tree(<var>+List</var>, <var>-Tree</var>)</code></dt>
+<dd>
+<a name="index-list_005fto_005ftree_002f2-_0028trees_0029-1"></a>
+<a name="index-list_005fto_005ftree_002f2-_0028trees_0029"></a>
+
+<p>takes a given proper <var>List</var> of <var>N</var> elements and constructs a binary <var>Tree</var>
+where <code>get_label(<var>K</var>, <var>Tree</var>, <var>Lab</var>)</code> &lt;=&gt; <var>Lab</var> is the <var>Kth</var> element of <var>List</var>.
+</p></dd>
+<dt><code>map_tree(<var>:Pred</var>, <var>+OldTree</var>, <var>?NewTree</var>)</code></dt>
+<dd>
+<a name="index-map_005ftree_002f3-_0028trees_0029-1"></a>
+<a name="index-map_005ftree_002f3-_0028trees_0029"></a>
+
+<p>is true when <var>OldTree</var> and <var>NewTree</var> are binary trees of the same shape
+and <var>Pred(Old,New)</var> is true for corresponding elements of the two trees.
+</p></dd>
+<dt><code>put_label(<var>+Index</var>, <var>+OldTree</var>, <var>-Label</var>, <var>-NewTree</var>)</code></dt>
+<dd>
+<a name="index-put_005flabel_002f_005b4_002c5_005d-_0028trees_0029-1"></a>
+<a name="index-put_005flabel_002f_005b4_002c5_005d-_0028trees_0029"></a>
+
+<p>constructs a new tree the same shape as the old which moreover has the
+same elements except that the <var>Index-th</var> one is <var>Label</var>.  Unlike the
+&quot;arrays&quot; of <code>library(arrays)</code>, <var>OldTree</var> is not modified and you can hang on to
+it as long as you please.  Note that <var>O(lg N)</var> new space is needed.
+</p></dd>
+<dt><code>put_label(<var>+Index</var>, <var>+OldTree</var>, <var>-OldLabel</var>, <var>-NewTree</var>, <var>+NewLabel</var>)</code></dt>
+<dd><p>is true when <var>OldTree</var> and <var>NewTree</var> are trees of the same shape having
+the same elements except that the <var>Index-th</var> element of <var>OldTree</var> is
+<var>OldLabel</var> and the <var>Index-th</var> element of <var>NewTree</var> is <var>NewLabel</var>.  You can
+swap the <var>&lt;Tree,Label&gt;</var> argument pairs if you like, it makes no difference.
+</p></dd>
+<dt><code>tree_size(<var>+Tree</var>, <var>-Size</var>)</code></dt>
+<dd>
+<a name="index-tree_005fsize_002f2-_0028trees_0029-1"></a>
+<a name="index-tree_005fsize_002f2-_0028trees_0029"></a>
+
+<p>calculates the number of elements in the <var>Tree</var>.  All trees made by
+<code>list_to_tree/2</code> that are the same size have the same shape.
+</p></dd>
+<dt><code>tree_to_list(<var>+Tree</var>, <var>-List</var>)</code></dt>
+<dd>
+<a name="index-tree_005fto_005flist_002f2-_0028trees_0029-1"></a>
+<a name="index-tree_005fto_005flist_002f2-_0028trees_0029"></a>
+
+<p>is the converse operation to <code>list_to_tree/2</code>.  Any mapping or checking
+operation can be done by converting the tree to a list, mapping or
+checking the list, and converting the result, if any, back to a tree.
+It is also easier for a human to read a list than a tree, as the
+order in the tree goes all over the place.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dtypes.html#lib_002dtypes" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dtimeout.html#lib_002dtimeout" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dtrees.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dtrees.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

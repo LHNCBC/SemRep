@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-top-fsh</title>
+
+<meta name="description" content="SICStus Prolog: mpg-top-fsh">
+<meta name="keywords" content="SICStus Prolog: mpg-top-fsh">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dtop.html#mpg_002dtop" rel="up" title="mpg-top">
+<link href="mpg_002dtop_002dfin.html#mpg_002dtop_002dfin" rel="next" title="mpg-top-fin">
+<link href="mpg_002dtop_002dfnm.html#mpg_002dtop_002dfnm" rel="prev" title="mpg-top-fnm">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dtop_002dfsh"></a>
+<hr>
+<a name="File-and-Stream-Handling"></a>
+<h4 class="subsection">11.2.9 File and Stream Handling</h4>
+
+
+<a name="index-file-and-stream-handling_002c-predicates-for-1"></a>
+<a name="index-predicates-for-file-and-stream-handling-1"></a>
+
+<dl compact="compact">
+<dt><code>byte_count(<var>+S</var>,<var>-N</var>)</code></dt>
+<dd><p><var>N</var> is the number of bytes read/written on
+binary stream <var>S</var>
+</p>
+</dd>
+<dt><code>character_count(<var>+S</var>,<var>-N</var>)</code></dt>
+<dd><p><var>N</var> is the number of characters read/written on
+text stream <var>S</var>
+</p>
+</dd>
+<dt><code>close(<var>+F</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>close(<var>+F</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>close file or stream <var>F</var> with options <var>O</var>
+</p>
+</dd>
+<dt><code>current_input(<var>-S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>S</var> is the current input stream
+</p>
+</dd>
+<dt><code>current_output(<var>-S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>S</var> is the current output stream
+</p>
+</dd>
+<dt><code>current_stream(<var>?F</var>,<var>?M</var>,<var>?S</var>)</code></dt>
+<dd><p><var>S</var> is a stream open on file <var>F</var> in mode <var>M</var>
+</p>
+</dd>
+<dt><code>line_count(<var>+S</var>,<var>-N</var>)</code></dt>
+<dd><p><var>N</var> is the number of lines read/written on text stream <var>S</var>
+</p>
+</dd>
+<dt><code>line_position(<var>+S</var>,<var>-N</var>)</code></dt>
+<dd><p><var>N</var> is the number of characters read/written on the
+current line of text stream <var>S</var>
+</p>
+</dd>
+<dt><code>open(<var>+F</var>,<var>+M</var>,<var>-S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>open(<var>+F</var>,<var>+M</var>,<var>-S</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>file <var>F</var> is opened in mode <var>M</var>, options <var>O</var>, returning stream <var>S</var>
+</p>
+</dd>
+<dt><code>open_null_stream(<var>+S</var>)</code></dt>
+<dd><p>new output to text stream <var>S</var> goes nowhere
+</p>
+</dd>
+<dt><code>prompt(<var>-O</var>,<var>+N</var>)</code></dt>
+<dd><p>queries or changes the prompt string of the current input stream
+</p>
+</dd>
+<dt><code>see(<var>+F</var>)</code></dt>
+<dd><p>make file <var>F</var> the current input stream
+</p>
+</dd>
+<dt><code>seeing(<var>-N</var>)</code></dt>
+<dd><p>the current input stream is named <var>N</var>
+</p>
+</dd>
+<dt><code>seek(<var>+S</var>,<var>+O</var>,<var>+M</var>,<var>+N</var>)</code></dt>
+<dd><p>seek to an arbitrary byte position on the
+stream <var>S</var>
+</p>
+</dd>
+<dt><code>seen</code></dt>
+<dd><p>close the current input stream
+</p>
+</dd>
+<dt><code>set_input(<var>+S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>select <var>S</var> as the current input stream
+</p>
+</dd>
+<dt><code>set_output(<var>+S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>select <var>S</var> as the current output stream
+</p>
+</dd>
+<dt><code>set_stream_position(<var>+S</var>,<var>+P</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>P</var> is the new position of stream <var>S</var>
+</p>
+</dd>
+<dt><code>stream_code(<var>?S</var>,<var>?C</var>)</code></dt>
+<dd><p>Converts between Prolog and C representations of a stream
+</p>
+</dd>
+<dt><code>stream_position(<var>+S</var>,<var>-P</var>)</code></dt>
+<dd><p><var>P</var> is the current position of stream <var>S</var>
+</p>
+</dd>
+<dt><code>stream_position_data(<var>?Field</var>,<var>?Position</var>,<var>?Data</var>)</code></dt>
+<dd><p>The <var>Field</var> field of the stream position term <var>Position</var> is <var>Data</var>.  
+</p>
+</dd>
+<dt><code>stream_property(<var>?Stream</var>, <var>?Property</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>Stream <var>Stream</var> has property <var>Property</var>.
+</p>
+</dd>
+<dt><code>tell(<var>+F</var>)</code></dt>
+<dd><p>make file <var>F</var> the current output stream
+</p>
+</dd>
+<dt><code>telling(<var>-N</var>)</code></dt>
+<dd><p>to file <var>N</var>
+</p>
+</dd>
+<dt><code>told</code></dt>
+<dd><p>close the current output stream
+</p>
+</dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dtop_002dfin.html#mpg_002dtop_002dfin" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dtop_002dfnm.html#mpg_002dtop_002dfnm" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dtop.html#mpg_002dtop" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dfsh.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dfsh.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

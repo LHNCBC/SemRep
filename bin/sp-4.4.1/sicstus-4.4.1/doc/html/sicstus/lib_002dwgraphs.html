@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-wgraphs</title>
+
+<meta name="description" content="SICStus Prolog: lib-wgraphs">
+<meta name="keywords" content="SICStus Prolog: lib-wgraphs">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dxml.html#lib_002dxml" rel="next" title="lib-xml">
+<link href="lib_002dvarnumbers.html#lib_002dvarnumbers" rel="prev" title="lib-varnumbers">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dwgraphs"></a>
+<hr>
+<a name="Weighted-Graph-Operations_002d_002d_002dlibrary_0028wgraphs_0029"></a>
+<h3 class="section">10.46 Weighted Graph Operations&mdash;<code>library(wgraphs)</code></h3>
+<p>This library module provides operations on weighted directed graphs.
+A weighted directed graph (wgraph) is represented as a list of
+<var>(vertex-edgelist)</var> pairs, where the pairs are in standard order (as
+produced by <code>keysort/2</code> with unique keys), the edgelist is a list of
+<var>(neighbor-weight)</var> pair also in standard order (as produced by
+<code>keysort/2</code> with unique keys), every weight is a nonnegative integer,
+and every neighbor appears as a vertex even if it has no neighbors
+itself.
+</p>
+<p>An undirected graph is represented as a directed graph where for
+each edge <var>(U,V)</var> there is a symmetric edge <var>(V,U)</var>.
+</p>
+<p>An edge <var>(U,V)</var> is represented as the term <var>U-V</var>.
+</p>
+<p>A vertex can be any term.  Two vertices are distinct iff they are
+not identical (<code>==</code>).
+</p>
+<p>A path is represented as a list of vertices.  
+No vertex can appear twice in a path.
+</p>
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>vertices/2</code></dt>
+<dt><code>edges/2</code></dt>
+<dt><code>add_vertices/3</code></dt>
+<dt><code>neighbors/3</code></dt>
+<dt><code>neighbours/3</code></dt>
+<dd>
+<a name="index-vertices_002f2-_0028wgraphs_0029-1"></a>
+<a name="index-vertices_002f2-_0028wgraphs_0029"></a>
+
+
+<a name="index-edges_002f2-_0028wgraphs_0029-1"></a>
+<a name="index-edges_002f2-_0028wgraphs_0029"></a>
+
+
+<a name="index-add_005fvertices_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-add_005fvertices_002f3-_0028wgraphs_0029"></a>
+
+
+<a name="index-neighbors_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-neighbors_002f3-_0028wgraphs_0029"></a>
+
+
+<a name="index-neighbours_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-neighbours_002f3-_0028wgraphs_0029"></a>
+
+<p>Re-exported from <code>library(wgraphs)</code>.
+</p></dd>
+<dt><code>wgraph_to_ugraph(<var>+WeightedGraph</var>, <var>-Graph</var>)</code></dt>
+<dd>
+<a name="index-wgraph_005fto_005fugraph_002f2-_0028wgraphs_0029-1"></a>
+<a name="index-wgraph_005fto_005fugraph_002f2-_0028wgraphs_0029"></a>
+
+<p>is true if <var>Graph</var> has the same vertices and edges as <var>WeightedGraph</var>,
+except the edges of <var>Graph</var> are unweighted.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">wgraph_to_ugraph(WGraph, Graph) :-
+	(   foreach(V-WNeibs,WGraph),
+	    foreach(V-Neibs,Graph)
+	do  (   foreach(V1-_,WNeibs),
+		foreach(V1,Neibs)
+	    do  true
+	    )
+	).
+</pre></div>
+</dd>
+<dt><code>ugraph_to_wgraph(<var>+Graph</var>, <var>-WeightedGraph</var>)</code></dt>
+<dd>
+<a name="index-ugraph_005fto_005fwgraph_002f2-_0028wgraphs_0029-1"></a>
+<a name="index-ugraph_005fto_005fwgraph_002f2-_0028wgraphs_0029"></a>
+
+<p>is true if <var>WeightedGraph</var> has the same vertices and edges as <var>Graph</var>,
+except the edges of <var>WeightedGraph</var> all have weight 1.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">ugraph_to_wgraph(Graph, WGraph) :-
+	(   foreach(V-Neibs,Graph),
+	    foreach(V-WNeibs,WGraph)
+	do  (   foreach(V1,Neibs),
+	        foreach(V1-1,WNeibs)
+	    do  true
+	    )
+	).
+</pre></div>
+</dd>
+<dt><code>ugraph_to_wgraph(+SubGraph, +WeightedGraph, -WeightedSubGraph)</code></dt>
+<dd>
+<a name="index-ugraph_005fto_005fwgraph_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-ugraph_005fto_005fwgraph_002f3-_0028wgraphs_0029"></a>
+
+<p>is true if WeightedSubGraph has the same vertices and edges as SubGraph
+and the same weights as the corresponding edges in WeightedGraph.
+</p></dd>
+<dt><code>vertices_edges_to_wgraph(<var>+Vertices</var>, <var>+Edges</var>, <var>-WeightedGraph</var>)</code></dt>
+<dd>
+<a name="index-vertices_005fedges_005fto_005fwgraph_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-vertices_005fedges_005fto_005fwgraph_002f3-_0028wgraphs_0029"></a>
+
+<p>is true if <var>Vertices</var> is a proper list of vertices, <var>Edges</var> is a proper list of
+edges, and <var>WeightedGraph</var> is a graph built from <var>Vertices</var> and <var>Edges</var>.
+<var>Vertices</var> and <var>Edges</var> may be in any order.  The vertices mentioned in
+<var>Edges</var> do not have to occur explicitly in <var>Vertices</var>.  <var>Vertices</var> may
+be used to specify vertices that are not connected to any edges.
+</p></dd>
+<dt><code>del_vertices(<var>+WeightedGraph1</var>, <var>+Vertices</var>, <var>-WeightedGraph2</var>)</code></dt>
+<dd>
+<a name="index-del_005fvertices_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-del_005fvertices_002f3-_0028wgraphs_0029"></a>
+
+<p>is true if <var>WeightedGraph2</var> is <var>WeightedGraph1</var> with <var>Vertices</var> and all
+edges to and from <var>Vertices</var> removed from it.
+</p></dd>
+<dt><code>add_edges(<var>+WeightedGraph1</var>, <var>+Edges</var>, <var>-WeightedGraph2</var>)</code></dt>
+<dd>
+<a name="index-add_005fedges_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-add_005fedges_002f3-_0028wgraphs_0029"></a>
+
+<p>is true if <var>WeightedGraph2</var> is <var>WeightedGraph1</var> with <var>Edges</var> and their &quot;to&quot;
+and &quot;from&quot; vertices added to it.
+</p></dd>
+<dt><code>del_edges(<var>+WeightedGraph1</var>, <var>+Edges</var>, <var>-WeightedGraph2</var>)</code></dt>
+<dd>
+<a name="index-del_005fedges_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-del_005fedges_002f3-_0028wgraphs_0029"></a>
+
+<p>is true if <var>WeightedGraph2</var> is <var>WeightedGraph1</var> with <var>Edges</var> removed from it.
+</p></dd>
+<dt><code>transpose_wgraph(<var>+WeightedGraph</var>, <var>-Transpose</var>)</code></dt>
+<dd>
+<a name="index-transpose_005fwgraph_002f2-_0028wgraphs_0029-1"></a>
+<a name="index-transpose_005fwgraph_002f2-_0028wgraphs_0029"></a>
+
+<p>is true if <var>Transpose</var> is the graph computed by replacing each edge
+<var>(u,v)</var> in <var>WeightedGraph</var> by its symmetric edge <var>(v,u)</var>.  It can only
+be used one way around.  The cost is <var>O(N log N)</var>.
+</p></dd>
+<dt><code>transitive_closure(<var>+WeightedGraph</var>, <var>-Closure</var>)</code></dt>
+<dd>
+<a name="index-transitive_005fclosure_002f2-_0028wgraphs_0029-1"></a>
+<a name="index-transitive_005fclosure_002f2-_0028wgraphs_0029"></a>
+
+<p>computes Closure as the transitive closure of <var>WeightedGraph</var> in
+<var>O(N^3)</var> time.  Uses Floyd&rsquo;s algorithm and fragments of Barney
+Pell&rsquo;s code.
+</p></dd>
+<dt><code>symmetric_closure(<var>+WeightedGraph</var>, <var>-Closure</var>)</code></dt>
+<dd>
+<a name="index-symmetric_005fclosure_002f2-_0028wgraphs_0029-1"></a>
+<a name="index-symmetric_005fclosure_002f2-_0028wgraphs_0029"></a>
+
+<p>computes <var>Closure</var> as the symmetric closure of <var>WeightedGraph</var>, i.e.
+for each edge <var>(u,v)</var> in <var>WeightedGraph</var>, add its symmetric edge
+<var>(v,u)</var>.  Approx <var>O(N log N)</var> time.  This is useful for making a
+directed graph undirected.
+</p></dd>
+<dt><code>top_sort(<var>+Graph</var>, <var>-Sorted</var>)</code></dt>
+<dd>
+<a name="index-top_005fsort_002f2-_0028wgraphs_0029-1"></a>
+<a name="index-top_005fsort_002f2-_0028wgraphs_0029"></a>
+
+<p>finds a topological ordering of a <var>Graph</var> and returns the ordering
+as a list of <var>Sorted</var> vertices.  Fails iff no ordering exists, i.e.
+iff the graph contains cycles.  Takes <var>O(N log N)</var> time.
+</p></dd>
+<dt><code>max_path(<var>+V1</var>, <var>+V2</var>, <var>+WeightedGraph</var>, <var>-Path</var>, <var>-Cost</var>)</code></dt>
+<dd>
+<a name="index-max_005fpath_002f5-_0028wgraphs_0029-1"></a>
+<a name="index-max_005fpath_002f5-_0028wgraphs_0029"></a>
+
+<p>is true if <var>Path</var> is a list of vertices constituting a longest path
+of cost Cost from <var>V1</var> to <var>V2</var> in <var>WeightedGraph</var>, there being no cyclic
+paths from <var>V1</var> to <var>V2</var>.  Takes <var>O(N^2)</var> time.
+</p></dd>
+<dt><code>min_path(<var>+V1</var>, <var>+V2</var>, <var>+WeightedGraph</var>, <var>-Path</var>, <var>-Cost</var>)</code></dt>
+<dd>
+<a name="index-min_005fpath_002f5-_0028wgraphs_0029-1"></a>
+<a name="index-min_005fpath_002f5-_0028wgraphs_0029"></a>
+
+<p>is true if <var>Path</var> is a list of vertices constituting a shortest path
+with total cost <var>Cost</var> from <var>V1</var> to <var>V2</var> in <var>WeightedGraph</var>.  Takes <var>O(N^2)</var>
+time.
+</p></dd>
+<dt><code>min_paths(<var>+Vertex</var>, <var>+WeightedGraph</var>, <var>-Tree</var>)</code></dt>
+<dd>
+<a name="index-min_005fpaths_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-min_005fpaths_002f3-_0028wgraphs_0029"></a>
+
+<p>is true if <var>Tree</var> is a tree of all the shortest paths from <var>Vertex</var> to
+every other vertex in <var>WeightedGraph</var>.  This is the single-source
+shortest paths problem.  Using Dijkstra&rsquo;s algorithm.
+</p></dd>
+<dt><code>path(<var>+Vertex</var>, <var>+WeightedGraph</var>, <var>-Path</var>)</code></dt>
+<dd>
+<a name="index-path_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-path_002f3-_0028wgraphs_0029"></a>
+
+<p>is given a <var>WeightedGraph</var> and a <var>Vertex</var> of that <var>WeightedGraph</var>, and
+returns a maximal <var>Path</var> rooted at <var>Vertex</var>, enumerating more <var>Paths</var> on
+backtracking.
+</p></dd>
+<dt><code>reduce(<var>+WeightedGraph</var>, <var>-Reduced</var>)</code></dt>
+<dd>
+<a name="index-reduce_002f2-_0028wgraphs_0029-1"></a>
+<a name="index-reduce_002f2-_0028wgraphs_0029"></a>
+
+<p>is true if <var>Reduced</var> is the reduced graph for <var>WeightedGraph</var>. The
+vertices of the reduced graph are the strongly connected
+components of <var>WeightedGraph</var>.  There is an edge in <var>Reduced</var> from <var>u</var>
+to <var>v</var> iff there is an edge in <var>WeightedGraph</var> from one of the
+vertices in <var>u</var> to one of the vertices in <var>v</var>. A strongly connected
+component is a maximal set of vertices where each vertex has a
+path to every other vertex.
+Algorithm from &quot;Algorithms&quot; by Sedgewick, page 482, Tarjan&rsquo;s algorithm.
+</p></dd>
+<dt><code>reachable(<var>+Vertex</var>, <var>+WeightedGraph</var>, <var>-Reachable</var>)</code></dt>
+<dd>
+<a name="index-reachable_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-reachable_002f3-_0028wgraphs_0029"></a>
+
+<p>is given a <var>WeightedGraph</var> and a <var>Vertex</var> of that <var>WeightedGraph</var>, and
+returns the set of vertices that are <var>Reachable</var> from that <var>Vertex</var>.
+Takes <var>O(N^2)</var> time.
+</p></dd>
+<dt><code>random_wgraph(<var>+P</var>, <var>+N</var>, <var>+W</var>, <var>-WeightedGraph</var>)</code></dt>
+<dd>
+<a name="index-random_005fwgraph_002f4-_0028wgraphs_0029-1"></a>
+<a name="index-random_005fwgraph_002f4-_0028wgraphs_0029"></a>
+
+<p>where <var>P</var> is a probability, unifies <var>WeightedGraph</var> with a random
+graph with vertices <var>1..N</var> where each possible edge is included with
+probability <var>P</var> and random weight in <var>1..W</var>.
+</p></dd>
+<dt><code>min_tree(<var>+WeightedGraph</var>, <var>-Tree</var>, <var>-Cost</var>)</code></dt>
+<dd>
+<a name="index-min_005ftree_002f3-_0028wgraphs_0029-1"></a>
+<a name="index-min_005ftree_002f3-_0028wgraphs_0029"></a>
+
+<p>is true if <var>Tree</var> is a minimum-<var>Cost</var> spanning tree of an <em>undirected</em>
+<var>WeightedGraph</var> with cost <var>Cost</var>, if it exists.  Using Kruskal&rsquo;s
+algorithm.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dxml.html#lib_002dxml" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dvarnumbers.html#lib_002dvarnumbers" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dwgraphs.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dwgraphs.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

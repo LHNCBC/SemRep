@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-cat</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-cat">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-cat">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dref.html#mpg_002dref" rel="up" title="mpg-ref">
+<link href="mpg_002dref_002daty.html#mpg_002dref_002daty" rel="next" title="mpg-ref-aty">
+<link href="mpg_002dref_002dmod.html#mpg_002dref_002dmod" rel="prev" title="mpg-ref-mod">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dcat"></a>
+<hr>
+<a name="Predicate-Annotation"></a>
+<h4 class="subsection">11.1.3 Predicate Annotation</h4>
+
+
+<a name="index-predicates_002c-annotations"></a>
+
+<a name="index-built_002din-predicates_002c-annotations"></a>
+
+<p>This section describes the annotations of predicates and how they are
+indicated in the reference pages for predicates of each given
+annotation.  The annotations appear to the right of the title of the
+reference page.
+</p>
+<dl compact="compact">
+<dd><a name="index-hookable-_0028predicate-annotation_0029"></a>
+</dd>
+<dt><em>hookable</em></dt>
+<dd><p>The behavior of the
+predicate can be customized/redefined by defining one or more hooks.
+The mode and type annotations of a hookable predicate might not be absolute,
+since hooks added by the user can change the behavior.
+</p>
+<a name="index-hook-_0028predicate-annotation_0029"></a>
+</dd>
+<dt><em>hook</em></dt>
+<dd><p>The predicate is user defined, and is called by a
+<em>hookable</em> builtin. Most hooks must be defined in module <code>user</code>. For a
+hook, the mode and type annotations should be seen as guide-lines to
+the user who wants to add his own hook; they describe how the
+predicate is used by the system.
+</p>
+<a name="index-extendible-_0028predicate-annotation_0029"></a>
+</dd>
+<dt><em>extendible</em></dt>
+<dd><p>A multifile predicate, to which new clauses
+can be added by the user. For such a predicate, the mode and type
+annotations should be seen as guide-lines to the user who wants to
+extend the predicate; they describe how the predicate is used by the
+system.
+</p>
+<a name="index-declaration-_0028predicate-annotation_0029"></a>
+</dd>
+<dt><em>declaration</em></dt>
+<dd><p>You cannot call these directly but they can appear in
+files as &lsquo;<samp>:- <var>declaration</var></samp>&rsquo; and give information to the compiler.
+The goal template is preceded by &lsquo;<samp>:-</samp>&rsquo; in the <b>Synopsis</b>.
+</p>
+
+<a name="index-development-_0028predicate-annotation_0029"></a>
+</dd>
+<dt><em>development</em></dt>
+<dd><p>A predicate that is defined in the development system only, i.e. not
+in runtime systems.
+</p>
+<a name="index-ISO-_0028predicate-annotation_0029"></a>
+</dd>
+<dt><em>ISO</em></dt>
+<dd><p>A predicate that is part of the ISO Prolog Standard.
+</p>
+<a name="index-deprecated-_0028predicate-annotation_0029"></a>
+</dd>
+<dt><em>deprecated</em></dt>
+<dd><p>A predicate that is not recommended in new code and that
+could be withdrawn in a future release.
+</p></dd>
+</dl>
+
+
+<p><em>Meta-predicates</em> and <em>operators</em> are recognizable by the implicit
+conventions described below.
+</p>
+<ul>
+<li> <a name="index-meta_002dpredicates-_0028definition_0029"></a>
+<em>Meta-predicates</em> are predicates that need to assume some module.
+The reference pages of these predicates indicate which arguments are
+in a module expansion position by prefixing such arguments by &lsquo;<samp>:</samp>&rsquo;
+in the <b>Arguments</b> field.  That is, the argument can be preceded by
+a module prefix (an <em>atom</em> followed by a colon).  For example:
+<div class="example">
+<pre class="example">assert(mod:a(1), Ref)
+</pre></div>
+<p>If no module prefix is supplied, then it will implicitly be set to the
+calling module.  If the module prefix is a variable, then an instantiation
+error will be raised.  If it is not an atom, then a type error will be
+raised.  So in any meta-predicate reference page the following
+exceptions are implicit:
+</p>
+<a name="index-module-name-expansion_002c-exceptions"></a>
+
+<a name="index-exceptions_002c-module-name-expansion"></a>
+
+
+<a name="Exceptions-15"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p>A module prefix is written as a variable.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p>A module prefix is not an atom.
+</p></dd>
+</dl>
+
+</li><li> Whenever the name of a built-in predicate is defined
+as <em>operator</em>, the name is presented in the <b>Synopsis</b> as an
+operator, for example
+<div class="example">
+<pre class="example"><code>:- initialization</code> <var>+Goal</var>                  <!-- /@w --> (A)
+<var>+Term1</var> <code>@&gt;</code> <var>+Term2</var>              <!-- /@w --> (B)
+</pre></div>
+
+<a name="index-operators_002c-reference-page-convention"></a>
+
+
+<p>It is thus always possible to see if a name is an
+operator or not. The predicate can, of course, be written using the
+canonical representation, even when the name is an operator.  Thus (A)
+and (B) can be written as (C) and (D), respectively:
+</p><div class="example">
+<pre class="example"><code>:- initialization(<var>+Goal</var>)</code>                  <!-- /@w --> (C)
+<code>@&gt;</code><var>(+Term1,  +Term2)</var>                <!-- /@w --> (D)
+</pre></div>
+
+</li></ul>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002daty.html#mpg_002dref_002daty" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dmod.html#mpg_002dref_002dmod" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dref.html#mpg_002dref" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcat.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcat.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

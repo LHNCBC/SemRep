@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Outline of This Tutorial</title>
+
+<meta name="description" content="SICStus Prolog: Outline of This Tutorial">
+<meta name="keywords" content="SICStus Prolog: Outline of This Tutorial">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Introduction-_0028Tcl_0029.html#Introduction-_0028Tcl_0029" rel="up" title="Introduction (Tcl)">
+<link href="Tcl.html#Tcl" rel="next" title="Tcl">
+<link href="A-Quick-Example-of-Tcl_002fTk-in-Action.html#A-Quick-Example-of-Tcl_002fTk-in-Action" rel="prev" title="A Quick Example of Tcl/Tk in Action">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Outline-of-This-Tutorial"></a>
+<hr>
+<a name="Outline-of-This-Tutorial-1"></a>
+<h4 class="subsubsection">10.39.1.5 Outline of This Tutorial</h4>
+
+<p>Now we have motivated using Tcl/Tk as a means of creating GUIs for
+Prolog programs, this document goes into the details of using
+Tcl/Tk as a means of building GUIs for SICStus Prolog applications.
+</p>
+<p>Firstly, Tcl is introduced and its syntax and core commands
+described.  Then the Tk extensions to Tcl are introduced. We show how
+with Tcl and Tk together the user can build sophisticated GUIs easily
+and quickly.  At the end of this Tcl/Tk part of the tutorial an example
+of a pure Tcl/Tk program will be presented together with some tips
+on how to design and code Tcl/Tk GUIs.
+</p>
+<p>The second phase of this document describes the SICStus Prolog
+<code>tcltk</code> library. It provides extensions to Prolog
+that allow Prolog applications to interact with Tcl/Tk:
+Prolog can make calls to Tcl/Tk code and vice versa.
+</p>
+<p>Having reached this point in the tutorial the user will know how to
+write a Tcl/Tk GUI interface and how to get a Prolog program to
+interact with it, but arranging which process (the Prolog process or the
+Tcl/Tk process) is the dominant partner is non-trivial and so is
+described in a separate chapter on event handling. This will help the
+user choose the most appropriate method of cooperation between Tcl/Tk
+and Prolog to suit their particular application.
+</p>
+<p>This section, the Tcl/Tk+Prolog section, will be rounded off with
+the presentation of some example applications that make use of Tcl/Tk
+and Prolog.
+</p>
+<p>Then there is a short discussion section on how to use other Tcl
+extension packages with Tcl/Tk and Prolog. Many such extension packages
+have been written and when added to Prolog enhanced with Tcl/Tk can
+offer further functionality to a Prolog application.
+</p>
+<p>The appendices provide a full listing with description of the
+predicates available in the <code>tcltk</code> SICStus Prolog library,
+and the extensions made to Tcl/Tk for interacting with Prolog.
+</p>
+<p>Lastly, a section on resources gives pointers to where the reader can
+find more information on Tcl/Tk.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="A-Quick-Example-of-Tcl_002fTk-in-Action.html#A-Quick-Example-of-Tcl_002fTk-in-Action" accesskey="p" rel="prev">Previous</a>
+<li><a href="Introduction-_0028Tcl_0029.html#Introduction-_0028Tcl_0029" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Outline-of-This-Tutorial.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Outline-of-This-Tutorial.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

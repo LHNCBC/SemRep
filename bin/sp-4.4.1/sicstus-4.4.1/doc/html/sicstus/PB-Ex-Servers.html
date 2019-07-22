@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: PB Ex Servers</title>
+
+<meta name="description" content="SICStus Prolog: PB Ex Servers">
+<meta name="keywords" content="SICStus Prolog: PB Ex Servers">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="PB-Java-Examples.html#PB-Java-Examples" rel="up" title="PB Java Examples">
+<link href="PB-Ex-Tomcat.html#PB-Ex-Tomcat" rel="next" title="PB Ex Tomcat">
+<link href="PB-Ex-Embedding.html#PB-Ex-Embedding" rel="prev" title="PB Ex Embedding">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="PB-Ex-Servers"></a>
+<hr>
+<a name="Application-Servers"></a>
+<h4 class="subsubsection">10.29.6.2 Application Servers</h4>
+<p>If you want to get your Prolog application to be accessible from an intranet
+or the Internet, then you can use this package to embed the Prolog programs
+into a Java application server such as Tomcat, WebSphere, etc.
+</p>
+<p>An example of how to do this is provided in <samp>pbexamples(sessionsum)</samp>.
+This example uses sessions to keep track of users so that the application
+can hold a state for a user session (as in the example below, remember the sum
+of all expressions evaluated in the session).
+</p>
+<div class="example">
+<pre class="example">&lt;%@ page import = &quot;se.sics.prologbeans.*&quot; %&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Sum Calculator&lt;/title&gt;&lt;/head&gt;
+&lt;body bgcolor=&quot;white&quot;&gt;
+&lt;font size=4&gt;Prolog Sum Calculator, enter expression to evaluate:
+&lt;form&gt;&lt;input type=text name=query&gt;&lt;/form&gt;
+&lt;%
+   PrologSession pSession =
+   PrologSession.getPrologSession(&quot;prolog/PrologSession&quot;, session);
+   pSession.connect();
+
+   String evQuery = request.getParameter(&quot;query&quot;);
+   String output = &quot;&quot;;
+   if (evQuery != null) {
+     Bindings bindings = new Bindings().bind(&quot;E&quot;,evQuery + '.');
+     QueryAnswer answer =
+        pSession.executeQuery(&quot;sum(E,Sum,Average,Count)&quot;, bindings);
+     PBTerm average = answer.getValue(&quot;Average&quot;);
+     if (average != null) {
+        PBTerm sum = answer.getValue(&quot;Sum&quot;);
+        PBTerm count = answer.getValue(&quot;Count&quot;);
+
+        output = &quot;&lt;h4&gt;Average =&quot; + average + &quot;, Sum = &quot;
+        + sum + &quot; Count = &quot; + count + &quot;&lt;/h4&gt;&quot;;
+     } else {
+        output = &quot;&lt;h4&gt;Error: &quot; + answer.getError() + &quot;&lt;/h4&gt;&quot;;
+     }
+  }
+%&gt;
+&lt;%= output  %&gt;&lt;br&gt;&lt;/font&gt;
+&lt;p&gt;&lt;hr&gt;Powered by SICStus Prolog
+&lt;/body&gt;&lt;/html&gt;
+</pre></div>
+
+<p>The example shows the code of a JSP (Java Server Page). It makes use
+of the method <code>PrologSession.getPrologSession(String jndiName,
+HTTPSession session)</code>, which uses JNDI to look up a registered
+<code>PrologSession</code>, which is connected to the Prolog server. The
+variable <var>session</var> is in a JSP bound to the current
+<code>HTTPSession</code>, and the variable <var>request</var> is bound to the
+current <code>HTTPRequest</code>.  Since the <code>HTTPSession</code> object
+<code>session</code> is specified all queries to the Prolog server will
+contain a session id. The rest of the example shows how to send a
+query and output the answer.
+</p>
+<p>Example usage of sessions (from the <samp>sessionsum</samp> example) is shown
+below, and is from <samp>pbexamples('sessionsum/sessionsum.pl')</samp>:
+</p>
+<div class="example">
+<pre class="example">:- module(sessionsum,[main/0,sum/5]).
+:- use_module(library(prologbeans)).
+:- use_module(library(codesio), [read_from_codes/2]).
+
+%% Register the acceptable queries (session based)
+main:-
+    register_query(sum(C,Sum,Average,Count),
+                   sum(C,Session,Sum,Average,Count),
+                   Session),
+    start.
+
+%% The sum predicate which gets the information from a session database,
+%% makes some updates and then stores it back in to the session store
+%% (and returns the information back to the application server)
+sum(ExprChars, Session, Sum, Average, Count) :-
+    session_get(Session, sum, 0, OldSum),
+    session_get(Session, count, 0, OldCount),
+    read_from_codes(ExprChars, Expr),
+    Val is Expr,
+    Sum is OldSum + Val,
+    Count is OldCount + 1,
+    Average is Sum / Count,
+    session_put(Session, sum, Sum),
+    session_put(Session, count, Count).
+</pre></div>
+
+<p>In this example a query <code>sum/4</code> is registered to call
+<code>sum/5</code> where one of the variables, <var>Session</var> will
+be bound to the session id associated to the query. The <code>sum/5</code>
+predicate uses the <code>session_get/4</code> predicate to access stored
+information about the particular session, and then it performs the
+evaluation of the expression. Finally, it updates and stores the values
+for this session.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="PB-Ex-Tomcat.html#PB-Ex-Tomcat" accesskey="n" rel="next">Next</a>
+<li><a href="PB-Ex-Embedding.html#PB-Ex-Embedding" accesskey="p" rel="prev">Previous</a>
+<li><a href="PB-Java-Examples.html#PB-Java-Examples" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-Ex-Servers.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-Ex-Servers.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

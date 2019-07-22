@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPQR Numerical Precision</title>
+
+<meta name="description" content="SICStus Prolog: CLPQR Numerical Precision">
+<meta name="keywords" content="SICStus Prolog: CLPQR Numerical Precision">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dclpqr.html#lib_002dclpqr" rel="up" title="lib-clpqr">
+<link href="CLPQR-Projection.html#CLPQR-Projection" rel="next" title="CLPQR Projection">
+<link href="CLPQR-Isolation-Axioms.html#CLPQR-Isolation-Axioms" rel="prev" title="CLPQR Isolation Axioms">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPQR-Numerical-Precision"></a>
+<hr>
+<a name="Numerical-Precision-and-Rationals"></a>
+<h4 class="subsection">10.11.4 Numerical Precision and Rationals</h4>
+<p>The fact that you can switch between clp(R) and clp(Q) should solve most
+of your numerical problems regarding precision.  Within clp(Q), floating
+point constants will be coerced into rational numbers
+automatically. Transcendental functions will be approximated with
+rationals.  The precision of the approximation is limited by the
+floating point precision.  These two provisions allow you to switch
+between clp(R) and clp(Q) without having to change your programs.
+</p>
+<p>What is to be kept in mind
+however is the fact that it may take quite big rationals to accommodate
+the required precision. High levels of precision are for example required
+if your linear program is ill-conditioned, i.e. in a full rank system
+the determinant of the coefficient matrix is close to zero.
+Another situation that may call for elevated levels of precision is
+when a linear optimization problem requires exceedingly many pivot steps
+before the optimum is reached.
+</p>
+<p>If your application approximates irrational
+numbers, then you may be out of space particularly soon.
+The following program implements <var>N</var> steps of Newton&rsquo;s
+approximation for the square root function at point 2.
+</p><div class="example">
+<pre class="example"><em>% library('clpqr/examples/root')</em>
+</pre><pre class="example">root(N, R) :-
+  root(N, 1, R).
+
+root(0, S, R) :- !, S=R.
+root(N, S, R) :-
+  N1 is N-1,
+  { S1 = S/2 + 1/S },
+  root(N1, S1, R).
+</pre></div>
+<p>It is known that this approximation converges quadratically, which
+means that the number of correct digits in the decimal expansion
+roughly doubles with each iteration. Therefore the numerator and 
+denominator of the rational approximation have to grow likewise:
+</p><div class="example">
+<pre class="example">clp(q) ?- <kbd>[library('clpqr/examples/root')].</kbd>
+clp(q) ?- <kbd>root(3,R),print_decimal(R,70).</kbd>
+1.4142156862 7450980392 1568627450 9803921568 6274509803 9215686274
+5098039215
+
+R = 577/408
+
+clp(q) ?- <kbd>root(4,R),print_decimal(R,70).</kbd>
+1.4142135623 7468991062 6295578890 1349101165 5962211574 4044584905
+0192000543
+
+R = 665857/470832
+
+clp(q) ?- <kbd>root(5,R),print_decimal(R,70).</kbd>
+1.4142135623 7309504880 1689623502 5302436149 8192577619 7428498289
+4986231958
+
+R = 886731088897/627013566048
+
+clp(q) ?- <kbd>root(6,R),print_decimal(R,70).</kbd>
+1.4142135623 7309504880 1688724209 6980785696 7187537723 4001561013
+1331132652
+
+R = 1572584048032918633353217/1111984844349868137938112
+
+clp(q) ?- <kbd>root(7,R),print_decimal(R,70).</kbd>
+1.4142135623 7309504880 1688724209 6980785696 7187537694 8073176679
+7379907324
+
+R = 4946041176255201878775086487573351061418968498177 /
+    3497379255757941172020851852070562919437964212608
+</pre></div>
+<p>Iterating for 8 steps produces no further change in the first 70 decimal digits
+of <code>sqrt(2)</code>. After 15 steps the approximating rational number has a
+numerator and a denominator with 12543 digits each, and the next step runs
+out of memory.
+</p>
+<p>Another irrational number that is easily computed is <var>e</var>.  The
+following program implements an alternating series for <code>1/e</code>,
+where the absolute value of last term is an upper bound on the
+error.
+</p><div class="example">
+<pre class="example"><em>% library('clpqr/examples/root')</em>
+</pre><pre class="example">e(N, E) :-
+  { Err =:= exp(10,-(N+2)), Half =:= 1/2 },
+  inv_e_series(Half, Half, 3, Err, Inv_E),
+  { E =:= 1/Inv_E }.
+
+inv_e_series(Term, S0, _, Err, Sum) :- 
+  { abs(Term) =&lt; Err }, !, 
+  S0 = Sum.
+inv_e_series(Term, S0, N, Err, Sum) :-
+  N1 is N+1,
+  { Term1 =:= -Term/N, S1 =:= Term1+S0 },
+  inv_e_series(Term1, S1, N1, Err, Sum).
+</pre></div>
+<p>The computation of the rational number <var>E</var> that approximates <var>e</var>
+up to at least 1000 digits in its decimal expansion requires the
+evaluation of 450 terms of the series, i.e. 450 calls of
+<code>inv_e_series/5</code>.
+</p><div class="example">
+<pre class="example">clp(q) ?- <kbd>e(1000,E).</kbd>
+
+E = 7149056228932760213666809592072842334290744221392610955845565494
+    3708750229467761730471738895197792271346693089326102132000338192
+    0131874187833985420922688804220167840319199699494193852403223700
+    5853832741544191628747052136402176941963825543565900589161585723
+    4023097417605004829991929283045372355639145644588174733401360176
+    9953973706537274133283614740902771561159913069917833820285608440
+    3104966899999651928637634656418969027076699082888742481392304807
+    9484725489080844360397606199771786024695620205344042765860581379
+    3538290451208322129898069978107971226873160872046731879753034549
+    3130492167474809196348846916421782850086985668680640425192038155
+    4902863298351349469211627292865440876581064873866786120098602898
+    8799130098877372097360065934827751120659213470528793143805903554
+    7928682131082164366007016698761961066948371407368962539467994627
+    1374858249110795976398595034606994740186040425117101588480000000
+    0000000000000000000000000000000000000000000000000000000000000000
+    00000000000000000000000000000000000000
+    /
+    2629990810403002651095959155503002285441272170673105334466808931
+    6863103901346024240326549035084528682487048064823380723787110941
+    6809235187356318780972302796570251102928552003708556939314795678
+    1978390674393498540663747334079841518303636625888963910391440709
+    0887345797303470959207883316838346973393937778363411195624313553
+    8835644822353659840936818391050630360633734935381528275392050975
+    7271468992840907541350345459011192466892177866882264242860412188
+    0652112744642450404625763019639086944558899249788084559753723892
+    1643188991444945360726899532023542969572584363761073528841147012
+    2634218045463494055807073778490814692996517359952229262198396182
+    1838930043528583109973872348193806830382584040536394640895148751
+    0766256738740729894909630785260101721285704616818889741995949666
+    6303289703199393801976334974240815397920213059799071915067856758
+    6716458821062645562512745336709063396510021681900076680696945309
+    3660590933279867736747926648678738515702777431353845466199680991
+    73361873421152165477774911660108200059
+</pre></div>
+
+<p>The decimal expansion itself looks like this:
+</p><div class="example">
+<pre class="example">clp(q) ?- <kbd>e(1000, E), print_decimal(E, 1000).</kbd>
+2. 
+7182818284 5904523536 0287471352 6624977572 4709369995 9574966967
+6277240766 3035354759 4571382178 5251664274 2746639193 2003059921
+8174135966 2904357290 0334295260 5956307381 3232862794 3490763233
+8298807531 9525101901 1573834187 9307021540 8914993488 4167509244
+7614606680 8226480016 8477411853 7423454424 3710753907 7744992069
+5517027618 3860626133 1384583000 7520449338 2656029760 6737113200
+7093287091 2744374704 7230696977 2093101416 9283681902 5515108657
+4637721112 5238978442 5056953696 7707854499 6996794686 4454905987
+9316368892 3009879312 7736178215 4249992295 7635148220 8269895193
+6680331825 2886939849 6465105820 9392398294 8879332036 2509443117
+3012381970 6841614039 7019837679 3206832823 7646480429 5311802328
+7825098194 5581530175 6717361332 0698112509 9618188159 3041690351
+5988885193 4580727386 6738589422 8792284998 9208680582 5749279610
+4841984443 6346324496 8487560233 6248270419 7862320900 2160990235
+3043699418 4914631409 3431738143 6405462531 5209618369 0888707016
+7683964243 7814059271 4563549061 3031072085 1038375051 0115747704
+1718986106 8739696552 1267154688 9570350354
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPQR-Projection.html#CLPQR-Projection" accesskey="n" rel="next">Next</a>
+<li><a href="CLPQR-Linearity.html#CLPQR-Linearity" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dclpqr.html#lib_002dclpqr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Numerical-Precision.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Numerical-Precision.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

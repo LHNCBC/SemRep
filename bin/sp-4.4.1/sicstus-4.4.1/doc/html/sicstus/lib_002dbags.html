@@ -1,0 +1,418 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-bags</title>
+
+<meta name="description" content="SICStus Prolog: lib-bags">
+<meta name="keywords" content="SICStus Prolog: lib-bags">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dbdb.html#lib_002dbdb" rel="next" title="lib-bdb">
+<link href="lib_002davl.html#lib_002davl" rel="prev" title="lib-avl">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dbags"></a>
+<hr>
+<a name="Bags_002c-or-Multisets_002d_002d_002dlibrary_0028bags_0029"></a>
+<h3 class="section">10.5 Bags, or Multisets&mdash;<code>library(bags)</code></h3>
+<a name="index-bag"></a>
+<a name="index-multiset"></a>
+
+<p>This library module provides operations on bags.
+Bags are also known as multisets.
+A bag <var>B</var> is a function from a set <code>dom(<var>B</var>)</code> to the non-negative integers.
+For the purposes of this module, a bag is constructed from two functions:
+</p>
+<dl compact="compact">
+<dt><code>bag</code></dt>
+<dd><p>creates an empty bag
+</p></dd>
+<dt><code>bag(<var>E</var>,<var>M</var>,<var>B</var>)</code></dt>
+<dd><p>extends the bag <var>B</var> with a <em>new</em> element <var>E</var> which occurs
+with multiplicity <var>M</var>, and which precedes all elements of <var>B</var>
+in Prolog&rsquo;s order.
+</p></dd>
+</dl>
+
+<p>A bag is represented by a Prolog term mirroring its construction.  There
+is one snag with this: what are we to make of
+</p><div class="example">
+<pre class="example">    bag(f(a,Y), 1, bag(f(X,b), 1, bag))     ?
+</pre></div>
+<p>As a term it has two distinct elements, but <code>f(a,b)</code> will be reported as
+occurring in it twice.  But according to the definition above,
+</p><div class="example">
+<pre class="example">    bag(f(a,b), 1, bag(f(a,b), 1, bag))
+</pre></div>
+<p>is not the representation of any bag, that bag is represented by
+</p><div class="example">
+<pre class="example">    bag(f(a,b), 2, bag)
+</pre></div>
+<p>alone.  We are apparently stuck with a scheme which is only guaranteed
+to work for &quot;sufficiently instantiated&quot; terms, but then, that&rsquo;s true of 
+a lot of Prolog code.
+</p>
+<p>The reason for insisting on the order is to make union and 
+intersection linear in the sizes of their arguments.
+<code>library(ordsets)</code> does the same for ordinary sets.
+</p>
+
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>is_bag(<var>+Bag</var>)</code></dt>
+<dd>
+<a name="index-is_005fbag_002f1-_0028bags_0029-1"></a>
+<a name="index-is_005fbag_002f1-_0028bags_0029"></a>
+
+<p>recognises proper well-formed bags.  You can pass variables to <code>is_bag/1</code>,
+and it will reject them. </p></dd>
+<dt><code>portray_bag(<var>+Bag</var>)</code></dt>
+<dd>
+<a name="index-portray_005fbag_002f1-_0028bags_0029-1"></a>
+<a name="index-portray_005fbag_002f1-_0028bags_0029"></a>
+
+<p>writes a bag to the current output stream in a pretty form so that
+you can easily see what it is.  Note that a bag written out this
+way can <em>not</em> be read back in.  For that, use <code>write_canonical/1</code>.
+The point of this predicate is to have bags displayed nicely by print/1 and the debugger.
+This will print things which are not fully instantiated, which is
+mainly of interest for debugging this module.
+</p></dd>
+<dt><code>checkbag(<var>:Pred</var>, <var>+Bag</var>)</code></dt>
+<dd>
+<a name="index-checkbag_002f2-_0028bags_0029-1"></a>
+<a name="index-checkbag_002f2-_0028bags_0029"></a>
+
+<p>is true when <var>Bag</var> is a <var>Bag{E1:M1, ..., En:Mn}</var> with elements <var>Ei</var>
+of multiplicity <var>Mi</var>, and <var>Pred(Ei, Mi)</var> is true for each <var>i</var>.
+</p></dd>
+<dt><code>mapbag(<var>:Pred</var>, <var>+Bag</var>)</code></dt>
+<dd>
+<a name="index-mapbag_002f2-_0028bags_0029-1"></a>
+<a name="index-mapbag_002f2-_0028bags_0029"></a>
+
+<p>is true when <var>Bag</var> is a <var>Bag{E1:M1, ..., En:Mn}</var> with elements <var>Ei</var>
+of multiplicity <var>Mi</var>, and <var>Pred(Ei)</var> is true for each element <var>Ei</var>.
+The multiplicities are ignored:  if you don&rsquo;t want this, use <code>checkbag/2</code>.
+</p></dd>
+<dt><code>mapbag(<var>:Pred</var>, <var>+OldBag</var>, <var>-NewBag</var>)</code></dt>
+<dd>
+<a name="index-mapbag_002f3-_0028bags_0029-1"></a>
+<a name="index-mapbag_002f3-_0028bags_0029"></a>
+
+<p>is true when <var>OldBag</var> is a <var>Bag{E1:M1, ..., En:Mn}</var> and <var>NewBag</var> is a
+<var>Bag{F1:M&rsquo;1, ..., Fn:M&rsquo;n}</var> and the elements of <var>OldBag</var> and <var>NewBag</var>
+are related by <var>Pred(Ei, Fj)</var>.  What happens is that the elements
+of <var>OldBag</var> are mapped, and then the result is converted to a bag,
+so there is no positional correspondence between <var>Ei</var> and <var>Fj</var>.
+Even when <var>Pred</var> is bidirectional, <code>mapbag/3</code> is <em>not</em>.  <var>OldBag</var> should
+satisfy <code>is_bag/1</code> before <code>mapbag/3</code> is called.
+</p></dd>
+<dt><code>somebag(<var>:Pred</var>, <var>+Bag</var>)</code></dt>
+<dd>
+<a name="index-somebag_002f2-_0028bags_0029-1"></a>
+<a name="index-somebag_002f2-_0028bags_0029"></a>
+
+<p>is true when <var>Bag</var> is a <var>Bag{E1:M1, ..., En:Mn}</var> with elements <var>Ei</var> of
+multiplicity <var>Mi</var> and <var>Pred(Ei, Mi)</var> is true of some element <var>Ei</var> and
+its multiplicity.  There is no version which ignores the <var>Mi</var>.
+</p></dd>
+<dt><code>somechkbag(<var>:Pred</var>, <var>+Bag</var>)</code></dt>
+<dd>
+<a name="index-somechkbag_002f2-_0028bags_0029-1"></a>
+<a name="index-somechkbag_002f2-_0028bags_0029"></a>
+
+<p>is like <code>somebag(<var>Pred</var>, <var>Bag</var>)</code>, but commits to the first solution it
+finds.  For example, if <code>p(X,X,_)</code>, <code>somechk(p(X), <var>Bag</var>)</code> would be an
+analogue of <code>memberchk/2</code> for bags.
+</p></dd>
+<dt><code>bag_to_list(<var>+Bag</var>, <var>-List</var>)</code></dt>
+<dd>
+<a name="index-bag_005fto_005flist_002f2-_0028bags_0029-1"></a>
+<a name="index-bag_005fto_005flist_002f2-_0028bags_0029"></a>
+
+<p>converts a <var>Bag{E1:M1, ..., En:Mn}</var> to a list where each element
+appears as many times as its multiplicity requires.  For example,
+<code>Bag{a:1, b:3, c:2}</code> would be converted to <code>[a,b,b,b,c,c]</code>.
+</p></dd>
+<dt><code>bag_to_ord_set(<var>+Bag</var>, <var>-Ordset</var>)</code></dt>
+<dd>
+<a name="index-bag_005fto_005ford_005fset_002f2-_0028bags_0029-1"></a>
+<a name="index-bag_005fto_005ford_005fset_002f2-_0028bags_0029"></a>
+
+<p>converts a <var>Bag{E1:M1, ..., En:Mn}</var> to a list where each element
+appears once without its multiplicity.  The result is always an
+ordered (representation of a) set, suitable for processing by
+<code>library(ordsets)</code>.  See also <code>bag_to_list/2</code>.
+</p></dd>
+<dt><code>bag_to_ord_set(<var>+Bag</var>, <var>+Threshold</var>, <var>-Ordset</var>)</code></dt>
+<dd>
+<a name="index-bag_005fto_005ford_005fset_002f3-_0028bags_0029-1"></a>
+<a name="index-bag_005fto_005ford_005fset_002f3-_0028bags_0029"></a>
+
+<p>given a <var>Bag{E1:M1, ..., En:Mn}</var> returns a list in standard order of
+the set of elements <var>{Ei | Mi &gt;= Threshold}</var>.  The result is an Ordset.
+</p></dd>
+<dt><code>list_to_bag(<var>+List</var>, <var>-Bag</var>)</code></dt>
+<dd>
+<a name="index-list_005fto_005fbag_002f2-_0028bags_0029-1"></a>
+<a name="index-list_005fto_005fbag_002f2-_0028bags_0029"></a>
+
+<p>converts a proper list <var>List</var> to a <var>Bag</var> representing the same multi-set.
+Each element of the List appears once in the <var>Bag</var> together
+with the number of times it appears in the <var>List</var>.
+</p></dd>
+<dt><code>bag_to_set(<var>+Bag</var>, <var>-Set</var>)</code></dt>
+<dd>
+<a name="index-bag_005fto_005fset_002f2-_0028bags_0029-1"></a>
+<a name="index-bag_005fto_005fset_002f2-_0028bags_0029"></a>
+
+<p>converts a <var>Bag{E1:M1, ..., En:Mn}</var> to a list which represents the
+<var>Set</var> <var>{E1, ..., En}</var>.  The order of elements in the result is not
+defined:  for a version where the order is defined use <code>bag_to_ord_set/2</code>.
+</p></dd>
+<dt><code>bag_to_set(<var>+Bag</var>, <var>+Threshold</var>, <var>-Set</var>)</code></dt>
+<dd>
+<a name="index-bag_005fto_005fset_002f3-_0028bags_0029-1"></a>
+<a name="index-bag_005fto_005fset_002f3-_0028bags_0029"></a>
+
+<p>given a <var>Bag{E1:M1, ..., En:Mn}</var> returns a list which represents the
+<var>Set</var> of elements <var>{Ei | Mi &gt;= Threshold}</var>.  Because the <var>Bag</var> is sorted,
+the result is necessarily an ordered set.
+</p></dd>
+<dt><code>empty_bag(<var>?Bag</var>)</code></dt>
+<dd>
+<a name="index-empty_005fbag_002f1-_0028bags_0029-1"></a>
+<a name="index-empty_005fbag_002f1-_0028bags_0029"></a>
+
+<p>is true when <var>Bag</var> is the representation of an empty bag.  It can be
+used both to make and to recognise empty bags.
+</p></dd>
+<dt><code>member(<var>?Element</var>, <var>?Multiplicity</var>, <var>+Bag</var>)</code></dt>
+<dd>
+<a name="index-member_002f3-_0028bags_0029-1"></a>
+<a name="index-member_002f3-_0028bags_0029"></a>
+
+<p>is true when <var>Element</var> appears in the multi-set represented by <var>Bag</var>
+with the indicated <var>Multiplicity</var>.  <var>Bag</var> should be instantiated,
+but <var>Element</var> and <var>Multiplicity</var> may severally be given or solved for.
+</p></dd>
+<dt><code>memberchk(<var>+Element</var>, <var>?Multiplicity</var>, <var>+Bag</var>)</code></dt>
+<dd>
+<a name="index-memberchk_002f3-_0028bags_0029-1"></a>
+<a name="index-memberchk_002f3-_0028bags_0029"></a>
+
+<p>is true when <var>Element</var> appears in the multi-set represented by <var>Bag</var>,
+with the indicated <var>Multiplicity</var>.  It should only be used to check
+whether a given element occurs in the <var>Bag</var>, or whether there is an
+element with the given <var>Multiplicity</var>.  Note that guessing the
+multiplicity and getting it wrong may force the wrong choice of
+clause, but the result will be correct if <code>is_bag(<var>Bag</var>)</code>.
+</p></dd>
+<dt><code>bag_max(<var>+Bag</var>, <var>-CommonestElement</var>)</code></dt>
+<dd>
+<a name="index-bag_005fmax_002f2-_0028bags_0029-1"></a>
+<a name="index-bag_005fmax_002f2-_0028bags_0029"></a>
+
+<p>unifies <var>CommonestElement</var> with the element of <var>Bag</var> which occurs
+most often, picking the leftmost element if several have this
+multiplicity.  To find the multiplicity as well, use <code>bag_max/3</code>.
+<code>bag_max/2</code> and <code>bag_min/2</code> break ties the same way.
+</p></dd>
+<dt><code>bag_min(<var>+Bag</var>, <var>-RarestElement</var>)</code></dt>
+<dd>
+<a name="index-bag_005fmin_002f2-_0028bags_0029-2"></a>
+<a name="index-bag_005fmin_002f2-_0028bags_0029"></a>
+
+<p>unifies <var>RarestElement</var> with the element of <var>Bag</var> which occurs
+least often, picking the leftmost element if several have this
+multiplicity.  To find the multiplicity as well, use <code>bag_min/3</code>.
+<code>bag_max/2</code> and <code>bag_min/2</code> break ties the same way, so
+</p><div class="example">
+<pre class="example">    bag_max(Bag, Elt), bag_min(Bag, Elt)
+</pre></div>
+<p>is true only when all the elements of <var>Bag</var> have the same multiplicity.
+</p></dd>
+<dt><code>bag_max(<var>+Bag</var>, <var>-CommonestElement</var>, <var>-Multiplicity</var>)</code></dt>
+<dd>
+<a name="index-bag_005fmax_002f3-_0028bags_0029-1"></a>
+<a name="index-bag_005fmax_002f3-_0028bags_0029"></a>
+
+<p>unifies <var>CommonestElement</var> with the element of <var>Bag</var> which occurs
+most often, and <var>Multiplicity</var> with the multiplicity of that element.
+If there are several elements with the same greatest multiplicity,
+the left-most is returned.  <code>bag_min/3</code> breaks ties the same way.
+</p></dd>
+<dt><code>bag_min(<var>+Bag</var>, <var>-RarestElement</var>)</code></dt>
+<dd>
+<a name="index-bag_005fmin_002f2-_0028bags_0029-3"></a>
+<a name="index-bag_005fmin_002f2-_0028bags_0029-1"></a>
+
+<p>unifies <var>RarestElement</var> with the element of <var>Bag</var> which occurs
+least often, and <var>Multiplicity</var> with the multiplicity of that element.
+If there are several elements with the same least multiplicity,
+the left-most is returned.  <code>bag_max/3</code> breaks ties the same way, so
+</p><div class="example">
+<pre class="example">    bag_max(Bag, Elt, Mult), bag_min(Bag, Elt, Mult)
+</pre></div>
+<p>is true only when all the elements of <var>Bag</var> have multiplicity <var>Mult</var>.
+</p></dd>
+<dt><code>length(<var>+Bag</var>, <var>-BagCardinality</var>, <var>-SetCardinality</var>)</code></dt>
+<dd>
+<a name="index-length_002f3-_0028bags_0029-1"></a>
+<a name="index-length_002f3-_0028bags_0029"></a>
+
+<p>unifies <var>BagCardinality</var> with the total cardinality of the multi-set
+<var>Bag</var> (the sum of the multiplicities of its elements) and
+<var>SetCardinality</var> with the number of distinct elements.
+</p></dd>
+<dt><code>make_sub_bag(<var>+Bag</var>, <var>-SubBag</var>)</code></dt>
+<dd>
+<a name="index-make_005fsub_005fbag_002f2-_0028bags_0029-1"></a>
+<a name="index-make_005fsub_005fbag_002f2-_0028bags_0029"></a>
+
+<p>enumerates the sub-bags of <var>Bag</var>, unifying <var>SubBag</var> with each of them in
+turn.  The order in which the sub-bags are generated is such that if
+SB2 is a sub-bag of SB1 which is a sub-bag of Bag, SB1 is generated
+before SB2.  In particular, Bag is enumerated first and bag last.
+</p></dd>
+<dt><code>test_sub_bag(<var>+Bag</var>, <var>+SubBag</var>)</code></dt>
+<dd>
+<a name="index-test_005fsub_005fbag_002f2-_0028bags_0029-1"></a>
+<a name="index-test_005fsub_005fbag_002f2-_0028bags_0029"></a>
+
+<p>is true when <var>SubBag</var> is (already) a sub-bag of <var>Bag</var>.  That is,
+each element of SubBag must occur in <var>Bag</var> with at least the
+same multiplicity.  If you know <var>SubBag</var>, you should use this
+to test, not <code>make_sub_bag/2</code>.
+</p></dd>
+<dt><code>bag_union(<var>+Bag1</var>, <var>+Bag2</var>, <var>-Union</var>)</code></dt>
+<dd>
+<a name="index-bag_005funion_002f3-_0028bags_0029-1"></a>
+<a name="index-bag_005funion_002f3-_0028bags_0029"></a>
+
+<p>unifies <var>Union</var> with the multi-set union of bags <var>Bag1</var> and <var>Bag2</var>.
+</p></dd>
+<dt><code>bag_union(<var>+ListOfBags</var>, <var>-Union</var>)</code></dt>
+<dd>
+<a name="index-bag_005funion_002f2-_0028bags_0029-1"></a>
+<a name="index-bag_005funion_002f2-_0028bags_0029"></a>
+
+<p>is true when <var>ListOfBags</var> is given as a proper list of bags and <var>Union</var>
+is their multi-set union.  Letting <var>K</var> be the length of <var>ListOfBags</var>,
+and <var>N</var> the sum of the sizes of its elements, the cost is
+<var>O(N lg K)</var>. 
+</p></dd>
+<dt><code>bag_intersection(<var>+Bag1</var>, <var>+Bag2</var>, <var>-Intersection</var>)</code></dt>
+<dd>
+<a name="index-bag_005fintersection_002f2-_0028bags_0029-2"></a>
+<a name="index-bag_005fintersection_002f2-_0028bags_0029"></a>
+
+<p>unifies <var>Intersection</var> with the multi-set intersection
+of bags <var>Bag1</var> and <var>Bag2</var>.
+</p></dd>
+<dt><code>bag_intersection(<var>+ListOfBags</var>, <var>-Intersection</var>)</code></dt>
+<dd>
+<a name="index-bag_005fintersection_002f2-_0028bags_0029-3"></a>
+<a name="index-bag_005fintersection_002f2-_0028bags_0029-1"></a>
+
+<p>is true when <var>ListOfBags</var> is given as a non-empty proper list of Bags
+and <var>Intersection</var> is their intersection.  The intersection of an
+empty list of Bags would be the universe with infinite multiplicities!
+</p></dd>
+<dt><code>bag_intersect(<var>+Bag1</var>, <var>+Bag2</var>)</code></dt>
+<dd>
+<a name="index-bag_005fintersect_002f2-_0028bags_0029-1"></a>
+<a name="index-bag_005fintersect_002f2-_0028bags_0029"></a>
+
+<p>is true when the multi-sets <var>Bag1</var> and <var>Bag2</var> have at least one
+element in common.
+</p></dd>
+<dt><code>bag_add_element(<var>+Bag1</var>, <var>+Element</var>, <var>+Multiplicity</var>, <var>-Bag2</var>)</code></dt>
+<dd>
+<a name="index-bag_005fadd_005felement_002f4-_0028bags_0029-1"></a>
+<a name="index-bag_005fadd_005felement_002f4-_0028bags_0029"></a>
+
+<p>computes <var>Bag2 = Bag1 U {Element:Multiplicity}</var>.
+<var>Multiplicity</var> must be an integer.
+</p></dd>
+<dt><code>bag_del_element(<var>+Bag1</var>, <var>+Element</var>, <var>+Multiplicity</var>, <var>-Bag2</var>)</code></dt>
+<dd>
+<a name="index-bag_005fdel_005felement_002f4-_0028bags_0029-1"></a>
+<a name="index-bag_005fdel_005felement_002f4-_0028bags_0029"></a>
+
+<p>computes <var>Bag2 = Bag1 \ {Element:Multiplicity}</var>.
+<var>Multiplicity</var> must be an integer.  
+</p></dd>
+<dt><code>bag_subtract(<var>+Bag1</var>, <var>+Bag2</var>, <var>-Difference</var>)</code></dt>
+<dd>
+<a name="index-bag_005fsubtract_002f3-_0028bags_0029-1"></a>
+<a name="index-bag_005fsubtract_002f3-_0028bags_0029"></a>
+
+<p>is true when <var>Difference</var> is the multiset difference of <var>Bag1</var> and <var>Bag2</var>.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dbdb.html#lib_002dbdb" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002davl.html#lib_002davl" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dbags.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dbags.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

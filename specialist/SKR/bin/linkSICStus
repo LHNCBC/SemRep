@@ -1,0 +1,156 @@
+#!/bin/bash
+
+SICSTUS_VERSION="4.3.5"
+SICSTUS_HOME="/nfsvol/crfiler-ind/II_Research/SICStus/sp-${SICSTUS_VERSION}-x86_64-linux-glibc2.17"
+SICSTUS_BIN=${SICSTUS_HOME}/bin
+export GWA=/nfsvol/nlsaux16/II_Group_WorkArea/$LOGNAME
+
+NLS=/nfsvol/nls
+# SKR=$NLS/specialist/SKR
+
+ARCHITECTURE=`uname`
+DEFAULT_SKRENV=SKRenv.13
+CLEAN=0;
+SOURCE_GWA_SKRenv=0
+FORCE=0
+
+COMPILE_DIR=$PWD
+COMPILE_PROLOG=0
+SAVED_STATE=MetaMap
+OUTPUT="a.out"
+
+SPLD=${SICSTUS_BIN}/spld
+SICS_ARGS=
+
+PROGRAM=`basename $0`
+APP=`basename $COMPILE_DIR`
+LOGFILE=$PROGRAM.$APP
+
+while getopts CFHO:PS:T:vVw:-: option
+do
+    # echo option is $option
+    case $option
+    in
+    	C) CLEAN=1;;
+    	F) FORCE=1;;
+        H) SOURCE_GWA_SKRenv=1;;
+	O) OUTPUT=$OPTARG;;
+	P) COMPILE_PROLOG=1;;
+	# All remaining args are passed to sicstus
+        S) DEFAULT_SKRENV=$OPTARG;;
+	T) SAVED_STATE=$OPTARG;;
+	v) VERBOSE="--verbose";;
+	# extra verbose
+	V) VERBOSE="-vv";;
+        w) if [ "$OPTARG" = "." ]
+	   then
+	      OPTARG=`pwd`
+	   fi
+           DEFAULT_FLAG="-w $OPTARG";;
+	-) break;;
+	*) exit 1;;
+    esac
+done
+
+# echo OPTIND is $OPTIND
+shift `expr $OPTIND - 1`
+OPTIND=1
+
+SICStusARGS=$*
+
+if [ "$OUTPUT" = "a.out" ]
+then
+   OUTPUT=${OUTPUT}.${ARCHITECTURE}
+fi
+
+if [ $SOURCE_GWA_SKRenv -eq 1 ]
+then
+   if [ ! -f $SKR_HOME/bin/$DEFAULT_SKRENV ]
+   then
+      echo $SKR_HOME/bin/$DEFAULT_SKRENV does not exist.
+      exit 1
+   else
+      echo sourcing $SKR_HOME/bin/$DEFAULT_SKRENV $DEFAULT_FLAG
+      . $SKR_HOME/bin/$DEFAULT_SKRENV $DEFAULT_FLAG
+   fi
+elif [ ! -f $SKR/bin/$DEFAULT_SKRENV ]
+then
+   echo $SKR/bin/$DEFAULT_SKRENV does not exist.
+   exit 1
+else
+   echo sourcing $SKR/bin/$DEFAULT_SKRENV $DEFAULT_FLAG
+   . $SKR/bin/$DEFAULT_SKRENV $DEFAULT_FLAG
+fi
+
+# Ensure that the name of the saved state ends with ".sav"
+case $SAVED_STATE in
+    *.sav) ;;
+        *) SAVED_STATE=${SAVED_STATE}.sav ;;
+esac
+
+if [ "$CLEAN" -eq 1 ]
+then
+    find .  -name BACKUP_DIR  -prune   \
+         -o -name WSD_Server  -prune   \
+         -o -name '*glibc*'   -prune   \
+         -o -name data        -prune   \
+         -o -name DATA        -prune   \
+         -o -name 'sp*'       -prune   \
+         -o -name TEST        -prune   \
+         -o -type f -name '*.po' -exec rm {} \;
+fi
+
+if [ "$COMPILE_PROLOG" -eq 1 ]
+then
+   echo sicstus $SICStusARGS --goal "save_program('$SAVED_STATE'), halt."
+   sicstus $SICStusARGS --goal "save_program('$SAVED_STATE'), halt." 2>&1 | tee $LOGFILE
+fi
+
+if [ -f $LOGFILE ]
+then
+   ERRMSG=`grep '^[*!]' $LOGFILE`
+fi
+
+if [ $FORCE -eq 0 -a "$ERRMSG" != "" ]
+then
+   echo ""
+   echo "### ERRORS FOUND...not proceeding to link step:"
+   echo ""
+   echo "$ERRMSG"
+   exit 1
+elif [ $FORCE -eq 1 -a "$ERRMSG" != "" ]
+then
+   echo ""
+   echo "### ERRORS FOUND...FORCE proceeding to link step:"
+   echo ""
+   echo "$ERRMSG"
+else
+   echo "### Compilation OK"
+fi
+
+echo "### Invoking $SPLD... "
+echo ""
+
+RESPATH=.:$SKR_LIB:$SKR_LEXICON/lexicon:$SKR_LEXICON/morph:$SKR_DB
+
+LINK_FILES="$SKR_DEBUG/debug.o
+	    $SKR_LEXICON/functions/linfl.o
+	    $SKR_LEXICON/functions/tokenize.o
+	    $SKR_LEXICON/morph/lm.o
+	    $SKR_LEXICON/morph/util.o
+	    $SKR_LEXICON/query/btree_query.o
+	    $SKR_LEXICON/query/tokenize.o
+	    $SKR_LEXICON/query/wl.o
+	    $SKR_LEXICON/miscutil/miscutil.o
+	    $SKR_DEBUG/get_val.o
+	    $SKR_LEXICON/morph/dm.o
+	    $SKR_DB/c_nls_db.a
+	    $BERKELEY_LIB_A"
+
+SPLD_ARGS="$VERBOSE --moveable \
+           --respath=$RESPATH  \
+           "'$SP_APP_DIR'/"${SAVED_STATE} --output=$OUTPUT $LINK_FILES"
+
+echo $SPLD $SPLD_ARGS
+
+$SPLD $SPLD_ARGS

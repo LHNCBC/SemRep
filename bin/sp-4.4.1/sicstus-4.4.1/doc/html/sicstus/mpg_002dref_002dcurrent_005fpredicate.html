@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-current_predicate</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-current_predicate">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-current_predicate">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dcurrent_005fprolog_005fflag.html#mpg_002dref_002dcurrent_005fprolog_005fflag" rel="next" title="mpg-ref-current_prolog_flag">
+<link href="mpg_002dref_002dcurrent_005foutput.html#mpg_002dref_002dcurrent_005foutput" rel="prev" title="mpg-ref-current_output">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dcurrent_005fpredicate"></a>
+<hr>
+<a name="current_005fpredicate_002f_005b1_002c2_005d---ISO"></a>
+<h4 class="subsection">11.3.55 <code>current_predicate/[1,2]</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-current_005fpredicate_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-current_005fpredicate_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-80"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>current_predicate(<var>?PredSpec</var>)</code>
+</p>
+<p>Unifies <var>PredSpec</var> with
+a predicate specifications of the form <var>Name/Arity</var>.
+</p>
+<p><code>current_predicate(<var>?Name</var>, <var>?Term</var>)</code>
+</p>
+<p>Unifies <var>Name</var> with the name of a user-defined predicate, and <var>Term</var> 
+with the most general term corresponding to that predicate.
+</p>
+<a name="Arguments-76"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:PredSpec</var></dt>
+<dd><p><em>pred_spec</em>
+</p>
+</dd>
+<dt><var>Name</var></dt>
+<dd><p><em>atom</em>
+</p>
+</dd>
+<dt><var>:Term</var></dt>
+<dd><p><em>callable</em>
+</p></dd>
+</dl>
+
+<a name="Description-64"></a>
+<h4 class="subheading">Description</h4>
+
+<p>If you have loaded the predicates <code>foo/1</code> and <code>foo/3</code> into Prolog, then 
+<code>current_predicate/2</code> would return the following:
+</p><div class="example">
+<pre class="example"> | ?- <kbd>current_predicate(foo, T).</kbd>
+
+T = foo(_A) <kbd>;</kbd>
+
+T = foo(_A,_B,_C) <kbd>;</kbd>
+
+no
+</pre></div>
+
+<a name="Examples-27"></a>
+<h4 class="subheading">Examples</h4>
+
+<ul>
+<li> The following goals can be used to backtrack
+through every predicate in your program.
+
+<div class="example">
+<pre class="example">| ?- <kbd>current_predicate(Name, Module:Term).</kbd>  
+
+| ?- <kbd>current_predicate(Module:PredSpec).</kbd>  
+</pre></div>
+
+</li><li> If a module is specified, then 
+<code>current_predicate/[1,2]</code> only succeeds for those predicates that are
+<em>defined</em> in the module.  It fails for those predicates that are imported
+into a module.
+
+<div class="example">
+<pre class="example">| ?- <kbd>current_predicate(m:P).</kbd>
+</pre></div>
+
+<p>will backtrack through all predicates <code>P</code> that are defined in module <code>m</code>.
+To backtrack through all predicates imported by a module use
+<code>predicate_property/2</code> (see <a href="ref_002dlps_002dove.html#ref_002dlps_002dove">ref-lps-ove</a>).
+</p></li></ul>
+
+<p>To find out whether a predicate is built-in, use
+<code>predicate_property/2</code>. 
+</p>
+<div class="example">
+<pre class="example">% <span class="roman">Is there a callable predicate named <code>gc</code>?</span>
+
+| ?- <kbd>current_predicate(gc, Term).</kbd>
+
+no
+| ?- <kbd>predicate_property(gc, Prop)</kbd>
+
+Prop = built_in
+</pre></div>
+
+<a name="Exceptions-71"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dt><code>type_error</code></dt>
+<dd><p>in <var>PredSpec</var>
+</p></dd>
+</dl>
+
+<a name="Comments-6"></a>
+<h4 class="subheading">Comments</h4>
+
+<p><code>current_predicate/1</code> is part of the ISO Prolog standard; <code>current_predicate/2</code> is not.
+</p>
+<a name="See-Also-77"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>predicate_property/2</code>, <a href="ref_002dlps_002dove.html#ref_002dlps_002dove">ref-lps-ove</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dcurrent_005fprolog_005fflag.html#mpg_002dref_002dcurrent_005fprolog_005fflag" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dcurrent_005foutput.html#mpg_002dref_002dcurrent_005foutput" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcurrent_005fpredicate.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcurrent_005fpredicate.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-ari-aex</title>
+
+<meta name="description" content="SICStus Prolog: ref-ari-aex">
+<meta name="keywords" content="SICStus Prolog: ref-ari-aex">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dari.html#ref_002dari" rel="up" title="ref-ari">
+<link href="ref_002dari_002dsum.html#ref_002dari_002dsum" rel="next" title="ref-ari-sum">
+<link href="ref_002dari_002dacm.html#ref_002dari_002dacm" rel="prev" title="ref-ari-acm">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dari_002daex"></a>
+<hr>
+<a name="Arithmetic-Expressions"></a>
+<h4 class="subsection">4.7.5 Arithmetic Expressions</h4>
+
+<a name="index-arithmetic-expression"></a>
+<a name="index-expression_002c-arithmetic"></a>
+
+<p>Arithmetic evaluation and testing is performed by predicates that take
+arithmetic expressions as arguments.  An <em>arithmetic expression</em>
+is a term built from numbers, variables, and functors that represent
+arithmetic functions.  These expressions are evaluated to yield an
+arithmetic result, which may be either an integer or a float; the type
+is determined by the rules described below.
+</p>
+<p>At the time of evaluation, each variable in an arithmetic expression
+must be bound to a number or another arithmetic expression. If the
+expression is not sufficiently bound or if it is bound to terms of the
+wrong type, then Prolog raises exceptions of the appropriate type (see
+<a href="ref_002dere_002dhex.html#ref_002dere_002dhex">ref-ere-hex</a>). Some arithmetic operations can also detect
+overflows.  They also raise exceptions, e.g. division by zero
+results in an evaluation error being raised.
+</p>
+<a name="index-arithmetic-functors"></a>
+<a name="index-functors_002c-arithmetic"></a>
+
+<p>Only certain functors are permitted in arithmetic expressions.  These
+are listed below, together with a description of their arithmetic
+meanings.  For the rest of the section, <var>X</var> and <var>Y</var> are
+considered to be arithmetic expressions.  Unless stated otherwise, the arguments of an
+expression may be any numbers and its value is a float if any of its
+arguments is a float; otherwise, the value is an integer.  Any
+implicit coercions are performed with the <code>integer/1</code> and
+<code>float/1</code> functions.  All trigonometric and
+transcendental functions take float arguments and deliver float
+values.  The trigonometric functions take arguments or deliver
+values in radians.
+</p>
+<p>Integers can for all practical purposes be considered to be of infinite size.
+Negative integers can be considered to be infinitely sign extended.
+</p>
+<p>The arithmetic functors are annotated with <em>ISO</em>, with the same
+meaning as for the built-in predicates; see <a href="ISO-Compliance.html#ISO-Compliance">ISO Compliance</a>.
+</p>
+<dl compact="compact">
+<dt><code>+<var>X</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_002b-_002f1_002c-identity-_0028evaluable_0029"></a>
+
+<p>The value is <var>X</var>.
+</p>
+</dd>
+<dt><code>-<var>X</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_002d-_002f1_002c-negation-_0028evaluable_0029"></a>
+
+<p>The value is the negative of <var>X</var>.
+</p>
+</dd>
+<dt><code><var>X</var>+<var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_002b-_002f2_002c-addition-_0028evaluable_0029"></a>
+
+<p>The value is the sum of <var>X</var> and <var>Y</var>.
+</p>
+</dd>
+<dt><code><var>X</var>-<var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_002d-_002f2_002c-subtraction-_0028evaluable_0029"></a>
+
+<p>The value is the difference between <var>X</var> and <var>Y</var>.
+</p>
+</dd>
+<dt><code><var>X</var>*<var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_002a-_002f2_002c-multiplication-_0028evaluable_0029"></a>
+
+<p>The value is the product of <var>X</var> and <var>Y</var>.
+</p>
+</dd>
+<dt><code><var>X</var>/<var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_002f-_002f2_002c-floating-division-_0028evaluable_0029"></a>
+
+<p>The value is the <em>float</em> quotient of <var>X</var> and <var>Y</var>.
+</p>    
+</dd>
+<dt><code><var>X</var>//<var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_002f_002f-_002f2_002c-integer-truncated-division-_0028evaluable_0029"></a>
+    
+<p>The value is the <em>integer</em> quotient of <var>X</var> and <var>Y</var>,
+    truncated towards zero.
+    <var>X</var> and <var>Y</var> have to be integers.
+</p>
+</dd>
+<dt><code><var>X</var> div <var>Y</var> &nbsp;<!-- /@w --> <i>since release 4.3</i>, <i>ISO</i></code></dt>
+<dd><a name="index-div-_002f2_002c-integer-floored-division-_0028evaluable_0029"></a>
+
+<p>The value is the <em>integer</em> quotient of <var>X</var> and <var>Y</var>,
+    rounded downwards to the nearest integer.
+    <var>X</var> and <var>Y</var> have to be integers.
+</p>
+</dd>
+<dt><code><var>X</var> rem <var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-rem-_002f2_002c-integer-truncated-remainder-_0028evaluable_0029"></a>
+
+<p>The value is the <em>integer</em> remainder after truncated division
+    of <var>X</var> by <var>Y</var>, i.e.
+    <code><var>X</var>-<var>Y</var>*(<var>X</var>//<var>Y</var>)</code>. 
+    The sign of a nonzero remainder will thus be the same as that of the
+    dividend.  <var>X</var> and <var>Y</var> have to be integers.
+</p>
+</dd>
+<dt><code><var>X</var> mod <var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-mod-_002f2_002c-integer-floored-remainder-_0028evaluable_0029"></a>
+
+<p>The value is the <em>integer</em> remainder after floored division
+    of <var>X</var> by <var>Y</var>, i.e. <code><var>X</var>-<var>Y</var>*(<var>X</var> div
+    <var>Y</var>)</code>.
+    The sign of a nonzero remainder will thus be the same as that of
+    the divisor.  <var>X</var> and <var>Y</var> have to be integers.
+</p>
+</dd>
+<dt><code>integer(<var>X</var>)</code></dt>
+<dd><a name="index-integer-_002f1_002c-coercion-_0028evaluable_0029"></a>
+
+<p>The value is the closest integer between <var>X</var> and 0,
+    if <var>X</var> is a float; otherwise, <var>X</var> itself.
+</p>
+</dd>
+<dt><code>float_integer_part(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-float_005finteger_005fpart-_002f1_002c-coercion-_0028evaluable_0029"></a>
+
+<p>The same as <code>float(integer(<var>X</var>))</code>. 
+    <var>X</var> has to be a float.
+</p>
+</dd>
+<dt><code>float_fractional_part(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-float_005ffractional_005fpart-_002f1_002c-fractional-part-_0028evaluable_0029"></a>
+
+<p>The value is the fractional part of <var>X</var>, i.e.
+    <code><var>X</var> - float_integer_part(<var>X</var>)</code>.
+</p>
+<p><var>X</var> has to be a float.
+</p></dd>
+<dt><code>float(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-float-_002f1_002c-coercion-_0028evaluable_0029"></a>
+
+<p>The value is the float equivalent of <var>X</var>, if <var>X</var> is an
+    integer; otherwise, <var>X</var> itself.
+</p>
+</dd>
+<dt><code><var>X</var>/\<var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_002f_005c-_002f2_002c-bitwise-conjunction-_0028evaluable_0029"></a>
+
+<p>The value is the bitwise conjunction of the integers <var>X</var> and <var>Y</var>.
+    <var>X</var> and <var>Y</var> have to be integers, treating negative integers as
+    infinitely sign extended.
+</p>
+</dd>
+<dt><code><var>X</var>\/<var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_005c_002f-_002f2_002c-bitwise-disjunction-_0028evaluable_0029"></a>
+
+<p>The value is the bitwise disjunction of the integers <var>X</var> and <var>Y</var>.
+    <var>X</var> and <var>Y</var> have to be integers, treating negative integers as
+    infinitely sign extended.
+</p>
+</dd>
+<dt><code>xor(<var>X</var>,<var>Y</var>) &nbsp;<!-- /@w --> <i>since release 4.3</i>, <i>ISO</i></code></dt>
+<dd><a name="index-xor-_002f2_002c-bitwise-exclusive-or-_0028evaluable_0029"></a>
+
+<p>The value is the bitwise exclusive or of the integers <var>X</var> and <var>Y</var>.
+    <var>X</var> and <var>Y</var> have to be integers, treating negative integers as
+    infinitely sign extended.
+</p>
+</dd>
+<dt><code><var>X</var>\<var>Y</var></code></dt>
+<dd><a name="index-_005c-_002f2_002c-bitwise-exclusive-or-_0028evaluable_0029"></a>
+    
+<p>The same as <code>xor(X,Y)</code>.
+</p></dd>
+<dt><code>\(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_005c-_002f1_002c-bitwise-negation-_0028evaluable_0029"></a>
+
+<p>The value is the bitwise negation of the integer <var>X</var>.  <var>X</var> has
+    to be an integer, treating negative integers as infinitely sign
+    extended.
+</p>
+</dd>
+<dt><code><var>X</var>&lt;&lt;<var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_003c_003c-_002f2_002c-left-shift-_0028evaluable_0029"></a>
+
+<p>The value is the integer <var>X</var> shifted arithmetically left by <var>Y</var> places.
+    i.e. filling with a copy of the sign bit.
+    <var>X</var> and <var>Y</var> have to be integers, and <var>Y</var> can be negative, in
+    which case the shift is right.
+</p>
+</dd>
+<dt><code><var>X</var>&gt;&gt;<var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_003e_003e-_002f2_002c-right-shift-_0028evaluable_0029"></a>
+
+<p>The value is the integer <var>X</var> shifted arithmetically right by <var>Y</var> places,
+    i.e. filling with a copy of the sign bit.
+    <var>X</var> and <var>Y</var> have to be integers, and <var>Y</var> can be negative, in
+    which case the shift is left.
+</p>
+</dd>
+<dt><code>[<var>X</var>]</code></dt>
+<dd><a name="index-_002e-_002f2_002c-identity-_0028evaluable_0029"></a>
+
+<p>A list of just one number <var>X</var> evaluates to <var>X</var>.  Since a
+    quoted string is just a list of integers, this allows a
+    quoted character to be used in place of its character code; e.g.
+    <code>&quot;A&quot;</code> behaves within arithmetic expressions as the integer 65.
+</p>
+</dd>
+<dt><code>abs(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-abs-_002f1_002c-absolute-value-_0028evaluable_0029"></a>
+
+<p>The value is the absolute value of <var>X</var>.
+</p>
+</dd>
+<dt><code>sign(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-sign-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the sign of <var>X</var>, i.e. -1, if <var>X</var> is negative, 0, if
+    <var>X</var> is zero, and 1, if <var>X</var> is positive, coerced into the same
+    type as <var>X</var> (i.e. the result is an integer, if and only if <var>X</var> is an
+    integer).
+</p>
+</dd>
+<dt><code>gcd(<var>X</var>,<var>Y</var>)</code></dt>
+<dd><a name="index-gcd-_002f2_002c-greatest-common-divisor-_0028evaluable_0029"></a>
+
+<p>The value is the greatest common divisor of the two integers <var>X</var>
+    and <var>Y</var>.
+    <var>X</var> and <var>Y</var> have to be integers.
+</p></dd>
+<dt><code>min(<var>X</var>,<var>Y</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-min-_002f2_002c-minimum-value-_0028evaluable_0029"></a>
+
+<p>The value is the lesser value of <var>X</var> and <var>Y</var>.
+</p>
+</dd>
+<dt><code>max(<var>X</var>,<var>Y</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-max-_002f2_002c-maximum-value-_0028evaluable_0029"></a>
+
+<p>The value is the greater value of <var>X</var> and <var>Y</var>.
+</p>
+</dd>
+<dt><code>msb(<var>X</var>)</code></dt>
+<dd><a name="index-msb-_002f1_002c-most-significant-bit-_0028evaluable_0029"></a>
+
+<p>The value is the position of the most significant nonzero bit of the integer <var>X</var>,
+    counting bit positions from zero.
+    It is equivalent to, but more efficient than, <code>integer(log(2,X))</code>.
+    <var>X</var> must be greater than zero, and
+    <var>X</var> has to be an integer.
+</p>
+</dd>
+<dt><code>round(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-round-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the closest integer to <var>X</var>.  If <var>X</var> is exactly
+    half-way between two integers, then it is rounded up (i.e. the value is the
+    least integer greater than <var>X</var>).
+</p>
+</dd>
+<dt><code>truncate(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-truncate-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the closest integer between <var>X</var> and 0.
+</p>
+</dd>
+<dt><code>floor(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-floor-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the greatest integer less or equal to
+    <var>X</var>.
+</p>
+</dd>
+<dt><code>ceiling(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-ceiling-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the least integer greater or equal to
+    <var>X</var>.
+</p>
+</dd>
+<dt><code>sin(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-sin-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the sine of <var>X</var>.
+</p>
+</dd>
+<dt><code>cos(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-cos-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the cosine of <var>X</var>.
+</p>
+</dd>
+<dt><code>tan(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-tan-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the tangent of <var>X</var>.
+</p>
+</dd>
+<dt><code>cot(<var>X</var>)</code></dt>
+<dd><a name="index-cot-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the cotangent of <var>X</var>.
+</p>
+</dd>
+<dt><code>sinh(<var>X</var>)</code></dt>
+<dd><a name="index-sinh-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the hyperbolic sine of <var>X</var>.
+</p>
+</dd>
+<dt><code>cosh(<var>X</var>)</code></dt>
+<dd><a name="index-cosh-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the hyperbolic cosine of <var>X</var>.
+</p>
+</dd>
+<dt><code>tanh(<var>X</var>)</code></dt>
+<dd><a name="index-tanh-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the hyperbolic tangent of <var>X</var>.
+</p>
+</dd>
+<dt><code>coth(<var>X</var>)</code></dt>
+<dd><a name="index-coth-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the hyperbolic cotangent of <var>X</var>.
+</p>
+</dd>
+<dt><code>asin(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-asin-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the arc sine of <var>X</var>.
+</p></dd>
+<dt><code>acos(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-acos-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the arc cosine of <var>X</var>.
+</p>
+</dd>
+<dt><code>atan(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-atan-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the arc tangent of <var>X</var>.
+</p>
+</dd>
+<dt><code>atan2(<var>X</var>,<var>Y</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-atan2-_002f2_002c-_0028evaluable_0029"></a>
+
+<p>The value is the four-quadrant arc tangent of <var>X</var> and <var>Y</var>.
+</p>
+</dd>
+<dt><code>acot(<var>X</var>)</code></dt>
+<dd><a name="index-acot-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the arc cotangent of <var>X</var>.
+</p>
+</dd>
+<dt><code>acot2(<var>X</var>,<var>Y</var>)</code></dt>
+<dd><a name="index-acot2-_002f2_002c-_0028evaluable_0029"></a>
+
+<p>The value is the four-quadrant arc cotangent of <var>X</var> and <var>Y</var>.
+</p>
+</dd>
+<dt><code>asinh(<var>X</var>)</code></dt>
+<dd><a name="index-asinh-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the hyperbolic arc sine of <var>X</var>.
+</p>
+</dd>
+<dt><code>acosh(<var>X</var>)</code></dt>
+<dd><a name="index-acosh-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the hyperbolic arc cosine of <var>X</var>.
+</p>
+</dd>
+<dt><code>atanh(<var>X</var>)</code></dt>
+<dd><a name="index-atanh-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the hyperbolic arc tangent of <var>X</var>.
+</p>
+</dd>
+<dt><code>acoth(<var>X</var>)</code></dt>
+<dd><a name="index-acoth-_002f1_002c-_0028evaluable_0029"></a>
+
+<p>The value is the hyperbolic arc cotangent of <var>X</var>.
+</p>
+</dd>
+<dt><code>sqrt(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-sqrt-_002f1_002c-square-root-_0028evaluable_0029"></a>
+
+<p>The value is the square root of <var>X</var>.
+</p>
+</dd>
+<dt><code>log(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-log-_002f1_002c-logarithm-_0028evaluable_0029"></a>
+
+<p>The value is the natural logarithm of <var>X</var>.
+</p>
+</dd>
+<dt><code>log(<var>Base</var>,<var>X</var>)</code></dt>
+<dd><a name="index-log-_002f2_002c-logarithm-_0028evaluable_0029"></a>
+
+<p>The value is the logarithm of <var>X</var> in the base <var>Base</var>.
+</p>
+</dd>
+<dt><code>exp(<var>X</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-exp-_002f1_002c-exponent-_0028evaluable_0029"></a>
+
+<p>The value is the natural exponent of <var>X</var>.
+</p>
+</dd>
+<dt><code><var>X</var> ** <var>Y</var> &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-_002a_002a-_002f2_002c-float-power-_0028evaluable_0029"></a>
+
+<p>The value is <var>X</var> raised to the power of <var>Y</var>, represented as a float.
+    In particular, the value of <code>0.0 ** 0.0</code> is <code>1.0</code>.
+</p>
+</dd>
+<dt><code>exp(<var>X</var>,<var>Y</var>)</code></dt>
+<dd><a name="index-exp-_002f2_002c-float-power-_0028evaluable_0029"></a>
+
+<p>The same as <code>X ** Y</code>.
+</p>
+
+</dd>
+<dt><code><var>X</var> ^ <var>Y</var> &nbsp;<!-- /@w --> <i>since release 4.3</i>, <i>ISO</i></code></dt>
+<dd><a name="index-_005e-_002f2_002c-generic-power-_0028evaluable_0029"></a>
+
+<p>The value is <var>X</var> raised to the power of <var>Y</var>, represented as a float
+    if any of <var>X</var> and <var>Y</var> is a float; otherwise, as an integer.
+    In particular, the value of <code>0^0</code> is <code>1</code>.
+</p>
+</dd>
+<dt><code>pi &nbsp;<!-- /@w --> <i>since release 4.3</i>, <i>ISO</i></code></dt>
+<dd><a name="index-pi-_002f0_002c-pi-_0028evaluable_0029"></a>
+
+<p>The value is approximately 3.14159.
+</p></dd>
+</dl>
+
+<a name="index-character-codes_002c-arithmetic-and"></a>
+<a name="index-arithmetic-and-character-codes"></a>
+
+
+<p>The following operation is included in order to allow integer arithmetic on
+character codes.
+<a name="index-X_002c-identity-for-numbers"></a>
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-characters_002c-conversion-to-integers"></a>
+
+</dd>
+<dt><code>[<var>X</var>]</code></dt>
+<dd><p>Evaluates to <var>X</var> for numeric <var>X</var>.  This is
+relevant because character strings in Prolog are lists of character
+codes, that is, integers.  Thus, for those integers that correspond
+to character codes, the user can write a string of one character in
+place of that integer in an arithmetic expression.  For example, the
+expression (A) is equivalent to (B), which in turn becomes (C) in
+which case <var>X</var> is unified with 2:
+</p>
+<div class="example">
+<pre class="example">X is &quot;c&quot; - &quot;a&quot; <!-- /@w --> (A)
+</pre></div>
+
+<div class="example">
+<pre class="example">X is [99] - [97] <!-- /@w --> (B)
+</pre></div>
+
+<div class="example">
+<pre class="example">X is 99 - 97 <!-- /@w --> (C)
+</pre></div>
+
+<p>A cleaner way to do the same thing is 
+</p><div class="example">
+<pre class="example">X is 0'c - 0'a
+</pre></div>
+
+
+
+</dd>
+</dl>
+
+
+  
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dari_002dsum.html#ref_002dari_002dsum" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dari_002dacm.html#ref_002dari_002dacm" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dari.html#ref_002dari" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dari_002daex.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dari_002daex.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

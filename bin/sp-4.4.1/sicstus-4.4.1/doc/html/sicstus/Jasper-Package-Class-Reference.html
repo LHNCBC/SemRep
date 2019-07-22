@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Jasper Package Class Reference</title>
+
+<meta name="description" content="SICStus Prolog: Jasper Package Class Reference">
+<meta name="keywords" content="SICStus Prolog: Jasper Package Class Reference">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002djasper.html#lib_002djasper" rel="up" title="lib-jasper">
+<link href="Java-Exception-Handling.html#Java-Exception-Handling" rel="next" title="Java Exception Handling">
+<link href="Another-Multi-Threaded-Example-_0028Prolog-Top_002dLevel_0029.html#Another-Multi-Threaded-Example-_0028Prolog-Top_002dLevel_0029" rel="prev" title="Another Multi Threaded Example (Prolog Top-Level)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Jasper-Package-Class-Reference"></a>
+<hr>
+<a name="Jasper-Package-Class-Reference-1"></a>
+<h4 class="subsection">10.19.4 Jasper Package Class Reference</h4>
+
+<p>Detailed documentation of the classes in the <code>jasper</code> package can
+be found in the HTML documentation installed with SICStus and also on
+the SICStus documentation page
+(<a href="http://sicstus.sics.se/documentation.html">http://sicstus.sics.se/documentation.html</a>).
+</p>
+<blockquote>
+<p><strong>Please note</strong>: None of the <code>se.sics.jasper</code> methods are thread safe,
+unless explicitly mentioned, they can only be called from the thread
+that created the SICStus object. (This is different from how
+<code>se.sics.jasper</code> worked in release 3.8.)
+</p></blockquote>
+
+<p>As of release 3.9, Jasper supports multi threaded mode. Several
+Java threads can access SICStus runtime through a server thread that
+does the actual calls.
+</p>
+<p>The API is defined by three <code>interfaces</code>: <code>Prolog</code>,
+<code>Query</code> and <code>Term</code>. The methods of these <code>interfaces</code> are
+implemented by inner classes of the <code>Jasper</code> server. Instances of these
+inner classes are returned by methods of the class <code>Jasper</code> and
+can then be used from multiple threads by the Java programmer.
+</p>
+<p>In multi threaded mode the Java programmer obtains an object
+implementing the <code>interface Prolog</code>. That interface has methods
+similar to the methods of the <code>SICStus</code> class described below.
+<code>Interface Query</code> and <code>interface Term</code> have the same
+relations to <code>class SPQuery</code> and <code>class SPTerm</code>, respectively.
+In addition the <code>SICStus</code> class, the <code>SPQuery</code> class and the
+<code>SPTerm</code> class all implement the above interfaces. The methods of
+the interfaces are preferred over the old methods.
+</p>
+<p>See the HTML documentation for details on the methods of the <code>interfaces</code>.
+</p>
+<p>See <a href="../relnotes/Jasper-Notes.html#Jasper-Notes">Jasper Notes</a> in <cite>SICStus Prolog Release
+Notes</cite> for limitations in multi threaded Jasper.
+</p>
+<dl>
+<dt><a name="index-query-on-SICStus"></a>Method on SICStus: <em>boolean</em> <strong>query</strong> <em><code>(String module, String name, SPTerm args[])</code></em></dt>
+<dd><p>Call <var>name</var> with <var>args</var> (a vector of <code>SPTerm</code>
+objects). Like <code>once(Module:Name(Args&hellip;))</code>.
+</p>
+<p>Returns <code>true</code> if the call succeeded, <code>false</code> if the call
+failed, i.e. there were no solutions.
+</p>
+<p>Introduced in release 3.8.5.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-query-on-SICStus-1"></a>Method on SICStus: <em>boolean</em> <strong>query</strong> <em><code>(String goal, Map varMap)</code></em></dt>
+<dd><p>Call a goal specified as a string.
+</p><dl compact="compact">
+<dt><code>goal</code></dt>
+<dd><p>The textual representation of the goal to execute, with
+terminating period.
+</p>
+</dd>
+<dt><code>varMap</code></dt>
+<dd><p>A map from variable names to SPTerm objects. Used both for passing
+variable bindings into the goal and to obtain the
+bindings produced by the goal. May be null.
+</p>
+<p>On success, the values of variables with names that do not start with
+underscore (&lsquo;<samp>_</samp>&rsquo;) will be added to the map.
+</p></dd>
+</dl>
+
+<p>Returns <code>true</code> if the call succeeded, <code>false</code> if the call
+failed, i.e. there were no solutions.
+</p>
+<div class="example">
+<pre class="example">HashMap varMap = new HashMap();
+
+varMap.put(&quot;File&quot;, new SPTerm(sp, &quot;datafile.txt&quot;));
+
+if (sp.query(&quot;see(File),do_something(Result),seen.&quot;, varMap)) {
+   System.out.println(&quot;Result==&quot; + 
+                      ((SPTerm)varMap.get(&quot;Result&quot;)).toString());
+} else {
+   System.out.println(&quot;Failed);
+}
+</pre></div>
+
+<p>Introduced in release 3.8.5.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-query-on-SICStus-2"></a>Method on SICStus: <em>boolean</em> <strong>query</strong> <em><code>(SPPredicate pred, SPTerm args[])</code></em></dt>
+<dd><p>Obsolescent version of <code>SICStus::query()</code> above.
+</p>
+
+</dd></dl>
+
+<dl>
+<dt><a name="index-queryCutFail-on-SICStus"></a>Method on SICStus: <em>boolean</em> <strong>queryCutFail</strong> <em><code>(String module, String name, SPTerm args[])</code></em></dt>
+<dd><p>Call <var>name</var> with <var>args</var> for side-effect only.
+</p>
+<p>As <code>SICStus.query()</code> it only finds the first solution, and then it
+cuts away all other solutions and fails.
+</p>
+<p>It corresponds roughly to the following Prolog code:
+</p><div class="example">
+<pre class="example">   ( \+ call(Module:Name(Args&hellip;)) -&gt; fail; true )
+</pre></div>
+<p>Introduced in release 3.8.5.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-queryCutFail-on-SICStus-1"></a>Method on SICStus: <em>boolean</em> <strong>queryCutFail</strong> <em><code>(String goal, Map varMap)</code></em></dt>
+<dd><p>Call a goal specified as a string, for side-effect only. The
+map is only used for passing variable bindings <em>into</em> the
+goal. See <code>query</code> for details
+</p>
+<p>Introduced in release 3.8.5.
+</p></dd></dl>
+<dl>
+<dt><a name="index-queryCutFail-on-SICStus-2"></a>Method on SICStus: <em>boolean</em> <strong>queryCutFail</strong> <em><code>(SPPredicate pred, SPTerm args[])</code></em></dt>
+<dd><p>Obsolescent version of <code>queryCutFail</code> above.
+</p>
+
+</dd></dl>
+
+<dl>
+<dt><a name="index-openQuery-on-SICStus"></a>Method on SICStus: <em>SPQuery</em> <strong>openQuery</strong> <em><code>(String module, String name, SPTerm args[])</code></em></dt>
+<dd><p>Sets up a query (an object of class <code>SPQuery</code>), which can
+later be asked to produce solutions. You must <em>close</em> an opened
+query when no more solutions are required; see below.
+</p>
+<p>It corresponds roughly to the following Prolog code:
+</p><div class="example">
+<pre class="example">   ( true     % just calling openQuery does not call the predicate
+   
+   ; % failing (nextSolution) will backtrack for more solutions
+     call(Module:Name(Args&hellip;))
+   )
+</pre></div>
+
+
+
+<p>Introduced in release 3.8.5.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-openQuery-on-SICStus-1"></a>Method on SICStus: <em>boolean</em> <strong>openQuery</strong> <em><code>(String goal, Map varMap)</code></em></dt>
+<dd><p>Sets up a query specified as a string. See <code>openQuery</code> and
+<code>query</code> for details.
+</p>
+<p>Introduced in release 3.8.5.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-openQuery-on-SICStus-2"></a>Method on SICStus: <em>SPQuery</em> <strong>openQuery</strong> <em><code>(SPPredicate pred, SPTerm args[])</code></em></dt>
+<dd><p>Obsolescent version of <code>openQuery</code> above.
+</p>
+
+</dd></dl>
+
+<p>The following methods are used to obtain solutions from an opened
+query and to tell the SICStus runtime system that no more answers
+are required.
+</p>
+<dl>
+<dt><a name="index-nextSolution-on-SPQuery"></a>Method on SPQuery: <em>boolean</em> <strong>nextSolution</strong> <em>()</em></dt>
+<dd><p>Obtain the next solution. Returns <code>true</code> on success and
+<code>false</code> if there were no more solutions. When you are no longer
+interested in any more solutions, you should call <code>SPQuery.close</code>
+or <code>SPQuery.cut</code> to <em>close</em> the query.
+</p>
+<p>Returns <code>true</code> if a new solution was produced, <code>false</code> if
+there were no more solutions. This corresponds roughly to
+<code>fail/0</code>. See <a href="SPTerm-and-Memory.html#SPTerm-and-Memory">SPTerm and Memory</a> for additional details.
+</p></dd></dl>
+
+<dl>
+<dt><a name="index-close-on-SPQuery"></a>Method on SPQuery: <strong>close</strong> <em>()</em></dt>
+<dd><p>Cut and fail away any previous solution to the query. After
+closing a query object, you should not use it anymore. This
+corresponds roughly to <code>!, fail</code>. See <a href="SPTerm-and-Memory.html#SPTerm-and-Memory">SPTerm and Memory</a> for
+additional details.
+</p>
+</dd></dl>
+
+<dl>
+<dt><a name="index-cut-on-SPQuery"></a>Method on SPQuery: <strong>cut</strong> <em>()</em></dt>
+<dd><p>Cut, but do not fail away, any previous solution.  After closing a
+query object with <code>cut</code>, you should not use it anymore. This
+corresponds roughly to <code>!</code>.  See <a href="SPTerm-and-Memory.html#SPTerm-and-Memory">SPTerm and Memory</a> for
+additional details.
+</p>
+</dd></dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Java-Exception-Handling.html#Java-Exception-Handling" accesskey="n" rel="next">Next</a>
+<li><a href="Calling-Prolog-from-Java.html#Calling-Prolog-from-Java" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002djasper.html#lib_002djasper" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Jasper-Package-Class-Reference.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Jasper-Package-Class-Reference.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

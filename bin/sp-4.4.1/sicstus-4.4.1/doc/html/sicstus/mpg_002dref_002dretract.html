@@ -1,0 +1,167 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-retract</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-retract">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-retract">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dretractall.html#mpg_002dref_002dretractall" rel="next" title="mpg-ref-retractall">
+<link href="mpg_002dref_002drestore.html#mpg_002dref_002drestore" rel="prev" title="mpg-ref-restore">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dretract"></a>
+<hr>
+<a name="retract_002f1---ISO"></a>
+<h4 class="subsection">11.3.193 <code>retract/1</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-retract_002f1-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-retract_002f1-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-218"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>retract(<var>+Clause</var>)</code>
+</p>
+<p>Removes the first occurrence of dynamic clause <var>Clause</var> from
+module <var>M</var>.
+</p>
+<a name="Arguments-200"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:Clause</var></dt>
+<dd><p><em>callable</em>, must be nonvar
+</p>
+<p>A valid Prolog clause.
+</p></dd>
+</dl>
+
+<a name="Description-154"></a>
+<h4 class="subheading">Description</h4>
+
+<p><code>retract/1</code> erases the first clause in the database that matches
+<var>Clause</var>.  <var>Clause</var> is retracted in module <var>M</var> if
+specified.  Otherwise, <var>Clause</var> is retracted in the source module.
+</p>
+<p><code>retract/1</code> is nondeterminate.  
+If control backtracks into
+the call to <code>retract/1</code>, then successive clauses matching <var>Clause</var> are 
+erased.  If and when no clauses match, then the call to <code>retract/1</code> fails.
+</p>
+<p>If the predicate did not previously exist, then
+it is created as a dynamic predicate and <code>retract/1</code> fails.
+</p>
+<p><var>Clause</var> must be of one of the forms:
+</p>
+<ul>
+<li> <var>Head</var>
+</li><li> <code><var>Head</var> :- <var>Body</var></code>
+</li><li> <code><var>Module</var>:<var>Clause</var></code>
+</li></ul>
+
+<p>where <var>Head</var> is of type callable and the principal functor of <var>Head</var> is the
+name of a dynamic procedure.  If specified, then <var>Module</var> must be an atom.
+</p>
+<p><code>retract(<var>Head</var>)</code> means retract the unit-clause <var>Head</var>.  The exact
+same effect can be achieved by <code>retract((<var>Head</var> :- true))</code>.
+</p>
+<p><var>Body</var> may be uninstantiated, in which case it will match any body.  In
+the case of a unit-clause it will be bound to <code>true</code>.  Thus, for
+example, 
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>retract((foo(X) :- Body)), fail.</kbd>
+</pre></div>
+
+<p>is guaranteed to retract all the clauses for <code>foo/1</code>, including any 
+unit-clauses, providing of course that <code>foo/1</code> is dynamic.
+</p>
+<a name="Backtracking-28"></a>
+<h4 class="subheading">Backtracking</h4>
+
+<p>Can be used to retract all matching clauses through backtracking.
+</p>
+<a name="Exceptions-209"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Head</var> (in <var>Clause</var>) or <var>M</var> is uninstantiated.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Head</var> is not a callable, or <var>M</var> is 
+not an atom, or <var>Body</var> is not a valid clause body.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>the procedure corresponding to <var>Head</var> is not dynamic
+</p></dd>
+</dl>
+
+<a name="See-Also-215"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>retractall/1</code>, <a href="ref_002dmdb_002drcd.html#ref_002dmdb_002drcd">ref-mdb-rcd</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dretractall.html#mpg_002dref_002dretractall" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002drestore.html#mpg_002dref_002drestore" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dretract.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dretract.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

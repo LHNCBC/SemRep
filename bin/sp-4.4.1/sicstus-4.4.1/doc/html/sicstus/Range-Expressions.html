@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Range Expressions</title>
+
+<meta name="description" content="SICStus Prolog: Range Expressions">
+<meta name="keywords" content="SICStus Prolog: Range Expressions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" rel="up" title="Defining Primitive Constraints">
+<link href="Term-Expressions.html#Term-Expressions" rel="next" title="Term Expressions">
+<link href="Indexicals.html#Indexicals" rel="prev" title="Indexicals">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Range-Expressions"></a>
+<hr>
+<a name="Range-Expressions-1"></a>
+<h4 class="subsubsection">10.10.10.4 Range Expressions</h4>
+
+<p>A range expression has one of the following forms, where <var>Ri</var> denote
+range expressions, <var>Ti</var> denote integer valued <em>term
+expressions</em>, <var>S(Ti)</var> denotes the integer value of <var>Ti</var> in
+<var>S</var>, <var>X</var> denotes a variable, <var>I</var> denotes an integer, and
+<var>S</var> denotes the current store.
+</p>
+<dl compact="compact">
+<dt><code>dom(<var>X</var>)</code></dt>
+<dd><p>evaluates to <var>D(X,S)</var>
+</p>
+</dd>
+<dt><code>{<var>T1,&hellip;,Tn</var>}</code></dt>
+<dd><p>evaluates to {<var>S(T1),&hellip;,S(Tn)</var>}.  Any <var>Ti</var> containing a
+variable that is not &ldquo;quantified&rdquo; by <code>unionof/3</code> will cause the
+indexical to suspend until this variable has been assigned.
+</p>
+</dd>
+<dt><code><var>T1</var>..<var>T2</var></code></dt>
+<dd><p>evaluates to the interval between <var>S(T1)</var> and <var>S(T2)</var>.
+</p>
+</dd>
+<dt><code><var>R1</var>/\<var>R2</var></code></dt>
+<dd><p>evaluates to the intersection of <var>S(R1)</var> and <var>S(R2)</var>
+</p>
+</dd>
+<dt><code><var>R1</var>\/<var>R2</var></code></dt>
+<dd><p>evaluates to the union of <var>S(R1)</var> and <var>S(R2)</var>
+</p>
+</dd>
+<dt><code>\<var>R2</var></code></dt>
+<dd><p>evaluates to the complement of <var>S(R2)</var>
+</p>
+</dd>
+<dt><code><var>R1</var>+<var>R2</var></code></dt>
+<dt><code><var>R1</var>+<var>T2</var></code></dt>
+<dd><p>evaluates to <var>S(R2)</var> or <var>S(T2)</var> added pointwise to <var>S(R1)</var>
+</p>
+</dd>
+<dt><code>-<var>R2</var></code></dt>
+<dd><p>evaluates to <var>S(R2)</var> negated pointwise
+</p>
+</dd>
+<dt><code><var>R1</var>-<var>R2</var></code></dt>
+<dt><code><var>R1</var>-<var>T2</var></code></dt>
+<dt><code><var>T1</var>-<var>R2</var></code></dt>
+<dd><p>evaluates to <var>S(R2)</var> or <var>S(T2)</var> subtracted pointwise from
+<var>S(R1)</var> or <var>S(T1)</var>
+</p>
+</dd>
+<dt><code><var>R1</var> mod <var>R2</var></code></dt>
+<dt><code><var>R1</var> mod <var>T2</var></code></dt>
+<dd><p>evaluates to the pointwise floored modulo of <var>S(R1)</var> and <var>S(R2)</var> or
+<var>S(T2)</var>
+</p>
+</dd>
+<dt><code><var>R1</var> rem <var>R2</var></code></dt>
+<dt><code><var>R1</var> rem <var>T2</var></code></dt>
+<dd><p>evaluates to the pointwise truncated remainder of <var>S(R1)</var> and <var>S(R2)</var> or
+<var>S(T2)</var>
+</p>
+</dd>
+<dt><code><var>R1</var> ? <var>R2</var></code></dt>
+<dd><p>evaluates to <var>S(R2)</var> if <var>S(R1)</var> is a non-empty set; otherwise,
+evaluates to the empty set.  This expression is commonly used in the
+context <code>(<var>R1</var> ? (inf..sup) \/ <var>R3</var>)</code>, which evaluates to
+<var>S(R3)</var> if <var>S(R1)</var> is an empty set; otherwise, evaluates to
+<code>inf..sup</code>.  As an optimization, <var>R3</var> is not evaluated while
+the value of <var>R1</var> is a non-empty set.
+</p>
+</dd>
+<dt><code>unionof(<var>X</var>,<var>R1</var>,<var>R2</var>)</code></dt>
+<dd><p>evaluates to the union of <var>S(E1),&hellip;,S(EN)</var>, where each <var>EI</var>
+has been formed by substituting <var>K</var> for <var>X</var> in <var>R2</var>, where
+<var>K</var> is the <var>I</var>:th element of <var>S(R1)</var>.  See <a href="N-Queens.html#N-Queens">N Queens</a> for
+an example of usage.
+</p><blockquote>
+<p><strong>Please note</strong>: if <var>S(R1)</var> is infinite, then the evaluation of the
+indexical will be abandoned, and the indexical will simply suspend.
+</p></blockquote>
+
+</dd>
+<dt><code>switch(<var>T</var>,<var>MapList</var>)</code></dt>
+<dd><p>evaluates to <var>S(E)</var> if <var>S(T1)</var> equals <var>K</var> and <var>MapList</var>
+contains a pair <code><var>K</var>-<var>E</var></code>.  Otherwise, evaluates to the
+empty set.  If <var>T</var> contains a variable that is not &ldquo;quantified&rdquo; by
+<code>unionof/3</code>, then the indexical will suspend until this variable has
+been assigned.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Term-Expressions.html#Term-Expressions" accesskey="n" rel="next">Next</a>
+<li><a href="Indexicals.html#Indexicals" accesskey="p" rel="prev">Previous</a>
+<li><a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Range-Expressions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Range-Expressions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

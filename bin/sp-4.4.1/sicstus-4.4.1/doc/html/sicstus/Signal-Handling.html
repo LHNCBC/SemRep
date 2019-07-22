@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Signal Handling</title>
+
+<meta name="description" content="SICStus Prolog: Signal Handling">
+<meta name="keywords" content="SICStus Prolog: Signal Handling">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously" rel="up" title="Calling Prolog Asynchronously">
+<link href="Exception-Handling-in-C.html#Exception-Handling-in-C" rel="next" title="Exception Handling in C">
+<link href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously" rel="prev" title="Calling Prolog Asynchronously">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Signal-Handling"></a>
+<hr>
+<a name="Signal-Handling-1"></a>
+<h4 class="subsubsection">6.5.4.1 Signal Handling</h4>
+
+<a name="index-signal"></a>
+<a name="index-sigaction"></a>
+
+<p>As noted above it is not possible to call e.g. <code>SP_query()</code> or
+even <code>SP_event()</code> from an arbitrary signal handler. That is, from
+signal handlers installed with <code>signal</code> or
+<code>sigaction</code>. Instead you need to install the signal handler using
+<code>SP_signal()</code>.
+<a name="index-SP_005fsignal_0028_0029-_0028C-function_0029"></a>
+</p>
+<p>When the OS delivers a signal <code>sig</code> for which
+<code>SP_signal(sig,func,user_data)</code> has been called SICStus will <em>not</em> call
+<code>func</code> immediately. Instead the call to <code>func</code> will be delayed
+until it is safe for Prolog to do so, in much the same way that functions
+installed by <code>SP_event()</code> are handled (this is an incompatible change
+as of release 3.9).
+</p>
+<a name="index-SIGINT"></a>
+<a name="index-SIGBREAK"></a>
+<a name="index-SIGUSR1"></a>
+<a name="index-SIGUSR2"></a>
+<a name="index-SIGCHLD"></a>
+<a name="index-SIGCLD"></a>
+<a name="index-SIGVTALRM"></a>
+
+
+<p>Since the signal handling function <code>func</code> will not be called
+immediately upon delivery of the signal to the process it only makes
+sense to use <code>SP_signal()</code> to handle certain asynchronous signals
+such as <code>SIGINT</code>, <code>SIGUSR1</code>, <code>SIGUSR2</code>. Other
+asynchronous signals handled specially by the OS, such as <code>SIGCHLD</code>
+are not suitable for handling via <code>SP_signal()</code>.  Note that the
+development system installs a handler for &lsquo;<samp>SIGINT</samp>&rsquo;, and, under
+Windows, &lsquo;<samp>SIGBREAK</samp>&rsquo;, to catch keyboard interrupts.
+As of release 4.4, <code>library(timeout)</code> no longer uses any signals.
+</p>
+<p>When <code>func</code> is called, it cannot call any SICStus API functions
+except <code>SP_event()</code>. Note that <code>func</code> will be called in the
+main thread.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Signal-Handling.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Signal-Handling.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lte-cte-sot</title>
+
+<meta name="description" content="SICStus Prolog: ref-lte-cte-sot">
+<meta name="keywords" content="SICStus Prolog: ref-lte-cte-sot">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlte_002dcte.html#ref_002dlte_002dcte" rel="up" title="ref-lte-cte">
+<link href="ref_002dlte_002dcte_002dsor.html#ref_002dlte_002dcte_002dsor" rel="next" title="ref-lte-cte-sor">
+<link href="ref_002dlte_002dcte_002dbas.html#ref_002dlte_002dcte_002dbas" rel="prev" title="ref-lte-cte-bas">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlte_002dcte_002dsot"></a>
+<hr>
+<a name="Standard-Order-of-Terms"></a>
+<h4 class="subsubsection">4.8.8.2 Standard Order of Terms</h4>
+
+<a name="index-terms_002c-ordering-on"></a>
+
+<a name="index-standard_002c-order-on-terms"></a>
+
+<a name="index-order-on-terms_002c-standard"></a>
+
+
+<p>These predicates use a standard total order when comparing terms.  The
+standard total order is:
+</p>
+
+<ul>
+<li> Variables, by age (oldest first&mdash;the order is <em>not</em> related
+to the names of variables).
+
+</li><li> Floats, in numeric order (e.g. -1.0 is put before 1.0).
+ 
+</li><li> Integers, in numeric order (e.g. -1 is put before 1).
+
+</li><li> Atoms, in alphabetical (i.e. character code) order.
+
+</li><li> Compound terms, ordered first by arity, then by the name of
+the principal functor, then by age for mutables and by the
+arguments in left-to-right order for other terms.  Recall
+that lists are equivalent to compound terms with principal
+functor <code>./2</code>.
+</li></ul>
+
+
+<p>For example, here is a list of terms in standard order:
+</p>
+<div class="example">
+<pre class="example">[ X, -1.0, -9, 1, fie, foe, X = Y, foe(0,2), fie(1,1,1) ]
+</pre></div>
+
+<blockquote>
+<p><strong>Please note</strong>: the standard order is only well-defined for finite (acyclic)
+terms.  There are infinite (cyclic) terms for which no order
+relation holds.  Furthermore, blocking goals
+(see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>) on variables or modifying their attributes
+(see <a href="lib_002datts.html#lib_002datts">lib-atts</a>) does not preserve their order.
+</p></blockquote>
+
+
+
+<p>The predicates for comparison of terms are described below.
+</p>
+
+<dl compact="compact">
+<dd>
+
+<a name="index-_003d_003d_002f2-_0028built_002din_0029-1"></a>
+<a name="index-_003d_003d_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-_005c_003d_003d_002f2-_0028built_002din_0029-1"></a>
+<a name="index-_005c_003d_003d_002f2-_0028built_002din_0029"></a>
+
+
+
+<a name="index-_0040_003c_002f2-_0028built_002din_0029-1"></a>
+<a name="index-_0040_003c_002f2-_0028built_002din_0029"></a>
+
+
+
+<a name="index-_0040_003e_002f2-_0028built_002din_0029-1"></a>
+<a name="index-_0040_003e_002f2-_0028built_002din_0029"></a>
+
+
+
+<a name="index-_0040_003d_003c_002f2-_0028built_002din_0029-1"></a>
+<a name="index-_0040_003d_003c_002f2-_0028built_002din_0029"></a>
+
+
+
+<a name="index-_0040_003e_003d_002f2-_0028built_002din_0029-1"></a>
+<a name="index-_0040_003e_003d_002f2-_0028built_002din_0029"></a>
+
+
+
+</dd>
+<dt><var>+T1</var> <code>==</code> <var>+T2</var></dt>
+<dd><p><var>T1</var> and <var>T2</var> are
+literally identical  (in  particular,  variables in equivalent positions in
+the two terms must be identical). 
+</p>
+</dd>
+<dt><var>+T1</var> <code>\==</code> <var>+T2</var></dt>
+<dd><p><var>T1</var> and <var>T2</var> are 
+<em>not</em> literally identical.
+</p>
+
+</dd>
+<dt><var>+T1</var> <code>@&lt;</code> <var>+T2</var></dt>
+<dd><p><var>T1</var> is before term <var>T2</var> in the standard order. 
+</p>
+
+</dd>
+<dt><var>+T1</var> <code>@&gt;</code> <var>+T2</var></dt>
+<dd><p><var>T1</var> is after term <var>T2</var>
+</p>
+
+</dd>
+<dt><var>+T1</var> <code>@=&lt;</code> <var>+T2</var></dt>
+<dd><p><var>T1</var> is not after term <var>T2</var>
+</p>
+
+</dd>
+<dt><var>+T1</var> <code>@&gt;=</code> <var>+T2</var></dt>
+<dd><p><var>T1</var> is not before term <var>T2</var>
+</p>
+
+</dd>
+<dt><code>compare(<var>-Op</var>, <var>+T1</var>, <var>+T2</var>)</code></dt>
+<dd><p>the result of comparing terms <var>T1</var> and <var>T2</var> is <var>Op</var>, where
+the possible values for <var>Op</var> are:
+</p>
+<dl compact="compact">
+<dt><code>=</code></dt>
+<dd><p>if <var>T1</var> is identical to <var>T2</var>,
+</p></dd>
+<dt><code>&lt;</code></dt>
+<dd><p>if <var>T1</var> is before <var>T2</var> in the standard order,
+</p></dd>
+<dt><code>&gt;</code></dt>
+<dd><p>if <var>T1</var> is after <var>T2</var> in the standard order.
+</p></dd>
+</dl>
+
+</dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlte_002dcte_002dsor.html#ref_002dlte_002dcte_002dsor" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlte_002dcte_002dbas.html#ref_002dlte_002dcte_002dbas" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlte_002dcte.html#ref_002dlte_002dcte" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dcte_002dsot.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dcte_002dsot.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

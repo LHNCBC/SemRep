@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-sem-ctr-cut</title>
+
+<meta name="description" content="SICStus Prolog: ref-sem-ctr-cut">
+<meta name="keywords" content="SICStus Prolog: ref-sem-ctr-cut">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsem_002dctr.html#ref_002dsem_002dctr" rel="up" title="ref-sem-ctr">
+<link href="ref_002dsem_002dctr_002ddis.html#ref_002dsem_002dctr_002ddis" rel="next" title="ref-sem-ctr-dis">
+<link href="ref_002dsem_002dctr.html#ref_002dsem_002dctr" rel="prev" title="ref-sem-ctr">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsem_002dctr_002dcut"></a>
+<hr>
+<a name="The-Cut-1"></a>
+<h4 class="subsubsection">4.2.3.1 The Cut</h4>
+
+
+<a name="index-_0021_002f0_002c-cut-1"></a>
+<a name="index-_0021_002f0_002c-cut"></a>
+
+<a name="index-_0021_002c-cut"></a>
+<p>Besides the sequencing of goals and clauses, Prolog provides one
+other  very  important  facility  for  specifying control information.
+This is the <em>cut</em>, written &lsquo;<samp>!</samp>&rsquo;.
+It is  inserted  in  the  program
+just  like  a  goal, but is not to be regarded as part of the logic of
+the program and should be ignored as far as the declarative  semantics
+is concerned.
+</p>
+<p>The  effect  of  the  cut  is  as  follows.   When  first
+encountered  as  a  goal,  cut  succeeds immediately.  If backtracking
+should later return to the cut, then the effect  is  to  fail  the  <em>parent
+goal</em>, i.e. the goal that matched the head of the clause containing
+the cut, and caused the clause to be activated.  In other  words,  the
+cut  operation <em>commits</em> the system to all choices made since the parent
+goal was invoked, and causes other alternatives to be discarded.   The
+goals  thus  rendered  <em>determinate</em>  are  the parent goal itself, any
+goals occurring before the cut in the clause containing the  cut,  and
+any  subgoals  that  were  executed  during  the  execution  of those
+preceding goals.
+</p>
+<p>For example, the procedure
+</p><div class="example">
+<pre class="example">member(X, [X|L]).
+member(X, [Y|L]) :- 
+   member(X, L).
+</pre></div>
+
+<p>can be used to test whether a given term is in a list:
+</p><div class="example">
+<pre class="example">| ?- <kbd>member(b, [a,b,c]).</kbd>
+</pre></div>
+
+<p>returns the answer &lsquo;<samp>yes</samp>&rsquo;.
+The procedure can also be used to extract elements from a list, as in
+</p><div class="example">
+<pre class="example">| ?- <kbd>member(X, [d,e,f]).</kbd>
+</pre></div>
+
+<p>With backtracking this will successively return each element of the list.
+Now suppose that the first clause had been written instead:
+</p><div class="example">
+<pre class="example">member(X, [X|L]) :- !.
+</pre></div>
+
+<p>In this case, the second call above would extract only the first element 
+of the list (&lsquo;<samp>d</samp>&rsquo;).
+On backtracking, the cut would immediately fail the entire procedure.
+</p>
+<p>Another example:
+</p><div class="example">
+<pre class="example">x :- p, !, q.
+x :- r.
+</pre></div>
+
+<p>This is analogous to &ldquo;if p then q else r&rdquo; in an Algol-like language.
+</p>
+<p>Note that a cut discards all the alternatives subsequent to
+the parent goal, even when the cut appears within  a  disjunction.  This
+means  that  the normal method for eliminating a disjunction&mdash;by 
+defining
+an extra predicate&mdash;cannot be applied to a disjunction containing a 
+cut.
+</p>
+<a name="index-green-cut"></a>
+<a name="index-cut_002c-green"></a>
+<a name="index-red-cut"></a>
+<a name="index-cut_002c-red"></a>
+<p>A proper use of the cut is usually a major difficulty for new
+Prolog programmers.  The usual mistakes are to over-use cut, and
+to let cuts destroy the logic.  A cut that does not destroy
+the logic is called a <em>green cut</em>; a cut that does is called a
+<em>red cut</em>.  We would like to advise all users to follow these
+general rules.  Also see <a href="Writing-Efficient-Programs.html#Writing-Efficient-Programs">Writing Efficient Programs</a>.
+</p>
+<ul>
+<li> Write each clause as a self-contained logic rule, which just
+defines the truth of goals that match its head.  Then add
+cuts to remove any fruitless alternative computation paths that
+may tie up memory.
+</li><li> Cuts are hardly ever needed in the last clause of a predicate.
+</li><li> Use cuts sparingly, and <em>only</em> at proper places.
+A cut should be placed at the exact point that it
+is known that the current choice is the correct one; no sooner, no
+later, usually placed right after the head, sometimes preceded by simple
+tests.
+</li><li> Make cuts as local in their effect as possible.  If a
+predicate is intended to be determinate, then define <em>it</em> as
+such; do not rely on its callers to prevent unintended
+backtracking.
+</li><li> Binding output arguments before a cut is a common
+source of programming errors.  If a predicate is not steadfast, then it is
+usually for this reason.
+</li></ul>
+
+<p>To illustrate the last issue, suppose that you want to write a
+predicate <code>max/3</code> that finds the greater of two numbers.  The
+pure version is:
+</p>
+<div class="example">
+<pre class="example">max(X, Y, X) :- X &gt;= Y.
+max(X, Y, Y) :- X &lt; Y.
+</pre></div>
+
+<p>Now since the two conditions are mutually exclusive, we can add a
+green cut to the first clause:
+</p>
+<div class="example">
+<pre class="example">max(X, Y, X) :- X &gt;= Y, !.
+max(X, Y, Y) :- X &lt; Y.
+</pre></div>
+
+<p>Furthermore, if the <code>X &gt;= Y</code> test fails, then we know that <code>X &lt; Y</code>
+must be true, and therefore it is tempting to turn the green cut into
+a red one and drop the <code>X &lt; Y</code> test:
+</p>
+<div class="example">
+<pre class="example">max(X, Y, X) :- X &gt;= Y, !.
+max(X, Y, Y).
+</pre></div>
+
+<p>Unfortunately, this version of <code>max/3</code> can give wrong answers,
+for example:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>max(10, 0, 0).</kbd>
+yes
+</pre></div>
+
+<p>The reason is that the query does not match the head of the first
+clause, and so we never executed the <code>X &gt;= Y</code> test.  When we
+dropped the <code>X &lt; Y</code> test, we made the mistake of assuming that
+the head of the first clause would match any query. This is an example
+of a predicate that is <em>not steadfast</em>.  A steadfast version is:
+</p>
+<div class="example">
+<pre class="example">max(X, Y, Z) :- X &gt;= Y, !, Z = X.
+max(X, Y, Y).
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsem_002dctr_002ddis.html#ref_002dsem_002dctr_002ddis" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsem_002dctr.html#ref_002dsem_002dctr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsem_002dctr_002dcut.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsem_002dctr_002dcut.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

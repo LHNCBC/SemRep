@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: The Jasper Library</title>
+
+<meta name="description" content="SICStus Prolog: The Jasper Library">
+<meta name="keywords" content="SICStus Prolog: The Jasper Library">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002djasper.html#lib_002djasper" rel="up" title="lib-jasper">
+<link href="Jasper-Method-Call-Example.html#Jasper-Method-Call-Example" rel="next" title="Jasper Method Call Example">
+<link href="Java-Threads.html#Java-Threads" rel="prev" title="Java Threads">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="The-Jasper-Library"></a>
+<hr>
+<a name="The-Jasper-Library-1"></a>
+<h4 class="subsection">10.19.8 The Jasper Library</h4>
+
+<p>The Jasper library module is the Prolog interface to the Java
+VM. It corresponds to the <code>se.sics.jasper</code> package in Java. It is
+loaded by executing the query:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>use_module(library(jasper)).</kbd>
+</pre></div>
+
+
+<p>The Jasper library fully supports multiple SICStus runtimes in a
+process.
+</p>
+<p>Jasper cannot be used when the SICStus runtime is statically linked to
+the executable, such as when using <code>spld --static</code>.
+</p>
+<p>The following functionality is provided:
+</p>
+<ul>
+<li> Initializing the Java VM using the <em>JNI Invocation API</em>
+(<code>jasper_initialize/[1,2]</code>, <code>jasper_deinitialize/1</code>).
+</li><li> Creating and deleting Java objects directly from Prolog
+(<code>jasper_new_object/5</code>).
+</li><li> Method calls (<code>jasper_call/4</code>).
+
+</li><li> Global and local (object) reference management
+(<code>jasper_create_global_ref/3</code>, <code>jasper_delete_global_ref/2</code>,
+<code>jasper_delete_local_ref/2</code>). Global references are used to prevent
+the JVM from garbage collecting a Java object referenced from
+Prolog.
+</li><li> There is also a sub-directory containing example programs
+(<code>library('jasper/examples')</code>).
+</li></ul>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Jasper-Method-Call-Example.html#Jasper-Method-Call-Example" accesskey="1">Jasper Method Call Example</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Jasper Method Call Example
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Jasper-Library-Predicates.html#Jasper-Library-Predicates" accesskey="2">Jasper Library Predicates</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Jasper Library Predicates
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Conversion-between-Prolog-Arguments-and-Java-Types.html#Conversion-between-Prolog-Arguments-and-Java-Types" accesskey="3">Conversion between Prolog Arguments and Java Types</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Conversion between Prolog Arguments and Java Types
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References" accesskey="4">Global vs. Local References</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Global vs. Local References
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Handling-Java-Exceptions.html#Handling-Java-Exceptions" accesskey="5">Handling Java Exceptions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Handling Java Exceptions
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Deprecated-Jasper-API.html#Deprecated-Jasper-API" accesskey="6">Deprecated Jasper API</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Deprecated Jasper API
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Java-Threads.html#Java-Threads" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002djasper.html#lib_002djasper" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-Jasper-Library.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-Jasper-Library.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

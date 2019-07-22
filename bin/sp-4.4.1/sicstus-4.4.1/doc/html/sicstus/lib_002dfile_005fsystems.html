@@ -1,0 +1,519 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-file_systems</title>
+
+<meta name="description" content="SICStus Prolog: lib-file_systems">
+<meta name="keywords" content="SICStus Prolog: lib-file_systems">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dgauge.html#lib_002dgauge" rel="next" title="lib-gauge">
+<link href="FDBG-Debugging-Global-Constraints.html#FDBG-Debugging-Global-Constraints" rel="prev" title="FDBG Debugging Global Constraints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dfile_005fsystems"></a>
+<hr>
+<a name="Accessing-Files-And-Directories_002d_002d_002dlibrary_0028file_005fsystems_0029"></a>
+<h3 class="section">10.16 Accessing Files And Directories&mdash;<code>library(file_systems)</code></h3>
+<a name="index-files"></a>
+<a name="index-directories"></a>
+<p>This module provides operations on files and directories, such as renaming,
+deleting, opening, checking permissions, accessing members of.
+</p>
+<p>The following principles have been observed:
+</p>
+<ul>
+<li> An absolute distinction is drawn between files and directories.
+The set of operations
+one can usefully perform on a directory is different from the set
+one can perform on a file:  for example, having
+write permission to a directory allows the user to create new files in
+it, not to rewrite the entire directory!  If any routine in this package
+tells you that a &ldquo;file&rdquo; exists, you can be sure that it means a
+file and not a directory (and vice versa for &ldquo;directory&rdquo; exists).
+</li><li> The directory scanning routines do not actually open the files they
+find.  Thus finer discriminations, such as that between
+source and object code, are not made.
+</li><li> All paths are expanded as if by <code>absolute_file_name/3</code>.
+</li><li> Every predicate acts like a genuine logical relation insofar as it
+possibly can.
+</li><li> If anything goes wrong, the 
+predicates
+raise an error exception.  Any time that a predicate
+fails quietly, it should mean &ldquo;this question is meaningful, but the
+answer is no&rdquo;.
+</li><li> The directory scanning routines insist that the directory argument
+name a searchable directory.
+</li><li> On Unix-like systems, symbolic links are followed by default and
+symbolic links that can not be followed are treated as
+non-existing. This means <code>file_exists/1</code> will fail if passed
+such a &ldquo;broken&rdquo; link and that neither
+<code>file_members_of_directory/1</code> nor
+<code>directory_members_of_directory/1</code> et al. will return such
+a link.
+
+<p>On Windows, symbolic links (and other reparse points) are
+<em>not</em> followed when enumerating directory contents with
+<code>file_members_of_directory/1</code> nor
+<code>directory_members_of_directory/1</code> et al. and are not
+returned for these predicates.
+</p>
+<p>The behavior for symbolic links (and reparse points) may change on
+all platforms in the future to ensure a well defined and
+consistent behavior on all platforms.
+</p>
+<p>To see <em>all</em> members of a directory you can use
+<code>absolute_file_name/3</code> with a <code>glob('*')</code> option.
+</p></li></ul>
+
+<p>The &ldquo;property&rdquo; routines use the same simplistic access control
+model as that used by the <code>absolute_file_name/3</code>
+<code>access/1</code>-option. See <a href="mpg_002dref_002dabsolute_005ffile_005fname.html#mpg_002dref_002dabsolute_005ffile_005fname">mpg-ref-absolute_file_name</a>, for details.
+</p>
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>rename_file(<var>+OldName</var>, <var>+NewName</var>)</code></dt>
+<dd>
+<a name="index-rename_005ffile_002f2-_0028file_005fsystems_0029-1"></a>
+<a name="index-rename_005ffile_002f2-_0028file_005fsystems_0029"></a>
+
+<p><var>OldName</var> must identify an existing file, which will
+be renamed to <var>NewName</var>.  The details of just when this can be
+done are operating-system dependent.
+Typically it is only possible to rename within the same file system.
+</p></dd>
+<dt><code>rename_directory(<var>+OldName</var>, <var>+NewName</var>)</code></dt>
+<dd>
+<a name="index-rename_005fdirectory_002f2-_0028file_005fsystems_0029-1"></a>
+<a name="index-rename_005fdirectory_002f2-_0028file_005fsystems_0029"></a>
+
+<p><var>OldName</var> must identify an existing directory, which will
+be renamed to <var>NewName</var>.  The details of just when this can be
+done are operating-system dependent.
+Typically it is only possible to rename empty directories within
+the same file system.
+</p></dd>
+<dt><code>delete_file(<var>+OldName</var>)</code></dt>
+<dd>
+<a name="index-delete_005ffile_002f1-_0028file_005fsystems_0029-1"></a>
+<a name="index-delete_005ffile_002f1-_0028file_005fsystems_0029"></a>
+
+<p><var>OldName</var> must identify an existing file, which will be deleted.
+</p></dd>
+<dt><code>delete_directory(<var>+Directory</var>)</code></dt>
+<dt><code>delete_directory(<var>+Directory</var>, <var>+Options</var>)</code></dt>
+<dd>
+<a name="index-delete_005fdirectory_002f_005b1_002c2_005d-_0028file_005fsystems_0029-1"></a>
+<a name="index-delete_005fdirectory_002f_005b1_002c2_005d-_0028file_005fsystems_0029"></a>
+
+<p><var>Directory</var> 
+must identify an existing directory, which will be deleted, if empty.
+<var>Options</var> should be a list of at most one term of the form:
+</p><dl compact="compact">
+<dt><code>if_nonempty(<var>Value</var>)</code></dt>
+<dd><a name="index-if_005fnonempty_002f1-_0028delete_005fdirectory_002f2-option_0029"></a>
+<p>Defines what to do if the directory is nonempty.  One of:
+</p><dl compact="compact">
+<dt><code>ignore</code></dt>
+<dd><a name="index-ignore-_0028delete_005fdirectory_002f2-if_005fnonempty-option-value_0029"></a>
+<p>The predicate simply succeeds, deleting nothing.
+</p></dd>
+<dt><code>fail</code></dt>
+<dd><a name="index-fail-_0028delete_005fdirectory_002f2-if_005fnonempty-option-value_0029"></a>
+<p>The predicate simply fails, deleting nothing.
+</p></dd>
+<dt><code>error</code></dt>
+<dd><a name="index-error-_0028delete_005fdirectory_002f2-if_005fnonempty-option-value_0029"></a>
+<p>The predicate raises a permisison error.
+</p></dd>
+<dt><code>delete</code></dt>
+<dd><a name="index-delete-_0028delete_005fdirectory_002f2-if_005fnonempty-option-value_0029"></a>
+<p>The predicate recursively deletes the directory and its contents.
+</p></dd>
+</dl>
+</dd>
+</dl>
+</dd>
+<dt><code>directory_exists(<var>+Directory</var>)</code></dt>
+<dt><code>directory_exists(<var>+Directory</var>, <var>+Mode</var>)</code></dt>
+<dd>
+<a name="index-directory_005fexists_002f1-_0028file_005fsystems_0029-1"></a>
+<a name="index-directory_005fexists_002f1-_0028file_005fsystems_0029"></a>
+
+
+<a name="index-directory_005fexists_002f2-_0028file_005fsystems_0029-1"></a>
+<a name="index-directory_005fexists_002f2-_0028file_005fsystems_0029"></a>
+
+<p>is true when <var>Directory</var> is an existing directory that is accessible
+according to <var>Mode</var>. <var>Mode</var> defaults to <code>exist</code>.
+</p>
+<p>This is more or less equivalent to
+<code>absolute_file_name(<var>File</var>, _, [file_type(directory),access([exist|<var>Mode</var>]),file_errors(fail)])</code>.
+</p></dd>
+<dt><code>make_directory(<var>+Directory</var>)</code></dt>
+<dd>
+<a name="index-make_005fdirectory_002f1-_0028file_005fsystems_0029-1"></a>
+<a name="index-make_005fdirectory_002f1-_0028file_005fsystems_0029"></a>
+
+<p><var>Directory</var> is expanded, as if by <code>absolute_file_name/3</code>,
+and the resulting directory is created.
+</p></dd>
+<dt><code>file_exists(<var>+File</var>)</code></dt>
+<dt><code>file_exists(<var>+File</var>, <var>+Mode</var>)</code></dt>
+<dd>
+<a name="index-file_005fexists_002f1-_0028file_005fsystems_0029-1"></a>
+<a name="index-file_005fexists_002f1-_0028file_005fsystems_0029"></a>
+
+
+<a name="index-file_005fexists_002f2-_0028file_005fsystems_0029-1"></a>
+<a name="index-file_005fexists_002f2-_0028file_005fsystems_0029"></a>
+
+<p>is true when <var>File</var> is an existing file that is accessible
+according to <var>Mode</var>. <var>Mode</var> defaults to <code>exist</code>.
+</p>
+<p>This is more or less equivalent to
+<code>absolute_file_name(<var>File</var>, _, [access([exist|<var>Mode</var>]),file_errors(fail)])</code>.
+</p></dd>
+<dt><code>file_must_exist(<var>+File</var>)</code></dt>
+<dt><code>file_must_exist(<var>+File</var>, <var>+Mode</var>)</code></dt>
+<dd>
+<a name="index-file_005fmust_005fexist_002f1-_0028file_005fsystems_0029-1"></a>
+<a name="index-file_005fmust_005fexist_002f1-_0028file_005fsystems_0029"></a>
+
+
+<a name="index-file_005fmust_005fexist_002f2-_0028file_005fsystems_0029-1"></a>
+<a name="index-file_005fmust_005fexist_002f2-_0028file_005fsystems_0029"></a>
+
+<p>is like <code>file_exists(<var>File</var>[, <var>Mode</var>])</code> except that if the file is <em>not</em>
+accessible it reports an error.
+</p>
+<p>This is more or less equivalent to
+<code>absolute_file_name(<var>File</var>, _, [access([exist|<var>Mode</var>]),file_errors(error)])</code>.
+</p></dd>
+<dt><code>directory_must_exist(<var>+File</var>)</code></dt>
+<dt><code>directory_must_exist(<var>+File</var>, <var>+Mode</var>)</code></dt>
+<dd>
+<a name="index-directory_005fmust_005fexist_002f1-_0028file_005fsystems_0029-1"></a>
+<a name="index-directory_005fmust_005fexist_002f1-_0028file_005fsystems_0029"></a>
+
+
+<a name="index-directory_005fmust_005fexist_002f2-_0028file_005fsystems_0029-1"></a>
+<a name="index-directory_005fmust_005fexist_002f2-_0028file_005fsystems_0029"></a>
+
+<p>is like <code>file_must_exists(<var>File</var>[, <var>Mode</var>])</code>, but for directories.
+</p>
+<p>This is more or less equivalent to
+<code>absolute_file_name(<var>File</var>, _, [file_type(directory),access([exists|<var>Mode</var>]),file_errors(error)])</code>.
+</p></dd>
+<dt><code>close_all_streams</code></dt>
+<dd>
+<a name="index-close_005fall_005fstreams_002f0-_0028file_005fsystems_0029-1"></a>
+<a name="index-close_005fall_005fstreams_002f0-_0028file_005fsystems_0029"></a>
+
+<p>closes all the streams (other than the standard streams)
+which are currently open.  The time to call this is after
+an <code>abort/0</code>.  Note that <code>current_stream/3</code> does not notice the standard
+streams.
+</p></dd>
+<dt><code>directory_member_of_directory(<var>?BaseName</var>, <var>?FullName</var>)</code></dt>
+<dd>
+<a name="index-directory_005fmember_005fof_005fdirectory_002f2-_0028file_005fsystems_0029-1"></a>
+<a name="index-directory_005fmember_005fof_005fdirectory_002f2-_0028file_005fsystems_0029"></a>
+
+<p>is true when <var>BaseName</var> is the name of a subdirectory of the current
+directory (other than &rsquo;.&rsquo; or &rsquo;..&rsquo;) and <var>FullName</var> is its absolute name.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with the <code>glob/1</code> option.
+</p></dd>
+<dt><code>directory_member_of_directory(<var>+Directory</var>, <var>?BaseName</var>, <var>?FullName</var>)</code></dt>
+<dd>
+<a name="index-directory_005fmember_005fof_005fdirectory_002f3-_0028file_005fsystems_0029-1"></a>
+<a name="index-directory_005fmember_005fof_005fdirectory_002f3-_0028file_005fsystems_0029"></a>
+
+<p>is true when <var>Directory</var> is a name (not necessarily the absolute name)
+of a directory, <var>BaseName</var> is the name of a subdirectory of that
+directory (other than &rsquo;.&rsquo; or &rsquo;..&rsquo;) and <var>FullName</var> is its absolute name.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with the <code>glob/1</code> option.
+</p></dd>
+<dt><code>directory_member_of_directory(<var>+Directory</var>, <var>+Pattern</var>, <var>?BaseName</var>, <var>?FullName</var>)</code></dt>
+<dd>
+<a name="index-directory_005fmember_005fof_005fdirectory_002f4-_0028file_005fsystems_0029-1"></a>
+<a name="index-directory_005fmember_005fof_005fdirectory_002f4-_0028file_005fsystems_0029"></a>
+
+<p>is true when <var>Directory</var> is a name (not necessarily the absolute name)
+of a directory, <var>BaseName</var> is the name of a directory of that
+directory (other than &rsquo;.&rsquo; or &rsquo;..&rsquo;) which matches the given <var>Pattern</var>,
+and <var>FullName</var> is the absolute name of the subdirectory.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with a <code>glob(<var>Pattern</var>)</code> option.
+</p></dd>
+<dt><code>directory_members_of_directory(<var>-Set</var>)</code></dt>
+<dd>
+<a name="index-directory_005fmembers_005fof_005fdirectory_002f_005b1_002c2_002c3_005d-_0028file_005fsystems_0029-1"></a>
+<a name="index-directory_005fmembers_005fof_005fdirectory_002f_005b1_002c2_002c3_005d-_0028file_005fsystems_0029"></a>
+
+<p>is true when <var>Set</var> is a set of <var>BaseName-FullName</var> pairs being the
+relative and absolute names of subdirectories of the current directory.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with the <code>glob/1</code> option.
+</p></dd>
+<dt><code>directory_members_of_directory(<var>+Directory</var>, <var>-Set</var>)</code></dt>
+<dd><p>is true when <var>Set</var> is a set of <var>BaseName-FullName</var> pairs being the
+relative and absolute names of subdirectories of the given <var>Directory</var>.
+<var>Directory</var> need not be absolute; the <var>FullNames</var> will be regardless.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with the <code>glob/1</code> option.
+</p></dd>
+<dt><code>directory_members_of_directory(<var>+Directory</var>, <var>+Pattern</var>, <var>-Set</var>)</code></dt>
+<dd><p>is true when <var>Set</var> is a set of <var>BaseName-FullName</var> pairs being the
+relative and absolute names of subdirectories of the given <var>Directory</var>,
+such that each <var>BaseName</var> matches the given Pattern.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with a <code>glob(<var>Pattern</var>)</code> option.
+</p></dd>
+<dt><code>file_member_of_directory(<var>?BaseName</var>, <var>?FullName</var>)</code></dt>
+<dd>
+<a name="index-file_005fmember_005fof_005fdirectory_002f_005b2_002c3_002c4_005d-_0028file_005fsystems_0029-1"></a>
+<a name="index-file_005fmember_005fof_005fdirectory_002f_005b2_002c3_002c4_005d-_0028file_005fsystems_0029"></a>
+
+<p>is true when <var>BaseName</var> is the name of a file in the current
+directory and <var>FullName</var> is its absolute name.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with the <code>glob/1</code> option.
+</p></dd>
+<dt><code>file_member_of_directory(<var>+Directory</var>, <var>?BaseName</var>, <var>?FullName</var>)</code></dt>
+<dd><p>is true when <var>Directory</var> is a name (not necessarily the absolute name)
+of a directory, <var>BaseName</var> is the name of a file in that directory,
+and <var>FullName</var> is its absolute name.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with the <code>glob/1</code> option.
+</p></dd>
+<dt><code>file_member_of_directory(<var>+Directory</var>, <var>+Pattern</var>, <var>?BaseName</var>, <var>?FullName</var>)</code></dt>
+<dd><p>is true when <var>Directory</var> is a name (not necessarily the absolute name)
+of a directory, <var>BaseName</var> is the name of a file in that directory
+which matches the given <var>Pattern</var>,
+and <var>FullName</var> is its absolute name.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with a <code>glob(<var>Pattern</var>)</code> option.
+</p></dd>
+<dt><code>file_members_of_directory(<var>-Set</var>)</code></dt>
+<dd>
+<a name="index-file_005fmembers_005fof_005fdirectory_002f_005b1_002c2_002c3_005d-_0028file_005fsystems_0029-1"></a>
+<a name="index-file_005fmembers_005fof_005fdirectory_002f_005b1_002c2_002c3_005d-_0028file_005fsystems_0029"></a>
+
+<p>is true when <var>Set</var> is a set of <var>BaseName-FullName</var> pairs being the
+relative and absolute names of the files in the current directory.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with the <code>glob/1</code> option.
+</p></dd>
+<dt><code>file_members_of_directory(<var>+Directory</var>, <var>-Set</var>)</code></dt>
+<dd><p>is true when <var>Set</var> is a set of <var>BaseName-FullName</var> pairs being the
+relative and absolute names of the files in the given <var>Directory</var>.
+<var>Directory</var> need not be absolute; the <var>FullNames</var> will be regardless.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with the <code>glob/1</code> option.
+</p></dd>
+<dt><code>file_members_of_directory(<var>+Directory</var>, <var>+Pattern</var>, <var>-Set</var>)</code></dt>
+<dd><p>is true when <var>Set</var> is a set of <var>BaseName-FullName</var> pairs being the
+relative and absolute names of subdirectories of the given <var>Directory</var>,
+such that each <var>BaseName</var> matches the given <var>Pattern</var>.
+</p>
+<p>This uses <code>absolute_file_name/3</code> with a <code>glob(<var>Pattern</var>)</code> option.
+</p></dd>
+<dt><code>directory_property(<var>+Directory</var>, <var>?Property</var>)</code></dt>
+<dd>
+<a name="index-directory_005fproperty_002f_005b2_002c3_005d-_0028file_005fsystems_0029-1"></a>
+<a name="index-directory_005fproperty_002f_005b2_002c3_005d-_0028file_005fsystems_0029"></a>
+
+<p>is true when <var>Directory</var> is a name of a directory, and <var>Property</var> is
+a boolean property which that directory possesses, e.g.
+</p><div class="example">
+<pre class="example">    directory_property(., searchable).
+</pre></div>
+
+<p>The current set of file and directory properties include:
+</p><dl compact="compact">
+<dt><code>readable</code></dt>
+<dt><code>writable</code></dt>
+<dt><code>executable</code></dt>
+<dt><code>searchable</code></dt>
+<dd>
+<p>Tries to determine whether the process has permission to read, write,
+execute (only for files) or search (only for directories) the
+file.
+</p>
+</dd>
+<dt><code>size_in_bytes</code></dt>
+<dd><p>The size, in bytes, of the file. Not available for directories.
+</p>
+</dd>
+<dt><code>create_timestamp</code></dt>
+<dt><code>modify_timestamp</code></dt>
+<dt><code>access_timestamp</code></dt>
+<dd>
+<p>The time of creation, last modification or last access expressed as a
+timestamp.
+<a name="index-timestamp"></a>
+<a name="index-Epoch"></a>
+<a name="index-seconds-since-the-Epoch"></a>
+<a name="index-UTC"></a>
+A <em>timestamp</em> is an integer expressing the time interval, in
+seconds, since the &ldquo;Epoch&rdquo;. The <em>Epoch</em> is
+the time zero hours, zero minutes, zero seconds, on January 1, 1970
+Coordinated Universal Time (UTC).
+</p>
+<p>The timestamp is what should be used when comparing information
+between files since it is independent of locale issues like time zone and daylight
+savings time etc.
+</p>
+</dd>
+<dt><code>create_localtime</code></dt>
+<dt><code>modify_localtime</code></dt>
+<dt><code>access_localtime</code></dt>
+<dd>
+<p>The same as the corresponding <code>&hellip;_timestamp</code> values passed
+through <code>system:datime/2</code>, i.e. expressed as local time and
+split up in the components year, month, day, hour, minute, seconds.
+</p>
+</dd>
+<dt><code>set_user_id</code></dt>
+<dt><code>set_group_id</code></dt>
+<dt><code>save_text</code></dt>
+<dd>
+<p>True if the set-uid, set-group-id, save-text bits, respectively, are
+set for the file. Always false on Windows.
+</p>
+</dd>
+<dt><code>who_can_read</code></dt>
+<dt><code>who_can_write</code></dt>
+<dt><code>who_can_execute</code></dt>
+<dt><code>who_can_search</code></dt>
+<dd>
+<p>A list containing the subset of <code>[user,group,other]</code> for the
+process classes that can, respectively, read, write, execute (only for
+files) or search (only for directories.
+</p>
+</dd>
+<dt><code>owner_user_id</code></dt>
+<dt><code>owner_group_id</code></dt>
+<dd>
+<p>The id of the owner and group of the file. The id is an integer on
+UNIX and an atom (expressed as a string security identifier) on
+Windows.
+</p>
+</dd>
+<dt><code>owner_user_name</code></dt>
+<dt><code>owner_group_group</code></dt>
+<dd>
+<p>The atom containing the name of the files owner and group respectively. On Windows a name
+like <code>'<var>DOMAIN</var>\<var>NAME</var>'</code> will be used.
+</p>
+<p>If for some reason the name cannot be found it will fall back to using
+the same value as <code>owner_user_id</code> and <code>owner_group_id</code>.
+</p>
+</dd>
+</dl>
+
+<p>Other properties may be added in the future. You can backtrack through
+the available properties by calling <code>file_property/3</code> or
+<code>directory_property/3</code> with an uninstantiated <var>Property</var>
+argument.
+</p>
+</dd>
+<dt><code>directory_property(<var>+Directory</var>, <var>?Property</var>, <var>?Value</var>)</code></dt>
+<dd><p>is true when <var>Directory</var> is a name of a directory, <var>Property</var> is a
+property of directories, and <var>Value</var> is <var>Directory</var>&rsquo;s <var>Property</var> <var>Value</var>.
+See <code>directory_property/2</code>, above, for a list of properties.
+</p></dd>
+<dt><code>file_property(<var>+File</var>, <var>?Property</var>)</code></dt>
+<dd>
+<a name="index-file_005fproperty_002f_005b2_002c3_005d-_0028file_005fsystems_0029-1"></a>
+<a name="index-file_005fproperty_002f_005b2_002c3_005d-_0028file_005fsystems_0029"></a>
+
+<p>is true when <var>File</var> is a name of a file, and <var>Property</var> is
+a boolean property which that file possesses, e.g.
+</p><div class="example">
+<pre class="example">    file_property('foo.txt', readable).
+</pre></div>
+<p>See <code>directory_property/2</code>, above, for a list of properties.
+</p></dd>
+<dt><code>file_property(<var>+File</var>, <var>?Property</var>, <var>?Value</var>)</code></dt>
+<dd><p>is true when <var>File</var> is a name of a file, <var>Property</var> is a
+property of files, and <var>Value</var> is <var>File</var>&rsquo;s <var>Property</var> <var>Value</var>.
+See <code>directory_property/2</code>, above, for a list of properties.
+</p></dd>
+<dt><code>current_directory(<var>-Directory</var>)</code></dt>
+<dt><code>current_directory(<var>-Directory</var>, <var>+NewDirectory</var>)</code></dt>
+<dd>
+<a name="index-current_005fdirectory_002f_005b1_002c2_005d-_0028file_005fsystems_0029-1"></a>
+<a name="index-current_005fdirectory_002f_005b1_002c2_005d-_0028file_005fsystems_0029"></a>
+
+<p><var>Directory</var> is unified with the current working directory and
+the working directory is set to <var>NewDirectory</var>.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dgauge.html#lib_002dgauge" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dfdbg.html#lib_002dfdbg" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dfile_005fsystems.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dfile_005fsystems.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

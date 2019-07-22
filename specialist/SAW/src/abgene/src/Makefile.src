@@ -1,0 +1,20 @@
+TRASHFILES = *.o *.a *~ *.bak *.err core 
+LIB_INC=-I../include
+
+libops.a: huge.o mHMM.o runn.o  Btree.o  Docum.o  Post.o  Word.o   \
+	FBase.o Rate.o Patt.o Hyper.o GBoost.o	\
+	Istreg.o Regist.o Dbinbase.o Thes.o Blist.o \
+	Isgrid.o Istgen.o Bnum.o LUD.o Slice.o Elev.o\
+	Cut.o Bool.o Nabor.o BnBayes.o Focus.o Sock.o	\
+	Bootstrap.o Hash.o DataObj.o Brill.o Filter.o \
+	Repeat.o Vnab.o PostBrill_FN.o PostBrill_FP.o \
+	LinClass.o Strset.o Mahal.o Dist.o Dtree.o\
+	Lglin.o SBoost.o Cmls.o SCmls.o Mang.o Ktree.o\
+	MAlpha.o Alpha.o Island.o Postg.o
+	${AR} $@ $?
+
+%.o: %.C
+	${CXX} ${DEFAULT_CFLAGS} -c  $< -o $@ ${LIB_INC}
+
+clean:
+	rm -f ${TRASHFILES}

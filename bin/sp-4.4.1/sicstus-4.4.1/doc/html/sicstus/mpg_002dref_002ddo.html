@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-do</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-do">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-do">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002ddynamic.html#mpg_002dref_002ddynamic" rel="next" title="mpg-ref-dynamic">
+<link href="mpg_002dref_002ddisplay.html#mpg_002dref_002ddisplay" rel="prev" title="mpg-ref-display">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002ddo"></a>
+<hr>
+<a name="do_002f2"></a>
+<h4 class="subsection">11.3.67 <code>do/2</code></h4>
+<a name="index-do_002f2-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-do_002f2-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-92"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>(<var>+Iterator</var> do <var>+Body</var>)</code>
+</p>
+<a name="Arguments-85"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>+Iterator</var></dt>
+<dd><p><em>iterator</em>, must be nonvar
+</p></dd>
+<dt><var>:Body</var></dt>
+<dd><p><em>callable</em>, must be nonvar
+</p></dd>
+</dl>
+
+<a name="Description-71"></a>
+<h4 class="subheading">Description</h4>
+
+<p>This control structure reduces the need to write auxiliary predicates performing simple
+iterations.  It iterates <var>Body</var> until <var>Iterator</var>&rsquo;s termination condition is true.
+</p>
+
+<p>A <em>iterator</em> is a term of one of the following forms:
+</p>
+<dl compact="compact">
+<dt><code>fromto(<var>First</var>,<var>In</var>,<var>Out</var>,<var>Last</var>)</code></dt>
+<dd><a name="index-fromto_002f4-_0028iterator_0029"></a>
+<p>In the first iteration, <var>In</var>=<var>First</var>.  In the <var>n</var>:th
+iteration, <var>In</var> is the value that <var>Out</var> had at the end of the
+<var>(n-1)</var>:th iteration.  <var>In</var> and <var>Out</var> are local variables in <var>Body</var>.
+The termination condition is <code><var>Out</var>=<var>Last</var></code>.
+</p>
+</dd>
+<dt><code>foreach(<var>X</var>,<var>List</var>)</code></dt>
+<dd><a name="index-foreach_002f2-_0028iterator_0029"></a>
+<p>Iterate <var>Body</var> with <var>X</var> ranging over all elements of
+<var>List</var>. <var>X</var> is a local variable in <var>Body</var>. Can also be
+used for constructing a list.  The termination condition is
+<code><var>Tail</var> = []</code>, where <var>Tail</var> is the suffix of <var>List</var>
+that follows the elements that have been iterated over.
+</p>
+</dd>
+<dt><code>foreacharg(<var>X</var>,<var>Struct</var>)</code></dt>
+<dt><code>foreacharg(<var>X</var>,<var>Struct</var>,<var>I</var>)</code></dt>
+<dd><a name="index-foreacharg_002f2-_0028iterator_0029"></a>
+<a name="index-foreacharg_002f3-_0028iterator_0029"></a>
+<p>Iterate <var>Body</var> with <var>X</var> ranging over all arguments of
+<var>Struct</var> and <var>I</var> ranging over the argument number, 1-based.
+<var>X</var> and <var>I</var> are local variables in <var>Body</var>. Cannot be
+used for constructing a term.  So the termination condition is
+true iff all arguments have been iterated over.
+</p>
+</dd>
+<dt><code>count(<var>I</var>,<var>MinExpr</var>,<var>Max</var>)</code></dt>
+<dd><a name="index-count_002f3-_0028iterator_0029"></a>
+<p>This is normally used for counting the number of iterations.  Let
+<var>Min</var> take the value <code>integer(<var>MinExpr</var>)</code>.  Iterate
+<var>Body</var> with <var>I</var> ranging over integers from <var>Min</var>.  <var>I</var>
+is a local variable in <var>Body</var>.  The termination condition is
+<code><var>I</var> = <var>Max</var></code>, i.e. <var>Max</var> can be and typically is a
+variable.
+</p>
+</dd>
+<dt><code>for(<var>I</var>,<var>MinExpr</var>,<var>MaxExpr</var>)</code></dt>
+<dd><a name="index-for_002f3-_0028iterator_0029"></a>
+<p>This is used when the number of iterations is known.
+Let <var>Min</var> take the value <code>integer(<var>MinExpr</var>)</code>,
+let <var>Max</var> take the value <code>integer(<var>MaxExpr</var>)</code>,
+and let <var>Past</var> take the value <code>max(<var>Min</var>,<var>Max</var>+1)</code>.
+Iterate <var>Body</var> with <var>I</var> ranging over integers from <var>Min</var>
+to <code>max(<var>Min</var>,<var>Max</var>)</code> inclusive.  <var>I</var> is a local variable in <var>Body</var>.
+The termination condition is <code><var>I</var> = <var>Past</var></code>.
+</p>
+</dd>
+<dt><code>param(<var>X</var>)</code></dt>
+<dd><a name="index-param_002f1-_0028iterator_0029"></a>
+<p>For declaring variables in <var>Body</var> global, i.e. shared with the context.
+<var>X</var> can be a single variable, or a list of them.  The termination condition is true.
+<strong>Please note</strong>: By default, variables in <var>Body</var> have local scope.
+</p>
+</dd>
+<dt><code><em>iterator</em>,<em>iterator</em></code></dt>
+<dd><a name="index-_002c_002f2-_0028iterator_0029-1"></a>
+<p>The iterators are iterated synchronously; that is, they all take their
+first value for the first execution of <var>Body</var>, their second value
+for the second execution of <var>Body</var>, etc. The order in which they
+are written does not matter, and the set of local variables in
+<var>Body</var> is the union of those of the iterators.  The termination
+condition is the conjunction of those of the iterators.
+</p>
+</dd>
+</dl>
+
+<a name="Exceptions-83"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Call errors (see <a href="ref_002dsem_002dexc.html#ref_002dsem_002dexc">ref-sem-exc</a>).
+</p>
+<a name="See-Also-89"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dsem_002dctr_002ddol.html#ref_002dsem_002dctr_002ddol">ref-sem-ctr-dol</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002ddynamic.html#mpg_002dref_002ddynamic" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002ddisplay.html#mpg_002dref_002ddisplay" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002ddo.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002ddo.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

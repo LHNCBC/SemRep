@@ -1,0 +1,406 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Usage</title>
+
+<meta name="description" content="SICStus Prolog: Usage">
+<meta name="keywords" content="SICStus Prolog: Usage">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Emacs-Interface.html#Emacs-Interface" rel="up" title="Emacs Interface">
+<link href="Mode-Line.html#Mode-Line" rel="next" title="Mode Line">
+<link href="Basic-Configuration.html#Basic-Configuration" rel="prev" title="Basic Configuration">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Usage"></a>
+<hr>
+<a name="Usage-1"></a>
+<h4 class="subsection">3.12.3 Usage</h4>
+
+<p>A Prolog process can be started by choosing <code>Run Prolog</code> from the
+<code>Prolog</code> menu, by typing <kbd>C-c <span class="key">RET</span></kbd>, or by typing <kbd>M-x
+run-prolog</kbd>. It is however not strictly necessary to start a Prolog
+process manually since it is automatically done when consulting or
+compiling, if needed. The process can be restarted (i.e. the old
+one is killed and a new one is created) by typing <kbd>C-u C-c
+<span class="key">RET</span></kbd>, in this case Emacs will also prompt for a Lisp list of
+extra parameters to pass on the command line.
+</p>
+<p>Programs are run and debugged in the normal way, with terminal I/O
+via the <code>*prolog*</code> buffer.  The most common debugging
+predicates are available from the menu or via key-bindings.
+</p>
+<a name="index-source-information"></a>
+<a name="index-information_002c-source"></a>
+
+<p>A particularly useful feature under the Emacs interface is source-linked
+debugging. This is enabled or disabled using the
+<code>Prolog/Source-linked debugging</code> menu entry. It can also be enabled
+by setting the Emacs variable <code>prolog-use-sicstus-sd</code> to <code>t</code>
+in <samp>~/.emacs</samp>. Both these methods set the Prolog flag
+<code>source_info</code> to <code>emacs</code>. Its value should be <code>emacs</code>
+while loading the code to be debugged and while debugging. If so, then the
+debugger will display the source code location of the current goal when
+it prompts for a debugger command, by highlighting the current line.
+If <code>source_info</code> was <code>off</code> when the code was loaded, or if it
+was asserted or loaded from <code>user</code>, then the current goal will still be
+shown but out of context.
+<a name="index-source_005finfo-_0028prolog-flag_0029"></a>
+</p>
+<p>Note that if the code has been modified since it was last loaded, then 
+Prolog&rsquo;s line number information may be invalid.  If this happens, then just
+reload the relevant buffer.
+</p>
+<p>Another useful feature which is available for code loaded with
+<code>source_info</code> switched on is that the debugger can show the
+variable bindings for the current goal, its ancestors, and the clauses
+they occur in.  The bindings are shown in a separate <code>*Prolog
+Bindings*</code> buffer. This is enabled by the <kbd>C-c C-g</kbd> command and
+disabled by the <kbd>C-u C-c C-g</kbd> command.
+</p>
+<p>Yet another feature which is available for compiled code loaded with
+<code>source_info</code> switched on is code coverage highlighting
+(see <a href="Coverage-Analysis.html#Coverage-Analysis">Coverage Analysis</a>).  Highlighting of the current buffer is
+refreshed by the <kbd>C-c C-o</kbd> command and cleared by the <kbd>C-u C-c
+C-o</kbd> command.
+</p>
+<p>Consultation and compilation is either done via the menu or
+with the following key-bindings:
+</p>
+<dl compact="compact">
+<dd><a name="index-consult_002dfile-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-f</kbd></dt>
+<dd><p>Consult file.
+</p>
+<a name="index-consult_002dbuffer-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002db-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-b</kbd></dt>
+<dd><p>Consult buffer.
+</p>
+<a name="index-consult_002dregion-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dr-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-r</kbd></dt>
+<dd><p>Consult region.
+</p>
+<a name="index-consult_002dpredicate-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dp-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-p</kbd></dt>
+<dd><p>Consult predicate.
+</p>
+<a name="index-compile_002dfile-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dc-f-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-c f</kbd></dt>
+<dd><p>Compile file.
+</p>
+<a name="index-compile_002dbuffer-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dc-b-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-c b</kbd></dt>
+<dd><p>Compile buffer.
+</p>
+<a name="index-compile_002dregion-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dc-r-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-c r</kbd></dt>
+<dd><p>Compile region.
+</p>
+<a name="index-compile_002dpredicate-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dc-p-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-c p</kbd></dt>
+<dd><p>Compile predicate.
+</p></dd>
+</dl>
+
+<p>The boundaries used when consulting and compiling
+predicates are the first and last clauses of the
+predicate the cursor is currently in.
+</p>
+<p>Other useful key-bindings are: 
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-prolog_002dbeginning_002dof_002dclause-_0028emacs-command_0029"></a>
+<a name="index-M_002da-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>M-a</kbd></dt>
+<dd><p>Go to beginning of clause.
+Go to the previous clause if already at the beginning.
+</p>
+<a name="index-prolog_002dend_002dof_002dclause-_0028emacs-command_0029"></a>
+<a name="index-M_002de-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>M-e</kbd></dt>
+<dd><p>Go to end of clause.
+Go to the next clause if already at the end.
+</p>
+<a name="index-prolog_002dmark_002dclause-_0028emacs-command_0029"></a>
+<a name="index-C_002dM_002dc-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-M-c</kbd></dt>
+<dd><p>Mark clause.
+</p>
+<a name="index-prolog_002dbeginning_002dof_002dpredicate-_0028emacs-command_0029"></a>
+<a name="index-C_002dM_002da-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-M-a</kbd></dt>
+<dd><p>Go to beginning of predicate.
+</p>
+<a name="index-prolog_002dend_002dof_002dpredicate-_0028emacs-command_0029"></a>
+<a name="index-C_002dM_002de-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-M-e</kbd></dt>
+<dd><p>Go to end of predicate.
+</p>
+<a name="index-prolog_002dmark_002dpredicate-_0028emacs-command_0029"></a>
+<a name="index-C_002dM_002dh-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-M-h</kbd></dt>
+<dd><p>Mark predicate.
+</p>
+<a name="index-backward_002dparagraph-_0028emacs-command_0029"></a>
+<a name="index-M_002d_007b-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>M-{</kbd></dt>
+<dd><p>Go to the previous paragraph (i.e. empty line).
+</p>
+<a name="index-forward_002dparagraph-_0028emacs-command_0029"></a>
+<a name="index-M_002d_007d-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>M-}</kbd></dt>
+<dd><p>Go to the next paragraph (i.e. empty line).
+</p>
+<a name="index-mark_002dparagraph-_0028emacs-command_0029"></a>
+<a name="index-M_002dh-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>M-h</kbd></dt>
+<dd><p>Mark paragraph.
+</p>
+<a name="index-prolog_002dforward_002dlist-_0028emacs-command_0029"></a>
+<a name="index-C_002dM_002dn-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-M-n</kbd></dt>
+<dd><p>Go to matching right parenthesis.
+</p>
+<a name="index-prolog_002dbackward_002dlist-_0028emacs-command_0029"></a>
+<a name="index-C_002dM_002dp-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-M-p</kbd></dt>
+<dd><p>Go to matching left parenthesis.
+</p>
+<a name="index-comment_002ddwim-_0028emacs-command_0029"></a>
+<a name="index-M_002d_003b-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>M-;</kbd></dt>
+<dd><p>Creates a comment at <code>comment-column</code>. This comment will always
+stay at this position when the line is indented, regardless of changes
+in the text earlier on the line, provided that
+<code>prolog-align-comments-flag</code> is set to <code>t</code>.
+</p>
+<a name="index-prolog_002dtrace_002don-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dt-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-t</kbd></dt>
+<dd><a name="index-C_002du-C_002dc-C_002dt-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-u C-c C-t</kbd></dt>
+<dd><p>Enable and disable creeping, respectively.
+</p>
+<a name="index-prolog_002ddebug_002don-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dd-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-d</kbd></dt>
+<dd><a name="index-C_002du-C_002dc-C_002dd-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-u C-c C-d</kbd></dt>
+<dd><p>Enable and disable leaping, respectively.
+</p>
+<a name="index-prolog_002dzip_002don-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dz-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-z</kbd></dt>
+<dd><a name="index-C_002du-C_002dc-C_002dz-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-u C-c C-z</kbd></dt>
+<dd><p>Enable and disable zipping, respectively.
+</p>
+<a name="index-sicstus_002dbindings_002don-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dg-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-g &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><a name="index-C_002du-C_002dc-C_002dg-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-u C-c C-g &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><p>Enable and disable bindings window, respectively.  When enabled, SICStus
+will endeavor to show the variable bindings of the clause containing the
+current goal.  <kbd>C-c C-g</kbd> splits the <code>*prolog*</code> window
+vertically and inserts the <code>*Prolog Bindings*</code> window, which shows
+the bindings and is updated upon every debugger command.  <kbd>C-u C-c
+C-g</kbd> deletes the <code>*Prolog Bindings*</code> window.
+</p>
+<a name="index-sicstus_002dbindings_002dprint_002ddepth-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-_003c-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c &lt; &nbsp;<!-- /@w --> <i>since release 4.3.2</i></kbd></dt>
+<dd><p>Set the print depth for the bindings window as well as for the
+top-level.  Prompts for an integer value.  Equivalent to the <kbd>&lt;</kbd>
+top-level-command; see <a href="Queries.html#Queries">Queries</a>.
+</p>
+<a name="index-sicstus_002dcoverage_002don-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002do-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-o &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><a name="index-C_002du-C_002dc-C_002do-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-u C-c C-o &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><p>Refresh and clear coverage highlighting for the current buffer,
+respectively.  Lines containing coverage sites (see <a href="Coverage-Analysis.html#Coverage-Analysis">Coverage Analysis</a>) will be highlighted in face <code>pltrace-face-reached-det</code>
+(defaults to green) if they were hit at least once and made no nondet
+calls with the execution profiler switched on; in face
+<code>pltrace-face-reached-nondet</code> (defaults to yellow) if they were hit
+at least once and made one or more nondet calls with the execution
+profiler switched on; otherwise, they will be highlighted in face
+<code>pltrace-face-reached-not</code> (defaults to red).  Lines not containing
+coverage sites are not highlighted.
+</p>
+<a name="index-pltrace_002dbreak-_0028emacs-command_0029"></a>
+<a name="index-C_002dx-SPC-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-x SPC</kbd></dt>
+<dd><a name="index-C_002du-C_002dx-SPC-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-u C-x SPC</kbd></dt>
+<dd><a name="index-line-breakpoint"></a>
+<a name="index-breakpoint_002c-line"></a>
+<a name="index-setting-a-breakpoint"></a>
+<a name="index-breakpoint_002c-setting"></a>
+<p>Set and remove a line breakpoint. This uses the advanced debugger
+features introduced in release 3.8; see <a href="Advanced-Debugging.html#Advanced-Debugging">Advanced Debugging</a>.
+</p>
+<a name="index-prolog_002dinsert_002dpredspec-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002ds-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-s</kbd></dt>
+<dd><p>Insert the <var>PredSpec</var> of the current predicate into the code.
+</p>
+<a name="index-prolog_002dinsert_002dpredicate_002dtemplate-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dn-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-n</kbd></dt>
+<dd><p>Insert the template of the current predicate (name, parentheses, commas) into the code. 
+</p>
+<a name="index-prolog_002dinsert_002dnext_002dclause-_0028emacs-command_0029"></a>
+<a name="index-M_002dRET-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>M-RET &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><p>Insert a line break followed by the template of the current predicate
+into the code.  This can be useful when writing recursive predicates or
+predicates with several clauses. See also the
+<code>prolog-electric-dot-flag</code> variable below.
+</p>
+<a name="index-prolog_002dvariables_002dto_002danonymous-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dv-a-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-v a</kbd></dt>
+<dd><p>Convert all variables in a region to anonymous variables. See also the
+<code>prolog-electric-underscore-flag</code> Emacs variable.
+</p>
+<a name="index-prolog_002dhelp_002don_002dpredicate-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-_003f-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c ?</kbd></dt>
+<dd><p>Help on predicate. This requires the SICStus info files to be
+installed.  If the SICStus info files are installed in a nonstandard
+way, then you may have to change the Emacs variable
+<code>prolog-info-predicate-index</code>.
+</p>
+<a name="index-run_002dprolog-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-RET-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c RET &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><a name="index-C_002du-C_002dc-RET-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-u C-c RET &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><p>Run Prolog.  With the second variant, Emacs will prompt for a Lisp list
+of extra parameters to pass on the command line.
+</p>
+<a name="index-comint_002dinterrupt_002dsubjob-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002dc-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-c &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><p>Interrupt Prolog.  The same as typing <kbd>^C</kbd> in a shell.
+</p>
+<a name="index-comint_002dquit_002dsubjob-_0028emacs-command_0029"></a>
+<a name="index-C_002dc-C_002d_005c-_0028emacs-command_0029"></a>
+</dd>
+<dt><kbd>C-c C-\ &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><p>Kill Prolog.  Immediately kills the process.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Mode-Line.html#Mode-Line" accesskey="n" rel="next">Next</a>
+<li><a href="Basic-Configuration.html#Basic-Configuration" accesskey="p" rel="prev">Previous</a>
+<li><a href="Emacs-Interface.html#Emacs-Interface" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Usage.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Usage.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

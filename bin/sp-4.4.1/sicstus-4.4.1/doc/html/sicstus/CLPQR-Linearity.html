@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPQR Linearity</title>
+
+<meta name="description" content="SICStus Prolog: CLPQR Linearity">
+<meta name="keywords" content="SICStus Prolog: CLPQR Linearity">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dclpqr.html#lib_002dclpqr" rel="up" title="lib-clpqr">
+<link href="CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear.html#CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear" rel="next" title="CLPQR How Nonlinear Residues Are Made to Disappear">
+<link href="CLPQR-Feedback.html#CLPQR-Feedback" rel="prev" title="CLPQR Feedback">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPQR-Linearity"></a>
+<hr>
+<a name="Linearity-and-Nonlinear-Residues"></a>
+<h4 class="subsection">10.11.3 Linearity and Nonlinear Residues</h4>
+<p>The clp(Q,R) system is restricted to deal with linear constraints because
+the decision algorithms for general nonlinear constraints are prohibitively
+expensive to run. If you need this functionality badly, then you should look into
+symbolic algebra packages.
+Although the clp(Q,R) system cannot solve nonlinear constraints, it will
+collect them faithfully in the hope that through the addition of further (linear) 
+constraints they might get simple enough to solve eventually.
+If an answer contains nonlinear constraints, then you have to be aware of the
+fact that success is qualified modulo the existence of a solution to the
+system of residual (nonlinear) constraints:
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>{sin(X) = cos(X)}.</kbd>
+
+clpr:{sin(X)-cos(X)=0.0}
+</pre></div>
+<p>There are indeed infinitely many solutions to this constraint 
+(<code>X = 0.785398 + n*Pi</code>), but clp(Q,R) has no direct means to find
+and represent them.
+</p>
+<p>The systems goes through some lengths to recognize linear expressions
+as such. The method is based on a normal form for multivariate
+polynomials. In addition, some simple isolation axioms, that can be
+used in equality constraints, have been added.
+The current major limitation of the method is that full polynomial
+division has not been implemented.
+Examples:
+</p>
+<p>This is an example where the isolation axioms are sufficient to determine
+the value of <var>X</var>. 
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>{sin(cos(X)) = 1/2}.</kbd>
+
+X = 1.0197267436954502
+</pre></div>
+
+<p>If we change the equation into an inequation, then clp(Q,R) gives up:
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>{sin(cos(X)) &lt; 1/2}.</kbd>
+
+clpr:{sin(cos(X))-0.5&lt;0.0} 
+</pre></div>
+
+<p>The following is easy again:
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>{sin(X+2+2)/sin(4+X) = Y}.</kbd>
+
+Y = 1.0 
+</pre></div>
+
+<p>And so is this:
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>{(X+Y)*(Y+X)/X = Y*Y/X+99}.</kbd>
+
+{Y=49.5-0.5*X}
+</pre></div>
+
+<p>An ancient symbol manipulation benchmark consists in rising the expression
+<code>X+Y+Z+1</code> to the 15th power:
+</p><div class="example">
+<pre class="example">clp(q) ?- <kbd>{exp(X+Y+Z+1,15)=0}.</kbd>
+clpq:{Z^15+Z^14*15+Z^13*105+Z^12*455+Z^11*1365+Z^10*3003+&hellip;
+       <span class="roman">&hellip; polynomial continues for a few pages &hellip;</span>
+       =0}
+</pre></div>
+<p>Computing its roots is another story.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear.html#CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear" accesskey="1">CLPQR How Nonlinear Residues Are Made to Disappear</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">How Nonlinear Residues Are Made to Disappear
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPQR-Isolation-Axioms.html#CLPQR-Isolation-Axioms" accesskey="2">CLPQR Isolation Axioms</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Isolation Axioms
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPQR-Numerical-Precision.html#CLPQR-Numerical-Precision" accesskey="n" rel="next">Next</a>
+<li><a href="CLPQR-Interface.html#CLPQR-Interface" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dclpqr.html#lib_002dclpqr" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Linearity.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Linearity.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

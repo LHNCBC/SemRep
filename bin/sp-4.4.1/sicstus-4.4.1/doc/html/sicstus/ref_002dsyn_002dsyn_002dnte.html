@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-syn-syn-nte</title>
+
+<meta name="description" content="SICStus Prolog: ref-syn-syn-nte">
+<meta name="keywords" content="SICStus Prolog: ref-syn-syn-nte">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" rel="up" title="ref-syn-syn">
+<link href="ref_002dsyn_002dsum.html#ref_002dsyn_002dsum" rel="next" title="ref-syn-sum">
+<link href="ref_002dsyn_002dsyn_002desc.html#ref_002dsyn_002dsyn_002desc" rel="prev" title="ref-syn-syn-esc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsyn_002dsyn_002dnte"></a>
+<hr>
+<a name="Notes"></a>
+<h4 class="subsubsection">4.1.7.7 Notes</h4>
+
+<ol>
+<li> The expression of precedence 1000 (i.e. belonging to
+syntactic category <var>term(1000)</var>), which is written
+
+<div class="example">
+<pre class="example"><var>X</var>,<var>Y</var>
+</pre></div>
+
+<p>denotes the term <code>','(<var>X</var>,<var>Y</var>)</code> in standard
+syntax.
+</p>
+</li><li> The parenthesized expression (belonging to syntactic category
+<var>term(0)</var>)
+
+<div class="example">
+<pre class="example">(<var>X</var>)
+</pre></div>
+
+<p>denotes simply the term <code><var>X</var></code>.
+</p>
+</li><li> The curly-bracketed expression (belonging to syntactic category
+<var>term(0)</var>)
+
+<div class="example">
+<pre class="example">{<var>X</var>}
+</pre></div>
+
+<p>denotes the term <code>{}(<var>X</var>)</code> in standard syntax.
+</p></li><li> Note that, for example, <code>-3</code> denotes a number whereas <code>-(3)</code>
+denotes a compound term that has <code>- /1</code> as its
+principal functor.  
+
+</li><li> The character &lsquo;<samp>&quot;</samp>&rsquo; within a string must be written duplicated: &lsquo;<samp>&quot;&quot;</samp>&rsquo;.
+Similarly for the character &lsquo;<samp>'</samp>&rsquo; within a quoted atom.
+
+</li><li> Backslashes in strings, quoted atoms, and integers written in
+&lsquo;<samp>0'</samp>&rsquo; notation denote escape sequences.
+
+</li><li> A name token declared to be a prefix operator will be treated as
+an atom only if no <var>term-read-in</var> can be read by treating it
+as a prefix operator.
+
+</li><li> A name token declared to be both an infix and a postfix operator
+will be treated as a postfix operator only if no
+<var>term-read-in</var> can be read by treating it as an infix
+operator.
+
+</li><li> The whitespace following the full stop is not considered part of the full
+stop, and so it remains in the input stream.
+
+</li></ol>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsyn_002dsyn_002desc.html#ref_002dsyn_002dsyn_002desc" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dsyn_002dnte.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dsyn_002dnte.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

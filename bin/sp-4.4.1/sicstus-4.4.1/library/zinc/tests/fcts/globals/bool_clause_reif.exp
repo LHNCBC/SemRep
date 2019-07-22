@@ -1,0 +1,49 @@
+x = array1d(1..4, [false, false, false, false]);
+y = true;
+----------
+x = array1d(1..4, [false, false, false, true]);
+y = true;
+----------
+x = array1d(1..4, [false, false, true, false]);
+y = true;
+----------
+x = array1d(1..4, [false, false, true, true]);
+y = false;
+----------
+x = array1d(1..4, [false, true, false, false]);
+y = true;
+----------
+x = array1d(1..4, [false, true, false, true]);
+y = true;
+----------
+x = array1d(1..4, [false, true, true, false]);
+y = true;
+----------
+x = array1d(1..4, [false, true, true, true]);
+y = true;
+----------
+x = array1d(1..4, [true, false, false, false]);
+y = true;
+----------
+x = array1d(1..4, [true, false, false, true]);
+y = true;
+----------
+x = array1d(1..4, [true, false, true, false]);
+y = true;
+----------
+x = array1d(1..4, [true, false, true, true]);
+y = true;
+----------
+x = array1d(1..4, [true, true, false, false]);
+y = true;
+----------
+x = array1d(1..4, [true, true, false, true]);
+y = true;
+----------
+x = array1d(1..4, [true, true, true, false]);
+y = true;
+----------
+x = array1d(1..4, [true, true, true, true]);
+y = true;
+----------
+==========

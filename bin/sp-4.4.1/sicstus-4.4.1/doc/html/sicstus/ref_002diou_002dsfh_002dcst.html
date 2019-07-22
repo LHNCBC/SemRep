@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-sfh-cst</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-sfh-cst">
+<meta name="keywords" content="SICStus Prolog: ref-iou-sfh-cst">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" rel="up" title="ref-iou-sfh">
+<link href="ref_002diou_002dsfh_002dflu.html#ref_002diou_002dsfh_002dflu" rel="next" title="ref-iou-sfh-flu">
+<link href="ref_002diou_002dsfh_002dbos.html#ref_002diou_002dsfh_002dbos" rel="prev" title="ref-iou-sfh-bos">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002dsfh_002dcst"></a>
+<hr>
+<a name="Closing-a-Stream"></a>
+<h4 class="subsubsection">4.6.7.9 Closing a Stream</h4>
+
+
+<a name="index-close_002f1-_0028built_002din_0029-1"></a>
+<a name="index-close_002f1-_0028built_002din_0029"></a>
+
+
+<a name="index-closing-a-stream"></a>
+<a name="index-stream_002c-closing"></a>
+<a name="index-closing-a-file"></a>
+<a name="index-file_002c-closing"></a>
+
+
+<ul>
+<li> <code>close(<var>X</var>)</code> closes the stream corresponding to <var>X</var>,
+where <var>X</var> should be a stream object created by <code>open/[3,4]</code>,
+or a file specification passed to <code>see/1</code> or <code>tell/1</code>.
+In the example:
+
+<div class="example">
+<pre class="example">see(foo),
+&hellip;
+close(foo)
+</pre></div>
+
+<p><samp>foo</samp> will be closed.  However, in the example:
+</p>
+<div class="example">
+<pre class="example">open(foo, read, S),
+&hellip;
+close(foo)
+</pre></div>
+
+<p>an exception will be raised and <samp>foo</samp> will not be closed.  
+See <a href="mpg_002dref_002dclose.html#mpg_002dref_002dclose">mpg-ref-close</a>.
+</p>
+</li><li> <code>told/0</code> closes the current output stream.  The current output stream is 
+then set to be <code>user_output</code>.
+
+<a name="index-told_002f0-_0028built_002din_0029-1"></a>
+<a name="index-told_002f0-_0028built_002din_0029"></a>
+
+
+</li><li> <code>seen/0</code> closes the current input stream.  The current input stream is 
+then set to be <code>user_input</code>.
+
+<a name="index-seen_002f0-_0028built_002din_0029-1"></a>
+<a name="index-seen_002f0-_0028built_002din_0029"></a>
+
+
+</li></ul>
+
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002dsfh_002dflu.html#ref_002diou_002dsfh_002dflu" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002diou_002dsfh_002dbos.html#ref_002diou_002dsfh_002dbos" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh_002dcst.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh_002dcst.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

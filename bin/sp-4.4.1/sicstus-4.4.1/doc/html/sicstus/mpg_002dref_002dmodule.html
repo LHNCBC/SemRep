@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-module</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-module">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-module">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dmultifile.html#mpg_002dref_002dmultifile" rel="next" title="mpg-ref-multifile">
+<link href="mpg_002dref_002dmode.html#mpg_002dref_002dmode" rel="prev" title="mpg-ref-mode">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dmodule"></a>
+<hr>
+<a name="module_002f_005b2_002c3_005d---declaration"></a>
+<h4 class="subsection">11.3.124 <code>module/[2,3]</code> &nbsp;<!-- /@w --> <i>declaration</i></h4>
+<a name="index-module_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-module_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029"></a>
+<a name="Synopsis-149"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- module(<var>+ModuleName</var>, <var>+PublicPred</var>)</code>.
+</p>
+<p><code>:- module(<var>+ModuleName</var>, <var>+PublicPred</var>, <var>+Options</var>)</code>.
+</p>
+<p>Declares the file in which the declaration appears to be a
+module-file named <var>ModuleName</var>, with public predicates
+<var>PublicPred</var>. Must appear as the first term in the file.
+</p>
+<a name="Arguments-138"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>ModuleName</var></dt>
+<dd><p><em>atom</em>, must be nonvar
+</p>
+</dd>
+<dt><var>PublicPred</var></dt>
+<dd><p><em>list of simple_pred_spec</em>, must be ground
+</p>
+<p>List of predicate specifications of the form <var>Name/Arity</var>.
+</p>
+</dd>
+<dt><var>Options</var></dt>
+<dd><p><em>list of term</em>, must be ground
+</p>
+<p>A list of zero or more options of the form:
+</p>
+<dl compact="compact">
+<dd><a name="index-hidden_002f1-_0028module_002f3-option_0029-1"></a>
+</dd>
+<dt><code>hidden(<var>Boolean</var>)</code></dt>
+<dd><p><var>Boolean</var> is <code>false</code> (the default) or <code>true</code>.  In the
+latter case, tracing of the predicates of the module is
+disabled (although spypoints can be set), and no source
+information is generated at compile time.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<a name="Description-112"></a>
+<h4 class="subheading">Description</h4>
+
+<p>The definition of a module is not limited to a single file, because a
+module-file may contain commands to load other files.  If <samp>myfile</samp>,
+a module-file for <var>ModuleName</var>, contains an embedded command to
+load <samp>yourfile</samp> and if <samp>yourfile</samp> is not itself a module-file, then
+all the predicates in <samp>yourfile</samp> are loaded into module
+<var>ModuleName</var>.
+</p>
+<a name="Exceptions-140"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions in the context of loading code are printed as error messages.
+</p>
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p>Declaration not ground.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p>An argument has the wrong type.
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p>Some arity is an integer &lt; 0, or invalid option given.
+</p>
+</dd>
+<dt><code>representation_error</code></dt>
+<dd><p>Some arity is an integer &gt; 255.
+</p>
+</dd>
+<dt><code>context_error</code></dt>
+<dd><p>Declaration appeared in a goal, or not first in the file being loaded.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>Declaration appeared as a clause.
+</p></dd>
+</dl>
+
+<a name="Examples-58"></a>
+<h4 class="subheading">Examples</h4>
+
+<p>A module declaration from the Prolog library:
+</p>
+<div class="example">
+<pre class="example">:- module(varnumbers, [
+	numbervars/1,
+	varnumbers/2,
+	varnumbers/3
+   ],[
+	hidden(true)
+   ]).
+</pre></div>
+
+<a name="See-Also-146"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Module-Declarations.html#Module-Declarations">Module Declarations</a>, <a href="ref_002dmod.html#ref_002dmod">ref-mod</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dmultifile.html#mpg_002dref_002dmultifile" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dmode.html#mpg_002dref_002dmode" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dmodule.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dmodule.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

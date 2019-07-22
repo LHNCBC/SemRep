@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-portray_clause</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-portray_clause">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-portray_clause">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dportray_005fmessage.html#mpg_002dref_002dportray_005fmessage" rel="next" title="mpg-ref-portray_message">
+<link href="mpg_002dref_002dportray.html#mpg_002dref_002dportray" rel="prev" title="mpg-ref-portray">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dportray_005fclause"></a>
+<hr>
+<a name="portray_005fclause_002f_005b1_002c2_005d"></a>
+<h4 class="subsection">11.3.157 <code>portray_clause/[1,2]</code></h4>
+<a name="index-portray_005fclause_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-portray_005fclause_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-182"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>portray_clause(<var>+Clause</var>)</code>
+</p>
+<p><code>portray_clause(<var>+Stream</var>, <var>+Clause</var>)</code>
+</p>
+<p>Writes <var>Clause</var> to the current output stream. Used by
+<code>listing/[0,1]</code>.
+</p>
+<a name="Arguments-166"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Stream</var></dt>
+<dd><p><em>stream_object</em>, must be ground
+</p>
+<p>A valid open Prolog stream, defaults to the current output stream.
+</p>
+</dd>
+<dt><var>Clause</var></dt>
+<dd><p><em>term</em>
+</p></dd>
+</dl>
+
+<a name="Description-133"></a>
+<h4 class="subheading">Description</h4>
+
+<p>The operation used by <code>listing/[0,1]</code>.  <var>Clause</var> is written
+to <var>Stream</var>, in exactly the format in which <code>listing/[0,1]</code>
+would have written it, including a terminating full-stop.
+</p>
+<p>If you want to print a clause, then this is almost certainly the
+command you want.  By design, none of the other term output
+commands puts a full-stop after the written term.
+If you are writing a file of facts to be loaded by
+the Load Predicates, then use <code>portray_clause/[1,2]</code>, which attempts
+to ensure that the clauses it writes out can be read in again as clauses.
+</p>
+<p>The output format used by <code>portray_clause/[1,2]</code> and <code>listing/[0,1]</code> has
+been carefully designed to be clear.  We recommend that you use a
+similar style.  In particular, never put a semicolon
+(disjunction symbol) at the end of a line in Prolog.
+</p>
+<a name="Exceptions-173"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>).
+</p>
+<a name="Examples-71"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">| ?- <kbd>portray_clause((X:- a -&gt; b ; c)).</kbd>
+_ :-
+        (   a -&gt;
+            b
+        ;   c
+        ).
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>portray_clause((X:- a -&gt; (b -&gt; c ; d ; e); f)).</kbd>
+_ :-
+        (   a -&gt;
+            (   b -&gt;
+                c
+            ;   d
+            ;   e
+            )
+        ;   f
+        ).
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>portray_clause((a:-b)).</kbd>
+a :-
+        b.
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>portray_clause((a:-b,c)).</kbd>
+a :-
+        b,
+        c.
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>portray_clause((a:-(b,!,c))).</kbd>
+a :-
+        b, !,
+        c.
+</pre></div>
+
+
+<a name="See-Also-179"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>listing/[0,1]</code>, <a href="ref_002diou_002dtou.html#ref_002diou_002dtou">ref-iou-tou</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dportray_005fmessage.html#mpg_002dref_002dportray_005fmessage" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dportray.html#mpg_002dref_002dportray" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dportray_005fclause.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dportray_005fclause.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

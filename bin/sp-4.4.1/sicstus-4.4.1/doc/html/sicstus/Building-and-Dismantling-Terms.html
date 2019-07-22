@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Building and Dismantling Terms</title>
+
+<meta name="description" content="SICStus Prolog: Building and Dismantling Terms">
+<meta name="keywords" content="SICStus Prolog: Building and Dismantling Terms">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" rel="up" title="Writing Efficient Programs">
+<link href="Conditionals-and-Disjunction.html#Conditionals-and-Disjunction" rel="next" title="Conditionals and Disjunction">
+<link href="Accumulating-Lists.html#Accumulating-Lists" rel="prev" title="Accumulating Lists">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Building-and-Dismantling-Terms"></a>
+<hr>
+<a name="Building-and-Dismantling-Terms-1"></a>
+<h3 class="section">9.9 Building and Dismantling Terms</h3>
+
+<p>The built-in predicate <code>(=..)/2</code> is a clear way of building
+terms and taking them apart.  However, it is almost never the most
+efficient way.
+<code>functor/3</code> and <code>arg/3</code> are generally much more efficient,
+though less direct.  The best blend of efficiency and clarity is to
+write a clearly-named predicate that implements the desired
+operation and to use <code>functor/3</code> and <code>arg/3</code> in that
+predicate.
+</p>
+<p>Here is an actual example.  The task is to reimplement the built-in
+predicate <code>(==)/2</code>.  The first variant uses <code>(=..)/2</code> (this
+symbol is pronounced &ldquo;univ&rdquo; for historical reasons).  Some Prolog
+textbooks recommend code similar to this.
+</p><div class="example">
+<pre class="example">ident_univ(X, Y) :-
+        var(X),                 % If X is a variable,
+        !,
+        var(Y),                 % so must Y be, and
+        samevar(X, Y).          % they must be the same.
+ident_univ(X, Y) :-             % If X is not a variable,
+        nonvar(Y),              % neither may Y be;
+        X =.. [F|L],            % they must have the
+        Y =.. [F|M],            % same function symbol F
+        ident_list(L, M).       % and identical arguments
+
+ident_list([], []).
+ident_list([H1|T1], [H2|T2]) :-
+        ident_univ(H1, H2),
+        ident_list(T1, T2).
+
+samevar(29, Y) :-               % If binding X to 29
+        var(Y),                 % leaves Y unbound,
+        !,                      % they were not the same
+        fail.                   % variable.
+samevar(_, _).                  % Otherwise they were.
+</pre></div>
+
+<p>This code performs the function intended; however, every time it touches
+a non-variable term of arity <var>N</var>, it constructs a
+list with <var>N+1</var> elements, and if the two terms are
+identical, then these lists are reclaimed only when backtracked
+over or garbage collected.
+</p>
+<p>Better code uses <code>functor/3</code> and <code>arg/3</code>.
+</p><div class="example">
+<pre class="example">ident_farg(X, Y) :-
+        (   var(X) -&gt;           % If X is a variable,
+                var(Y),         % so must Y be, and
+                samevar(X, Y)   % they must be the same;
+        ;   nonvar(Y),          % otherwise Y must be nonvar
+            functor(X, F, N),   % The principal functors of X
+            functor(Y, F, N),   % and Y must be identical,
+            ident_farg(N, X, Y) % including the last N args.
+        ).
+
+ident_farg(0, _, _) :- !.
+ident_farg(N, X, Y) :-          % The last N arguments are
+        arg(N, X, Xn),          % identical
+        arg(N, Y, Yn),          % if the Nth arguments
+        ident_farg(Xn, Yn),     % are identical,
+        M is N-1,               % and the last N-1 arguments
+        ident_farg(M, X, Y).    % are also identical.
+</pre></div>
+
+<p>This approach to walking through terms using <code>functor/3</code> and
+<code>arg/3</code> avoids the construction of useless lists.
+</p>
+<p>The pattern shown in the example, in which a predicate of arity
+<var>K</var> calls an auxiliary predicate of the same name of
+arity <var>K+1</var> (the additional argument denoting the number
+of items remaining to process), is very common.  It is not necessary to
+use the same name for this auxiliary predicate, but this
+convention is generally less prone to confusion.
+</p>
+<p>In order to simply find out the principal function symbol of a
+term, use
+</p><div class="example">
+<pre class="example">| ?- <kbd><var>the_term_is</var>(Term),</kbd>
+|    <kbd>functor(Term, FunctionSymbol, _).</kbd>
+</pre></div>
+
+<p>The use of <code>(=..)/2</code>, as in
+</p><div class="example">
+<pre class="example">| ?- <kbd><var>the_term_is</var>(Term),</kbd>
+|    <kbd>Term =.. [FunctionSymbol|_].</kbd>
+</pre></div>
+<p>is wasteful, and should generally be avoided.  The same remark applies
+if the arity of a term is desired.
+</p>
+<p><code>(=..)/2</code> should not be used to locate a particular argument
+of some term.  For example, instead of
+</p><div class="example">
+<pre class="example">Term =.. [_F,_,ArgTwo|_]
+</pre></div>
+<p>you should write
+</p><div class="example">
+<pre class="example">arg(2, Term, ArgTwo)
+</pre></div>
+
+<p>It is generally easier to get the explicit number &ldquo;2&rdquo; right than to write
+the correct number of anonymous variables in the call to
+<code>(=..)/2</code>.  Other people reading the program will find the
+call to <code>arg/3</code> a much clearer expression of the program&rsquo;s intent.
+The program will also be more efficient.  Even if several
+arguments of a term must be located, it is clearer and more
+efficient to write
+</p><div class="example">
+<pre class="example">arg(1, Term, First),
+arg(3, Term, Third),
+arg(4, Term, Fourth)
+</pre></div>
+<p>than to write
+</p><div class="example">
+<pre class="example">Term =.. [_,First,_,Third,Fourth|_]
+</pre></div>
+
+<p>Finally, <code>(=..)/2</code> should not be used when the functor of the
+term to be operated on is known (that is, when both the function
+symbol and the arity are known).  For example, to make a new
+term with the same function symbol and first arguments as
+another term, but one additional argument, the obvious
+solution might seem to be to write something like the following:
+</p><div class="example">
+<pre class="example">add_date(OldItem, Date, NewItem) :-
+        OldItem =.. [item,Type,Ship,Serial],
+        NewItem =.. [item,Type,Ship,Serial,Date].
+</pre></div>
+
+<p>However, this could be expressed more clearly and more efficiently as
+</p><div class="example">
+<pre class="example">add_date(OldItem, Date, NewItem) :-
+        OldItem = item(Type,Ship,Serial),
+        NewItem = item(Type,Ship,Serial,Date).
+</pre></div>
+<p>or even
+</p><div class="example">
+<pre class="example">add_date(item(Type,Ship,Serial), 
+         Date, 
+         item(Type,Ship,Serial,Date)
+        ).
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Conditionals-and-Disjunction.html#Conditionals-and-Disjunction" accesskey="n" rel="next">Next</a>
+<li><a href="Last-Call-Optimization.html#Last-Call-Optimization" accesskey="p" rel="prev">Previous</a>
+<li><a href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Building-and-Dismantling-Terms.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Building-and-Dismantling-Terms.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

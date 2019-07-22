@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Execution</title>
+
+<meta name="description" content="SICStus Prolog: Execution">
+<meta name="keywords" content="SICStus Prolog: Execution">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Run-Intro.html#Run-Intro" rel="up" title="Run Intro">
+<link href="Exiting.html#Exiting" rel="next" title="Exiting">
+<link href="Undefined-Predicates.html#Undefined-Predicates" rel="prev" title="Undefined Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Execution"></a>
+<hr>
+<a name="Program-Execution-And-Interruption"></a>
+<h3 class="section">3.7 Program Execution And Interruption</h3>
+<a name="index-execution"></a>
+
+<p>Execution of a program is started by giving the system a
+query that contains a call to one of the program&rsquo;s
+predicates.
+</p>
+<p>Only when execution of one query is complete does the system
+become ready for another query.  However, one may interrupt the
+normal execution of a query by typing <kbd>^C</kbd>.  This <kbd>^C</kbd>
+interruption has the effect of suspending the execution, and the
+following message is displayed:
+</p>
+<div class="example">
+<pre class="example">Prolog interruption (h or ? for help) ?
+</pre></div>
+
+<p>At this point, the development system accepts one-letter commands
+corresponding to certain actions.  To execute an action simply type the
+corresponding character (lower or upper case) followed by <tt class="key">RET</tt>.
+The available commands in development systems are:
+</p>
+<dl compact="compact">
+<dd><a name="index-a-_0028interruption-command_0029"></a>
+</dd>
+<dt><kbd>a</kbd></dt>
+<dd><p>aborts the current computation.
+</p>
+<a name="index-c-_0028interruption-command_0029"></a>
+</dd>
+<dt><kbd>c</kbd></dt>
+<dd><p>continues the execution.
+</p>
+<a name="index-e-_0028interruption-command_0029"></a>
+</dd>
+<dt><kbd>e</kbd></dt>
+<dd><p>exits from SICStus Prolog, closing all files.
+</p>
+<a name="index-h-_0028interruption-command_0029"></a>
+</dd>
+<dt><kbd>h</kbd></dt>
+<dd><a name="index-_003f-_0028interruption-command_0029"></a>
+</dd>
+<dt><kbd>?</kbd></dt>
+<dd><p>lists available commands.
+</p>
+<a name="index-b-_0028interruption-command_0029"></a>
+</dd>
+<dt><kbd>b</kbd></dt>
+<dd><p>invokes a recursive top-level.
+</p>
+<a name="index-d-_0028interruption-command_0029"></a>
+</dd>
+<dt><kbd>d</kbd></dt>
+<dd><a name="index-z-_0028interruption-command_0029"></a>
+</dd>
+<dt><kbd>z</kbd></dt>
+<dd><a name="index-t-_0028interruption-command_0029"></a>
+</dd>
+<dt><kbd>t</kbd></dt>
+<dd><p>switch on the debugger.  See <a href="Debug-Intro.html#Debug-Intro">Debug Intro</a>.
+</p></dd>
+</dl>
+
+<p>If the standard input stream is not connected to the terminal,
+e.g. by redirecting standard input to a file or a pipe, then the above
+<kbd>^C</kbd> interrupt options are not available.  Instead, typing <kbd>^C</kbd>
+causes SICStus Prolog to exit, and no terminal prompts are printed.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Exiting.html#Exiting" accesskey="n" rel="next">Next</a>
+<li><a href="Undefined-Predicates.html#Undefined-Predicates" accesskey="p" rel="prev">Previous</a>
+<li><a href="Run-Intro.html#Run-Intro" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Execution.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Execution.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

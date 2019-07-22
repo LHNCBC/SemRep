@@ -1,0 +1,19 @@
+a = array1d(1..4, [false, false]);
+x = false;
+----------
+a = array1d(1..4, [false, true]);
+x = false;
+----------
+a = array1d(1..4, [false, true]);
+x = true;
+----------
+a = array1d(1..4, [true, false]);
+x = false;
+----------
+a = array1d(1..4, [true, false]);
+x = true;
+----------
+a = array1d(1..4, [true, true]);
+x = true;
+----------
+==========

@@ -1,0 +1,338 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-glo</title>
+
+<meta name="description" content="SICStus Prolog: obj-glo">
+<meta name="keywords" content="SICStus Prolog: obj-glo">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dobjects.html#lib_002dobjects" rel="up" title="lib-objects">
+<link href="lib_002dodbc.html#lib_002dodbc" rel="next" title="lib-odbc">
+<link href="obj_002dexp_002duninherit.html#obj_002dexp_002duninherit" rel="prev" title="obj-exp-uninherit">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dglo"></a>
+<hr>
+<a name="Glossary-2"></a>
+<h4 class="subsection">10.23.7 Glossary</h4>
+
+
+<dl compact="compact">
+<dt><em>abstract class</em></dt>
+<dd><p>A class that cannot have instances. Abstract classes
+are helpful in designing a class hierarchy, to contain the common parts
+of several concrete classes.
+</p>
+</dd>
+<dt><em>ancestor</em></dt>
+<dd><p>One of a class&rsquo;s superclasses, one of its superclasses&rsquo;s
+superclasses, etc. Sometimes, for convenience, ancestor includes the
+class itself, along with its proper ancestors.
+</p>
+</dd>
+<dt><em>child</em></dt>
+<dd><p>A synonym for subclass.
+</p>        
+</dd>
+<dt><em>class</em></dt>
+<dd><p>A class is defined by a description of the information its
+instances contain and the messages they respond to.     
+Every object is an instance of one and only one class.
+</p>        
+</dd>
+<dt><em>concrete class</em></dt>
+<dd><p>A class that can have instances. Most classes are concrete.
+</p>
+</dd>
+<dt><em>create method</em></dt>
+<dd><p>Specifies what actions should be taken when an instance
+of a class is created. A create method frequently       
+provides initial slot values or specifies an action to be
+performed by the new object. A create message is sent to        
+each new object by the <code>create/2</code> predicate. A create
+message is a kind of send message.      
+</p>
+</dd>
+<dt><em>descendant</em></dt>
+<dd><p>One of a class&rsquo;s subclasses, one of its subclasses&rsquo;s  
+subclasses, etc. Sometimes the word descendant
+includes the class itself, along with its proper descendants.
+</p>
+</dd>
+<dt><em>destroy method</em></dt>
+<dd><p>Specifies what actions should be taken when an instance   
+of a class is destroyed. A destroy message is sent to an
+object by the <code>destroy/1</code> predicate. A destroy message        
+is a kind of send message.
+</p>        
+</dd>
+<dt><em>direct slot access</em></dt>
+<dd><p>Fetching or storing a slot value without sending a
+message to the object. This should be used with care!
+</p>
+<p>SICStus Objects allows direct access to a class&rsquo;s slots 
+only within its method definitions, via the     
+<code>fetch_slot/2</code> and <code>store_slot/2</code> predicates.
+</p>
+</dd>
+<dt><em>get message</em></dt>
+<dd><p>A message that inquires about some aspect of an object.
+Typically used to fetch slot values. Get methods are
+automatically generated for public slots. Get messages
+are written with the &lsquo;<samp>&gt;&gt;</samp>&rsquo; operator.
+</p>
+</dd>
+<dt><em>inheritance</em></dt>
+<dd><p>The process by which a class&rsquo;s slots and methods are
+determined from an ancestor.
+</p>
+</dd>
+<dt><em>initial value</em></dt>
+<dd><p>The value a slot is initialized to when an object is
+created. Every slot has a default initial value, which
+depends upon its type. You may specify different initial
+values in a class definition.
+</p>
+</dd>
+<dt><em>instance</em></dt>
+<dd><p>Another word for object. The word instance draws
+attention to the class of which the object is an instance.
+</p>
+</dd>
+<dt><em>instance method</em></dt>
+<dd><p>A method that may be defined differently for each
+instance of a class. The class may have a default method
+for this message, which is overridden by installing an
+instance method for a particular object.
+</p>
+</dd>
+<dt><em>message</em></dt>
+<dd><p>A command to an object to perform an operation or to
+modify itself, or an inquiry into some aspect of the object.
+In SICStus Objects, a message is either a get message, a
+put message or a send message. The syntax for sending
+a message to an object is
+</p>                        
+<div class="example">
+<pre class="example"><var>Object</var> <var>Operator</var> <var>Message</var>
+</pre></div>
+</dd>
+<dd>
+<p>where <var>Operator</var> is one of the following:
+</p>
+<dl compact="compact">
+<dt><code>&gt;&gt;</code></dt>
+<dd><p>get message
+</p>
+</dd>
+<dt><code>&lt;&lt;</code></dt>
+<dd><p>put message
+</p>
+</dd>
+<dt><code>&lt;-</code></dt>
+<dd><p>send message
+</p></dd>
+</dl>
+
+
+</dd>
+<dt><em>method</em></dt>
+<dd><p>A class&rsquo;s implementation of a particular message. You
+send messages to an object, but you define methods for
+a class.
+</p>
+</dd>
+<dt><em>method clause</em></dt>
+<dd><p>A Prolog clause used to define a method for a class. A
+method clause has one of <code>&lt;-/2</code>, <code>&lt;&lt;/2</code> or <code>&gt;&gt;/2</code> as the
+principal functor of its head, and it can only appear
+within the scope of its class&rsquo;s definition. A method&rsquo;s
+definition may contain more than one message clause.
+</p>
+</dd>
+<dt><em>mixin class</em></dt>
+<dd><p>A class that is intended to be combined (mixed in) with
+other classes, via multiple inheritance, to define new subclasses.
+</p>
+</dd>
+<dt><em>multiple inheritance</em></dt>
+<dd><p>When a class names more than one superclass.
+Typically, it inherits slots and methods from each.
+In SICStus Objects, two different superclasses should
+not use the same slot name. And, if a message is defined
+by more than one superclass, then the class definition must
+specify which method to inherit.
+</p>
+</dd>
+<dt><em>object</em></dt>
+<dd><p>A modifiable data item that holds information and
+responds to messages. Another word for instance.
+</p>
+</dd>
+<dt><em>parent class</em></dt>
+<dd><p>A synonym for superclass.
+</p>
+</dd>
+<dt><em>private slot</em></dt>
+<dd><p>A private slot is, by default, only accessible within
+methods of the class itself.  Not even the descendants of the class
+may access its private slots, except through the class&rsquo;s methods. Get and
+put methods are not automatically generated for a
+private slot, so it is only accessed via the methods you
+define. If the visibility of a slot is not specified, then it is private,
+rather than public or protected.
+</p>
+</dd>
+<dt><em>protected slot</em></dt>
+<dd><p>A protected slot is, by default, only accessible within
+methods of the class itself and its descendants. Get and
+put methods are not automatically generated for a
+protected slot, so it is only accessed via the methods you
+define. If the visibility of a slot is not specified, then it is private,
+rather than public or protected.
+</p></dd>
+<dd>
+<p>SICStus Objects <code>protected</code> is similar to <code>protected</code> in C++.
+</p>
+</dd>
+<dt><em>public slot</em></dt>
+<dd><p>A public slot is accessible via its own get
+and put methods, which are generated for it
+automatically. If no visibility is specified, then a slot is
+private, rather than public or protected.
+</p>
+</dd>
+<dt><em>put message</em></dt>
+<dd><p>A message that modifies some aspect of an object.
+Typically used to store slot values. Put methods are
+automatically generated for public slots. Put messages
+are written with the &lsquo;<samp>&lt;&lt;</samp>&rsquo; operator.
+</p>
+</dd>
+<dt><em>send message</em></dt>
+<dd><p>The most common sort of message. Used for performing
+an operation on an object or for performing an action
+that depends upon an object. Send messages are written
+with the &lsquo;<samp>&lt;-</samp>&rsquo; operator.
+</p>
+</dd>
+<dt><em>send super</em></dt>
+<dd><p>When a method for a class executes a shadowed
+superclass&rsquo;s method. This allows a class to put a
+&ldquo;wrapper&rdquo; around its superclass&rsquo;s method, making it
+unnecessary to duplicate the method just to make a small extension to it.
+</p>
+</dd>
+<dt><em>shadow</em></dt>
+<dd><p>When a class defines its own method for a message
+defined by one of its ancestors, the new method hides or
+&ldquo;shadows&rdquo; the ancestor&rsquo;s method. The new class&rsquo;s
+descendants will inherit its method for that message,
+rather than its ancestors. That is, a class always inherits
+the &ldquo;closer&rdquo; of two methods for a message.
+</p>
+</dd>
+<dt><em>slot</em></dt>
+<dd><p>A part of an instance that holds an individual datum.
+Like a member of a C struct or a field of a Pascal record.
+</p>
+</dd>
+<dt><em>subclass</em></dt>
+<dd><p>A class that is a more specific case of a particular class.
+This is the opposite of superclass. A class does not name
+its subclasses; they are inferred.
+</p>
+</dd>
+<dt><em>superclass</em></dt>
+<dd><p>A class that is a more general case of a particular class.
+Each class lists its superclasses.
+</p>
+</dd>
+<dt><em>term class</em></dt>
+<dd><p>A class whose instances are represented as ordinary Prolog
+terms.  The functor of these objects need not be the name of the
+class, and the arity need not be one.
+</p>
+</dd>
+<dt><em>term slot</em></dt>
+<dd><p>A slot that can hold any Prolog term.
+</p>
+</dd>
+<dt><em>uninherit</em></dt>
+<dd><p>Specify that a method from a superclass should not be
+inherited. This is similar to shadowing the superclass&rsquo;s
+method, but does not specify a replacement for it.
+</p>
+</dd>
+<dt><em>visibility</em></dt>
+<dd><p>A slot may be defined to be either <code>public</code>,
+<code>protected</code>, or <code>private</code>.  By default, if no visibility is
+specified, then a slot is private.
+</p>
+</dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dbas.html#obj_002dbas" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dexp.html#obj_002dexp" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dobjects.html#lib_002dobjects" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dglo.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dglo.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

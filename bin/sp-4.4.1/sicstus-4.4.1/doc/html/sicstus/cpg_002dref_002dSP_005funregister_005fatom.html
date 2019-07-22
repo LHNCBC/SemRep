@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_unregister_atom</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_unregister_atom">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_unregister_atom">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSU_005finitialize.html#cpg_002dref_002dSU_005finitialize" rel="next" title="cpg-ref-SU_initialize">
+<link href="cpg_002dref_002dSP_005funify.html#cpg_002dref_002dSP_005funify" rel="prev" title="cpg-ref-SP_unify">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005funregister_005fatom"></a>
+<hr>
+<a name="SP_005funregister_005fatom_0028_0029"></a>
+<h4 class="subsection">12.3.103 <code>SP_unregister_atom()</code></h4>
+<a name="index-SP_005funregister_005fatom_0028_0029-_0028C-function_0029-1"></a>
+
+<a name="Synopsis-383"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+int
+SP_unregister_atom(SP_atom atom);
+</pre></div>
+
+<p>Unregisters the atom <code>atom</code> with the Prolog memory manager by
+incrementing its reference counter.
+</p>
+<a name="Arguments-352"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>atom</var></dt>
+<dd><a name="index-SP_005fatom-_0028C-type_0029-14"></a>
+<p>The atom to unregister
+</p></dd>
+</dl>
+
+<a name="Return-Value-95"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>1 if <code>atom</code> is valid, and 0 otherwise.
+</p>
+<a name="See-Also-380"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Creating-and-Manipulating-SP_005fterm_005frefs.html#Creating-and-Manipulating-SP_005fterm_005frefs">Creating and Manipulating SP_term_refs</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSU_005finitialize.html#cpg_002dref_002dSU_005finitialize" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005funify.html#cpg_002dref_002dSP_005funify" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005funregister_005fatom.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005funregister_005fatom.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

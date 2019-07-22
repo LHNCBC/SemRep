@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Initializing the Prolog Engine</title>
+
+<meta name="description" content="SICStus Prolog: Initializing the Prolog Engine">
+<meta name="keywords" content="SICStus Prolog: Initializing the Prolog Engine">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="User_002ddefined-Main-Programs.html#User_002ddefined-Main-Programs" rel="up" title="User-defined Main Programs">
+<link href="Loading-Prolog-Code.html#Loading-Prolog-Code" rel="next" title="Loading Prolog Code">
+<link href="User_002ddefined-Main-Programs.html#User_002ddefined-Main-Programs" rel="prev" title="User-defined Main Programs">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Initializing-the-Prolog-Engine"></a>
+<hr>
+<a name="Initializing-the-Prolog-Engine-1"></a>
+<h4 class="subsubsection">6.7.4.1 Initializing the Prolog Engine</h4>
+
+<p>The Prolog Engine is initialized by calling <code>SP_initialize()</code>. This
+must be done before any interface functions are called, except
+those marked &lsquo;<samp>preinit</samp>&rsquo; in this manual.
+</p>
+<a name="index-SP_005finitialize_0028_0029-_0028C-function_0029"></a>
+
+<p>The function will allocate data areas
+used by Prolog and load the Runtime Library.
+</p>
+<p>It will also initialize command line arguments so that they can
+be accessed by the <code>argv</code> Prolog flag but it may be preferable to
+use <code>SP_set_argv()</code> for this.
+<a name="index-argv-_0028prolog-flag_0029-1"></a>
+</p>
+<p>To unload the SICStus emulator, <code>SP_deinitalize()</code> can be called.
+<a name="index-SP_005fdeinitialize_0028_0029-_0028C-function_0029"></a>
+</p>
+<p>You may also call <code>SP_force_interactive()</code> before calling
+<code>SP_initialize()</code>.  This will force the I/O built-in
+predicates to treat the standard streams as a interactive, even
+if they do not appear to be connected to a terminal or console.
+Same as the <samp>-i</samp> option
+in development systems (see <a href="Start.html#Start">Start</a>).
+</p>
+<p>You may also call <code>SP_set_memalloc_hooks()</code> before calling
+<code>SP_initialize()</code>.  This will define one layer of Prolog&rsquo;s
+memory manager, in case your application has special requirements.
+</p>
+<p>The SICStus Prolog memory manager has a two-layer structure.  The top
+layer has roughly the same functionality as the standard UNIX functions
+<code>malloc</code> and <code>free</code>, whereas the bottom layer is an interface
+to the operating system.  It is the bottom layer that can be customized
+by setting these hooks.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Loading-Prolog-Code.html#Loading-Prolog-Code" accesskey="n" rel="next">Next</a>
+<li><a href="User_002ddefined-Main-Programs.html#User_002ddefined-Main-Programs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Initializing-the-Prolog-Engine.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Initializing-the-Prolog-Engine.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-clpfd</title>
+
+<meta name="description" content="SICStus Prolog: lib-clpfd">
+<meta name="keywords" content="SICStus Prolog: lib-clpfd">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="CLPFD-Intro.html#CLPFD-Intro" rel="next" title="CLPFD Intro">
+<link href="CLPB-Example-4.html#CLPB-Example-4" rel="prev" title="CLPB Example 4">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dclpfd"></a>
+<hr>
+<a name="Constraint-Logic-Programming-over-Finite-Domains_002d_002d_002dlibrary_0028clpfd_0029"></a>
+<h3 class="section">10.10 Constraint Logic Programming over Finite Domains&mdash;<code>library(clpfd)</code></h3>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="CLPFD-Intro.html#CLPFD-Intro" accesskey="1">CLPFD Intro</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Introduction
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPFD-Caveats.html#CLPFD-Caveats" accesskey="2">CLPFD Caveats</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Caveats
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPFD-Interface.html#CLPFD-Interface" accesskey="3">CLPFD Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Solver Interface
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Available-Constraints.html#Available-Constraints" accesskey="4">Available Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Available Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Enumeration-Predicates.html#Enumeration-Predicates" accesskey="5">Enumeration Predicates</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Enumeration Predicates
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Statistics-Predicates.html#Statistics-Predicates" accesskey="6">Statistics Predicates</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Statistics Predicates
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Answer-Constraints.html#Answer-Constraints" accesskey="7">Answer Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Answer Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPFD-Debugging.html#CLPFD-Debugging" accesskey="8">CLPFD Debugging</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Debugging
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Defining-Global-Constraints.html#Defining-Global-Constraints" accesskey="9">Defining Global Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Defining Global Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints">Defining Primitive Constraints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Defining Primitive Constraints
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPFD-Coexisting.html#CLPFD-Coexisting">CLPFD Coexisting</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Coexisting with Attributes and Blocked Goals
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPFD-Example-Programs.html#CLPFD-Example-Programs">CLPFD Example Programs</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Example Programs
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Syntax-Summary.html#Syntax-Summary">Syntax Summary</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Syntax Summary
+</td></tr>
+</table>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dclpqr.html#lib_002dclpqr" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dclpb.html#lib_002dclpb" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dclpfd.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dclpfd.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

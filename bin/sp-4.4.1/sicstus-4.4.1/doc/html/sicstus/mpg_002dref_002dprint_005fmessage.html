@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-print_message</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-print_message">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-print_message">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dprint_005fmessage_005flines.html#mpg_002dref_002dprint_005fmessage_005flines" rel="next" title="mpg-ref-print_message_lines">
+<link href="mpg_002dref_002dprint_005fcoverage.html#mpg_002dref_002dprint_005fcoverage" rel="prev" title="mpg-ref-print_coverage">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dprint_005fmessage"></a>
+<hr>
+<a name="print_005fmessage_002f2---hookable"></a>
+<h4 class="subsection">11.3.162 <code>print_message/2</code> &nbsp;<!-- /@w --> <i>hookable</i></h4>
+<a name="index-print_005fmessage_002f2-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-print_005fmessage_002f2-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-187"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>print_message(<var>+Severity</var>, <var>+MessageTerm</var>)</code>
+</p>
+<p>Print a <var>Message</var> of a given <var>Severity</var>. The behavior can be
+customized using the hooks <code>user:portray_message/2</code>,
+<code>user:generate_message_hook/3</code> and <code>user:message_hook/3</code>.
+</p>
+<a name="Arguments-171"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Severity</var></dt>
+<dd><p><em>atom</em>, must be nonvar
+</p>
+<p>Unless the default system portrayal is overidden with
+<code>user:message_hook/3</code>, <var>Severity</var> must be one of:
+</p>
+<dl compact="compact">
+<dt><b>Value</b></dt>
+<dd><p><b>Prefix</b>
+</p>
+</dd>
+<dt><code>informational</code></dt>
+<dd><p>&lsquo;<samp>% </samp>&rsquo; 
+</p>
+</dd>
+<dt><code>warning</code></dt>
+<dd><p>&lsquo;<samp>* </samp>&rsquo;
+</p>
+</dd>
+<dt><code>error</code></dt>
+<dd><p>&lsquo;<samp>! </samp>&rsquo;
+</p>
+</dd>
+<dt><code>help</code></dt>
+<dt><code>query</code></dt>
+<dt><code>silent</code></dt>
+<dd><p>no prefix
+</p></dd>
+</dl>
+
+</dd>
+<dt><var>MessageTerm</var></dt>
+<dd><p><em>term</em>
+</p></dd>
+</dl>
+
+<a name="Description-137"></a>
+<h4 class="subheading">Description</h4>
+
+<p>First <code>print_message/2</code> calls <code>user:portray_message/2</code> with
+the same arguments.  If this does not succeed, then the message is
+processed in the following phases:
+</p>
+<ul>
+<li> Message generation phase: the abstract message term <var>Message</var> is
+formatted, i.e. converted to a format-command list.  First the hook
+predicate <code>user:generate_message_hook/3</code> is tried, then if it
+does not succeed, then <code>'SU_messages':generate_message/3</code> is called.
+The latter predicate is defined in terms of definite clause grammars
+in <code>library('SU_messages')</code>.  If that also does not succeed, then
+the built-in default conversion is used, which gives the following
+result:
+
+<div class="example">
+<pre class="example">['~q'-[<var>Message</var>],nl]
+</pre></div>
+
+</li><li> Line splitting transformation: the format-command list is
+converted to format-command lines&mdash;the list is broken up
+into a list of lists, each list containing
+format-commands for one line.
+
+</li><li> Message printing phase: The text of the message (format-command
+lines generated in the previous stage) is printed.  First the hook
+predicate <code>user:message_hook/3</code> is tried, then, if it does not
+succeed, then the built-in predicate <code>print_message_lines/3</code> is
+called for the <code>user_error</code> stream.
+</li></ul>
+
+<p>An unhandled exception message <var>E</var> calls
+<code>print_message(error, <var>E</var>)</code> before returning to the top
+level.  The convention is that an error message is the result of an
+unhandled exception.  Thus, an error message should only be printed if
+<code>raise_exception/1</code> does not find a handler and unwinds to the
+top-level.
+</p>
+<p>All messages from the system are printed using this predicate.  Means of
+intercepting these messages before they are printed are provided.
+</p>
+<p><code>print_message/2</code> always prints to <code>user_error</code>. Messages can be
+redirected to other streams using <code>user:message_hook/3</code> and
+<code>print_message_lines/3</code>
+</p>
+<p>Silent messages do not get translated or printed, but they can be
+intercepted with <code>user:portray_message/2</code> and <code>user:message_hook/3</code>.
+</p>
+<a name="Exceptions-178"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dt><code>type_error</code></dt>
+<dt><code>domain_error</code></dt>
+<dd><p>in <var>Severity</var>
+</p></dd>
+</dl>
+
+<a name="See-Also-184"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dprint_005fmessage_005flines.html#mpg_002dref_002dprint_005fmessage_005flines" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dprint_005fcoverage.html#mpg_002dref_002dprint_005fcoverage" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dprint_005fmessage.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dprint_005fmessage.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

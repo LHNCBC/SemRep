@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Types of Widget</title>
+
+<meta name="description" content="SICStus Prolog: Types of Widget">
+<meta name="keywords" content="SICStus Prolog: Types of Widget">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tk.html#Tk" rel="up" title="Tk">
+<link href="Widgets-Hierarchies.html#Widgets-Hierarchies" rel="next" title="Widgets Hierarchies">
+<link href="Widgets.html#Widgets" rel="prev" title="Widgets">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Types-of-Widget"></a>
+<hr>
+<a name="Types-of-Widget-1"></a>
+<h4 class="subsubsection">10.39.3.2 Types of Widget</h4>
+
+<p>In Tcl/Tk there are currently 15 types of widget. 
+In alphabetical order they are
+(see also <code>library('tcltk/examples/widgets.tcl')</code>):
+</p>
+<dl compact="compact">
+<dt><code>button</code></dt>
+<dd><a name="index-button-_0028Tk-widget_0029"></a>
+<p>a simple press button
+</p>
+</dd>
+<dt><code>canvas</code></dt>
+<dd><a name="index-canvas-_0028Tk-widget_0029"></a>
+<p>is a container for displaying &ldquo;drawn&rdquo; objects such as lines,
+circles, and polygons. 
+</p>
+</dd>
+<dt><code>checkbutton</code></dt>
+<dd><a name="index-checkbutton-_0028Tk-widget_0029"></a>
+<p>a button that hold a state of either on or off
+</p>
+</dd>
+<dt><code>entry</code></dt>
+<dd><a name="index-entry-_0028Tk-widget_0029"></a>
+<p>a text entry field
+</p>
+</dd>
+<dt><code>frame</code></dt>
+<dd><a name="index-frame-_0028Tk-widget_0029"></a>
+<p>a widget that is a container for other widgets
+</p>
+</dd>
+<dt><code>label</code></dt>
+<dd><a name="index-label-_0028Tk-widget_0029"></a>
+<p>a simple label
+</p>
+</dd>
+<dt><code>listbox</code></dt>
+<dd><a name="index-listbox-_0028Tk-widget_0029"></a>
+<p>a box containing a list of options
+</p>
+</dd>
+<dt><code>menu</code></dt>
+<dd><a name="index-menu-_0028Tk-widget_0029"></a>
+<p>a widget for creating menu bars
+</p>
+</dd>
+<dt><code>menubutton</code></dt>
+<dd><a name="index-menubutton-_0028Tk-widget_0029"></a>
+<p>a button, which when pressed offers a selection of choices
+</p>
+</dd>
+<dt><code>message</code></dt>
+<dd><a name="index-message-_0028Tk-widget_0029"></a>
+<p>a multi-line text display widget
+</p>
+</dd>
+<dt><code>radiobutton</code></dt>
+<dd><a name="index-radiobutton-_0028Tk-widget_0029"></a>
+<p>a button used to form groups of mutually interacting buttons
+(When one button is pressed down, the others pop up.)
+</p>
+</dd>
+<dt><code>scale</code></dt>
+<dd><a name="index-scale-_0028Tk-widget_0029"></a>
+<p>is like a slider on a music console. It consists of
+a trough scale and a slider. Moving the slider to a position on the scale
+sets the overall value of the widget to that value.
+</p>
+</dd>
+<dt><code>scollbar</code></dt>
+<dd><a name="index-scollbar-_0028Tk-widget_0029"></a>
+<p>used to add scrollbars to windows or canvases. The scrollbar
+has a slider, which when moved changes the value of the slider widget.
+</p>
+</dd>
+<dt><code>text</code></dt>
+<dd><a name="index-text-_0028Tk-widget_0029"></a>
+<p>a sophisticated multi-line text widget that can also display
+other widgets such as buttons
+</p>
+</dd>
+<dt><code>toplevel</code></dt>
+<dd><a name="index-toplevel-_0028Tk-widget_0029"></a>
+<p>for creating new standalone toplevel windows. (These windows are 
+containers for other widgets. They are not terminal windows.)
+</p></dd>
+</dl>
+
+<br>
+<img src="images/tcltkwidgets.png" alt="images/tcltkwidgets">
+<div align="center">Meet The Main Tk Widgets
+</div>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Widgets-Hierarchies.html#Widgets-Hierarchies" accesskey="n" rel="next">Next</a>
+<li><a href="Widgets.html#Widgets" accesskey="p" rel="prev">Previous</a>
+<li><a href="Tk.html#Tk" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Types-of-Widget.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Types-of-Widget.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

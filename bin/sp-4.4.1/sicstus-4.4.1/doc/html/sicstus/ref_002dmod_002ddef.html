@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-def</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-def">
+<meta name="keywords" content="SICStus Prolog: ref-mod-def">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002dn2m.html#ref_002dmod_002dn2m" rel="next" title="ref-mod-n2m">
+<link href="ref_002dmod_002dbas.html#ref_002dmod_002dbas" rel="prev" title="ref-mod-bas">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002ddef"></a>
+<hr>
+<a name="Defining-a-Module"></a>
+<h4 class="subsection">4.11.3 Defining a Module</h4>
+
+<a name="index-modules_002c-defining"></a>
+
+<a name="index-modules_002c-exporting-predicates-from"></a>
+
+<a name="index-module_002c-declaration"></a>
+
+<a name="index-module_002dfiles"></a>
+
+<a name="index-exporting-predicates-from-a-module"></a>
+
+<a name="index-public-predicate"></a>
+<a name="index-predicate_002c-public"></a>
+
+
+<p>The normal way to define a module is by creating a <em>module-file</em> for it
+and loading it into the Prolog system.  A module-file is a Prolog file that
+begins with a <em>module declaration</em>.  
+</p>
+<p>A module declaration has one of the forms:
+</p><div class="example">
+<pre class="example">:- module(<var>+ModuleName</var>, <var>+PublicPredList</var>).
+
+:- module(<var>+ModuleName</var>, <var>+PublicPredList</var>, <var>+Options</var>).
+</pre></div>
+
+<p>Such a declaration must appear as the first term in a file, and declares
+that file to be a module-file.  The predicates in the file will become part
+of the module <var>ModuleName</var>, and the predicates specified in
+<var>PublicPredList</var> are those that can be imported by other modules;
+that is, the public predicates of this module.  
+</p>
+<a name="index-hidden-module"></a>
+<a name="index-module_002c-hidden"></a>
+<a name="index-hidden_002f1-_0028module_002f3-option_0029"></a>
+<p><var>Options</var> is an optional argument, and should be a list.
+The only available option is <code>hidden(<var>Boolean</var>)</code>, where
+<var>Boolean</var> is <code>false</code> (the default) or <code>true</code>.  In the
+latter case, tracing of the predicates of the module is
+disabled (although spypoints can be set), and no source
+information is generated at compile time.
+</p>  
+<p>Instead of creating and loading a module-file, it is also possible to define
+a module dynamically by, for example, asserting clauses into a specified
+module.  A module created in this way has no public predicates; all its
+predicates are private.  This means that they cannot be called from outside
+that module except by explicitly overriding the modularity rules as
+described in <a href="ref_002dmod_002dvis.html#ref_002dmod_002dvis">ref-mod-vis</a>.  Dynamic creation of modules is
+described in more detail in <a href="ref_002dmod_002ddmo.html#ref_002dmod_002ddmo">ref-mod-dmo</a>.  
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002dn2m.html#ref_002dmod_002dn2m" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod_002dbas.html#ref_002dmod_002dbas" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002ddef.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002ddef.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

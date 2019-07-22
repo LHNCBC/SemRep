@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-initialization</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-initialization">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-initialization">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dinstance.html#mpg_002dref_002dinstance" rel="next" title="mpg-ref-instance">
+<link href="mpg_002dref_002dinclude.html#mpg_002dref_002dinclude" rel="prev" title="mpg-ref-include">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dinitialization"></a>
+<hr>
+<a name="initialization_002f1---declaration_002c-ISO"></a>
+<h4 class="subsection">11.3.105 <code>initialization/1</code> &nbsp;<!-- /@w --> <i>declaration</i>, <i>ISO</i></h4>
+<a name="index-initialization_002f1-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-initialization_002f1-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-130"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- initialization <var>+Goal</var></code>
+</p>
+<p>Declares that <var>Goal</var> is to be run when the file in which the
+declaration appears is loaded into a running system, or when a
+stand-alone program or runtime system that contains the file is started
+up.
+</p>
+<a name="Arguments-119"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:Goal</var></dt>
+<dd><p><em>callable</em>, must be nonvar
+</p></dd>
+</dl>
+
+<a name="Description-98"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Callable at any point during loading of a file. That is, it can be
+used as a directive, or as part of a goal called at load time.  The
+initialization goal will be run as soon as the loading of the file is
+completed. That is at the end of the load, and notably after all other
+directives appearing in the file have been run.  
+</p>
+<p><code>save_program/[1,2]</code> saves initialization goals in the saved
+state, so that they will run when the saved state is restored.  When
+they run, they have access to the load context
+(<code>prolog_load_context/2</code>), just like other goals appearing in
+directives.
+</p>
+<p><var>Goal</var> is associated with the file loaded and a module.  When a
+file, or module, is going to be reloaded, all goals earlier installed
+by that file or in that module, are removed.  This is done before the
+actual load, thus allowing a new initialization <var>Goal</var> to be
+specified, without creating duplicates.
+</p>
+<a name="Comments-11"></a>
+<h4 class="subheading">Comments</h4>
+
+<p><code>initialization</code> is not an ISO predefined prefix operator.
+</p>
+<a name="Exceptions-121"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p>The argument <var>Goal</var> is not instantiated.
+</p>
+</dd>
+<dt><code>context_error</code></dt>
+<dd><p>Initialization appeared in a goal.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>Initialization appeared as a clause.
+</p></dd>
+</dl>
+
+<a name="See-Also-127"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Initializations.html#Initializations">Initializations</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dinstance.html#mpg_002dref_002dinstance" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dinclude.html#mpg_002dref_002dinclude" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dinitialization.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dinitialization.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

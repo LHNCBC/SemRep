@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-sls-sst</title>
+
+<meta name="description" content="SICStus Prolog: ref-sls-sst">
+<meta name="keywords" content="SICStus Prolog: ref-sls-sst">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsls.html#ref_002dsls" rel="up" title="ref-sls">
+<link href="ref_002dsls_002dssl.html#ref_002dsls_002dssl" rel="next" title="ref-sls-ssl">
+<link href="ref_002dsls_002dove.html#ref_002dsls_002dove" rel="prev" title="ref-sls-ove">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsls_002dsst"></a>
+<hr>
+<a name="Saved_002dStates"></a>
+<h4 class="subsection">4.4.2 Saved-States</h4>
+
+<a name="index-saved_002dstate-1"></a>
+
+
+<a name="index-save_005fprogram_002f_005b1_002c2_005d-_0028built_002din_0029-3"></a>
+<a name="index-save_005fprogram_002f_005b1_002c2_005d-_0028built_002din_0029-1"></a>
+
+
+
+<a name="index-restore_002f1-_0028built_002din_0029-3"></a>
+<a name="index-restore_002f1-_0028built_002din_0029-1"></a>
+
+
+<p>Saved-states are just a special case of PO files.  The
+<code>save_program/[1,2]</code> predicate will save the execution state in a
+file.  The state consists of all predicates and modules except built-in
+predicates and clauses of volatile predicates, the current operator
+declarations, the current character-conversion mapping, the values of
+all writable Prolog flags except those marked as <em>volatile</em> in
+<a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>, any blackboard data (see <a href="ref_002dmdb_002dbbd.html#ref_002dmdb_002dbbd">ref-mdb-bbd</a>), database
+data (see <a href="ref_002dmdb_002dbas.html#ref_002dmdb_002dbas">ref-mdb-bas</a>), and as of release 4.2, information for
+source-linked debugging.
+See <a href="mpg_002dref_002dsave_005fprogram.html#mpg_002dref_002dsave_005fprogram">mpg-ref-save_program</a>.
+</p>
+<p>A saved-state, can be restored using the <code>restore/1</code>
+predicate from within Prolog:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>restore(<var>File</var>).</kbd>
+</pre></div>
+
+<p>which will replace the current program state
+by the one in <var>File</var>.
+See <a href="mpg_002dref_002drestore.html#mpg_002dref_002drestore">mpg-ref-restore</a>.
+</p>
+<p>A saved-state can also be given as an option to the <code>sicstus</code>
+command:
+</p>
+<div class="example">
+<pre class="example">% <kbd>sicstus -r <var>File</var></kbd>
+</pre></div>
+
+<p>which will start execution by restoring <var>File</var>.
+</p>
+<p>The location (i.e. directory) of the saved-state, when it is created
+with <code>save_program/[1,2]</code> and loaded with <code>restore/1</code>, is
+treated in a special way in order to make it possible locate files when
+the saved-state has been moved. See <a href="Saving.html#Saving">Saving</a> for more information.
+</p>
+
+<a name="index-initialization-of-saved_002dstates"></a>
+<a name="index-saved_002dstates_002c-initialization-of"></a>
+
+<p>The <code>save_program/2</code> predicate can be used to specify an initial goal
+that will be run when the saved-state is restored. For example:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>save_program(saved_state,initial_goal([a,b,c])).</kbd>
+</pre></div>
+
+
+<p>When <samp>saved_state</samp> is loaded <code>initial_goal/1</code> will be called. This allows
+saved-states to be generated that will immediately start running the user&rsquo;s
+program when they are restored. In addition to this <code>save_program/2</code>
+facility, see also the <code>initialization/1</code> facility to declare
+goal to be executed upon loading (see <a href="Initializations.html#Initializations">Initializations</a>).
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsls_002dssl.html#ref_002dsls_002dssl" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsls_002dove.html#ref_002dsls_002dove" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsls.html#ref_002dsls" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsls_002dsst.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsls_002dsst.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

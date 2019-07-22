@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Creating Breakpoints</title>
+
+<meta name="description" content="SICStus Prolog: Creating Breakpoints">
+<meta name="keywords" content="SICStus Prolog: Creating Breakpoints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="up" title="Advanced Debugging">
+<link href="Processing-Breakpoints.html#Processing-Breakpoints" rel="next" title="Processing Breakpoints">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="prev" title="Advanced Debugging">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Creating-Breakpoints"></a>
+<hr>
+<a name="Creating-Breakpoints-1"></a>
+<h4 class="subsection">5.6.1 Creating Breakpoints</h4>
+
+<a name="index-breakpoint-spec"></a>
+<a name="index-spec_002c-breakpoint"></a>
+<p>Breakpoints can be created using the <code>add_breakpoint/2</code>
+built-in predicate.  Its first argument should contain the
+description of the breakpoint, the so called <em>breakpoint
+spec</em>. It will return the <em>breakpoint identifier</em> (BID) of the
+created breakpoint in its second argument. For example:
+</p> 
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint(pred(foo/2), BID).</kbd>
+% Plain spypoint for user:foo/2 added, BID=1
+BID = 1
+</pre></div>
+
+<a name="index-plain-spypoint-1"></a>
+<a name="index-spypoint_002c-plain-1"></a>
+<a name="index-pred_002f1-_0028debugger-condition_0029"></a>
+<p>Here, we have a simple breakpoint spec, prescribing that the
+debugger should stop at all ports of all invocations of the
+predicate <code>foo/2</code>. Thus the above goal actually creates
+a <em>plain spypoint</em>, exactly as <code>?- spy foo/2.</code> does.
+</p>
+<p>A slightly more complicated example follows:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([pred(foo/2),line('/myhome/bar.pl',123)], _).</kbd>
+% Conditional spypoint for user:foo/2 added, BID=1
+</pre></div>
+
+<a name="index-spypoint_002c-conditional"></a>
+<a name="index-conditional-spypoint"></a>
+<p>This breakpoint will be activated only for those calls of
+<code>foo/2</code> that occur in line 123 of the Prolog program file
+<code>'/myhome/bar.pl'</code>. Because of the additional condition, this is
+called a <em>conditional spypoint</em>.
+</p>
+<a name="index-breakpoint-identifier"></a>
+<a name="index-identifier_002c-breakpoint"></a>
+<p>The breakpoint identifier (BID) returned by
+<code>add_breakpoint/2</code> is an integer, assigned in increasing order,
+i.e. more recent breakpoints receive higher identifier
+values. When looking for applicable breakpoints, the debugger
+tries the breakpoints in descending order of BIDs, i.e. the most
+recent applicable breakpoint is used. Breakpoint identifiers
+can be used for referring to breakpoints to be deleted, disabled
+or enabled (see later).
+</p>
+<a name="index-breakpoint-action"></a>
+<a name="index-action_002c-breakpoint"></a>
+<a name="index-breakpoint-test"></a>
+<a name="index-test_002c-breakpoint"></a>
+<a name="index-breakpoint-condition"></a>
+<a name="index-condition_002c-breakpoint"></a>
+<p>Generally, the breakpoint spec is a pair
+<code><var>Tests</var>-<var>Actions</var></code>. Here, the <var>Tests</var> part describes
+the conditions under which the breakpoint should be activated,
+while the <var>Actions</var> part contains instructions on what should be
+done at activation. The test part is built from tests, while the action
+part from actions and tests. Test, actions and composite constructs
+built from these are generally referred to as <em>breakpoint
+conditions</em>, or simply conditions.
+</p>
+<p>The action part can be omitted, and then the breakpoint spec
+consists of tests only. For spypoints, the default action part is
+<code>[show(print),command(ask)]</code>. This instructs the debugger to print
+the goal in question and then ask the user what to do next,
+exactly as described in <a href="Debug-Format.html#Debug-Format">Debug Format</a>.  To illustrate other
+possibilities let us explain the effect of the
+<code>[show(display),command(proceed)]</code> action part: this will use
+<code>display/1</code> for presenting the goal (just as the &lsquo;<samp>d</samp>&rsquo;
+debugger command does, see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>), and will then proceed
+with execution without stopping (i.e. the spypoint is
+unleashed).
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Processing-Breakpoints.html#Processing-Breakpoints" accesskey="n" rel="next">Next</a>
+<li><a href="Advanced-Debugging.html#Advanced-Debugging" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Creating-Breakpoints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Creating-Breakpoints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Reflection Predicates</title>
+
+<meta name="description" content="SICStus Prolog: Reflection Predicates">
+<meta name="keywords" content="SICStus Prolog: Reflection Predicates">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Defining-Global-Constraints.html#Defining-Global-Constraints" rel="up" title="Defining Global Constraints">
+<link href="FD-Set-Operations.html#FD-Set-Operations" rel="next" title="FD Set Operations">
+<link href="The-Global-Constraint-Programming-Interface.html#The-Global-Constraint-Programming-Interface" rel="prev" title="The Global Constraint Programming Interface">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Reflection-Predicates"></a>
+<hr>
+<a name="Reflection-Predicates-1"></a>
+<h4 class="subsubsection">10.10.9.2 Reflection Predicates</h4>
+
+<p>The constraint solving method needs access to information about the
+current domains of variables.  This is provided by the following
+predicates, which are all constant time operations.
+</p>
+<dl compact="compact">
+<dt><code>fd_var(<var>?X</var>)</code></dt>
+<dd>
+<a name="index-fd_005fvar_002f1-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fvar_002f1-_0028clpfd_0029"></a>
+
+<p>Checks that <var>X</var> is currently an unbound variable that is known to
+the CLPFD solver.
+</p>
+</dd>
+<dt><code>fd_min(<var>?X</var>, <var>?Min</var>)</code></dt>
+<dd>
+<a name="index-fd_005fmin_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fmin_002f2-_0028clpfd_0029"></a>
+
+<p>where <var>X</var> is a domain variable.  <var>Min</var> is
+unified with the smallest value in the current domain of <var>X</var>, i.e.
+an integer or the atom <code>inf</code> denoting minus infinity.
+</p>
+</dd>
+<dt><code>fd_max(<var>?X</var>, <var>?Max</var>)</code></dt>
+<dd>
+<a name="index-fd_005fmax_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fmax_002f2-_0028clpfd_0029"></a>
+
+<p>where <var>X</var> is a domain variable.  <var>Max</var> is
+unified with the upper bound of the current domain of <var>X</var>, i.e. an
+integer or the atom <code>sup</code> denoting plus infinity.
+</p>
+</dd>
+<dt><code>fd_size(<var>?X</var>, <var>?Size</var>)</code></dt>
+<dd>
+<a name="index-fd_005fsize_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fsize_002f2-_0028clpfd_0029"></a>
+
+<p>where <var>X</var> is a domain variable.  <var>Size</var> is
+unified with the size of the current domain of <var>X</var>, if the domain is
+bounded, or the atom <code>sup</code> otherwise.
+</p>
+</dd>
+<dt><code>fd_set(<var>?X</var>, <var>?Set</var>)</code></dt>
+<dd>
+<a name="index-fd_005fset_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fset_002f2-_0028clpfd_0029"></a>
+
+<p>where <var>X</var> is a domain variable.  <var>Set</var> is
+unified with an FD set denoting the internal representation of the
+current domain of <var>X</var>; see below.
+</p>
+</dd>
+<dt><code>fd_dom(<var>?X</var>, <var>?Range</var>)</code></dt>
+<dd>
+<a name="index-fd_005fdom_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fdom_002f2-_0028clpfd_0029"></a>
+
+<p>where <var>X</var> is a domain variable.  <var>Range</var> is
+unified with a <var>ConstantRange</var> (see <a href="Syntax-of-Indexicals.html#Syntax-of-Indexicals">Syntax of Indexicals</a>)
+denoting the current domain of <var>X</var>.
+</p>
+</dd>
+<dt><code>fd_degree(<var>?X</var>, <var>?Degree</var>)</code></dt>
+<dd>
+<a name="index-fd_005fdegree_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fdegree_002f2-_0028clpfd_0029"></a>
+
+<p>where <var>X</var> is a domain variable.  <var>Degree</var> is
+unified with the number of constraints that are attached to <var>X</var>.
+</p>
+<blockquote>
+<p><strong>Please note</strong>: this number may include some constraints that have
+been detected as entailed.  Also, <var>Degree</var> is not the number of
+neighbors of <var>X</var> in the constraint network.
+</p></blockquote>
+</dd>
+</dl>
+
+<p>The following predicates can be used for computing the set of variables
+that are (transitively) connected via constraints to some given
+variable(s).
+</p>
+<dl compact="compact">
+<dt><code>fd_neighbors(<var>+Var</var>, <var>-Neighbors</var>)</code></dt>
+<dd>
+<a name="index-fd_005fneighbors_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fneighbors_002f2-_0028clpfd_0029"></a>
+
+<p>Given a domain variable <var>Var</var>, <var>Neighbors</var> is the set of
+variables that can be reached from <var>Var</var> via constraints
+posted so far.
+</p>
+</dd>
+<dt><code>fd_closure(<var>+Vars</var>, <var>-Closure</var>)</code></dt>
+<dd>
+<a name="index-fd_005fclosure_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fd_005fclosure_002f2-_0028clpfd_0029"></a>
+
+<p>Given a list <var>Vars</var> of domain variables, <var>Closure</var> is the set of
+variables (including <var>Vars</var>) that can be transitively reached via
+constraints posted so far.  Thus, <code>fd_closure/2</code> is the transitive
+closure of <code>fd_neighbors/2</code>.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FD-Set-Operations.html#FD-Set-Operations" accesskey="n" rel="next">Next</a>
+<li><a href="The-Global-Constraint-Programming-Interface.html#The-Global-Constraint-Programming-Interface" accesskey="p" rel="prev">Previous</a>
+<li><a href="Defining-Global-Constraints.html#Defining-Global-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Reflection-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Reflection-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

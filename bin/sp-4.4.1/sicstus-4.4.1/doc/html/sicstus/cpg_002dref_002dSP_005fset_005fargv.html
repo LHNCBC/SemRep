@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_set_argv</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_set_argv">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_set_argv">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fset_005fcurrent_005fdir.html#cpg_002dref_002dSP_005fset_005fcurrent_005fdir" rel="next" title="cpg-ref-SP_set_current_dir">
+<link href="cpg_002dref_002dSP_005frestore.html#cpg_002dref_002dSP_005frestore" rel="prev" title="cpg-ref-SP_restore">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fset_005fargv"></a>
+<hr>
+<a name="SP_005fset_005fargv_0028_0029"></a>
+<h4 class="subsection">12.3.91 <code>SP_set_argv()</code></h4>
+<a name="index-SP_005fset_005fargv_0028_0029-_0028C-function_0029"></a>
+
+<a name="Synopsis-371"></a>
+<h4 class="subheading">Synopsis</h4>
+<p>&nbsp;<!-- /@w --> <i>since release 4.0.3</i>
+</p>
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+int
+SP_set_argv(int argc,
+	    char **argv,
+	    spio_t_bits options);
+</pre></div>
+
+<p>Initializes the <code>argv</code> prolog flag.
+</p>
+<a name="Arguments-340"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>argc</var></dt>
+<dd><p>The number of elements of the <code>argv</code> vector.
+</p>
+</dd>
+<dt><var>argv</var></dt>
+<dd><p>A vector of strings that can be accessed by <code>prolog_flag(argv,X)</code>.
+This argument is copied by <code>SP_set_argv()</code> so it can be discarded
+by the caller. May be passed as <code>NULL</code> if <code>argc</code> is zero.
+</p>
+<p>The encoding used when converting the entries to atoms is determined
+by the <code>options</code> argument.
+</p>
+</dd>
+<dt><var>options</var></dt>
+<dd>
+<p>If <code>options</code> is zero then each entry in <code>argv</code> is assumed to
+be an encoded string, i.e. encoded using &lsquo;<samp>UTF-8</samp>&rsquo;. This is
+the same as passing <code>argc</code> and <code>argv</code> to
+<code>SP_initialize()</code> except that <code>SP_initialize()</code> will not
+report failure even if the <code>argv</code> entries are not suitable as
+atom names. Note that UTF-8 may not be the encoding used by the
+operating system when invoking <code>main()</code>.
+</p>
+<p>If <code>options</code> is <code>SP_SET_ARGV_OPTION_SYSTEM_ENCODING</code> then
+each entry in <code>argv</code> is assumed to be encoded using some system
+encoding. This is only useful on Unix-like systems since it is
+preferable, and trivial, to obtain and pass a UTF-8 <code>argv</code> vector
+on Windows.
+</p>
+<p>The system encoding used by <code>SP_set_argv()</code> will be the first
+character encoding specified by the following environment variables:
+</p>
+<dl compact="compact">
+<dt><code>SP_CTYPE</code></dt>
+<dt><code>LC_ALL (only on Unix)</code></dt>
+<dt><code>LC_CTYPE (only on Unix)</code></dt>
+<dt><code>LANG (only on Unix)</code></dt>
+</dl>
+<p>if none of these are set then the operating system will be
+queried in some platform specific way.
+</p>
+<p><strong>Please note</strong>: For best results on Unix-like platforms you
+should use a locale based on UTF-8.
+</p>
+</dd>
+</dl>
+
+<a name="Return-Value-85"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>Zero if the argument entries cannot be converted to atoms, and a
+nonzero value otherwise.
+</p>
+<a name="Description-219"></a>
+<h4 class="subheading">Description</h4>
+
+<a name="See-Also-368"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Initializing-the-Prolog-Engine.html#Initializing-the-Prolog-Engine">Initializing the Prolog Engine</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fset_005fcurrent_005fdir.html#cpg_002dref_002dSP_005fset_005fcurrent_005fdir" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005frestore.html#cpg_002dref_002dSP_005frestore" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fset_005fargv.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fset_005fargv.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

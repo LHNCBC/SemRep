@@ -1,0 +1,151 @@
+----- Citation 15996060 -----
+15996060.ti.1 Sex hormone concentrations in patients with rheumatoid arthritis are not       normalized during 12 weeks of anti-tumor necrosis factor therapy.
+
+[MOD([Sex,hormone]),HEAD([concentrations])]      [PREP([in]),HEAD([patients])]      [PREP([with]),HEAD([rheumatoid,arthritis])]      [AUX([are])]      [ADV([not])]      [VERB([normalized])]      [PREP([during]),SHAPES([12]),HEAD([weeks])]      [PREP([of]),MOD([anti,-,tumor]),MOD([necrosis]),MOD([factor]),HEAD([therapy]),PUNC([.])]      
+
+15996060.ti.1|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0030705|Patients|podg,humn|humn||
+15996060.ti.1|relation|C0036884|Gonadal Steroid Hormones|horm|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+15996060.ti.1|relation|C0036884|Gonadal Steroid Hormones|horm|horm|||TREATS(INFER)|C0003873|Rheumatoid Arthritis|dsyn|dsyn||
+
+15996060.ab.1 OBJECTIVE: Androgens such as dehydroepiandrosterone sulfate (DHEAS) and       testosterone are markedly lower in postmenopausal women with rheumatoid       arthritis (RA) than in controls.
+
+[HEAD([OBJECTIVE])]      [PUNC([:])]      [HEAD([Androgens])]      [PREP([such,as]),HEAD([dehydroepiandrosterone,sulfate])]      [CONJ([and])]      [HEAD([testosterone])]      [AUX([are])]      [ADV([markedly]),HEAD([lower])]      [PREP([in]),MOD([postmenopausal]),HEAD([women])]      [PREP([with]),HEAD([rheumatoid,arthritis])]      [PREP([than])]      [PREP([in]),HEAD([controls]),PUNC([.])]      
+
+15996060.ab.1|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0043210|Woman|popg,humn|humn||
+15996060.ab.1|relation|C0039601|Testosterone|horm,phsu,strd|horm|||ISA|C0002844|Androgens|horm,phsu|horm||
+15996060.ab.1|relation|C0039601|Testosterone|horm,phsu,strd|phsu|||TREATS|C0043210|Woman|popg,humn|popg||
+15996060.ab.1|relation|C0039601|Testosterone|horm,phsu,strd|phsu|||TREATS(INFER)|C0003873|Rheumatoid Arthritis|dsyn|dsyn||
+15996060.ab.1|relation|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|bacs|||ISA|C0002844|Androgens|horm,phsu|horm||
+15996060.ab.1|relation|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|phsu|||TREATS|C0043210|Woman|popg,humn|popg||
+15996060.ab.1|relation|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|phsu|||TREATS(INFER)|C0003873|Rheumatoid Arthritis|dsyn|dsyn||
+
+15996060.ab.2 In contrast, compared to controls, serum       levels of estrogens are normal or elevated in women with RA.
+
+[PREP([In]),HEAD([contrast]),PUNC([,])]      [VERB([compared])]      [PREP([to]),HEAD([controls]),PUNC([,])]      [MOD([serum]),HEAD([levels])]      [PREP([of]),HEAD([estrogens])]      [AUX([are])]      [HEAD([normal])]      [CONJ([or])]      [VERB([elevated])]      [PREP([in]),HEAD([women])]      [PREP([with]),HEAD([rheumatoid,arthritis]),PUNC([.])]      
+
+15996060.ab.2|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0043210|Woman|popg,humn|humn||
+15996060.ab.2|relation|C0014939|Estrogens|horm,phsu,strd|phsu|||TREATS|C0043210|Woman|popg,humn|popg||
+15996060.ab.2|relation|C0014939|Estrogens|horm,phsu,strd|phsu|||TREATS(INFER)|C0003873|Rheumatoid Arthritis|dsyn|dsyn||
+
+15996060.ab.3 Since tumor       necrosis factor (TNF) alters production of these hormones, we investigated       changes of these hormones during anti-TNF antibody (anti-TNF) therapy with       adalimumab in longstanding RA.
+
+[CONJ([Since])]      [HEAD([tumor,necrosis,factor])]      [VERB([alters])]      [HEAD([production])]      [PREP([of]),DET([these]),HEAD([hormones]),PUNC([,])]      [PRON([we])]      [VERB([investigated])]      [HEAD([changes])]      [PREP([of]),DET([these]),HEAD([hormones])]      [PREP([during]),MOD([anti,-,tumor]),MOD([necrosis]),MOD([factor]),HEAD([antibody])]      [PUNC([(]),MOD([anti,-,tumor]),MOD([necrosis]),HEAD([factor])]      [PUNC([)])]      [HEAD([therapy])]      [PREP([with]),HEAD([adalimumab])]      [PREP([in]),MOD([longstanding]),HEAD([rheumatoid,arthritis]),PUNC([.])]      
+
+15996060.ab.3|relation|C0019932|Hormones|horm|horm|||COEXISTS_WITH|C0003242|Antibodies, Anti-Idiotypic|aapp,gngm,imft|aapp||
+15996060.ab.3|relation|C0041368|Tumor Necrosis Factors|aapp,gngm,imft|aapp|7124|TNF|INTERACTS_WITH|C0019932|Hormones|horm|horm||
+15996060.ab.3|relation|C0087111|Therapeutic procedure|topp|topp|||USES|C1122087|adalimumab|aapp,gngm,imft,phsu|aapp||
+
+15996060.ab.4 METHODS: In this longitudinal anti-TNF       therapy study in 13 patients with long-standing RA without prior       prednisolone (7 infusions of anti-TNF: Week 0, 2, 4, 6, 8, 10, and 12), we       measured serum concentrations of interleukin 6 (IL-6), androstenedione,       DHEA, DHEAS, free testosterone, estrone, and 17ss-estradiol.
+
+[HEAD([METHODS])]      [PUNC([:])]      [PREP([In]),DET([this]),MOD([longitudinal]),MOD([anti,-,tumor]),MOD([necrosis]),MOD([factor]),MOD([therapy]),HEAD([study])]      [PREP([in]),SHAPES([13]),HEAD([patients])]      [PREP([with]),MOD([long,-,standing]),HEAD([rheumatoid,arthritis])]      [PREP([without]),MOD([prior]),HEAD([prednisolone])]      [PUNC([(]),SHAPES([7]),HEAD([infusions])]      [PREP([of]),MOD([anti,-,tumor]),MOD([necrosis]),HEAD([factor])]      [PUNC([:])]      [MOD([Week]),SHAPES([0]),PUNC([,])]      [SHAPES([2]),PUNC([,])]      [SHAPES([4]),PUNC([,])]      [SHAPES([6]),PUNC([,])]      [SHAPES([8]),PUNC([,])]      [SHAPES([10]),PUNC([,])]      [CONJ([and])]      [SHAPES([12])]      [PUNC([)])]      [PUNC([,])]      [PRON([we])]      [VERB([measured])]      [MOD([serum]),HEAD([concentrations])]      [PREP([of]),MOD([interleukin]),SHAPES([6]),PUNC([,])]      [HEAD([androstenedione]),PUNC([,])]      [HEAD([DHEA]),PUNC([,])]      [HEAD([dehydroepiandrosterone,sulfate]),PUNC([,])]      [MOD([free]),HEAD([testosterone]),PUNC([,])]      [HEAD([estrone]),PUNC([,])]      [CONJ([and])]      [MOD([17ss]),PUNC([-]),HEAD([estradiol]),PUNC([.])]      
+
+15996060.ab.4|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0030705|Patients|podg,humn|humn||
+15996060.ab.4|relation|C0023981|Longitudinal Studies|qnco,resa|resa|||MEASURES|C0683149|serum drug concentration|qnco|qnco||
+15996060.ab.4|relation|C0023981|Longitudinal Studies|qnco,resa|resa|||USES|C0281481|anti-tumor necrosis factor therapy|topp|topp||
+
+15996060.ab.5 Levels of       these hormones in patients were compared to serum levels of 31 age and sex       matched healthy controls.
+
+[HEAD([Levels])]      [PREP([of]),DET([these]),HEAD([hormones])]      [PREP([in]),HEAD([patients])]      [AUX([were])]      [VERB([compared])]      [PREP([to]),MOD([serum]),HEAD([levels])]      [PREP([of]),SHAPES([31]),HEAD([age])]      [CONJ([and])]      [MOD([sex,matched]),MOD([healthy]),HEAD([controls]),PUNC([.])]      
+
+15996060.ab.5|relation|C0019932|Hormones|horm|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+
+15996060.ab.6 RESULTS: Upon treatment with anti-TNF, there was       an impressive decrease of clinical markers of inflammation, erythrocyte       sedimentation rate, and serum levels of IL-6.
+
+[HEAD([RESULTS])]      [PUNC([:])]      [PREP([Upon]),HEAD([treatment])]      [PREP([with]),MOD([anti,-,tumor]),MOD([necrosis]),HEAD([factor]),PUNC([,])]      [ADV([there])]      [AUX([was])]      [DET([an]),MOD([impressive]),HEAD([decrease])]      [PREP([of]),MOD([clinical]),HEAD([markers])]      [PREP([of]),HEAD([inflammation]),PUNC([,])]      [HEAD([erythrocyte,sedimentation,rate]),PUNC([,])]      [CONJ([and])]      [MOD([serum]),HEAD([levels])]      [PREP([of]),MOD([interleukin]),SHAPES([6]),PUNC([.])]      
+
+15996060.ab.6|relation|C0087111|Therapeutic procedure|topp|topp|||USES|C0041368|Tumor Necrosis Factors|aapp,gngm,imft|aapp|7124|TNF
+
+15996060.ab.7 Serum levels of DHEAS and       free testosterone were markedly lower at baseline in patients compared to       controls, but this did not change during anti-TNF therapy.
+
+[MOD([Serum]),HEAD([levels])]      [PREP([of]),HEAD([dehydroepiandrosterone,sulfate])]      [CONJ([and])]      [MOD([free]),HEAD([testosterone])]      [AUX([were])]      [ADV([markedly]),HEAD([lower])]      [PREP([at]),HEAD([baseline])]      [PREP([in]),HEAD([patients])]      [VERB([compared])]      [PREP([to]),HEAD([controls]),PUNC([,])]      [CONJ([but])]      [DET([this])]      [AUX([did])]      [ADV([not])]      [VERB([change])]      [PREP([during]),MOD([anti,-,tumor]),MOD([necrosis]),MOD([factor]),HEAD([therapy]),PUNC([.])]      
+
+15996060.ab.7|relation|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|strd|||TREATS|C0030705|Patients|podg,humn|podg||
+15996060.ab.7|relation|C0443483|Free testosterone|horm,strd|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+
+15996060.ab.8 Serum levels of       DHEA and 17ss-estradiol were significantly elevated in patients compared       to controls, but similarly, anti-TNF therapy did not change initially       increased levels.
+
+[MOD([Serum]),HEAD([levels])]      [PREP([of]),HEAD([DHEA])]      [CONJ([and])]      [MOD([17ss]),PUNC([-]),HEAD([estradiol])]      [AUX([were])]      [ADV([significantly])]      [VERB([elevated])]      [PREP([in]),HEAD([patients])]      [VERB([compared])]      [PREP([to]),HEAD([controls]),PUNC([,])]      [CONJ([but])]      [ADV([similarly]),PUNC([,])]      [MOD([anti,-,tumor]),MOD([necrosis]),MOD([factor]),HEAD([therapy])]      [AUX([did])]      [ADV([not])]      [VERB([change])]      [ADV([initially]),MOD([increased]),HEAD([levels]),PUNC([.])]      
+
+15996060.ab.8|relation|C0011185|dehydroepiandrosterone|horm,phsu,strd|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+15996060.ab.8|relation|C0014912|Estradiol|horm,phsu,strd|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+
+15996060.ab.9 Molar ratios of hormones, which reflect hormone shifts       via converting enzymes, showed typical alterations at baseline, but did       not change markedly during anti-TNF therapy.
+
+[MOD([Molar]),HEAD([ratios])]      [PREP([of]),HEAD([hormones]),PUNC([,])]      [PRON([which])]      [VERB([reflect])]      [HEAD([hormone])]      [VERB([shifts])]      [MOD([via]),HEAD([converting,enzymes]),PUNC([,])]      [VERB([showed])]      [MOD([typical]),HEAD([alterations])]      [PREP([at]),HEAD([baseline]),PUNC([,])]      [CONJ([but])]      [AUX([did])]      [ADV([not])]      [VERB([change])]      [ADV([markedly])]      [PREP([during]),MOD([anti,-,tumor]),MOD([necrosis]),MOD([factor]),HEAD([therapy]),PUNC([.])]      
+
+
+15996060.ab.10 CONCLUSION: Longterm therapy       with anti-TNF did not change altered serum levels of typical sex hormones       in patients with RA, although baseline values were largely different.
+
+[HEAD([CONCLUSION])]      [PUNC([:])]      [MOD([Longterm]),HEAD([therapy])]      [PREP([with]),MOD([anti,-,tumor]),MOD([necrosis]),HEAD([factor])]      [AUX([did])]      [ADV([not])]      [VERB([change])]      [MOD([altered]),MOD([serum]),HEAD([levels])]      [PREP([of]),MOD([typical]),HEAD([sex,hormones])]      [PREP([in]),HEAD([patients])]      [PREP([with]),HEAD([rheumatoid,arthritis]),PUNC([,])]      [CONJ([although])]      [MOD([baseline]),HEAD([values])]      [AUX([were])]      [ADV([largely]),HEAD([different]),PUNC([.])]      
+
+15996060.ab.10|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0030705|Patients|podg,humn|humn||
+15996060.ab.10|relation|C0036884|Gonadal Steroid Hormones|horm|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+15996060.ab.10|relation|C0036884|Gonadal Steroid Hormones|horm|horm|||TREATS(INFER)|C0003873|Rheumatoid Arthritis|dsyn|dsyn||
+15996060.ab.10|relation|C0087111|Therapeutic procedure|topp|topp|||USES|C0041368|Tumor Necrosis Factors|aapp,gngm,imft|aapp|7124|TNF
+
+15996060.ab.11 In       patients with RA, this indicates that alterations of sex hormones and       altered activity of respective converting enzymes are imprinted for a       long-lasting period over at least 12 weeks.
+
+[PREP([In]),HEAD([patients])]      [PREP([with]),HEAD([rheumatoid,arthritis]),PUNC([,])]      [PRON([this])]      [VERB([indicates])]      [COMPL([that]),HEAD([alterations])]      [PREP([of]),HEAD([sex,hormones])]      [CONJ([and])]      [MOD([altered]),HEAD([activity])]      [PREP([of]),MOD([respective]),HEAD([converting,enzymes])]      [AUX([are])]      [VERB([imprinted])]      [PREP([for]),DET([a]),MOD([long,-,lasting]),HEAD([period]),ADV([over])]      [PREP([at]),ADV([least]),SHAPES([12]),HEAD([weeks]),PUNC([.])]      
+
+15996060.ab.11|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0030705|Patients|podg,humn|humn||
+
+----- Citation 167592 -----
+167592.ti.1 Control of hepatic glycogen metabolism in the rhesus monkey: effect of glucose,       insulin, and glucagon administration.
+
+[HEAD([Control])]      [PREP([of]),MOD([hepatic,glycogen]),HEAD([metabolism])]      [PREP([in]),DET([the]),HEAD([rhesus,monkey])]      [PUNC([:])]      [HEAD([effect])]      [PREP([of]),HEAD([glucose]),PUNC([,])]      [HEAD([insulin]),PUNC([,])]      [CONJ([and])]      [MOD([glucagon]),HEAD([administration]),PUNC([.])]      
+
+167592.ti.1|relation|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG|AFFECTS|C1373178|Hepatic Metabolism|ortf|ortf||
+167592.ti.1|relation|C0017725|Glucose|bacs,carb,phsu|phsu|||AFFECTS|C1373178|Hepatic Metabolism|ortf|ortf||
+167592.ti.1|relation|C0021641|Insulin|aapp,gngm,horm,phsu|aapp|||AFFECTS|C1373178|Hepatic Metabolism|ortf|ortf||
+167592.ti.1|relation|C1373178|Hepatic Metabolism|ortf|ortf|||PROCESS_OF|C0024400|Macaca mulatta|mamm|mamm||
+
+167592.ab.1 The effects of intravenous glucose, insulin and glucagon admininistration on the        hepatic glycogen synthase and glycogen phosphorylase systems were assessed in the       anesthetized rhesus monkey.
+
+[DET([The]),HEAD([effects])]      [PREP([of]),MOD([intravenous]),HEAD([glucose]),PUNC([,])]      [HEAD([insulin])]      [CONJ([and])]      [MOD([glucagon]),HEAD([admininistration])]      [PREP([on]),DET([the]),MOD([hepatic,glycogen]),HEAD([synthase])]      [CONJ([and])]      [MOD([glycogen,phosphorylase]),HEAD([systems])]      [AUX([were])]      [VERB([assessed])]      [PREP([in]),DET([the]),MOD([anesthetized]),HEAD([rhesus,monkey]),PUNC([.])]      
+
+167592.ab.1|relation|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG|TREATS|C0024400|Macaca mulatta|mamm|mamm||
+167592.ab.1|relation|C0017932|Glycogen (Starch) Synthase|aapp,gngm,enzy|gngm|||PART_OF|C0205054|Hepatic|blor|blor||
+167592.ab.1|relation|C0021641|Insulin|aapp,gngm,horm,phsu|horm|||TREATS|C0024400|Macaca mulatta|mamm|mamm||
+167592.ab.1|relation|C0357164|Parenteral form glucose|carb,phsu|phsu|||TREATS|C0024400|Macaca mulatta|mamm|mamm||
+
+167592.ab.2 Results were correlated with measurements of hepatic        cyclic AMP (cAMP) concentrations and plasma glucose, insulin, and glucagon       concentrations.
+
+[HEAD([Results])]      [AUX([were])]      [VERB([correlated])]      [PREP([with]),HEAD([measurements])]      [PREP([of]),MOD([hepatic]),MOD([cyclic,AMP]),HEAD([concentrations])]      [CONJ([and])]      [MOD([plasma]),HEAD([glucose]),PUNC([,])]      [HEAD([insulin]),PUNC([,])]      [CONJ([and])]      [MOD([glucagon]),HEAD([concentrations]),PUNC([.])]      
+
+167592.ab.2|relation|C0032105|Plasma|bdsu|bdsu|||LOCATION_OF|C0017725|Glucose|bacs,carb,phsu|bacs||
+
+167592.ab.3 Both glucose and insulin administration promoted significant       inactivation of phosphorylase by 1 min, which was followed by more gradual       activation of synthase.
+
+[DET([Both]),HEAD([glucose])]      [CONJ([and])]      [MOD([insulin]),HEAD([administration])]      [VERB([promoted])]      [MOD([significant]),HEAD([inactivation])]      [PREP([of]),HEAD([phosphorylase])]      [PREP([by]),SHAPES([1]),HEAD([min]),PUNC([,])]      [PRON([which])]      [AUX([was])]      [VERB([followed])]      [PREP([by]),ADV([more]),MOD([gradual]),HEAD([activation])]      [PREP([of]),HEAD([synthase]),PUNC([.])]      
+
+167592.ab.3|relation|C0017725|Glucose|bacs,carb,phsu|bacs|||PREDISPOSES|C0544461|Inactivation|comd|comd||
+167592.ab.3|relation|C0021641|Insulin|aapp,gngm,horm,phsu|phsu|||PREDISPOSES|C0544461|Inactivation|comd|comd||
+
+167592.ab.4 Neither glucose nor insulin caused significant changes in       hepatic cAMP.
+
+[DET([Neither]),HEAD([glucose])]      [CONJ([nor])]      [HEAD([insulin])]      [VERB([caused])]      [MOD([significant]),HEAD([changes])]      [PREP([in]),MOD([hepatic]),HEAD([cyclic,AMP]),PUNC([.])]      
+
+167592.ab.4|relation|C0017725|Glucose|bacs,carb,phsu|phsu|||NEG_COEXISTS_WITH|C0001455|Cyclic AMP|bacs,nnon|bacs||
+167592.ab.4|relation|C0021641|Insulin|aapp,gngm,horm,phsu|aapp|||NEG_COEXISTS_WITH|C0001455|Cyclic AMP|bacs,nnon|bacs||
+
+167592.ab.5 Marked hyperglucagonemia resulting from insulin-induced       hypoglycemia did not cause increases IN in hepatic cAMP, suggesting that the       elevated insulin levels possibly inhibited glucagon action on the hepatic       adenylate cyclase-cAMP system.
+
+[MOD([Marked]),HEAD([hyperglucagonemia])]      [VERB([resulting])]      [PREP([from]),MOD([insulin]),PUNC([-]),MOD([induced]),HEAD([hypoglycemia])]      [AUX([did])]      [ADV([not])]      [VERB([cause])]      [HEAD([increases])]      [PREP([IN])]      [PREP([in]),MOD([hepatic]),HEAD([cyclic,AMP]),PUNC([,])]      [VERB([suggesting])]      [COMPL([that])]      [DET([the]),MOD([elevated]),MOD([insulin]),HEAD([levels])]      [ADV([possibly])]      [VERB([inhibited])]      [MOD([glucagon]),HEAD([action])]      [PREP([on]),DET([the]),MOD([hepatic]),MOD([adenylate,cyclase]),PUNC([-]),MOD([cyclic,AMP]),HEAD([system]),PUNC([.])]      
+
+167592.ab.5|relation|C0001455|Cyclic AMP|bacs,nnon|bacs|||INTERACTS_WITH|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG
+167592.ab.5|relation|C0858734|Insulin hypoglycemia|dsyn|dsyn|||CAUSES|C0342218|Excessive glucagon secretion|patf|patf||
+
+167592.ab.6 Glucagon administration caused large increases in        hepatic cAMP and activation of phosphorylase within 1 min, followed by more       gradual inactivation of synthase when it had been previously activated by       glucose.
+
+[MOD([Glucagon]),HEAD([administration])]      [VERB([caused])]      [MOD([large]),HEAD([increases])]      [PREP([in]),MOD([hepatic]),HEAD([cyclic,AMP])]      [CONJ([and])]      [HEAD([activation])]      [PREP([of]),HEAD([phosphorylase])]      [PREP([within]),SHAPES([1]),HEAD([min]),PUNC([,])]      [VERB([followed])]      [PREP([by]),ADV([more]),MOD([gradual]),HEAD([inactivation])]      [PREP([of]),HEAD([synthase])]      [CONJ([when])]      [PRON([it])]      [AUX([had])]      [AUX([been])]      [ADV([previously])]      [VERB([activated])]      [PREP([by]),HEAD([glucose]),PUNC([.])]      
+
+167592.ab.6|relation|C0017725|Glucose|bacs,carb,phsu|bacs|||STIMULATES|C0917783|Glycogen Phosphorylase, Muscle Form|aapp,gngm,enzy|gngm||
+
+167592.ab.7 Concomitant glucose infusion, with resulting increased plasma insulin       concentrations, markedly diminished the duration of hepatic cAMP elevations       following glucagon adminstration, again suggesting an insulin inhibition of       glucagon action on the hepatic adenylate-cAMP system.
+
+[MOD([Concomitant]),MOD([glucose]),HEAD([infusion]),PUNC([,])]      [PREP([with]),MOD([resulting]),MOD([increased]),MOD([plasma]),MOD([insulin]),HEAD([concentrations]),PUNC([,])]      [ADV([markedly])]      [VERB([diminished])]      [DET([the]),HEAD([duration])]      [PREP([of]),MOD([hepatic]),MOD([cyclic,AMP]),HEAD([elevations])]      [VERB([following])]      [MOD([glucagon]),HEAD([adminstration]),PUNC([,])]      [ADV([again])]      [VERB([suggesting])]      [DET([an]),MOD([insulin]),HEAD([inhibition])]      [PREP([of]),MOD([glucagon]),HEAD([action])]      [PREP([on]),DET([the]),MOD([hepatic]),MOD([adenylate]),PUNC([-]),MOD([cyclic,AMP]),HEAD([system]),PUNC([.])]      
+
+167592.ab.7|relation|C0017725|Glucose|bacs,carb,phsu|bacs|||INHIBITS|C0021641|Insulin|aapp,gngm,horm,phsu|gngm||
+167592.ab.7|relation|C0017725|Glucose|bacs,carb,phsu|bacs|||INTERACTS_WITH|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG
+167592.ab.7|relation|C0017725|Glucose|bacs,carb,phsu|bacs|||STIMULATES|C0001455|Cyclic AMP|bacs,nnon|bacs||
+

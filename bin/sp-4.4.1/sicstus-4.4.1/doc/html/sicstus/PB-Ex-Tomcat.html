@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: PB Ex Tomcat</title>
+
+<meta name="description" content="SICStus Prolog: PB Ex Tomcat">
+<meta name="keywords" content="SICStus Prolog: PB Ex Tomcat">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="PB-Java-Examples.html#PB-Java-Examples" rel="up" title="PB Java Examples">
+<link href="PB-_002eNET-Client-Interface.html#PB-_002eNET-Client-Interface" rel="next" title="PB .NET Client Interface">
+<link href="PB-Ex-Servers.html#PB-Ex-Servers" rel="prev" title="PB Ex Servers">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="PB-Ex-Tomcat"></a>
+<hr>
+<a name="Configuring-Tomcat-for-PrologBeans"></a>
+<h4 class="subsubsection">10.29.6.3 Configuring Tomcat for PrologBeans</h4>
+<p>This section will briefly describe how to set up a Tomcat server
+so that is it possible to test the example JSPs. Some knowledge
+about how to run Tomcat and how to set up your own web application
+is required. Detailed information about Tomcat is
+available at <a href="http://jakarta.apache.org/tomcat/">http://jakarta.apache.org/tomcat/</a>.
+</p>
+
+<p>Assuming that the environment variable CATALINA_HOME is set to the
+installation directory of Tomcat, do the following:
+</p>
+<ol>
+<li> Create the directory <samp>$CATALINA_HOME/webapps/PB_example</samp>
+
+</li><li> Copy the file <samp>pbexamples('sessionsum/sessionsum.jsp')</samp> to <samp>$CATALINA_HOME/webapps/PB_example/sessionsum.jsp</samp>
+</li><li> Create the directory <samp>$CATALINA_HOME/webapps/PB_example/WEB-INF/lib</samp>
+
+</li><li> Copy the file <samp>$SP_PATH/bin/prologbeans.jar</samp> to <samp>$CATALINA_HOME/webapps/PB_example/WEB-INF/lib/prologbeans.jar</samp>
+
+</li><li> Create the directory <samp>$CATALINA_HOME/webapps/PB_example/META-INF</samp>
+
+</li><li> Create the file <samp>$CATALINA_HOME/webapps/PB_example/META-INF/context.xml</samp>
+with the following content:
+<div class="example">
+<pre class="example">&lt;Context docBase=&quot;PB_example&quot;&gt;
+   &lt;Resource name=&quot;prolog/PrologSession&quot; auth=&quot;Container&quot;
+             type=&quot;se.sics.prologbeans.PrologSession&quot;
+	     factory=&quot;org.apache.naming.factory.BeanFactory&quot; /&gt;
+  
+&lt;/Context&gt;
+</pre></div>
+
+</li><li> Create the file <samp>$CATALINA_HOME/webapps/PB_example/WEB-INF/web.xml</samp> with the following content:
+<div class="example">
+<pre class="example">&lt;?xml version=&quot;1.0&quot; encoding=&quot;ISO-8859-1&quot;?&gt;
+&lt;!DOCTYPE web-app
+     PUBLIC &quot;-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN&quot;
+    &quot;http://java.sun.com/dtd/web-app_2_3.dtd&quot;&gt;
+&lt;web-app&gt;
+
+    &lt;resource-env-ref&gt;
+      &lt;description&gt;
+        Object factory for PrologSession instances.
+      &lt;/description&gt;
+      &lt;resource-env-ref-name&gt;
+        prolog/PrologSession
+      &lt;/resource-env-ref-name&gt;
+      &lt;resource-env-ref-type&gt;
+        se.sics.prologbeans.PrologSession
+      &lt;/resource-env-ref-type&gt;
+    &lt;/resource-env-ref&gt;
+
+&lt;/web-app&gt;
+</pre></div>
+
+</li><li> Start SICStus, load <samp>sessionsum.pl</samp> and run main.
+
+</li><li> Start the Tomcat server.
+
+</li><li> In a web browser, enter <a href="http://localhost:8080/PB_example/sessionsum.jsp">http://localhost:8080/PB_example/sessionsum.jsp</a>
+
+
+</li></ol>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="PB-Ex-Servers.html#PB-Ex-Servers" accesskey="p" rel="prev">Previous</a>
+<li><a href="PB-Java-Examples.html#PB-Java-Examples" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-Ex-Tomcat.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-Ex-Tomcat.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

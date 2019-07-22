@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FDBG Legend</title>
+
+<meta name="description" content="SICStus Prolog: FDBG Legend">
+<meta name="keywords" content="SICStus Prolog: FDBG Legend">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="FDBG-Concepts.html#FDBG-Concepts" rel="up" title="FDBG Concepts">
+<link href="FDBG-The-fdbg_005foutput-Stream.html#FDBG-The-fdbg_005foutput-Stream" rel="next" title="FDBG The fdbg_output Stream">
+<link href="FDBG-Name-Auto_002dGeneration.html#FDBG-Name-Auto_002dGeneration" rel="prev" title="FDBG Name Auto-Generation">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FDBG-Legend"></a>
+<hr>
+<a name="Legend"></a>
+<h4 class="subsubsection">10.15.2.7 Legend</h4>
+<a name="index-legend"></a>
+<a name="index-variables_002c-list-of"></a>
+<a name="index-list-of-variables"></a>
+
+<p>The <em>legend</em> is a list of variables and their domains,
+usually appearing after a description of the current constraint.  This
+is necessary because the usual visual representation of a constraint
+contains only the <em>names</em> of the variables in it (see <a href="FDBG-Annotation.html#FDBG-Annotation">FDBG Annotation</a>), and does not show anything about their domain.  The legend
+links these names to the corresponding domains.  The legend also shows
+the changes of the domains made by the constraint.  Finally, the legend
+may contain some conclusions regarding the behavior of the constraint,
+like failure or side-effects.
+</p>
+<p>The format of the legend is somewhat customizable by defining a
+hook function; see <a href="FDBG-Customizing-Output.html#FDBG-Customizing-Output">FDBG Customizing Output</a>.  The default
+format of the legend is the following:
+</p>
+<div class="example">
+<pre class="example">list_2 = 0..3
+list_3 = 0..3
+list_4 = 0..3
+fdvar_2 = 0..3 -&gt; 1..3
+</pre></div>
+
+<p>Here, we see four variables, with initial domains 0..3, but the
+domain of the (previously unnamed) variable <code>fdvar_2</code> is
+narrowed by the constraint (not shown here) to 1..3.
+</p>
+<p>A legend is automatically printed by the built-in visualizer
+<code>fdbg_show</code>, but it can be easily printed from user defined
+visualizers too.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FDBG-The-fdbg_005foutput-Stream.html#FDBG-The-fdbg_005foutput-Stream" accesskey="n" rel="next">Next</a>
+<li><a href="FDBG-Name-Auto_002dGeneration.html#FDBG-Name-Auto_002dGeneration" accesskey="p" rel="prev">Previous</a>
+<li><a href="FDBG-Concepts.html#FDBG-Concepts" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Legend.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Legend.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

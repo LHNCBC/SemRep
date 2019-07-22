@@ -1,0 +1,152 @@
+# All comments start with a '#' character in col 1.
+# Empty lines and lines with only whitespace are ignored.
+#
+# @(#)im.rul	1.1 09/18/06
+#
+# This file describes the rules used to generate inflections.
+#
+# The format is as follows:
+#
+#   <in pattern>|<in cat>|<in infl>|<out pattern>|<out cat>|<out infl>
+#
+# where:
+#
+#   <in pattern> is an input pattern to match as a suffix.
+#     Lowercase characters are matched as literals.  Uppercase letters
+#     have the following meaning: D=digit [0-9], L=any letter, ^=start
+#     $=end, [AEIOU]=any vowel, [BCFGHJKMNPQRSTVWXYZ]=any consonant.
+#     The same uppercase letter used in the output pattern unifies with
+#     the actual character that matched the input.
+#   <in cat> is the input category and must be one of: adj, adv, noun or verb.
+#   <in infl> is the input inflection and must be one of: base, singular,
+#     positive, infinitive, plural, comparative, superlative, present,
+#     ing or past.
+#   <out cat> refers to output category.
+#   <out infl> refers to output inflection.
+#
+# The rules are stated to mean that if the input matches the pattern and is
+# of the appropriate category and inflection, then the stated rule generates
+# the output inflection.  Note that rules only need be stated in one direction.
+# The reverse rules are automatically generated.  Duplicate identical rules
+# are unique'ed out.
+
+# Identity rules
+$|verb|base|$|verb|base
+$|noun|base|$|noun|base
+$|adj|base|$|adj|base
+$|adv|base|$|adv|base
+
+# Adjective rules
+Cy$|adj|positive|Cier$|adj|comparative
+Cy$|adj|positive|Ciest$|adj|superlative
+
+CVC$|adj|positive|CVSCer$|adj|comparative
+CVC$|adj|positive|CVSCest$|adj|superlative
+
+e$|adj|positive|er$|adj|comparative
+   inhale|inhaler;
+e$|adj|positive|est$|adj|superlative
+   e|est;
+
+$|adj|positive|er$|adj|comparative
+   |er;
+   inhal|inhaler;
+
+
+$|adj|positive|est$|adj|superlative
+   |est;
+
+# Adverb rules
+Cy$|adv|positive|Cier$|adv|comparative
+Cy$|adv|positive|Ciest$|adv|superlative
+
+CVC$|adv|positive|CVSCer$|adv|comparative
+CVC$|adv|positive|CVSCest$|adv|superlative
+
+e$|adv|positive|er$|adv|comparative
+   inhale|inhaler;
+
+e$|adv|positive|est$|adv|superlative
+   e|est;
+
+$|adv|positive|er$|adv|comparative
+   |er;
+   inhal|inhaler;
+
+$|adv|positive|est$|adv|superlative
+   |est;
+
+# Noun rules (reg)
+^L$|noun|singular|^L's$|noun|plural
+D$|noun|singular|D's$|noun|plural
+Cy$|noun|singular|Cies$|noun|plural
+Co$|noun|singular|Cos$|noun|plural
+Co$|noun|singular|Coes$|noun|plural
+ch$|noun|singular|ches$|noun|plural
+sh$|noun|singular|shes$|noun|plural
+s$|noun|singular|ses$|noun|plural
+x$|noun|singular|xes$|noun|plural
+z$|noun|singular|zes$|noun|plural
+$|noun|singular|s$|noun|plural
+   |s;
+
+# Noun rules (glreg)
+us$|noun|singular|i$|noun|plural
+   antus|anti;
+
+ma$|noun|singular|mata$|noun|plural
+a$|noun|singular|ae$|noun|plural
+um$|noun|singular|a$|noun|plural
+on$|noun|singular|a$|noun|plural
+sis$|noun|singular|ses$|noun|plural
+is$|noun|singular|ides$|noun|plural
+men$|noun|singular|mina$|noun|plural
+ex$|noun|singular|ices$|noun|plural
+x$|noun|singular|ces$|noun|plural
+
+### plural rules include irregular
+#   noun inflection rules. (ACB) (1-Oct-92)
+#include "plural.rul"
+
+# Verb rules (present)
+Cy$|verb|infinitive|Cies$|verb|present
+s$|verb|infinitive|ses$|verb|present
+x$|verb|infinitive|xes$|verb|present
+z$|verb|infinitive|zes$|verb|present
+ch$|verb|infinitive|ches$|verb|present
+sh$|verb|infinitive|shes$|verb|present
+Co$|verb|infinitive|Cos$|verb|present
+#   do|dos;
+Co$|verb|infinitive|Coes$|verb|present
+CVC$|verb|infinitive|CVCs$|verb|present
+$|verb|infinitive|s$|verb|present
+   |s;
+   do|dos;
+
+# Verb rules (past)
+Cy$|verb|infinitive|Cied$|verb|past
+CVC$|verb|infinitive|CVSCed$|verb|past
+e$|verb|infinitive|ed$|verb|past
+   e|ed;
+   fre|fred;
+   free|freed;
+
+$|verb|infinitive|ed$|verb|past
+   |ed;
+   do|doed;
+   fr|fred;
+   fre|freed;
+
+# Verb rules (ing)
+ie$|verb|infinitive|ying$|verb|ing
+ee$|verb|infinitive|eeing$|verb|ing
+oe$|verb|infinitive|oeing$|verb|ing
+ye$|verb|infinitive|yeing$|verb|ing
+CVC$|verb|infinitive|CVSCing$|verb|ing
+e$|verb|infinitive|ing$|verb|ing
+   e|ing;
+$|verb|infinitive|ing$|verb|ing
+   |ing;
+
+### Irregular VERB inflection rules (2-Oct-92)
+#include "verbinfl.rul"

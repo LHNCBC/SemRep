@@ -1,0 +1,1286 @@
+# @(#)im.facts	1.1 09/18/06
+
+#
+# Facts for inflectional variation                    24-Sep-92
+#
+#Form: word1|cat1|Principle-part1|word2|cat2|Principal-part2
+#
+# These were derived from the SPECIALIST lexicon, irreg codes. 
+# regularly formed principal parts of irregular verbs were eliminated.
+#
+# facts predicted in plural.rules have been commented out (2-Oct-92)
+#
+######
+#include "lowercase.im.facts"
+
+
+# These facts are need because rules like man|noun|singular|men|plural
+# cannot apply to the simple morpheme "man"; the stem would be 
+# 0 letters long.
+#
+man|noun|base|men|noun|plural
+mouse|noun|base|mice|noun|plural
+tooth|noun|base|teeth|noun|plural
+foot|noun|base|feet|noun|plural
+
+#BXSB mouse|noun|base|BXSB mice|noun|plural
+Bachelor of Medicine|noun|base|Bachelors of Medicine|noun|plural
+Bachelor of Science|noun|base|Bachelors of Science|noun|plural
+Bachelor of Surgery|noun|base|Bachelors of Surgery|noun|plural
+#C3H mouse|noun|base|C3H mice|noun|plural
+#C57 BL/Ka mouse|noun|base|C57 BL/Ka mice|noun|plural
+#CF1-mouse|noun|base|CF1-mice|noun|plural
+#Congressman|noun|base|congressmen|noun|plural
+#Congressman|noun|base|Congressmen|noun|plural
+#Congresswoman|noun|base|congresswomen|noun|plural
+#Congresswoman|noun|base|Congresswomen|noun|plural
+Czech|noun|base|Czechs|noun|plural
+#Englishman|noun|base|Englishmen|noun|plural
+Esquimau|noun|base|Esquimaux|noun|plural
+#Frenchman|noun|base|Frenchmen|noun|plural
+Friedreich|noun|base|Friedreichs|noun|plural
+Gerlach|noun|base|Gerlachs|noun|plural
+Golytely|noun|base|Golytelys|noun|plural
+Hanly|noun|base|Hanlys|noun|plural
+Hirudo|noun|base|Hirudines|noun|plural
+Lactobacillus fermentum|noun|base|Lactobacilli fermenta|noun|plural
+Madame|noun|base|Mesdames|noun|plural
+Member of Parliament |noun|base|Members of Parliament|noun|plural
+Negro|noun|base|Negroes|noun|plural
+SOS|noun|base|SOSes|noun|plural
+#Weaver mouse|noun|base|Weaver mice|noun|plural
+abruptio placentae|noun|base|abruptio placentarum|noun|plural
+abruptio placentae|noun|base|abruptiones placentarum|noun|plural
+absconsio|noun|base|absconsiones|noun|plural
+acne rosacea|noun|base|acnae rosaceae|noun|plural
+acquit|verb|base|acquitted|verb|past
+acquit|verb|base|aquitted|verb|pastpart
+acquit|verb|base|acquitting|verb|prespart
+actinomyces|noun|base|actinomycetes|noun|plural
+adhesio|noun|base|adhesiones|noun|plural
+age|verb|base|ageing|verb|prespart
+agent provocateur|noun|base|agents provocateurs|noun|plural
+agger|noun|base|aggeres|noun|plural
+aide-de-camp|noun|base|aides-de-camp|noun|plural
+#airman|noun|base|airmen|noun|plural
+#airwoman|noun|base|airwomen|noun|plural
+ala nasi|noun|base|alae nasi|noun|plural
+#alderman|noun|base|aldermen|noun|plural
+alkali|noun|base|alkalies|noun|plural
+alveolar canal of maxilla|noun|base|alveolar canals of maxilla|noun|plural
+amebic granuloma|noun|base|amoebic granulomata|noun|plural
+amount of a substance|noun|base|amounts of a substance|noun|plural
+#anchorman|noun|base|anchormen|noun|plural
+anlage|noun|base|anlagen|noun|plural
+apolipoprotein A|noun|base|apolipoproteins A|noun|plural
+apolipoprotein C|noun|base|apolipoproteins C|noun|plural
+apoprotein A|noun|base|apoproteins A|noun|plural
+apoprotein B|noun|base|apoproteins B|noun|plural
+apoprotein C|noun|base|apoproteins C|noun|plural
+apoprotein E|noun|base|apoproteins E|noun|plural
+aqueduct of Sylvius|noun|base|aqueducts of Sylvius|noun|plural
+arc|verb|base|arcked|verb|past
+arc|verb|base|arcked|verb|pastpart
+#arc|verb|base|arcking|verb|prespart
+area under curve|noun|base|areas under curve|noun|plural
+arise|verb|base|arose|verb|past
+arise|verb|base|arisen|verb|pastpart
+armful|noun|base|armsful|noun|plural
+arrector|noun|base|arrectores|noun|plural
+articulatio|noun|base|articulationes|noun|plural
+artificial larynx|noun|base|artificial larynges|noun|plural
+#artificial tooth|noun|base|artificial teeth|noun|plural
+aural vertigo|noun|base|aural vertigoes|noun|plural
+auris|noun|base|aures|noun|plural
+awake|verb|base|awoke|verb|past
+awake|verb|base|awoken|verb|pastpart
+awe|verb|base|aweing|verb|prespart
+axis|noun|base|axes|noun|plural
+baby-sit|verb|base|baby-sat|verb|past
+baby-sit|verb|base|baby-sat|verb|pastpart
+#baby-tooth|noun|base|baby-teeth|noun|plural
+#baby-tooth|noun|base|baby teeth|noun|plural
+backbite|verb|base|backbit|verb|past
+backbite|verb|base|backbitten|verb|pastpart
+backslide|verb|base|backslid|verb|past
+backslide|verb|base|backslid|verb|pastpart
+#backwoodsman|noun|base|backwoodsmen|noun|plural
+bacteriophage T|noun|base|bacteriophages T|noun|plural
+bad|adj|base|worse|adj|comparative
+bad|adj|base|worst|adj|superlative
+bagful|noun|base|bagsful|noun|plural
+bandeau|noun|base|bandeaux|noun|plural
+barium granuloma of colon|noun|base|barium granulomas of colon|noun|plural
+barium granuloma of colon|noun|base|barium gramulomata of colon|noun|plural
+barrelful|noun|base|barrelsful|noun|plural
+basal cell carcinoma of skin|noun|base|basal cell carcinomas of skin|noun|plural
+basal cell carcinoma of skin|noun|base|basal cell carcinomata of skin|noun|plural
+basal nucleus of Meynert|noun|base|basal nuclei of Meynert|noun|plural
+#baseman|noun|base|basemen|noun|plural
+bear|verb|base|bore|verb|past
+bear|verb|base|borne|verb|pastpart
+beat|verb|base|beaten|verb|pastpart
+beating up|noun|base|beatings up|noun|plural
+beau|noun|base|beaux|noun|plural
+become|verb|base|became|verb|past
+#beef|noun|base|beeves|noun|plural
+befall|verb|base|befell|verb|past
+befall|verb|base|befallen|verb|pastpart
+beget|verb|base|begot|verb|past
+beget|verb|base|begotten|verb|pastpart
+begin|verb|base|began|verb|past
+begin|verb|base|begun|verb|pastpart
+behold|verb|base|beheld|verb|past
+behold|verb|base|beheld|verb|pastpart
+bend|verb|base|bent|verb|past
+bend|verb|base|bent|verb|pastpart
+bereave|verb|base|bereft|verb|past
+bereave|verb|base|bereft|verb|pastpart
+beseech|verb|base|besought|verb|past
+beseech|verb|base|besought|verb|pastpart
+bespeak|verb|base|bespoke|verb|past
+bespeak|verb|base|bespoken|verb|pastpart
+bestrew|verb|base|bestrewn|verb|pastpart
+bestride|verb|base|betrode|verb|past
+bestride|verb|base|bestridden|verb|pastpart
+bestride|verb|base|betrode|verb|past
+bestride|verb|base|bestrode|verb|pastpart
+bestride|verb|base|betrode|verb|past
+bestride|verb|base|bestrid|verb|pastpart
+bias|verb|base|biasses|verb|present
+bias|verb|base|biassed|verb|past
+bias|verb|base|biassed|verb|pastpart
+bias|verb|base|biassing|verb|prespart
+bid|verb|base|bade|verb|past
+bid|verb|base|bade|verb|pastpart
+bid|verb|base|bidden|verb|pastpart
+bifurcatio|noun|base|bifurcationes|noun|plural
+bijou|noun|base|bijoux|noun|plural
+bind|verb|base|bound|verb|past
+bind|verb|base|bound|verb|pastpart
+bite|verb|base|bit|verb|past
+bite|verb|base|bitten|verb|pastpart
+bivouac|verb|base|bivouacked|verb|past
+bivouac|verb|base|bivouacked|verb|pastpart
+#bivouac|verb|base|bivouacking|verb|prespart
+bleed|verb|base|bled|verb|past
+bleed|verb|base|bled|verb|pastpart
+blend|verb|base|blent|verb|past
+blend|verb|base|blent|verb|pastpart
+bless|verb|base|blest|verb|past
+bless|verb|base|blest|verb|pastpart
+blow|verb|base|blew|verb|past
+blow|verb|base|blown|verb|pastpart
+#boatman|noun|base|boatmen|noun|plural
+bon mot|noun|base|bons mots|noun|plural
+bottleful|noun|base|bottlesful|noun|plural
+bottle-feed|verb|base|bottle-fed|verb|past
+bottle-feed|verb|base|bottle-fed|verb|pastpart
+#bowman|noun|base|bowmen|noun|plural
+boxful|noun|base|boxesful|noun|plural
+#brakeman|noun|base|brakemen|noun|plural
+break|verb|base|broke|verb|past
+break|verb|base|broken|verb|pastpart
+breastfeed|verb|base|breastfed|verb|past
+breastfeed|verb|base|breastfed|verb|pastpart
+breed|verb|base|bred|verb|past
+breed|verb|base|bred|verb|pastpart
+bring|verb|base|brought|verb|past
+bring|verb|base|brought|verb|pastpart
+brother-in-law|noun|base|brothers-in-law|noun|plural
+browbeat|verb|base|browbeaten|verb|pastpart
+bucketful|noun|base|bucketsful|noun|plural
+#bucktooth|noun|base|buckteeth|noun|plural
+buffalo|noun|base|buffaloes|noun|plural
+build|verb|base|built|verb|past
+build|verb|base|built|verb|pastpart
+bureau|noun|base|bureaux|noun|plural
+burn|verb|base|burnt|verb|past
+burn|verb|base|burnt|verb|pastpart
+bus|noun|base|busses|noun|plural
+#businessman|noun|base|businessmen|noun|plural
+buy|verb|base|bought|verb|past
+buy|verb|base|bought|verb|pastpart
+cachexia|noun|base|cachexies|noun|plural
+calcinosis cutis|noun|base|calcinoses cutis|noun|plural
+calculated date of confinement|noun|base|calculated dates of confinement|noun|plural
+calculus of ureter|noun|base|calculi of ureter|noun|plural
+#calf|noun|base|calves|noun|plural
+calymmatobacterium granulomatis|noun|base|calymmatobacteria granulomatis|noun|plural
+#camera-man|noun|base|cameramen|noun|plural
+#camera-man|noun|base|camera-men|noun|plural
+canalis|noun|base|canales|noun|plural
+cancrum oris|noun|base|cancra oris|noun|plural
+#canine tooth|noun|base|canine teeth|noun|plural
+caput|noun|base|capita|noun|plural
+cargo|noun|base|cargoes|noun|plural
+caro|noun|base|carnes|noun|plural
+carte blanche|noun|base|cartes blanches|noun|plural
+cartilago|noun|base|cartilagines|noun|plural
+#carving-knife|noun|base|carving-knives|noun|plural
+#carving-knife|noun|base|carving knives|noun|plural
+catch|verb|base|caught|verb|past
+catch|verb|base|caught|verb|pastpart
+cauda equina|noun|base|caudae equinae|noun|plural
+caustic alkali|noun|base|caustic alkalies|noun|plural
+#caveman|noun|base|cavemen|noun|plural
+cavitas|noun|base|cavitates|noun|plural
+center for disease control|noun|base|centers for disease control|noun|plural
+cerebral metabolic rate of glucose|noun|base|cerebral metabolic rates of glucose|noun|plural
+cerebral metabolic rate of oxygen|noun|base|cerebral metabolic rates of oxygen|noun|plural
+#chairman|noun|base|chairmen|noun|plural
+#chairwoman|noun|base|chairwomen|noun|plural
+#chessman|noun|base|chessmen|noun|plural
+chide|verb|base|chid|verb|past
+chide|verb|base|chid|verb|pastpart
+chide|verb|base|chid|verb|past
+chide|verb|base|chidden|verb|pastpart
+child|noun|base|children|noun|plural
+chilli|noun|base|chillies|noun|plural
+chilli|noun|base|chilies|noun|plural
+chilli|noun|base|chiles|noun|plural
+choose|verb|base|chose|verb|past
+choose|verb|base|chosen|verb|pastpart
+circle of Willis|noun|base|circles of Willis|noun|plural
+cisterna cerebellomedullaris|noun|base|cisternae cerebellomedullaris|noun|plural
+cisterna chyli|noun|base|cisternae chyli|noun|plural
+cisterna magna|noun|base|cisternae magna|noun|plural
+#clansman|noun|base|clansmen|noun|plural
+cleave|verb|base|cleft|verb|past
+cleave|verb|base|cleft|verb|pastpart
+cleave|verb|base|clove|verb|past
+cleave|verb|base|cloven|verb|pastpart
+#clergyman|noun|base|clergymen|noun|plural
+cling|verb|base|clung|verb|past
+cling|verb|base|clung|verb|pastpart
+#clover-leaf|noun|base|clover-leaves|noun|plural
+clover-leaf|noun|base|cloverleaves|noun|plural
+clubfoot|noun|base|clubfeet|noun|plural
+clubfoot|noun|base|club-feet|noun|plural
+clubfoot|noun|base|club feet|noun|plural
+coccyx|noun|base|coccyges|noun|plural
+coefficient of variation|noun|base|coefficients of variation|noun|plural
+colloquy|noun|base|colloquies|noun|plural
+come|verb|base|came|verb|past
+comedo|noun|base|comedones|noun|plural
+compression of the brain|noun|base|compressions of the brain|noun|plural
+condyloma acuminatum|noun|base|condylomata acuminata|noun|plural
+conjugata diagonalis|noun|base|conjugatae diagonales|noun|plural
+cornu|noun|base|cornua|noun|plural
+corpus|noun|base|corpora|noun|plural
+corpus cavernosum|noun|base|corpora cavernosa|noun|plural
+corpus luteum|noun|base|corpora lutea|noun|plural
+cor anglais|noun|base|cors anglais|noun|plural
+cor pulmonale|noun|base|cordia pulmonalia|noun|plural
+countersink|verb|base|countersank|verb|past
+countersink|verb|base|countersunk|verb|pastpart
+#countryman|noun|base|countrymen|noun|plural
+coup de grace|noun|base|coups de grace|noun|plural
+coup d'etat|noun|base|coups d'etat|noun|plural
+court-martial|noun|base|courts-martial|noun|plural
+court-martial|verb|base|court-martialled|verb|past
+court-martial|verb|base|court-martialled|verb|pastpart
+court-martial|verb|base|court-martialling|verb|prespart
+#craftsman|noun|base|craftsmen|noun|plural
+creep|verb|base|crept|verb|past
+creep|verb|base|crept|verb|pastpart
+crena|noun|base|crene|noun|plural
+crinis|noun|base|crines|noun|plural
+crossbreed|verb|base|crossbred|verb|past
+crossbreed|verb|base|crossbred|verb|pastpart
+cruel|adj|base|crueller|adj|comparative
+cruel|adj|base|cruellest|adj|superlative
+crus|noun|base|crura|noun|plural
+cupful|noun|base|cupsful|noun|plural
+curette|verb|base|curets|verb|present
+curette|verb|base|curretted|verb|pastpart
+curriculum vitae|noun|base|curricula vitae|noun|plural
+cutis hyperelastica|noun|base|cutes hyperelasticae|noun|plural
+cutis laxa|noun|base|cutes laxae|noun|plural
+cystic disease of breast|noun|base|cystic diseases of breast|noun|plural
+cytospin|verb|base|cytospun|verb|past
+cytospin|verb|base|cytospun|verb|pastpart
+deal|verb|base|dealt|verb|past
+deal|verb|base|dealt|verb|pastpart
+#deciduous tooth|noun|base|deciduous teeth|noun|plural
+decussatio|noun|base|decussationes|noun|plural
+deep-freeze|verb|base|deep-froze|verb|past
+deep-freeze|verb|base|deep-froze|verb|pastpart
+deep-freeze|verb|base|deep-frozen|verb|prespart
+dens axis|noun|base|dentes axis|noun|plural
+dens in dente|noun|base|dentes in dente|noun|plural
+dessertspoonful|noun|base|dessertspoonsful|noun|plural
+dial|verb|base|dialled|verb|past
+dial|verb|base|dialled|verb|pastpart
+dial|verb|base|dialling|verb|prespart
+die|noun|base|dice|noun|plural
+dig|verb|base|dug|verb|past
+dig|verb|base|dug|verb|pastpart
+digitatio|noun|base|digitationes|noun|plural
+dihydroxyvitamin d|noun|base|dihydroxyvitamins d|noun|plural
+dishful|noun|base|dishesful|noun|plural
+distill|verb|base|distils|verb|present
+dive|verb|base|dove|verb|past
+dive|verb|base|dove|verb|pastpart
+diverticulum of colon|noun|base|diverticula of colon|noun|plural
+do|verb|base|does|verb|present
+do|verb|base|did|verb|past
+do|verb|base|done|verb|pastpart
+dolor|noun|base|dolores|noun|plural
+#doorman|noun|base|doormen|noun|plural
+#dormouse|noun|base|dormice|noun|plural
+#draftsman|noun|base|draftsmen|noun|plural
+draw|verb|base|drew|verb|past
+draw|verb|base|drawn|verb|pastpart
+dream|verb|base|dreamt|verb|past
+dream|verb|base|dreamt|verb|pastpart
+drink|verb|base|drank|verb|past
+drink|verb|base|drunk|verb|pastpart
+drive|verb|base|drove|verb|past
+drive|verb|base|driven|verb|pastpart
+ductus deferens|noun|base|ductus deferentes|noun|plural
+duel|verb|base|duelled|verb|past
+duel|verb|base|duelled|verb|pastpart
+duel|verb|base|duelling|verb|prespart
+dwell|verb|base|dwelt|verb|past
+dwell|verb|base|dwelt|verb|pastpart
+eat|verb|base|ate|verb|past
+eat|verb|base|eaten|verb|pastpart
+echo|noun|base|echoes|noun|plural
+echo|verb|base|echoes|verb|present
+embargo|noun|base|embargoes|noun|plural
+embargo|verb|base|embargoes|verb|present
+eminence of superior semicircular canal|noun|base|eminences of superior semicircular canals|noun|plural
+empanel|verb|base|impanels|verb|present
+empanel|verb|base|impanelled|verb|past
+empanel|verb|base|impanelled|verb|pastpart
+empanel|verb|base|impanelling|verb|prespart
+epididymis|noun|base|epididimides|noun|plural
+epinephros|noun|base|epinephroi|noun|plural
+equal|verb|base|equalled|verb|past
+equal|verb|base|equalled|verb|pastpart
+equal|verb|base|equalling|verb|prespart
+equip|verb|base|equipped|verb|past
+equip|verb|base|equipped|verb|pastpart
+equip|verb|base|equipping|verb|prespart
+excavatio|noun|base|excavationes|noun|plural
+excretion|noun|base|excreta|noun|plural
+exomphalos|noun|base|exomphali|noun|plural
+extremitas|noun|base|extremitates|noun|plural
+eye|verb|base|eying|verb|prespart
+eyeful|noun|base|eyesful|noun|plural
+#eye-tooth|noun|base|eye-teeth|noun|plural
+eye-tooth|noun|base|eyeteeth|noun|plural
+fait accompli|noun|base|faits accomplis|noun|plural
+fall|verb|base|fell|verb|past
+fall|verb|base|fallen|verb|pastpart
+#family-life|noun|base|family-lives|noun|plural
+#family-life|noun|base|family lives|noun|plural
+far|adj|base|further|adj|comparative
+far|adj|base|furthest|adj|superlative
+far|adj|base|farther|adj|comparative
+far|adj|base|farthest|adj|superlative
+far|adv|base|further|adv|comparative
+far|adv|base|furthest|adv|superlative
+far|adv|base|farther|adv|comparative
+far|adv|base|farthest|adv|superlative
+father-in-law|noun|base|fathers-in-law|noun|plural
+fee|verb|base|fee'd|verb|past
+fee|verb|base|fee'd|verb|pastpart
+feed|verb|base|fed|verb|past
+feed|verb|base|fed|verb|pastpart
+feel|verb|base|felt|verb|past
+feel|verb|base|felt|verb|pastpart
+fibrocartilago|noun|base|fibrocartilagines|noun|plural
+fight|verb|base|fought|verb|past
+fight|verb|base|fought|verb|pastpart
+filum terminale|noun|base|filum terminalia|noun|plural
+find|verb|base|found|verb|past
+find|verb|base|found|verb|pastpart
+#fireman|noun|base|firemen|noun|plural
+#fisherman|noun|base|fishermen|noun|plural
+flatfoot|noun|base|flatfeet|noun|plural
+flee|verb|base|fled|verb|past
+flee|verb|base|fled|verb|pastpart
+fling|verb|base|flung|verb|past
+fling|verb|base|flung|verb|pastpart
+floodlight|verb|base|floodlit|verb|past
+floodlight|verb|base|floodlit|verb|pastpart
+fly|verb|base|flew|verb|past
+fly|verb|base|flown|verb|pastpart
+#flyleaf|noun|base|flyleaves|noun|plural
+focus|verb|base|focusses|verb|present
+folie a deux|noun|base|folies a deux|noun|plural
+fomes|noun|base|fomites|noun|plural
+foot|noun|base|feet|noun|plural
+foramen magnum|noun|base|foramina magnum|noun|plural
+forbear|verb|base|forbore|verb|past
+forbear|verb|base|forborne|verb|pastpart
+forbid|verb|base|forbade|verb|past
+forbid|verb|base|forbidden|verb|pastpart
+forbid|verb|base|forbad|verb|past
+force-feed|verb|base|force-fed|verb|past
+force-feed|verb|base|force-fed|verb|pastpart
+forefoot|noun|base|forefeet|noun|plural
+forego|verb|base|foregoes|verb|present
+forego|verb|base|forewent|verb|past
+forego|verb|base|foregone|verb|pastpart
+forego|verb|base|forgoes|verb|present
+forego|verb|base|forwent|verb|past
+forego|verb|base|forgone|verb|pastpart
+forego|verb|base|forgoing|verb|prespart
+foreknow|verb|base|foreknew|verb|past
+foreknow|verb|base|foreknown|verb|pastpart
+#foreman|noun|base|foremen|noun|plural
+foresee|verb|base|foresaw|verb|past
+foresee|verb|base|foreseen|verb|pastpart
+foretell|verb|base|foretold|verb|past
+foretell|verb|base|foretold|verb|pastpart
+#forewoman|noun|base|forewomen|noun|plural
+forget|verb|base|forgot|verb|past
+forget|verb|base|forgotten|verb|pastpart
+forgive|verb|base|forgave|verb|past
+forgive|verb|base|forgiven|verb|pastpart
+forkful|noun|base|forksful|noun|plural
+formatio|noun|base|formationes|noun|plural
+forsake|verb|base|forsook|verb|past
+forsake|verb|base|forsaken|verb|pastpart
+forswear|verb|base|forswore|verb|past
+forswear|verb|base|forsworn|verb|pastpart
+forswear|verb|base|foreswears|verb|present
+forswear|verb|base|foreswore|verb|past
+forswear|verb|base|foresworn|verb|pastpart
+forswear|verb|base|foreswearing|verb|prespart
+fossa of lacrimal sac|noun|base|fossae of lacrimal sac|noun|plural
+fossa of omental sac|noun|base|fossae of omental sac|noun|plural
+foster-child|noun|base|foster-children|noun|plural
+freeze|verb|base|froze|verb|past
+freeze|verb|base|frozen|verb|pastpart
+fresco|noun|base|frescoes|noun|plural
+#freshman|noun|base|freshmen|noun|plural
+frolic|verb|base|frolicked|verb|past
+frolic|verb|base|frolicked|verb|pastpart
+#frolic|verb|base|frolicking|verb|prespart
+fuel|verb|base|fuelled|verb|past
+fuel|verb|base|fuelled|verb|pastpart
+fuel|verb|base|fuelling|verb|prespart
+fulfil|verb|base|fulfills|verb|present
+fuseau|noun|base|fuseaux|noun|plural
+#gainsay|verb|base|gainsaid|verb|past
+#gainsay|verb|base|gainsaid|verb|pastpart
+gas|noun|base|gasses|noun|plural
+gel|verb|base|gells|verb|present
+gel|verb|base|jells|verb|present
+gel|verb|base|jelled|verb|past
+gel|verb|base|jelled|verb|pastpart
+gel|verb|base|jelling|verb|prespart
+#gentleman|noun|base|gentlemen|noun|plural
+genu|noun|base|genua|noun|plural
+genus|noun|base|genera|noun|plural
+gestalt|noun|base|gestalten|noun|plural
+get|verb|base|got|verb|past
+get|verb|base|got|verb|pastpart
+get|verb|base|got|verb|past
+get|verb|base|gotten|verb|pastpart
+gird|verb|base|girt|verb|past
+gird|verb|base|girt|verb|pastpart
+give|verb|base|gave|verb|past
+give|verb|base|given|verb|pastpart
+glans|noun|base|glandes|noun|plural
+glassful|noun|base|glassesful|noun|plural
+globus pallidus|noun|base|globi pallidi|noun|plural
+glomus|noun|base|glomera|noun|plural
+glue|verb|base|glueing|verb|prespart
+go|noun|base|goes|noun|plural
+go|verb|base|goes|verb|present
+go|verb|base|went|verb|past
+go|verb|base|gone|verb|pastpart
+godchild|noun|base|godchildren|noun|plural
+good|adj|base|better|adj|comparative
+good|adj|base|best|adj|superlative
+gooey|adj|base|gooier|adj|comparative
+gooey|adj|base|gooiest|adj|superlative
+goose|noun|base|geese|noun|plural
+graffito|noun|base|graffiti|noun|plural
+grandchild|noun|base|grandchildren|noun|plural
+granulatio|noun|base|granulationes|noun|plural
+grind|verb|base|ground|verb|past
+grind|verb|base|ground|verb|pastpart
+grow|verb|base|grew|verb|past
+grow|verb|base|grown|verb|pastpart
+gyp|verb|base|gypped|verb|past
+gyp|verb|base|gypped|verb|pastpart
+gyp|verb|base|gypping|verb|prespart
+#half|noun|base|halves|noun|plural
+#half-life|noun|base|half-lives|noun|plural
+hamstring|verb|base|hamstrung|verb|past
+hamstring|verb|base|hamstrung|verb|pastpart
+handful|noun|base|handsful|noun|plural
+hang|verb|base|hung|verb|past
+hang|verb|base|hung|verb|pastpart
+haustorium|noun|base|haustra|noun|plural
+have|verb|base|has|verb|present
+have|verb|base|had|verb|past
+have|verb|base|had|verb|pastpart
+hear|verb|base|heard|verb|past
+hear|verb|base|heard|verb|pastpart
+heave|verb|base|hove|verb|past
+heave|verb|base|hove|verb|pastpart
+hero|noun|base|heroes|noun|plural
+hew|verb|base|hewn|verb|pastpart
+hide|verb|base|hid|verb|past
+hide|verb|base|hidden|verb|pastpart
+hie|verb|base|hieing|verb|prespart
+high-density|adj|base|higher-density|adj|comparative
+high-density|adj|base|highest-density|adj|superlative
+high-efficiency|adj|base|higher-efficiency|adj|comparative
+high-efficiency|adj|base|highest-efficiency|adj|superlative
+high-priority|adj|base|higher-priority|adj|comparative
+high-priority|adj|base|highest-priority|adj|superlative
+high-quality|adj|base|higher-quality|adj|comparative
+high-quality|adj|base|highest-quality|adj|superlative
+high-resistance|adj|base|higher-resistance|adj|comparative
+high-resistance|adj|base|highest-resistance|adj|superlative
+hilus of olivary nucleus|noun|base|hili of olivary nucleus|noun|plural
+hold|verb|base|held|verb|past
+hold|verb|base|held|verb|pastpart
+#hoof|noun|base|hooves|noun|plural
+#horseman|noun|base|horsemen|noun|plural
+#housewife|noun|base|housewives|noun|plural
+human T cell lymphotropic virus type III|noun|base|human T cell lymphotropic viruses type III|noun|plural
+human T cell lymphotropic virus type III|noun|base|human T-cell lymphotropic viruses type III|noun|plural
+human T lymphotropic virus type IV|noun|base|human T lymphotropic viruses type IV|noun|plural
+human T lymphotropic virus type IV|noun|base|human T-lymphotropic viruses type IV|noun|plural
+human immunodeficiency virus type 1|noun|base|human immunodeficiency viruses type 1|noun|plural
+human immunodeficiency virus type 2|noun|base|human immunodeficiency viruses type 2|noun|plural
+humoral mediator of immunity|noun|base|humoral mediators of immunity|noun|plural
+hydatid of Morgagni|noun|base|hydatids of Morgani|noun|plural
+hydrosalpinx|noun|base|hydrosalpinges|noun|plural
+hydroxyvitamin D|noun|base|hydroxyvitamins D|noun|plural
+hygromycin B|noun|base|hygromycins B|noun|plural
+hyperplasia of prostate|noun|base|hyperplasias of prostate|noun|plural
+hypopharynx|noun|base|hypopharynges|noun|plural
+ignis fatuus|noun|base|ignes fatui|noun|plural
+ill|adj|base|worse|adj|comparative
+ill|adj|base|worst|adj|superlative
+imago|noun|base|imagoes|noun|plural
+imago|noun|base|imagines|noun|plural
+immersion foot|noun|base|immersion feet|noun|plural
+#impacted tooth|noun|base|impacted teeth|noun|plural
+impressio|noun|base|impressiones|noun|plural
+inclinatio|noun|base|inclinationes|noun|plural
+index of refraction|noun|base|indexes of refraction|noun|plural
+index of refraction|noun|base|indices of refraction|noun|plural
+#infantryman|noun|base|infantrymen|noun|plural
+inferior fossa of omental sac|noun|base|inferior fossae of omental sac|noun|plural
+inguen|noun|base|inguina|noun|plural
+initial|verb|base|initialled|verb|past
+initial|verb|base|initialled|verb|pastpart
+initial|verb|base|initialling|verb|prespart
+injectio|noun|base|injectiones|noun|plural
+inscriptio|noun|base|inscriptiones|noun|plural
+instil|verb|base|instills|verb|present
+interbreed|verb|base|interbred|verb|past
+interbreed|verb|base|interbread|verb|pastpart
+intersectio|noun|base|intersectiones|noun|plural
+interweave|verb|base|interwove|verb|past
+interweave|verb|base|interwoven|verb|pastpart
+intussuscipiens|noun|base|intussuscipientes|noun|plural
+islet of Langerhans|noun|base|islets of Langerhans|noun|plural
+jarful|noun|base|jarsful|noun|plural
+#journeyman|noun|base|journeymen|noun|plural
+jugful|noun|base|jugsful|noun|plural
+keep|verb|base|kept|verb|past
+keep|verb|base|kept|verb|pastpart
+kibbutz|noun|base|kibbutzim|noun|plural
+kneel|verb|base|knelt|verb|past
+kneel|verb|base|knelt|verb|pastpart
+#knife|noun|base|knives|noun|plural
+know|verb|base|knew|verb|past
+know|verb|base|known|verb|pastpart
+krona|noun|base|kronor|noun|plural
+krone|noun|base|kroner|noun|plural
+lamina propria|noun|base|laminae propriae|noun|plural
+larynx|noun|base|larynges|noun|plural
+lateral epicondyle of humerus|noun|base|lateral epicondyles of humerus|noun|plural
+latissimus dorsi|noun|base|latissimi dorsi|noun|plural
+#lay|verb|base|laid|verb|past
+#lay|verb|base|laid|verb|pastpart
+#layman|noun|base|laymen|noun|plural
+lead|verb|base|led|verb|past
+lead|verb|base|led|verb|pastpart
+#leaf|noun|base|leaves|noun|plural
+lean|verb|base|leant|verb|past
+lean|verb|base|leant|verb|pastpart
+leap|verb|base|leapt|verb|past
+leap|verb|base|leapt|verb|pastpart
+learn|verb|base|learnt|verb|past
+learn|verb|base|learnt|verb|pastpart
+leave|verb|base|left|verb|past
+leave|verb|base|left|verb|pastpart
+lend|verb|base|lent|verb|past
+lend|verb|base|lent|verb|pastpart
+leptothrix|noun|base|leptotrichia|noun|plural
+leptothrix|noun|base|leptotriches|noun|plural
+less|adv|base|least|adv|superlative
+levator|noun|base|levatores|noun|plural
+lie|verb|base|lay|verb|past
+lie|verb|base|lain|verb|pastpart
+#life|noun|base|lives|noun|plural
+light|verb|base|lit|verb|past
+light|verb|base|lit|verb|pastpart
+lingualis|noun|base|linguales|noun|plural
+liquor|noun|base|liquores|noun|plural
+little|adv|base|less|adv|comparative
+little|adv|base|least|adv|superlative
+livor|noun|base|livores|noun|plural
+#loaf|noun|base|loaves|noun|plural
+locum tenens|noun|base|locum tenentes|noun|plural
+locus classicus|noun|base|loci classici|noun|plural
+#longshoreman|noun|base|longshoremen|noun|plural
+long-term|adj|base|longer-term|adj|comparative
+long-term|adj|base|longest-term|adj|superlative
+lose|verb|base|lost|verb|past
+lose|verb|base|lost|verb|pastpart
+louse|noun|base|lice|noun|plural
+low-density|adj|base|lower-density|adj|comparative
+low-density|adj|base|lowest-density|adj|superlative
+low-dose|adj|base|lower-dose|adj|comparative
+low-dose|adj|base|lowest-dose|adj|superlative
+low-fat|adj|base|lower-fat|adj|comparative
+low-fat|adj|base|lowest-fat|adj|superlative
+low-grade|adj|base|lower-grade|adj|comparative
+low-grade|adj|base|lowest-grade|adj|superlative
+low-profile|adj|base|lower-profile|adj|comparative
+low-profile|adj|base|lowest-profile|adj|superlative
+low-risk|adj|base|lower-risk|adj|comparative
+low-risk|adj|base|lowest-risk|adj|superlative
+#macrotooth|noun|base|macroteeth|noun|plural
+macula solaris|noun|base|maculae solares|noun|plural
+#madman|noun|base|madmen|noun|plural
+#madwoman|noun|base|madwomen|noun|plural
+#mailman|noun|base|mailmen|noun|plural
+make|verb|base|made|verb|past
+make|verb|base|made|verb|pastpart
+#man|noun|base|men|noun|plural
+margo|noun|base|margines|noun|plural
+#marksman|noun|base|marksmen|noun|plural
+mean|verb|base|meant|verb|past
+mean|verb|base|meant|verb|pastpart
+#medicine-man|noun|base|medicine-men|noun|plural
+medicine-man|noun|base|medicinemen|noun|plural
+medicus veterinarius|noun|base|medici veterinarii|noun|plural
+meet|verb|base|met|verb|past
+meet|verb|base|met|verb|pastpart
+mellitum|noun|base|melliti|noun|plural
+membrana tympani|noun|base|membranae tympani|noun|plural
+meninx|noun|base|meninges|noun|plural
+mesiodens|noun|base|mesiodentes|noun|plural
+mesonephros|noun|base|mesonephroi|noun|plural
+messenger RNA|noun|base|messenger RNA's|noun|plural
+metanephros|noun|base|metanephroi|noun|plural
+microzoon|noun|base|mircozoa|noun|plural
+#middleman|noun|base|middlemen|noun|plural
+#midshipman|noun|base|midshipmen|noun|plural
+#midwife|noun|base|midwives|noun|plural
+milieu|noun|base|milieux|noun|plural
+#milkman|noun|base|milkmen|noun|plural
+#milk-tooth|noun|base|milk-teeth|noun|plural
+#milk-tooth|noun|base|milk teeth|noun|plural
+millimeter of mercury|noun|base|millimeters of mercury|noun|plural
+millimeter squared|noun|base|millimeters squared|noun|plural
+mimic|verb|base|mimicked|verb|past
+mimic|verb|base|mimicked|verb|pastpart
+#mimic|verb|base|mimicking|verb|prespart
+misdeal|verb|base|misdealt|verb|past
+misdeal|verb|base|misdealt|verb|pastpart
+#mislay|verb|base|mislaid|verb|past
+#mislay|verb|base|mislaid|verb|pastpart
+mislead|verb|base|misled|verb|past
+mislead|verb|base|misled|verb|pastpart
+misspell|verb|base|misspelt|verb|past
+misspell|verb|base|misspelt|verb|pastpart
+misspend|verb|base|misspent|verb|past
+misspend|verb|base|misspent|verb|pastpart
+mistake|verb|base|mistook|verb|past
+mistake|verb|base|mistaken|verb|pastpart
+misunderstand|verb|base|misunderstood|verb|past
+misunderstand|verb|base|misunderstood|verb|pastpart
+modus operandi|noun|base|modi operandi|noun|plural
+modus vivendi|noun|base|modi vivendi|noun|plural
+money|noun|base|monies|noun|plural
+mons|noun|base|montes|noun|plural
+monsieur|noun|base|messieurs|noun|plural
+mons pubis|noun|base|montes pubis|noun|plural
+mons veneris|noun|base|montes veneris|noun|plural
+morpio|noun|base|morpiones|noun|plural
+morpion|noun|base|morpiones|noun|plural
+mosquito|noun|base|mosquitoes|noun|plural
+mother-in-law|noun|base|mothers-in-law|noun|plural
+mother-to-be|noun|base|mothers-to-be|noun|plural
+#mottled tooth|noun|base|mottled teeth|noun|plural
+#mouse|noun|base|mice|noun|plural
+mouthful|noun|base|mouthsful|noun|plural
+mow|verb|base|mown|verb|past
+mow|verb|base|mown|verb|pastpart
+mucro|noun|base|mucrones|noun|plural
+myoepithelioma|noun|base|myoepthelioma|noun|plural
+naris|noun|base|nares|noun|plural
+nasopharynx|noun|base|nasopharynges|noun|plural
+#nobleman|noun|base|noblemen|noun|plural
+non-small cell carcinoma of the bronchus|noun|base|non-small cell carcinomata of the bronchus|noun|plural
+non-small cell carcinoma of the bronchus|noun|base|non-small cell carcinomas of the bronchus|noun|plural
+non-small cell carcinoma of the lung|noun|base|non-small cell carcinomata of the lung|noun|plural
+non-small cell carcinoma of the lung|noun|base|non-small cell carcinomas of the lung|noun|plural
+nucleus basalis|noun|base|nuclei basales|noun|plural
+nucleus cuneatus|noun|base|nuclei cuneatus|noun|plural
+nucleus pulposus|noun|base|nuclei pulposi|noun|plural
+nucleus ventrobasalis|noun|base|nuclei ventrobasales|noun|plural
+#nude mouse|noun|base|nude mice|noun|plural
+occiput|noun|base|occiputa|noun|plural
+okay|noun|base|OK's|noun|plural
+okay|verb|base|OK's|verb|present
+okay|verb|base|OK'd|verb|past
+okay|verb|base|OK'd|verb|pastpart
+okay|verb|base|OK'ing|verb|prespart
+okay|verb|base|O.K.'s|verb|present
+okay|verb|base|O.K.'d|verb|past
+okay|verb|base|O.K.'d|verb|pastpart
+okay|verb|base|O.K.'ing|verb|prespart
+#ombudsman|noun|base|ombudsmen|noun|plural
+opening of Hunter's canal|noun|base|openings of Hunter's canal|noun|plural
+opening of sacral canal|noun|base|openings of sacral canal|noun|plural
+opening of sacral canal|noun|base|openings of sacral canals|noun|plural
+opening of tympanic canal|noun|base|openings of tympanic canal|noun|plural
+oropharynx|noun|base|oropharynges|noun|plural
+os|noun|base|ora|noun|plural
+ossifying fibroma of bone|noun|base|ossifying fibromata of bone|noun|plural
+ossifying fibroma of bone|noun|base|ossifying fibromas of bone|noun|plural
+os calcis|noun|base|ossa calcis|noun|plural
+otitis media|noun|base|otitides mediae|noun|plural
+outdo|verb|base|outdoes|verb|present
+outdo|verb|base|outdid|verb|past
+outdo|verb|base|outdone|verb|pastpart
+outfight|verb|base|outfought|verb|past
+outfight|verb|base|outfought|verb|pastpart
+outgo|verb|base|outgoes|verb|present
+outgo|verb|base|outwent|verb|past
+outgo|verb|base|outgone|verb|pastpart
+outgrow|verb|base|outgrew|verb|past
+outgrow|verb|base|outgrown|verb|pastpart
+#outlay|verb|base|outlaid|verb|past
+#outlay|verb|base|outlaid|verb|pastpart
+outride|verb|base|outrode|verb|past
+outride|verb|base|outridden|verb|pastpart
+outrun|verb|base|outran|verb|past
+outshine|verb|base|outshone|verb|past
+outshine|verb|base|outshone|verb|pastpart
+outwear|verb|base|outwore|verb|past
+outwear|verb|base|outworn|verb|pastpart
+overbear|verb|base|overbore|verb|past
+overbear|verb|base|overborne|verb|pastpart
+overcome|verb|base|overcame|verb|past
+overdo|verb|base|overdoes|verb|present
+overdo|verb|base|overdid|verb|past
+overdo|verb|base|overdone|verb|pastpart
+overdraw|verb|base|overdrew|verb|past
+overdraw|verb|base|overdrawn|verb|pastpart
+overhang|verb|base|overhung|verb|past
+overhang|verb|base|overhung|verb|pastpart
+overhear|verb|base|overheard|verb|past
+overhear|verb|base|overheard|verb|pastpart
+#overlay|verb|base|overlaid|verb|past
+#overlay|verb|base|overlaid|verb|pastpart
+overleap|verb|base|overleapt|verb|past
+overleap|verb|base|overleapt|verb|pastpart
+overlie|verb|base|overlay|verb|past
+overlie|verb|base|overlain|verb|pastpart
+#overpay|verb|base|overpaid|verb|past
+#overpay|verb|base|overpaid|verb|pastpart
+override|verb|base|overrode|verb|past
+override|verb|base|overridden|verb|pastpart
+overrun|verb|base|overran|verb|past
+overrun|verb|base|overran|verb|pastpart
+oversee|verb|base|oversaw|verb|past
+oversee|verb|base|overseen|verb|pastpart
+overshoot|verb|base|overshot|verb|past
+overshoot|verb|base|overshot|verb|pastpart
+oversleep|verb|base|overslept|verb|past
+oversleep|verb|base|overslept|verb|pastpart
+overtake|verb|base|overtook|verb|past
+overtake|verb|base|overtaken|verb|pastpart
+overthrow|verb|base|overthrew|verb|past
+overthrow|verb|base|overthrown|verb|pastpart
+over-eat|verb|base|over-ate|verb|past
+over-eat|verb|base|over-eaten|verb|pastpart
+ox|noun|base|oxen|noun|plural
+pachymeninx|noun|base|pachymeninges|noun|plural
+pailful|noun|base|pailsful|noun|plural
+panic|verb|base|panicked|verb|past
+panic|verb|base|panicked|verb|pastpart
+#panic|verb|base|panicking|verb|prespart
+papilloma|noun|base|paillomata|noun|plural
+parakeratosis variegata|noun|base|parakeratoses variegata|noun|plural
+paranephros|noun|base|paranephroi|noun|plural
+paries|noun|base|parietes|noun|plural
+pars|noun|base|partes|noun|plural
+partake|verb|base|partook|verb|past
+partake|verb|base|partaken|verb|pastpart
+part per billion|noun|base|parts per billion|noun|plural
+part per million|noun|base|parts per million|noun|plural
+paterfamilias|noun|base|patresfamilias|noun|plural
+#patrolman|noun|base|patrolmen|noun|plural
+#pay|verb|base|paid|verb|past
+#pay|verb|base|paid|verb|pastpart
+pecten|noun|base|pectines|noun|plural
+pelvis|noun|base|pelves|noun|plural
+#penknife|noun|base|penknives|noun|plural
+penny|noun|base|pence|noun|plural
+pernio|noun|base|perniones|noun|plural
+persona non grata|noun|base|personae non gratae|noun|plural
+pes|noun|base|pedis|noun|plural
+phalanx|noun|base|phalanges|noun|plural
+pharynx|noun|base|pharynges|noun|plural
+picnic|verb|base|picnicked|verb|past
+picnic|verb|base|picnicked|verb|pastpart
+#picnic|verb|base|picnicking|verb|prespart
+pipeful|noun|base|pipesful|noun|plural
+planarian|noun|base|planaria|noun|plural
+plateau|noun|base|plateaux|noun|plural
+plateful|noun|base|platesful|noun|plural
+plead|verb|base|pled|verb|past
+plead|verb|base|pled|verb|pastpart
+pocketful|noun|base|pocketsful|noun|plural
+#pocket-knife|noun|base|pocket-knives|noun|plural
+pocket-knife|noun|base|pocketknives|noun|plural
+#policeman|noun|base|policemen|noun|plural
+#policewoman|noun|base|policewomen|noun|plural
+pons|noun|base|pontes|noun|plural
+portio|noun|base|portiones|noun|plural
+#posterior tooth|noun|base|posterior teeth|noun|plural
+#postman|noun|base|postmen|noun|plural
+potato|noun|base|potatoes|noun|plural
+#prepay|verb|base|prepaid|verb|past
+#prepay|verb|base|prepaid|verb|pastpart
+preschool child|noun|base|preschool children|noun|plural
+pricey|adj|base|pricier|adj|comparative
+pricey|adj|base|priciest|adj|superlative
+pronephros|noun|base|pronephroi|noun|plural
+proof-read|verb|base|proofreads|verb|present
+proof-read|verb|base|proofread|verb|past
+proof-read|verb|base|proofread|verb|pastpart
+proof-read|verb|base|proofreading|verb|prespart
+proof-read|verb|base|proof reads|verb|present
+proof-read|verb|base|proof read|verb|past
+proof-read|verb|base|proof read|verb|pastpart
+proof-read|verb|base|proof reading|verb|prespart
+protozoan|noun|base|protozoa|noun|plural
+prove|verb|base|proven|verb|pastpart
+pseudomonas|noun|base|pseudomonades|noun|plural
+pubis|noun|base|pubes|noun|plural
+purulent otitis media|noun|base|purulent otitides mediae|noun|plural
+pus|noun|base|pura|noun|plural
+putamen|noun|base|putamenia|noun|plural
+queue|verb|base|queueing|verb|prespart
+quick-freeze|verb|base|quick-froze|verb|past
+quick-freeze|verb|base|quick-frozen|verb|pastpart
+quip|verb|base|quipped|verb|past
+quip|verb|base|quipped|verb|pastpart
+quip|verb|base|quipping|verb|prespart
+quit|verb|base|quitted|verb|past
+quit|verb|base|quitted|verb|pastpart
+quit|verb|base|quitting|verb|prespart
+quit|verb|base|quitting|verb|prespart
+quiz|noun|base|quizzes|noun|plural
+quiz|verb|base|quizzes|verb|present
+quiz|verb|base|quizzed|verb|past
+quiz|verb|base|quizzed|verb|pastpart
+quiz|verb|base|quizzing|verb|prespart
+radiatio|noun|base|radiationes|noun|plural
+rate of association|noun|base|rates of association|noun|plural
+rearfoot|noun|base|rearfeet|noun|plural
+rebind|verb|base|rebound|verb|past
+rebind|verb|base|rebound|verb|pastpart
+rebuild|verb|base|rebuilt|verb|past
+rebuild|verb|base|rebuilt|verb|pastpart
+redo|verb|base|redoing|verb|present
+redo|verb|base|redid|verb|past
+redo|verb|base|redone|verb|pastpart
+redo|verb|base|redoes|verb|prespart
+refeed|verb|base|refed|verb|past
+refeed|verb|base|refed|verb|pastpart
+refuel|verb|base|refuelled|verb|past
+refuel|verb|base|refuelled|verb|pastpart
+refuel|verb|base|refuelling|verb|prespart
+regio|noun|base|regiones|noun|plural
+rehear|verb|base|reheard|verb|past
+rehear|verb|base|reheard|verb|pastpart
+#relay|verb|base|relaid|verb|past
+#relay|verb|base|relaid|verb|pastpart
+remake|verb|base|remade|verb|past
+remake|verb|base|remade|verb|pastpart
+ren|noun|base|renes|noun|plural
+rend|verb|base|rent|verb|past
+rend|verb|base|rent|verb|pastpart
+#repay|verb|base|repaid|verb|past
+#repay|verb|base|repaid|verb|pastpart
+rerun|verb|base|reran|verb|past
+respell|verb|base|respelt|verb|past
+respell|verb|base|respelt|verb|pastpart
+restis|noun|base|restes|noun|plural
+retake|verb|base|retook|verb|past
+retake|verb|base|retaken|verb|pastpart
+rete|noun|base|retia|noun|plural
+retell|verb|base|retold|verb|past
+retell|verb|base|retold|verb|pastpart
+rethink|verb|base|rethought|verb|past
+rethink|verb|base|rethought|verb|pastpart
+revolution per minute|noun|base|revolutions per minute|noun|plural
+rewrite|verb|base|rewrote|verb|past
+rewrite|verb|base|rewritten|verb|pastpart
+re-echo|verb|base|re-echoes|verb|present
+re-echo|verb|base|echoing|verb|prespart
+ride|verb|base|rode|verb|past
+ride|verb|base|ridden|verb|pastpart
+ring|verb|base|rang|verb|past
+ring|verb|base|rung|verb|pastpart
+rise|verb|base|rose|verb|past
+rise|verb|base|risen|verb|pastpart
+rive|verb|base|riven|verb|pastpart
+roomful|noun|base|roomsful|noun|plural
+root of tooth|noun|base|roots of teeth|noun|plural
+rouleau|noun|base|rouleaux|noun|plural
+run|verb|base|ran|verb|past
+run|verb|base|ran|verb|pastpart
+sackful|noun|base|sacksful|noun|plural
+#salesman|noun|base|salesmen|noun|plural
+#saleswoman|noun|base|saleswomen|noun|plural
+saute|verb|base|sauteing|verb|prespart
+saw|verb|base|sawn|verb|pastpart
+#say|verb|base|said|verb|past
+#say|verb|base|said|verb|pastpart
+scala tympani|noun|base|scalae tympanorum|noun|plural
+#scarf|noun|base|scarves|noun|plural
+scoopful|noun|base|scoopsful|noun|plural
+#seaman|noun|base|seamen|noun|plural
+sectio|noun|base|sectiones|noun|plural
+secundina|noun|base|secundines|noun|plural
+see|verb|base|saw|verb|past
+see|verb|base|seen|verb|pastpart
+seek|verb|base|sought|verb|past
+seek|verb|base|sought|verb|pastpart
+#self|noun|base|selves|noun|plural
+sell|verb|base|sold|verb|past
+sell|verb|base|sold|verb|pastpart
+semicanalis|noun|base|semicanales|noun|plural
+send|verb|base|sent|verb|past
+send|verb|base|sent|verb|pastpart
+sensitivity and specificity|noun|base|sensitivities and specificities|noun|plural
+septum lucidum|noun|base|septa lucida|noun|plural
+septum of musculotubal canal|noun|base|septa of musculotubal canal|noun|plural
+septum pellucidum|noun|base|septa pellucida|noun|plural
+sew|verb|base|sewn|verb|pastpart
+shake|verb|base|shook|verb|past
+shake|verb|base|shaken|verb|pastpart
+#sheaf|noun|base|sheaves|noun|plural
+shear|verb|base|shorn|verb|pastpart
+#shelf|noun|base|shelves|noun|plural
+shellac|verb|base|shellacked|verb|past
+shellac|verb|base|shellacked|verb|pastpart
+#shellac|verb|base|shellacking|verb|prespart
+shine|verb|base|shone|verb|past
+shine|verb|base|shone|verb|pastpart
+shoe|verb|base|shod|verb|past
+shoe|verb|base|shod|verb|pastpart
+shoot|verb|base|shot|verb|past
+shoot|verb|base|shot|verb|pastpart
+shovelful|noun|base|shovelsful|noun|plural
+show|verb|base|shown|verb|pastpart
+#showman|noun|base|showmen|noun|plural
+shrink|verb|base|shrank|verb|past
+shrink|verb|base|shrunk|verb|pastpart
+shrink|verb|base|shrank|verb|past
+shrink|verb|base|shrunken|verb|pastpart
+shrive|verb|base|shrove|verb|past
+shrive|verb|base|shriven|verb|pastpart
+sight-see|verb|base|sightseeing|verb|prespart
+simplex|noun|base|simplicia|noun|plural
+sing|verb|base|sang|verb|past
+sing|verb|base|sung|verb|pastpart
+singe|verb|base|singeing|verb|prespart
+sink|verb|base|sank|verb|past
+sink|verb|base|sunk|verb|pastpart
+sister-in-law|noun|base|sisters-in-law|noun|plural
+sit|verb|base|sat|verb|past
+sit|verb|base|sat|verb|pastpart
+ski|verb|base|ski'd|verb|past
+ski|verb|base|ski'd|verb|pastpart
+skin-dive|verb|base|skin-dove|verb|past
+skin-dive|verb|base|skin-dove|verb|pastpart
+slay|verb|base|slew|verb|past
+slay|verb|base|slain|verb|pastpart
+sleep|verb|base|slept|verb|past
+sleep|verb|base|slept|verb|pastpart
+slide|verb|base|slid|verb|past
+slide|verb|base|slid|verb|pastpart
+sling|verb|base|slung|verb|past
+sling|verb|base|slung|verb|pastpart
+slink|verb|base|slunk|verb|past
+slink|verb|base|slunk|verb|pastpart
+smell|verb|base|smelt|verb|past
+smell|verb|base|smelt|verb|pastpart
+smite|verb|base|smote|verb|past
+smite|verb|base|smitten|verb|pastpart
+#snowman|noun|base|snowmen|noun|plural
+soliloquy|noun|base|soliloquies|noun|plural
+son-in-law|noun|base|sons-in-law|noun|plural
+sow|verb|base|sown|verb|pastpart
+spadeful|noun|base|spadesful|noun|plural
+speak|verb|base|spoke|verb|past
+speak|verb|base|spoken|verb|pastpart
+speed|verb|base|sped|verb|past
+speed|verb|base|sped|verb|pastpart
+spell|verb|base|spelt|verb|past
+spell|verb|base|spelt|verb|pastpart
+spend|verb|base|spent|verb|past
+spend|verb|base|spent|verb|pastpart
+sphincter of Oddi|noun|base|sphincters of Oddi|noun|plural
+spill|verb|base|spilt|verb|past
+spill|verb|base|spilt|verb|pastpart
+spin|verb|base|spun|verb|past
+spin|verb|base|spun|verb|pastpart
+spit|verb|base|spat|verb|past
+spit|verb|base|spat|verb|pastpart
+splay-foot|noun|base|splay-feet|noun|plural
+splay-foot|noun|base|splayfeet|noun|plural
+spoil|verb|base|spoilt|verb|past
+spoil|verb|base|spoilt|verb|pastpart
+#spokesman|noun|base|spokesmen|noun|plural
+#spokeswoman|noun|base|spokeswomen|noun|plural
+spoonfeed|verb|base|spoonfed|verb|past
+spoonfeed|verb|base|spoonfed|verb|pastpart
+spoonful|noun|base|spoonsful|noun|plural
+#sportsman|noun|base|sportsmen|noun|plural
+#sportswoman|noun|base|sportswomen|noun|plural
+spring|verb|base|sprang|verb|past
+spring|verb|base|sprung|verb|pastpart
+spring|verb|base|sprung|verb|past
+spring|verb|base|sprung|verb|pastpart
+spurious aperture of facial canal|noun|base|spurious apertures of facial canal|noun|plural
+spurious aperture of fallopian canal|noun|base|spurious apertures of fallopian canal|noun|plural
+squat|verb|base|squatted|verb|past
+squat|verb|base|squatted|verb|pastpart
+squat|verb|base|squatting|verb|prespart
+staff|noun|base|staves|noun|plural
+stand|verb|base|stood|verb|past
+stand|verb|base|stood|verb|pastpart
+#statesman|noun|base|statesmen|noun|plural
+stave|verb|base|stove|verb|past
+stave|verb|base|stove|verb|pastpart
+steal|verb|base|stole|verb|past
+steal|verb|base|stolen|verb|pastpart
+stepchild|noun|base|stepchildren|noun|plural
+stercus|noun|base|stercora|noun|plural
+stick|verb|base|stuck|verb|past
+stick|verb|base|stuck|verb|pastpart
+sting|verb|base|stung|verb|past
+sting|verb|base|stung|verb|pastpart
+stink|verb|base|stank|verb|past
+stink|verb|base|stunk|verb|pastpart
+stomach|noun|base|stomachs|noun|plural
+stratum corneum|noun|base|strata cornea|noun|plural
+strew|verb|base|strewn|verb|pastpart
+stride|verb|base|strode|verb|past
+stride|verb|base|stridden|verb|pastpart
+strike|verb|base|struck|verb|past
+strike|verb|base|struck|verb|pastpart
+string|verb|base|strung|verb|past
+string|verb|base|strung|verb|pastpart
+strive|verb|base|strove|verb|past
+strive|verb|base|striven|verb|pastpart
+stymie|verb|base|stymieing|verb|prespart
+subcostalis|noun|base|subcostales|noun|plural
+substantia innominata|noun|base|substantiae innominatae|noun|plural
+substantia nigra|noun|base|substantiae nigrae|noun|plural
+#supernumerary tooth|noun|base|supernumerary teeth|noun|plural
+surgeon general|noun|base|surgeons general|noun|plural
+swear|verb|base|swore|verb|past
+swear|verb|base|sworn|verb|pastpart
+sweep|verb|base|swept|verb|past
+sweep|verb|base|swept|verb|pastpart
+swell|verb|base|swollen|verb|pastpart
+swim|verb|base|swam|verb|past
+swim|verb|base|swum|verb|pastpart
+swing|verb|base|swung|verb|past
+swing|verb|base|swung|verb|pastpart
+tableau|noun|base|tableaux|noun|plural
+tableful|noun|base|tablesful|noun|plural
+tablespoonful|noun|base|tablespoonsful|noun|plural
+take|verb|base|took|verb|past
+take|verb|base|taken|verb|pastpart
+tarmac|verb|base|tarmacked|verb|past
+tarmac|verb|base|tarmacked|verb|pastpart
+#tarmac|verb|base|tarmacking|verb|prespart
+taxi|noun|base|taxies|noun|plural
+taxi|verb|base|taxies|verb|present
+teach|verb|base|taught|verb|past
+teach|verb|base|taught|verb|pastpart
+teacupful|noun|base|teacupsful|noun|plural
+tear|verb|base|tore|verb|past
+tear|verb|base|torn|verb|pastpart
+teaspoonful|noun|base|teaspoonsful|noun|plural
+tell|verb|base|told|verb|past
+tell|verb|base|told|verb|pastpart
+tempo|noun|base|tempi|noun|plural
+tendo|noun|base|tendines|noun|plural
+teras|noun|base|terata|noun|plural
+terminatio|noun|base|terminationes|noun|plural
+terra incognita|noun|base|terrae incognitae|noun|plural
+testis|noun|base|testes|noun|plural
+test-drive|verb|base|test-drove|verb|past
+test-drive|verb|base|test-driven|verb|pastpart
+#thief|noun|base|thieves|noun|plural
+thimbleful|noun|base|thimblesful|noun|plural
+think|verb|base|thought|verb|past
+think|verb|base|thought|verb|pastpart
+thrive|verb|base|throve|verb|past
+thrive|verb|base|thriven|verb|pastpart
+throw|verb|base|threw|verb|past
+throw|verb|base|thrown|verb|pastpart
+tibialis anterior|noun|base|tibiales anterior|noun|plural
+#titmouse|noun|base|titmice|noun|plural
+tomato|noun|base|tomatoes|noun|plural
+#tooth|noun|base|teeth|noun|plural
+tornado|noun|base|tornadoes|noun|plural
+torpedo|noun|base|torpedoes|noun|plural
+torpedo|verb|base|torpedoes|verb|past
+tour de force|noun|base|tours de force|noun|plural
+trabs|noun|base|trabes|noun|plural
+#tradesman|noun|base|tradesmen|noun|plural
+traffic|verb|base|trafficked|verb|past
+traffic|verb|base|trafficked|verb|pastpart
+#traffic|verb|base|trafficking|verb|prespart
+tread|verb|base|trod|verb|past
+tread|verb|base|trodden|verb|pastpart
+#tribesman|noun|base|tribesmen|noun|plural
+trochiscus|noun|base|trochischi|noun|plural
+truncus arteriosus|noun|base|trunci arteriosus|noun|plural
+tuber|noun|base|tubera|noun|plural
+tuberositas|noun|base|tuberositates|noun|plural
+tubful|noun|base|tubsful|noun|plural
+#turf|noun|base|turves|noun|plural
+ulcus|noun|base|ulcera|noun|plural
+umbo|noun|base|umbones|noun|plural
+unbend|verb|base|unbent|verb|past
+unbend|verb|base|unbent|verb|pastpart
+unbind|verb|base|unbound|verb|past
+unbind|verb|base|unbound|verb|pastpart
+underfeed|verb|base|underfed|verb|past
+underfeed|verb|base|underfed|verb|pastpart
+undergo|verb|base|undergoes|verb|present
+undergo|verb|base|underwent|verb|past
+undergo|verb|base|undergone|verb|pastpart
+underlie|verb|base|underlay|verb|past
+underlie|verb|base|underlain|verb|pastpart
+#underpay|verb|base|underpaid|verb|past
+#underpay|verb|base|underpaid|verb|pastpart
+undersell|verb|base|undersold|verb|past
+undersell|verb|base|undersold|verb|pastpart
+undershoot|verb|base|undershot|verb|past
+undershoot|verb|base|undershot|verb|pastpart
+understand|verb|base|understood|verb|past
+understand|verb|base|understood|verb|pastpart
+undertake|verb|base|undertook|verb|past
+undertake|verb|base|undertaken|verb|pastpart
+underwrite|verb|base|underwrote|verb|past
+underwrite|verb|base|underwritten|verb|pastpart
+undo|verb|base|undoes|verb|present
+undo|verb|base|undid|verb|past
+undo|verb|base|undone|verb|pastpart
+#unerupted tooth|noun|base|unerupted teeth|noun|plural
+unguis|noun|base|ungues|noun|plural
+unlearn|verb|base|unlearnt|verb|past
+unlearn|verb|base|unlearnt|verb|pastpart
+#unsay|verb|base|unsaid|verb|past
+#unsay|verb|base|unsaid|verb|pastpart
+unwind|verb|base|unwound|verb|past
+unwind|verb|base|unwound|verb|pastpart
+uphold|verb|base|upheld|verb|past
+uphold|verb|base|upheld|verb|pastpart
+vas|noun|base|vasa|noun|plural
+vas deferens|noun|base|vasa deferentia|noun|plural
+vein of cochlear canal|noun|base|veins of cochlear canal|noun|plural
+vein of pterygoid canal|noun|base|veins of pterygoid canal|noun|plural
+vena cava|noun|base|venae cavae|noun|plural
+venous plexus of hypoglossal canal|noun|base|venous plexuses of hypoglossal canal|noun|plural
+venter|noun|base|ventres|noun|plural
+vertigo|noun|base|vertigoes|noun|plural
+vertigo|noun|base|vertigines|noun|plural
+veto|noun|base|vetoes|noun|plural
+veto|verb|base|vetoes|verb|present
+victual|verb|base|victualled|verb|past
+victual|verb|base|victualled|verb|pastpart
+victual|verb|base|victualling|verb|prespart
+virtuoso|noun|base|virtuosi|noun|plural
+viscus|noun|base|viscera|noun|plural
+volcano|noun|base|volcanoes|noun|plural
+vulnus|noun|base|vulnera|noun|plural
+wake|verb|base|woken|verb|pastpart
+wake|verb|base|woke|verb|past
+wake|verb|base|woken|verb|pastpart
+#watchman|noun|base|watchmen|noun|plural
+#waylay|verb|base|waylaid|verb|past
+#waylay|verb|base|waylaid|verb|pastpart
+wear|verb|base|wore|verb|past
+wear|verb|base|worn|verb|pastpart
+#weatherman|noun|base|weathermen|noun|plural
+weave|verb|base|wove|verb|past
+weave|verb|base|woven|verb|pastpart
+weep|verb|base|wept|verb|past
+weep|verb|base|wept|verb|pastpart
+well|adv|base|better|adv|comparative
+well|adv|base|best|adv|superlative
+well|adj|base|better|adj|comparative
+well|adj|base|best|adj|superlative
+well-defined|adj|base|better-defined|adj|comparative
+well-defined|adj|base|best-defined|adj|superlative
+#werewolf|noun|base|werewolves|noun|plural
+#wharf|noun|base|wharves|noun|plural
+whir|verb|base|whirrs|verb|present
+whiz|verb|base|whizzes|verb|present
+wide-angle|adj|base|wider-angle|adj|comparative
+wide-angle|adj|base|widest-angle|adj|superlative
+#wife|noun|base|wives|noun|plural
+win|verb|base|won|verb|past
+win|verb|base|won|verb|pastpart
+wind|verb|base|wound|verb|past
+wind|verb|base|wound|verb|pastpart
+windowful|noun|base|windowsful|noun|plural
+#wisdom-tooth|noun|base|wisdom-teeth|noun|plural
+#wisdom-tooth|noun|base|wisdom teeth|noun|plural
+withdraw|verb|base|withdrew|verb|past
+withdraw|verb|base|withdrawn|verb|pastpart
+withhold|verb|base|withheld|verb|past
+withhold|verb|base|withheld|verb|pastpart
+withstand|verb|base|withstood|verb|past
+withstand|verb|base|withstood|verb|pastpart
+#wolf|noun|base|wolves|noun|plural
+#woman|noun|base|women|noun|plural
+womans liberation|noun|base|womens liberation|noun|plural
+woman dentist|noun|base|women dentists|noun|plural
+woman physician|noun|base|women physicians|noun|plural
+woman's right|noun|base|women's rights|noun|plural
+woman's status|noun|base|women's status|noun|plural
+#working woman|noun|base|working women|noun|plural
+#workman|noun|base|workmen|noun|plural
+wring|verb|base|wrung|verb|past
+wring|verb|base|wrung|verb|pastpart
+write|verb|base|wrote|verb|past
+write|verb|base|written|verb|pastpart
+wrong|adj|base|worse|adj|comparative
+wrong|adj|base|worst|adj|superlative
+#wrongful life|noun|base|wrongful lives|noun|plural
+xanthoma disseminatum|noun|base|xanthomata disseminata|noun|plural
+xanthoma disseminatum|noun|base|xanthomas disseminata|noun|plural
+zero|noun|base|zeroes|noun|plural
+zero|verb|base|zeroes|verb|present

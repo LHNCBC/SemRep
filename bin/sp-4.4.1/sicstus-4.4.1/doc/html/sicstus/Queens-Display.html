@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Queens Display</title>
+
+<meta name="description" content="SICStus Prolog: Queens Display">
+<meta name="keywords" content="SICStus Prolog: Queens Display">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tk.html#Tk" rel="up" title="Tk">
+<link href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" rel="next" title="The Tcl/Tk Prolog Library">
+<link href="What-We-Have-Left-Out-_0028Tk_0029.html#What-We-Have-Left-Out-_0028Tk_0029" rel="prev" title="What We Have Left Out (Tk)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Queens-Display"></a>
+<hr>
+<a name="Example-pure-Tcl_002fTk-program"></a>
+<h4 class="subsubsection">10.39.3.9 Example pure Tcl/Tk program</h4>
+
+<p>To show some of what can be done with Tcl/Tk, we will show an example of
+part of a GUI for an 8-queens program.  Most people will be
+familiar with the 8-queens problem: how to place 8 queens on a chess
+board such that they do not attack each other according to the normal
+rules of chess.
+</p>
+<p>Our example will not be a program to solve the 8-queens problem
+(that will come later in the tutorial) but just the Tcl/Tk part for
+displaying a solution.  The code can be found in
+<code>library('tcltk/examples/ex18.tcl')</code>.
+</p>
+<p>The way an 8-queens solution is normally presented is as a list of
+numbers. The position of a number in the list indicates the column the
+queens is placed at and the number itself indicates the row. For
+example, the Prolog list <code>[8, 7, 6, 5, 4, 3, 2, 1]</code> would indicate
+8 queens along the diagonal starting a column 1, row 8 and finishing at
+column 8 row 1.
+</p>
+<p>The problem then becomes, given this list of numbers as a solution,
+how to display the solution using Tcl/Tk. This can be divided into
+two parts: how to display the initial empty chess board, and how
+to display a queen in one of the squares.
+</p>
+<p>Here is our code for setting up the chess board:
+</p>
+<div class="example">
+<pre class="example"><em>% ex18.pl</em>
+</pre><pre class="example">#! /usr/bin/wish 
+
+proc setup_board { } {
+    # create container for the board
+    frame .queens
+
+    # loop of rows and columns
+    for {set row 1} {$row &lt;= 8} {incr row} {
+        for {set column 1} {$column &lt;= 8} {incr column} {
+
+            # create label with a queen displayed in it
+            label .queens.$column-$row -bitmap @bitmaps/q64s.bm -relief flat
+
+            # choose a background color depending on the position of the
+            # square; make the queen invisible by setting the foreground
+            # to the same color as the background
+            if { [expr ($column + $row) % 2] } {
+                .queens.$column-$row config -background #ffff99
+                .queens.$column-$row config -foreground #ffff99
+            } else {
+                .queens.$column-$row config -background #66ff99
+                .queens.$column-$row config -foreground #66ff99
+            }
+
+            # place the square in a chess board grid
+            grid .queens.$column-$row -row $row -column $column -padx 1 -pady 1
+        }
+    }
+    pack .queens
+}
+
+setup_board
+</pre></div>
+
+<p>The first thing that happens is that a frame widget is created to
+contain the board.  Then there are two nested loops that loop over the
+rows and columns of the chess board.  Inside the loop, the first thing
+that happens is that a label widget is created. It is named using the
+row and column variables so that it can be easily referenced later.  The
+label will not be used to display text but to display an image, a bitmap
+of a queen. The label creation command therefore has the special
+argument <samp>-bitmap @q64s.bm</samp>, which says that the label
+will display the bitmap loaded from the file <samp>q64s.bm</samp>.
+</p>
+
+<p>The label with the queen displayed in it has now been created.
+The next thing that happens is that the background color of
+the label (square) is chosen. Depending on the position of
+the square it becomes either a &ldquo;black&rdquo; or a &ldquo;white&rdquo; square.
+At the same time, the foreground color is set to the background color.
+This is so that the queen (displayed in the foreground color) will
+be invisible, at least when the board is first displayed.
+</p>
+<p>The final action in the loop is to place the label (square) in relation
+to all the other squares for display. A chess board is a simple grid of
+squares, and so this is most easily done through the <code>grid</code> geometry
+manager.
+</p>
+<p>After the board has been set up square-by-square it still needs to be displayed,
+which is done by <code>pack</code>-ing the outermost frame widget.
+</p>
+<p>To create and display a chess board widget, all that is needed
+is to call the procedure
+</p>
+<div class="example">
+<pre class="example">setup_board
+</pre></div>
+
+<p>which creates the chess board widget.
+</p>
+<p>Once the chess board has been displayed, we need to be able to take a
+solution, a list of rows ordered by column, and place queens in the
+positions indicated.
+</p>
+<p>Taking a topdown approach, our procedure for taking a solution
+and displaying is as follows:
+</p>
+<div class="example">
+<pre class="example">proc show_solution { solution } {
+    clear_board
+    set column 1
+    foreach row $solution {
+        place_queen $column $row
+        incr column
+    }
+}
+</pre></div>
+
+<p>This takes a solution in <code>solution</code>, clears the board of all queens, and
+then places each queen from the solution on the board.
+</p>
+<p>Next we will handle clearing the board: 
+</p>
+<div class="example">
+<pre class="example">proc clear_board { } {
+    for { set column 1 } {$column &lt;= 8} {incr column} {
+        reset_column $column
+    }
+}
+
+proc reset_column { column } {
+    for {set row 1 } { $row &lt;= 8 } {incr row} {
+        set_queens $column $row off
+    }
+}
+
+proc set_queens { column row state } {
+    if { $state == &quot;on&quot; } { 
+        .queens.$column-$row config -foreground black
+    } else { 
+        .queens.$column-$row config 
+        -foreground [.queens.$column-$row cget -background] 
+    }
+}
+</pre></div>
+
+<p>The procedure <code>clear_board</code> clears the board of queens by calling
+the procedure <code>reset_column</code> for each of the 8 columns on a board.
+<code>reset_column</code> goes through each square of a column and sets the
+square to <code>off</code> through <code>set_queens</code>.  In turn, <code>set_queens</code>
+sets the foreground color of a square to black if the square is turned
+<code>on</code>, thus revealing the queen bitmap, or sets the foreground color of a
+square to its background color, thus making the queens invisible, if it
+is called with something other than <code>on</code>.
+</p>
+<p>That handles clearing the board, clearing a column or turning a
+queen on or off on a particular square.
+</p>
+<p>The final part is <code>place_queen</code>:
+</p>
+<div class="example">
+<pre class="example">proc place_queen { column row } {
+    reset_column $column
+    set_queens $column $row on
+}
+</pre></div>
+
+<p>This resets a column so that all queens on it are invisible and then
+sets the square with coordinates given in <code>row</code> and <code>column</code>
+to on.
+</p>
+<p>A typical call would be:
+</p>
+<div class="example">
+<pre class="example">show_solution &quot;1 2 3 4 5 6 7 6 8&quot;
+</pre></div>
+
+<br>
+<img src="images/tcltkex18.png" alt="images/tcltkex18">
+<div align="center">8-Queens Display In Tcl/Tk
+</div>
+<p>which would display queens along a diagonal.
+(This is of course not a solution to the 8-queens problem. This Tcl/Tk
+code only displays possible queens solutions; it does not check if the
+solution is valid.  Later we will combine this Tcl/Tk display code with
+Prolog code for generating solutions to the 8-queens problem.)
+</p>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="What-We-Have-Left-Out-_0028Tk_0029.html#What-We-Have-Left-Out-_0028Tk_0029" accesskey="p" rel="prev">Previous</a>
+<li><a href="Tk.html#Tk" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Queens-Display.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Queens-Display.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

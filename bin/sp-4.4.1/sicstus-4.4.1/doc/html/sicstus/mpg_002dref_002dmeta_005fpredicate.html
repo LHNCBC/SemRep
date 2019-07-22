@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-meta_predicate</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-meta_predicate">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-meta_predicate">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dmode.html#mpg_002dref_002dmode" rel="next" title="mpg-ref-mode">
+<link href="mpg_002dref_002dmessage_005fhook.html#mpg_002dref_002dmessage_005fhook" rel="prev" title="mpg-ref-message_hook">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dmeta_005fpredicate"></a>
+<hr>
+<a name="meta_005fpredicate_002f1---declaration"></a>
+<h4 class="subsection">11.3.122 <code>meta_predicate/1</code> &nbsp;<!-- /@w --> <i>declaration</i></h4>
+<a name="index-meta_005fpredicate_002f1-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-meta_005fpredicate_002f1-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-147"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- meta_predicate <var>+MetaSpec</var></code>
+</p>
+<p>Provides for module name expansion of arguments in calls to the
+predicate given by <var>MetaSpec</var>. All <code>meta_predicate/1</code> declarations
+should be at the beginning of a module.
+</p>
+<a name="Arguments-136"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:MetaSpec</var></dt>
+<dd><p><em>callable</em>, must be ground
+</p>
+<p>Goal template or list of goal templates, of the form
+<code>functor(<var>Arg1</var>, <var>Arg2</var>,&hellip;)</code>. 
+Each <var>Argn</var> is one of:    
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>:</samp>&rsquo;</dt>
+<dd><p>requires module name expansion
+</p>
+<p>If the argument will be treated as a goal, then it is better to
+explicitly indicate this using an integer, see the next item.
+</p>
+</dd>
+<dt><var>nsuppressed</var></dt>
+<dd><p>a non-negative integer.
+</p>
+<p>This is a special case of &lsquo;<samp>:</samp>&rsquo; that means that the argument can be
+made into a goal by adding <var>nsuppressed</var> additional
+arguments. E.g., if the argument will be passed to <code>call/1</code>, then
+<code>0</code> (zero) should be used.
+</p>
+<p>As another example, the meta_predicate declaration for the built-in
+<code>call/3</code> would be <code>:- meta_predicate call(2,?,?)</code>, since
+<code>call/3</code> will add two arguments to its first argument in order to
+to construct the goal to invoke.
+</p>
+<p>An integer is treated the same as &lsquo;<samp>:</samp>&rsquo; above by the SICStus
+runtime. Other tools, such as the cross referencer (see <a href="The-Cross_002dReferencer.html#The-Cross_002dReferencer">The Cross-Referencer</a>) and the SICStus Prolog IDE (see <a href="SPIDER.html#SPIDER">SICStus
+Prolog IDE</a>), will use this information to better follow predicate
+references in analyzed source code.
+</p>
+</dd>
+<dt>&lsquo;<samp>*</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>+</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>-</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>?</samp>&rsquo;</dt>
+<dd><p>ignored
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<a name="Exceptions-138"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions in the context of loading code are printed as error messages.
+</p>
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>MetaSpec</var> not ground.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>MetaSpec</var> not a valid specification.
+</p>
+</dd>
+<dt><code>context_error</code></dt>
+<dd><p>Declaration appeared in a goal.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>Declaration appeared as a clause.
+</p></dd>
+</dl>
+
+<a name="Examples-57"></a>
+<h4 class="subheading">Examples</h4>
+
+<p>Consider a sort routine,
+<code>mysort/3</code>, to which the name of the comparison predicate is passed as
+an argument: 
+</p><div class="example">
+<pre class="example">mysort(<var>LessThanOrEqual</var>, <var>InputList</var>, <var>OutputList</var>) :-
+   &hellip;
+   %% LessThanOrEqual is called exactly like the built-in @=&lt;/2
+   ( call(LessThanOrEqual, Term1, Term2) -&gt; &hellip; ; &hellip; ),
+   &hellip;
+</pre></div>
+
+<p>An appropriate <code>meta_predicate</code> declaration for <code>mysort/3</code> is:
+</p><div class="example">
+<pre class="example">:- meta_predicate mysort(2, +, -).
+</pre></div>
+
+<p>since the first argument, <var>LessThanOrEqual</var>, will have two
+additional arguments added to it (by <code>call/3</code>) when invoked.
+</p>
+<p>This means that whenever a goal <code>mysort(<var>A</var>, <var>B</var>,
+<var>C</var>)</code> appears in a clause, it will be transformed at load time
+into <code>mysort(<var>M</var>:<var>A</var>, <var>B</var>, <var>C</var>)</code>, where <var>M</var>
+is the source module.  The transformation will happen unless:
+</p>
+<ol>
+<li> <var>A</var> has an explicit module prefix, or
+</li><li> <var>A</var> is a variable and the same variable appears in
+the head of the clause in a module-name-expansion position.  
+</li></ol>
+
+<a name="See-Also-144"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Meta_002dPredicate-Declarations.html#Meta_002dPredicate-Declarations">Meta-Predicate Declarations</a>, <a href="ref_002dmod_002dmne.html#ref_002dmod_002dmne">ref-mod-mne</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dmode.html#mpg_002dref_002dmode" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dmessage_005fhook.html#mpg_002dref_002dmessage_005fhook" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dmeta_005fpredicate.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dmeta_005fpredicate.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-syn-syn-esc</title>
+
+<meta name="description" content="SICStus Prolog: ref-syn-syn-esc">
+<meta name="keywords" content="SICStus Prolog: ref-syn-syn-esc">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" rel="up" title="ref-syn-syn">
+<link href="ref_002dsyn_002dsyn_002dnte.html#ref_002dsyn_002dsyn_002dnte" rel="next" title="ref-syn-syn-nte">
+<link href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok" rel="prev" title="ref-syn-syn-tok">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsyn_002dsyn_002desc"></a>
+<hr>
+<a name="Escape-Sequences"></a>
+<h4 class="subsubsection">4.1.7.6 Escape Sequences</h4>
+
+<a name="index-escape-sequence"></a>
+<a name="index-sequence_002c-escape"></a>
+
+<p>A backslash occurring inside integers in &lsquo;<samp>0'</samp>&rsquo; notation or inside
+quoted atoms or strings has special meaning, and indicates the
+start of an escape sequence.  The following escape sequences
+exist:
+</p>
+<dl compact="compact">
+<dt><code>\b</code></dt>
+<dd><a name="index-_005cb-_0028escape-sequence_0029"></a>
+<p>backspace (character code 8)
+</p>
+</dd>
+<dt><code>\t</code></dt>
+<dd><a name="index-_005ct-_0028escape-sequence_0029"></a>
+<p>horizontal tab (character code 9)
+</p>
+</dd>
+<dt><code>\n</code></dt>
+<dd><a name="index-_005cn-_0028escape-sequence_0029"></a>
+<p>newline (character code 10)
+</p>
+</dd>
+<dt><code>\v</code></dt>
+<dd><a name="index-_005cv-_0028escape-sequence_0029"></a>
+<p>vertical tab (character code 11)
+</p>
+</dd>
+<dt><code>\f</code></dt>
+<dd><a name="index-_005cf-_0028escape-sequence_0029"></a>
+<p>form feed (character code 12)
+</p>
+</dd>
+<dt><code>\r</code></dt>
+<dd><a name="index-_005cr-_0028escape-sequence_0029"></a>
+<p>carriage return (character code 13)
+</p>
+</dd>
+<dt><code>\e</code></dt>
+<dd><a name="index-_005ce-_0028escape-sequence_0029"></a>
+<p>escape (character code 27)
+</p>
+</dd>
+<dt><code>\d</code></dt>
+<dd><a name="index-_005cd-_0028escape-sequence_0029"></a>
+<p>delete (character code 127)
+</p>
+</dd>
+<dt><code>\a</code></dt>
+<dd><a name="index-_005ca-_0028escape-sequence_0029"></a>
+<p>alarm (character code 7)
+</p>
+</dd>
+<dt><code>\x<var>hex-digit&hellip;</var>\</code></dt>
+<dd><a name="index-_005cxhex_002ddigit_2026_005c-_0028escape-sequence_0029"></a>
+<p>the character code represented by the hexadecimal digits
+</p>
+</dd>
+<dt><code>\<var>octal-digit&hellip;</var>\</code></dt>
+<dd><a name="index-_005coctal_002ddigit_2026_005c-_0028escape-sequence_0029"></a>
+<p>the character code represented by the octal digits.
+</p>
+
+</dd>
+<dt><code>\<span class="key">LFD</span></code></dt>
+<dd><a name="index-_005cLFD-_0028escape-sequence_0029"></a>
+<p>A backslash followed by a single newline character is ignored.
+The purpose of this is to allow a <var>string</var> or <var>quoted-name</var> to
+be spread over multiple lines.
+</p>
+
+
+</dd>
+<dt><code>\\, \', \&quot;, \`</code></dt>
+<dd><a name="index-_005c_005c-_0028escape-sequence_0029"></a>
+<a name="index-_005c_0027-_0028escape-sequence_0029"></a>
+<a name="index-_005c_0022-_0028escape-sequence_0029"></a>
+<a name="index-_005c_0060-_0028escape-sequence_0029"></a>
+<p>Stand for the character following the &lsquo;<samp>\</samp>&rsquo;.
+</p>
+</dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsyn_002dsyn_002dnte.html#ref_002dsyn_002dsyn_002dnte" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dsyn_002desc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dsyn_002desc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

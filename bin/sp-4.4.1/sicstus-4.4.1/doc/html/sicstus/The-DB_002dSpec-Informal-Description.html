@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: The DB-Spec Informal Description</title>
+
+<meta name="description" content="SICStus Prolog: The DB-Spec Informal Description">
+<meta name="keywords" content="SICStus Prolog: The DB-Spec Informal Description">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dbdb.html#lib_002dbdb" rel="up" title="lib-bdb">
+<link href="Predicates.html#Predicates" rel="next" title="Predicates">
+<link href="Berkeley-DB.html#Berkeley-DB" rel="prev" title="Berkeley DB">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="The-DB_002dSpec-Informal-Description"></a>
+<hr>
+<a name="The-DB_002dSpec_002d_002d_002dInformal-Description"></a>
+<h4 class="subsection">10.6.4 The DB-Spec&mdash;Informal Description</h4>
+
+<a name="index-db_002dspec"></a>
+<p>The <em>db-spec</em> defines which functors are allowed and which
+parts of a term are used for indexing in a database.  The
+syntax of a db-spec is a skeletal goal with no module.  The
+db-spec is a list of atoms and compound terms where
+the arguments are either <code>+</code> or <code>-</code>.  A term can
+be inserted in the database if there is a spec in the spec
+list with the same functor.
+</p>
+<p>Multilevel indexing is not supported, terms have to be
+&ldquo;flattened&rdquo;.
+</p>
+<a name="index-indexed-term"></a>
+<a name="index-term_002c-indexed"></a>
+<p>Every spec with the functor of the <em>indexed term</em> specifies an
+indexing.  Every argument where there is a <code>+</code> in the spec is
+indexed on.
+</p>
+<p>The idea of the db-spec is illustrated with a few examples.  (A section
+further down explains the db-spec in a more formal way).
+</p>
+<p>Given a spec of <code>[f(+,-), .(+,-), g, f(-,+)]</code> the indexing works
+as follows.  (The parts with indexing are underlined.)
+</p>
+<table>
+<tr><td><var>Term</var></td><td><var>Store</var></td><td><var>Fetch</var></td></tr>
+<tr><td></td></tr>
+<tr><td><code>g(x,y)</code></td><td>domain error</td><td>domain error</td></tr>
+<tr><td></td></tr>
+<tr><td><code>f(A,B)</code></td><td><code>f(A,B)</code></td><td>instantiation error</td></tr>
+<tr><td></td><td><code>-</code></td></tr>
+<tr><td></td></tr>
+<tr><td><code>f(a,b)</code></td><td><code>f(a,b)  f(a,b)</code></td><td><code>f(a,b)</code></td></tr>
+<tr><td></td><td><code>- -     -   -</code></td><td><code>- -</code></td></tr>
+<tr><td></td></tr>
+<tr><td><code>[a,b]</code></td><td><code>.(a,.(b,[]))</code></td><td><code>.(a,.(b,[]))</code></td></tr>
+<tr><td></td><td><code>- -</code></td><td><code>- -</code></td></tr>
+<tr><td></td></tr>
+<tr><td><code>g</code></td><td><code>g</code></td><td><code>g</code></td></tr>
+<tr><td></td><td><code>-</code></td><td><code>-</code></td></tr>
+</table>
+
+<p>The specification <code>[f(+,-), f(-,+)]</code> is different from
+<code>[f(+,+)]</code>.  The first specifies that two indices are to be made
+whereas the second specifies that only one index is to be made on both
+arguments of the term.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Predicates.html#Predicates" accesskey="n" rel="next">Next</a>
+<li><a href="Berkeley-DB.html#Berkeley-DB" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dbdb.html#lib_002dbdb" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-DB_002dSpec-Informal-Description.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-DB_002dSpec-Informal-Description.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

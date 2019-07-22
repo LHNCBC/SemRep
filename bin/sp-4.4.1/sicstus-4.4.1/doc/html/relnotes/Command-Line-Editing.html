@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: Command Line Editing</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: Command Line Editing">
+<meta name="keywords" content="SICStus Prolog Release Notes: Command Line Editing">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Release-Notes-and-Installation-Guide-for-Windows.html#Release-Notes-and-Installation-Guide-for-Windows" rel="up" title="Release Notes and Installation Guide for Windows">
+<link href="The-Console-Window.html#The-Console-Window" rel="next" title="The Console Window">
+<link href="Windows-Notes.html#Windows-Notes" rel="prev" title="Windows Notes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Command-Line-Editing"></a>
+<hr>
+<a name="Command-Line-Editing-1"></a>
+<h3 class="section">4.4 Command Line Editing</h3>
+
+<p>Command line editing supporting Emacs-like commands and IBM&nbsp;PC<!-- /@w --> arrow keys
+is provided in the
+windowed executable (<code>spwin.exe</code>).
+The following commands
+are available:
+</p>
+<dl compact="compact">
+<dt><kbd>^h</kbd></dt>
+<dd><p>erase previous char
+</p>
+</dd>
+<dt><kbd>^d</kbd></dt>
+<dd><p>erase next char
+</p>
+</dd>
+<dt><kbd>^u</kbd></dt>
+<dd><p>kill line
+</p>
+</dd>
+<dt><kbd>^f</kbd></dt>
+<dd><p>forward char
+</p>
+</dd>
+<dt><kbd>^b</kbd></dt>
+<dd><p>backward char
+</p>
+</dd>
+<dt><kbd>^a</kbd></dt>
+<dd><p>begin of line
+</p>
+</dd>
+<dt><kbd>^e</kbd></dt>
+<dd><p>end of line
+</p>
+</dd>
+<dt><kbd>^p</kbd></dt>
+<dd><p>previous line
+</p>
+</dd>
+<dt><kbd>^n</kbd></dt>
+<dd><p>next line
+</p>
+</dd>
+<dt><kbd>^i</kbd></dt>
+<dd><p>insert space
+</p>
+</dd>
+<dt><kbd>^s</kbd></dt>
+<dd><p>forward search
+</p>
+</dd>
+<dt><kbd>^r</kbd></dt>
+<dd><p>reverse search
+</p>
+</dd>
+<dt><kbd>^v</kbd></dt>
+<dd><p>view history
+</p>
+</dd>
+<dt><kbd>^q</kbd></dt>
+<dd><p>input next char blindly
+</p>
+</dd>
+<dt><kbd>^k</kbd></dt>
+<dd><p>kill to end of line
+</p></dd>
+</dl>
+
+<p>Options may be specified in the file <samp>~/spcmd4.ini</samp> as:
+</p>
+<div class="example">
+<pre class="example"><var>Option</var> <var>Value</var>
+</pre></div>
+
+<p>on separate lines.  Recognized options are:
+</p>
+<dl compact="compact">
+<dt><code>lines</code></dt>
+<dd><p><var>Value</var> is the number of lines in the history buffer. 1-100 is
+accepted; the default is 25.
+</p>
+</dd>
+<dt><code>save</code></dt>
+<dd><p><var>Value</var> is either 0 (do not save or restore history buffer)
+or 1 (save history buffer in <samp>~/spcmd4.hst</samp> on exit, restore
+history from the same file on start-up).
+</p></dd>
+</dl>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="The-Console-Window.html#The-Console-Window" accesskey="n" rel="next">Next</a>
+<li><a href="Windows-Notes.html#Windows-Notes" accesskey="p" rel="prev">Previous</a>
+<li><a href="Release-Notes-and-Installation-Guide-for-Windows.html#Release-Notes-and-Installation-Guide-for-Windows" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Command-Line-Editing.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Command-Line-Editing.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

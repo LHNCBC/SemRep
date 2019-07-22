@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.3.3 New Features</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.3.3 New Features">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.3.3 New Features">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e3_002e3-Changes.html#g_t4_002e3_002e3-Changes" rel="up" title="4.3.3 Changes">
+<link href="4_002e3_002e3-Other-Changes.html#g_t4_002e3_002e3-Other-Changes" rel="next" title="4.3.3 Other Changes">
+<link href="4_002e3_002e3-Changes.html#g_t4_002e3_002e3-Changes" rel="prev" title="4.3.3 Changes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e3_002e3-New-Features"></a>
+<hr>
+<a name="New-Features-16"></a>
+<h4 class="subsection">14.23.1 New Features</h4>
+
+<ul>
+<li> Execution profiles now include internal predicates, which reside in the
+<code>prolog</code> module. They can account for a significant part of the
+execution profile, and were hidden previously.
+</li><li> <code>library(ugraphs)</code>: <code>transitive_reduction/2</code>, <code>max_cliques/2</code> are new.
+</li><li> <code>library(types)</code>: new type <code>boolean</code>, similar to <code>oneof([true,false])</code>.
+</li><li> <code>library(types)</code>: The type <code>oneof(X,L)</code> now requires that
+<code>X</code> is ground and it no longer binds variables in <code>L</code>. This
+makes it useful in some new cases, e.g. for &ldquo;matching&rdquo; compound
+structures, e.g. <code>must_be(X, list(oneof([foo(_),bar(_,_)])))</code> can
+now be used to verify that <code>X</code> is a (ground) compound term with
+functor <code>foo/1</code> or <code>bar/2</code>.
+
+<p>Previously <code>oneof(X,L)</code> only worked correctly when <code>L</code> was a
+list of atomic terms, and for such usage the behavior is unchanged.
+</p>
+</li><li> ZINC: upgraded to and compatible with MiniZinc 2.0.
+</li><li> CLPFD: more filtering in <code>circuit/1</code>.
+</li></ul>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e3_002e3-Other-Changes.html#g_t4_002e3_002e3-Other-Changes" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e3_002e3-Changes.html#g_t4_002e3_002e3-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e3_002e3-New-Features.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e3_002e3-New-Features.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

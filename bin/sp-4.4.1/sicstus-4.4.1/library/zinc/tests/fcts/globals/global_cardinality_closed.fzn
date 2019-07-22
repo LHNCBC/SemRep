@@ -1,0 +1,9 @@
+array[1 .. 4] of var 1 .. 5: a :: output_array([1..4]);
+
+array[1 .. 4] of int: cover = [1, 2, 3, 4];
+
+array[1 .. 4] of var 0 .. 1: counts :: output_array([1..4]);
+
+constraint global_cardinality_sicstus(a, cover, counts, 1);
+
+solve satisfy;

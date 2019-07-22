@@ -1,0 +1,234 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_set_memalloc_hooks</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_set_memalloc_hooks">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_set_memalloc_hooks">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook.html#cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook" rel="next" title="cpg-ref-SP_set_user_stream_hook">
+<link href="cpg_002dref_002dSP_005fset_005fcurrent_005fdir.html#cpg_002dref_002dSP_005fset_005fcurrent_005fdir" rel="prev" title="cpg-ref-SP_set_current_dir">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks"></a>
+<hr>
+<a name="SP_005fset_005fmemalloc_005fhooks_0028_0029---preinit"></a>
+<h4 class="subsection">12.3.93 <code>SP_set_memalloc_hooks()</code> &nbsp;<!-- /@w --> <i>preinit</i></h4>
+<a name="index-SP_005fset_005fmemalloc_005fhooks_0028_0029-_0028C-function_0029"></a>
+
+<a name="Synopsis-373"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+typedef int
+SP_InitAllocHook(size_t alignment,
+                 void *cookie);
+typedef void
+SP_DeinitAllocHook(void *cookie);
+typedef void *
+SP_AllocHook(size_t size,
+	     size_t *actual_sizep,
+	     void *cookie);
+typedef int
+SP_FreeHook(void *ptr,
+	    size_t size,
+	    int force,
+	    void *cookie);
+int
+SP_set_memalloc_hooks(int hint,
+		      SP_InitAllocHook *init_alloc_hook,
+		      SP_DeinitAllocHook *deinit_alloc_hook,
+		      SP_AllocHook *alloc_hook,
+		      SP_FreeHook *free_hook,
+		      void *cookie);
+</pre></div>
+
+<p>Defines the Prolog memory manager&rsquo;s bottom layer.
+Must be called <em>before</em> <code>SP_initialize()</code>.
+</p>
+<a name="index-SP_005fInitAllocHook_0028_0029-_0028C-type_0029"></a>
+<a name="index-SP_005fDeinitAllocHook_0028_0029-_0028C-type_0029"></a>
+<a name="index-SP_005fAllocHook_0028_0029-_0028C-type_0029"></a>
+<a name="index-SP_005fFreeHook_0028_0029-_0028C-type_0029"></a>
+
+<a name="Arguments-342"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>hint</var></dt>
+<dd><p>One of
+</p><dl compact="compact">
+<dt><code>0</code> (zero)</dt>
+<dd><p>This is the usual case and the other arguments are interpreted as described below.
+</p>
+</dd>
+<dt><code>SP_SET_MEMALLOC_HOOKS_HINT_USE_MALLOC</code></dt>
+<dd>
+<p>The SICStus memory manager will by bypassed and instead the C library
+<code>malloc()</code> et al. will be used for all allocations. This is
+useful, e.g. in combination with tools like <code>valgrind</code>.
+</p>
+<p>In this case all the other arguments must be <code>NULL</code>.
+</p>
+<p>When this option is used some memory statistics, e.g.
+<code>statistics/[0,2]</code>, may be unavailable or misleading.
+</p>
+<p>On some systems, <code>SP_SET_MEMALLOC_HOOKS_HINT_USE_MALLOC</code> will be
+used automatically when the SICStus runtime detects that it is being
+run within <code>valgrind</code> (<a href="http://www.valgrind.org/">http://www.valgrind.org/</a>). This
+behavior can be disabled by explicitly setting the system property (or environment
+variable) <code>SP_USE_MALLOC</code> to <code>no</code>
+(see <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>). This feature is
+currently (4.0.8) available on x86 and x86_64 Linux.
+</p>
+<p><strong>Please note</strong>: SICStus can only use <code>malloc()</code> on
+platforms where it is guaranteed to return sufficiently aligned memory
+(<code>2 * sizeof(void*)</code>). This is true at least on Linux, Mac OS X
+and Windows (on Windows <code>_aligned_malloc()</code> is used instead of
+<code>malloc()</code>). On platforms where alignment cannot be ensured
+SICStus will not be able to allocate memory and initialization will
+fail if <code>SP_SET_MEMALLOC_HOOKS_HINT_USE_MALLOC</code> is used.
+</p>
+<p><strong>Please note</strong>: When
+<code>SP_SET_MEMALLOC_HOOKS_HINT_USE_MALLOC</code> is used
+<code>SP_deinitialize()</code> may not be able to reclaim all memory. This
+is mainly a problem when SICstus is embedded into some other
+application that continues to run after calling
+<code>SP_deinitialize()</code>. This limitations also means that leak
+detecton tools like <code>valgrind</code> will report large amounts of
+leaked memory.
+</p>
+<p>Since 4.0.5.
+</p></dd>
+</dl>
+
+</dd>
+<dt><var>init_alloc_hook</var></dt>
+<dd><p>is called initially.  <code>alignment</code> is guaranteed to be a power of 2,
+and is used by <code>alloc_hook</code>.  <code>earliest_start</code> (inclusive) and
+<code>latest_end</code> (exclusive) are the bounds within which
+address-constrained memory blocks must fit. Both are aligned according
+to <code>alignment</code> and non-zero. The function can do whatever
+initialization that this layer of memory management wants to do. It
+should return non-zero if it succeeds, zero if the memory manager bottom
+layer could not be initialized, in which case initialization of the
+SICStus runtime will fail.
+</p>
+</dd>
+<dt><var>deinit_alloc_hook</var></dt>
+<dd><p>is called by <code>SP_deinitialize()</code> when the Prolog engine shuts down.
+The function can do any necessary cleaning up.
+</p>
+</dd>
+<dt><var>alloc_hook</var></dt>
+<dd><p>must allocate and return a pointer to a piece of memory that contains at
+least <code>size</code> bytes aligned at a multiple of <code>alignment</code>.  The
+actual size of the piece of memory should be returned in
+<code>*actual_sizep</code>.  Should return <code>NULL</code> if it
+cannot allocate a suitable piece of memory. Note that the memory
+returned need not be aligned as long as there is room for an aligned
+block of at least <code>size</code> bytes.
+</p>
+</dd>
+<dt><var>free_hook</var></dt>
+<dd><p>is called with a pointer to a piece of memory to be freed and its size
+as returned by <code>alloc_hook</code>.  If <code>force</code> is non-zero,
+<code>free_hook</code> must accept the piece of memory; otherwise, it only
+accepts it if it is able to return it to the operating system.
+<code>free_hook</code> should return non-zero iff it accepts the piece of
+memory.  Otherwise, the upper layer will keep using the memory as if
+it were not freed.
+</p>
+</dd>
+<dt><var>cookie</var></dt>
+<dd><p>can be used for any state needed by the memory hook functions. The
+value passed to <code>SP_set_memalloc_hooks()</code> is passed to each
+hook function. One possible use is to keep track of multiple
+SICStus runtimes within the same process.
+</p></dd>
+</dl>
+
+<a name="Return-Value-87"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>Non-zero on success, Zero on error, e.g. if called after
+<code>SP_initialize()</code>.
+</p>
+<a name="Description-220"></a>
+<h4 class="subheading">Description</h4>
+
+<p>The default bottom layers look at the system properties
+<code>PROLOGINITSIZE</code>, <code>PROLOGINCSIZE</code>, <code>PROLOGKEEPSIZE</code> and
+<code>PROLOGMAXSIZE</code>.  They are useful for customizing the default
+memory manager.  If you redefine the bottom layer, you can choose to
+ignore these system properties.
+</p>
+<a name="See-Also-370"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Initializing-the-Prolog-Engine.html#Initializing-the-Prolog-Engine">Initializing the Prolog Engine</a>.
+<a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook.html#cpg_002dref_002dSP_005fset_005fuser_005fstream_005fhook" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005fset_005fcurrent_005fdir.html#cpg_002dref_002dSP_005fset_005fcurrent_005fdir" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

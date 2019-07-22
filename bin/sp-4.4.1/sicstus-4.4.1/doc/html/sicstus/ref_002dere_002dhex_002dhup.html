@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-ere-hex-hup</title>
+
+<meta name="description" content="SICStus Prolog: ref-ere-hex-hup">
+<meta name="keywords" content="SICStus Prolog: ref-ere-hex-hup">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dere_002dhex.html#ref_002dere_002dhex" rel="up" title="ref-ere-hex">
+<link href="ref_002dere_002derr.html#ref_002dere_002derr" rel="next" title="ref-ere-err">
+<link href="ref_002dere_002dhex_002dpgo.html#ref_002dere_002dhex_002dpgo" rel="prev" title="ref-ere-hex-pgo">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dere_002dhex_002dhup"></a>
+<hr>
+<a name="Handling-Unknown-Predicates"></a>
+<h4 class="subsubsection">4.15.3.2 Handling Unknown Predicates</h4>
+
+
+<a name="index-unknown_005fpredicate_005fhandler_002f3-_0028user_002c-hook_0029-3"></a>
+<a name="index-unknown_005fpredicate_005fhandler_002f3-_0028user_002c-hook_0029-1"></a>
+
+
+<a name="index-user_003aunknown_005fpredicate_005fhandler_002f3-_0028hook_0029-3"></a>
+<a name="index-user_003aunknown_005fpredicate_005fhandler_002f3-_0028hook_0029-1"></a>
+
+
+<a name="index-exceptions_002c-global-handler"></a>
+<a name="index-global-exception-handler"></a>
+
+<p>Users can write a handler for the specific exception occurring when an
+undefined predicate is called by defining clauses for the hook
+predicate <code>user:unknown_predicate_handler/3</code>.  This can be thought of as
+a &ldquo;global&rdquo; exception handler for this particular exception, because
+unlike <code>catch/3</code>, its effect is not limited to a particular
+goal.  Furthermore, the exception is handled at the point where the
+undefined predicate is called.  
+</p>
+<p>The handler can be written to apply to all unknown predicates, or to
+a class of them.  The reference page contains an example of
+constraining the handler to certain predicates.
+</p>
+<p>If <code>call(<var>Module:Goal</var>)</code> is the trapped call to the undefined
+predicate, then the hook is called as:
+</p>
+<dl compact="compact">
+<dt><code>user:unknown_predicate_handler(<var>+Goal</var>, <var>+Module</var>, <var>-NewGoal</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+</dl>
+
+<p>If this succeeds, then Prolog replaces the call to the undefined
+predicate with the call to <var>Module:NewGoal</var>. Otherwise, the action
+taken is governed by the <code>unknown</code> Prolog flag
+(see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>), the allowed values of which are:
+</p>
+<a name="index-unknown-_0028prolog-flag_0029-2"></a>
+<dl compact="compact">
+<dt><code>trace</code></dt>
+<dd><a name="index-trace-_0028unknown-flag-value_0029-1"></a>
+<p>Causes calls to undefined predicates to be reported and the
+debugger to be entered at the earliest opportunity.  Not available in
+runtime systems.
+</p>
+</dd>
+<dt><code>error &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-error-_0028unknown-flag-value_0029-1"></a>
+<p>Causes calls to such predicates to raise an exception (the
+default).
+</p>
+</dd>
+<dt><code>warning &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-warning-_0028unknown-flag-value_0029-1"></a>
+<p>Causes calls to such predicates to display a warning message
+and then fail.
+</p>
+</dd>
+<dt><code>fail &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><a name="index-fail-_0028unknown-flag-value_0029-1"></a>
+<p>Causes calls to such predicates to fail.
+</p></dd>
+</dl>
+
+<p>Finally, this flag can be accessed by the built-in predicate:
+</p>
+
+<a name="index-unknown_002f2-_0028built_002din_0029-3"></a>
+<a name="index-unknown_002f2-_0028built_002din_0029-1"></a>
+
+<dl compact="compact">
+<dt><code>unknown(<var>?OldValue</var>, <var>?NewValue</var>) &nbsp;<!-- /@w --> <i>development</i></code></dt>
+</dl>
+
+<p>This unifies <var>OldValue</var> with the current value, sets the flag to
+<var>NewValue</var>, and prints a message about the new value.
+See <a href="mpg_002dref_002dunknown_005fpredicate_005fhandler.html#mpg_002dref_002dunknown_005fpredicate_005fhandler">mpg-ref-unknown_predicate_handler</a>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dere_002dhex_002dpgo.html#ref_002dere_002dhex_002dpgo" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dere_002dhex.html#ref_002dere_002dhex" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002dhex_002dhup.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002dhex_002dhup.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

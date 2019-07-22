@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FDBG Concepts</title>
+
+<meta name="description" content="SICStus Prolog: FDBG Concepts">
+<meta name="keywords" content="SICStus Prolog: FDBG Concepts">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dfdbg.html#lib_002dfdbg" rel="up" title="lib-fdbg">
+<link href="FDBG-Events.html#FDBG-Events" rel="next" title="FDBG Events">
+<link href="FDBG-Introduction.html#FDBG-Introduction" rel="prev" title="FDBG Introduction">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FDBG-Concepts"></a>
+<hr>
+<a name="Concepts"></a>
+<h4 class="subsection">10.15.2 Concepts</h4>
+<a name="index-FDBG-concepts"></a>
+<a name="index-concepts_002c-FDBG"></a>
+
+<p>In this section, several concepts and terms are defined.  These terms
+will later be heavily used in the documentation; therefore, it is
+important that you understand them well.
+</p>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="FDBG-Events.html#FDBG-Events" accesskey="1">FDBG Events</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Events
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FDBG-Labeling-Levels.html#FDBG-Labeling-Levels" accesskey="2">FDBG Labeling Levels</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Labeling Levels
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FDBG-Visualizers.html#FDBG-Visualizers" accesskey="3">FDBG Visualizers</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Visualizers
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FDBG-Names-of-Terms.html#FDBG-Names-of-Terms" accesskey="4">FDBG Names of Terms</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Names of Terms
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FDBG-Selectors.html#FDBG-Selectors" accesskey="5">FDBG Selectors</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Selectors
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FDBG-Name-Auto_002dGeneration.html#FDBG-Name-Auto_002dGeneration" accesskey="6">FDBG Name Auto-Generation</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Name Auto-Generation
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FDBG-Legend.html#FDBG-Legend" accesskey="7">FDBG Legend</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Legend
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="FDBG-The-fdbg_005foutput-Stream.html#FDBG-The-fdbg_005foutput-Stream" accesskey="8">FDBG The fdbg_output Stream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The <code>fdbg_output</code> Stream
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FDBG-Basics.html#FDBG-Basics" accesskey="n" rel="next">Next</a>
+<li><a href="FDBG-Introduction.html#FDBG-Introduction" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dfdbg.html#lib_002dfdbg" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Concepts.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Concepts.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

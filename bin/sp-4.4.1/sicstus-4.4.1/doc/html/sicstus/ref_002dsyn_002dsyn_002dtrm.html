@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-syn-syn-trm</title>
+
+<meta name="description" content="SICStus Prolog: ref-syn-syn-trm">
+<meta name="keywords" content="SICStus Prolog: ref-syn-syn-trm">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" rel="up" title="ref-syn-syn">
+<link href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok" rel="next" title="ref-syn-syn-tok">
+<link href="ref_002dsyn_002dsyn_002dsen.html#ref_002dsyn_002dsyn_002dsen" rel="prev" title="ref-syn-syn-sen">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsyn_002dsyn_002dtrm"></a>
+<hr>
+<a name="Syntax-of-Terms-as-Tokens"></a>
+<h4 class="subsubsection">4.1.7.4 Syntax of Terms as Tokens</h4>
+
+<a name="index-syntax_002c-of-terms-as-tokens"></a>
+
+<table>
+<tr><td width="20%"><var>term-read-in</var></td><td width="40%">::= <var>subterm(1200)</var> <var>full-stop</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>subterm(N)</var></td><td width="40%">::= <var>term(M)</var></td><td width="40%"><span class="roman">{ where <var>M</var> is less than or equal to <var>N</var> }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>term(N)</var></td><td width="40%">::= <var>op(N,fx)</var> <var>subterm(N-1)</var></td><td width="40%"><span class="roman">{ except in the case of a <var>number</var> if <var>subterm</var> starts with a &lsquo;<samp>(</samp>&rsquo;, <var>op</var> must be followed by <var>whitespace-text</var> }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>op(N,fy)</var> <var>subterm(N)</var></td><td width="40%"><span class="roman">{ if <var>subterm</var> starts with a &lsquo;<samp>(</samp>&rsquo;, <var>op</var> must be followed by <var>whitespace-text</var> }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>subterm(N-1)</var> <var>op(N,xfx)</var> <var>subterm(N-1)</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>subterm(N-1)</var> <var>op(N,xfy)</var> <var>subterm(N)</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>subterm(N)</var> <var>op(N,yfx)</var> <var>subterm(N-1)</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>subterm(N-1)</var> <var>op(N,xf)</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>subterm(N)</var> <var>op(N,yf)</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>term(1100)</var></td><td width="40%">::= <var>subterm(1099)</var> <code>|</code> <var>subterm(1100)</var></td><td width="40%"><span class="roman">{ term with functor <code>;/2</code> unless <code>|</code> is declared infix }</span></td></tr>
+<tr><td width="20%"><var>term(1000)</var></td><td width="40%">::= <var>subterm(999)</var> <code>,</code> <var>subterm(1000)</var></td><td width="40%"><span class="roman">{ term with functor <code>','/2</code> }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>term(0)</var></td><td width="40%">::= <var>functor</var> <code>(</code> <var>arguments</var> <code>)</code></td><td width="40%"><span class="roman">{ provided there is no <var>whitespace-text</var> between the <var>functor</var> and the &lsquo;<samp>(</samp>&rsquo; }</span></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <code>(</code> <var>subterm(1200)</var> <code>)</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <code>{</code> <var>subterm(1200)</var> <code>}</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>list</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>string</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>constant</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>variable</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>op(N,T)</var></td><td width="40%">::= <var>name</var></td><td width="40%"><span class="roman">{ where <var>name</var> has been declared as an operator of type <var>T</var> and precedence <var>N</var> }</span></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>arguments</var></td><td width="40%">::= <var>subterm(999)</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>subterm(999)</var> <code>,</code> <var>arguments</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>list</var></td><td width="40%">::= <code>[]</code></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <code>[</code> <var>listexpr</var> <code>]</code></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>listexpr</var></td><td width="40%">::= <var>subterm(999)</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>subterm(999)</var> <code>,</code> <var>listexpr</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>subterm(999)</var> <code>|</code> <var>subterm(999)</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>constant</var></td><td width="40%">::= <var>atom</var> | <var>number</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>number</var></td><td width="40%">::= <var>unsigned-number</var></td></tr>
+<tr><td width="20%"></td><td width="40%">|  <var>sign</var> <var>unsigned-number</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>unsigned-number</var></td><td width="40%">::= <var>natural-number</var> | <var>unsigned-float</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>atom</var></td><td width="40%">::= <var>name</var></td></tr>
+<tr><td width="20%"></td></tr>
+<tr><td width="20%"><var>functor</var></td><td width="40%">::= <var>name</var></td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsyn_002dsyn_002dtok.html#ref_002dsyn_002dsyn_002dtok" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsyn_002dsyn_002dsen.html#ref_002dsyn_002dsyn_002dsen" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsyn_002dsyn.html#ref_002dsyn_002dsyn" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dsyn_002dtrm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dsyn_002dtrm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

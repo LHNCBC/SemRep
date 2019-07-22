@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-abolish</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-abolish">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-abolish">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dabort.html#mpg_002dref_002dabort" rel="next" title="mpg-ref-abort">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="prev" title="mpg-bpr">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dabolish"></a>
+<hr>
+<a name="abolish_002f_005b1_002c2_005d---ISO"></a>
+<h4 class="subsection">11.3.1 <code>abolish/[1,2]</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-abolish_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-abolish_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-26"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>abolish(<var>+Predicates</var>)</code>
+</p>
+<p><code>abolish(<var>+Predicates</var>, <var>+Options</var>)</code>
+</p>
+<p>Removes procedures from the Prolog database.
+</p>
+<a name="Arguments-24"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:Predicates</var></dt>
+<dd><p><em>pred_spec</em> or <em>pred_spec_tree</em>
+</p>
+<p>A predicate specification, or a list of such.
+</p>
+<p>Note that the default is to only allow a single predicate
+specification, see <code>tree/1</code> option below.
+</p>
+</dd>
+<dt><var>Options</var></dt>
+<dd><p><em>list of term</em>, must be ground
+</p>
+<p>A list of zero or more of the following:
+</p>
+<dl compact="compact">
+<dd><a name="index-force_002f1-_0028abolish_002f2-option_0029"></a>
+</dd>
+<dt><code>force(<var>Boolean</var>)</code></dt>
+<dd><p>Specifies whether SICStus Prolog is to abolish the predicate
+even if it is static (<code>true</code>), or only if it is dynamic
+(<code>false</code>). The latter is the default. 
+</p>
+<a name="index-tree_002f1-_0028abolish_002f2-option_0029"></a>
+</dd>
+<dt><code>tree(<var>Boolean</var>)</code></dt>
+<dd><p>Specifies whether the first argument should be a <em>pred_spec_tree</em>
+(<code>true</code>), or a <em>pred_spec</em> (<code>false</code>). The latter is the
+default.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<a name="Description-25"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Removes all procedures specified.
+After this command is executed the current program functions as if
+the named procedures had never existed.  That is, in addition to removing all
+the clauses for each specified procedure, <code>abolish/[1,2]</code> removes any properties
+that the procedure might have had, such as being dynamic or multifile.
+You cannot abolish built-in procedures.
+</p>
+<a name="index-procedures_002c-removing-properties"></a>
+
+<p>It is important to note that <code>retract/1</code>, <code>retractall/1</code>,
+and <code>erase/1</code> only remove clauses, and only of dynamic
+procedures. They don&rsquo;t remove the procedures themselves or their
+properties properties (such as being dynamic or multifile).
+<code>abolish/[1,2]</code>, on the other hand, remove entire procedures
+along with any clauses and properties.
+</p>
+<p>The procedures that are abolished do not become invisible to a currently
+running procedure.  
+</p>
+<a name="index-memory_002c-reclamation"></a>
+<a name="index-space_002c-reclamation"></a>
+<a name="index-garbage-collection-3"></a>
+
+<p>Space occupied by abolished procedures is reclaimed.  The space occupied
+by the procedures is reclaimed.
+</p>
+<p>Procedures must be defined in the source module before they can be
+abolished.  An attempt to abolish a procedure that is imported into
+the source module will cause a permission error.  Using a module
+prefix, &lsquo;<samp>M:</samp>&rsquo;, procedures in any module may be abolished.
+</p>
+<p>Abolishing a foreign procedure destroys only the link between that 
+Prolog procedure and the associated
+foreign code.  The foreign code that was
+loaded remains in memory.  This is necessary because Prolog cannot
+tell which subsequently-loaded foreign files may have links to the
+foreign code.  The Prolog part of the foreign procedure is
+destroyed and reclaimed.
+</p>
+<p>Specifying an undefined procedure is not an error.
+</p>
+<a name="Exceptions-17"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p>if one of the arguments is not instantiated enough.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Predicates</var> is not a valid tree of predicate specifications,
+or a <var>Name</var> is not an atom or an <var>Arity</var> not an integer.   
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p>if an <var>Arity</var> is specified as an integer outside the range 0-255.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>if a specified procedure is built-in, or imported into the source module,
+or static when <code>force(true)</code> is not in effect.
+</p></dd>
+</dl>
+
+<a name="Examples-10"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">| ?- <kbd>[user].</kbd>
+% compiling user...
+| <kbd>foo(1,2).</kbd>
+| <kbd>^D</kbd>
+% compiled user in module user, 10 msec -80 bytes
+yes
+| ?- <kbd>abolish(foo).</kbd>
+! Type error in argument 1 of abolish/1
+! expected pred_spec, but found foo
+! goal:  abolish(user:foo)
+| ?- <kbd>abolish(foo,[tree(true)]).</kbd>
+! Permission error: cannot abolish static user:foo/2
+! goal:  abolish(user:foo,[tree(true)])
+| ?- <kbd>abolish(foo/2).</kbd>
+! Permission error: cannot abolish static user:foo/2
+! goal:  abolish(user:foo/2)
+| ?- <kbd>abolish(foo/2,[force(true)]).</kbd>
+yes
+% source_info
+</pre></div>
+
+<a name="Comments"></a>
+<h4 class="subheading">Comments</h4>
+
+<p><code>abolish/1</code> is part of the ISO Prolog standard; <code>abolish/2</code> is not.
+</p>
+<a name="See-Also-23"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>dynamic/1</code>,
+<code>erase/1</code>,
+<code>retract/1</code>,
+<code>retractall/1</code>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dabort.html#mpg_002dref_002dabort" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dexists.html#mpg_002dref_002dexists" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dabolish.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dabolish.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

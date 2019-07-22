@@ -1,0 +1,107 @@
+#!/bin/ksh
+
+PROGRAM=-`basename $0`
+USAGE="Usage: $PROGRAM [ -s | -b ] [ -w DESTINATION ]"
+
+export NLS=/nfsvol/nls
+export PATH=/bin:$PATH
+export PATH=$NLS/bin:$PATH
+export PATH=$NLS/tools/gnu/bin:$PATH
+export PATH=$NLS/tools/git/bin:$PATH
+
+export GNU_DIR=$NLS/tools/gnu
+export LD_LIBRARY_PATH=$GNU_DIR/lib:$NLS/lib:$LD_LIBRARY_PATH
+
+DESTINATION=.
+SLEEP=0
+WAIT=5
+GITBIN=$NLS/tools/git/bin
+SKR_REPOSITORIES=$NLS/tools/repositories/SKR
+CLONE_BIN=1
+CLONE_SRC=1
+REPOS="bin and src repositories"
+
+PATH=$NLS/tools/perl-5.8.8/bin:$PATH
+export PATH
+
+while getopts bsw: option
+do
+   case $option
+   in
+    b) CLONE_BIN=1
+       CLONE_SRC=0
+       REPOS="bin repository";;
+    s) CLONE_SRC=1
+       CLONE_BIN=0
+       REPOS="src repository";;
+    w) DESTINATION=$OPTARG;;
+    *) echo $USAGE;
+       exit 1;;
+   esac
+done
+
+shift `expr $OPTIND - 1`
+
+if [ "$*" != "" ]
+then
+   echo Unexpected command-line arguments: $*
+   echo $USAGE
+   exit 1
+fi
+
+if [ ! -d $DESTINATION ]
+then
+  echo Destination directory $DESTINATION does not exist.
+  exit 1 
+elif [ ! -w $DESTINATION ]
+then
+  echo Destination directory $DESTINATION is not writeable.
+  exit 1 
+fi
+
+cd $DESTINATION
+
+if [ "$CLONE_BIN" -eq 1 ]
+then
+  if [ -d ./bin ]
+  then
+      echo "### WARNING: $DESTINATION already contains a bin directory."
+      echo "### It will be moved to bin.SAVE.$$"
+      echo ""
+      SLEEP=$WAIT
+      mv bin bin.SAVE.$$
+  fi
+fi
+
+if [ "$CLONE_SRC" -eq 1 ]
+then
+  if [ -d ./src ]
+  then
+      echo "### WARNING: $DESTINATION already contains a src directory."
+      echo "### It will be moved to src.SAVE.$$"
+      echo ""
+      SLEEP=$WAIT
+      mv src src.SAVE.$$
+  fi
+fi
+
+echo ""
+echo About to clone the $REPOS in $DESTINATION
+echo OK, here we go...
+echo ""
+
+if [ "$CLONE_BIN" -eq 1 ]
+then
+   echo "Cloning the bin repository..."
+   $GITBIN/cg-clone $SKR_REPOSITORIES/bin.git bin
+   echo "DONE cloning the bin repository"
+   echo ""
+fi
+
+if [ "$CLONE_SRC" -eq 1 ]
+then
+   echo "Cloning the src repository..."
+   $GITBIN/cg-clone $SKR_REPOSITORIES/src.git src
+   echo "DONE cloning the src repository"
+   echo ""
+fi

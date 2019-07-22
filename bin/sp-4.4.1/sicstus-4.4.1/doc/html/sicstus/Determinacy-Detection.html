@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Determinacy Detection</title>
+
+<meta name="description" content="SICStus Prolog: Determinacy Detection">
+<meta name="keywords" content="SICStus Prolog: Determinacy Detection">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Indexing.html#Indexing" rel="up" title="Indexing">
+<link href="Last-Clause-Determinacy-Detection.html#Last-Clause-Determinacy-Detection" rel="next" title="Last Clause Determinacy Detection">
+<link href="Data-Tables.html#Data-Tables" rel="prev" title="Data Tables">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Determinacy-Detection"></a>
+<hr>
+<a name="Determinacy-Detection-1"></a>
+<h4 class="subsection">9.5.3 Determinacy Detection</h4>
+<a name="index-determinacy-detection_002c-via-indexing"></a>
+<a name="index-indexing_002c-determinacy-detection-via"></a>
+<p>The other advantage of indexing is that it often makes possible
+early detection of determinacy, even if cuts are not included in
+the program.  For example, consider the following simple
+predicate, which joins two lists together:
+</p>
+<div class="example">
+<pre class="example">concat([], L, L).
+concat([X|L1], L2, [X|L3]) :- concat(L1, L2, L3).
+</pre></div>
+
+<p>If this predicate is called with an instantiated first
+argument, then the first argument indexing of SICStus
+Prolog will recognize that the call is determinate&mdash;only one of
+the two clauses for <code>concat/3</code> can possibly apply.  Thus, the
+Prolog system knows it does not have to store backtracking
+information for the call.  This significantly reduces memory use and
+execution time.
+</p>
+<p>Determinacy detection can also reduce the number of cuts in
+predicates.  In the above example, if there was no indexing,
+then a cut would not strictly be needed in the first clause as
+long as the predicate was always to be called with the first
+argument instantiated.  If the first clause matched,
+then the second clause could not possibly match; discovery of this
+fact, however, would be postponed until backtracking.  The
+programmer might thus be tempted to use a cut in the first
+clause to signal determinacy and recover space for
+backtracking information as early as possible.
+</p>
+<p>With indexing, if the example predicate is always called
+with its first argument instantiated, then backtracking
+information is <em>never</em> stored.  This gives substantial performance
+improvements over using a cut rather than indexing to force
+determinacy.  At the same time greater flexibility is maintained: the
+predicate can now be used in a nondeterminate fashion as
+well, as in
+</p><div class="example">
+<pre class="example">| ?- <kbd>concat(L1, L2, [a,b,c,d]).</kbd>
+</pre></div>
+
+<p>which will generate on backtracking all the possible partitions of
+the list <code>[a,b,c,d]</code> on backtracking.  If a cut
+had been used in the first clause, then this would not work.
+</p>
+<p>For interpreted code, but not for compiled code, a filtering similar
+to indexing is done for <em>all</em> argument positions.  The primary
+benefit of this filtering is that it makes it possible to detect
+determinacy in more cases. This filtering is currently not using
+hashing techniques, so it is not as performant as the first argument
+indexing.
+</p>
+<p>We may improve indexing and other filtering techniques in future
+releases, which may decrease the number of choicepoints created.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Data-Tables.html#Data-Tables" accesskey="p" rel="prev">Previous</a>
+<li><a href="Indexing.html#Indexing" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Determinacy-Detection.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Determinacy-Detection.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

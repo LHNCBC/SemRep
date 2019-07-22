@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Eff Overview</title>
+
+<meta name="description" content="SICStus Prolog: Eff Overview">
+<meta name="keywords" content="SICStus Prolog: Eff Overview">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" rel="up" title="Writing Efficient Programs">
+<link href="Execution-Profiling.html#Execution-Profiling" rel="next" title="Execution Profiling">
+<link href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" rel="prev" title="Writing Efficient Programs">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Eff-Overview"></a>
+<hr>
+<a name="Overview-11"></a>
+<h3 class="section">9.1 Overview</h3>
+
+<p>This chapter gives a number of tips on how to organize your
+programs for increased efficiency.  A lot of clarity and
+efficiency is gained by sticking to a few basic rules.  This list is
+necessarily very incomplete.  The reader is referred to textbooks such
+as [O&rsquo;Keefe 90] for a thorough exposition of the elements of Prolog
+programming style and techniques.
+</p>
+<ul>
+<li> Do Not write code in the first place if there is a library
+predicate that will do the job.
+
+</li><li> Write clauses representing base case before clauses
+representing recursive cases.
+
+</li><li> Input arguments before output arguments in clause
+heads and goals.
+
+</li><li> Use pure data structures instead of database changes.
+
+</li><li> Use cuts sparingly, and <em>only</em> at proper places
+(see <a href="ref_002dsem_002dctr_002dcut.html#ref_002dsem_002dctr_002dcut">ref-sem-ctr-cut</a>).  A cut should be placed at the exact point that it
+is known that the current choice is the correct one: no sooner, no
+later.
+
+</li><li> Make cuts as local in their effect as possible.  If a
+predicate is intended to be determinate, then define <em>it</em> as
+such; do not rely on its callers to prevent unintended
+backtracking.
+
+</li><li> Binding output arguments before a cut is a common
+source of programming errors.  If a predicate is not steadfast, then it is
+usually for this reason.
+
+</li><li> Replace cuts by if-then-else constructs if the test is simple
+enough (see <a href="Conditionals-and-Disjunction.html#Conditionals-and-Disjunction">Conditionals and Disjunction</a>).
+
+</li><li> Use disjunctions sparingly, <em>always</em> put parentheses around
+them, <em>never</em> put parentheses around the individual disjuncts,
+<em>never</em> put the &lsquo;<samp>;</samp>&rsquo; at the end of a line.
+
+</li><li> Write the clauses of a predicate so that they discriminate
+on the principal functor of the first argument (see below).
+For maximum efficiency, avoid &ldquo;defaulty&rdquo; programming (&ldquo;catch-all&rdquo;
+clauses).
+
+</li><li> Do Not use lists (<code>[&hellip;]</code>), &ldquo;round lists&rdquo; (<code>(&hellip;)</code>),
+or braces (<code>{&hellip;}</code>) to represent compound terms, or
+&ldquo;tuples&rdquo;, of some fixed arity.  The name of a compound
+term comes for free.
+
+</li><li> Before trying to optimize your program for speed, use execution
+profiling to get an idea of where most of the time is being spent,
+and, more importantly, why.
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Execution-Profiling.html#Execution-Profiling" accesskey="n" rel="next">Next</a>
+<li><a href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Eff-Overview.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Eff-Overview.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

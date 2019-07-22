@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPQR Variable Ordering</title>
+
+<meta name="description" content="SICStus Prolog: CLPQR Variable Ordering">
+<meta name="keywords" content="SICStus Prolog: CLPQR Variable Ordering">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CLPQR-Projection.html#CLPQR-Projection" rel="up" title="CLPQR Projection">
+<link href="CLPQR-Turning-Answers-into-Terms.html#CLPQR-Turning-Answers-into-Terms" rel="next" title="CLPQR Turning Answers into Terms">
+<link href="CLPQR-Projection.html#CLPQR-Projection" rel="prev" title="CLPQR Projection">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPQR-Variable-Ordering"></a>
+<hr>
+<a name="Variable-Ordering"></a>
+<h4 class="subsubsection">10.11.5.1 Variable Ordering</h4>
+
+<a name="index-ordering_002f1-_0028clpqr_0029-3"></a>
+<a name="index-ordering_002f1-_0028clpqr_0029-1"></a>
+
+<p>In general, there are many ways to express the same linear relationship
+between variables. clp(Q,R) does not care to distinguish between
+them, but the user might. The predicate
+<code>ordering(<var>+Spec</var>)</code> gives you some control over the
+variable ordering. Suppose that instead of <var>B</var>, you want
+<var>Mp</var> to be the defined variable:
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>mg(P,12,0.01,B,Mp).</kbd>
+
+{B=1.1268250301319698*P-12.682503013196973*Mp}
+</pre></div>
+<p>This is achieved with:
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>mg(P,12,0.01,B,Mp), ordering([Mp]).</kbd>
+
+{Mp= -0.0788487886783417*B+0.08884878867834171*P}
+</pre></div>
+<p>One could go one step further and require <var>P</var> to appear before 
+(to the left of) <var>B</var> in an addition:
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>mg(P,12,0.01,B,Mp), ordering([Mp,P]).</kbd>
+
+{Mp=0.08884878867834171*P-0.0788487886783417*B}
+</pre></div>
+
+<p><var>Spec</var> in <code>ordering(<var>+Spec</var>)</code> is either a list of
+variables with the intended ordering, or of the form
+<code><var>A</var>&lt;<var>B</var></code>.  The latter form means that <var>A</var> goes to the
+left of <var>B</var>.  In fact, <code>ordering([A,B,C,D])</code> is shorthand for:
+</p><div class="example">
+<pre class="example">ordering(A &lt; B), ordering(A &lt; C), ordering(A &lt; D),
+ordering(B &lt; C), ordering(B &lt; D), 
+ordering(C &lt; D)
+</pre></div>
+
+<p>The ordering specification only affects the final presentation of the 
+constraints. For all other operations of clp(Q,R), the ordering is immaterial.
+Note that <code>ordering/1</code> acts like a constraint: you can put it anywhere
+in the computation, and you can submit multiple specifications.
+</p><div class="example">
+<pre class="example">clp(r) ?- <kbd>ordering(B &lt; Mp), mg(P,12,0.01,B,Mp).</kbd>
+
+{B= -12.682503013196973*Mp+1.1268250301319698*P}
+
+clp(r) ?- <kbd>ordering(B &lt; Mp), mg(P,12,0.01,B,Mp), ordering(P &lt; Mp).</kbd>
+
+{P=0.8874492252651537*B+11.255077473484631*Mp}
+</pre></div>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPQR-Turning-Answers-into-Terms.html#CLPQR-Turning-Answers-into-Terms" accesskey="n" rel="next">Next</a>
+<li><a href="CLPQR-Projection.html#CLPQR-Projection" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Variable-Ordering.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Variable-Ordering.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

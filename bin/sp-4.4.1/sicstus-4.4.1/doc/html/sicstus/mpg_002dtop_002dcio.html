@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-top-cio</title>
+
+<meta name="description" content="SICStus Prolog: mpg-top-cio">
+<meta name="keywords" content="SICStus Prolog: mpg-top-cio">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dtop.html#mpg_002dtop" rel="up" title="mpg-top">
+<link href="mpg_002dtop_002dcon.html#mpg_002dtop_002dcon" rel="next" title="mpg-top-con">
+<link href="mpg_002dtop_002dari.html#mpg_002dtop_002dari" rel="prev" title="mpg-top-ari">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dtop_002dcio"></a>
+<hr>
+<a name="Character-I_002fO"></a>
+<h4 class="subsection">11.2.3 Character I/O</h4>
+
+
+<a name="index-character-I_002fO_002c-predicates-for-1"></a>
+<a name="index-predicates-for-character-I_002fO-1"></a>
+
+<dl compact="compact">
+<dt><code>at_end_of_line</code></dt>
+<dt><code>at_end_of_line(<var>+S</var>)</code></dt>
+<dd><p>testing whether at end of line on input stream <var>S</var>
+</p>
+</dd>
+<dt><code>at_end_of_stream &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>at_end_of_stream(<var>+S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>testing whether end of file is reached for the input stream <var>S</var>
+</p>
+</dd>
+<dt><code>flush_output &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>flush_output(<var>+S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>flush the output buffer for stream <var>S</var>
+</p>
+</dd>
+<dt><code>get_byte(<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>get_byte(<var>+S</var>,<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>C</var> is the next byte on binary input stream <var>S</var>
+</p>
+</dd>
+<dt><code>get_char(<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>get_char(<var>+S</var>,<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>C</var> is the next character atom on text input stream <var>S</var>
+</p>
+</dd>
+<dt><code>get_code(<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>get_code(<var>+S</var>,<var>-C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p><var>C</var> is the next character code on text input stream <var>S</var>
+</p>
+</dd>
+<dt><code>nl&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>nl(<var>+S</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>send a newline to stream <var>S</var>
+</p>
+</dd>
+<dt><code>peek_byte(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>peek_byte(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>looks ahead for next input byte on the binary input stream <var>S</var>
+</p>
+</dd>
+<dt><code>peek_char(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>peek_char(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>looks ahead for next input character atom on the text input stream <var>S</var>
+</p>
+</dd>
+<dt><code>peek_code(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>peek_code(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>looks ahead for next input character code on the text input stream <var>S</var>
+</p>
+</dd>
+<dt><code>put_byte(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>put_byte(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write byte <var>C</var> to binary stream <var>S</var>
+</p>
+</dd>
+<dt><code>put_char(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>put_char(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write character atom <var>C</var> to text stream <var>S</var>
+</p>
+</dd>
+<dt><code>put_code(<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dt><code>put_code(<var>+S</var>,<var>+C</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>write character code <var>C</var> to text stream <var>S</var>
+</p>
+</dd>
+<dt><code>skip_byte(<var>+C</var>)</code></dt>
+<dt><code>skip_byte(<var>+S</var>,<var>+C</var>)</code></dt>
+<dd><p>skip input on binary stream <var>S</var> until after byte <var>C</var>
+</p>
+</dd>
+<dt><code>skip_char(<var>+C</var>)</code></dt>
+<dt><code>skip_char(<var>+S</var>,<var>+C</var>)</code></dt>
+<dd><p>skip input on text stream <var>S</var> until after char <var>C</var>
+</p>
+</dd>
+<dt><code>skip_code(<var>+C</var>)</code></dt>
+<dt><code>skip_code(<var>+S</var>,<var>+C</var>)</code></dt>
+<dd><p>skip input on text stream <var>S</var> until after code <var>C</var>
+</p>
+</dd>
+<dt><code>skip_line</code></dt>
+<dt><code>skip_line(<var>+S</var>)</code></dt>
+<dd><p>skip the rest input characters of the current line (record)
+on the input stream <var>S</var>
+</p>
+</dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dtop_002dcon.html#mpg_002dtop_002dcon" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dtop_002dari.html#mpg_002dtop_002dari" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dtop.html#mpg_002dtop" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dcio.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dcio.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: The Prolog Library</title>
+
+<meta name="description" content="SICStus Prolog: The Prolog Library">
+<meta name="keywords" content="SICStus Prolog: The Prolog Library">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="lib_002daggregate.html#lib_002daggregate" rel="next" title="lib-aggregate">
+<link href="Xref-Practice-and-Experience.html#Xref-Practice-and-Experience" rel="prev" title="Xref Practice and Experience">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="The-Prolog-Library"></a>
+<hr>
+<a name="The-Prolog-Library-1"></a>
+<h2 class="chapter">10 The Prolog Library</h2>
+<a name="index-library"></a>
+
+<p>The Prolog library comprises a number of packages that are thought to be
+useful in a number of applications.  Note that the predicates in the
+Prolog library are not built-in predicates.  One has to explicitly load
+each package to get access to its predicates.
+</p>
+<p>As opposed to built-in predicates, predicates exported by library
+modules generally do not check their arguments, although some do to a
+lesser or greater extent.  Input arguments that are lists are usually
+supposed to be proper lists, i.e., not end with an unbound variable.
+Input arguments that are trees are usually not supposed to have
+uninstantiated leaves, and so on.
+</p>
+<p>To load a library package <var>Package</var>, you will normally enter a
+query:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>use_module(library(<var>Package</var>)).</kbd>
+</pre></div>
+
+<p>A library package normally consists of one or more hidden
+(see <a href="ref_002dmod.html#ref_002dmod">ref-mod</a>) modules.  The following packages are provided:
+</p>
+<dl compact="compact">
+<dt><code>aggregate <span class="roman">(see <a href="lib_002daggregate.html#lib_002daggregate">lib-aggregate</a>)</span></code></dt>
+<dd><p>provides an aggregation operator for data-base-style queries.
+</p>
+</dd>
+<dt><code>assoc <span class="roman">(see <a href="lib_002dassoc.html#lib_002dassoc">lib-assoc</a>)</span></code></dt>
+<dd><p>uses unbalanced binary trees trees to implement &ldquo;association lists&rdquo;, i.e. extendible
+finite mappings from terms to terms.
+</p>
+</dd>
+<dt><code>atts <span class="roman">(see <a href="lib_002datts.html#lib_002datts">lib-atts</a>)</span></code></dt>
+<dd><p>provides a means of associating with variables arbitrary
+attributes, i.e. named properties that can be used as storage
+locations as well as hooks into Prolog&rsquo;s unification.
+</p>
+</dd>
+<dt><code>avl <span class="roman">(see <a href="lib_002davl.html#lib_002davl">lib-avl</a>)</span></code></dt>
+<dd><p>uses AVL trees to implement &ldquo;association lists&rdquo;, i.e. extendible
+finite mappings from terms to terms.
+</p>
+</dd>
+<dt><code>bags <span class="roman">(see <a href="lib_002dbags.html#lib_002dbags">lib-bags</a>)</span></code></dt>
+<dd><p>defines operations on bags, or multisets
+</p>
+</dd>
+<dt><code>bdb <span class="roman">(see <a href="lib_002dbdb.html#lib_002dbdb">lib-bdb</a>)</span></code></dt>
+<dd><p>provides an interface to Berkeley DB, for storage and retrieval of
+terms on disk files with user-defined multiple indexing.
+</p>
+</dd>
+<dt><code>between <span class="roman">(see <a href="lib_002dbetween.html#lib_002dbetween">lib-between</a>)</span></code></dt>
+<dd><p>provides some means of generating integers.
+</p>
+</dd>
+<dt><code>chr <span class="roman">(see <a href="lib_002dchr.html#lib_002dchr">lib-chr</a>)</span></code></dt>
+<dd><p>provides Constraint Handling Rules
+</p>
+</dd>
+<dt><code>clpb <span class="roman">(see <a href="lib_002dclpb.html#lib_002dclpb">lib-clpb</a>)</span> &nbsp;<!-- /@w --> <i>since release 4.0.7</i>,<i>unsupported</i></code></dt>
+<dd><p>provides constraint solving over Booleans
+</p>
+</dd>
+<dt><code>clpfd <span class="roman">(see <a href="lib_002dclpfd.html#lib_002dclpfd">lib-clpfd</a>)</span></code></dt>
+<dd><p>provides constraint solving over Finite (Integer) Domains
+</p>
+</dd>
+<dt><code>clpq <span class="roman">(see <a href="lib_002dclpqr.html#lib_002dclpqr">lib-clpqr</a>)</span> &nbsp;<!-- /@w --> <i>unsupported</i></code></dt>
+<dt><code>clpr <span class="roman">(see <a href="lib_002dclpqr.html#lib_002dclpqr">lib-clpqr</a>)</span> &nbsp;<!-- /@w --> <i>unsupported</i></code></dt>
+<dd><p>provides constraint solving over Q (Rationals) or R (Reals)
+</p>
+</dd>
+<dt><code>codesio <span class="roman">(see <a href="lib_002dcodesio.html#lib_002dcodesio">lib-codesio</a>)</span></code></dt>
+<dd><p>defines I/O predicates that read from, or write to, a code-list.
+</p>
+</dd>
+<dt><code>csv <span class="roman">(see <a href="lib_002dcsv.html#lib_002dcsv">lib-csv</a>)</span></code></dt>
+<dd><p>defines I/O predicates that read from, or write to, comma-separated values (CSV) files and strings.
+</p>
+</dd>
+<dt><code>comclient <span class="roman">(see <a href="lib_002dcomclient.html#lib_002dcomclient">lib-comclient</a>)</span></code></dt>
+<dd><p>An interface to Microsoft COM automaton objects.
+</p>
+</dd>
+<dt><code>fdbg <span class="roman">(see <a href="lib_002dfdbg.html#lib_002dfdbg">lib-fdbg</a>)</span></code></dt>
+<dd><p>provides a debugger for finite domain constraint programs
+</p>
+</dd>
+<dt><code>file_systems <span class="roman">(see <a href="lib_002dfile_005fsystems.html#lib_002dfile_005fsystems">lib-file_systems</a>)</span></code></dt>
+<dd><p>accesses files and directories.
+</p>
+</dd>
+<dt><code>gauge <span class="roman">(see <a href="lib_002dgauge.html#lib_002dgauge">lib-gauge</a>)</span></code></dt>
+<dd><p>A profiling tool for Prolog programs with a graphical
+interface based on <code>tcltk</code>.
+</p>
+</dd>
+<dt><code>heaps <span class="roman">(see <a href="lib_002dheaps.html#lib_002dheaps">lib-heaps</a>)</span></code></dt>
+<dd><p>implements binary heaps, the main application of which are priority queues.
+</p>
+</dd>
+<dt><code>jasper <span class="roman">(see <a href="lib_002djasper.html#lib_002djasper">lib-jasper</a>)</span> &nbsp;<!-- /@w --> <i>since release 4.0.3</i></code></dt>
+<dd><p>Access Prolog from Java.
+</p>
+</dd>
+<dt><code>linda/client <span class="roman">(see <a href="lib_002dlinda.html#lib_002dlinda">lib-linda</a>)</span></code></dt>
+<dt><code>linda/server <span class="roman">(see <a href="lib_002dlinda.html#lib_002dlinda">lib-linda</a>)</span></code></dt>
+<dd><p>provides an implementation of the Linda concept for process communication.
+</p>
+</dd>
+<dt><code>lists <span class="roman">(see <a href="lib_002dlists.html#lib_002dlists">lib-lists</a>)</span></code></dt>
+<dd><p>provides basic operations on lists.
+</p>
+</dd>
+<dt><code>logarr <span class="roman">(see <a href="lib_002dlogarr.html#lib_002dlogarr">lib-logarr</a>)</span></code></dt>
+<dd><p>provides an implementation of extendible arrays with logarithmic access time.
+</p>
+</dd>
+<dt><code>objects <span class="roman">(see <a href="lib_002dobjects.html#lib_002dobjects">lib-objects</a>)</span></code></dt>
+<dd><p>provides a package for object-oriented programming,
+and can be regarded as a high-level
+alternative to <code>library(structs)</code>.
+</p>
+</dd>
+<dt><code>odbc <span class="roman">(see <a href="lib_002dodbc.html#lib_002dodbc">lib-odbc</a>)</span> &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><p>provides an interface to an ODBC database driver.
+</p>
+</dd>
+<dt><code>ordsets <span class="roman">(see <a href="lib_002dordsets.html#lib_002dordsets">lib-ordsets</a>)</span></code></dt>
+<dd><p>defines operations on sets represented as lists with the elements
+ordered in Prolog standard order.
+</p>
+</dd>
+<dt><code>pillow <span class="roman">(see <a href="lib_002dpillow.html#lib_002dpillow">lib-pillow</a>)</span> &nbsp;<!-- /@w --> <i>unsupported</i></code></dt>
+<dd><p>The PiLLoW Web Programming Library,
+</p>
+</dd>
+<dt><code>plunit <span class="roman">(see <a href="lib_002dplunit.html#lib_002dplunit">lib-plunit</a>)</span> &nbsp;<!-- /@w --> <i>since release 4.1.3</i></code></dt>
+<dd><p>A Prolog unit-test framework.
+</p>
+</dd>
+<dt><code>process <span class="roman">(see <a href="lib_002dprocess.html#lib_002dprocess">lib-process</a>)</span></code></dt>
+<dd><p>provides process creation primitives.
+</p>
+</dd>
+<dt><code>prologbeans <span class="roman">(see <a href="lib_002dprologbeans.html#lib_002dprologbeans">lib-prologbeans</a>)</span></code></dt>
+<dd><p>Access Prolog from Java and .NET.
+</p>
+</dd>
+<dt><code>queues <span class="roman">(see <a href="lib_002dqueues.html#lib_002dqueues">lib-queues</a>)</span></code></dt>
+<dd><p>defines operations on queues (FIFO stores of information).
+</p>
+</dd>
+<dt><code>random <span class="roman">(see <a href="lib_002drandom.html#lib_002drandom">lib-random</a>)</span></code></dt>
+<dd><p>provides a random number generator.
+</p>
+</dd>
+<dt><code>rem <span class="roman">(see <a href="lib_002drem.html#lib_002drem">lib-rem</a>)</span></code></dt>
+<dd><p>provides Rem&rsquo;s algorithm for maintaining equivalence classes.
+</p>
+</dd>
+<dt><code>samsort <span class="roman">(see <a href="lib_002dsamsort.html#lib_002dsamsort">lib-samsort</a>)</span></code></dt>
+<dd><p>provides generic stable sorting and merging.
+</p>
+</dd>
+<dt><code>sets <span class="roman">(see <a href="lib_002dsets.html#lib_002dsets">lib-sets</a>)</span></code></dt>
+<dd><p>defines operations on sets represented as lists with the elements
+unordered.
+</p>
+</dd>
+<dt><code>sockets <span class="roman">(see <a href="lib_002dsockets.html#lib_002dsockets">lib-sockets</a>)</span></code></dt>
+<dd><p>provides an interface to sockets.
+</p>
+</dd>
+<dt><code>statistics <span class="roman">(see <a href="lib_002dstatistics.html#lib_002dstatistics">lib-statistics</a>)</span> &nbsp;<!-- /@w --> <i>since release 4.3.4</i></code></dt>
+<dd><p>provides commonly used sample and population statistics functions.
+</p>
+</dd>
+<dt><code>structs <span class="roman">(see <a href="lib_002dstructs.html#lib_002dstructs">lib-structs</a>)</span></code></dt>
+<dd><p>provides access to C data structures, and can be regarded as a low-level
+alternative to <code>library(objects)</code>.
+</p>
+</dd>
+<dt><code>system <span class="roman">(see <a href="lib_002dsystem.html#lib_002dsystem">lib-system</a>)</span></code></dt>
+<dd><p>provides access to operating system services.
+</p>
+</dd>
+<dt><code>tcltk <span class="roman">(see <a href="lib_002dtcltk.html#lib_002dtcltk">lib-tcltk</a>)</span></code></dt>
+<dd><p>An interface to the Tcl/Tk language and toolkit.
+</p>
+</dd>
+<dt><code>terms <span class="roman">(see <a href="lib_002dterms.html#lib_002dterms">lib-terms</a>)</span></code></dt>
+<dd><p>provides a number of operations on terms.
+</p>
+</dd>
+<dt><code>timeout <span class="roman">(see <a href="lib_002dtimeout.html#lib_002dtimeout">lib-timeout</a>)</span></code></dt>
+<dd><p>Meta-call with limit on execution time.
+</p>
+</dd>
+<dt><code>trees <span class="roman">(see <a href="lib_002dtrees.html#lib_002dtrees">lib-trees</a>)</span></code></dt>
+<dd><p>uses binary trees to represent non-extendible arrays with logarithmic
+access time.  The functionality is very similar to that of
+<code>library(logarr)</code>, but <code>library(trees)</code> is slightly more
+efficient if the array does not need to be extendible.
+</p>
+</dd>
+<dt><code>types <span class="roman">(see <a href="lib_002dtypes.html#lib_002dtypes">lib-types</a>)</span></code></dt>
+<dd><p>Provides type checking.
+</p>
+</dd>
+<dt><code>ugraphs <span class="roman">(see <a href="lib_002dugraphs.html#lib_002dugraphs">lib-ugraphs</a>)</span></code></dt>
+<dd><p>Provides an implementation of directed and undirected graphs with
+unlabeled edges.
+</p>
+</dd>
+<dt><code>varnumbers <span class="roman">(see <a href="lib_002dvarnumbers.html#lib_002dvarnumbers">lib-varnumbers</a>)</span></code></dt>
+<dd><p>An inverse of <code>numbervars/3</code>.
+</p>
+</dd>
+<dt><code>wgraphs <span class="roman">(see <a href="lib_002dwgraphs.html#lib_002dwgraphs">lib-wgraphs</a>)</span></code></dt>
+<dd><p>provides an implementation of directed and undirected graphs where
+each edge has an integral weight.
+</p>
+</dd>
+<dt><code>xml <span class="roman">(see <a href="lib_002dxml.html#lib_002dxml">lib-xml</a>)</span></code></dt>
+<dd><p>provides an XML parser.
+</p>
+</dd>
+<dt><code>zinc <span class="roman">(see <a href="lib_002dzinc.html#lib_002dzinc">lib-zinc</a>)</span> &nbsp;<!-- /@w --> <i>since release 4.0.5</i></code></dt>
+<dd><p>provides an interpreter for FlatZinc programs
+</p>
+</dd>
+</dl>
+
+<p>For the purpose of migrating code from release 3, the following
+<strong>deprecated</strong> library modules are also provided. For
+documentation, please see the release 3 documentation for the
+corresponding library module with the trailing &lsquo;<samp>3</samp>&rsquo; removed from
+its name:
+</p>
+<dl compact="compact">
+<dt><code>arrays3</code></dt>
+<dt><code>assoc3</code></dt>
+<dt><code>lists3</code></dt>
+<dt><code>queues3</code></dt>
+<dt><code>random3</code></dt>
+<dt><code>system3</code></dt>
+</dl>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="lib_002daggregate.html#lib_002daggregate" accesskey="1">lib-aggregate</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(aggregate)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dassoc.html#lib_002dassoc" accesskey="2">lib-assoc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(assoc)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002datts.html#lib_002datts" accesskey="3">lib-atts</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(atts)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002davl.html#lib_002davl" accesskey="4">lib-avl</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(avl)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dbags.html#lib_002dbags" accesskey="5">lib-bags</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(bags)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dbdb.html#lib_002dbdb" accesskey="6">lib-bdb</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(bdb)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dbetween.html#lib_002dbetween" accesskey="7">lib-between</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(between)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dchr.html#lib_002dchr" accesskey="8">lib-chr</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(chr)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dclpb.html#lib_002dclpb" accesskey="9">lib-clpb</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(clpb)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dclpfd.html#lib_002dclpfd">lib-clpfd</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(clpfd)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dclpqr.html#lib_002dclpqr">lib-clpqr</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(clpq)</code>, <code>library(clpr)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dcodesio.html#lib_002dcodesio">lib-codesio</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(codesio)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dcsv.html#lib_002dcsv">lib-csv</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(csv)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dcomclient.html#lib_002dcomclient">lib-comclient</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(comclient)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dfdbg.html#lib_002dfdbg">lib-fdbg</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(fdbg)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dfile_005fsystems.html#lib_002dfile_005fsystems">lib-file_systems</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(file_systems)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dgauge.html#lib_002dgauge">lib-gauge</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(gauge)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dheaps.html#lib_002dheaps">lib-heaps</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(heaps)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002djasper.html#lib_002djasper">lib-jasper</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(jasper)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dlinda.html#lib_002dlinda">lib-linda</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library('linda/client')</code>, <code>library('linda/server')</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dlists.html#lib_002dlists">lib-lists</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(lists)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dlogarr.html#lib_002dlogarr">lib-logarr</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(logarr)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dobjects.html#lib_002dobjects">lib-objects</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(objects)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dodbc.html#lib_002dodbc">lib-odbc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(odbc)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dordsets.html#lib_002dordsets">lib-ordsets</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(ordsets)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dpillow.html#lib_002dpillow">lib-pillow</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(pillow)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dplunit.html#lib_002dplunit">lib-plunit</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(plunit)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dprocess.html#lib_002dprocess">lib-process</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(process)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dprologbeans.html#lib_002dprologbeans">lib-prologbeans</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(prologbeans)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dqueues.html#lib_002dqueues">lib-queues</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(queues)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002drandom.html#lib_002drandom">lib-random</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(random)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002drem.html#lib_002drem">lib-rem</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(rem)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dsamsort.html#lib_002dsamsort">lib-samsort</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(samsort)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dsets.html#lib_002dsets">lib-sets</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(sets)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dsockets.html#lib_002dsockets">lib-sockets</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(sockets)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dstatistics.html#lib_002dstatistics">lib-statistics</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(statistics)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dstructs.html#lib_002dstructs">lib-structs</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(structs)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dsystem.html#lib_002dsystem">lib-system</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(system)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dtcltk.html#lib_002dtcltk">lib-tcltk</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(tcltk)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dterms.html#lib_002dterms">lib-terms</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(terms)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dtimeout.html#lib_002dtimeout">lib-timeout</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(timeout)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dtrees.html#lib_002dtrees">lib-trees</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(trees)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dtypes.html#lib_002dtypes">lib-types</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(types)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dugraphs.html#lib_002dugraphs">lib-ugraphs</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(ugraphs)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dvarnumbers.html#lib_002dvarnumbers">lib-varnumbers</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(varnumbers)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dwgraphs.html#lib_002dwgraphs">lib-wgraphs</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(wgraphs)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dxml.html#lib_002dxml">lib-xml</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(xml)</code>
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="lib_002dzinc.html#lib_002dzinc">lib-zinc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top"><code>library(zinc)</code>, <code>library(zinc)</code>
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Prolog-Reference-Pages.html#Prolog-Reference-Pages" accesskey="n" rel="next">Next</a>
+<li><a href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/The-Prolog-Library.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/The-Prolog-Library.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

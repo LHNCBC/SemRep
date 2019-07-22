@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: What is Detected</title>
+
+<meta name="description" content="SICStus Prolog: What is Detected">
+<meta name="keywords" content="SICStus Prolog: What is Detected">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Determinacy-Checker.html#The-Determinacy-Checker" rel="up" title="The Determinacy Checker">
+<link href="Last-Call-Optimization.html#Last-Call-Optimization" rel="next" title="Last Call Optimization">
+<link href="Det-Options.html#Det-Options" rel="prev" title="Det Options">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="What-is-Detected"></a>
+<hr>
+<a name="What-is-Detected-1"></a>
+<h4 class="subsection">9.7.6 What is Detected</h4>
+
+<p>As mentioned earlier, it is not in general possible to find exactly
+which places in a program will lead to nondeterminacy.  The
+determinacy checker gives predicates the benefit of the doubt:
+when it is possible that a predicate will be determinate, it
+will not be reported.  The checker will only report places in your
+program that will be nondeterminate regardless of which
+arguments are bound.  Despite this, the checker catches most
+unwanted nondeterminacy in practice.
+</p>
+<p>The determinacy checker looks for the following sources of
+nondeterminacy:
+</p>
+<ul>
+<li> Multiple clauses that cannot be distinguished by the principal
+functor of the first arguments, and are not made
+determinate with an explicit cut, <code>fail/0</code>,
+<code>false/0</code>, or <code>raise_exception/1</code>.  First argument
+indexing is not considered for multifile predicates,
+because another file may have a clause for this predicate
+with the same principal functor of its first argument.
+
+</li><li> A clause with a disjunction not forced to be
+determinate by a cut, <code>fail/0</code>, <code>false/0</code>, or
+<code>raise_exception/1</code> in each arm of the disjunction but the
+last, or where the whole disjunction is followed by a cut,
+<code>fail/0</code>, <code>false/0</code>, or <code>raise_exception/1</code>.
+
+</li><li> A clause that calls something known to be nondeterminate,
+other than when it is followed by a cut, <code>fail/0</code>,
+<code>false/0</code>, or <code>raise_exception/1</code>, or where it appears in the
+condition of an if-then-else construct.  Known nondeterminate
+predicates include hooks and those declared
+nondeterminate or dynamic (since they can be modified,
+dynamic predicates are assumed to be nondeterminate),
+plus the following built-in predicates:
+
+<ul class="no-bullet">
+<li>- <code>absolute_file_name/3</code>, when the options list contains
+<code>solutions(all)</code>.
+
+</li><li>- <code>atom_concat/3</code>, when the first two arguments are
+variables not appearing earlier in the clause (including the
+clause head).
+
+</li><li>- <code>bagof/3</code>, when the second argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+</li><li>- <code>clause/[2,3]</code>.
+
+</li><li>- <code>current_op/3</code>, when any argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+</li><li>- <code>current_key/2</code>, when the second argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+</li><li>- <code>current_predicate/2</code>, when the second argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+</li><li>- <code>length/2</code>, when both arguments are variables not
+appearing earlier in the clause (including the clause
+head).
+
+</li><li>- <code>predicate_property/2</code>, when either argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+</li><li>- <code>recorded/3</code>.
+
+</li><li>- <code>repeat/0</code>.
+
+</li><li>- <code>retract/1</code>.
+
+</li><li>- <code>setof/3</code>, when the second argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+</li><li>- <code>source_file/[1,2]</code> when the last argument contains any
+variables not appearing earlier in the clause (including the
+clause head).
+
+</li><li>- <code>sub_atom/5</code>, when at least two of the second, fourth and fifth
+arguments are variables not appearing earlier in the
+clause (including the clause head).
+
+</li></ul>
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Det-Options.html#Det-Options" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Determinacy-Checker.html#The-Determinacy-Checker" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/What-is-Detected.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/What-is-Detected.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

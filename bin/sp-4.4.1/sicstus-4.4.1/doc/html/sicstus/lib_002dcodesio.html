@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-codesio</title>
+
+<meta name="description" content="SICStus Prolog: lib-codesio">
+<meta name="keywords" content="SICStus Prolog: lib-codesio">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dcsv.html#lib_002dcsv" rel="next" title="lib-csv">
+<link href="CLPQR-Bugs.html#CLPQR-Bugs" rel="prev" title="CLPQR Bugs">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dcodesio"></a>
+<hr>
+<a name="I_002fO-on-Lists-of-Character-Codes_002d_002d_002dlibrary_0028codesio_0029"></a>
+<h3 class="section">10.12 I/O on Lists of Character Codes&mdash;<code>library(codesio)</code></h3>
+<p>This package defines I/O predicates that read from, or write to, a
+code-list.  There are also predicates to open a stream
+referring to a code-list.  The stream may be used with
+general Stream I/O predicates.
+</p>
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>format_to_codes(<var>+Format</var>, <var>:Arguments</var>, <var>-Codes</var>)</code></dt>
+<dt><code>format_to_codes(<var>+Format</var>, <var>:Arguments</var>, <var>?S0</var>, <var>?S</var>)</code></dt>
+<dd>
+<a name="index-format_005fto_005fcodes_002f_005b3_002c4_005d-_0028codesio_0029-1"></a>
+<a name="index-format_005fto_005fcodes_002f_005b3_002c4_005d-_0028codesio_0029"></a>
+
+<p>Prints <var>Arguments</var> into a code-list using <code>format/3</code>.  <var>Codes</var> is unified with the list,
+alternatively <var>S0</var> and <var>S</var> are unified with the list and its end, respectively.
+</p></dd>
+<dt><code>write_to_codes(<var>+Term</var>, <var>-Codes</var>)</code></dt>
+<dt><code>write_to_codes(<var>+Term</var>, <var>?S0</var>, <var>?S</var>)</code></dt>
+<dd>
+<a name="index-write_005fto_005fcodes_002f_005b2_002c3_005d-_0028codesio_0029-1"></a>
+<a name="index-write_005fto_005fcodes_002f_005b2_002c3_005d-_0028codesio_0029"></a>
+
+<p>A specialized <code>format_to_codes/[3,4]</code>. Writes <var>Term</var> into a
+code-list using <code>write/2</code>.  <var>Codes</var> is
+unified with the list.  Alternatively, <var>S0</var> and <var>S</var>
+are unified with the list and its end,
+respectively.
+</p></dd>
+<dt><code>write_term_to_codes(<var>+Term</var>, <var>-Codes</var>, <var>+Options</var>)</code></dt>
+<dt><code>write_term_to_codes(<var>+Term</var>, <var>?S0</var>, <var>?S</var>, <var>+Options</var>)</code></dt>
+<dd>
+<a name="index-write_005fterm_005fto_005fcodes_002f_005b3_002c4_005d-_0028codesio_0029-1"></a>
+<a name="index-write_005fterm_005fto_005fcodes_002f_005b3_002c4_005d-_0028codesio_0029"></a>
+
+<p>A specialized <code>format_to_codes/[3,4]</code>. Writes <var>Term</var> into a
+code-list using <code>write_term/3</code> and <var>Options</var>.  <var>Codes</var> is
+unified with the list.  Alternatively, <var>S0</var> and <var>S</var> are
+unified with the list and its end, respectively.
+</p></dd>
+<dt><code>read_from_codes(<var>+Codes</var>, <var>-Term</var>)</code></dt>
+<dd>
+<a name="index-read_005ffrom_005fcodes_002f2-_0028codesio_0029-1"></a>
+<a name="index-read_005ffrom_005fcodes_002f2-_0028codesio_0029"></a>
+
+<p>Reads <var>Term</var> from <var>Codes</var> using <code>read/2</code>.  The <var>Codes</var>
+must, as usual, be terminated by a <var>full-stop</var>, i.e. a &lsquo;<samp>.</samp>&rsquo;,
+possibly followed by <var>layout-text</var>.
+</p></dd>
+<dt><code>read_term_from_codes(<var>+Codes</var>, <var>-Term</var>, <var>+Options</var>)</code></dt>
+<dd>
+<a name="index-read_005fterm_005ffrom_005fcodes_002f3-_0028codesio_0029-1"></a>
+<a name="index-read_005fterm_005ffrom_005fcodes_002f3-_0028codesio_0029"></a>
+
+<p>Reads <var>Term</var> from <var>Codes</var> using <code>read_term/3</code> and
+<var>Options</var>.  The <var>Codes</var> must, as usual, be terminated by a
+<var>full-stop</var>, i.e. a &lsquo;<samp>.</samp>&rsquo;, possibly followed by
+<var>layout-text</var>.
+</p></dd>
+<dt><code>open_codes_stream(<var>+Codes</var>, <var>-Stream</var>)</code></dt>
+<dd>
+<a name="index-open_005fcodes_005fstream_002f2-_0028codesio_0029-1"></a>
+<a name="index-open_005fcodes_005fstream_002f2-_0028codesio_0029"></a>
+
+<p><var>Stream</var> is opened as an input stream to an existing
+code-list.  The stream may be read with the Stream I/O
+predicates and must be closed using <code>close/1</code>.  The
+list is copied to an internal buffer when the stream is
+opened and must therefore be a ground code-list at that
+point.
+</p></dd>
+<dt><code>with_output_to_codes(<var>:Goal</var>, <var>-Codes</var>)</code></dt>
+<dt><code>with_output_to_codes(<var>:Goal</var>, <var>?S0</var>, <var>?S</var>)</code></dt>
+<dt><code>with_output_to_codes(<var>:Goal</var>, <var>-Stream</var>, <var>?S0</var>, <var>?S</var>)</code></dt>
+<dd>
+<a name="index-with_005foutput_005fto_005fcodes_002f_005b2_002c3_002c4_005d-_0028codesio_0029-1"></a>
+<a name="index-with_005foutput_005fto_005fcodes_002f_005b2_002c3_002c4_005d-_0028codesio_0029"></a>
+
+<p><var>Goal</var> is called with the <code>current_output</code> stream set to
+a new stream. This stream writes to an internal buffer,
+which is, after the successful execution of <var>Goal</var>, converted to a
+list of character codes.  <var>Codes</var> is unified with the
+list, alternatively <var>S0</var> and <var>S</var> are unified with
+the list and its end, respectively.
+<code>with_output_to_codes/4</code> also passes the stream in the
+<var>Stream</var> argument. It can be used only by <var>Goal</var> for
+writing.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dcsv.html#lib_002dcsv" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dclpqr.html#lib_002dclpqr" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dcodesio.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dcodesio.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

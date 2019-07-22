@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FDBG Annotation</title>
+
+<meta name="description" content="SICStus Prolog: FDBG Annotation">
+<meta name="keywords" content="SICStus Prolog: FDBG Annotation">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="FDBG-Basics.html#FDBG-Basics" rel="up" title="FDBG Basics">
+<link href="FDBG-An-Example-Session.html#FDBG-An-Example-Session" rel="next" title="FDBG An Example Session">
+<link href="FDBG-Debugger-Commands.html#FDBG-Debugger-Commands" rel="prev" title="FDBG Debugger Commands">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FDBG-Annotation"></a>
+<hr>
+<a name="Annotating-Programs"></a>
+<h4 class="subsubsection">10.15.3.5 Annotating Programs</h4>
+
+<p>In order to use FDBG efficiently, you have to make some changes to your
+CLP(FD) program.  Fortunately the calls you have to add are not
+numerous, and when FDBG is turned off they do not decrease efficiency
+significantly or modify the behavior of your program.  On the
+other hand, they are necessary to make FDBG output easier to understand.
+</p>
+<p>Assign names to the more important and more frequently occurring
+variables by inserting <code>fdbg_assign_name/2</code> calls at the
+beginning of your program.  It is advisable to assign names to
+variables in larger batches (i.e. as lists or
+compound terms) with a single call.
+</p>
+<a name="index-labeling"></a>
+<p>Use predefined labeling predicates if possible.  If you define
+your own labeling predicates and you want to use them even in the
+debugging session, then you should follow these guidelines:
+</p>
+<ol>
+<li>
+<a name="index-fdbg_005fstart_005flabeling_002f1-_0028fdbg_0029-1"></a>
+<a name="index-fdbg_005fstart_005flabeling_002f1-_0028fdbg_0029"></a>
+
+</li><li> Add a call to <code>clpfd:fdbg_start_labeling(<var>+Var</var>)</code> at the
+beginning of the predicate doing a labeling attempt, and pass the
+currently labeled variable as an argument to the call.
+
+<a name="index-fdbg_005flabeling_005fstep_002f2-_0028fdbg_0029-1"></a>
+<a name="index-fdbg_005flabeling_005fstep_002f2-_0028fdbg_0029"></a>
+
+</li><li> Call <code>clpfd:fdbg_labeling_step(<var>+Var</var>, <var>+Step</var>)</code>
+before each labeling step.  <var>Step</var> should be a compound term
+describing the labeling step, this will be
+
+<ol>
+<li> printed &ldquo;as is&rdquo; by the built-in visualizer as the mode of the
+labeling step (see <a href="FDBG-Built_002dIn-Visualizers.html#FDBG-Built_002dIn-Visualizers">FDBG Built-In Visualizers</a>)&mdash;you can use
+<code>portray/1</code> to determine how it should be printed;
+</li><li> passed as <code>step(<var>Step</var>)</code> to the user defined labeling
+visualizers in their <var>Event</var> argument; see <a href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers">FDBG Writing Visualizers</a>.
+</li></ol>
+</li></ol>
+
+<p>This way FDBG can inform you about the labeling events created by your
+labeling predicates exactly like it would do in the case of
+internal labeling.  If you ignore these rules, then FDBG will not be able to
+distinguish labeling events from other FDBG events any more.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FDBG-An-Example-Session.html#FDBG-An-Example-Session" accesskey="n" rel="next">Next</a>
+<li><a href="FDBG-Debugger-Commands.html#FDBG-Debugger-Commands" accesskey="p" rel="prev">Previous</a>
+<li><a href="FDBG-Basics.html#FDBG-Basics" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Annotation.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Annotation.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

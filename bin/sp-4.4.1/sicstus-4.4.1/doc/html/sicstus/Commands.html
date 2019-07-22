@@ -1,0 +1,1185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Commands</title>
+
+<meta name="description" content="SICStus Prolog: Commands">
+<meta name="keywords" content="SICStus Prolog: Commands">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tcl.html#Tcl" rel="up" title="Tcl">
+<link href="What-We-Have-Left-Out-_0028Tcl_0029.html#What-We-Have-Left-Out-_0028Tcl_0029" rel="next" title="What We Have Left Out (Tcl)">
+<link href="Variables-_0028Tcl_0029.html#Variables-_0028Tcl_0029" rel="prev" title="Variables (Tcl)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Commands"></a>
+<hr>
+<a name="Commands-1"></a>
+<h4 class="subsubsection">10.39.2.3 Commands</h4>
+
+<p>Now that the Tcl syntax and variables have been been dealt with,
+we will now look at some of the commands that are available.
+</p>
+<p>Each command when executed returns a value. The return value
+will be described along with the command.
+</p>
+<p>A quick word about the <em>notation</em> used to describe Tcl commands.  In
+general, a description of a command is the name of the command followed
+by its arguments separated by spaces.  An example is:
+</p>
+<div class="example">
+<pre class="example">set <var>varName</var> <var>?value?</var>
+</pre></div>
+
+<p>which is a description of the Tcl set command, which takes a variable
+name <var>varName</var> and an optional argument, a <var>value</var>.
+</p>
+<p>Optional arguments are enclosed in question mark, <var>?</var>, pairs,
+as in the example.
+</p>
+<p>A series of three dots <var>&hellip;</var> represents repeated
+arguments. An example is a description of the <code>unset</code>
+command:
+</p>
+<div class="example">
+<pre class="example">unset <var>varName</var> <var>?</var><var>varName</var> <var>varName</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>which shows that the <code>unset</code> command has at least one compulsory
+argument <var>varName</var> but has any number of subsequent optional
+arguments.
+</p>
+<p>The most used <em>command over variables</em> is the <code>set</code> command.
+It has the form
+</p>
+<a name="index-set-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">set <var>varName</var> <var>?value?</var>
+</pre></div>
+
+<p>The value of <var>value</var> is determined, the variable <var>varName</var> is
+set to it, and the value is returned. If there is no <var>value</var>
+argument, then the value of the variable is simply returned. It is
+thus used to set and/or get the value of a variable.
+</p>
+<p>The <code>unset</code> command is used to remove variables completely from
+the system:
+</p>
+<a name="index-unset-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">unset <var>varName</var> <var>?</var><var>varName</var> <var>varName</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>which given a series of variable names deletes them.
+The empty string is always returned.
+</p>
+<p>There is a special command for incrementing the value of a variable:
+</p>
+<a name="index-incr-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">incr <var>varName</var> <var>?</var><var>increment</var><var>?</var>
+</pre></div>
+
+<p>which, given the name of a variable thats value is an integer string,
+increments it by the amount <var>increment</var>. If the <var>increment</var> part
+is left out, then it defaults to <code>1</code>. The return value is the new value of
+the variable.
+</p>
+
+<p><em>Expressions</em> are constructed from operands and operators and can
+then be evaluated.  The most general expression evaluator in Tcl is the
+<code>expr</code> command:
+</p>
+<a name="index-expr-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">expr <var>arg</var> <var>?</var><var>arg</var> <var>arg</var> <var>&hellip;</var> <var>arg</var><var>?</var>
+</pre></div>
+
+<p>which evaluates its arguments as an expression and returns the
+value of the evaluation.
+</p>
+<p>A simple example expression is
+</p>
+<div class="example">
+<pre class="example">expr 2 * 2
+</pre></div>
+
+<p>which when executed returns the value <code>4</code>.
+</p>
+<p>There are different classes of operators: arithmetic, relational, logical,
+bitwise, and choice.
+Here are some example expressions involving various operators:
+</p>
+<table>
+<tr><td>arithmetic</td><td><code>$x * 2</code></td></tr>
+<tr><td>relational</td><td><code>$x &gt; 2</code></td></tr>
+<tr><td>logical</td><td><code>($x == $y) || ($x == $z)</code></td></tr>
+<tr><td>bitwise</td><td><code>8 &amp; 2</code></td></tr>
+<tr><td>choice</td><td><code>($a == 1) ? $x : $y</code></td></tr>
+</table>
+
+<p>Basically the operators follow the syntax and meaning of their
+ANSI C counterparts.
+</p>
+<p>Expressions to the <code>expr</code> command can be contained in curly brackets
+in which case the usual substitutions are not done before the
+<code>expr</code> command is evaluated, but the command does its own round of
+substitutions. So evaluating a script such as:
+</p>
+<div class="example">
+<pre class="example">set a 1
+expr { ($a==1) : &quot;yes&quot; ? &quot;no&quot; }
+</pre></div>
+
+<p>will evaluate to <code>yes</code>.
+</p>
+<p>Tcl also has a whole host of math functions that can be used in expressions.
+Their evaluation is again the same as that for their ANSI C counterparts.
+For example:
+</p>
+<div class="example">
+<pre class="example">expr { 2*log($x) }
+</pre></div>
+
+<p>will return 2 times the natural log of the value of variable <code>x</code>.
+</p>
+<p>Tcl has a notion of <em>lists</em>, but as with everything it is implemented
+through strings. A list is a string that contains words.
+</p>
+<p>A simple list is just a space separated series of strings:
+</p>
+<div class="example">
+<pre class="example">set a {one two three four five}
+</pre></div>
+
+<p>will set the variable <code>a</code> to the list containing the five
+strings shown. The empty list is denoted by an open and close curly bracket
+pair with nothing in between: <code>{}</code>.
+</p>
+<p>For the Prolog programmer, there is much confusion between a Prolog
+implementation of lists and the Tcl implementation of lists.  In Prolog
+we have a definite notion of the printed representation of a list: a
+list is a sequence of terms enclosed in square brackets (we ignore
+dot notation for now); a nested list is just another term.
+</p>
+<p>In Tcl, however, a list is really just a string that conforms to a
+certain syntax: a string of space separated words.  But in Tcl
+there is more than one way of generating such a string.  For example,
+</p>
+<div class="example">
+<pre class="example">set fred {a b c d}
+</pre></div>
+
+<p>sets <code>fred</code> to 
+</p>
+<div class="example">
+<pre class="example">&quot;a b c d&quot;
+</pre></div>
+
+<p>as does
+</p>
+<div class="example">
+<pre class="example">set fred &quot;a b c d&quot;
+</pre></div>
+
+<p>because <code>{a b c d}</code> evaluates to the string <code>a b c d</code>, which
+has the correct syntax for a list.  But what about nested lists?
+Those are represented in the final list-string as being contained in
+curly brackets.  For example:
+</p>
+<div class="example">
+<pre class="example">set fred {a b c {1 2 3} e f}
+</pre></div>
+
+<p>results in <code>fred</code> having the value
+</p>
+<div class="example">
+<pre class="example">&quot;a b c {1 2 3} e f&quot;
+</pre></div>
+
+<p>The outer curly brackets from the <code>set</code> command have disappeared,
+which causes confusion. The curly brackets within a list denote a nested
+list, but there are no curly brackets at the top-level of the list.  (We
+cannot help thinking that life would have been easier if the creators of
+Tcl would have chosen a consistent representation for lists, as Prolog
+and LISP do.)
+</p>
+<p>So remember: a list is really a string with a certain syntax,
+space separated items or words; a nested list is surrounded by curly
+brackets.
+</p>
+<p>There are a dozen commands that operate on lists.
+</p>
+<a name="index-concat-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">concat <var>?</var><var>list</var> <var>list</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>This makes a list out of a series of lists by concatenating its
+argument lists together. The return result is the list resulting
+from the concatenation.
+</p>
+<a name="index-lindex-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">lindex <var>list</var> <var>index</var>
+</pre></div>
+
+<p>returns the <var>index</var>-th element of the <var>list</var>.  The first element
+of a list has an index of 0.
+</p>
+<a name="index-linsert-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">linsert <var>list</var> <var>index</var> <var>value</var> <var>?</var><var>value</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>returns a new list in which the <var>value</var> arguments have been
+inserted in turn before the <var>index</var>-th element of <var>list</var>.
+</p>
+<a name="index-list-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">list <var>?</var><var>value</var> <var>value</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>returns a list where each element is one of the <var>value</var>
+arguments.
+</p>
+<a name="index-llength-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">llength <var>list</var>
+</pre></div>
+
+<p>returns the number of elements in list <var>list</var>.
+</p>
+<a name="index-lrange-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">lrange <var>list</var> <var>first</var> <var>last</var>
+</pre></div>
+
+<p>returns a slice of a list consisting of the elements of the list <var>list</var>
+from index <var>first</var> until index <var>last</var>.
+</p>
+<a name="index-lreplace-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">lreplace <var>list</var> <var>first</var> <var>last</var> <var>?</var><var>value</var> <var>&hellip;</var> <var>value</var><var>?</var>
+</pre></div>
+
+<p>returns a copy of list <var>list</var> but with the elements between indices
+<var>first</var> and <var>last</var> replaced with a list formed from the
+<var>value</var> arguments.
+</p>
+<a name="index-lsearch-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">lsearch <var>?</var>-exact<var>?</var> <var>?</var>-glob<var>?</var> <var>?</var>-regexp<var>?</var> <var>list</var> <var>pattern</var>
+</pre></div>
+
+<p>returns the index of the first element in the list that matches the
+given pattern. The type of matching done depends on which of the switch
+is present <samp>-exact</samp>, <samp>-glob</samp>, <samp>-regexp</samp>, is
+present. Default is <samp>-glob</samp>.
+</p>
+<a name="index-lsort-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">lsort <var>?</var>-ascii<var>?</var> <var>?</var>-integer<var>?</var> <var>?</var>-real<var>?</var> <var>?</var>-command <var>command</var><var>?</var> <var>?</var>-increasing<var>?</var> <var>?</var>-decreasing<var>{?</var> <var>list</var>
+</pre></div>
+
+<p>returns a list, which is the original list <var>list</var> sorted by the chosen 
+technique. If none of the switches supplies the intended sorting technique, then 
+the user can provide one through the <samp>-command <var>command</var></samp> switch.
+</p>
+<p>There are also two useful commands for converting between lists and
+strings:
+</p>
+<a name="index-join-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">join <var>list</var> <var>?</var><var>joinString</var><var>?</var>
+</pre></div>
+
+<p>which concatenates the elements of the list together, with the separator
+<var>joinString</var> between them, and returns the resulting string.
+This can be used to construct filenames; for example:
+</p>
+<div class="example">
+<pre class="example">set a {{} usr local bin}
+set filename [join $a /]
+</pre></div>
+
+<p>results in the variable <code>filename</code> having the value <code>/usr/local/bin</code>.
+</p>
+<p>The reverse of the <code>join</code> command is the <code>split</code> command:
+</p>
+<a name="index-split-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">split <var>string</var> <var>?</var><var>splitChars</var><var>?</var>
+</pre></div>
+
+<p>which takes the string <var>string</var> and splits it into string on
+<var>splitChars</var> boundaries and returns a list with the strings as
+elements.  An example is splitting a filename into its constituent
+parts:
+</p>
+<div class="example">
+<pre class="example">set a [split /usr/local/src /]
+</pre></div>
+
+<p>gives <code>a</code> the value <code>{{} usr local src}</code>, a list.
+</p>
+
+<p>Tcl has the four usual classes of <em>control flow</em> found in most other
+programming languages: 
+</p>
+<div class="example">
+<pre class="example">if<var>&hellip;</var>elseif<var>&hellip;</var>else, while, for, foreach, switch, and eval.
+</pre></div>
+
+<p>We go through each in turn.
+</p>
+<p>The general form of an <code>if</code> command is the following:
+</p>
+<a name="index-if-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">if <var>test1</var> <var>body1</var> <var>?</var><var>elseif</var> <var>test2</var> <var>body2</var> <var>elseif</var> <var>&hellip;</var><var>?</var> <var>?</var><var>else</var> <var>bodyn</var><var>?</var>
+</pre></div>
+
+<p>which when evaluated, evaluates expression <var>test1</var>, which if true
+causes <var>body1</var> to be evaluated, but if false, causes <var>test2</var> to
+be evaluated, and so on.  If there is a final <code>else</code> clause, then 
+its <var>bodyn</var> part is evaluated if all of the preceding tests
+failed.  The return result of an <code>if</code> statement is the result of
+the last <var>body</var> command evaluated, or the empty list if none of the
+bodies are evaluated.
+</p>
+<p>Conditional looping is done through the <code>while</code> command:
+</p>
+<a name="index-while-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">while <var>test</var> <var>body</var>
+</pre></div>
+
+<p>which evaluates expression <var>test</var>, which if true then evaluates <var>body</var>.
+It continues to do that until <var>test</var> evaluates to 0, and returns the
+empty string.
+</p>
+<p>A simple example is:
+</p>
+<div class="example">
+<pre class="example">set a 10
+while {$a &gt; 0} { puts $a; incr a -1 }
+</pre></div>
+
+<p>which initializes variable <code>a</code> with value ten and then
+loops printing out the value of <code>a</code> and decrementing it until
+its value is 0, when the loop terminates.
+</p>
+<p>The <code>for</code> loop has the following form:
+</p>
+<a name="index-for-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">for <var>init</var> <var>test</var> <var>reinit</var> <var>body</var>
+</pre></div>
+
+<p>which initializes the loop by executing <var>init</var>, then 
+each time around the loop the expression <var>test</var> is evaluated,
+which if true causes <var>body</var> to be executed and then executes
+<var>reinit</var>. The loop spins around until <var>test</var> evaluates to 0.
+The return result of a <code>for</code> loop is the empty string.
+</p>
+<p>An example of a <code>for</code> loop:
+</p>
+<div class="example">
+<pre class="example">for {set a 10} ($a&gt;0) {incr a -1} {puts $a}
+</pre></div>
+
+<p>which initializes the variable <code>a</code> with value <code>10</code>, then
+goes around the loop printing the value of <code>a</code> and decrementing it
+as long as its value is greater than <code>0</code>.
+Once it reaches <code>0</code> the loop terminates.
+</p>
+<p>The <code>foreach</code> command has the following form:
+</p>
+<a name="index-foreach-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">foreach <var>varName</var> <var>list</var> <var>body</var>
+</pre></div>
+
+<p>where <var>varName</var> is the name of a variable, <var>list</var> is an instance
+of a list, and <var>body</var> is a series of commands to evaluate.  A
+<code>foreach</code> then iterates over the elements of a list, setting the
+variable <var>varName</var> to the current element, and executes <var>body</var>.
+The result of a <code>foreach</code> loop is always the empty string.
+</p>
+<p>An example of a <code>foreach</code> loop:
+</p>
+<div class="example">
+<pre class="example">foreach friend {joe mary john wilbert} {puts &quot;I like $friend&quot;}
+</pre></div>
+
+<p>will produce the output:
+</p>
+<div class="example">
+<pre class="example">I like joe
+I like mary
+I like john
+I like wilbert
+</pre></div>
+
+<p>There are also a couple of commands for controlling the flow of loops:
+<code>continue</code> and <code>break</code>.
+</p>
+<p><code>continue</code> stops the current evaluation of the body of a loop and
+goes on to the next one.
+</p>
+<p><code>break</code> terminates the loop altogether.
+</p>
+<p>Tcl has a general switch statement, which has two forms:
+</p>
+<a name="index-switch-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">switch <var>?</var><var>options</var><var>?</var> <var>string</var> <var>pattern</var> <var>body</var> <var>?</var><var>pattern</var> <var>body</var> <var>&hellip;</var> <var>?</var>
+switch <var>?</var><var>options</var><var>?</var> <var>string</var> { <var>pattern</var> <var>body</var> <var>?</var><var>pattern</var> <var>body</var> <var>&hellip;</var><var>?</var> }
+</pre></div>
+
+<p>When executed, the switch command matches its <var>string</var>
+argument against each of the <var>pattern</var> arguments, and
+the <var>body</var> of the first matching pattern is evaluated.  The matching
+algorithm depends on the options chosen, which can be one of
+</p>
+<table>
+<tr><td><samp>-exact</samp></td><td>use exact matching</td></tr>
+<tr><td><samp>-glob</samp></td><td>use glob-style matching</td></tr>
+<tr><td><samp>-regexp</samp></td><td>use regular expression matchinig</td></tr>
+</table>
+
+<p>An example is:
+</p>
+<div class="example">
+<pre class="example">set a rob
+switch -glob $a {
+    a*z { puts &quot;A to Z&quot;}
+    r*b { puts &quot;rob or rab&quot;}
+}
+</pre></div>
+
+<p>which will produce the output:
+</p>
+<div class="example">
+<pre class="example">rob or rab
+</pre></div>
+
+<p>There are two forms of the <code>switch</code> command. The second form has
+the command arguments surrounded in curly brackets. This is
+primarily so that multi-line switch commands can be formed, but it also
+means that the arguments in brackets are not evaluated (curly
+brackets suppress evaluation), whereas in the first type of switch
+statement the arguments are first evaluated before the switch is
+evaluated.  These effects should be borne in mind when choosing which
+kind of switch statement to use.
+</p>
+<p>The final form of control statement is <code>eval</code>:
+</p>
+<a name="index-eval-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">eval <var>arg</var> <var>?</var><var>arg</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>which takes one or more arguments, concatenates them into a
+string, and executes the string as a command. The return result is the
+normal return result of the execution of the string as a command.
+</p>
+<p>An example is
+</p>
+<div class="example">
+<pre class="example">set a b
+set b 0
+eval set $a 10
+</pre></div>
+
+<p>which results in the variable <code>b</code> being set to <code>10</code>.  In this
+case, the return result of the <code>eval</code> is <code>10</code>, the result of
+executing the string <code>&quot;set b 10&quot;</code> as a command.
+</p>
+
+<p>Tcl has several <em>commands over strings</em>. There are commands for searching
+for patterns in strings, formatting and parsing strings (much the same
+as <code>printf</code> and <code>scanf</code> in the C language), and general string
+manipulation commands.
+</p>
+<p>Firstly we will deal with formatting and parsing of strings.
+The commands for this are <code>format</code> and <code>scan</code> respectively.
+</p>
+<a name="index-format-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">format <var>formatString</var> <var>?</var><var>value</var> <var>value</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>which works in a similar to C&rsquo;s <code>printf</code>; given a format string with
+placeholders for values and a series of values, return the appropriate string.
+</p>
+<p>Here is an example of printing out a table for base 10 logarithms for the
+numbers 1 to 10:
+</p>
+<div class="example">
+<pre class="example">for {set n 1} {$n &lt;= 10} {incr n} {
+    puts [format &quot;log10(%d) = %.4f&quot; $n [expr log10($n)]]
+}
+</pre></div>
+
+<p>which produces the output
+</p>
+<div class="example">
+<pre class="example">ln(1) = 0.0000
+ln(2) = 0.3010
+ln(3) = 0.4771
+ln(4) = 0.6021
+ln(5) = 0.6990
+ln(6) = 0.7782
+ln(7) = 0.8451
+ln(8) = 0.9031
+ln(9) = 0.9542
+ln(10) = 1.0000
+</pre></div>
+
+<p>The reverse function of <code>format</code> is <code>scan</code>:
+</p>
+<a name="index-scan-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">scan <var>string</var> <var>formatString</var> <var>varName</var> <var>?</var><var>varName</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>which parses the string according to the format string and
+assigns the appropriate values to the variables.
+it returns the number of fields successfully parsed.
+</p>
+<p>An example,
+</p>
+<div class="example">
+<pre class="example">scan &quot;qty 10, unit cost 1.5, total 15.0&quot; \
+     &quot;qty %d, unit cost %f, total %f&quot;    \
+     quantity cost_per_unit total
+</pre></div>
+
+<p>would assign the value 10 to the variable <code>quantity</code>, 1.5 to the variable
+<code>cost_per_unit</code> and the value 15.0 to the variable <code>total</code>.
+</p>
+<p>There are commands for performing two kinds of pattern matching on strings:
+one for matching using regular expressions, and one for matching using
+UNIX-style wildcard pattern matching (globbing).
+</p>
+<p>The command for regular expressions matching is as follows:
+</p>
+<a name="index-regexp-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">regexp <var>?</var>-indices<var>?</var> <var>?</var>-nocase<var>?</var> <var>exp</var> <var>string</var> <var>?</var><var>matchVar</var><var>?</var> <var>?subVar</var> <var>subVar</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>where <var>exp</var> is the regular expression and <var>string</var> is the string
+on which the matching is performed. The regexp command returns 1 if the
+expression matches the string, 0 otherwise.  The optional <samp>-nocase</samp>
+switch does matching without regard to the case of letters in the
+string.  The optional <var>matchVar</var> and <var>subVar</var> variables, if
+present, are set to the values of string matches. In the regular
+expression, a match that is to be saved into a variable is enclosed in
+round braces.  An example is
+</p>
+<div class="example">
+<pre class="example">regexp {([0-9]+)} &quot;I have 3 oranges&quot; a
+</pre></div>
+
+<p>will assign the value 3 to the variable <code>a</code>.
+</p>
+<p>If the optional switch <samp>-indices</samp> is present, then instead of
+storing the matching substrings in the variables, the indices of the
+substrings are stored; that is a list with a pair of numbers denoting
+the start and end position of the substring in the string.  Using the
+same example:
+</p>
+<div class="example">
+<pre class="example">regexp -indices {([0-9]+)} &quot;I have 3 oranges&quot; a
+</pre></div>
+
+<p>will assign the value <code>&quot;7 7&quot;</code>, because the matched numeral <code>3</code>
+is in the eighth position in the string, and indices count from 0.
+</p>
+<p>String matching using the UNIX-style wildcard pattern matching technique
+is done through the <code>string match</code> command:
+</p>
+<a name="index-string-match-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">string match <var>pattern</var> <var>string</var>
+</pre></div>
+
+<p>where <var>pattern</var> is a wildcard pattern and <var>string</var> is the string
+to match.  If the match succeeds, then the command returns 1; otherwise, it
+returns 0.  An example is
+</p>
+<a name="index-string-match-_0028Tcl-command_0029-1"></a>
+<div class="example">
+<pre class="example">string match {[a-z]*[0-9]} {a_$%^_3}
+</pre></div>
+
+<p>which matches because the command says match any string that starts
+with a lower case letter and ends with a number, regardless of anything in
+between.
+</p>
+<p>There is a command for performing string substitutions using regular
+expressions:
+</p>
+<a name="index-regsub-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">regsub <var>?</var>-all<var>?</var> <var>?</var>-nocase<var>?</var> <var>exp</var> <var>string</var> <var>subSpec</var> <var>varName</var>
+</pre></div>
+
+<p>where <var>exp</var> is the regular expression and <var>string</var> is the input
+string on which the substitution is made, <var>subSpec</var> is the string
+that is substituted for the part of the string matched by the regular
+expression, and <var>varName</var> is the variable on which the resulting
+string is copied into.  With the <samp>-nocase</samp> switch, the
+matching is done without regard to the case of letters in the input
+string.  The <samp>-all</samp> switch causes repeated matching and
+substitution to happen on the input string.  The result of a
+<code>regsub</code> command is the number of substitutions made.
+</p>
+<p>An example of string substitution is:
+</p>
+<div class="example">
+<pre class="example">regsub {#name#} {My name is #name#} Rob result
+</pre></div>
+
+<p>which sets the variable <code>result</code> to the value &quot;My name is Rob&quot;.
+An example of using the <samp>-all</samp> switch:
+</p>
+<div class="example">
+<pre class="example">regsub -all {#name#} {#name#'s name is #name#} Rob result
+</pre></div>
+
+<p>sets the variable <code>result</code> to the value &quot;Rob&rsquo;s name is Rob&quot;
+and it returns the value 2 because two substitutions were made.
+</p>
+<p>The are a host of other ways to manipulate strings through variants
+of the <code>string</code> command. Here we will go through them.
+</p>
+<p>To select a character from a string given the character position,
+use the <code>string index</code> command. An example is:
+</p>
+<a name="index-string-index-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">string index &quot;Hello world&quot; 6
+</pre></div>
+
+<p>which returns <code>w</code>, the 7th character of the string. 
+(Strings are indexed from 0).
+</p>
+<p>To select a substring of a string, given a range of indices use the
+<code>string range</code> command. An example is:
+</p>
+<a name="index-string-range-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">string range &quot;Hello world&quot; 3 7
+</pre></div>
+
+<p>which returns the string &quot;lo wo&quot;.
+There is a special index marker named <code>end</code>, which is used to denote the
+the end of a string, so the code
+</p>
+<div class="example">
+<pre class="example">string range &quot;Hello world&quot; 6 end
+</pre></div>
+
+<p>will return the string &quot;world&quot;.
+</p>
+<p>There are two ways to do simple search for a substring on a string,
+using the <code>string first</code> and <code>string last</code> commands.
+An example of <code>string first</code> is:
+</p>
+<a name="index-string-first-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">string first &quot;dog&quot; &quot;My dog is a big dog&quot;
+</pre></div>
+
+<p>find the first position in string &quot;My dog is a big dog&quot; that matches &quot;dog&quot;.
+It will return the position in the string in which the substring was
+found, in this case 3. If the substring cannot be found, then the value -1
+is returned.
+</p>
+<p>Similarly,
+</p>
+<a name="index-string-last-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">string last &quot;dog&quot; &quot;My dog is a big dog&quot;
+</pre></div>
+
+<p>will return the value 16 because it returns the index of the
+last place in the string that the substring matches.
+Again, if there is no match, then -1 is returned.
+</p>
+<p>To find the length of a string use <code>string length</code>, which given a
+string simply returns its length.
+</p>
+<a name="index-string-length-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">string length &quot;123456&quot;
+</pre></div>
+
+<p>returns the value 6.
+</p>
+<p>To convert a string completely to upper case use <code>string toupper</code>:
+</p>
+<a name="index-string-toupper-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">string toupper &quot;this is in upper case&quot;
+</pre></div>
+
+<p>returns the string &quot;THIS IS IN UPPER CASE&quot;.
+</p>
+<p>Similarly, 
+</p>
+<a name="index-string-tolower-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">string tolower &quot;THIS IS IN LOWER CASE&quot;
+</pre></div>
+
+<p>returns the string &quot;this is in lower case&quot;.
+</p>
+<p>There are commands for removing characters from strings:
+<code>string trim</code>, <code>string trimright</code>, and <code>string trimleft</code>.
+</p>
+<a name="index-string-trim-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">string trim <var>string</var> <var>?</var><var>chars</var><var>?</var>
+</pre></div>
+
+<p>which removes the characters in the string <var>chars</var> from the string
+<var>string</var> and returns the trimmed string.  If <var>chars</var> is not present, then 
+whitespace characters are removed.  An example is:
+</p>
+<a name="index-string-string-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">string string &quot;The dog ate the exercise book&quot; &quot;doe&quot;
+</pre></div>
+
+<p>which would return the string &quot;Th g at th xrcis bk&quot;.
+</p>
+<p><code>string trimleft</code> is the same as <code>string trim</code> except only leading
+characters are removed. Similarly <code>string trimright</code> removes only
+trailing characters.
+For example:
+</p>
+<a name="index-string-trimright-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">string trimright $my_input
+</pre></div>
+
+<p>would return a copy of the string contained in <code>$my_input</code> but with all
+the trailing whitespace characters removed.
+</p>
+<p>There is a comprehensive set of commands for <em>file manipulation</em>.
+We will cover only the some of the more important ones here.
+</p>
+<p>To open a file the <code>open</code> command is used:
+</p>
+<a name="index-open-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">open <var>name</var> <var>?</var><var>access</var><var>?</var>
+</pre></div>
+
+<p>where <var>name</var> is a string containing the filename, and the option
+<var>access</var> parameter contains a string of access flags, in the UNIX style.
+The return result is a handle to the open file.
+</p>
+<p>If <var>access</var> is not present, then the access permissions default to
+<code>&quot;r&quot;</code>, which means open for reading only.
+The command returns a file handle that can be used with other commands.
+An example of the use of the <code>open</code> command is
+</p>
+<div class="example">
+<pre class="example">set fid [open &quot;myfile&quot; &quot;r+&quot;]
+</pre></div>
+
+<p>which means open the file <code>myfile</code> for both reading and writing
+and set the variable <code>fid</code> to the file handle returned.
+</p>
+<p>To close a file simply use
+</p>
+<a name="index-close-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">close <var>fileId</var>
+</pre></div>
+
+<p>For example,
+</p>
+<div class="example">
+<pre class="example">close $fid
+</pre></div>
+
+<p>will close the file that has the file handle stored in the variable
+<code>fid</code>.
+</p>
+<p>To read from a file, the <code>read</code> command is used:
+</p>
+<a name="index-read-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">read <var>fileId</var> <var>numBytes</var>
+</pre></div>
+
+<p>which reads <var>numBytes</var> bytes from the file attached to file handle
+<var>fileId</var>, and returns the bytes actually read.
+</p>
+<p>To read a single line from a file use <code>gets</code>:
+</p>
+<a name="index-gets-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">gets <var>fileId</var> <var>?</var><var>varName</var><var>?</var>
+</pre></div>
+
+<p>which reads a line from the file attached to file handle <var>fileId</var>
+but chops off the trailing newline. If variable <var>varName</var> is specified, then 
+the string read in is stored there and the number of bytes
+is returned by the command. If the variable is not specified, then 
+the command returns the string only.
+</p>
+<p>To write to a file, use <code>puts</code>:
+</p>
+<a name="index-puts-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">puts <var>?</var>-nonewline<var>?</var> <var>?</var><var>fileId</var><var>?</var> <var>string</var>
+</pre></div>
+
+<p>which outputs the string <var>string</var>. If the file handle <var>fileId</var>
+is present, then the string is output to that file; otherwise, it is
+printed on <code>stdout</code>.  If the switch <samp>-nonewline</samp> is present, then 
+a trailing newline is not output.
+</p>
+<p>To check if the end of a file has been reached, use <code>eof</code>:
+</p>
+<a name="index-eof-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">eof <var>fileId</var>
+</pre></div>
+
+<p>which, given a file handle <var>fileId</var> returns 1 if the end has been reached,
+and 0 otherwise.
+</p>
+<p>The are a host of other commands over files and processes, which we will
+not go into here.
+</p>
+<p>(For extra information on file I/O commands, refer to the Tcl manual pages.)
+</p>
+
+<p>Tcl provides a way of <em>creating new commands</em>, called procedures, that can
+be executed in scripts. The arguments of a procedure can be
+call-by-value or call-by-reference, and there is also a facility for
+creating new user defined control structures using procedures.
+</p>
+<p>A procedure is declared using the <code>proc</code> command:
+</p>
+<a name="index-proc-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">proc <var>name</var> <var>argList</var> <var>body</var>
+</pre></div>
+
+<p>where the name of the procedure is <var>name</var>, the arguments are
+contained in <var>argList</var> and the body of the procedure is the script
+<var>body</var>.  An example of a procedure is:
+</p>
+<div class="example">
+<pre class="example">proc namePrint { first family } {
+    puts &quot;My first name is $first&quot;
+    puts &quot;My family name is $family&quot;
+}
+</pre></div>
+
+<p>which can be called with
+</p>
+<div class="example">
+<pre class="example">namePrint Tony Blair
+</pre></div>
+
+<p>to produce the output:
+</p>
+<div class="example">
+<pre class="example">My first name is Tony
+My family name is Blair
+</pre></div>
+
+<p>A procedure with no arguments is specified with an empty
+argument list.  An example is a procedure that just prints out a
+string:
+</p>
+<div class="example">
+<pre class="example">proc stringThing {} {
+    puts &quot;I just print this string&quot;
+}
+</pre></div>
+
+<p>Arguments can be given defaults by pairing them with a value in a
+list.  An example here is a counter procedure:
+</p>
+<div class="example">
+<pre class="example">proc counter { value { inc 1 } } {
+    eval $value + $inc
+}
+</pre></div>
+
+<p>which can be called with two arguments like this
+</p>
+<div class="example">
+<pre class="example">set v 10
+set v [counter $v 5]
+</pre></div>
+
+<p>which will set variable <code>v</code> to the value 15; or it can be called
+with one argument:
+</p>
+<div class="example">
+<pre class="example">set v 10
+set v [counter $v]
+</pre></div>
+
+<p>in which case <code>v</code> will have the value 11, because the default of
+the argument <code>inc</code> inside the procedure is the value 1.
+</p>
+<p>There is a special argument for handling procedures with variable
+number of arguments, the <code>args</code> argument.  An example
+is a procedure that sums a list of numbers:
+</p>
+<div class="example">
+<pre class="example">proc sum { args } {
+    set result 0;
+
+    foreach n $args {
+     set result [expr $result + $n ]
+    }
+
+    return $result;
+}
+</pre></div>
+
+<p>which can be called like this:
+</p>
+<div class="example">
+<pre class="example">sum 1 2 3 4 5
+</pre></div>
+
+<p>which returns the value 15.
+</p>
+<p>The restriction on using defaulted arguments is that all the
+arguments that come after the defaulted ones must also be
+defaulted.  If <code>args</code> are used, then it must be the last argument
+in the argument list.
+</p>
+<p>A procedure can return a value through the <code>return</code> command:
+</p>
+<a name="index-return-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">return <var>?</var><var>options</var><var>?</var> <var>?</var><var>value</var><var>?</var>
+</pre></div>
+
+<p>which terminates the procedure returning value <var>value</var>, if
+specified, or just causes the procedure to return, if no value
+specified.  (The <var>?</var><var>options</var><var>?</var> part has to do with
+raising exceptions, which we will will not cover here.)
+</p>
+<p>The return result of a user defined procedure is the return result
+of the last command executed by it.
+</p>
+<p>So far we have seen the arguments of a procedure are passed using
+the call-by-value mechanism.  They can be passed call by reference using
+the <code>upvar</code> command:
+</p>
+<a name="index-upvar-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">upvar <var>?</var><var>level</var><var>?</var> <var>otherVar1</var> <var>myVar1</var> <var>?</var><var>otherVar2</var> <var>myVar2</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>which makes accessible variables somewhere in a calling context with the
+current context. The optional argument <var>level</var> describes how
+many calling levels up to look for the variable.  This is best shown
+with an example:
+</p>
+<div class="example">
+<pre class="example">set a 10
+set b 20
+
+proc add { first second } {
+    upvar $first f $second s
+    expr $f+$s
+}
+</pre></div>
+
+<p>which when called with
+</p>
+<div class="example">
+<pre class="example">add a b
+</pre></div>
+
+<p>will produce the result 30.
+If you use call-by-value instead:
+</p>
+<div class="example">
+<pre class="example">add $a $b
+</pre></div>
+
+<p>then the program will fail because when executing the procedure
+<code>add</code> it will take the first argument 10 as the level
+argument, a bad level.  (Also variable <code>20</code> does not exist at
+any level.)
+</p>
+<p>New control structures can be generated using the <code>uplevel</code> command:
+</p>
+<a name="index-uplevel-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">uplevel <var>?</var><var>level</var><var>?</var> <var>arg</var> <var>?</var><var>arg</var> <var>arg</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>which is like <code>eval</code>, but it evaluates its arguments in a
+context higher up the calling stack. How far up the stack to go is given
+by the optional <var>level</var> argument.
+</p>
+<div class="example">
+<pre class="example">proc do { loop condition } {
+    set nostop 1
+      
+    while { $nostop } {
+        uplevel $loop
+        if {[uplevel &quot;expr $condition&quot;] == 0} {
+            set nostop 0
+         }
+    }
+}
+</pre></div>
+
+<p>which when called with this
+</p>
+<div class="example">
+<pre class="example">set x 5
+do { puts $x; incr x -1 } { $x &gt; 0 }
+</pre></div>
+
+<p>will print
+</p>
+<div class="example">
+<pre class="example">5
+4
+3
+2
+1
+</pre></div>
+
+<p>(<strong>Please note</strong>: this does not quite work for all kinds of calls because of
+<code>break</code>, <code>continue</code>, and <code>return</code>. It is possible to get
+around these problem, but that is outside the scope of this tutorial.)
+</p>
+<p>A word about the <em>scope of variables</em>. Variables used within procedures are
+normally created only for the duration of that procedure and have local scope.
+</p>
+<p>It is possible to declare a variable as having global scope, through the
+<code>global</code> command:
+</p>
+<a name="index-global-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">global <var>name1</var> <var>?</var> <var>name2</var> <var>&hellip;</var><var>?</var>
+</pre></div>
+
+<p>where <var>name1</var>, <var>name2</var>, <var>&hellip;</var>, are the names of global
+variables.  Any references to those names will be taken to denote global
+variables for the duration of the procedure call.
+</p>
+<p>Global variables are those variables declared at the topmost calling
+context. It is possible to run a <code>global</code> command at anytime in a
+procedure call. After such a command, the variable name will refer to a global
+variable until the procedure exits.
+</p>
+<p>An example:
+</p>
+<div class="example">
+<pre class="example">set x 10
+   
+proc fred { } {
+    set y 20
+    global x
+    puts [expr $x + $y]
+}
+
+fred
+</pre></div>
+
+<p>will print the result <code>30</code> where 20 comes from the local variable
+<code>y</code> and 10 comes from the global variable <code>x</code>.
+</p>
+<p>Without the <code>global x</code> line, the call to <code>fred</code> will fail with
+an error because there is no variable <code>x</code> defined locally in the
+procedure for the <code>expr</code> to evaluate over.
+</p>
+
+<p>In common with other scripting languages, there is a command for
+<em>evaluating the contents of a file</em> in the Tcl interpreter: 
+</p>
+<a name="index-source-_0028Tcl-command_0029"></a>
+<div class="example">
+<pre class="example">source <var>fileName</var>
+</pre></div>
+
+<p>where <var>fileName</var> is the filename of the file containing the Tcl source
+to be evaluated. Control returns to the Tcl interpreter once the file has
+been evaluated.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="What-We-Have-Left-Out-_0028Tcl_0029.html#What-We-Have-Left-Out-_0028Tcl_0029" accesskey="n" rel="next">Next</a>
+<li><a href="Variables-_0028Tcl_0029.html#Variables-_0028Tcl_0029" accesskey="p" rel="prev">Previous</a>
+<li><a href="Tcl.html#Tcl" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Commands.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Commands.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

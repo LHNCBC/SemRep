@@ -1,0 +1,44 @@
+gcd.pl
+% gcd(1.5),gcd(2.5), write_store(user). % this one loops - donno why -
+% but is seems a bad idea to do gcd in floats
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+minmax.pl
+
+compiles but what is the query ?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+monkey.pl
+
+uses find_constraint/2 - what is the SWI equivalent ?
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+osf.pl
+
+uses 
+:- chr_option(already_in_store, on).
+added the recommended clauses ...
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+scheduling.pl
+
+findall_constraints does not exist in KUL CHR
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+type.pl
+
+uses ordering.pl - tried to use it - 'chr lock' puts things in other
+order and makes things weird ... the thing relies on @ ordering of
+variables anyway
+
+this didn't run in SICStus 3.12 - maybe never did
+! CHR Compiler: no handler defined
+
+made it run in SICStus by including ordering.pl directly
+

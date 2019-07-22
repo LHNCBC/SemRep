@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-syn-trm-int</title>
+
+<meta name="description" content="SICStus Prolog: ref-syn-trm-int">
+<meta name="keywords" content="SICStus Prolog: ref-syn-trm-int">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsyn_002dtrm.html#ref_002dsyn_002dtrm" rel="up" title="ref-syn-trm">
+<link href="ref_002dsyn_002dtrm_002dflo.html#ref_002dsyn_002dtrm_002dflo" rel="next" title="ref-syn-trm-flo">
+<link href="ref_002dsyn_002dtrm_002dove.html#ref_002dsyn_002dtrm_002dove" rel="prev" title="ref-syn-trm-ove">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsyn_002dtrm_002dint"></a>
+<hr>
+<a name="Integers"></a>
+<h4 class="subsubsection">4.1.2.2 Integers</h4>
+
+<a name="index-integers_002c-syntax-of"></a>
+
+<a name="index-syntax_002c-of-integers"></a>
+
+
+<p>The printed form of an integer consists of a sequence of digits
+optionally preceded by a minus sign (&lsquo;<samp>-</samp>&rsquo;).  These are normally
+interpreted as base 10 integers.  It is also possible to enter
+integers in base 2 (binary), 8 (octal), and 16 (hexadecimal); this is
+done by preceding the digit string by the string &lsquo;<samp>0b</samp>&rsquo;, &lsquo;<samp>0o</samp>&rsquo;,
+or &lsquo;<samp>0x</samp>&rsquo; respectively.  The characters A-F or a-f stand for digits
+greater than 9.
+For example, the following tokens all represent the integer fifteen:
+</p><div class="example">
+<pre class="example">15   0b1111   0o17  0xf
+</pre></div>
+
+<p>Note that
+</p><div class="example">
+<pre class="example">+525
+</pre></div>
+ 
+<p>is not a valid integer.  
+</p>
+<a name="index-0_0027-notation-for-character-conversion"></a>
+
+<a name="index-zero_002dquote-notation-for-character-conversion"></a>
+
+<a name="index-characters_002c-conversion-to-character-code"></a>
+
+<p>There is also a special notation for character constants.  E.g.:
+</p>
+<div class="example">
+<pre class="example">0'A   0'\x41\   0'\101\
+</pre></div>
+
+<p>are all equivalent to <code>65</code> (the character code for &lsquo;<samp>A</samp>&rsquo;).
+&lsquo;<samp>0'</samp>&rsquo; followed by any character except &lsquo;<samp>\</samp>&rsquo; (backslash) is
+thus read as an integer.  If &lsquo;<samp>0'</samp>&rsquo; is followed by &lsquo;<samp>\</samp>&rsquo;, then the
+&lsquo;<samp>\</samp>&rsquo; denotes the start of an escape sequence with special meaning
+(see <a href="ref_002dsyn_002dsyn_002desc.html#ref_002dsyn_002dsyn_002desc">ref-syn-syn-esc</a>).
+</p>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsyn_002dtrm_002dflo.html#ref_002dsyn_002dtrm_002dflo" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsyn_002dtrm_002dove.html#ref_002dsyn_002dtrm_002dove" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsyn_002dtrm.html#ref_002dsyn_002dtrm" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dtrm_002dint.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dtrm_002dint.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

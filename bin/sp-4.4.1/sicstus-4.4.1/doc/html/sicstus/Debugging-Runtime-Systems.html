@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Debugging Runtime Systems</title>
+
+<meta name="description" content="SICStus Prolog: Debugging Runtime Systems">
+<meta name="keywords" content="SICStus Prolog: Debugging Runtime Systems">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" rel="up" title="Mixing C and Prolog">
+<link href="Locating-the-License-Information.html#Locating-the-License-Information" rel="next" title="Locating the License Information">
+<link href="Stream-Example.html#Stream-Example" rel="prev" title="Stream Example">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Debugging-Runtime-Systems"></a>
+<hr>
+<a name="Debugging-Runtime-Systems-1"></a>
+<h3 class="section">6.9 Debugging Runtime Systems</h3>
+
+<p>A runtime system does not contain the Prolog debugger by default. This
+makes it hard to troubleshoot problems that only occur when the code is
+embedded in some other application.
+</p>
+<p>As of release 4.2, it is possible to tell a runtime system to
+start the full development system instead. This way, the Prolog
+debugger, compiler etc. can be used to debug the application, either
+from the command line or by attaching to the SICStus Prolog IDE
+(SPIDER).
+In the simplest case, this feature is enabled by setting the system
+property (or environment variable) <code>SP_USE_DEVSYS</code> to <code>yes</code>
+before starting the runtime system. This will cause the runtime system
+to become a development system and it will start the debugger, as if by
+a call to <code>trace/0</code>. See <a href="Building-for-a-Target-Machine.html#Building-for-a-Target-Machine">Building for a Target Machine</a> for a
+complete example.
+</p>
+<p>For best effect, you should ensure that any compiled prolog code
+(&lsquo;<samp>.sav</samp>&rsquo; and &lsquo;<samp>.po</samp>&rsquo; files) has been compiled with the Prolog
+flag <code>source_info</code> enabled, i.e. with
+<code>set_prolog_flag(source_info, on)</code>.
+<a name="index-source_005finfo-_0028prolog-flag_0029-3"></a>
+</p>
+<p>When the runtime system is started as a development system in this way,
+it needs to be able to find the file that makes up an ordinary
+development system, i.e. <samp>spds.sav</samp>; see <a href="Runtime-Systems-on-UNIX-Target-Machines.html#Runtime-Systems-on-UNIX-Target-Machines">Runtime Systems on UNIX Target Machines</a> and <a href="Runtime-Systems-on-Windows-Target-Machines.html#Runtime-Systems-on-Windows-Target-Machines">Runtime Systems on Windows Target Machines</a>, above. It also needs to find the license information for the
+development system; see <a href="Locating-the-License-Information.html#Locating-the-License-Information">Locating the License Information</a>, below.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Locating-the-License-Information.html#Locating-the-License-Information" accesskey="1">Locating the License Information</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Locating the License Information
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Customizing-the-Debugged-Runtime-System.html#Customizing-the-Debugged-Runtime-System" accesskey="2">Customizing the Debugged Runtime System</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Customizing the Debugged Runtime System
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Examples-of-Debugging-Runtime-Systems.html#Examples-of-Debugging-Runtime-Systems" accesskey="3">Examples of Debugging Runtime Systems</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Examples of Debugging Runtime Systems
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Mixing-C-and-Prolog-Examples.html#Mixing-C-and-Prolog-Examples" accesskey="p" rel="prev">Previous</a>
+<li><a href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Debugging-Runtime-Systems.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Debugging-Runtime-Systems.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

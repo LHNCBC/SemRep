@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: Release Notes and Installation Guide for Windows</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: Release Notes and Installation Guide for Windows">
+<meta name="keywords" content="SICStus Prolog Release Notes: Release Notes and Installation Guide for Windows">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Windows-Requirements.html#Windows-Requirements" rel="next" title="Windows Requirements">
+<link href="Platform-specific-UNIX-notes.html#Platform-specific-UNIX-notes" rel="prev" title="Platform specific UNIX notes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Release-Notes-and-Installation-Guide-for-Windows"></a>
+<hr>
+<a name="Release-Notes-and-Installation-Guide-for-Windows-1"></a>
+<h2 class="chapter">4 Release Notes and Installation Guide for Windows</h2>
+
+<p>This chapter assumes that the environment variable <code>PATH</code> includes
+<code>%SP_PATH%\bin</code>, where <code>SP_PATH</code> points to the SICStus
+installation directory (typically
+<samp>C:\Program&nbsp;Files\SICStus&nbsp;Prolog&nbsp;4.4.1\<!-- /@w --></samp>).
+Here, <code>%SP_PATH%</code> is just a place-holder; you usually do
+not need to set the environment variable <code>SP_PATH</code>, but see
+<a href="../sicstus/CPL-Notes.html#CPL-Notes">CPL Notes</a> in <cite>the SICStus Prolog Manual</cite>.  For example:
+</p>
+<div class="example">
+<pre class="example">C:\&gt; <kbd>set PATH=C:\Program Files\SICStus Prolog 4.4.1\bin;%PATH%</kbd>
+</pre></div>
+
+<p>To use <code>splfr</code> and <code>spld</code>, you must also set up the
+appropriate Microsoft Visual Studio tools; see <a href="../sicstus/Setting-up-the-C-compiler-on-Windows.html#Setting-up-the-C-compiler-on-Windows">Setting up the C compiler on Windows</a> in <cite>the SICStus Prolog Manual</cite> for details.
+</p>
+<p>To use the respective library modules, you must also include the paths
+to Tcl/Tk (see <a href="Tcl_002fTk-Notes.html#Tcl_002fTk-Notes">Tcl/Tk Notes</a>) and Berkeley DB (see <a href="Berkeley-DB-Notes.html#Berkeley-DB-Notes">Berkeley DB Notes</a>) onto the <code>PATH</code> environment variable if the installer for
+Berkeley DB and Tcl/Tk have not done so already.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Windows-Requirements.html#Windows-Requirements" accesskey="1">Windows Requirements</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Requirements
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Windows-Installation.html#Windows-Installation" accesskey="2">Windows Installation</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Installation
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Windows-Notes.html#Windows-Notes" accesskey="3">Windows Notes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Windows Notes
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Command-Line-Editing.html#Command-Line-Editing" accesskey="4">Command Line Editing</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Command Line Editing
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="The-Console-Window.html#The-Console-Window" accesskey="5">The Console Window</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The Console Window
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Windows-Limitations.html#Windows-Limitations" accesskey="6">Windows Limitations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Windows Limitations
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Special-Releases.html#Special-Releases" accesskey="n" rel="next">Next</a>
+<li><a href="Release-Notes-and-Installation-Guide-for-UNIX.html#Release-Notes-and-Installation-Guide-for-UNIX" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Release-Notes-and-Installation-Guide-for-Windows.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Release-Notes-and-Installation-Guide-for-Windows.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

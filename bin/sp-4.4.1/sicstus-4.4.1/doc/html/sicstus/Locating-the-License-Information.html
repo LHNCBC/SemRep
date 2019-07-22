@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Locating the License Information</title>
+
+<meta name="description" content="SICStus Prolog: Locating the License Information">
+<meta name="keywords" content="SICStus Prolog: Locating the License Information">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems" rel="up" title="Debugging Runtime Systems">
+<link href="Customizing-the-Debugged-Runtime-System.html#Customizing-the-Debugged-Runtime-System" rel="next" title="Customizing the Debugged Runtime System">
+<link href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems" rel="prev" title="Debugging Runtime Systems">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Locating-the-License-Information"></a>
+<hr>
+<a name="Locating-the-License-Information-1"></a>
+<h4 class="subsection">6.9.1 Locating the License Information</h4>
+
+<p>The license information for debugged runtime systems can be provided in
+several ways. Most of them can also be used as alternative ways for
+providing the license information to extended runtime systems
+(see <a href="../relnotes/REX.html#REX">Managing Extended Runtime License Information</a> in <cite>SICStus Prolog Release Notes</cite>).
+</p>
+<p>On Windows only, if you have installed the SICStus Prolog development
+system on the machine where the runtime system is to be debugged, then
+the license information will be found in the Windows registry and no
+extra steps need to be performed. This method cannot be used for
+providing an extended runtime system license since the license
+information for the full development system is not the same as for an
+extended runtime system.
+</p>
+<p>If you have the license in a file <samp>license.pl</samp>, i.e. you
+are using a UNIX platform or have manually created a <samp>license.pl</samp>
+file on Windows, then you can make this file available to the debugged
+runtime system in one of two ways:
+</p>
+<a name="index-SP_005fLICENSE_005fFILE-_0028system-property_0029"></a>
+<a name="index-SP_005fLICENSE_005fSITE-_0028system-property_0029"></a>
+<a name="index-SP_005fLICENSE_005fCODE-_0028system-property_0029"></a>
+<a name="index-SP_005fLICENSE_005fEXPIRATION-_0028system-property_0029"></a>
+
+<ul>
+<li> Set the system property or environment variable
+<code>SP_LICENSE_FILE</code> to the absolute path of the <samp>license.pl</samp>
+file of a SICStus Prolog installation, or
+</li><li> Copy the <samp>license.pl</samp> file into the appropriate location
+relative to the runtime system executable, i.e. to
+<samp>sp-4.4.1/sicstus-4.4.1/library/license.pl</samp> on UNIX or
+<samp>sp-4.4.1\library\license.pl</samp> on Windows.
+</li></ul>
+
+<p><strong>Please note</strong>: you cannot redistribute <samp>license.pl</samp>.
+</p>
+<p>The final alternative, available on all platforms, is to set the
+following system properties or environment variables
+</p>
+<dl compact="compact">
+<dt><code>SP_LICENSE_SITE</code></dt>
+<dd><a name="index-SP_005fLICENSE_005fSITE-_0028system-property_0029-1"></a>
+<p>Set to the site name part of your license.
+</p></dd>
+<dt><code>SP_LICENSE_CODE</code></dt>
+<dd><a name="index-SP_005fLICENSE_005fCODE-_0028system-property_0029-1"></a>
+<p>Set to the code part of your license, e.g. something like
+<code>a111-b222-c333-d444-e444</code>.
+</p></dd>
+<dt><code>SP_LICENSE_EXPIRATION</code></dt>
+<dd><a name="index-SP_005fLICENSE_005fEXPIRATION-_0028system-property_0029-1"></a>
+<p>Set to the expiration part of your license, e.g. <code>permanent</code> if you
+have a permanent (non-evaluation) license.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Customizing-the-Debugged-Runtime-System.html#Customizing-the-Debugged-Runtime-System" accesskey="n" rel="next">Next</a>
+<li><a href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Locating-the-License-Information.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Locating-the-License-Information.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

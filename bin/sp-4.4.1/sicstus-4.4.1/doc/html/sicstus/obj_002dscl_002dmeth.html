@@ -1,0 +1,684 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-scl-meth</title>
+
+<meta name="description" content="SICStus Prolog: obj-scl-meth">
+<meta name="keywords" content="SICStus Prolog: obj-scl-meth">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dscl.html#obj_002dscl" rel="up" title="obj-scl">
+<link href="obj_002dinh.html#obj_002dinh" rel="next" title="obj-inh">
+<link href="obj_002dscl_002dslt.html#obj_002dscl_002dslt" rel="prev" title="obj-scl-slt">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dscl_002dmeth"></a>
+<hr>
+<a name="Methods"></a>
+<h4 class="subsubsection">10.23.2.3 Methods</h4>
+
+<p>Some methods are defined by method clauses, between the
+<code>class/1</code> directive and the end of the class&rsquo;s definition. Others
+are generated automatically. There are three kinds of messages in
+SICStus Objects, distinguished by the message operator they occur
+with:
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>&gt;&gt;</samp>&rsquo;</dt>
+<dd><p>A get message, which is typically used to fetch values from an object&rsquo;s slots.
+</p>
+</dd>
+<dt>&lsquo;<samp>&lt;&lt;</samp>&rsquo;</dt>
+<dd><p>A put message, which is typically used to store values in an object&rsquo;s slots.
+</p>
+</dd>
+<dt>&lsquo;<samp>&lt;-</samp>&rsquo;</dt>
+<dd><p>A send message, which is used for other operations on or involving an object.
+</p></dd>
+</dl>
+
+
+<p>SICStus Objects automatically generates some get and put methods. And,
+it expects particular message names with the send operator for create
+and destroy methods. For the most part, however, you are free to use
+any message operators and any message names that seem appropriate.
+</p>
+<p>A method clause has one of these message operators as the principal
+functor of its head. Its first argument, written to the left of the
+message operator, is a variable. By convention, we use the variable
+<code>Self</code>. Its second argument, written to the right of the message
+operator, is a term whose functor is the name of the message and whose
+arguments are its arguments.
+</p>
+<p>For example, in the class whose definition begins as follows, a
+0-argument send message named <code>increment</code> is defined. No parentheses are
+needed in the clause head, because the precedence of the &lsquo;<samp>&lt;-</samp>&rsquo; message
+operator is lower than that of the &lsquo;<samp>:-</samp>&rsquo; operator.
+</p>
+
+<div class="example">
+<pre class="example">:- class counter = [public count:integer = 0].
+
+Self &lt;- increment :-
+        Self &gt;&gt; count (X0),
+        X1 is X0 + 1,
+        Self &lt;&lt; count (X1).
+</pre></div>
+
+
+<p>Its definition uses the automatically generated get and put methods
+for the public slot <code>count</code>.
+</p>
+<p>It may look as though this technique is directly adding clauses to the
+<code>&gt;&gt;/2</code>, <code>&lt;&lt;/2</code> and <code>&lt;-/2</code> predicates, but the method clauses are
+transformed by term expansion, at compile time.  However, the method
+clauses have the effect of extending the definitions of those
+predicates.
+</p>
+<p>Methods are defined by Prolog clauses, so it is possible for them to
+fail, like Prolog predicates, and it is possible for them to be
+nondeterminate, producing multiple answers, upon backtracking. The
+rest of this section describes different kinds of methods.
+</p>
+<a name="Get-and-Put-Methods"></a>
+<h4 class="subheading">Get and Put Methods</h4>
+
+
+<p>Get and put methods are generated automatically for each of a class&rsquo;s
+public slots. These are 1-argument messages, named after the slots.
+</p>
+<p>In the point class whose definition begins with
+</p>
+<div class="example">
+<pre class="example">:- class point = 
+        [public x:float=0, 
+         public y:float=0].
+</pre></div>
+
+
+<p>the get and put methods are automatically generated for the <code>x</code> and
+<code>y</code> slots. If the class defines a <code>create/0</code> method, then the command
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(point, PointObj),
+     PointObj &gt;&gt;  x(OldX), 
+     PointObj &gt;&gt;  y(OldY), 
+     PointObj &lt;&lt;  x(3.14159), 
+     PointObj &lt;&lt;  y(2.71828).</kbd>
+</pre></div>
+
+
+<p>creates a point object and binds both <code>OldX</code> and <code>OldY</code> to
+0.0E+00, its initial slot values. Then, it changes the values of the
+<code>x</code> and <code>y</code> slots to 3.14159 and 2.71828, respectively. The
+variable <code>PointObj</code> is bound to the point object.
+</p>
+<p>It is possible, and sometimes quite useful, to create get and put
+methods for slots that do not exist. For example, it is possible to
+add a polar coordinate interface to the point class by defining
+get and put methods for <code>r</code> and <code>theta</code>, even though there are no
+<code>r</code> and <code>theta</code> slots. The get methods might be defined as
+follows:
+</p>
+<div class="example">
+<pre class="example">Self &gt;&gt; r(R) :-
+        Self &gt;&gt; x(X), 
+        Self &gt;&gt; y(Y), 
+        R is sqrt(X*X + Y*Y).
+
+Self &gt;&gt; theta(T) :- 
+        Self &gt;&gt; x(X), 
+        Self &gt;&gt; y(Y), 
+        T is atan(Y/X).
+</pre></div>
+
+<p>The put methods are left as an exercise.
+</p>
+<p>In the rational number class whose definition begins with:
+</p>
+<div class="example">
+<pre class="example">:- class rational = 
+        [public num:integer, 
+         public denom:integer].
+</pre></div>
+
+
+<p>get and put methods are automatically generated for the <code>num</code> and <code>denom</code>
+slots. It might be reasonable to add a get method for <code>float</code>, which
+would provide a floating point approximation to the rational in
+response to that get message. This is left as an exercise.
+</p>
+<p>It is also possible to define get and put methods that take more than
+one argument. For example, it would be useful to have a put method for
+the point class that sets both slots of a point object. Such a method
+could be defined by
+</p>
+<div class="example">
+<pre class="example">Self &lt;&lt; point(X,Y) :-
+        Self &lt;&lt; x(X),
+        Self &lt;&lt; y(Y).
+</pre></div>
+
+
+<p>Similarly, a 2-argument get method for the rational number class might
+be defined as
+</p>
+<div class="example">
+<pre class="example">Self &gt;&gt; (N/D) :-
+        Self &gt;&gt; num(N), 
+        Self &gt;&gt; denom(D).
+</pre></div>
+
+
+<p>Note that the name of the put message is <code>(/)/2</code>, and that the
+parentheses are needed because of the relative
+precedences of the &lsquo;<samp>&gt;&gt;</samp>&rsquo; and &lsquo;<samp>/</samp>&rsquo;
+operators.
+</p>
+<p>Put messages are used to store values in slots. Get messages, however,
+may be used either to fetch a value from a slot or to test whether a
+particular value is in a slot. For instance, the following command
+tests whether the <code>do_something/2</code> predicate sets the point
+object&rsquo;s <code>x</code> and <code>y</code> slots to 3.14159 and 2.71828, respectively.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(point, PointObj),
+     do_something(PointObj), 
+     PointObj &gt;&gt; x(3.14159),
+     PointObj &gt;&gt; y(2.71828).</kbd>
+</pre></div>
+
+
+<p>The <code>fetch_slot/2</code> predicate can similarly be used to test the value
+of a slot.
+</p>
+<p>The effects of a put message (indeed, of any message) are not undone
+upon backtracking. For example, the following command fails:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(point, PointObj),
+     PointObj &lt;&lt; x(3.14159), 
+     PointObj &lt;&lt; y(2.71828),
+     fail.</kbd>
+</pre></div>
+
+
+<p>But, it leaves behind a point object with <code>x</code> and <code>y</code> slots
+containing the values 3.14159 and 2.71828, respectively. In this,
+storing a value in an object&rsquo;s slot resembles storing a term in the
+Prolog database with <code>assert/1</code>.
+</p>
+<p>Some care is required when storing Prolog terms containing unbound
+variables in term slots.  For example, given the class definition that
+begins with
+</p>
+<div class="example">
+<pre class="example">:- class prolog_term = [public p_term:term].
+
+Self &lt;- create.
+</pre></div>
+
+
+<p>the following command would succeed:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(prolog_term, TermObj),
+     TermObj &lt;&lt; p_term(foo(X,Y)), 
+     X = a, 
+     Y = b, 
+     TermObj &gt;&gt; p_term(foo(c,d)).</kbd>
+</pre></div>
+
+
+<p>The reason is that the free variables in <code>foo(X,Y)</code> are renamed when the
+term is stored in the <code>prolog_term</code> object&rsquo;s <code>p_term</code> slot. This is
+similar to what happens when such a term is asserted to the Prolog
+database:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>retractall(foo(_,_)),
+     assert(foo(X,Y)), 
+     X = a, 
+     Y = b, 
+     foo(c,d).</kbd>
+</pre></div>
+
+
+<p>However, this goal would fail, because <code>c</code> and <code>d</code> cannot be unified:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(prolog_term, TermObj),
+     TermObj &lt;&lt; p_term(foo(X,X)), 
+     TermObj &gt;&gt; p_term(foo(c,d)).</kbd>
+</pre></div>
+
+
+
+<a name="Direct-Slot-Access"></a>
+<h4 class="subheading">Direct Slot Access</h4>
+
+
+<p>Get and put methods are not automatically generated for private and protected
+slots. Those slots are accessed by the <code>fetch_slot/2</code> and
+<code>store_slot/2</code> predicates, which may only appear in the body of a
+method clause and which always operate on the object to which the
+message is sent. It is not possible to access the slots of another
+object with these predicates.
+</p>
+<p>You may declare a slot to be private or protected in order to limit access to
+it. However, it is still possible, and frequently useful, to define
+get and put methods for such a slot.
+</p>
+<p>For example, if numerator and denominator slots of the rational number
+class were
+private rather than public, then it would be possible to define put
+methods to ensure that the denominator is never 0 and that the
+numerator and denominator are relatively prime. The get methods merely
+fetch slot values, but they need to be defined explicitly, since the
+slots are private. The new definition of the rational number class
+might start as follows:
+</p>
+<div class="example">
+<pre class="example">:- class rational =
+        [num:integer=0,         
+         denom:integer=1].
+
+Self &gt;&gt; num(N) :-
+        fetch_slot(num, N).
+                        
+Self &gt;&gt; denom(D) :-
+        fetch_slot(denom, D).
+
+Self &gt;&gt; (N/D) :-
+        Self &gt;&gt; num(N),
+        Self &gt;&gt; denom(D).
+</pre></div>
+
+
+<p>One of the put methods for the class might be
+</p>
+<div class="example">
+<pre class="example">Self &lt;&lt; num(NO) :-
+        fetch_slot(denom, DO) 
+        reduce(NO, DO, N, D),
+        store_slot(num, N), 
+        store_slot(denom, D).
+</pre></div>
+
+
+<p>where the <code>reduce/4</code> predicate would be defined to divide <code>NO</code> and
+<code>DO</code> by their greatest common divisor, producing <code>N</code> and <code>D</code>,
+respectively.
+</p>
+<p>The definition of <code>reduce/4</code> and the remaining put methods is left
+as an exercise.  The put methods should fail for any message that
+attempts to set the denominator to 0.
+</p>
+<a name="Send-Methods"></a>
+<h4 class="subheading">Send Methods</h4>
+
+
+<p>Messages that do something more than fetch or store slot values are
+usually defined as send messages. While the choice of message
+operators is (usually) up to the programmer, choosing them carefully
+enhances the readability of a program.
+</p>
+<p>For example, print methods might be defined for the point and rational
+number classes, respectively, as
+</p>
+<div class="example">
+<pre class="example">Self &lt;- print(Stream) :-
+        Self &gt;&gt; x(X), 
+        Self &gt;&gt; y(Y), 
+        format(Stream, &quot;(~w,~w)&quot;, [X, Y]).
+</pre></div>
+
+
+<p>and
+</p>
+<div class="example">
+<pre class="example">Self &lt;- print(Stream) :-
+        fetch_slot(num, N), 
+        fetch_slot(denom, D), 
+        format(Stream, &quot;~w/~w&quot;, [N, D]).
+</pre></div>
+
+
+<p>These methods are used to access slot values. But, the fact that the
+values are printed to an output stream makes it more reasonable to
+define them as send messages than get messages.
+</p>
+<p>Frequently send methods modify slot values. For example, the point
+class might have methods that flip points around the x and y axes,
+respectively:
+</p>
+<div class="example">
+<pre class="example">Self &lt;- flip_x :-
+        Self &gt;&gt; y(Y0), 
+        Y1 is -1 * Y0, 
+        Self &lt;&lt; y(Y1).
+
+Self &lt;- flip_y :-
+        Self &gt;&gt; x(X0), 
+        X1 is -1 * X0, 
+        Self &lt;&lt; x(X1).
+</pre></div>
+
+
+<p>And, the rational number class might have a method that swaps the
+numerator and denominator of a rational number object. It fails if the
+numerator is 0.
+</p>
+<div class="example">
+<pre class="example">Self &lt;- invert :-
+        fetch_slot(num, N) 
+        N =\= 0, 
+        fetch_slot(denom, D) 
+        store_slot(num, D), 
+        store_slot(denom, N).
+</pre></div>
+
+
+<p>These methods modify slot values, but they do not simply store values
+that are given in the message. Hence, it is more reasonable to use the
+send operator.
+</p>
+<p>It is possible for a method to produce more than one answer. For
+example, the class whose definition begins with
+</p>
+<div class="example">
+<pre class="example">:- class interval = 
+        [public lower:integer, 
+         public upper:integer].
+</pre></div>
+
+
+<p>might define a send method
+</p>
+<div class="example">
+<pre class="example">Self &lt;- in_interval(X) :-
+        Self &gt;&gt; lower(L), 
+        Self &gt;&gt; upper(U), 
+        between(L, U, X). 
+</pre></div>
+
+
+<p>which uses the <code>between/3</code> predicate from <code>library(between)</code>. The
+<code>in_interval</code> message will bind <code>X</code> to each integer, one at a time,
+between the lower and upper slots, inclusive. It fails if asked for
+too many answers.
+</p>
+<p>The rest of this section describes particular kinds of send messages. 
+</p>
+<a name="Create-and-Destroy-Methods"></a>
+<h4 class="subheading">Create and Destroy Methods</h4>
+
+
+<p>Objects are created with the <code>create/2</code> predicate. When you define a
+class, you must specify all the ways that instances of the class can
+be created. The simplest creation method is defined as
+</p>
+<div class="example">
+<pre class="example">Self &lt;- create.
+</pre></div>
+
+
+<p>If this method were defined for <var>Class</var>, then the command
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(<var>Class</var>, <code>Object</code>).</kbd>
+</pre></div>
+
+
+<p>would create an instance of <var>Class</var> and bind the variable <code>Object</code> to that
+instance. All slots would receive their (possibly default) initial
+values.
+</p>
+<p>More generally, if the definition for <var>Class</var> contains a create method
+</p>
+<div class="example">
+<pre class="example">Self &lt;- create(<var>Arguments</var>) :- 
+        <var>Body</var>.
+</pre></div>
+
+
+<p>then the command
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(<var>Class</var>(<var>Arguments</var>), <var>Object</var>).</kbd>
+</pre></div>
+
+
+<p>will create an instance of <var>Class</var> and execute the <var>Body</var> of the
+create method, using the specified <var>Arguments</var>. The variable
+<var>Object</var> is bound to the new instance.
+</p>
+<p>If a simple class definition has no create methods, then it is
+impossible create instances of the class. While the absence of create
+methods may be a programmer error, that is not always the
+case. Abstract classes, which are classes that cannot have instances,
+are often quite useful in defining a class hierarchy.
+</p>
+<p>Create methods can be used to initialize slots in situations when
+specifying initial slot values will not suffice. (Remember that
+initial values must be specified as constants at compile time).  The
+simplest case uses the arguments of the create message as initial slot
+values. For example, the definition of the point class might contain
+the following create method.
+</p>
+<div class="example">
+<pre class="example">Self &lt;- create(X,Y) :-
+        Self &lt;&lt; x(X),
+        Self &lt;&lt; y(Y).
+</pre></div>
+
+
+<p>If used as follows
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(point(3.14159, 2.71828), PointObj),
+     PointObj &gt;&gt; x(X),
+     PointObj &gt;&gt; y(Y).</kbd>
+</pre></div>
+
+
+<p>then it would give <code>X</code> and <code>Y</code> the values of 3.14159 and 2.71828, respectively.
+</p>
+<p>In some cases, the create method might compute the initial values. The
+following (partial) class definition uses the <code>date/1</code> predicate from
+<code>library(date)</code> to initialize its year, month and day slots.
+</p>
+<div class="example">
+<pre class="example">:- class date_stamp = 
+        [year:integer, 
+         month:integer, 
+         day:integer].
+
+Self &lt;- create :-
+        date(date(Year, Month, Day)), 
+        store_slot(year, Year), 
+        store_slot(month, Month), 
+        store_slot(day, Day).
+</pre></div>
+
+
+<p>All three slots are private, so it will be necessary to define get
+methods in order to retrieve the time information. If no put methods
+are defined, however, then the date cannot be modified after
+the <code>date_stamp</code> object is created (unless some other method for
+this class invokes <code>store_slot/2</code> itself).
+</p>
+<p>Create methods can do more than initialize slot values. Consider the
+<code>named_point</code> class, whose definition begins as follows:
+</p>
+<div class="example">
+<pre class="example">:- class named_point = 
+        [public name:atom, 
+         public x:float=1, 
+         public y:float=0].
+
+Self &lt;- create(Name, X, Y) :-
+        Self &lt;&lt; name(Name), 
+        Self &lt;&lt; x(X), 
+        Self &lt;&lt; y(Y), 
+        assert(name_point(Name, Self)).
+</pre></div>
+
+
+<p>Not only does the <code>create/3</code> message initialize the slots of a new
+<code>named_point</code> object, but it also adds a <code>name_point/2</code> fact to
+the Prolog database, allowing each new object to be found by its
+name. (This create method does not require the <code>named_point</code> object
+to have a unique name. Defining a <code>uniq_named_point</code> class is left
+as an exercise.)
+</p>
+<p>An object is destroyed with the <code>destroy/1</code> command. Unlike
+<code>create/2</code>, <code>destroy/1</code> does not require that you define a <code>destroy</code>
+method for a class. However, <code>destroy/1</code> will send a destroy message
+(with no arguments) to an object before it is destroyed, if a
+<code>destroy</code> method is
+defined for the object&rsquo;s class.
+</p>
+<p>If a <code>named_point</code> object is ever destroyed, then the address of the
+object stored in this name <code>point/2</code> fact is no longer valid. Hence,
+there should be a corresponding destroy method that retracts it.
+</p>
+<div class="example">
+<pre class="example">Self &lt;- destroy :-
+        Self &gt;&gt; name(Name),
+        retract(name_point(Name, Self)).
+</pre></div>
+
+
+<p>Similar create and destroy methods can be defined for objects that
+allocate their own separate memory or that announce their existence to
+foreign code.
+</p>
+<a name="Instance-Methods"></a>
+<h4 class="subheading">Instance Methods</h4>
+
+
+<p>Instance methods allow each object in a class to have its own method
+for handling a specified message. For example, in a push-button class
+it would be convenient for each instance (each push-button) to have
+its own method for responding to being pressed.
+</p>
+<p>The declaration
+</p>
+<div class="example">
+<pre class="example">:- instance_method <var>Name/Arity</var>, <var>&hellip;</var>.
+</pre></div>
+
+<p>inside a class definition states that the message <var>Name/Arity</var>
+supports instance methods. If the class definition defines a method
+for this message, then it will be treated as a default method for the
+message.
+</p>
+<p>The <code>define_method/3</code> predicate installs a method for an object of
+the class, and the <code>undefine_method/3</code> predicate removes that
+method.
+</p>
+<p>Suppose that the <code>date_stamp</code> class, defined earlier, declared an
+instance method to print the year of a <code>date_stamp</code> instance.
+</p>
+<div class="example">
+<pre class="example">:- instance_method print_year/1.
+
+Self &lt;- print_year(Stream) :-
+        Self &gt;&gt; year(Y0), 
+        Y1 is YO + 1970, 
+        format(Stream, &quot;~d&quot;, [Y1]).
+</pre></div>
+
+
+<p>The arithmetic is necessary because UNIX dates are based on January 1, 1970.
+</p>
+<p>If a particular <code>date_stamp</code> object&rsquo;s date were to be printed in
+Roman numerals, then it could be given a different <code>print_year</code> method, using
+the <code>define_method/3</code> predicate.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(date_stamp, DateObj),
+     define_method(DateObj,
+		   print_year(Stream), 
+		   print_roman_year(Stream, DateObj)).</kbd>
+</pre></div>
+
+
+<p>If this <code>date_stamp</code> object is created in 1994, then a
+<code>print_year</code> message sent to it would print the current year as
+</p>
+<div class="example">
+<pre class="example">MCMXCIV
+</pre></div>
+
+
+<p>Defining the predicate <code>print_roman_year/2</code> is left as an exercise. It
+must be able to access the <code>year</code> slot of a <code>date_stamp</code> object. Because
+it is not defined by a method clause within the class definition,
+<code>print_roman_year/2</code> cannot use the <code>get_slot/2</code> predicate.
+</p>
+<p>None of <code>instance_method/1</code>, <code>define_method/3</code>,
+<code>undefine_method/3</code> specify a message operator. Instance methods can
+only be defined for send messages.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dscl_002dslt.html#obj_002dscl_002dslt" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dscl.html#obj_002dscl" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dscl_002dmeth.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dscl_002dmeth.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

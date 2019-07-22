@@ -1,0 +1,15 @@
+predicate diffn_sicstus(array [int] of var int: x,array [int] of var int: y,array [int] of var int: dx,array [int] of var int: dy);
+var 0..2: X_INTRODUCED_0;
+var 0..2: X_INTRODUCED_1;
+var 0..2: X_INTRODUCED_2;
+var 0..2: X_INTRODUCED_3;
+var {0,2}: X_INTRODUCED_4;
+var {0,2}: X_INTRODUCED_5;
+var {0,2}: X_INTRODUCED_6;
+var {0,2}: X_INTRODUCED_7;
+array [1..2] of var int: x:: output_array([1..2]) = [X_INTRODUCED_0,X_INTRODUCED_1];
+array [1..2] of var int: y:: output_array([1..2]) = [X_INTRODUCED_2,X_INTRODUCED_3];
+array [1..2] of var int: dx:: output_array([1..2]) = [X_INTRODUCED_4,X_INTRODUCED_5];
+array [1..2] of var int: dy:: output_array([1..2]) = [X_INTRODUCED_6,X_INTRODUCED_7];
+constraint diffn_sicstus(x,y,dx,dy);
+solve  satisfy;

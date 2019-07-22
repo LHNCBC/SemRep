@@ -1,0 +1,8 @@
+predicate minimum_arg_int(array [int] of var int: x,var int: i,int: base);
+predicate sort(array [int] of var int: x,array [int] of var int: y);
+array [1..4] of int: input = [3,1,4,2];
+array [1..4] of var int: sorted;
+var 1..4: ans:: output_var;
+constraint minimum_arg_int(sorted,ans,1);
+constraint sort(input,sorted);
+solve  satisfy;

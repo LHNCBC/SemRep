@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-length</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-length">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-length">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dless_005fthan.html#mpg_002dref_002dless_005fthan" rel="next" title="mpg-ref-less_than">
+<link href="mpg_002dref_002dleash.html#mpg_002dref_002dleash" rel="prev" title="mpg-ref-leash">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dlength"></a>
+<hr>
+<a name="length_002f2"></a>
+<h4 class="subsection">11.3.111 <code>length/2</code></h4>
+<a name="index-length_002f2-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-length_002f2-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-136"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>length(<var>?List</var>, <var>?Integer</var>)</code>
+</p>
+<p><var>Integer</var> is the length of <var>List</var>. If <var>List</var> is
+instantiated to a proper <em>list of term</em>, or <var>Integer</var> to an integer, then 
+the predicate is determinate.
+</p>
+<a name="Arguments-125"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>List</var></dt>
+<dd><p><em>list of term</em>
+</p>
+</dd>
+<dt><var>Integer</var></dt>
+<dd><p><em>integer</em>, non-negative
+</p></dd>
+</dl>
+
+<a name="Description-102"></a>
+<h4 class="subheading">Description</h4>
+
+<p>If <var>List</var> is a list of indefinite length (that is, either a variable 
+or of the form <code>[&hellip;|X]</code>, where <code>X</code> is a variable) and if <var>Integer</var> is bound to an integer, 
+then <var>List</var> is made to be a list of length <var>Integer</var> with unique 
+variables used to &ldquo;pad&rdquo; the list. If <var>List</var> cannot be
+made into a list of length <var>Integer</var>, then the call fails.
+</p><div class="example">
+<pre class="example">| ?-  <kbd>List = [a,b|X], length(List, 4).</kbd>
+
+List = [a,b,_A,_B],
+X = [_A,_B] <kbd>;</kbd>
+
+| ?-
+</pre></div>
+
+<p>If <var>List</var> is bound, and is not a list, then <code>length/2</code> simply fails.
+</p>
+<p>If <var>List</var> is a cyclic list, and <var>Integer</var> is bound to a
+non-negative integer, then <code>length/2</code> simply fails.
+</p>
+<p>If <var>List</var> is a cyclic list, and <var>Integer</var> is a variable, then the
+behavior is unspecified and may change in the some future version.
+</p>
+<a name="Backtracking-17"></a>
+<h4 class="subheading">Backtracking</h4>
+
+<p>If <var>Integer</var> is unbound, then it is unified with all possible lengths
+for the list <var>List</var>.
+</p>
+<a name="Exceptions-127"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>type_error</code></dt>
+<dd><p><var>Integer</var> is not an integer
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p><var>Integer</var> &lt; 0
+</p></dd>
+</dl>
+
+<a name="Examples-49"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">
+| ?- <kbd>length([1,2], 2).</kbd>
+
+yes
+| ?- <kbd>length([1,2], 0).</kbd>
+
+no
+| ?- <kbd>length([1,2], X).</kbd>
+
+X = 2 <kbd>;</kbd>
+
+no
+</pre></div>
+
+<a name="See-Also-133"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlte_002dacl.html#ref_002dlte_002dacl">ref-lte-acl</a>,
+<code>library(lists)</code>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dless_005fthan.html#mpg_002dref_002dless_005fthan" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dleash.html#mpg_002dref_002dleash" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dlength.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dlength.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

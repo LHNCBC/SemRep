@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Runtime Systems on UNIX Target Machines</title>
+
+<meta name="description" content="SICStus Prolog: Runtime Systems on UNIX Target Machines">
+<meta name="keywords" content="SICStus Prolog: Runtime Systems on UNIX Target Machines">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines" rel="up" title="Runtime Systems on Target Machines">
+<link href="Runtime-Systems-on-Windows-Target-Machines.html#Runtime-Systems-on-Windows-Target-Machines" rel="next" title="Runtime Systems on Windows Target Machines">
+<link href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines" rel="prev" title="Runtime Systems on Target Machines">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Runtime-Systems-on-UNIX-Target-Machines"></a>
+<hr>
+<a name="Runtime-Systems-on-UNIX-Target-Machines-1"></a>
+<h4 class="subsubsection">6.7.2.1 Runtime Systems on UNIX Target Machines</h4>
+
+<p>In order to build a runtime system for distribution on a target machine,
+the option <samp>--moveable</samp> must be passed to <code>spld</code>. This
+option prevents <code>spld</code> from hardcoding any (absolute) paths into
+the executable. As of release 4.2, <samp>--moveable</samp> is the default on
+most platforms, including Linux, Mac OS X and Solaris.
+</p>
+<p>Next, in order for SICStus to be able to locate all relevant files, the
+following directory structure should be used.
+</p>
+<div class="example">
+<pre class="example">myapp.exe
+sp-4.4.1/
++--- libsprt4-4-1.so
++--- sicstus-4.4.1/
+     +--- bin/
+     |    +--- sprt.sav
+     +--- library/
+          +--- &lt;files from $SP_PATH/library&gt;
+</pre></div>
+
+<p>If support for multiple SICStus instances is needed, then the runtimes
+named e.g. <samp>libsprt4-4-1_instance_01_.so</samp> need to be available as
+well, in the same place as <samp>libsprt4-4-1.so</samp>.
+</p>
+<p>If SICStus Prolog is installed on the target machine, then a symbolic
+link named <samp>sp-4.4.1</samp> can be used, in which case it should
+point to the directory of the SICStus installation that contains the
+<samp>libsprt4-4-1.so</samp> (or equivalent).
+</p>
+<p>If the runtime system needs to be debugged, then the above file system
+layout should be complemented as follows: The file <samp>spds.sav</samp> from
+the development system should be copied and placed in the same folder as
+<samp>sprt.sav</samp> and the license information must be made
+available. See <a href="Debugging-Runtime-Systems.html#Debugging-Runtime-Systems">Debugging Runtime Systems</a> for details.
+</p>
+<p><samp>myapp.exe</samp> is typically created by a call to <code>spld</code>:
+</p>
+<div class="example">
+<pre class="example">% <kbd>spld --main=user --moveable [&hellip;] -o ./myapp.exe</kbd>
+</pre></div>
+
+
+
+<p>On most platforms, the above directory layout will enable the executable
+to find the SICStus runtime (e.q., <samp>libsprt4-4-1.so</samp>) as well as the
+boot file <samp>sprt.sav</samp> (<samp>spre.sav</samp>). In addition, application
+specific files, e.g. a <samp>.sav</samp> file, can be found using the
+automatically set system properties <code>SP_APP_DIR</code> or
+<code>SP_RT_DIR</code>. On some platforms a wrapper script, generated by
+<code>spld</code>, is needed to ensure that the files are found.
+</p>
+
+
+
+<p>Unless the <samp>--static</samp> option is passed to <code>spld</code>, it might also be
+necessary to set <code>LD_LIBRARY_PATH</code> (or equivalent) to
+<samp>/home/joe/lib</samp> (in the example above) in order for the dynamic
+linker to find <samp>libsprt4-4-1.so</samp>. If the <samp>--static</samp> option is used,
+then this is not necessary. Setting <code>LD_LIBRARY_PATH</code> is not recommended
+unless it is really needed.
+</p>
+<p>When a runtime system is redistributed to third parties, only the
+following files may be included in the distribution.
+All filenames are relative to <samp>&lt;prefix&gt;/lib/sicstus-4.4.1</samp>:
+</p>
+<dl compact="compact">
+<dt><samp>../*.{a,so,sl,dylib}</samp></dt>
+<dt><samp>bin/sprt.sav</samp></dt>
+<dt><samp>bin/spre.sav</samp></dt>
+<dt><samp>bin/jasper.jar</samp></dt>
+<dt><samp>bin/prologbeans.jar</samp></dt>
+<dt><samp>library/*.{tcl,po,pl}</samp></dt>
+<dd><p>Except <samp>license.pl</samp>!
+</p></dd>
+<dt><samp>library/*/*.{s.o,so,sl,dylib}</samp></dt>
+<dt><samp>library/*/*.{po,pl}</samp></dt>
+<dt><samp>sp_platform</samp></dt>
+<dd><p>(Located with <code>InstallSICStus</code>)
+</p></dd>
+</dl>
+
+<p><strong>Please note</strong>: you cannot redistribute <samp>spds.sav</samp> or <samp>license.pl</samp>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Runtime-Systems-on-Windows-Target-Machines.html#Runtime-Systems-on-Windows-Target-Machines" accesskey="n" rel="next">Next</a>
+<li><a href="Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Runtime-Systems-on-UNIX-Target-Machines.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Runtime-Systems-on-UNIX-Target-Machines.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

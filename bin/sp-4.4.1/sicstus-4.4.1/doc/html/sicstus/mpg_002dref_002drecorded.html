@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-recorded</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-recorded">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-recorded">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002drecordz.html#mpg_002dref_002drecordz" rel="next" title="mpg-ref-recordz">
+<link href="mpg_002dref_002drecorda.html#mpg_002dref_002drecorda" rel="prev" title="mpg-ref-recorda">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002drecorded"></a>
+<hr>
+<a name="recorded_002f3"></a>
+<h4 class="subsection">11.3.188 <code>recorded/3</code></h4>
+<a name="index-recorded_002f3-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-recorded_002f3-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-213"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>recorded(<var>-Key</var>, <var>-Term</var>, <var>+Ref</var>)</code>
+</p>
+<p><code>recorded(<var>?Key</var>, <var>?Term</var>, <var>?Ref</var>)</code>
+</p>
+<p>Searches the internal database for a term recorded under the principal
+functor of <var>Key</var> that unifies with <var>Term</var>, and whose database
+reference unifies with <var>Ref</var>.
+</p>
+<a name="Arguments-196"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Key</var></dt>
+<dd><p><em>term</em>
+</p>
+</dd>
+<dt><var>Term</var></dt>
+<dd><p><em>term</em>
+</p>
+</dd>
+<dt><var>Ref</var></dt>
+<dd><p><em>db_reference</em>
+</p></dd>
+</dl>
+
+<a name="Description-150"></a>
+<h4 class="subheading">Description</h4>
+
+<p>If <var>Ref</var> is instantiated, then <var>Key</var> and <var>Term</var> 
+are unified with the key and term associated with <var>Ref</var>. 
+Otherwise, If <var>Key</var> is a compound term, then only its principal functor is
+significant.  That is, <code>foo(1)</code> represents the same
+key as <code>foo(n)</code>.
+</p>
+<a name="Backtracking-26"></a>
+<h4 class="subheading">Backtracking</h4>
+
+<p>Can be used to backtrack through all the
+matching terms recorded under the specified key.
+</p>
+<a name="Exceptions-204"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>type_error</code></dt>
+<dd><p><var>Ref</var> is not a database reference
+</p></dd>
+</dl>
+
+<a name="Examples-78"></a>
+<h4 class="subheading">Examples</h4>
+
+<a name="See-Also-210"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmdb_002didb.html#ref_002dmdb_002didb">ref-mdb-idb</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002drecordz.html#mpg_002dref_002drecordz" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002drecorda.html#mpg_002dref_002drecorda" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002drecorded.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002drecorded.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

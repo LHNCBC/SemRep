@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_expand_file_name</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_expand_file_name">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_expand_file_name">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005ffail.html#cpg_002dref_002dSP_005ffail" rel="next" title="cpg-ref-SP_fail">
+<link href="cpg_002dref_002dSP_005fexception_005fterm.html#cpg_002dref_002dSP_005fexception_005fterm" rel="prev" title="cpg-ref-SP_exception_term">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fexpand_005ffile_005fname"></a>
+<hr>
+<a name="SP_005fexpand_005ffile_005fname_0028_0029"></a>
+<h4 class="subsection">12.3.16 <code>SP_expand_file_name()</code></h4>
+<a name="index-SP_005fexpand_005ffile_005fname_0028_0029-_0028C-function_0029"></a>
+<a name="Synopsis-296"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+spio_t_error_code
+SP_expand_file_name(
+   char const *relpath,
+   char const *cwd,
+   spio_t_bits options,
+   char **pabspath);
+</pre></div>
+
+<p>Expand a file name into an absolute path.
+</p>
+<a name="Arguments-271"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>relpath</var></dt>
+<dd>
+<p>The relative path to expand. It should be an encoded string. The
+path is subject to syntactic rewriting, as if by
+<code>absolute_file_name/2</code>.
+</p>
+</dd>
+<dt><var>cwd</var></dt>
+<dd><p>If the <code>relpath</code> is a relative path, it is expanded relative to
+<code>cwd</code>, unless <code>cwd</code> is <code>NULL</code>. If <code>cwd</code> is
+<code>NULL</code>, a relative <code>relpath</code> is expanded relative to the
+SICStus working directory (as returned by <code>SP_get_current_dir()</code>).
+</p>
+</dd>
+<dt><var>options</var></dt>
+<dd>
+<p>The following option bits can be set:
+</p>
+<dl compact="compact">
+<dt><code>SP_EXPAND_FILE_NAME_OPTION_DIR</code></dt>
+<dd><p>The <code>relpath</code> is expanded as a directory, i.e.
+<code>*pabspath</code> will be slash terminated.
+</p>
+</dd>
+<dt><code>SP_EXPAND_FILE_NAME_OPTION_NO_CWD</code></dt>
+<dd><p>An error is returned if the <code>relpath</code> is not an absolute path
+after syntactic rewriting.
+</p>
+</dd>
+<dt><code>SP_EXPAND_FILE_NAME_OPTION_NO_ENV</code></dt>
+<dd><p>Do not expand system properties and environment variables during syntactic rewriting.
+</p>
+</dd>
+<dt><code>SP_EXPAND_FILE_NAME_OPTION_NO_HOME</code></dt>
+<dd><p>Do not expand &lsquo;<samp>~</samp>&rsquo; and &lsquo;<samp>~user</samp>&rsquo; during syntactic rewriting.
+</p>
+</dd>
+<dt><code>SP_EXPAND_FILE_NAME_OPTION_ROOT_SLASH</code></dt>
+<dd><p>If the expanded value would refer to the root directory, return a
+slash terminated absolute path, as if
+<code>SP_EXPAND_FILE_NAME_OPTION_DIR</code> had been set. By default, an
+error is returned if the expanded absolute path would refer to a root
+directory and <code>SP_EXPAND_FILE_NAME_OPTION_DIR</code> is not set.
+</p>
+</dd>
+<dt><code>SP_EXPAND_FILE_NAME_OPTION_ROOT_DOT</code></dt>
+<dd><p>If the expanded value would refer to the root directory, return an
+absolute path terminated with &lsquo;<samp>/.</samp>&rsquo;. By default, an
+error is returned if the expanded absolute path would refer to a root
+directory and <code>SP_EXPAND_FILE_NAME_OPTION_DIR</code> is not set.
+</p></dd>
+</dl>
+
+</dd>
+<dt><var>pabspath</var></dt>
+<dd><p>On success, <code>*pabspath</code> is set to the expanded path. This value is
+allocated with <code>SP_malloc()</code> and should be freed with
+<code>SP_free()</code>.
+</p></dd>
+</dl>
+
+<a name="Return-Value-14"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, <code>*pabspath</code> is set to the expanded path and <code>SPIO_S_NOERR</code> or some other success code is returned.
+</p>
+<p>On failure, an error code is returned.
+</p>
+<a name="See-Also-293"></a>
+<h4 class="subheading">See Also</h4>
+<p><a href="cpg_002dref_002dSP_005fget_005fcurrent_005fdir.html#cpg_002dref_002dSP_005fget_005fcurrent_005fdir">cpg-ref-SP_get_current_dir</a>.
+See <a href="ref_002dfdi_002dsyn.html#ref_002dfdi_002dsyn">ref-fdi-syn</a>, for a description of syntactic rewriting.
+<a href="OS-File-System.html#OS-File-System">OS File System</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005ffail.html#cpg_002dref_002dSP_005ffail" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005fexception_005fterm.html#cpg_002dref_002dSP_005fexception_005fterm" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fexpand_005ffile_005fname.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fexpand_005ffile_005fname.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Debug Commands</title>
+
+<meta name="description" content="SICStus Prolog: Debug Commands">
+<meta name="keywords" content="SICStus Prolog: Debug Commands">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Debug-Intro.html#Debug-Intro" rel="up" title="Debug Intro">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="next" title="Advanced Debugging">
+<link href="Debug-Format.html#Debug-Format" rel="prev" title="Debug Format">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Debug-Commands"></a>
+<hr>
+<a name="Commands-Available-during-Debugging"></a>
+<h3 class="section">5.5 Commands Available during Debugging</h3>
+<a name="index-debug-commands"></a>
+<a name="index-commands_002c-debug"></a>
+
+<p>This section describes the particular commands that are available when
+the system prompts you after printing out a debugging message.  All the
+commands are one or two letter mnemonics, among which some can be
+optionally followed by an argument.  They are read from the
+standard input stream with any blanks being completely ignored up
+to the end of the line (<tt class="key">RET</tt>).
+</p>
+<a name="index-current-frame-1"></a>
+<a name="index-frame_002c-current-1"></a>
+<p>While you are typing commands at a given port, the debugger maintains a
+notion of <em>current frame</em> of the ancestor stack.  The &ldquo;current
+goal&rdquo;, referred to by many commands, is the goal of the current frame.
+The current frame is initially at the bottom of the ancestor stack, but
+can be moved by certain commands.  If the current frame is above the
+bottom of the stack, then the port indicator, displayed in front of the
+current goal, is replaced by the word Ancestor.
+</p>
+<p>The only command that you really have to remember is &lsquo;<samp>h</samp>&rsquo; (followed
+by <tt class="key">RET</tt>).  This provides help in the form of the following list of
+available commands.
+</p>
+<div class="example">
+<pre class="example">    RET   creep            c      creep
+    l     leap             z      zip
+    s     skip             s &lt;i&gt;  skip i
+    o     out              o &lt;n&gt;  out n
+    q     q-skip           q &lt;i&gt;  q-skip i
+    r     retry            r &lt;i&gt;  retry i
+    f     fail             f &lt;i&gt;  fail i
+    j&lt;p&gt;  jump to port     j&lt;p&gt;&lt;i&gt;jump to port i
+    d     display          w      write
+    p     print            p &lt;n&gt;  print partial
+    g     ancestors        g &lt;n&gt;  ancestors n
+    t     backtrace        t &lt;n&gt;  backtrace n
+    [     frame up         ]      frame down
+    [ &lt;i&gt; frame i          ] &lt;i&gt;  frame i   
+    v     variables        v &lt;i&gt;  variables i
+    &amp;     blocked goals    &amp; &lt;n&gt;  nth blocked goal
+    n     nodebug          =      debugging
+    +     spy this         *      spy conditionally
+    -     nospy this       \ &lt;i&gt;  remove brkpoint
+    D &lt;i&gt; disable brkpoint E &lt;i&gt;  enable brkpoint
+    a     abort            b      break
+    @     command          u      unify
+    e     raise exception  .      find this
+    &lt;     reset printdepth &lt; &lt;n&gt;  set printdepth
+    ^     reset subterm    ^ &lt;n&gt;  set subterm
+    ?     help             h      help
+</pre></div>
+
+<dl compact="compact">
+<dd><a name="index-c-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>c</kbd></dt>
+<dd><a name="index-RET-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd><span class="key">RET</span></kbd></dt>
+<dd><p><em>creep</em> causes the debugger to single-step to the very next
+port and print a message.  Then if the port is leashed
+(see <a href="Basic-Debug.html#Basic-Debug">Basic Debug</a>), then the user is prompted for further interaction.
+Otherwise, it continues creeping.  If leashing is off, then
+creep is the same as <em>leap</em> (see below) except that a complete
+trace is printed on the standard error stream.
+<a name="index-creep-_0028debugger-command_0029"></a>
+</p>
+<a name="index-l-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>l</kbd></dt>
+<dd><p><em>leap</em> causes the debugger to resume running your program,
+only stopping when a spypoint is reached (or when the
+program terminates).  Leaping can thus be used to follow the
+execution at a higher level than exhaustive tracing.  All you need to do
+is to set spypoints on an evenly spread set of pertinent
+predicates, and then follow the control flow through these by
+leaping from one to the other.  Debugging information is collected
+while leaping, so when a spypoint is reached, it is possible
+to inspect the ancestor goals, or creep into them upon
+entry to Redo ports.
+<a name="index-leap-_0028debugger-command_0029"></a>
+</p>
+<a name="index-z-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>z</kbd></dt>
+<dd><p><em>zip</em> is like <em>leap</em>, except no debugging information is being
+collected while zipping, resulting in significant savings in
+memory and execution time.
+<a name="index-zip-_0028debugger-command_0029"></a>
+</p>
+<a name="index-s-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>s</kbd></dt>
+<dd><p><em>skip</em> is only valid for Call and Redo ports.  It skips over
+the entire execution of the predicate.  That is, you will not see
+anything until control comes back to this predicate (at either the
+Exit port or the Fail port).  Skip is particularly useful
+while creeping since it guarantees that control will be returned
+after the (possibly complex) execution within the box.  If you skip, then
+no message at all will appear until control returns.  This includes
+calls to predicates with spypoints set; they will be masked
+out during the skip.  No debugging information is being collected while
+skipping.
+</p>
+<p>If you supply an integer argument, then this should denote an
+invocation number of an ancestral goal.  The system tries to
+get you to the Exit or Fail port of the invocation box you
+have specified.
+<a name="index-skip-_0028debugger-command_0029"></a>
+</p>
+<a name="index-o-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>o</kbd></dt>
+<dd><p><em>out</em> is a shorthand for skipping to the Exit or Fail port of
+the immediate ancestor goal.  If you supply an integer
+argument <var>n</var>, then it denotes skipping to the Exit or Fail
+port of the <var>n</var>th ancestor goal.
+<a name="index-out-_0028debugger-command_0029"></a>
+</p>
+<a name="index-q-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>q</kbd></dt>
+<dd><p><em>quasi-skip</em> is like a combination of <em>zip</em> and <em>skip</em>:
+execution stops when either control comes back to this predicate,
+or a spypoint is reached.  No debugging information is being
+collected while quasi-skipping.
+</p>
+<p>An integer argument can be supplied as for <em>skip</em>.
+<a name="index-quasi_002dskip-_0028debugger-command_0029"></a>
+</p>
+<a name="index-r-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>r</kbd></dt>
+<dd><p><em>retry</em> can be used at any port (although at the Call
+port it has no effect).  It transfers control back to the Call
+port of the box.  This allows you to restart an invocation when,
+for example, you find yourself leaving with some weird result.  The
+state of execution is exactly the same as when you originally called,
+(unless you use side-effects in your program; i.e. asserts
+etc. will not be undone).  When a retry is performed the invocation
+counter is reset so that counting will continue from the current
+invocation number regardless of what happened before the retry.  This is
+in accord with the fact that you have, in executional terms, returned to
+the state before anything else was called.
+</p>
+<p>If you supply an integer argument, then it should denote an
+invocation number of an ancestral goal.  The system tries to
+get you to the Call port of the box you have specified.  It does
+this by continuously failing until it reaches the right place.
+Unfortunately this process cannot be guaranteed: it may be the case that
+the invocation you are looking for has been cut out of the search
+space by cuts (<code>!</code>) in your program.  In this case the
+system fails to the latest surviving Call port before the correct
+one.
+<a name="index-retry-_0028debugger-command_0029"></a>
+</p>
+<a name="index-f-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>f</kbd></dt>
+<dd><p><em>fail</em> can be used at any of the four ports (although at the
+Fail port it has no effect).  It transfers control to the Fail
+port of the box, forcing the invocation to fail prematurely.
+</p>
+<p>If you supply an integer after the command, then it is taken as
+specifying an invocation number and the system tries to get you to the
+Fail port of the invocation box you have specified.  It does
+this by continuously failing until it reaches the right place.
+Unfortunately this process cannot be guaranteed: it may be the case that
+the invocation you are looking for has been cut out of the search
+space by cuts (<code>!</code>) in your program.  In this case the
+system fails to the latest surviving Fail port before the correct
+one.
+<a name="index-fail-_0028debugger-command_0029"></a>
+</p>
+<a name="index-j_003cp_003e-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>j&lt;p&gt;</kbd></dt>
+<dd><p><em>jump to port</em> transfers control back to the prescribed
+port <var>&lt;p&gt;</var>. Here, <var>&lt;p&gt;</var> is one of: &lsquo;<samp>c</samp>&rsquo;, &lsquo;<samp>e</samp>&rsquo;,
+&lsquo;<samp>r</samp>&rsquo;, &lsquo;<samp>f</samp>&rsquo;, standing for Call, Exit, Redo and Fail
+ports. Takes an optional integer argument, an invocation
+number.
+</p>
+<p>Jumping to a Call port is the same as retrying it, i.e.
+&lsquo;<samp>jc</samp>&rsquo; is the same as the &lsquo;<samp>r</samp>&rsquo; debugger command; and similarly
+&lsquo;<samp>jf</samp>&rsquo; is the same as &lsquo;<samp>f</samp>&rsquo;.
+</p>
+<p>The &lsquo;<samp>je</samp>&rsquo; <em>jump to Exit port</em> command transfers control
+back to the Exit port of the box. It can be used at a Redo or an
+Exit port (although at the latter it has no effect). This allows
+you to restart a computation following an Exit port, which you
+first leapt over, but because of its unexpected failure you
+arrived at the Redo port. If you supply an integer
+argument, then it should denote an <em>exact</em> invocation
+number of an exited invocation present in the backtrace, and then
+the system will get you to the specified Exit port. The debugger
+requires here an exact invocation number so that it does not jump too
+far back in the execution (if an Exit port is not present in the
+backtrace, it may be be a better choice to jump to the preceding
+Call port, rather than to continue looking for another Exit
+port).
+</p>
+<p>The &lsquo;<samp>jr</samp>&rsquo; <em>jump to Redo port</em> command transfers control
+back to the Redo port of the box. It can be used at an Exit or a
+Redo port (although at the latter it has no effect). This allows
+you to force the goal in question to try to deliver another
+solution. If you supply an integer argument, then it should
+denote an <em>exact</em> invocation number of an exited invocation present
+in the backtrace, and then the system will get you to the
+specified Redo port.
+<a name="index-jump-to-port-_0028debugger-command_0029"></a>
+</p>
+<a name="index-d-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>d</kbd></dt>
+<dd><p><em>display goal</em> displays the current goal using
+<code>display/1</code>.  See Write (below).
+<a name="index-display-_0028debugger-command_0029"></a>
+</p>
+<a name="index-p-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>p</kbd></dt>
+<dd><p><em>print goal</em> displays the current goal using <code>print/1</code>.
+An argument will override the default printdepth, treating 0 as
+infinity.
+<a name="index-print-_0028debugger-command_0029"></a>
+</p>
+<a name="index-w-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>w</kbd></dt>
+<dd><p><em>write goal</em> displays the current goal using <code>writeq/1</code>.
+<a name="index-write-_0028debugger-command_0029"></a>
+</p>
+<a name="index-g-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>g</kbd></dt>
+<dd><p><em>print ancestor goals</em> provides you with a list of ancestors
+to the current goal, i.e. all goals that are
+hierarchically above the current goal in the calling sequence.
+You can always be sure of jumping to the Call or Fail port of any
+goal in the ancestor list (by using retry etc).  If you
+supply an integer <var>n</var>, then only that number of ancestors will
+be printed.  That is to say, the last <var>n</var> ancestors will be
+printed counting back from the current goal.  Each entry is
+displayed just as they would be in a trace message, except the current frame
+is indicated by a <kbd>@</kbd> in front of the invocation number.
+<a name="index-ancestors-_0028debugger-command_0029"></a>
+</p>
+<a name="index-backtrace"></a>
+<a name="index-t-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>t</kbd></dt>
+<dd><p><em>print backtrace</em> is the same as the above, but also shows any
+goals that have exited nondeterminately and their
+ancestors.  This information shows where there are outstanding
+choices that the program could backtrack to.  If you supply
+an integer <var>n</var>, then only that number of goals will be
+printed.
+</p>
+<p>Ancestors to the current goal are annotated with the
+&lsquo;<samp>Call:</samp>&rsquo; port, as they have not yet exited, whereas
+goals that have exited are annotated with the &lsquo;<samp>Exit:</samp>&rsquo;
+port.  You can always be sure of jumping to the Exit or Redo
+port of any goal shown to be exited in the backtrace
+listing.
+</p>
+<p>The backtrace is a tree rather than a stack: to find the
+parent of a given goal with depth indicator <var>d</var>, look
+for the closest goal above it with depth indicator <var>d-1</var>.
+<a name="index-backtrace-_0028debugger-command_0029"></a>
+</p>
+<a name="index-_005b-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>[ &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><p><em>frame up</em>: moves the frame up one step.  If you supply an argument,
+then it should denote an invocation number of an existing goal.
+</p>
+<a name="index-_005d-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>] &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><p><em>frame down</em>: moves the frame down one step.  If you supply an
+argument, then it should denote an invocation number of an existing goal.
+</p>
+<a name="index-v-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>v &nbsp;<!-- /@w --> <i>since release 4.2</i></kbd></dt>
+<dd><p><em>print variable bindings</em> endeavors to print the variable bindings
+of the clause containing the current goal.  This is available for both
+compiled and interpreted code, if the source code was originally loaded
+with the <code>source_info</code> Prolog flag switched on.  The coverage is
+usually better for compiled code.  If you supply an argument, then it should
+denote an invocation number of an existing goal.
+</p>
+<p>Just like the top-level, the debugger displays variable bindings as well
+as any goals that are blocked on a variable found among those bindings,
+and prompts for the same one-letter commands as the top-level does;
+see <a href="Queries.html#Queries">Queries</a>.  To return to the debugger, simply type <kbd>RET</kbd>.
+</p>
+<a name="index-_0026-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>&amp;</kbd></dt>
+<dd><p><em>print blocked goals</em> prints a list of the goals that are
+currently blocked in the current debugging session together with
+the variable that each such goal is blocked on
+(see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>).  The goals are enumerated from 1 and up.  If
+you supply an integer <var>n</var>, then only that goal will be
+printed.  Each entry is preceded by the goal number followed by
+the variable name.
+<a name="index-blocked-goals-_0028debugger-command_0029"></a>
+</p>
+<a name="index-n-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>n</kbd></dt>
+<dd><p><em>nodebug</em> switches the debugger off.  Note that this is the correct way
+to switch debugging off at a trace point.  You cannot use the <kbd>@</kbd> or
+<kbd>b</kbd> commands because they always return to the debugger.
+<a name="index-nodebug-_0028debugger-command_0029"></a>
+</p>
+<a name="index-_003d-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>=</kbd></dt>
+<dd><p><em>debugging</em> outputs information concerning the status of the
+debugging package.  See the built-in predicate
+<code>debugging/0</code>.
+<a name="index-debugging-_0028debugger-command_0029"></a>
+</p>
+<a name="index-_002b-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>+</kbd></dt>
+<dd><p><em>spy this</em> sets a plain spypoint on the current goal.
+<a name="index-spy-this-_0028debugger-command_0029"></a>
+</p>
+<a name="index-_002a-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>*</kbd></dt>
+<dd><p><em>spy this conditionally</em> sets a conditional spypoint on the
+current goal. Prompts for the <var>Conditions</var>, and calls the
+</p><div class="example">
+<pre class="example">spy(<var>Func</var>, <var>Conditions</var>)
+</pre></div>
+<p>goal, where <var>Func</var> is the predicate spec of the current
+invocation. For <code>spy/2</code>, see <a href="Breakpoint-Predicates.html#Breakpoint-Predicates">Breakpoint Predicates</a>.
+<a name="index-spy-this-conditionally-_0028debugger-command_0029"></a>
+</p>
+<a name="index-_002d-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>-</kbd></dt>
+<dd><p><em>nospy this</em> removes all spypoints applicable to the current
+goal. Equivalent to <code>nospy <var>Func</var></code>, where <var>Func</var> is
+the predicate spec of the current invocation.
+<a name="index-nospy-this-_0028debugger-command_0029"></a>
+</p>
+<a name="index-_005c-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>\</kbd></dt>
+<dd><p><em>remove this</em> removes the spypoint that caused the debugger to
+interact at the current port. With an argument <var>n</var>, it
+removes the breakpoint with identifier <var>n</var>.  Equivalent to
+<code>remove_breakpoints(<var>BID</var>)</code>, where <var>BID</var> is the current
+breakpoint identifier, or the supplied argument
+(see <a href="Breakpoint-Predicates.html#Breakpoint-Predicates">Breakpoint Predicates</a>).
+<a name="index-remove-this-_0028debugger-command_0029"></a>
+</p>
+<a name="index-D-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>D</kbd></dt>
+<dd><p><em>disable this</em> disables the spypoint that caused the debugger
+to interact at the current port. With an argument <var>n</var>,
+it disables the breakpoint with identifier <var>n</var>.  Equivalent to
+<code>disable_breakpoints(<var>BID</var>)</code>, where <var>BID</var> is the current
+breakpoint identifier, or the supplied argument
+(see <a href="Breakpoint-Predicates.html#Breakpoint-Predicates">Breakpoint Predicates</a>).
+<a name="index-disable-this-_0028debugger-command_0029"></a>
+</p>
+<a name="index-E-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>E</kbd></dt>
+<dd><p><em>enable this</em> enables all specific spypoints for the
+predicate at the current port. With an argument
+<var>n</var>, it enables the breakpoint with identifier
+<var>n</var>. Equivalent to <code>enable_breakpoints(<var>BID</var>)</code>, where
+<var>BID</var> is the breakpoint identifiers for the current
+predicate, or the supplied argument (see <a href="Breakpoint-Predicates.html#Breakpoint-Predicates">Breakpoint Predicates</a>).
+<a name="index-enable-this-_0028debugger-command_0029"></a>
+</p>
+<a name="index-_002e-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>.</kbd></dt>
+<dd><p><em>find this</em> outputs information about where the predicate
+being called is defined.
+<a name="index-find-this-_0028debugger-command_0029"></a>
+</p>
+<a name="index-a-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>a</kbd></dt>
+<dd><p><em>abort</em> causes an abort of the current execution.  All the execution
+states built so far are destroyed and you are put right back at the
+top-level.  (This is the same as the built-in predicate
+<code>abort/0</code>.)
+<a name="index-abort-_0028debugger-command_0029"></a>
+</p>
+<a name="index-b-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>b</kbd></dt>
+<dd><p><em>break</em> calls the built-in predicate <code>break/0</code>, thus
+putting you at a recursive top-level with the execution so far sitting
+underneath you.  When you end the break (<kbd>^D</kbd>) you will be
+reprompted at the port at which you broke.  The new execution is
+completely separate from the suspended one; the invocation numbers will
+start again from 1 during the break.  The debugger is temporarily
+switched off as you call the break and will be re-switched on when you
+finish the break and go back to the old execution.  However, any changes
+to the leashing or to spypoints will remain in effect.
+<a name="index-break-_0028debugger-command_0029"></a>
+</p>
+<a name="index-_0040-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>@</kbd></dt>
+<dd><p><em>command</em> gives you the ability to call arbitrary Prolog
+goals.  It is effectively a one-off <em>break</em> (see above).  The
+initial message &lsquo;<samp>|&nbsp;:-&nbsp;</samp>&rsquo; will be output on the standard error
+stream, and a command is then read from the standard input stream
+and executed as if you were at top-level.  If the term read is of
+form <code><var>Pattern</var> ^ <var>Body</var></code>, then <var>Pattern</var> is
+unified with the current goal and <var>Body</var> is executed.
+<strong>Please note</strong>:
+</p><ol>
+<li> If <var>Body</var> is compound, then it should be parenthesized.
+</li><li> If the current goal has a module qualifier, then <var>Pattern</var> should not
+include the module qualifier.
+</li></ol>
+
+<a name="index-command-_0028debugger-command_0029"></a>
+
+<a name="index-u-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>u</kbd></dt>
+<dd><p><em>unify</em> is available at the Call port and gives you the option
+of providing a solution to the goal from the standard input
+stream rather than executing the goal.  This is convenient
+e.g. for providing a &ldquo;stub&rdquo; for a predicate that has not yet
+been written.  A prompt will be output on the standard error
+stream, and the solution is then read from the standard input
+stream and unified with the goal.  If the term
+read in is of the form <code><var>Head</var> :- <var>Body</var></code>, then <var>Head</var>
+will be unified with the current goal, and <var>Body</var> will
+be executed in its place.
+<a name="index-unify-_0028debugger-command_0029"></a>
+</p>
+<a name="index-e-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>e</kbd></dt>
+<dd><p><em>raise exception</em> is available at all ports.  A prompt will be
+output on the standard error stream, and an exception term
+is then read from the standard input stream and raised in the
+program being debugged.
+<a name="index-raise-exception-_0028debugger-command_0029"></a>
+</p>
+<a name="index-_003c-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>&lt;</kbd></dt>
+<dd><p>This command, without arguments, resets the printdepth to 10.
+With an argument of <var>n</var>, the printdepth is set to <var>n</var>,
+treating 0 as infinity.  This command works by changing the value of the
+<code>debugger_print_options</code> Prolog flag.
+<a name="index-debugger_005fprint_005foptions-_0028prolog-flag_0029-2"></a>
+<a name="index-reset-printdepth-_0028debugger-command_0029"></a>
+<a name="index-set-printdepth-_0028debugger-command_0029"></a>
+</p>
+<a name="index-_005e-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>^</kbd></dt>
+<dd><p>While at a particular port, a current <em>subterm</em> of the current goal
+is maintained.  It is the current subterm that is displayed, printed, or
+written when prompting for a debugger command.  Used in combination with
+the printdepth, this provides a means for navigating in the current goal
+for focusing on the part of interest.  The current subterm is set to the
+current goal when arriving at a new port.  This command, without
+arguments, resets the current subterm to the current goal.  With an
+argument of <var>n</var> (&gt; 0), the current subterm is replaced by its
+<var>n</var>:th subterm.  With an argument of 0, the current subterm is
+replaced by its parent term.  With multiple arguments separated by
+whitespace, the arguments are applied from left to right.
+<a name="index-reset-subterm-_0028debugger-command_0029"></a>
+<a name="index-set-subterm-_0028debugger-command_0029"></a>
+</p>
+<a name="index-_003f-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>?</kbd></dt>
+<dd><a name="index-h-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>h</kbd></dt>
+<dd><p><em>help</em> displays the table of commands given above.
+<a name="index-help-_0028debugger-command_0029"></a>
+</p></dd>
+</dl>
+
+<p>The user can define new debugger commands or modify the behavior of the
+above ones using the <code>user:debugger_command_hook/2</code> hook predicate,
+see <a href="Breakpoint-Predicates.html#Breakpoint-Predicates">Breakpoint Predicates</a>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Advanced-Debugging.html#Advanced-Debugging" accesskey="n" rel="next">Next</a>
+<li><a href="Debug-Format.html#Debug-Format" accesskey="p" rel="prev">Previous</a>
+<li><a href="Debug-Intro.html#Debug-Intro" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Debug-Commands.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Debug-Commands.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

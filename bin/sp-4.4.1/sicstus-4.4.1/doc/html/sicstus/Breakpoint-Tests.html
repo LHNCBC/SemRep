@@ -1,0 +1,496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Breakpoint Tests</title>
+
+<meta name="description" content="SICStus Prolog: Breakpoint Tests">
+<meta name="keywords" content="SICStus Prolog: Breakpoint Tests">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="up" title="Advanced Debugging">
+<link href="Specific-and-Generic-Breakpoints.html#Specific-and-Generic-Breakpoints" rel="next" title="Specific and Generic Breakpoints">
+<link href="Processing-Breakpoints.html#Processing-Breakpoints" rel="prev" title="Processing Breakpoints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Breakpoint-Tests"></a>
+<hr>
+<a name="Breakpoint-Tests-1"></a>
+<h4 class="subsection">5.6.3 Breakpoint Tests</h4>
+
+<p>This section gives a tour of the most important simple breakpoint
+tests. In all examples here the action part will be empty. Note that the
+examples are independent, so if you want to try out these, then you should get
+rid of the old breakpoints (e.g. using <code>?- nospyall.</code>)
+before you enter a new one.
+</p>
+<a name="index-goal_002f1-_0028debugger-condition_0029"></a>
+<p>The <code>goal(&hellip;)</code> test is a generalization of the
+<code>pred(&hellip;)</code> test, as it allows us to check the arguments
+of the invocation. For example:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint(goal(foo(1,_)), _).</kbd>
+% Conditional spypoint for user:foo/2 added, BID=1
+</pre></div>
+
+<p>The <code>goal(G)</code> breakpoint test specifies that the
+breakpoint should be applied only if the current goal is an
+instance of <code>G</code>, i.e. <code>G</code> and the current goal can be
+unified without substituting any variables in the
+latter. This unification is then carried out. The <code>goal(G)</code>
+condition is thus equivalent to the <code>subsumes(G,<var>CurrentGoal</var>)</code>
+test (<code>subsumes/2</code> is defined in <code>library(terms)</code>, see <a href="lib_002dterms.html#lib_002dterms">lib-terms</a>).
+</p>
+<p>In the above example the debugger will stop if <code>foo/2</code> is called
+with <code>1</code> as its first argument, but not if the first
+argument is, say, <code>2</code>, nor if it is a variable.
+</p>
+<p>You can use non-anonymous variables in the <code>goal</code> test, and
+then put further constraints on these variables using the
+<code>true</code> condition:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([goal(foo(X,_)),true(X&gt;1)], _).</kbd>
+% Conditional spypoint for user:foo/2 added, BID=1
+</pre></div>
+
+<a name="index-true_002f1-_0028debugger-condition_0029"></a>
+<p>Here the first test, <code>goal</code>, specifies that we are only interested
+in invocations of <code>foo/2</code>, and names the first argument of
+the goal as <code>X</code>. The second, the <code>true/1</code> test,
+specifies a further condition stated as a Prolog goal: <code>X</code> is
+greater than <code>1</code> (we assume here that the argument is
+numeric).  Thus this breakpoint will be applicable if and only if
+the first argument of <code>foo/2</code> is <em>greater</em> than
+<code>1</code>. Generally, an arbitrary Prolog goal can be placed inside
+the <code>true</code> test: the test will succeed if and only if the goal completes
+successfully.
+</p>
+<p>Any variable instantiations in the test part will be undone
+before executing the action part, as the evaluation of the test part is
+enclosed in a double negation (<code>\+ \+ (&hellip;)</code>). This ensures
+that the test part has no effect on the variables of the current
+goal.
+</p>
+<p>Both the <code>pred</code> and the <code>goal</code> tests may include a
+module name. In fact, the first argument of
+<code>add_breakpoint</code> is module name expanded, and the (explicit
+or implicit) module name of this argument is then inherited
+by default by the <code>pred</code>, <code>goal</code>, and <code>true</code>
+tests. Notice the module qualification inserted in front of the
+breakpoint spec of the last example, as shown in the output of the
+<code>debugging/0</code> built-in predicate:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>debugging.</kbd>
+(&hellip;)
+Breakpoints:
+      1 *  user:foo/2 if user:[goal(foo(A,B)),true(A&gt;1)]
+</pre></div>
+
+<p>As no explicit module qualifications were given in the tests, this
+breakpoint spec is transformed to the following form:
+</p>
+<div class="example">
+<pre class="example">[goal(user:foo(A,B)),true(user:(A&gt;1))]
+</pre></div>
+
+<p>For exported predicates, a <code>pred</code> or <code>goal</code> test
+will be found applicable for all invocations of the predicate,
+irrespective of the module the call occurs in. When you add the
+breakpoint you can use the defining or an importing
+module name, but this information is not remembered: the
+module name is &ldquo;normalized&rdquo;, i.e. it is changed to the
+defining module. The example below shows this: although the
+spypoint is placed on <code>user:append</code>, the message and the
+breakpoint list both mention <code>lists:append</code>.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>use_module(library(lists)).</kbd>
+(&hellip;)
+% module lists imported into user
+(&hellip;)
+| ?- <kbd>spy user:append.</kbd>
+% Plain spypoint for lists:append/3 added, BID=1
+| ?- <kbd>debugging.</kbd>
+(&hellip;)
+Breakpoints:
+      1 +  lists:append/3
+</pre></div>
+
+<p>Note that the debugger does not stop inside a library predicate
+when doing an exhaustive trace. This is because the library
+modules are declared hidden (see <a href="ref_002dmod.html#ref_002dmod">ref-mod</a>), and no
+trace is produced for calls inside hidden modules that invoke
+predicates defined in hidden modules. However, a
+spypoint is always shown in the trace, even if it occurs in a
+hidden module:
+</p>
+<div class="example">
+<pre class="example"> +      1      1 Call: append([1,2],[3,4],_531) ? <span class="key">RET</span>
+ +      2      2 Call: lists:append([2],[3,4],_1182) ? <span class="key">RET</span>
+ +      3      3 Call: lists:append([],[3,4],_1670) ? <span class="key">RET</span>
+ +      3      3 Exit: lists:append([],[3,4],[3,4]) ? <span class="key">RET</span>
+(&hellip;)
+</pre></div>
+
+
+<p>You can narrow a breakpoint to calls from within a particular
+module by using the <code>module</code> test, e.g.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([pred(append/3),module(user)], _).</kbd>
+% The debugger will first zip -- showing spypoints (zip)
+% Conditional spypoint for lists:append/3 added, BID=1
+% zip
+| ?- <kbd>append([1,2], [3,4], L).</kbd>
+ *      1      1 Call: append([1,2],[3,4],_531) ? <span class="key">RET</span>
+ *      1      1 Exit: append([1,2],[3,4],[1,2,3,4]) ? <span class="key">RET</span>
+L = [1,2,3,4]
+</pre></div>
+
+<p>With this spypoint, the debugger will only stop at the invocations
+of <code>append/3</code> from the <code>user</code> module.
+</p>
+<p>Note that calling module information is not kept by the
+compiler for the built-in predicates, therefore the
+<code>module</code> test will always unify its argument with
+<code>prolog</code> in case of compiled calls to built-in
+predicates.
+</p>
+<a name="index-depth_002f1-_0028debugger-condition_0029"></a>
+<a name="index-inv_002f1-_0028debugger-condition_0029"></a>
+<p>There are two further interesting breakpoint tests related to
+invocations: <code>inv(Inv)</code> and <code>depth(Depth)</code>. These unify
+their arguments with the invocation number and the depth,
+respectively (the two numbers shown at the beginning of each trace
+message). Such tests are most often used in more complex
+breakpoints, but there may be some simple cases when they are
+useful.
+</p>
+<p>Assume you put a plain spypoint on <code>foo/2</code>, and start
+leaping through your program. After some time, you notice
+some inconsistency at an Exit port, but you cannot go back to the
+Call port for retrying this invocation, because of
+side-effects. So you would like to restart the whole top-level
+goal and get back to the Call port of the suspicious
+goal as fast as possible. Here is what you can do:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy foo/2.</kbd>
+% Plain spypoint for user:foo/2 added, BID=1
+| ?- <kbd>debug, foo(23, X).</kbd>
+% The debugger will first leap -- showing spypoints (debug)
+ +      1      1 Call: foo(23,_414) ? <kbd>l</kbd>
+(&hellip;)
+ +     81     17 Call: foo(7,_9151) ? <kbd>l</kbd>
+ +     86     18 Call: foo(6,_9651) ? <kbd>l</kbd>
+ +     86     18 Exit: foo(6,8) ? <kbd>-</kbd>
+% Plain spypoint for user:foo/2, BID=1, removed (last)
+       86     18 Exit: foo(6,8) ? <kbd>*</kbd>
+Placing spypoint on user:foo/2 with conditions: inv(86).
+% Conditional spypoint for user:foo/2 added, BID=1
+ *     86     18 Exit: foo(6,8) ? <kbd>a</kbd>
+% Execution aborted
+% source_info
+| ?- <kbd>debug, foo(23, X).</kbd>
+% The debugger will first leap -- showing spypoints (debug)
+ *     86     18 Call: foo(6,_2480) ? <span class="key">RET</span>
+</pre></div>
+
+<p>When you reach the Exit port of the suspicious invocation (number
+86), you remove the plain spypoint (via the <kbd>-</kbd> debugger
+command), and add a conditional one using the &lsquo;<samp>*</samp>&rsquo; debugger
+command. This automatically includes <code>pred(foo/2)</code> among the
+conditions and displays the prompt &lsquo;<samp>Placing spypoint &hellip; with
+conditions:</samp>&rsquo;, requesting further ones.  You enter here the <code>inv</code>
+test with the invocation number in question, resulting in a
+breakpoint with the <code>[pred(foo/2),inv(86)]</code> conditions. If
+you restart the original top-level goal in debug mode, then the
+debugger immediately positions you at the invocation with the specified
+number.
+</p>
+<p>Note that when the debugger executes a <em>skip</em> or a <em>zip</em>
+command, no procedure boxes are built.  Consequently, the
+invocation and depth counters are not incremented.  If <em>skip</em> and/or
+<em>zip</em> commands were used during the first execution, then the
+suspicious invocation gets an invocation number higher than 86 in the
+second run. Therefore it is better to supply the
+<code>inv(I),true(I&gt;=86)</code> condition to the &lsquo;<samp>*</samp>&rsquo; debugger command,
+which will bring you to the first call of <code>foo/2</code> at, or after
+invocation number 86 (which still might not be the suspicious
+invocation).
+</p>
+<p>In the examples, the <code>inv</code> test was used both with a numeric and a
+variable argument (<code>inv(86)</code> and <code>inv(I)</code>). This
+is possible because the debugger <em>unifies</em> the given feature with
+the argument of the test.  This holds for most tests, we will
+mention the exceptions.
+</p>
+<p>Another similar example: if you suspect that a given predicate
+goes into an infinite recursion, and would like the execution to
+stop when entering this predicate somewhere inside the
+recursion, then you can do the following:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([pred(foo/2),depth(_D),true(_D&gt;=100)], _).</kbd>
+% Conditional spypoint for user:foo/2 added, BID=1
+% zip,source_info
+| ?- <kbd>debug, foo(200, X).</kbd>
+% The debugger will first leap -- showing spypoints (debug)
+ *    496    100 Call: foo(101,_12156) ? 
+</pre></div>
+
+<p>The above breakpoint spec will cause the debugger to stop at the
+first invocation of <code>foo/2</code> at depth 100 or greater. Note again
+that debug mode has to be entered for this to work (in zip
+mode no debugging information is kept, so the depth does not change).
+</p>
+<p>We now continue with tests that restrict the breakpoint to an
+invocation at a specific place in the code.
+</p>
+<p>Assume file <code>/home/bob/myprog.pl</code> contains the following Prolog
+program:
+</p>
+<div class="example">
+<pre class="example"><em>% /home/bob/myprog.pl</em>
+</pre><pre class="example">p(X, U) :-                               % line 1
+        q(X, Y),                         % line 2
+        q(Y, Z),                         % line 3
+        (   \+ q(Z, _)                   % line 4
+        -&gt;  q(Z+1, U)                    % line 5
+        ;   q(Z+2, U)                    % line 6
+        ).                               % &hellip;
+
+q(X, Y) :- 
+        X &lt; 10, !, Y is X+1.             % line 10
+q(X, Y) :- 
+        Y is X+2.                        % line 12
+</pre></div>
+
+<p>If you are interested only in the last invocation of <code>q/2</code> within
+<code>p/2</code>, then you can use the following breakpoint:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([pred(q/2),line('/home/bob/myprog.pl',6)], _).</kbd>
+% Conditional spypoint for user:q/2 added, BID=1
+</pre></div>
+
+<a name="index-line_002f2-_0028debugger-condition_0029"></a>
+<a name="index-line_002f1-_0028debugger-condition_0029"></a>
+<a name="index-file_002f1-_0028debugger-condition_0029"></a>
+<p>Generally, the test <code>line(File,Line)</code> holds if the current
+invocation was in line number <code>Line</code> of a file whose absolute name
+is <code>File</code>. This test (as well as the <code>line/1</code> and
+<code>file/1</code> tests; see below) require the presence of source
+information: the file in question had to be consulted or
+compiled with the <code>source_info</code> Prolog flag switched on
+(i.e. set to <code>on</code> or <code>emacs</code>).
+<a name="index-source_005finfo-_0028prolog-flag_0029-2"></a>
+</p>
+<p>If e.g. <code>q/2</code> is called only from a single file, then the file
+name need not be mentioned and a <code>line/1</code> test suffices:
+<code>line(6)</code>. On the other hand, if we are interested in all
+invocations of a predicate within a file, then we can omit the
+line number and use the <code>file(File)</code> test.
+</p>
+<a name="index-parent_005fpred_002f1-_0028debugger-condition_0029"></a>
+<a name="index-parent_005fpred_002f2-_0028debugger-condition_0029"></a>
+<p>For Prolog programs that are interpreted (consulted or
+asserted), further positioning information can be obtained, even in the
+absence of source information. The test <code>parent_pred(Pred)</code>
+unifies the module name expanded <code>Pred</code> with a
+predicate spec (of form
+<code><var>Module</var>:<var>PredName</var>/<var>Arity</var></code>) identifying the
+predicate in which the current invocation resides.  The test
+<code>parent_pred(Pred,N)</code> will additionally unify <code>N</code> with
+the serial number of the clause containing the current goal.
+</p>
+<p>For example, assuming the above <code>myprog.pl</code> file is
+consulted, the breakpoint below will cause the execution to
+stop when the call of <code>is/2</code> in the second clause of
+<code>q/2</code> is reached:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([pred(is/2),parent_pred(q/2,2)], _).</kbd>
+% Conditional spypoint for prolog:is/2 added, BID=1
+* Predicate prolog:is/2 compiled inline, breakable only in interpreted code
+% zip,source_info
+| ?- <kbd>p(20, X).</kbd>
+in scope of a goal at line 12 in /home/bob/myprog.pl
+ *      1      1 Call: _579 is 20+2 ? 
+</pre></div>
+
+<p>Notice the warning issued by <code>add_breakpoint/2</code>: there are some
+built-in predicates (e.g. arithmetic, <code>functor/3</code>,
+<code>arg/3</code>, etc.), for which the compiler generates specific
+inline translation, rather than the generic predicate invocation
+code. Therefore compiled calls to such predicates are not
+visible to the debugger.
+</p>
+<a name="index-parent_005fclause_002f1-_0028debugger-condition_0029"></a>
+<a name="index-parent_005fclause_002f2-_0028debugger-condition_0029"></a>
+<a name="index-parent_005fclause_002f3-_0028debugger-condition_0029"></a>
+<a name="index-subterm-selector-1"></a>
+<a name="index-selector_002c-subterm-1"></a>
+<p>More exact positioning information can be obtained for interpreted
+programs by using the <code>parent_clause(Cl,Sel,I)</code> test. This
+unifies <code>Cl</code> with the clause containing the current
+invocation, while <code>Sel</code> and <code>I</code> both identify the current
+invocation within the body of this clause. <code>Sel</code> is
+unified with a <em>subterm selector</em>, while <code>I</code> with the
+serial number of the call. This test has the variants
+<code>parent_clause/[1,2]</code>, in which only the <code>Cl</code> argument,
+or the <code>Cl,Sel</code> arguments are present.
+</p>
+<p>As an example, two further alternatives of putting a breakpoint on
+the last call of <code>q/2</code> within <code>myprog.pl</code> (line 6) are shown
+below, together with a listing showing the selectors and call serial
+numbers for the body of <code>p/2</code>:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([pred(q/2),parent_clause((p(_,_):-_),[2,2,2])],_).</kbd>
+
+| ?- <kbd>add_breakpoint([pred(q/2),parent_clause((p(_,_):-_),_,5)],_).</kbd>
+
+p(X, U) :-                 % line  % call no.  % subterm selector
+        q(X, Y),           %  2        1       [1]
+        q(Y, Z),           %  3        2       [2,1]
+        (   \+ q(Z, _)     %  4        3       [2,2,1,1,1]
+        -&gt;  q(Z+1, U)      %  5        4       [2,2,1,2]
+        ;   q(Z+2, U)      %  6        5       [2,2,2]
+        ).                 %  7
+</pre></div>
+
+<p>Here, the first argument of the <code>parent_clause</code> test ensures
+that the current invocation is in (the only clause of)
+<code>p/2</code>. If <code>p/2</code> had more clauses, then we would have to use
+an additional test, say <code>parent_pred(user:p/2,1)</code>, and then the
+first argument of <code>parent_clause</code> could be an anonymous
+variable.
+</p>
+
+
+<p>In the examples so far the breakpoint tests referred only to the
+goal in question. Therefore, the breakpoint was found
+applicable at all ports of the procedure box of the
+predicate. We can distinguish between ports using the
+<code>port</code> breakpoint test:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([pred(foo/2),port(call)], _).</kbd>
+</pre></div>
+
+<a name="index-port_002f1-_0028debugger-condition_0029"></a>
+<p>With this breakpoint, the debugger will stop at the Call
+port of <code>foo/2</code>, but not at other ports. Note that the
+<code>port(call)</code> test can be simplified to <code>call</code> &mdash;
+<code>add_breakpoint/2</code> will recognize this as a port name, and
+treat it as if it were enclosed in a <code>port/1</code> functor.
+</p>
+<p>Here are two equivalent formulations for a breakpoint that will
+cause the debugger to stop only at the Call and Exit ports of
+<code>foo/2</code>:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([pred(foo/2),(call;exit)], _).</kbd>
+
+| ?- <kbd>add_breakpoint([pred(foo/2),port(P),true((P=call;P=exit(_)))], _).</kbd>
+</pre></div>
+
+<p>In both cases we have to use disjunction. In the first example we
+have a disjunctive breakpoint condition of the two simple tests
+<code>port(call)</code> and <code>port(exit)</code> (with the <code>port</code>
+functor omitted). In the second case the disjunction is
+inside the Prolog test within the <code>true</code> test.
+</p>
+<p>Notice that the two examples refer to the Exit port
+differently. When you use <code>port(P)</code>, where <code>P</code> is a
+variable, then, at an exit port, <code>P</code> will be
+unified with either <code>exit(nondet)</code> or <code>exit(det)</code>,
+depending on the determinacy of the exited predicate. However, for
+convenience, the test <code>port(exit)</code> will also succeed at Exit
+ports.  So in the first example above, <code>exit</code> can be replaced
+by <code>exit(_)</code>, but the <code>exit(_)</code> in the second cannot be
+replaced by <code>exit</code>.
+</p>
+<p>Finally, there is a subtle point to note with respect to activating the
+debugger at non Call ports. Let us look at the following
+breakpoint:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([pred(foo/2),fail], _).</kbd>
+</pre></div>
+
+<p>The intention here is to have the debugger stop at only the Fail
+port of <code>foo/2</code>. This is very useful if <code>foo/2</code> is not
+supposed to fail, but we suspect that it does. The above
+breakpoint will behave as expected when the debugger is
+leaping, but not while zipping.  This is because for the
+debugger to be able to stop at a non Call port, a procedure
+box has to be built at the Call port of the given
+invocation. However, no debugging information is collected in zip
+mode by default, i.e. procedure boxes are not built. Later we
+will show how to achieve the required effect, even in zip mode.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Specific-and-Generic-Breakpoints.html#Specific-and-Generic-Breakpoints" accesskey="n" rel="next">Next</a>
+<li><a href="Processing-Breakpoints.html#Processing-Breakpoints" accesskey="p" rel="prev">Previous</a>
+<li><a href="Advanced-Debugging.html#Advanced-Debugging" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Breakpoint-Tests.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Breakpoint-Tests.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

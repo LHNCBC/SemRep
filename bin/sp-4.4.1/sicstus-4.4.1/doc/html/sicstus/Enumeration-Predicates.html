@@ -1,0 +1,588 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Enumeration Predicates</title>
+
+<meta name="description" content="SICStus Prolog: Enumeration Predicates">
+<meta name="keywords" content="SICStus Prolog: Enumeration Predicates">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dclpfd.html#lib_002dclpfd" rel="up" title="lib-clpfd">
+<link href="Statistics-Predicates.html#Statistics-Predicates" rel="next" title="Statistics Predicates">
+<link href="User_002dDefined-Constraints.html#User_002dDefined-Constraints" rel="prev" title="User-Defined Constraints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Enumeration-Predicates"></a>
+<hr>
+<a name="Enumeration-Predicates-1"></a>
+<h4 class="subsection">10.10.5 Enumeration Predicates</h4>
+
+<p>As is usually the case with finite domain constraint solvers, this
+solver is not <em>complete</em>.  That is, it does not ensure that the set
+of posted constraints is satisfiable.  One must resort to search
+(enumeration) to check satisfiability and get particular solutions.
+</p>
+<p>The following predicates provide several variants of search:
+</p>
+<dl compact="compact">
+<dt><code>indomain(<var>?X</var>)</code></dt>
+<dd>
+<a name="index-indomain_002f1-_0028clpfd_0029-1"></a>
+<a name="index-indomain_002f1-_0028clpfd_0029"></a>
+
+<p>where <var>X</var> is a domain variable with a bounded domain.
+Assigns, in increasing order via backtracking, a feasible value to
+<var>X</var>.
+</p>
+</dd>
+<dt><code>labeling(<var>:Options</var>, <var>+Variables</var>)</code></dt>
+<dd>
+<a name="index-labeling_002f2-_0028clpfd_0029-1"></a>
+<a name="index-labeling_002f2-_0028clpfd_0029"></a>
+
+<p>where <var>Variables</var> is a list of domain variables and <var>Options</var> is
+a list of search options.  The domain variables must all have bounded
+domains.  True if an assignment of the variables can be found, which
+satisfies the posted constraints.
+</p>
+</dd>
+<dt><code>first_bound(<var>+BB0</var>, <var>-BB</var>)</code></dt>
+<dt><code>later_bound(<var>+BB0</var>, <var>-BB</var>)</code></dt>
+<dd>
+<a name="index-first_005fbound_002f2-_0028clpfd_0029-2"></a>
+<a name="index-first_005fbound_002f2-_0028clpfd_0029"></a>
+
+
+<a name="index-later_005fbound_002f2-_0028clpfd_0029-2"></a>
+<a name="index-later_005fbound_002f2-_0028clpfd_0029"></a>
+
+<p>Provides an auxiliary service for the <code>value(<var>Enum</var>)</code> option
+(see below).
+</p>
+</dd>
+<dt><code>minimize(<var>:Goal</var>,<var>?X</var>)</code></dt>
+<dt><code>minimize(<var>:Goal</var>,<var>?X</var>,<var>+Options</var>) &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dt><code>maximize(<var>:Goal</var>,<var>?X</var>)</code></dt>
+<dt><code>maximize(<var>:Goal</var>,<var>?X</var>,<var>+Options</var>) &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd>
+<a name="index-minimize_002f_005b2_002c3_005d-_0028clpfd_0029-1"></a>
+<a name="index-minimize_002f_005b2_002c3_005d-_0028clpfd_0029"></a>
+
+
+<a name="index-maximize_002f_005b2_002c3_005d-_0028clpfd_0029-1"></a>
+<a name="index-maximize_002f_005b2_002c3_005d-_0028clpfd_0029"></a>
+
+<p>Uses a restart algorithm to find an assignment that minimizes
+(maximizes) the domain variable <var>X</var>.  <var>Goal</var> should be a Prolog
+goal that constrains <var>X</var> to become assigned, and could be a
+<code>labeling/2</code> goal.  The algorithm calls <var>Goal</var> repeatedly with
+a progressively tighter upper (lower) bound on <var>X</var> until a proof of
+optimality is obtained.
+</p>
+<p>Whether to enumerate every solution that improves the objective
+function, or only the optimal one after optimality has been proved, is
+controlled by <var>Options</var>.  If given, then it whould be a list containing a
+single atomic value, one of:
+</p>
+<dl compact="compact">
+<dt><code>best &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-best-_0028minimize_002f3-option_0029"></a>
+<a name="index-best-_0028maximize_002f3-option_0029"></a>
+<p>Return the optimal solution after proving its optimality.
+This is the default.
+</p>
+</dd>
+<dt><code>all &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-all-_0028minimize_002f3-option_0029"></a>
+<a name="index-all-_0028maximize_002f3-option_0029"></a>
+<p>Enumerate all improving solutions, on backtracking seek the next
+improving solution.  Merely fail after proving optimality.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<p>The <var>Options</var> argument of <code>labeling/2</code> controls the order in
+which variables are selected for assignment (variable choice heuristic),
+the way in which choices are made for the selected variable (value
+choice heuristic), whether the problem is a satisfaction one or an
+optimization one, and whether all solutions or only the optimal one
+should be returned.  The options are divided into five groups.  One
+option may be selected per group.  Also, the number of assumptions
+(choices) made during the search can be counted.  Finally, limits on
+the execution time and discrepancy of the search can be imposed:
+</p>
+<dl compact="compact">
+<dd><p>The following options control the order in which the next variable is
+selected for assignment.
+</p>
+<dl compact="compact">
+<dt><code>leftmost</code></dt>
+<dd><a name="index-leftmost-_0028labeling_002f2-option_0029"></a>
+</dd>
+<dt><code>input_order</code></dt>
+<dd><a name="index-input_005forder-_0028labeling_002f2-option_0029"></a>
+<p>The leftmost variable is selected.  This is the default.
+</p>
+</dd>
+<dt><code>min</code></dt>
+<dd><a name="index-min-_0028labeling_002f2-option_0029"></a>
+</dd>
+<dt><code>smallest</code></dt>
+<dd><a name="index-smallest-_0028labeling_002f2-option_0029"></a>
+<p>The leftmost variable with the smallest lower bound is selected.
+</p>
+</dd>
+<dt><code>max</code></dt>
+<dd><a name="index-max-_0028labeling_002f2-option_0029"></a>
+</dd>
+<dt><code>largest</code></dt>
+<dd><a name="index-largest-_0028labeling_002f2-option_0029"></a>
+<p>The leftmost variable with the greatest upper bound is selected.
+</p>
+</dd>
+<dt><code>ff</code></dt>
+<dd><a name="index-ff-_0028labeling_002f2-option_0029"></a>
+</dd>
+<dt><code>first_fail</code></dt>
+<dd><a name="index-first_005ffail-_0028labeling_002f2-option_0029"></a>
+<p>The first-fail principle is used: the leftmost variable with the
+smallest domain is selected.
+</p>
+</dd>
+<dt><code>anti_first_fail &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-anti_005ffirst_005ffail-_0028labeling_002f2-option_0029"></a>
+<p>The leftmost variable with the largest domain is selected.
+</p>
+</dd>
+<dt><code>occurrence &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-occurrence-_0028labeling_002f2-option_0029"></a>
+<p>The leftmost variable among those that have the most constraints suspended on it is selected.
+</p>
+</dd>
+<dt><code>ffc</code></dt>
+<dd><a name="index-ffc-_0028labeling_002f2-option_0029"></a>
+</dd>
+<dt><code>most_constrained</code></dt>
+<dd><a name="index-most_005fconstrained-_0028labeling_002f2-option_0029"></a>
+<p>The most constrained heuristic is used: a variable with the smallest
+domain is selected, breaking ties by (a) selecting the variable that has
+the most constraints suspended on it and (b) selecting the leftmost one.
+</p>
+</dd>
+<dt><code>max_regret &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-max_005fregret-_0028labeling_002f2-option_0029"></a>
+<p>The variable with the largest difference between its first two domain elements is selected.
+Ties are broken by selecting the leftmost variable.
+</p>
+</dd>
+<dt><code>variable(<var>Sel</var>)</code></dt>
+<dd><a name="index-variable_002f1-_0028labeling_002f2-option_0029"></a>
+<p><var>Sel</var> is a predicate to select the next variable.  Given <var>Vars</var>,
+the variables that remain to label, it will be called as
+<var>Sel(Vars,Selected,Rest)</var>.
+</p>
+<p><var>Sel</var> is expected to succeed determinately, unifying <var>Selected</var>
+and <var>Rest</var> with the selected variable and the remaining list,
+respectively.
+</p>
+<p><var>Sel</var> should be a callable term, optionally with a module prefix,
+and the arguments <var>Vars,Selected,Rest</var> will be appended to it.  For
+example, if <var>Sel</var> is <code>mod:sel(Param)</code>, then it will be called as
+<code>mod:sel(Param,Vars,Selected,Rest)</code>.
+</p></dd>
+</dl>
+
+<p>The following options control the way in which choices are made for the
+selected variable <var>X</var>:
+</p>
+<dl compact="compact">
+<dt><code>step</code></dt>
+<dd><a name="index-step-_0028labeling_002f2-option_0029"></a>
+<p>Makes a binary choice between <code><var>X</var> #= <var>B</var></code> and
+<code><var>X</var> #\= <var>B</var></code>, where <var>B</var> is the lower or upper bound of
+<var>X</var>.  This is the default.
+</p>
+</dd>
+<dt><code>enum</code></dt>
+<dd><a name="index-enum-_0028labeling_002f2-option_0029"></a>
+<p>Makes a multiple choice for <var>X</var> corresponding to the values in its
+domain.
+</p>
+</dd>
+<dt><code>bisect</code></dt>
+<dd><a name="index-bisect-_0028labeling_002f2-option_0029"></a>
+<p>Makes a binary choice between <code><var>X</var> #=&lt; <var>M</var></code> and
+<code><var>X</var> #&gt; <var>M</var></code>, where <var>M</var> is the middle of the domain of
+<var>X</var>, i.e. the mean of <code>min(<var>X</var>)</code> and <code>max(<var>X</var>)</code>
+rounded down to the nearest integer.  This strategy is also known as
+domain splitting.
+</p>
+</dd>
+<dt><code>median &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-median-_0028labeling_002f2-option_0029"></a>
+<p>Makes a binary choice between <code><var>X</var> #= <var>M</var></code> and
+<code><var>X</var> #\= <var>M</var></code>, where <var>M</var> is the median of the domain of
+<var>X</var>. If the domain has an even number of elements, then the smaller
+middle value is used.
+</p>
+</dd>
+<dt><code>middle &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-middle-_0028labeling_002f2-option_0029"></a>
+<p>Makes a binary choice between <code><var>X</var> #= <var>M</var></code> and
+<code><var>X</var> #\= <var>M</var></code>, where <var>M</var> is the middle of the domain
+of <var>X</var>, i.e. the mean of <code>min(<var>X</var>)</code> and <code>max(<var>X</var>)</code>
+rounded down to the nearest integer.
+</p>
+</dd>
+<dt><code>value(<var>Enum</var>)</code></dt>
+<dd><a name="index-value_002f1-_0028labeling_002f2-option_0029"></a>
+<p><var>Enum</var> is a predicate that should prune the domain of <var>X</var>,
+possibly but not necessarily to a singleton.  It will be called as
+<var>Enum(X,Rest,BB0,BB)</var> where <var>Rest</var> is the list of variables that
+need labeling except <var>X</var>, and <var>BB0</var> and <var>BB</var> are parameters
+described below.
+</p>
+
+<a name="index-first_005fbound_002f2-_0028clpfd_0029-3"></a>
+<a name="index-first_005fbound_002f2-_0028clpfd_0029-1"></a>
+
+
+<a name="index-later_005fbound_002f2-_0028clpfd_0029-3"></a>
+<a name="index-later_005fbound_002f2-_0028clpfd_0029-1"></a>
+
+<p><var>Enum</var> is expected to succeed nondeterminately, pruning the domain
+of <var>X</var>, and to backtrack one or more times, providing alternative
+prunings.  To ensure that branch-and-bound search works correctly, it
+must call the auxiliary predicate <code>first_bound(<var>BB0</var>,<var>BB</var>)</code>
+in its first solution.  Similarly, it must call the auxiliary predicate
+<code>later_bound(<var>BB0</var>,<var>BB</var>)</code> in any alternative solution.
+</p>
+<p><var>Enum</var> should be a callable term, optionally with a module prefix,
+and the arguments <var>X,Rest,BB0,BB</var> will be appended to it.  For
+example, if <var>Enum</var> is <code>mod:enum(Param)</code>, then it will be called as
+<code>mod:enum(Param,X,Rest,BB0,BB)</code>.
+</p></dd>
+</dl>
+
+<p>The following options control the order in which the choices are made
+for the selected variable <var>X</var>.  Not useful with the
+<code>value(<var>Enum</var>)</code> option:
+</p>
+<dl compact="compact">
+<dt><code>up</code></dt>
+<dd><a name="index-up-_0028labeling_002f2-option_0029"></a>
+<p>The domain is explored in ascending order.
+This is the default.
+</p>
+</dd>
+<dt><code>down</code></dt>
+<dd><a name="index-down-_0028labeling_002f2-option_0029"></a>
+<p>The domain is explored in descending order.
+</p></dd>
+</dl>
+
+<p>The following options tell the solver whether the given problem is a
+satisfaction problem or an optimization problem.  In a satisfaction
+problem, we wish to find values for the domain variables, but we do not
+care about which values.  In an optimization problem, we wish to find
+values that minimize or maximize some objective function reflected in a
+domain variable:
+</p>
+<dl compact="compact">
+<dt><code>satisfy &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-satisfy-_0028labeling_002f2-option_0029"></a>
+<p>We have a satisfication problem.  Its solutions are enumerated by backtracking.
+This is the default.
+</p>
+</dd>
+<dt><code>minimize(<var>X</var>)</code></dt>
+<dt><code>maximize(<var>X</var>)</code></dt>
+<dd><a name="index-minimize_002f1-_0028labeling_002f2-option_0029"></a>
+<a name="index-maximize_002f1-_0028labeling_002f2-option_0029"></a>
+
+<p>We have an optimization problem, seeking an assignment that minimizes
+(maximizes) the domain variable <var>X</var>.  The labeling should constrain
+<var>X</var> to become assigned for all assignments of <var>Variables</var>.  It
+is useful to combine these option with the <code>time_out/2</code>,
+<code>best</code>, and <code>all</code> options (see below).  If these options occur
+more than once, then the last occurrence overrides previous ones.
+</p></dd>
+</dl>
+
+<p>The following options are only meaningful for optimization problems.
+They tell the solver whether to enumerate every solution that improves
+the objective function, or only the optimal one after optimality has
+been proved:
+</p>
+<dl compact="compact">
+<dt><code>best &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-best-_0028labeling_002f2-option_0029"></a>
+<p>Return the optimal solution after proving its optimality.
+This is the default.
+</p>
+</dd>
+<dt><code>all &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-all-_0028labeling_002f2-option_0029"></a>
+<p>Enumerate all improving solutions, on backtracking seek the next
+improving solution.  Merely fail after proving optimality.
+</p></dd>
+</dl>
+
+<p>The following options are only meaningful for optimization problems.
+They tell the solver what search scheme to use, but have no effect on
+the semantics or on the meaning of other options:
+</p>
+<dl compact="compact">
+<dt><code>bab &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-bab-_0028labeling_002f2-option_0029"></a>
+<p>Use a branch-and-bound scheme, which incrementally tightens the bound on
+the objective as more and more solutions are found.
+This is the default, and is usually the more efficient scheme.
+</p>
+</dd>
+<dt><code>restart &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-restart-_0028labeling_002f2-option_0029"></a>
+<p>Use a scheme that restarts the search with a tighter bound on the
+objective each time a solution is found.
+</p></dd>
+</dl>
+
+<p>The following option counts the number of assumptions (choices) made
+during the search:
+</p>
+<dl compact="compact">
+<dt><code>assumptions(<var>K</var>)</code></dt>
+<dd><a name="index-assumptions_002f1-_0028labeling_002f2-option_0029"></a>
+
+<p>When a solution is found, <var>K</var> is unified with the number of choices made.
+</p></dd>
+</dl>
+
+<p>Finally, limits on the discrepancy of the search and the execution time
+can be imposed:
+</p>
+<dl compact="compact">
+<dt><code>discrepancy(<var>D</var>)</code></dt>
+<dd><a name="index-discrepancy_002f1-_0028labeling_002f2-option_0029"></a>
+
+<p>On the path leading to the solution there are at most <var>D</var>
+choicepoints in which a non-leftmost branch was taken.
+</p>
+</dd>
+<dt><code>time_out(<var>Time</var>,<var>Flag</var>)</code></dt>
+<dd><a name="index-time_005fout_002f2-_0028labeling_002f2-option_0029"></a>
+
+<p>See <a href="lib_002dtimeout.html#lib_002dtimeout">lib-timeout</a>.
+<var>Time</var> should be an integer number of milliseconds.
+If the search is exhausted within this time and no solution is found,
+then the search merely fails, as usual.
+Otherwise, <var>Flag</var> is bound to a value reflecting the outcome:
+</p>
+<dl compact="compact">
+<dt><code>optimality &nbsp;<!-- /@w --> <i>since release 4.4</i></code></dt>
+<dd><a name="index-optimality-_0028labeling_002f2-time_005fout_002f2-option-value_0029"></a>
+<p>If <code>best</code> was selected in an optimization problem, then the
+search space was exhausted, having found the optimal solution.  The
+variables are bound to the corresponding values.  If <code>best</code> was
+not selected, this flag value is not used.
+</p>
+</dd>
+<dt><code>success &nbsp;<!-- /@w --> <i>since release 4.4</i></code></dt>
+<dd><a name="index-success-_0028labeling_002f2-time_005fout_002f2-option-value_0029"></a>
+<p>If <code>best</code> was selected in an optimization problem, then the
+search timed out before the search space was exhausted, having found
+at least one solution.  If <code>best</code> was not selected, then a
+solution was simply found before the time limit.  In any case, the
+variables are bound to the values corresponding to the latest solution
+found.
+</p>
+</dd>
+<dt><code>time_out &nbsp;<!-- /@w --> <i>since release 4.4</i></code></dt>
+<dd><a name="index-time_005fout-_0028labeling_002f2-time_005fout_002f2-option-value_0029"></a>
+<p>If <code>best</code> was selected in an optimization problem, then the
+search timed out before any solution was found.  If
+<code>best</code> was not selected, then the search timed out while
+searching for the next solution.  The variables are left unbound.
+</p></dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<p>For example, to enumerate solutions using a static variable
+ordering, use:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>constraints(Variables),</kbd>
+     <kbd>labeling([], Variables).</kbd>
+     %same as [leftmost,step,up,satisfy]
+</pre></div>
+
+<p>To minimize a cost function using branch-and-bound search, computing the
+best solution only, with a dynamic variable ordering using the
+first-fail principle, and domain splitting exploring the upper part of
+domains first, use:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>constraints(Variables, Cost),</kbd>
+     <kbd>labeling([ff,bisect,down,minimize(Cost)], Variables).</kbd>
+</pre></div>
+
+<p>To give a time budget and collect the solutions of a satisfiability problem
+up to the time limit, use:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>constraints(Variables),</kbd>
+     <kbd>findall(Variables, labeling([time_out(<var>Budget</var>,success)|<var>Options</var>]), Solutions).</kbd>
+</pre></div>
+
+<p>where <code>Flag=success</code> will hold if all solutions were found, and
+<code>Flag=time_out</code> will hold if the time expired.
+</p>
+<p>The file <code>library('clpfd/examples/tsp.pl')</code> contains an example of
+user-defined variable and value choice heuristics.
+</p>
+<p>Note that, when used for optimization, <code>labeling/2</code> has a
+limitation compared to <code>minimize/[2,3]</code> and <code>maximize/[2,3]</code>:
+the variable and value choice heuristics specified by <code>labeling/2</code>
+must apply to the whole set of variables, with no provision for
+different heuristics for different subsets.  As of release 4.3, this
+limitation has been lifted by the following predicate:
+</p>
+<dl compact="compact">
+<dt><code>solve(<var>:Options</var>, <var>:Searches</var>) &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd>
+<a name="index-solve_002f2-_0028clpfd_0029-1"></a>
+<a name="index-solve_002f2-_0028clpfd_0029"></a>
+
+<p>where <var>Options</var> is a list of options of the same shape as taken by
+<code>labeling/2</code>, and <var>Searches</var> is a list of <code>labeling/2</code> and
+<code>indomain/1</code> goals, or a single such goal.  The domain variables of
+<var>Searches</var> must all have bounded domains.  True if the conjunction
+of <var>Searches</var> is true.
+</p>
+<p>The main purpose of this predicate is for optimization, allowing to
+use different heuristics in the different <var>Searches</var>.
+For satisfiability problems, a simple sequence of <code>labeling/2</code> and
+<code>indomain/1</code> goals does the trick.
+</p>
+<p>The treatment of the <var>Options</var>, as well as the suboption lists given
+in the <code>labeling/2</code> goals of <var>Searches</var>, is a bit special.
+Some options are global for the whole search, and are ignored if they
+occur in the suboption lists.  Others are local to the given
+<code>labeling/2</code> goal, but provides a default value for the whole
+search if it occurs in <var>Options</var>.  The following table defines the
+role of each option as <code>global</code> or <code>local</code>:
+</p>
+<table>
+<tr><td width="40%"><code>all</code></td><td width="20%"><code>global</code></td></tr>
+<tr><td width="40%"><code>anti_first_fail</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>assumptions/1</code></td><td width="20%"><code>global</code></td></tr>
+<tr><td width="40%"><code>bab</code></td><td width="20%"><code>global</code></td></tr>
+<tr><td width="40%"><code>best</code></td><td width="20%"><code>global</code></td></tr>
+<tr><td width="40%"><code>bisect</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>discrepancy/1</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>down</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>enum</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>ffc</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>ff</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>first_fail</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>input_order</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>largest</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>leftmost</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>maximize/1</code></td><td width="20%"><code>global</code></td></tr>
+<tr><td width="40%"><code>max</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>max_regret</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>median</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>middle</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>minimize/1</code></td><td width="20%"><code>global</code></td></tr>
+<tr><td width="40%"><code>min</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>most_constrained</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>occurrence</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>restart</code></td><td width="20%"><code>global</code></td></tr>
+<tr><td width="40%"><code>satisfy</code></td><td width="20%"><code>global</code></td></tr>
+<tr><td width="40%"><code>smallest</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>step</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>time_out/2</code></td><td width="20%"><code>global</code></td></tr>
+<tr><td width="40%"><code>up</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>value/1</code></td><td width="20%"><code>local</code></td></tr>
+<tr><td width="40%"><code>variable/1</code></td><td width="20%"><code>local</code></td></tr>
+</table>
+</dd>
+</dl>
+
+<p>For example, suppose that you want to  minimize a cost function using
+branch-and-bound search, enumerating every improving solution, using
+left-to-right search on some variables followed by first-fail domain
+splitting search on some other variables.  This can be expressed as:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>constraints([X1,X2,X3,Y1,Y2,Y3], Cost),</kbd>
+     <kbd>solve([minimize(Cost),all],</kbd>
+     <kbd>      [labeling([leftmost],[X1,X2,X3]),</kbd>
+     <kbd>       labeling([ff,bisect],[Y1,Y2,Y3])]).</kbd>
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Statistics-Predicates.html#Statistics-Predicates" accesskey="n" rel="next">Next</a>
+<li><a href="Available-Constraints.html#Available-Constraints" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dclpfd.html#lib_002dclpfd" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Enumeration-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Enumeration-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

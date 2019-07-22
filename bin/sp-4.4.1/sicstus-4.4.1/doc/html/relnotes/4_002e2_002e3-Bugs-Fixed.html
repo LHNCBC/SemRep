@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.2.3 Bugs Fixed</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.2.3 Bugs Fixed">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.2.3 Bugs Fixed">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e2_002e3-Changes.html#g_t4_002e2_002e3-Changes" rel="up" title="4.2.3 Changes">
+<link href="4_002e2_002e3-Other-Changes.html#g_t4_002e2_002e3-Other-Changes" rel="next" title="4.2.3 Other Changes">
+<link href="4_002e2_002e3-New-Features.html#g_t4_002e2_002e3-New-Features" rel="prev" title="4.2.3 New Features">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e2_002e3-Bugs-Fixed"></a>
+<hr>
+<a name="Bugs-Fixed-14"></a>
+<h4 class="subsection">14.19.2 Bugs Fixed</h4>
+
+<ul>
+<li> <code>predicate_property/2</code> with nonvar arguments would succeed nondeterminately.
+</li><li> <code>ensure_loaded/1</code> would keep reloading non-module &lsquo;<samp>.po</samp>&rsquo; file
+if compile-time module was different from load-time module.
+</li><li> Work around bugs in OS X 10.8 that affected SICStus I/O.
+This change may also work around bugs in Linux that could cause SICStus
+to hang, especially when closing streams.
+</li><li> Error handling bug in <code>phrase/[2,3]</code>.
+</li><li> On Windows, SICStus executables would sometimes not start if put at the root of a disk.
+</li><li> CLPFD:
+<ul class="no-bullet">
+<li>- Solutions were lost in interaction with nondet suspended goals.
+</li><li>- <code>cumulative/2</code>: holes in domains could cause wrong answers.
+</li><li>- <code>minimum/2</code>, <code>maximum/2</code>:
+some data was not protected from garbage collection.
+</li></ul>
+<p>ZINC:
+</p><ul class="no-bullet">
+<li>- I/O streams could be left open upon errors.
+</li><li>- <code>viz</code> annotations do not cause parse errors any more.
+</li><li>- Do Not obfuscate error messages from <code>mzn2fzn</code>.
+</li><li>- Architecture dependent default integer bounds.
+</li></ul>
+</li><li> <code>library(types)</code>: The type tests for <code>list</code> and
+<code>proper_list</code> now fail for cyclic lists. Previously, they did not
+terminate.
+</li></ul>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e2_002e3-Other-Changes.html#g_t4_002e2_002e3-Other-Changes" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e2_002e3-New-Features.html#g_t4_002e2_002e3-New-Features" accesskey="p" rel="prev">Previous</a>
+<li><a href="4_002e2_002e3-Changes.html#g_t4_002e2_002e3-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e3-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e3-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

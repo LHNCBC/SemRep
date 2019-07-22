@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_mutex_lock</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_mutex_lock">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_mutex_lock">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fmutex_005funlock.html#cpg_002dref_002dSP_005fmutex_005funlock" rel="next" title="cpg-ref-SP_mutex_unlock">
+<link href="cpg_002dref_002dSP_005fmalloc.html#cpg_002dref_002dSP_005fmalloc" rel="prev" title="cpg-ref-SP_malloc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fmutex_005flock"></a>
+<hr>
+<a name="SP_005fmutex_005flock_0028_0029"></a>
+<h4 class="subsection">12.3.56 <code>SP_mutex_lock()</code></h4>
+<a name="index-SP_005fmutex_005flock_0028_0029-_0028C-function_0029-1"></a>
+
+<a name="Synopsis-336"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+static SP_mutex volatile <var>mutex</var> = SP_MUTEX_INITIALIZER;
+
+int
+SP_mutex_lock(SP_mutex *pmx);
+</pre></div>
+
+<p>Locks the mutex.
+</p>
+<a name="Return-Value-52"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>Zero on error, non-zero on success.
+</p>
+<a name="Examples-105"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">static SP_mutex volatile my_mutex = SP_MUTEX_INITIALIZER;
+// only access this counter with my_mutex locked
+int volatile protected_counter = 0;
+
+// returns the new value of protected_counter
+int increment_the_counter(void)
+{
+  int new_value;
+
+  if(SP_mutex_lock(&amp;my_mutex) == 0) goto error_handling;
+  // No other thread can update protected_counter here
+  new_value = protected_counter+1;
+  protected_counter = new_value;
+  if (SP_mutex_unlock(&amp;my_mutex) == 0) goto error_handling;
+  return new_value;
+
+error_handling:
+  &hellip;
+}
+</pre></div>
+
+<a name="See-Also-333"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="OS-Threads.html#OS-Threads">OS Threads</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fmutex_005funlock.html#cpg_002dref_002dSP_005fmutex_005funlock" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005fmalloc.html#cpg_002dref_002dSP_005fmalloc" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fmutex_005flock.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fmutex_005flock.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

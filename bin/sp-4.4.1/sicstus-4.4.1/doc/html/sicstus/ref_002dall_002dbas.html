@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-all-bas</title>
+
+<meta name="description" content="SICStus Prolog: ref-all-bas">
+<meta name="keywords" content="SICStus Prolog: ref-all-bas">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dall.html#ref_002dall" rel="up" title="ref-all">
+<link href="ref_002dall_002dcse.html#ref_002dall_002dcse" rel="next" title="ref-all-cse">
+<link href="ref_002dall.html#ref_002dall" rel="prev" title="ref-all">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dall_002dbas"></a>
+<hr>
+<a name="Introduction-4"></a>
+<h4 class="subsection">4.13.1 Introduction</h4>
+
+
+<p>When there are many solutions to a goal, and a list of
+all those solutions is desired, one means of collecting them is to write
+a procedure that repeatedly 
+backtracks into that goal to get another solution.
+In order to collect all the solutions together,
+it is necessary to use the database (via assertion) to hold the
+solutions as they are generated, because  backtracking to redo
+the goal would undo any list construction that had been done after
+satisfying the goal.
+</p>
+<p>The writing of such a backtracking loop can be avoided by the use of
+one of the built-in predicates <code>setof/3</code>, <code>bagof/3</code> and
+<code>findall/[3,4]</code>, which are described below.  These provide a nice
+logical abstraction, whereas with a user-written backtracking loop the
+need for explicit side-effects (assertions) destroys the declarative
+interpretation of the code.  The built-in predicates are also more
+efficient than those a user could write.
+</p>
+<p><strong>Please note</strong>:
+If the solutions being collected contain attributed variables
+(see <a href="lib_002datts.html#lib_002datts">lib-atts</a>) or suspended goals (see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>), then
+those attributes are not retained in the list of solutions.  To retain the
+attributes, you can use <code>copy_term/3</code> (see <a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt">ref-lte-cpt</a>).
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dall_002dcse.html#ref_002dall_002dcse" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dall.html#ref_002dall" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dall_002dbas.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dall_002dbas.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

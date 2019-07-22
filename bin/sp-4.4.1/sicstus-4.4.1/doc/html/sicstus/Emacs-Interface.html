@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Emacs Interface</title>
+
+<meta name="description" content="SICStus Prolog: Emacs Interface">
+<meta name="keywords" content="SICStus Prolog: Emacs Interface">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Run-Intro.html#Run-Intro" rel="up" title="Run Intro">
+<link href="Installation.html#Installation" rel="next" title="Installation">
+<link href="SPIDER.html#SPIDER" rel="prev" title="SPIDER">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Emacs-Interface"></a>
+<hr>
+<a name="Emacs-Interface-1"></a>
+<h3 class="section">3.12 Emacs Interface</h3>
+<a name="index-emacs-interface"></a>
+<a name="index-interface_002c-emacs"></a>
+<a name="index-GNU-Emacs"></a>
+<a name="index-XEmacs"></a>
+
+<p>This section explains how to use the GNU Emacs interface for SICStus
+Prolog, and how to customize your GNU Emacs environment for it. Note
+that the SPIDER IDE (see <a href="SPIDER.html#SPIDER">SPIDER</a>) has many more features than the
+GNU Emacs interface.
+</p>
+<p>Emacs is a powerful programmable editor especially suitable for
+program development. It is available for free for many platforms,
+including various UNIX dialects, Windows and OS X.
+For information specific to GNU Emacs
+, see
+<a href="http://www.gnu.org">http://www.gnu.org</a>.
+For information on running Emacs under Windows, see the
+&lsquo;<samp>GNU Emacs FAQ For MS Windows</samp>&rsquo; at
+<a href="http://www.gnu.org/software/emacs/windows/ntemacs.html">http://www.gnu.org/software/emacs/windows/ntemacs.html</a>.
+</p>
+<p>The advantages of using SICStus in the Emacs environment are
+source-linked debugging, auto indentation, syntax highlighting,
+help on predefined predicates (requires the SICStus info files to
+be installed), loading code from inside Emacs, auto-fill mode, and
+more.
+</p>
+<p>The Emacs interface is not part of SICStus Prolog proper, but is included
+in the distribution for convenience. It was written by Emil Åström and
+Milan Zamazal, based on an earlier version of the mode written by
+Masanobu Umeda. Contributions has also been made by Johan Andersson,
+Peter Olin, Mats Carlsson, Johan Bevemyr, Stefan Andersson, Per
+Danielsson, Per Mildner, Henrik Båkman, and Tamás Rozmán.  
+Some ideas and also a few lines of code have been borrowed
+(with permission) from <samp>Oz.el</samp> by Ralf Scheidhauer and Michael Mehl,
+the Emacs major mode for the Oz programming language.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Installation.html#Installation" accesskey="1">Installation</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Installation
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Basic-Configuration.html#Basic-Configuration" accesskey="2">Basic Configuration</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Basic Configuration
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Usage.html#Usage" accesskey="3">Usage</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Usage
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Mode-Line.html#Mode-Line" accesskey="4">Mode Line</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Mode Line
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Configuration.html#Configuration" accesskey="5">Configuration</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Configuration
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Tips.html#Tips" accesskey="6">Tips</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tips
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="SPIDER.html#SPIDER" accesskey="p" rel="prev">Previous</a>
+<li><a href="Run-Intro.html#Run-Intro" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Emacs-Interface.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Emacs-Interface.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

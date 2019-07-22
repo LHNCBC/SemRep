@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-atts</title>
+
+<meta name="description" content="SICStus Prolog: lib-atts">
+<meta name="keywords" content="SICStus Prolog: lib-atts">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002davl.html#lib_002davl" rel="next" title="lib-avl">
+<link href="lib_002dassoc.html#lib_002dassoc" rel="prev" title="lib-assoc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002datts"></a>
+<hr>
+<a name="Attributed-Variables_002d_002d_002dlibrary_0028atts_0029"></a>
+<h3 class="section">10.3 Attributed Variables&mdash;<code>library(atts)</code></h3>
+<a name="index-attributed-variables"></a>
+<a name="index-variables_002c-attributed"></a>
+<p>This package implements attributed variables.  It provides a means
+of associating with variables arbitrary attributes, i.e. named
+properties that can be used as storage locations as well as to extend
+the default unification algorithm when such variables are
+unified with other terms or with each other.  This facility
+was primarily designed as a clean interface between Prolog and
+constraint solvers, but has a number of other uses as well.  The basic
+idea is due to Christian Holzbaur and he was actively involved in the
+final design.  For background material, see the dissertation [Holzbaur 90].
+</p>
+<p>The package provides a means to declare and access named attributes of
+variables.  The attributes are compound terms whose
+arguments are the actual attribute values.  The attribute names
+are <em>private</em> to the module in which they are defined.  They
+are defined with a declaration
+</p>
+<a name="index-attribute-declaration"></a>
+<a name="index-declaration_002c-attribute"></a>
+
+<a name="index-attribute_002f1-_0028declaration_0029-1"></a>
+<a name="index-attribute_002f1-_0028declaration_0029"></a>
+
+
+<div class="example">
+<pre class="example">:- attribute <var>AttributeSpec</var>, &hellip;, <var>AttributeSpec</var>.
+</pre></div>
+
+<p>where each <var>AttributeSpec</var> has the form (<var>Name</var>/<var>Arity</var>).
+There must be at most one such declaration in a module
+<var>Module</var>.
+</p>
+<p>Having declared some attribute names, these attributes can now be added,
+updated and deleted from unbound variables.  For each
+declared attribute name, any variable can have at most one such
+attribute (initially it has none).
+</p>
+<p>The declaration causes the following two access predicates
+to become defined by means of the <code>goal_expansion/5</code>
+mechanism.  They take a variable and an <var>AccessSpec</var> as
+arguments where an <var>AccessSpec</var> is either
+<code>+(<var>Attribute</var>)</code>, <code>-(<var>Attribute</var>)</code>, or a list of
+such.  The &lsquo;<samp>+</samp>&rsquo; prefix may be dropped for convenience.  
+<var>Attribute</var> must be nonvariable at compile time.
+The meaning of the &lsquo;<samp>+</samp>&rsquo;/&lsquo;<samp>-</samp>&rsquo; prefix is documented below:
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-get_005fatts_002f2-_0028Module_0029-1"></a>
+<a name="index-get_005fatts_002f2-_0028Module_0029"></a>
+
+</dd>
+<dt><code><var>Module</var>:get_atts(<var>-Var</var>, <var>?AccessSpec</var>)</code></dt>
+<dd><p>Gets the attributes of <var>Var</var> according to <var>AccessSpec</var>.  If
+<var>AccessSpec</var> is unbound, it will be bound to a
+list of all present attributes of <var>Var</var>, which must be a variable.
+The elements of <var>AccessSpec</var> have the following meaning:
+</p><dl compact="compact">
+<dt><code>+(<var>Attribute</var>)</code></dt>
+<dd><p>The corresponding actual attribute must be present and is unified with
+<var>Attribute</var>.
+</p>
+</dd>
+<dt><code>-(<var>Attribute</var>)</code></dt>
+<dd><p>The corresponding actual attribute must be absent.  The arguments
+of <var>Attribute</var> are ignored, only the name and arity are
+relevant.
+</p></dd>
+</dl>
+
+
+<a name="index-put_005fatts_002f2-_0028Module_0029-1"></a>
+<a name="index-put_005fatts_002f2-_0028Module_0029"></a>
+
+</dd>
+<dt><code><var>Module</var>:put_atts(<var>-Var</var>, <var>+AccessSpec</var>)</code></dt>
+<dd><p>Sets the attributes of <var>Var</var>, which must be a variable, according to <var>AccessSpec</var>.
+The effects of <code>put_atts/2</code> are undone on backtracking.
+</p><dl compact="compact">
+<dt><code>+(<var>Attribute</var>)</code></dt>
+<dd><p>The corresponding actual attribute is set to <var>Attribute</var>.
+If the actual attribute was already present, it is simply replaced.
+</p>
+</dd>
+<dt><code>-(<var>Attribute</var>)</code></dt>
+<dd><p>The corresponding actual attribute is removed.
+If the actual attribute was already absent, nothing happens.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<p>A module that contains an attribute declaration has an
+opportunity to extend the default unification algorithm by
+defining the following predicate:
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-verify_005fattributes_002f3-_0028Module_0029-1"></a>
+<a name="index-verify_005fattributes_002f3-_0028Module_0029"></a>
+
+</dd>
+<dt><code><var>Module</var>:verify_attributes(<var>-Var</var>, <var>+Value</var>, <var>-Goals</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>This predicate is called whenever a variable <var>Var</var> that
+might have attributes in <var>Module</var> is about to be bound to
+<var>Value</var> (it might have none).  The unification resumes after
+the call to <code>verify_attributes/3</code>.  <var>Value</var> is a
+nonvariable, or another attributed variable.
+<var>Var</var> might have no attributes present in <var>Module</var>; the
+unification extension mechanism is not sophisticated enough to
+filter out exactly the variables that are relevant for
+<var>Module</var>.
+</p>
+<p><code>verify_attributes/3</code> is called <em>before</em> <var>Var</var> has
+actually been bound to <var>Value</var>.  If it fails, the
+unification is deemed to have failed.  It may succeed
+nondeterminately, in which case the unification might
+backtrack to give another answer.  It is expected to return, in
+<var>Goals</var>, a list of goals to be called <em>after</em>
+<var>Var</var> has been bound to <var>Value</var>.  Finally, after calling
+<var>Goals</var>, any goals blocked on <var>Var</var> are called.
+</p>
+<p><code>verify_attributes/3</code> may invoke arbitrary Prolog goals, but
+<var>Var</var> should <em>not</em> be bound by it.  Binding
+<var>Var</var> will result in undefined behavior.
+</p>
+<p>If <var>Value</var> is a nonvariable,
+<code>verify_attributes/3</code> will typically inspect the attributes of
+<var>Var</var> and check that they are compatible with <var>Value</var> and fail
+otherwise.  If <var>Value</var> is another attributed variable,
+<code>verify_attributes/3</code> will typically copy the attributes of
+<var>Var</var> over to <var>Value</var>, or merge them with <var>Value</var>&rsquo;s, in
+preparation for <var>Var</var> to be bound to <var>Value</var>.  In either
+case, <code>verify_attributes/3</code> may determine <var>Var</var>&rsquo;s current
+attributes by calling <code>get_atts(<var>Var</var>,<var>List</var>)</code> with an
+unbound <var>List</var>.
+</p>
+<p>In the case when a single unification binds multiple attributed
+variables, first all such bindings are <em>undone</em>, then 
+the following actions are carried out for each relevant variable:
+</p>
+<ol>
+<li> For each relevant module <var>M</var>, <code><var>M</var>:verify_attributes/3</code>
+is called, collecting a list of returned <var>Goals</var>.
+</li><li> The variable binding is <em>redone</em>.
+</li><li> Any <var>Goals</var> are called.
+</li><li> Any blocked goals are called.
+</li></ol>
+
+</dd>
+</dl>
+
+<p>An important use for attributed variables is in implementing
+coroutining facilities as an alternative or complement to the
+built-in coroutining mechanisms.  In this context it might be
+useful to be able to interpret some of the attributes of a
+variable as a goal that is blocked on that
+variable.  Certain built-in predicates (<code>frozen/2</code>,
+<code>copy_term/3</code>) and the Prolog top-level need to access
+blocked goals, and so need a means of getting the goal
+interpretation of attributed variables by calling:
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-attribute_005fgoal_002f2-_0028Module_0029-1"></a>
+<a name="index-attribute_005fgoal_002f2-_0028Module_0029"></a>
+
+</dd>
+<dt><code><var>Module</var>:attribute_goal(<var>-Var</var>, <var>-Goal</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>This predicate is called in each module that contains an
+attribute declaration, when an interpretation of the attributes as
+a goal is needed, in particular in <code>frozen/2</code>,
+<code>copy_term/3</code> and the Prolog top-level.
+It should unify <var>Goal</var> with the
+interpretation, or merely fail if no such interpretation is available.
+</p></dd>
+</dl>
+
+<p>An important use for attributed variables is to provide an
+interface to constraint solvers.  An important function for a constraint
+solver in the constraint logic programming paradigm is to be able to
+perform projection of the residual constraints onto the variables
+that occurred in the top-level query.  A module that
+contains an attribute declaration has an opportunity to perform
+such projection of its residual constraints by defining the following
+predicate:
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-project_005fattributes_002f2-_0028Module_0029-1"></a>
+<a name="index-project_005fattributes_002f2-_0028Module_0029"></a>
+
+</dd>
+<dt><code><var>Module</var>:project_attributes(<var>+QueryVars</var>, <var>+AttrVars</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>This predicate is called by the Prolog top level in each module that
+contains an attribute declaration.  <var>QueryVars</var> is the
+list of variables occurring in the query, or in
+terms bound to such variables, and <var>AttrVars</var> is a
+list of possibly attributed variables created during the
+execution of the query.  The two lists of variables
+may or may not be disjoint.
+</p>
+<p>If the attributes on <var>AttrVars</var> can be interpreted as constraints,
+this predicate will typically &ldquo;project&rdquo; those constraints onto
+the relevant <var>QueryVars</var>.  Ideally, the residual constraints will be
+expressed entirely in terms of the <var>QueryVars</var>, treating all
+other variables as existentially quantified.  Operationally,
+<code>project_attributes/2</code> must remove all attributes from
+<var>AttrVars</var>, and add transformed attributes representing the
+projected constraints to some of the <var>QueryVars</var>.
+</p>
+<p>Projection has the following effect on the Prolog top-level.  When the
+top-level query has succeeded, <code>project_attributes/2</code> is
+called first.  The top-level then prints the answer substition and
+residual constraints.  While doing so, it searches for attributed
+variables created during the execution of the query.  For
+each such variable, it calls <code>attribute_goal/2</code> to get a
+printable representation of the constraint encoded by the attribute.
+Thus, <code>project_attributes/2</code> is a mechanism for controlling how the
+residual constraints should be displayed at top-level.
+</p>
+<p>The exact definition of <code>project_attributes/2</code> is constraint system
+dependent, but see <a href="Answer-Constraints.html#Answer-Constraints">Answer Constraints</a> and see <a href="CLPQR-Projection.html#CLPQR-Projection">CLPQR Projection</a>
+for details about projection in CLPFD and CLP(Q,R) respectively.
+</p></dd>
+</dl>
+
+<p>In the following example we sketch the implementation of a finite domain
+&ldquo;solver&rdquo;.  Note that an industrial strength solver would have to
+provide a wider range of functionality and that it quite likely would
+utilize a more efficient representation for the domains proper.  The
+module exports a single predicate
+<code>domain(<var>-Var</var>,<var>?Domain</var>)</code>, which associates <var>Domain</var>
+(a list of terms) with <var>Var</var>.  A variable can be
+queried for its domain by leaving <var>Domain</var> unbound.
+</p>
+<p>We do not present here a 
+definition for <code>project_attributes/2</code>.  Projecting finite domain
+constraints happens to be difficult.
+</p>
+
+<div class="example">
+<pre class="example"><em>% domain.pl</em>
+</pre><pre class="example">:- module(domain, [domain/2]).
+
+:- use_module(library(atts)).
+:- use_module(library(ordsets), [
+        ord_intersection/3,
+        ord_intersect/2,
+        list_to_ord_set/2
+   ]).
+
+:- attribute dom/1.
+
+verify_attributes(Var, Other, Goals) :-
+        get_atts(Var, dom(Da)), !,          % are we involved?
+        (   var(Other) -&gt;                   % must be attributed then
+            (   get_atts(Other, dom(Db)) -&gt; %   has a domain?
+                ord_intersection(Da, Db, Dc),
+                Dc = [El|Els],              % at least one element
+                (   Els = [] -&gt;             % exactly one element
+                    Goals = [Other=El]      % implied binding
+                ;   Goals = [],
+                    put_atts(Other, dom(Dc))% rescue intersection
+                )
+            ;   Goals = [],
+                put_atts(Other, dom(Da))    % rescue the domain
+            )
+        ;   Goals = [],
+            ord_intersect([Other], Da)      % value in domain?
+        ).
+verify_attributes(_, _, []).                % unification triggered
+                                            % because of attributes
+                                            % in other modules
+
+attribute_goal(Var, domain(Var,Dom)) :-     % interpretation as goal
+        get_atts(Var, dom(Dom)).
+
+domain(X, Dom) :-
+        var(Dom), !,
+        get_atts(X, dom(Dom)).
+domain(X, List) :-
+        list_to_ord_set(List, Set),
+        Set = [El|Els],                     % at least one element
+        (   Els = [] -&gt;                     % exactly one element
+            X = El                          % implied binding
+        ;   put_atts(Fresh, dom(Set)),
+            X = Fresh                       % may call
+                                            % verify_attributes/3
+        ).
+</pre></div>
+
+<p>Note that the &ldquo;implied binding&rdquo; <code>Other=El</code> was deferred until
+after the completion of <code>verify_attribute/3</code>.  Otherwise, there
+might be a danger of recursively invoke <code>verify_attribute/3</code>, which
+might bind <code>Var</code>, which is not allowed inside the scope of
+<code>verify_attribute/3</code>.  Deferring unifications into the third
+argument of <code>verify_attribute/3</code> effectively serializes th
+calls to <code>verify_attribute/3</code>.
+</p>
+<p>Assuming that the code resides in the file <samp>domain.pl</samp>, we can
+load it via:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>use_module(domain).</kbd>
+</pre></div>
+
+<p>Let&rsquo;s test it:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>domain(X,[5,6,7,1]), domain(Y,[3,4,5,6]), domain(Z,[1,6,7,8]).</kbd>
+
+domain(X,[1,5,6,7]),
+domain(Y,[3,4,5,6]),
+domain(Z,[1,6,7,8])
+
+| ?- <kbd>domain(X,[5,6,7,1]), domain(Y,[3,4,5,6]), domain(Z,[1,6,7,8]), </kbd>
+     <kbd>X=Y.</kbd>
+
+Y = X,
+domain(X,[5,6]),
+domain(Z,[1,6,7,8])
+
+| ?- <kbd>domain(X,[5,6,7,1]), domain(Y,[3,4,5,6]), domain(Z,[1,6,7,8]),</kbd>
+     <kbd>X=Y, Y=Z.</kbd>
+
+X = 6,
+Y = 6,
+Z = 6
+</pre></div>
+
+<p>To demonstrate the use of the <var>Goals</var> argument of
+<code>verify_attributes/3</code>, we give an implementation of
+<code>freeze/2</code>.  We have to name it <code>myfreeze/2</code> in order to avoid
+a name clash with the built-in predicate of the same name.
+</p>
+<div class="example">
+<pre class="example"><em>% myfreeze.pl</em>
+</pre><pre class="example">:- module(myfreeze, [myfreeze/2]).
+
+:- use_module(library(atts)).
+
+:- attribute frozen/1.
+
+verify_attributes(Var, Other, Goals) :-
+        get_atts(Var, frozen(Fa)), !,       % are we involved?
+        (   var(Other) -&gt;                   % must be attributed then
+            (   get_atts(Other, frozen(Fb)) % has a pending goal?
+            -&gt;  put_atts(Other, frozen((Fa,Fb))) % rescue conjunction
+            ;   put_atts(Other, frozen(Fa)) % rescue the pending goal
+            ),
+            Goals = []
+        ;   Goals = [Fa]
+        ).
+verify_attributes(_, _, []).
+
+attribute_goal(Var, Goal) :-                % interpretation as goal
+        get_atts(Var, frozen(Goal)).
+
+myfreeze(X, Goal) :-
+        put_atts(Fresh, frozen(Goal)),
+        Fresh = X.
+</pre></div>
+
+<p>Assuming that this code lives in file <samp>myfreeze.pl</samp>,
+we would use it via:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>use_module(myfreeze).</kbd>
+| ?- <kbd>myfreeze(X,print(bound(x,X))), X=2.</kbd>
+
+bound(x,2)                      % side-effect
+X = 2                           % bindings
+</pre></div>
+
+<p>The two solvers even work together:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>myfreeze(X,print(bound(x,X))), domain(X,[1,2,3]),</kbd>
+     <kbd>domain(Y,[2,10]), X=Y.</kbd>
+
+bound(x,2)                      % side-effect
+X = 2,                          % bindings
+Y = 2
+</pre></div>
+
+<p>The two example solvers interact via bindings to shared attributed
+variables only.  More complicated interactions are likely to be
+found in more sophisticated solvers.  The corresponding
+<code>verify_attributes/3</code> predicates would typically refer to the
+attributes from other known solvers/modules via the module
+prefix in <code><var>Module</var>:get_atts/2</code>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002davl.html#lib_002davl" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dassoc.html#lib_002dassoc" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002datts.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002datts.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

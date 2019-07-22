@@ -1,0 +1,81 @@
+# @(#)verbinfl.rul	1.1 09/18/06
+
+#			  VERB INFLECTION RULES:
+#
+#  0 =>  k  /c _{ing,ed}
+#
+# These rules would likely be considered part
+# of regular English inflection were they not 
+# of such limited scope.  Only 13 verbs in English end in "c"
+# of those 12 are covered by these rules.
+# "floc" as a verb appears in Webster's Medical Dictinary.
+#  with the paradigm: flocs flocced flocced floccing (regd)
+# "floc" is apparently a back formation from "floculate". Which
+# may account for it's deviant regularity.  (2-Oct-92)
+
+c$|verb|infinitive|cking$|verb|ing
+   floc|flocking;
+
+c$|verb|infinitive|cked$|verb|past
+   floc|flocked;
+
+c$|verb|infinitive|cked$|verb|pastpart
+   floc|flocked;
+
+# The past part ing/ung rule applies to more verbs than
+# the past ing/ung rule. "ring" has "rang" in the past,
+# and "wring" has "wrang", sing according to Websters has
+# either "sing" or "sung" in the past.
+# in the realm of the exotic coolung is a crazy crane, and gunnung is
+# a type of swamp mahogony. (and a pung is a kind of sleigh)
+
+ing$|verb|infinitive|ung$|verb|pastpart
+   cooling|coolung;
+   ding|dung;
+   gunning|gunnung;
+   ing|ung;
+   ling|lung;
+   ping|pung;
+
+ing$|verb|infinitive|ung$|verb|past
+   cooling|coolung;
+   ding|dung;
+   gunning|gunnung;
+   ing|ung;
+   ling|lung;
+   ping|pung;
+   ring|rung;
+   wring|wrung;
+
+# e.g. feed|fed speed|sped bleed|bled .....
+
+eed$|verb|infinitive|ed$|verb|past
+   eed|ed;
+   freed|fred;
+   reed|red;
+   weed|wed;
+
+eed$|verb|infinitive|ed$|verb|pastpart
+   eed|ed;
+   freed|fred;
+   reed|red;
+   weed|wed;
+
+# ay~aid for both past and past part
+#e.g  pay|paid
+
+ay$|verb|infinitive|aid$|verb|past
+   bray|braid;
+   May|maid;
+   may|maid;
+   play|plaid;
+   ray|raid;
+   stay|staid;
+
+ay$|verb|infinitive|aid$|verb|pastpart
+   bray|braid;
+   May|maid;
+   may|maid;
+   play|plaid;
+   ray|raid;
+   stay|staid;

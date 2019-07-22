@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-met</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-met">
+<meta name="keywords" content="SICStus Prolog: ref-mod-met">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002dsem.html#ref_002dmod_002dsem" rel="next" title="ref-mod-sem">
+<link href="ref_002dmod_002dmne.html#ref_002dmod_002dmne" rel="prev" title="ref-mod-mne">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dmet"></a>
+<hr>
+<a name="The-meta_005fpredicate-Declaration"></a>
+<h4 class="subsection">4.11.16 The <code>meta_predicate</code> Declaration</h4>
+
+<a name="index-meta_005fpredicate-declaration"></a>
+<a name="index-declaration_002c-meta_005fpredicate"></a>
+
+
+<a name="index-meta_005fpredicate_002f1-_0028declaration_0029-3"></a>
+<a name="index-meta_005fpredicate_002f1-_0028declaration_0029-1"></a>
+
+
+<a name="index-_003a_002c-use-in-meta_005fpredicate-declaration"></a>
+
+
+<p>Sometimes a user-defined predicate will require module name expansion (see
+<a href="ref_002dmod_002dmne.html#ref_002dmod_002dmne">ref-mod-mne</a>).  This can be specified by providing a
+<code>meta_predicate</code> declaration for that procedure.  
+</p>
+<p>Module name expansion is needed whenever the argument of a predicate
+has some module-dependent meaning.  For example, if this argument is a
+goal that is to be called, then it will be necessary to know in which
+module to call it&mdash;or, if the argument is a clause to be
+asserted, in which module it should go.
+</p>
+<p>Consider, for example, a sort routine to which the name of the
+comparison predicate is passed as an argument.  In this example, the
+comparison predicate should be called, with two arguments like the
+built-in <code>@=&lt;/2</code>, with respect to the module
+containing the call to the sort routine.  Suppose that the sort
+routine is 
+</p><div class="example">
+<pre class="example">mysort(<var>CompareProc</var>, <var>InputList</var>, <var>OutputList</var>)
+</pre></div>
+
+
+<p>An appropriate <code>meta_predicate</code> declaration for this is
+</p><div class="example">
+<pre class="example">:- meta_predicate mysort(2, +, -).  
+</pre></div>
+
+<p>The significant argument in the <code>mysort/3</code> term is the &lsquo;<samp>2</samp>&rsquo;,
+which indicates that module name expansion is required for this argument
+and that two additional arguments will be added when this argument is
+invoked as a goal.  This means that whenever a goal
+<code>mysort(<var>A</var>, <var>B</var>, <var>C</var>)</code> appears in a clause, it will be
+transformed at load time into <code>mysort(<var>M</var>:<var>A</var>, <var>B</var>,
+<var>C</var>)</code>, where <var>M</var> is the source module.  There are some
+exceptions to this compile-time transformation rule; the goal is not
+transformed if either of the following applies:
+</p>
+<ol>
+<li> <var>A</var> is of the form <var>Module:Goal</var>.
+</li><li> <var>A</var> is a variable and the same variable appears in the head of the clause
+in a module-name-expansion position.
+</li></ol>
+
+
+<p>The reason for (2)
+is that otherwise module name expansion could
+build larger and larger structures of the form <var>Mn: &hellip; :M2:M1:Goal</var>.
+For example, consider the following program fragment adapted from the
+library (see <code>library(samsort)</code> for the full program):
+</p><div class="example">
+<pre class="example"> 
+:- module(samsort, [samsort/3]).  
+
+:- meta_predicate 
+        samsort(2, +, ?),
+        sam_sort(+, 2, +, +, ?).
+
+samsort(_, [], []) :- !.
+samsort(Order, List, Sorted) :-
+        sam_sort(List, Order, [], 0, Sorted).
+  .
+  .
+  .
+</pre></div>
+
+<p>Normally, the <code>sam_sort/5</code> goal in this example would have the module name of its
+second argument expanded thus:
+</p><div class="example">
+<pre class="example">sam_sort(List, samsort:Order, [], 0, Sorted)
+</pre></div>
+
+<p>because of the <code>meta_predicate</code> declaration.  However, in this
+situation the appropriate source module will have already been
+attached to <var>Order</var> because it is the first argument of <code>samsort/3</code>,
+which also has a <code>meta_predicate</code> declaration.  Therefore it is
+not useful to attach the module name (<code>samsort</code>) to <var>Order</var> in the call of
+<code>sam_sort/5</code>.  
+</p>
+<p>The argument of a <code>meta_predicate</code> declaration can be a term, or a
+sequence of terms separated by commas.  Each argument of each of these
+terms must be one of the following:
+</p>
+<dl compact="compact">
+<dt>&lsquo;<samp>:</samp>&rsquo;</dt>
+<dd><p>requires module name expansion
+</p>
+<p>If the argument will be treated as a goal, then it is better to
+explicitly indicate this using an integer; see the next item.
+</p>
+</dd>
+<dt><var>nsuppressed</var></dt>
+<dd><p>a non-negative integer.
+</p>
+<p>This is a special case of &lsquo;<samp>:</samp>&rsquo; which means that the argument can be
+made into a goal by adding <var>nsuppressed</var> additional arguments. E.g., if
+the argument will be passed to <code>call/1</code>, then <code>0</code> (zero)
+should be used.
+</p>
+<p>An integer is treated the same as &lsquo;<samp>:</samp>&rsquo; above by the SICStus
+runtime. Other tools, such as the cross referencer (see <a href="The-Cross_002dReferencer.html#The-Cross_002dReferencer">The Cross-Referencer</a>) and the SICStus Prolog IDE (see <a href="SPIDER.html#SPIDER">SICStus
+Prolog IDE</a>), will use this information to better follow predicate
+references in analyzed source code.
+</p>
+<p>If the number of extra arguments is unknown or varies, then the generic
+<code>:</code> is always safe to use, but will give less accurate results from
+source analysis tools.
+</p>
+</dd>
+<dt>&lsquo;<samp>*</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>+</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>-</samp>&rsquo;</dt>
+<dt>&lsquo;<samp>?</samp>&rsquo;</dt>
+<dd><p>ignored
+</p></dd>
+</dl>
+
+<a name="index-mode-declarations"></a>
+<a name="index-declarations_002c-mode"></a>
+
+<p>The reason for &lsquo;<samp>+</samp>&rsquo;, &lsquo;<samp>-</samp>&rsquo; and &lsquo;<samp>?</samp>&rsquo; is simply so that the information
+contained in a DEC-10 Prolog-style &ldquo;mode&rdquo; declaration may be represented
+in the <code>meta_predicate</code> declaration if you wish.  There are many examples of
+<code>meta_predicate</code> declarations in the library.
+</p>
+<p>Prior to release 4.1, only <code>:</code> (colon) was used and the
+integer form was undocumented (but supported, e.g. by the cross
+referencer).
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002dsem.html#ref_002dmod_002dsem" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod_002dmne.html#ref_002dmod_002dmne" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dmet.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dmet.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

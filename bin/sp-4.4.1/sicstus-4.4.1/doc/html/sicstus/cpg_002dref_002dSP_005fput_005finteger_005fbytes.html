@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_put_integer_bytes</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_put_integer_bytes">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_put_integer_bytes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fput_005flist.html#cpg_002dref_002dSP_005fput_005flist" rel="next" title="cpg-ref-SP_put_list">
+<link href="cpg_002dref_002dSP_005fput_005finteger.html#cpg_002dref_002dSP_005fput_005finteger" rel="prev" title="cpg-ref-SP_put_integer">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fput_005finteger_005fbytes"></a>
+<hr>
+<a name="SP_005fput_005finteger_005fbytes_0028_0029"></a>
+<h4 class="subsection">12.3.75 <code>SP_put_integer_bytes()</code></h4>
+<a name="index-SP_005fput_005finteger_005fbytes_0028_0029-_0028C-function_0029-1"></a>
+
+<a name="Synopsis-355"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+int
+SP_put_integer_bytes(SP_term_ref term,
+                     void *buf,
+                     size_t buf_size,
+                     int native);
+</pre></div>
+
+<p>Assigns to <code>term</code> a reference to an arbitrarily sized integer.
+</p>
+<a name="Arguments-324"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>term</var></dt>
+<dd><p>The SP_term_ref to be assigned
+</p>
+</dd>
+<dt><var>buf</var></dt>
+<dd><ul>
+<li> If <code>native</code> is zero, <code>buf</code>
+consists of the <code>buf_size</code> bytes of the twos
+complement representation of the integer. Less significant bytes are
+at lower indices.
+</li><li> If <code>native</code> is nonzero, <code>buf</code>
+is a pointer to the native <code>buf_size</code> bytes integer type.
+</li></ul>
+
+</dd>
+<dt><var>buf_size</var></dt>
+<dd><p>The size of <code>buf</code>
+</p>
+</dd>
+<dt><var>native</var></dt>
+<dd><p>See above.  Supported native sizes typically include two, four and eight
+(64bit) bytes.
+</p></dd>
+</dl>
+
+<a name="Return-Value-70"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>Zero if the conversion fails (as far as failure can be detected), and
+a nonzero value otherwise.
+</p>
+<a name="See-Also-352"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Creating-Prolog-Terms.html#Creating-Prolog-Terms">Creating Prolog Terms</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fput_005flist.html#cpg_002dref_002dSP_005fput_005flist" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005fput_005finteger.html#cpg_002dref_002dSP_005fput_005finteger" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fput_005finteger_005fbytes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fput_005finteger_005fbytes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

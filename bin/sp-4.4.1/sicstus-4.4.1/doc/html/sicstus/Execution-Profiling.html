@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Execution Profiling</title>
+
+<meta name="description" content="SICStus Prolog: Execution Profiling">
+<meta name="keywords" content="SICStus Prolog: Execution Profiling">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" rel="up" title="Writing Efficient Programs">
+<link href="Coverage-Analysis.html#Coverage-Analysis" rel="next" title="Coverage Analysis">
+<link href="Eff-Overview.html#Eff-Overview" rel="prev" title="Eff Overview">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Execution-Profiling"></a>
+<hr>
+<a name="Execution-Profiling-1"></a>
+<h3 class="section">9.2 Execution Profiling</h3>
+
+<a name="index-execution-profiling"></a>
+<a name="index-profiling_002c-execution"></a>
+<a name="index-counter"></a>
+<p>Execution profiling is a common aid for improving software performance.
+As of release 4.2, execution profiling is available for compiled as well
+as interpreted code.  Execution profiling requires no recompilation with
+instrumentation.  Execution profiling is either globally <em>on</em> or
+globally <em>off</em> for all compiled code.  This is reflected by the
+<code>profiling</code> Prolog flag.  When the flag is on, the information
+gathered depends on the execution mode:
+</p>
+<dl compact="compact">
+<dt>compiled code</dt>
+<dd><p>Execution profiling counts the number of calls per caller-callee pair,
+the number of instructions executed, and the number of choicepoint
+accesses per predicate.  Calls that succeed nondeterminately are
+detected.  Compiled codes runs 2-10 times slower with execution
+profiling than without.
+</p>
+</dd>
+<dt>interpreted code</dt>
+<dd><p>Execution profiling counts the number of calls per caller-callee pair if
+the <code>source_info</code> Prolog flag was on when the code was loaded;
+otherwise, the number of calls per predicate.  Calls that succeed
+nondeterminately are detected.
+</p></dd>
+</dl>
+
+<p>A typical query pattern is:
+</p>
+<div class="example">
+<pre class="example">| ?- <var>[Load some code.]</var>
+| ?- <kbd>prolog_flag(profiling,_,on).</kbd>
+| ?- <var>[Run some queries.]</var>
+| ?- <kbd>prolog_flag(profiling,_,off).</kbd>
+| ?- <kbd>print_profile.</kbd>
+</pre></div>
+
+<p>The predicate <code>profile_data/1</code> makes the accumulated data available
+as a Prolog term.  The predicate <code>print_profile/0</code> prints the
+execution profile in a format similar to <code>gprof(1)</code>.  It can
+also be given an argument which should be of the same type as the output
+of <code>profile_data/1</code>. The predicate <code>profile_reset/0</code> clears
+all profiling data.  For the details, see the respective reference page.
+See also the Gauge graphical user interface for inspecting execution
+profiles (see <a href="lib_002dgauge.html#lib_002dgauge">lib-gauge</a>)
+and the SICStus Prolog IDE (see <a href="SPIDER.html#SPIDER">SICStus Prolog IDE</a>)
+which both can visualize the profiling information.
+</p>
+<dl compact="compact">
+<dt><code>profile_reset &nbsp;<!-- /@w --> <i>since release 4.2</i>,<i>development</i></code></dt>
+<dd>
+<a name="index-profile_005freset_002f0-_0028built_002din_0029-2"></a>
+<a name="index-profile_005freset_002f0-_0028built_002din_0029"></a>
+
+<p>Resets all profiling data.
+See <a href="mpg_002dref_002dprofile_005freset.html#mpg_002dref_002dprofile_005freset">mpg-ref-profile_reset</a>.
+</p>
+</dd>
+<dt><code>profile_data(<var>-Data</var>) &nbsp;<!-- /@w --> <i>since release 4.2</i>,<i>development</i></code></dt>
+<dd>
+<a name="index-profile_005fdata_002f1-_0028built_002din_0029-1"></a>
+<a name="index-profile_005fdata_002f1-_0028built_002din_0029"></a>
+
+<p><var>Data</var> is the profiling data accumulated so far.
+See <a href="mpg_002dref_002dprofile_005fdata.html#mpg_002dref_002dprofile_005fdata">mpg-ref-profile_data</a>.
+</p>
+</dd>
+<dt><code>print_profile &nbsp;<!-- /@w --> <i>since release 4.2</i>,<i>development</i></code></dt>
+<dt><code>print_profile(<var>+Data</var>) &nbsp;<!-- /@w --> <i>since release 4.2</i>,<i>development</i></code></dt>
+<dd>
+<a name="index-print_005fprofile_002f_005b0_002c1_005d-_0028built_002din_0029-1"></a>
+<a name="index-print_005fprofile_002f_005b0_002c1_005d-_0028built_002din_0029"></a>
+
+<p>The profiling data <var>Data</var> is displayed in a format similar
+to <code>gprof(1)</code>.  <var>Data</var> defaults to the profiling data accumulated so far.
+See <a href="mpg_002dref_002dprint_005fprofile.html#mpg_002dref_002dprint_005fprofile">mpg-ref-print_profile</a>.
+</p>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Coverage-Analysis.html#Coverage-Analysis" accesskey="n" rel="next">Next</a>
+<li><a href="Eff-Overview.html#Eff-Overview" accesskey="p" rel="prev">Previous</a>
+<li><a href="Writing-Efficient-Programs.html#Writing-Efficient-Programs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Execution-Profiling.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Execution-Profiling.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

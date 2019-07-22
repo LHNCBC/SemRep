@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-tcl-rtrm</title>
+
+<meta name="description" content="SICStus Prolog: obj-tcl-rtrm">
+<meta name="keywords" content="SICStus Prolog: obj-tcl-rtrm">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dtcl.html#obj_002dtcl" rel="up" title="obj-tcl">
+<link href="obj_002dtcl_002dtce.html#obj_002dtcl_002dtce" rel="next" title="obj-tcl-tce">
+<link href="obj_002dtcl_002dstcl.html#obj_002dtcl_002dstcl" rel="prev" title="obj-tcl-stcl">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dtcl_002drtrm"></a>
+<hr>
+<a name="Restricted-Term-Classes"></a>
+<h4 class="subsubsection">10.23.4.2 Restricted Term Classes</h4>
+
+
+<p>The intention of the <code>rgb_color</code> class presented above is to represent a 
+color as a triple of floating point numbers between 0.0 and 1.0.
+But the above definition does not restrict the arguments of the
+<code>color</code> term in any way:  <em>any</em> <code>color/3</code> term is considered
+to be an instance of the <code>rgb_color</code> class.
+</p>
+<p>The second form of term class declaration allows you to specify
+constraints on instances of a term class.  The form of such a
+declaration is as follows:
+</p><div class="example">
+<pre class="example">:- class <var>ClassName</var> = term(<var>Term</var>, <var>Constraint</var>).
+</pre></div>
+
+<p>This declares that any term that unifies with <var>Term</var> and satisfies
+<var>Constraint</var> is an instance of class <var>ClassName</var>.  The
+<var>Constraint</var> term is an ordinary Prolog goal, which will usually
+share variables with <var>Term</var>.
+</p>
+<p>To extend our <code>rgb_color</code> class example so that only <code>color/3</code>
+terms whose arguments are all floats between 0.0 and 1.0 are instances
+of <code>rgb_color</code>, we would instead begin the definition as follows:
+</p><div class="example">
+<pre class="example">:- class rgb_color = 
+         term(color(Red,Green,Blue),
+              (float(Red),   Red &gt;= 0.0,   Red =&lt; 1.0,
+               float(Green), Green &gt;= 0.0, Green =&lt; 1.0,
+               float(Blue),  Blue &gt;= 0.0,  Blue =&lt; 1.0)).
+</pre></div>
+
+<p>Note the parentheses around the constraint in this example.  Whenever
+the constraint contains multiple goals separated by commas, you will
+need to surround the goal with parentheses.
+</p>
+<p>With this definition of the <code>rgb_color</code> class, only <code>color/3</code>
+terms whose arguments are all floating point numbers between 0 and 1
+inclusive will be considered to be instances of <code>rgb_color</code>.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dtcl_002dtce.html#obj_002dtcl_002dtce" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dtcl_002dstcl.html#obj_002dtcl_002dstcl" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dtcl.html#obj_002dtcl" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dtcl_002drtrm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dtcl_002drtrm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

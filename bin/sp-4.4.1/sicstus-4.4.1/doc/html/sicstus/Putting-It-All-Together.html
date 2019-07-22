@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Putting It All Together</title>
+
+<meta name="description" content="SICStus Prolog: Putting It All Together">
+<meta name="keywords" content="SICStus Prolog: Putting It All Together">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dtcltk.html#lib_002dtcltk" rel="up" title="lib-tcltk">
+<link href="Tcl-The-Master.html#Tcl-The-Master" rel="next" title="Tcl The Master">
+<link href="Summary.html#Summary" rel="prev" title="Summary">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Putting-It-All-Together"></a>
+<hr>
+<a name="Putting-It-All-Together-1"></a>
+<h4 class="subsection">10.39.5 Putting It All Together</h4>
+
+<p>At this point we now know Tcl, the Tk extensions, and how they can be
+integrated into SICStus Prolog through the <code>tcltk</code> library
+module.  The next problem is how to get all this to work together
+to produce a coherent application. Because Tcl can make Prolog calls and
+Prolog can make Tcl calls it is easy to create programming spaghetti.
+In this section we will discuss some general principles of organizing
+the Prolog and Tcl code to make writing applications easier.
+</p>
+<p>The first thing to do is to review the tools that we have.
+We have two programming systems: Prolog and Tcl/Tk.
+They can interact in the following ways:
+</p>
+<ul>
+<li> Prolog evaluates a Tcl expression in a Tcl interpreter, using <code>tcl_eval</code>
+</li><li> Tcl evaluates a Prolog expression in the Prolog interpreter, using
+<code>prolog</code>
+</li><li> Prolog evaluates a Tcl expression in a Tcl interpreter and waits
+for a Prolog event, using <code>tcl_event</code>
+</li><li> Prolog waits for a Prolog event from a Tcl interpreter, using <code>tk_next_event</code>
+</li><li> Tcl sends a Prolog predicate to Prolog on a Prolog event queue
+using <code>prolog_event</code>
+</li></ul>
+
+<p>With these interaction primitives there are three basic
+ways in which Prolog and Tcl/Tk can be organized:
+</p>
+<ol>
+<li> Tcl the master, Prolog the slave: program control is with Tcl,
+which makes occasional calls to Prolog, through the <code>prolog</code>
+function.
+
+</li><li> Prolog the master, Tcl the slave: program control is with Prolog,
+which makes occasional call to Tcl through the <code>tcl_eval</code> function
+
+</li><li> Prolog and Tcl share control: program control is shared with Tcl
+and Prolog interacting via the Prolog event queue, through
+<code>tcl_event</code>, <code>tk_next_event</code>, and <code>prolog_event</code>.
+</li></ol>
+
+<p>These are three ways of organizing cooperation between Tcl/Tk and Prolog
+to produce an application. In practice an application my use only one of
+these methods throughout, or may use a combination of them where
+appropriate. We describe them here so that the developer can see the
+different patterns of organization and can pick those relevant to their
+application.
+</p>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Tcl-The-Master.html#Tcl-The-Master" accesskey="1">Tcl The Master</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tcl The Master, Prolog The Slave
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Prolog-The-Master.html#Prolog-The-Master" accesskey="2">Prolog The Master</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Prolog The Master, Tk The Slave
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Prolog-And-Tcl-Interact-through-Prolog-Event-Queue.html#Prolog-And-Tcl-Interact-through-Prolog-Event-Queue" accesskey="3">Prolog And Tcl Interact through Prolog Event Queue</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Prolog And Tcl Interact through Prolog Event Queue
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="The-Whole-8_002dQueens-Example.html#The-Whole-8_002dQueens-Example" accesskey="4">The Whole 8-Queens Example</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The Whole 8-Queens Example
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Quick-Reference.html#Quick-Reference" accesskey="n" rel="next">Next</a>
+<li><a href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dtcltk.html#lib_002dtcltk" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Putting-It-All-Together.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Putting-It-All-Together.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

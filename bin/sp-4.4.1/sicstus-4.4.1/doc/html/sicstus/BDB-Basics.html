@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: BDB Basics</title>
+
+<meta name="description" content="SICStus Prolog: BDB Basics">
+<meta name="keywords" content="SICStus Prolog: BDB Basics">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dbdb.html#lib_002dbdb" rel="up" title="lib-bdb">
+<link href="Current-Limitations.html#Current-Limitations" rel="next" title="Current Limitations">
+<link href="lib_002dbdb.html#lib_002dbdb" rel="prev" title="lib-bdb">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="BDB-Basics"></a>
+<hr>
+<a name="Basics"></a>
+<h4 class="subsection">10.6.1 Basics</h4>
+
+<p>The idea is to get a behavior similar to <code>assert/1</code>,
+<code>retract/1</code> and <code>clause/2</code>, but the terms are stored on
+files instead of in primary memory.
+</p>
+<p>The differences compared with the Prolog database are:
+</p>
+<ul>
+<li> <a name="index-database-1"></a>
+A <em>database</em> must be opened before any access and closed after the
+last access. (There are special predicates for this:
+<code>db_open/[4,5]</code> and <code>db_close/1</code>.)
+
+</li><li> The functors and the indexing specifications of the terms to
+be stored have to be given when the database is
+created. (see <a href="The-DB_002dSpec.html#The-DB_002dSpec">The DB-Spec</a>).
+
+</li><li> The indexing is specified when the database is created.  It is
+possible to index on other parts of the term than just the
+functor and first argument.
+
+</li><li> Changes affect the database immediately.
+
+</li><li> The database will store variables with attributes or with blocked
+goals as ordinary variables.
+</li></ul>
+
+<p>Some commercial databases can&rsquo;t store non-ground terms
+or more than one instance of a term.  This library module
+can however store terms of either kind.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Current-Limitations.html#Current-Limitations" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dbdb.html#lib_002dbdb" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/BDB-Basics.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/BDB-Basics.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

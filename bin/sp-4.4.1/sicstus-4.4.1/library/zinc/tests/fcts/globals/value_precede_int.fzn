@@ -1,0 +1,12 @@
+%-----------------------------------------------------------------------------%
+% Requires that 's' precede 't' in the array 'x'.
+%
+% If any element of 'x'
+% is equal to 't', then another element of 'x' with a  lower index is equal
+% to 's'.
+%-----------------------------------------------------------------------------%
+array[1 .. 4] of var 1 .. 4: x :: output_array([1..4]);
+
+constraint value_precede_sicstus(1, 2, x);
+
+solve satisfy;

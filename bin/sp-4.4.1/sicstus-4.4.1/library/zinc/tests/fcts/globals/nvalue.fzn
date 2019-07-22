@@ -1,0 +1,5 @@
+array[1 .. 3] of var 1 .. 3: a :: output_array([1..3]);
+
+constraint nvalue(3, a);
+
+solve satisfy;

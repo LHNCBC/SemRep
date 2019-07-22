@@ -1,0 +1,46 @@
+
+# 1) same name as in SWI but rewritten completely             
+                                                              
+cp -f chr_hashtable_store.pl    ../chr_hashtable_store.pl
+cp -f chr_messages.pl           ../chr_messages.pl
+
+# 1') almost same name - rewritten: difference in SICStus version number
+# comment out the non-appropriate line
+
+# cp -f hprolog3.pl                ../hprolog.pl
+cp -f hprolog4.pl                ../hprolog.pl
+
+
+# 2) same name as in SWI, the same contents, no preprocessing needed
+                                                              
+cp -f binomialheap.pl           ../binomialheap.pl
+cp -f chr_compiler_utility.pl   ../chr_compiler_utility.pl
+cp -f chr_op2.pl                ../chr_op2.pl
+cp -f chr_op.pl                 ../chr_op.pl
+cp -f find.pl                   ../find.pl
+cp -f guard_entailment.chr      ../guard_entailment.chr
+cp -f listmap.pl                ../listmap.pl
+cp -f pairlist.pl               ../pairlist.pl
+                                                              
+# 4) new for SICStus                                          
+                                                              
+cp -f b_globval.pl              ../b_globval.pl
+cp -f hpattvars.pl              ../hpattvars.pl
+
+
+# 5) can be used as is by SICStus, but probably they want their own version
+
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('a_star.pl','../a_star.pl'), halt."
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('builtins.pl','../builtins.pl'), halt."
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('chr_compiler_options.pl','../chr_compiler_options.pl'), halt."
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('chr_runtime.pl','../chr_runtime.pl'), halt."
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('chr_swi_bootstrap.pl','../chr_swi_bootstrap.pl'), halt."
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('chr_translate_bootstrap1.chr','../chr_translate_bootstrap1.chr'), halt."
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('chr_translate_bootstrap2.chr','../chr_translate_bootstrap2.chr'), halt."
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('chr_translate_bootstrap.pl','../chr_translate_bootstrap.pl'), halt."
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('chr_translate.chr','../chr_translate.chr'), halt."
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('clean_code.pl','../clean_code.pl'), halt."
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('chr_compiler_errors.pl','../chr_compiler_errors.pl'), halt."
+../../../bin/sicstus -l swi2sicstus.pl --goal "transform('chr_swi.pl','../../chr.pl'), halt."
+
+

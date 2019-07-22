@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Queries</title>
+
+<meta name="description" content="SICStus Prolog: Queries">
+<meta name="keywords" content="SICStus Prolog: Queries">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Queries-and-Directives.html#Queries-and-Directives" rel="up" title="Queries and Directives">
+<link href="Directives.html#Directives" rel="next" title="Directives">
+<link href="Queries-and-Directives.html#Queries-and-Directives" rel="prev" title="Queries and Directives">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Queries"></a>
+<hr>
+<a name="Queries-1"></a>
+<h4 class="subsection">3.4.1 Queries</h4>
+
+<a name="index-_003f_002d-_002f1_002c-query-1"></a>
+<a name="index-_003f_002d-_002f1_002c-query"></a>
+
+<p>The full syntax of a query is &lsquo;<samp>?-</samp>&rsquo; followed by a
+sequence of goals.  The top-level expects queries.  This is
+signaled by the initial prompt &lsquo;<samp>|&nbsp;<span class="nolinebreak">?-</span>&nbsp;</samp>&rsquo;<!-- /@w -->.  Thus a query at
+top-level looks like:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>memb(b, [a,b,c]).</kbd>
+</pre></div>
+
+<p>Remember that Prolog terms must terminate with a full stop
+(&lsquo;<samp>.</samp>&rsquo;, possibly followed by whitespace), and that therefore Prolog
+will not execute anything until you have typed the full stop (and then
+<tt class="key">RET</tt>) at the end of the query.
+</p>
+<p>If the goal(s) specified in a query can be satisfied, and if no
+variables not beginning with &lsquo;<samp>_</samp>&rsquo; were bound, as in this example, then 
+the system answers:
+</p>
+<div class="example">
+<pre class="example">yes
+</pre></div>
+
+<p>and execution of the query terminates.
+</p>
+<p>If some query variables not beginning with &lsquo;<samp>_</samp>&rsquo; were bound, then the
+final value of each variable is displayed.  Thus the query:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>memb(X, [a,b,c]).</kbd>
+</pre></div>
+
+<p>would be answered by:
+</p>
+<div class="example">
+<pre class="example">X = a ?
+</pre></div>
+
+<p>At this point, the development system accepts one-letter commands
+corresponding to certain actions.  To execute an action simply type the
+corresponding character (lower or upper case) followed by <tt class="key">RET</tt>.
+The available commands in development systems are:
+</p>
+<dl compact="compact">
+<dd><a name="index-accept-_0028top_002dlevel-command_0029"></a>
+<a name="index-RET-_0028top_002dlevel-command_0029"></a>
+</dd>
+<dt><kbd><span class="key">RET</span></kbd></dt>
+<dd><a name="index-y-_0028top_002dlevel-command_0029"></a>
+</dd>
+<dt><kbd>y</kbd></dt>
+<dd><p>&ldquo;accepts&rdquo; the solution; the query is terminated and the
+development system responds with &lsquo;<samp>yes</samp>&rsquo;.
+</p>
+<a name="index-reject-_0028top_002dlevel-command_0029"></a>
+<a name="index-_003b-_0028top_002dlevel-command_0029"></a>
+</dd>
+<dt><kbd>;</kbd></dt>
+<dd><a name="index-n-_0028top_002dlevel-command_0029"></a>
+</dd>
+<dt><kbd>n</kbd></dt>
+<dd><p>&ldquo;rejects&rdquo; the solution; the development system backtracks
+(see <a href="ref_002dsem.html#ref_002dsem">ref-sem</a>) looking for alternative solutions.  If no further
+solutions can be found, then it outputs &lsquo;<samp>no</samp>&rsquo;.
+</p>
+<a name="index-break-_0028top_002dlevel-command_0029"></a>
+<a name="index-b-_0028top_002dlevel-command_0029"></a>
+</dd>
+<dt><kbd>b</kbd></dt>
+<dd><p>invokes a recursive top-level.
+</p>
+<a name="index-reset-printdepth-_0028top_002dlevel-command_0029"></a>
+<a name="index-set-printdepth-_0028top_002dlevel-command_0029"></a>
+<a name="index-_003c-_0028top_002dlevel-command_0029"></a>
+</dd>
+<dt><kbd>&lt;</kbd></dt>
+<dd><p>In the top-level, a global <em>printdepth</em> is in effect for limiting
+the subterm nesting level when printing bindings. The limit is
+initially 10.
+</p>
+<p>This command, without arguments, resets the printdepth to 10.
+With an argument of <var>n</var>, the printdepth is set to <var>n</var>,
+treating 0 as infinity.  This command works by changing the value of the
+<code>toplevel_print_options</code> Prolog flag.
+<a name="index-toplevel_005fprint_005foptions-_0028prolog-flag_0029"></a>
+</p>
+<a name="index-reset-subterm-_0028top_002dlevel-command_0029"></a>
+<a name="index-set-subterm-_0028top_002dlevel-command_0029"></a>
+<a name="index-_005e-_0028top_002dlevel-command_0029"></a>
+</dd>
+<dt><kbd>^</kbd></dt>
+<dd><a name="index-subterm-selector"></a>
+<a name="index-selector_002c-subterm"></a>
+<p>A local <em>subterm selector</em>, initially <code>[]</code>, is maintained.  The
+subterm selector provides a way of zooming in to some subterm of each
+binding.  For example, the subterm selector <code>[2,3]</code> causes the
+3rd subterm of the 2nd subterm of each binding to be selected.
+</p>
+<p>This command, without arguments, resets the subterm selector to
+<code>[]</code>.  With an argument of 0, the last element of the subterm
+selector is removed.  With an argument of <var>n</var> (&gt; 0), <var>n</var> is
+added to the end of the subterm selector.  With multiple arguments
+separated by whitespace, the arguments are applied from left to right.
+</p>
+<a name="index-help-_0028top_002dlevel-command_0029"></a>
+<a name="index-h-_0028top_002dlevel-command_0029"></a>
+</dd>
+<dt><kbd>h</kbd></dt>
+<dd><a name="index-_003f-_0028top_002dlevel-command_0029"></a>
+</dd>
+<dt><kbd>?</kbd></dt>
+<dd><p>lists available commands.
+</p></dd>
+</dl>
+
+<p>While the variable bindings are displayed, all
+variables occurring in the values are replaced by
+friendlier variable
+names.  Such names come out as a sequence of letters and digits preceded
+by &lsquo;<samp>_</samp>&rsquo;.  The outcome of some queries is shown below.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>memb(X, [tom,dick,harry]).</kbd>
+
+X = tom <kbd>;</kbd>
+X = dick <kbd>;</kbd>
+X = harry <kbd>;</kbd>
+
+no
+| ?- <kbd>memb(X, [a,b,f(Y,c)]), memb(X, [f(b,Z),d]).</kbd>
+
+X = f(b,c),
+Y = b,
+Z = c
+
+| ?- <kbd>memb(X, [f(_),g]).</kbd>
+
+X = f(_A)
+</pre></div>
+
+<p>Directives are like queries except that:
+</p>
+<ol>
+<li> Variable bindings are not displayed if and when the
+directive succeeds.
+
+</li><li> You are not given the chance to backtrack through other solutions.
+</li></ol>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Directives.html#Directives" accesskey="n" rel="next">Next</a>
+<li><a href="Queries-and-Directives.html#Queries-and-Directives" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Queries.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Queries.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

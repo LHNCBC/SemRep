@@ -1,0 +1,1926 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: Instructions</title>
+
+<meta name="description" content="SICStus JIT White Paper: Instructions">
+<meta name="keywords" content="SICStus JIT White Paper: Instructions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Intermediate-Representation.html#Intermediate-Representation" rel="up" title="Intermediate Representation">
+<link href="Predicate-Linkage.html#Predicate-Linkage" rel="next" title="Predicate Linkage">
+<link href="Constants.html#Constants" rel="prev" title="Constants">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Instructions"></a>
+<hr>
+<a name="Instructions-1"></a>
+<h3 class="section">2.5 Instructions</h3>
+
+<p>In this report, the term <em>condition codes</em> denotes 
+conditions used by conditional branches, including the overflow
+condition.
+</p>
+<p>On the x86/x86_64 architectures, operations such as <code>add</code> set
+overflow set iff the signed add yields an arithmetic overflow, and clear
+it otherwise.  To achieve the same on PPC64, one must use the technique:
+</p>
+<div class="example">
+<pre class="example">&lt;&lt;clear XER&gt;&gt;
+addo. <var>Dest</var>,<var>Src1</var>,<var>Src2</var>
+</pre></div>
+
+<p>which first clears the XER register (see below), and <code>addo.</code>, in
+case of an overflow, sets the SO flag of the XER.  In either case, the
+overflow condition is set to the resulting SO flag, reflecting the
+outcome of the operation. The SO flag can then be used for conditional
+branching and the like.
+</p>
+<p>Clearing (the SO-bit of) the XER register can be achieved in many
+ways. We will clear the entire XER register, using the sequence:
+</p><div class="example">
+<pre class="example">li 0,0
+mtxer 0
+</pre></div>
+
+<p>which first clears R0 and then moves that into the XER
+register.<a name="DOCF1" href="#FOOT1"><sup>1</sup></a>
+</p>
+
+
+<p>Static branch prediction has not been exploited in this report, but should.
+</p>
+<p>The following table shows the correspondence between IR condition codes
+and conditional branch instructions.
+</p>
+<table>
+<thead><tr><th width="10%">IR</th><th width="30%">x86/x86_64</th><th width="30%">PPC64</th></tr></thead>
+<tr><td width="10%"><code>gu</code></td><td width="30%"><code>ja</code></td><td width="30%"><code>bgt</code></td></tr>
+<tr><td width="10%"><code>geu</code></td><td width="30%"><code>jae</code></td><td width="30%"><code>bge</code></td></tr>
+<tr><td width="10%"><code>lu</code></td><td width="30%"><code>jb</code></td><td width="30%"><code>blt</code></td></tr>
+<tr><td width="10%"><code>leu</code></td><td width="30%"><code>jbe</code></td><td width="30%"><code>ble</code></td></tr>
+<tr><td width="10%"><code>g</code></td><td width="30%"><code>jg</code></td><td width="30%"><code>bgt</code></td></tr>
+<tr><td width="10%"><code>ge</code></td><td width="30%"><code>jge</code></td><td width="30%"><code>bge</code></td></tr>
+<tr><td width="10%"><code>l</code></td><td width="30%"><code>jl</code></td><td width="30%"><code>blt</code></td></tr>
+<tr><td width="10%"><code>le</code></td><td width="30%"><code>jle</code></td><td width="30%"><code>ble</code></td></tr>
+<tr><td width="10%"><code>e</code></td><td width="30%"><code>je</code></td><td width="30%"><code>beq</code></td></tr>
+<tr><td width="10%"><code>ne</code></td><td width="30%"><code>jne</code></td><td width="30%"><code>bne</code></td></tr>
+<tr><td width="10%"><code>o</code></td><td width="30%"><code>jo</code></td><td width="30%"><code>bso</code></td></tr>
+<tr><td width="10%"><code>no</code></td><td width="30%"><code>jno</code></td><td width="30%"><code>bns</code></td></tr>
+</table>
+
+<p>We now list each IR instructions with its purpose and back-end specific translation.
+</p>
+<a name="move_0028Src_002cDest_0029"></a>
+<h4 class="subsection">2.5.1 move(<var>Src</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To copy the value of source <var>Src</var> into destination <var>Dest</var>.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>If the operands are identical, then
+</p><div class="example">
+<pre class="example">/* nothing */
+</pre></div>
+
+<p>Else if <var>Src</var> is the constant 0 and <var>Dest</var> is a register,
+</p><div class="example">
+<pre class="example">xor <var>Dest</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else, for <code>x86_64</code>, if <var>Src</var> is a local label and <var>Dest</var> is a register, then
+</p><div class="example">
+<pre class="example">lea OFFSET(%rip),<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is a floating-point register and <var>Dest</var> is in memory, then
+</p><div class="example">
+<pre class="example"><span class="roman">// if x86</span>
+fstpl <var>Dest</var>
+<span class="roman">// else if x86_64</span>
+movsd <var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is in memory and <var>Dest</var> is a floating-point register, then
+</p><div class="example">
+<pre class="example"><span class="roman">// if x86</span>
+fldl <var>Src</var>
+<span class="roman">// else if x86_64</span>
+movsd <var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else if one operand is a register and the other one is a register or in memory, then
+</p><div class="example">
+<pre class="example">mov <var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else if both operands are in memory, then
+</p><div class="example">
+<pre class="example">mov <var>Src</var>,%rax
+mov %rax,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">mov $<var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Dest</var> is a register, then
+</p><div class="example">
+<pre class="example">movabs $<var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else let <code>r</code> be <code>%rdx</code> if <var>Dest</var> uses <code>%rax</code> and <code>%rax</code> otherwise, and
+</p><div class="example">
+<pre class="example">movabs $<var>Src</var>,r
+mov r,<var>Dest</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p><b>[PERM:</b> Note: <code>std</code> and <code>ld</code> treat base register R0 as zero, so this must be
+forbidden here.<b>]</b>
+</p>
+<p>If <var>Src</var> is a floating-point register and <var>Dest</var> is in memory, then
+</p><div class="example">
+<pre class="example">stfd <var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is in memory and <var>Dest</var> is a floating-point register, then
+</p><div class="example">
+<pre class="example">lfd <var>Dest</var>,<var>Src</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is in a register and <var>Dest</var> is in memory, then
+</p><div class="example">
+<pre class="example">std <var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is in memory and <var>Dest</var> is in a register, then
+</p><div class="example">
+<pre class="example">ld <var>Dest</var>,<var>Src</var>
+</pre></div>
+
+<p>Else if <var>Dest</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">move(<var>Src</var>,arg1)
+std arg1,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is a register, then
+</p><div class="example">
+<pre class="example">mr <var>Dest</var>,<var>Src</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is a signed 16-bit integer <var>SI</var>, then
+</p><div class="example">
+<pre class="example">li <var>Dest</var>,<var>SI</var>
+</pre></div>
+
+<p>Else if <var>Src</var> equals <var>(HI&lt;&lt;16)+LO</var>, where <var>HI</var> is a signed
+16-bit integer and <var>LO</var> is an unsigned 16-bit integer, then
+</p><div class="example">
+<pre class="example">lis <var>Dest</var>,<var>HI</var>
+ori <var>Dest</var>,<var>Dest</var>,<var>LO</var> <span class="roman">// omit if <var>LO = 0</var></span>
+</pre></div>
+
+<p>Else if <var>Src</var> is a local label at offset <var>OFF</var> from
+ <b>[PERM:</b> This could (and naturally will) be done for any (32bit-aligned)
+immediate that happens to have the value <code>toc+OFF</code>, with OFF a
+signed, multiple-of-4, 16-bit integer.<b>]</b>
+the TOC, then reduce to
+</p>
+<p><b>[PERM:</b> This may clobber <code>arg0</code>. Can <var>Dest</var> be <code>arg0</code>?<b>]</b>.
+</p><div class="example">
+<pre class="example">add(toc,<var>OFF</var>,<var>Dest</var>)
+</pre></div>
+
+<p>Else, <var>Src</var> must be preallocated at offset <var>OFF</var> in the TOC, and
+ <b>[PERM:</b> Discuss TOC allocation and toc-register handling, somewhere.<b>]</b>
+</p><ul>
+<li> if <var>OFF</var> is a signed 16-bit integer, then
+<div class="example">
+<pre class="example">ld <var>Dest</var>,<var>OFF</var>(toc)
+</pre></div>
+
+</li><li> if <var>OFF</var> equals <var>(HI&lt;&lt;16)+LO</var>, where <var>HI</var> is a signed
+16-bit integer and <var>LO</var> is an unsigned 16-bit integer and <var>LO &gt;= 0x8000</var>, then
+ <b>[PERM:</b> Can do better if HI+1 = 0?<b>]</b>
+<div class="example">
+<pre class="example"> <b>[PERM:</b> <b>NOTE: pretty sure this is wrong i HI is 0x7FFF, i.e. HI+1 overflows 16-bit signed.</b><b>]</b>
+addis <var>arg5</var>,toc,<var>HI+1</var> <span class="roman">// <var>Dest</var> can be <code>r0</code></span>
+ld <var>Dest</var>,<var>LO</var>(<var>arg5</var>)
+</pre></div>
+
+</li><li> if <var>OFF</var> equals <var>(HI&lt;&lt;16)+LO</var>, where <var>HI</var> is a signed
+16-bit integer and <var>LO</var> is an unsigned 16-bit integer and <var>LO &lt; 0x8000</var>, then
+<div class="example">
+<pre class="example">addis <var>arg5</var>,toc,<var>HI</var> <span class="roman">// <var>Dest</var> can be <code>r0</code></span>
+ld <var>Dest</var>,<var>LO</var>(<var>arg5</var>)
+</pre></div>
+</li></ul>
+</dd>
+</dl>
+
+
+<a name="cmps_0028Dest_002cSrc_0029"></a>
+<h4 class="subsection">2.5.2 cmps(<var>Dest</var>,<var>Src</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To compare <var>Dest</var> and <var>Src</var> as signed values.
+<var>Dest</var> must be a general purpose register or in memory.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Overflow is undefined, the others are set.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>If both operands are in memory, then reduce to
+</p><div class="example">
+<pre class="example">move(<var>Src</var>,val)
+cmps(<var>Dest</var>,val)
+</pre></div>
+
+<p>Else if <var>Src</var> is an immediate and <var>Dest</var> is of the form
+<code>cp(0)</code>, then
+</p><div class="example">
+<pre class="example">cmpw $<var>Src</var>,(%rcx)
+</pre></div>
+
+<p>Else if one operand is a register and the other one is a register or in memory, then
+</p><div class="example">
+<pre class="example">cmp <var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">cmp $<var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else, for <code>x86_64</code>
+</p><div class="example">
+<pre class="example">movabs $<var>Src</var>,%r11
+cmp %r11,<var>Dest</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If <var>Dest</var> is of the form <code>cp(0)</code>, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">lwz arg0,<var>Dest</var>
+cmps(arg0,<var>Src</var>)
+</pre></div>
+
+<p>Else if <var>Dest</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg0,<var>Dest</var>
+cmps(arg0,<var>Src</var>)
+</pre></div>
+
+<p>Else if <var>Src</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg1,<var>Src</var>
+cmps(<var>Dest</var>,arg1)
+</pre></div>
+
+<p>Else if <var>Src</var> is a register, then
+</p><div class="example">
+<pre class="example">cmpd <var>Dest</var>,<var>Src</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is a signed 16-bit integer <var>SI</var>, then
+</p><div class="example">
+<pre class="example">cmpdi <var>Dest</var>,<var>SI</var>
+</pre></div>
+
+<p>Else, reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">move(<var>Src</var>,arg1)
+cmpd <var>Dest</var>,arg1
+</pre></div>
+</dd>
+</dl>
+
+
+<a name="cmpu_0028Dest_002cSrc_0029"></a>
+<h4 class="subsection">2.5.3 cmpu(<var>Dest</var>,<var>Src</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To compare <var>Dest</var> and <var>Src</var> as unsigned values.
+<var>Dest</var> must be a general purpose register or in memory.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Overflow is undefined, the others are set.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>If both operands are in memory, then reduce to
+</p><div class="example">
+<pre class="example">move(<var>Src</var>,val)
+cmpu(<var>Dest</var>,val)
+</pre></div>
+
+<p>Else if <var>Src</var> is an immediate and <var>Dest</var> is of the form
+<code>cp(0)</code>, then
+</p><div class="example">
+<pre class="example">cmpw $<var>Src</var>,(%rcx)
+</pre></div>
+
+<p>Else if one operand is a register and the other one is a register or in memory, then
+</p><div class="example">
+<pre class="example">cmp <var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">cmp $<var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else, for <code>x86_64</code>
+</p><div class="example">
+<pre class="example">movabs $<var>Src</var>,%r11
+cmp %r11,<var>Dest</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If <var>Dest</var> is of the form <code>cp(0)</code>, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">lwz arg0,<var>Dest</var>
+cmpu(arg0,<var>Src</var>)
+</pre></div>
+
+<p>Else if <var>Dest</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg0,<var>Dest</var>
+cmpu(arg0,<var>Src</var>)
+</pre></div>
+
+<p>Else if <var>Src</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg1,<var>Src</var>
+cmpu(<var>Dest</var>,arg1)
+</pre></div>
+
+<p>Else if <var>Src</var> is a register, then
+</p><div class="example">
+<pre class="example">cmpld <var>Dest</var>,<var>Src</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is an unsigned 16-bit integer <var>UI</var>, then
+</p><div class="example">
+<pre class="example">cmpldi <var>Dest</var>,<var>UI</var>
+</pre></div>
+
+<p>Else, reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">move(<var>Src</var>,arg1)
+cmpld <var>Dest</var>,arg1
+</pre></div>
+</dd>
+</dl>
+
+
+<a name="test_0028Dest_002cSrc_0029"></a>
+<h4 class="subsection">2.5.4 test(<var>Dest</var>,<var>Src</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>Compute <code>(<var>Dest</var> /\ <var>Src</var>)</code>.  <var>Src</var> must be an
+immediate or <code>ac1</code>.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Set <code>e</code> if the result is zero, and <code>ne</code> otherwise.
+Other condition codes are undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>If <var>Dest</var> is a register and <var>Src</var> is an 8-bit unsigned integer, then
+</p><div class="example">
+<pre class="example">testb $<var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Dest</var> translates to a memory operand <code>r(OFFSET)</code> and
+<var>Src</var> can be obtained by shifting an 8-bit unsigned integer <var>c</var>
+left by <var>8*n</var> bits, then
+</p><div class="example">
+<pre class="example">testb $<var>c</var>,(OFFSET+n)(r)
+</pre></div>
+
+<p>Else
+ <b>[PERM:</b> This is incorrect if <var>Src</var> is <code>ac1</code> (i.e. in memory)<b>]</b>
+</p><div class="example">
+<pre class="example">test $<var>Src</var>,<var>Dest</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If <var>Dest</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg0,<var>Dest</var>
+test(arg0,<var>Src</var>)
+</pre></div>
+
+<p>Else if <var>Src</var> is a register (i.e. ac1), then
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">and. arg0,<var>Dest</var>,<var>Src</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is a 16-bit unsigned integer, then
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">andi. arg0,<var>Dest</var>,<var>Src</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is a 16-bit unsigned integer <var>UI</var> shifted 16 bits, then
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">andis. arg0,<var>Dest</var>,<var>UI</var>
+</pre></div>
+
+<p>Else if <var>Src</var> is a stretch of <var>N</var> 1-bits followed by <var>M</var>
+least significant 0-bits, then
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">rldicr. arg0,<var>Dest</var>,<var>64-N-M</var>,<var>N</var>-1
+</pre></div>
+
+<p>Else, reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">move(<var>Src</var>,arg1)
+and. arg0,<var>Dest</var>,arg1
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="jump_0028Target_0029"></a>
+<h4 class="subsection">2.5.5 jump(<var>Target</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To transfer program control to <var>Target</var>.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>If <var>Target</var> is of the form <code>cp(OFF)</code>, then
+</p><div class="example">
+<pre class="example">lea OFF(cp), %rax
+jmp *%rax
+</pre></div>
+
+<p>Else for <code>x86_64</code>, if <var>Target</var> is not reachable with a 32-bit offset
+</p><div class="example">
+<pre class="example">jmp Trampoline
+[...]
+Trampoline: jmp *0(%rsi)
+.quad <var>Target</var>
+</pre></div>
+
+<p>Else
+</p><div class="example">
+<pre class="example">jmp <var>Target</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If <var>Target</var> is of the form <code>cp(OFF)</code>, then <code>OFF</code> is
+nonzero, and the transfer <em>must</em> use the CTR register:
+</p><div class="example">
+<pre class="example">addi 0, cp, OFF
+mtctr 0
+bctr
+</pre></div>
+
+<p>Else if <var>Target</var> is a local label, then
+</p><div class="example">
+<pre class="example">b <var>Target</var>
+</pre></div>
+
+<p>Else, reduce to:
+ <b>[PERM:</b> Do we <em>need to</em> use the CTR register here (e.g. can the callee be relying on CTR being set?)<b>]</b>
+</p><div class="example">
+<pre class="example">b Trampoline
+[...]
+Trampoline: 
+move(<var>Target</var>,0)
+mtctr 0
+bctr
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="call_0028Target_0029"></a>
+<h4 class="subsection">2.5.6 call(<var>Target</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To transfer program control to <var>Target</var>, with the return address
+pushed on the stack or saved in a register.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>For <code>x86_64</code>, if <var>Target</var> is not reachable with a 32-bit offset
+</p><div class="example">
+<pre class="example">call Trampoline
+[...]
+Trampoline: jmp *0(%rsi)
+.quad <var>Target</var>
+</pre></div>
+
+<p>Else
+</p><div class="example">
+<pre class="example">call <var>Target</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd>
+<blockquote>
+
+<p><b>There is a bug here:</b> IR instruction: call(label(G))
+</p>
+<p>Power code: bl      0x3fffb035c8e8
+</p>
+<p>Problem 1: Callee expects CTR initialized.
+</p>
+<p>Problem 2: Callee can escape to native_nonjit, which will access TOC[arg5].
+</p>
+<p>Conclusion: call(label(_)) must emit the same sequence as call(native_entry(_))!
+</p></blockquote>
+
+
+<p>If <var>Target</var> is a local label, then
+</p><div class="example">
+<pre class="example">bl <var>Target</var>
+</pre></div>
+<p><b>[PERM:</b> <b>NOTE: using <code>bl</code> is sub-optimal if we will not return (via the
+link register) to the following instruction. See p. 36 &ldquo;Use Branch
+instructions for which LK=1 only as subroutine calls&rdquo;</b><b>]</b>
+</p>
+<p>Else, reduce to the following, where the transfer <em>must</em> use the
+CTR register.
+</p><div class="example">
+<pre class="example">bl Trampoline
+[...]
+Trampoline: 
+move(<var>Target</var>,0)
+mtctr 0
+bctr
+</pre></div>
+</dd>
+</dl>
+
+
+<p><b>[PERM:</b> <b>NOTE: this move must be encoded in a way that CALLEE_TOC_OFFSET
+in ppc64le_kernel.s4 understands! Document the requirements! We could
+simplify initial implementation by always putting the toc offset in a
+fixed register <code>the_reg</code> (e.g. <code>arg5</code>) (so CALLEE_TOC_OFFSET
+can just patch TOC+the_reg</b>. We can optimize this later. Question:
+Presumably Target will be an immediate in these cases?<b>]</b>
+</p>
+<p><b>[PERM:</b> <b>NOTE: the jitter must not blindly re-use same-valued TOC
+entries, since some entries may be changed, post-jit, by
+CALLEE_TOC_OFFSET users.</b><b>]</b>
+</p>
+<a name="ccall_0028Cond_002cTarget_0029"></a>
+<h4 class="subsection">2.5.7 ccall(<var>Cond</var>,<var>Target</var>)</h4>
+
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>If <var>Cond</var> is true, then transfer program control to <var>Target</var>,
+with the return address pushed on the stack or saved in a register.
+<var>Cond</var> is most likely false.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>Let <var>NCond</var> be the negation of <var>Cond</var>, and
+</p><div class="example">
+<pre class="example">jcc <var>NCond</var>,1f
+call(<var>Target</var>)
+1:
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p><b>[PERM:</b> BUG: Does this have the same problem as call to local label? (must go via CTR+TOC)<b>]</b>
+</p>
+<p>If <var>Target</var> is a local label, then
+</p><div class="example">
+<pre class="example">bcl <var>Cond</var>,<var>Target</var>
+</pre></div>
+
+<p><b>[PERM:</b> Is it true here, as for the <code>call</code> instruction, that &ldquo;the
+transfer <em>must</em> use the CTR register.&rdquo; (and the
+CALLEE_TOC_OFFSET issues)?<b>]</b>
+</p>
+<p>Else if <code>Trampoline</code> is within 32764 bytes, reduce to:
+</p><div class="example">
+<pre class="example">bcl <var>Cond</var>,Trampoline
+[...]
+Trampoline: 
+move(<var>Target</var>,0)
+mtctr 0
+bctr
+</pre></div>
+
+<p>Else, let <var>NCond</var> be the negation of <var>Cond</var>, and reduce to:
+</p><div class="example">
+<pre class="example">bc <var>NCond</var>, 1f
+bl Trampoline
+1: [...]
+Trampoline: 
+move(<var>Target</var>,0)
+mtctr 0
+bctr
+</pre></div>
+</dd>
+</dl>
+
+<a name="branch_0028Cond_002cTarget_0029"></a>
+<h4 class="subsection">2.5.8 branch(<var>Cond</var>,<var>Target</var>)</h4>
+
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To conditionally transfer program control to <var>Target</var>.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Must preserve all condition codes except overflow, which is left undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>For <code>x86_64</code>, if <var>Target</var> is not reachable with a 32-bit offset
+</p><div class="example">
+<pre class="example">jcc <var>Cond</var>,Trampoline
+[...]
+Trampoline: jmp *0(%rsi)
+.quad <var>Target</var>
+</pre></div>
+
+<p>Else
+</p><div class="example">
+<pre class="example">jcc <var>Cond</var>,<var>Target</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>Let <var>NCond</var> be the negation of <var>Cond</var>.
+If <var>Target</var> is a local label, then
+</p><div class="example">
+<pre class="example"><span class="roman">// if <var>Target</var> is within 32764 bytes</span>
+bc <var>Cond</var>,<var>Target</var>
+<span class="roman">// else <var>Target</var> is not within 32764 bytes</span>
+bc <var>NCond</var>, 1f
+b <var>Target</var>
+1:
+</pre></div>
+
+<p>Else the explicit branch instruction must  <b>[PERM:</b> is a trampoline really
+strictly necessary, or just desirable?<b>]</b> go via a trampoline:
+</p><div class="example">
+<pre class="example"><span class="roman">// if Trampoline is within 32764 bytes</span>
+bc <var>Cond</var>,Trampoline 
+<span class="roman">// else Trampoline is not within 32764 bytes</span>
+bc <var>NCond</var>, 1f
+b Trampoline
+1: [...]
+Trampoline: 
+move(<var>Target</var>,0)
+mtctr 0
+bctr
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="cmove_0028Cond_002cSrc_002cDest_0029"></a>
+<h4 class="subsection">2.5.9 cmove(<var>Cond</var>,<var>Src</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To conditionally copy the value of source <var>Src</var> into destination
+<var>Dest</var>.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>If both operands are in registers, then
+</p><div class="example">
+<pre class="example">cmove <var>Cond</var>,<var>Src</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else, let <var>NCond</var> be the negation of <var>Cond</var>, and
+</p><div class="example">
+<pre class="example">jcc <var>NCond</var>,1f
+move(<var>Src</var>,<var>Dest</var>)
+1:
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If both operands are in registers, then note that neither <var>Src</var> nor
+<var>Dest</var> can be R0 (which would be treated as constant zero), and:
+</p><div class="example">
+<pre class="example"><span class="roman">// if <var>Cond</var> is <code>l</code> or <code>lu</code></span>
+isel <var>Dest</var>,<var>Src</var>,<var>Dest</var>,0
+<span class="roman">// else if <var>Cond</var> is <code>g</code> or <code>gu</code></span>
+isel <var>Dest</var>,<var>Src</var>,<var>Dest</var>,1
+<span class="roman">// else if <var>Cond</var> is <code>e</code></span>
+isel <var>Dest</var>,<var>Src</var>,<var>Dest</var>,2
+<span class="roman">// else if <var>Cond</var> is <code>o</code></span>
+isel <var>Dest</var>,<var>Src</var>,<var>Dest</var>,3
+<span class="roman">// else if <var>Cond</var> is <code>le</code> or <code>leu</code></span>
+isel <var>Dest</var>,<var>Dest</var>,<var>Src</var>,1
+<span class="roman">// else if <var>Cond</var> is <code>ge</code> or <code>geu</code></span>
+isel <var>Dest</var>,<var>Dest</var>,<var>Src</var>,0
+<span class="roman">// else if <var>Cond</var> is <code>ne</code></span>
+isel <var>Dest</var>,<var>Dest</var>,<var>Src</var>,2
+<span class="roman">// else if <var>Cond</var> is <code>no</code></span>
+isel <var>Dest</var>,<var>Dest</var>,<var>Src</var>,3
+</pre></div>
+
+<p>Else, let <var>NCond</var> be the negation of <var>Cond</var>, and
+</p><div class="example">
+<pre class="example">bc <var>NCond</var>,1f
+move(<var>Src</var>,<var>Dest</var>)
+1:
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="add_0028Src1_002cSrc2_002cDest_0029"></a>
+<h4 class="subsection">2.5.10 add(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To store the value of the expression <var>(<var>Src1</var>+<var>Src2</var>)</var> in
+<var>Dest</var>.  
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>If <var>Src1</var> and <var>Dest</var> are the same memory operand and <var>Src2</var>
+is the constant 0, then
+</p><div class="example">
+<pre class="example">/* nothing */
+</pre></div>
+
+<p>Else if <var>Src2</var> is the constant 0, then the instruction reduces to
+</p><div class="example">
+<pre class="example">move(<var>Src1</var>,<var>Dest</var>)
+</pre></div>
+
+<p>Else if <var>Src1</var> and <var>Dest</var> are the same memory operand and
+<var>Src2</var> is a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">add $<var>Src2</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src1</var> is a register, <var>Src2</var> is the 32-bit signed integer
+<code>OFFSET</code>, and <var>Dest</var> is a register, then
+</p><div class="example">
+<pre class="example">lea OFFSET(<var>Src1</var>),<var>Dest</var>
+</pre></div>
+
+<p>Else for <code>x86_64</code>, if <var>Src1</var> and <var>Dest</var> are the same memory operand and
+<var>Src2</var> is not a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">movabs $<var>Src2</var>,%r11
+add %r11,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Dest</var> is in memory, the instruction reduces to
+</p><div class="example">
+<pre class="example">add(<var>Src1</var>,<var>Src2</var>,val)
+move(val,<var>Dest</var>)
+</pre></div>
+
+<p>Else, the instruction reduces to
+</p><div class="example">
+<pre class="example">move(<var>Src1</var>,<var>Dest</var>)
+add(<var>Dest</var>,<var>Src2</var>,<var>Dest</var>)
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p><b>[PERM:</b> An unstated assumption seems to be that <var>Src1</var> is a register or in memory.<b>]</b>
+</p>
+<p>If <var>Dest</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">add(<var>Src1</var>,<var>Src2</var>,arg0)
+std arg0,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src1</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg1,<var>Src1</var>
+add(arg1,<var>Src2</var>,<var>Dest</var>)
+</pre></div>
+
+<p>Else if <var>Src2</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg2,<var>Src2</var>
+add(<var>Src1</var>,arg2,<var>Dest</var>)
+</pre></div>
+
+<p>Else if <var>Src2</var> is a signed 16-bit integer <var>SI</var>, then 
+note that <var>Src1</var> cannot be R0, which would mean the constant zero, and
+</p><div class="example">
+<pre class="example">addi <var>Dest</var>,<var>Src1</var>,<var>SI</var>
+</pre></div>
+
+<p>Else if <var>Src2</var> equals <var>(HI&lt;&lt;16)+LO</var>, where <var>HI</var> is a signed
+16-bit integer and <var>LO</var> is an unsigned 16-bit integer, then
+note that neither register operand can be R0, which would mean the constant zero, and
+</p><div class="example">
+<pre class="example">addis <var>Dest</var>,<var>Src1</var>,<var>HI</var>
+ori <var>Dest</var>,<var>Dest</var>,<var>LO</var> <span class="roman">// omit if <var>LO = 0</var></span>  <b>[PERM:</b> NO! this is wrong for addition<b>]</b>
+</pre></div>
+
+<p>Else, reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">move(<var>Src2</var>,arg2)
+add <var>Dest</var>,<var>Src1</var>,arg2
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="addo_0028Src1_002cSrc2_002cDest_0029"></a>
+<h4 class="subsection">2.5.11 addo(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To store the value of the expression <var>(<var>Src1</var>+<var>Src2</var>)</var> in
+<var>Dest</var>.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Overflow set iff the signed add yields an arithmetic overflow, and
+cleared otherwise.  Other condition codes undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p><var>Src2</var> is an immediate.
+</p>
+<p>If <var>Src1</var> and <var>Dest</var> are the same memory operand and
+<var>Src2</var> is a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">add $<var>Src2</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else for <code>x86_64</code>, if <var>Src1</var> and <var>Dest</var> are the same memory operand and
+<var>Src2</var> is not a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">movabs $<var>Src2</var>,%r11
+add %r11,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Dest</var> is in memory, the instruction reduces to
+</p><div class="example">
+<pre class="example">addo(<var>Src1</var>,<var>Src2</var>,val)
+mov val,<var>Dest</var>
+</pre></div>
+
+<p>Else, the instruction reduces to
+</p><div class="example">
+<pre class="example">move(<var>Src1</var>,<var>Dest</var>)
+addo(<var>Dest</var>,<var>Src2</var>,<var>Dest</var>)
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p><var>Src1</var> is a register and <var>Src2</var> is an
+immediate<a name="DOCF2" href="#FOOT2"><sup>2</sup></a>.
+</p>
+<p><b>[PERM:</b> BUG: the arguments can be, e.g. <code>addo(ac0, ac1, ac0)</code>, i.e. <var>Src2</var> may not be an immediate.<b>]</b>
+</p>
+<p>Reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">li 0,0
+mtxer 0
+move(<var>Src2</var>,arg2) <b>[PERM:</b> Wrong. Move does not preserve condition codes (so could clobber XER SO-bit).<b>]</b>
+addo. <var>Dest</var>,<var>Src1</var>,arg2
+</pre></div>
+
+</dd>
+</dl>
+
+
+
+<a name="sub_0028Src1_002cSrc2_002cDest_0029"></a>
+<h4 class="subsection">2.5.12 sub(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To store the value of the expression <var>(<var>Src1</var>-<var>Src2</var>)</var> in
+<var>Dest</var>.  
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>If <var>Src1</var> and <var>Dest</var> are the same memory operand and
+<var>Src2</var> is a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">sub $<var>Src2</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src1</var> is a register, <var>Src2</var> is the 32-bit signed integer
+<code>OFFSET</code>, and <var>Dest</var> is a register, then
+</p><div class="example">
+<pre class="example">lea -OFFSET(<var>Src1</var>),<var>Dest</var>
+</pre></div>
+
+<p>Else for <code>x86_64</code>, if <var>Src1</var> and <var>Dest</var> are the same memory operand and
+<var>Src2</var> is not a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">movabs $<var>Src2</var>,%r11
+sub %r11,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Dest</var> is in memory, the instruction reduces to
+</p><div class="example">
+<pre class="example">sub(<var>Src1</var>,<var>Src2</var>,val)
+move(val,<var>Dest</var>)
+</pre></div>
+
+<p>Else, the instruction reduces to
+</p><div class="example">
+<pre class="example">move(<var>Src1</var>,<var>Dest</var>)
+sub(<var>Dest</var>,<var>Src2</var>,<var>Dest</var>)
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If <var>Dest</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">sub(<var>Src1</var>,<var>Src2</var>,arg0)
+std arg0,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src1</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg1,<var>Src1</var>
+sub(arg1,<var>Src2</var>,<var>Dest</var>)
+</pre></div>
+
+<p>Else if <var>Src2</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg2,<var>Src2</var>
+sub(<var>Src1</var>,arg2,<var>Dest</var>)
+</pre></div>
+
+
+<p>Else if <var>-Src2</var> is a signed 32-bit integer, then reduce to
+</p><div class="example">
+<pre class="example">add(<var>Src1</var>, <var>-Src2</var>, <var>Dest</var>)
+</pre></div>
+
+<p>Else, reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">move(<var>Src2</var>,arg2)
+subf <var>Dest</var>,arg2,<var>Src1</var>
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="subo_0028Src1_002cSrc2_002cDest_0029"></a>
+<h4 class="subsection">2.5.13 subo(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To store the value of the expression <var>(<var>Src1</var>-<var>Src2</var>)</var> in
+<var>Dest</var>.  <var>Src2</var> need not be an immediate.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Overflow set if the signed subtract yields an arithmetic overflow, and
+cleared otherwise.  Other condition codes undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd>
+<p>If <var>Src2</var> and <var>Dest</var> are the same and <var>Src1</var> is the
+constant 0, then
+</p><div class="example">
+<pre class="example">neg <var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Src1</var> and <var>Dest</var> are the same memory operand and
+<var>Src2</var> is a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">sub $<var>Src2</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else for <code>x86_64</code>, if <var>Src1</var> and <var>Dest</var> are the same memory operand and
+<var>Src2</var> is not a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">movabs $<var>Src2</var>,%r11
+sub %r11,<var>Dest</var>
+</pre></div>
+
+<p>Else if <var>Dest</var> is in memory, the instruction reduces to
+</p><div class="example">
+<pre class="example">subo(<var>Src1</var>,<var>Src2</var>,val)
+mov val, <var>Dest</var>
+</pre></div>
+
+<p>Else, the instruction reduces to
+</p><div class="example">
+<pre class="example">move(<var>Src1</var>,<var>Dest</var>)
+subo(<var>Dest</var>,<var>Src2</var>,<var>Dest</var>)
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>No operand can be in memory.
+ <b>[PERM:</b> Does not the same hold for the operands also for x86/x86_64? If
+not, why? Because registers are scarce on x86/x86_64, operands can be
+in memory there. &ndash;Mats<b>]</b>
+</p>
+<p><b>[PERM:</b> BUG: the arguments can be, e.g. <code>subo(val,y(1),val)</code>, i.e. operands can be in memory.<b>]</b>
+</p>
+
+<p>If <var>Src1</var> is 0, then
+</p><div class="example">
+<pre class="example">li 0,0
+mtxer 0
+nego. <var>Dest</var>,<var>Src2</var>
+</pre></div>
+
+<p>Else if <var>Src1</var> and <var>Src2</var> are in registers, then
+</p><div class="example">
+<pre class="example">li 0,0 <b>[PERM:</b> What if <var>Src2</var> or <var>Src1</var> is R0? xref addo.<b>]</b>
+mtxer 0
+subfo. <var>Dest</var>,<var>Src2</var>,<var>Src1</var>
+</pre></div>
+
+<p>Else, reduce to, <em>to be completed</em>
+ <b>[PERM:</b> What if Src2 is the most negative value, will overflow condition be set correctly?<b>]</b>
+</p><div class="example">
+<pre class="example">addo(<var>Src1</var>,<var>-Src2</var>,<var>Dest</var>)
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="mulo_0028Src1_002cSrc2_002cDest_0029"></a>
+<h4 class="subsection">2.5.14 mulo(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To store the value of the expression <var>(<var>Src1</var>*<var>Src2</var>)</var> in
+<var>Dest</var>.  <var>Dest</var> must be a register and <var>Src2</var> must be an
+immediate.
+</p>
+<p><b>[PERM:</b> BUG: the arguments can be, e.g. <code>mulo(ac0,ac1,val)</code>, i.e. <var>Src2</var> may not be an immediate.<b>]</b>
+</p>
+
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Overflow set if the signed multiply yields an arithmetic overflow, and
+cleared otherwise.  Other condition codes are undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>For <code>x86_64</code>, if <var>Src2</var> is not a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">mov <var>Src1</var>,<var>Dest</var>
+movabs $<var>Src2</var>,%r11
+mul %r11,<var>Dest</var>
+</pre></div>
+
+<p>Else
+</p><div class="example">
+<pre class="example">mov <var>Src1</var>,<var>Dest</var>
+mul $<var>Src2</var>,<var>Dest</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p><b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">li 0,0
+mtxer 0
+move(<var>Src2</var>,arg2) <b>[PERM:</b> Wrong. Move does not preserve condition codes (so could clobber XER SO-bit).<b>]</b>
+mulldo. <var>Dest</var>,<var>Src1</var>,arg2
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="sh_0028Src1_002cSrc2_002cDest_0029"></a>
+<h4 class="subsection">2.5.15 sh(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To store the value of the expression <var>(<var>Src1</var>&lt;&lt;<var>Src2</var>)</var> in
+<var>Dest</var>.  <var>Dest</var> must be a register and <var>Src2</var> must be an
+immediate in the range [-4,4].
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>If <var>Src1</var> is different from <var>Dest</var>, then reduce to
+</p><div class="example">
+<pre class="example">mov <var>Src1</var>,<var>Dest</var>
+sh(<var>Dest</var>,<var>Src2</var>,<var>Dest</var>)
+</pre></div>
+
+<p>Else if <var>Src2 &gt; 0</var> then
+</p><div class="example">
+<pre class="example">shl $<var>Src2</var>,<var>Dest</var>
+</pre></div>
+
+<p>Else
+</p><div class="example">
+<pre class="example">shr $<var>-Src2</var>,<var>Dest</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If <var>Src1</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg1,<var>Src1</var>
+sh(arg1,<var>Src2</var>,<var>Dest</var>)
+</pre></div>
+
+<p>Else if <var>Src2 &gt; 0</var> then
+</p><div class="example">
+<pre class="example">sldi <var>Dest</var>,<var>Src1</var>,<var>Src2</var>
+</pre></div>
+
+<p>Else
+</p><div class="example">
+<pre class="example">srdi <var>Dest</var>,<var>Src1</var>,<var>-Src2</var>
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="and_0028Src1_002cSrc2_002cDest_0029"></a>
+<h4 class="subsection">2.5.16 and(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To store the value of the expression <var>(<var>Src1</var>/\<var>Src2</var>)</var> in
+<var>Dest</var>.  <var>Src1</var> and <var>Dest</var> must be the same operand and
+<var>Src2</var> must be an immediate.
+</p>
+<p><b>[PERM:</b> BUG: the arguments can be, e.g. <code>and(x(3),x(2),val)</code>, i.e. <var>Src1</var> and <var>Dest</var> may differ.<b>]</b>
+ <b>[PERM:</b> BUG: the arguments can be, e.g. <code>and(ac0,ac1,ac0)</code>, i.e. <var>Src2</var> may not be an immediate.<b>]</b>
+</p>
+
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>For <code>x86_64</code>, if <var>Src2</var> is not a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">movabs $<var>Src2</var>,%r11
+and %r11,<var>Dest</var>
+</pre></div>
+
+<p>Else
+</p><div class="example">
+<pre class="example">and $<var>Src2</var>,<var>Dest</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If <var>Src2</var> is a 16-bit unsigned integer <var>UI</var>, then
+</p><div class="example">
+<pre class="example">andi. <var>Dest</var>,<var>Src1</var>,<var>UI</var>
+</pre></div>
+
+<p>Else if <var>Src2</var> equals <var>(HI&lt;&lt;16)</var>, where <var>HI</var> is an unsigned
+16-bit integer, then
+</p><div class="example">
+<pre class="example">andis. <var>Dest</var>,<var>Src1</var>,<var>HI</var>
+</pre></div>
+
+<p>Else if <var>Src2</var> is a stretch of <var>N</var> 1-bits, extending through
+the least significant bit, then
+</p><div class="example">
+<pre class="example">rldicl <var>Dest</var>,<var>Src1</var>,0,64-<var>N</var>
+</pre></div>
+
+<p>Else if <var>Src2</var> is a stretch of <var>N</var> 1-bits, extending through
+the most significant bit, then
+</p><div class="example">
+<pre class="example">rldicr <var>Dest</var>,<var>Src1</var>,0,<var>N</var>-1
+</pre></div>
+
+<p>Else, reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">move(<var>Src2</var>,arg2)
+and <var>Dest</var>,<var>Src1</var>,arg2
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="or_0028Src1_002cSrc2_002cDest_0029"></a>
+<h4 class="subsection">2.5.17 or(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To store the value of the expression <code>(<var>Src1</var>\/<var>Src2</var>)</code> in
+<var>Dest</var>.  <var>Src1</var> and <var>Dest</var> must be the same operand and
+<var>Src2</var> must be an immediate.
+</p>
+<p><b>[PERM:</b> BUG: the arguments can be, e.g. <code>or(val,11,x(3,0))</code>, i.e. <var>Src1</var> and <var>Dest</var> may differ.<b>]</b>
+ <b>[PERM:</b> BUG: the arguments can be, e.g. <code>or(val,y(6),val)</code> and <code>or(ac0,ac1,ac0)</code>, i.e. <var>Src2</var> may not be an immediate.<b>]</b>
+</p>
+
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>For <code>x86_64</code>, if <var>Src2</var> is not a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">movabs $<var>Src2</var>,%r11
+or %r11,<var>Dest</var>
+</pre></div>
+
+<p>Else
+</p><div class="example">
+<pre class="example">or $<var>Src2</var>,<var>Dest</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If <var>Src2</var> is a 16-bit unsigned integer <var>UI</var>, then
+</p><div class="example">
+<pre class="example">ori <var>Dest</var>,<var>Src1</var>,<var>UI</var>
+</pre></div>
+
+<p>Else if <var>Src2</var> equals <var>(HI&lt;&lt;16)+LO</var>, where <var>HI</var> is an unsigned
+16-bit integer and <var>LO</var> is an unsigned 16-bit integer, then
+</p><div class="example">
+<pre class="example">oris <var>Dest</var>,<var>Src1</var>,<var>HI</var>
+ori  <var>Dest</var>,<var>Dest</var>,<var>LO</var> <span class="roman">// omit if <var>LO = 0</var></span>
+</pre></div>
+
+<p>Else, reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">move(<var>Src2</var>,arg2)
+or <var>Dest</var>,<var>Src1</var>,arg2
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="xor_0028Src1_002cSrc2_002cDest_0029"></a>
+<h4 class="subsection">2.5.18 xor(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To store the value of the expression <var>(<var>Src1</var> \ <var>Src2</var>)</var> in
+<var>Dest</var>.  <var>Src1</var> and <var>Dest</var> must be the same operand and
+<var>Src2</var> must be an immediate.
+</p>
+<p><b>[PERM:</b> BUG: the arguments can be, e.g. <code>xor(val,-5,arg1)</code> or <code>xor(ac0,ac1,ac0)</code>, i.e. <var>Src1</var> and <var>Dest</var> may differ.<b>]</b>
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>For <code>x86_64</code>, if <var>Src2</var> is not a 32-bit signed integer, then
+</p><div class="example">
+<pre class="example">movabs $<var>Src2</var>,%r11
+xor %r11,<var>Dest</var>
+</pre></div>
+
+<p>Else
+</p><div class="example">
+<pre class="example">xor $<var>Src2</var>,<var>Dest</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If <var>Src2</var> is a 16-bit unsigned integer <var>UI</var>, then
+</p><div class="example">
+<pre class="example">xori <var>Dest</var>,<var>Src1</var>,<var>UI</var>
+</pre></div>
+
+<p>Else if <var>Src2</var> equals <var>(HI&lt;&lt;16)+LO</var>, where <var>HI</var> is an unsigned
+16-bit integer and <var>LO</var> is an unsigned 16-bit integer, then
+</p><div class="example">
+<pre class="example">xoris <var>Dest</var>,<var>Src1</var>,<var>HI</var>
+xori  <var>Dest</var>,<var>Dest</var>,<var>LO</var> <span class="roman">// omit if <var>LO = 0</var></span>
+</pre></div>
+
+<p>Else, reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">move(<var>Src2</var>,arg2)
+xor <var>Dest</var>,<var>Src1</var>,arg2
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="int2cp_0028Src_002cDest_0029"></a>
+<h4 class="subsection">2.5.19 int2cp(<var>Src</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To convert a tagged integer to a choicepoint pointer.
+<var>Dest</var> must be <code>val</code>.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dd><div class="example">
+<pre class="example">mov <var>Src</var>,%eax
+sar $1,%eax
+dec %eax
+add w_choice_start,%eax
+</pre></div>
+<p>note that <code>val</code> is <code>%eax</code> on x86.
+</p>
+</dd>
+<dt><code>x86_64</code></dt>
+<dd><div class="example">
+<pre class="example">mov <var>Src</var>,%rax
+sub $3,%rax
+add w_choice_start,%rax
+</pre></div>
+<p>note that <code>val</code> is <code>%rax</code> on x86.
+</p>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If <var>Src</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg1,<var>Src</var>
+int2cp(arg1,<var>Dest</var>)
+</pre></div>
+
+<p>Else,
+</p><div class="example">
+<pre class="example">ld val,w_choice_start
+addi val,val,-3
+add val,<var>Src</var>,val
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="cp2int_0028Src_002cDest_0029"></a>
+<h4 class="subsection">2.5.20 cp2int(<var>Src</var>,<var>Dest</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To convert a choicepoint pointer to a tagged integer.
+Dest cannot be <code>val</code>.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dd><div class="example">
+<pre class="example">mov <var>Src</var>,%eax
+sub w_choice_start,%eax
+lea 3(,%eax,2),%eax
+mov %eax,<var>Dest</var> <b>[PERM:</b> Can do better if Dest is a register<b>]</b>
+</pre></div>
+
+</dd>
+<dt><code>x86_64</code></dt>
+<dd><div class="example">
+<pre class="example">mov <var>Src</var>,%rax
+sub w_choice_start,%rax
+add $3,%rax
+mov %rax,<var>Dest</var> <b>[PERM:</b> Can do better if Dest is a register<b>]</b>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>If <var>Src</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">ld arg1,<var>Src</var>
+cp2int(arg1,<var>Dest</var>)
+</pre></div>
+
+<p>Else if <var>Dest</var> is in memory, then reduce to
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">cp2int(<var>Src</var>,arg0)
+std arg0,<var>Dest</var>
+</pre></div>
+
+<p>Else,
+</p><div class="example">
+<pre class="example">ld <var>Dest</var>,w_choice_start
+subf <var>Dest</var>,<var>Dest</var>,<var>Src</var>
+addi <var>Dest</var>,<var>Dest</var>,3
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="init_0028Dest1_002cDest2_0029"></a>
+<h4 class="subsection">2.5.21 init(<var>Dest1</var>,<var>Dest2</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To create a brand new variable in the first destination,
+making the second destination a variable bound to the first.
+<var>Dest1</var> must be in memory.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><p>If <var>Dest1</var> is on the form <code>r(0)</code>, then
+</p><div class="example">
+<pre class="example">mov r,<var>Dest1</var>
+mov r,<var>Dest2</var>
+</pre></div>
+
+<p>Else if <var>Dest2</var> is the register <code>r</code>, then
+</p><div class="example">
+<pre class="example">lea <var>Dest1</var>,r
+mov r,<var>Dest1</var>
+</pre></div>
+
+<p>Else
+</p><div class="example">
+<pre class="example">lea <var>Dest1</var>,%rax
+mov %rax,<var>Dest1</var>
+mov %rax,<var>Dest2</var>
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd>
+<p>Both <var>Dest1</var> and <var>Dest2</var> must not be based on R0 (which would
+mean zero in the instructions <code>la</code> and <code>std</code>).
+</p>
+<p>If <var>Dest1</var> is on the form <code>r(0)</code>, then
+</p><div class="example">
+<pre class="example">std r,<var>Dest1</var>
+std r,<var>Dest2</var>
+</pre></div>
+
+<p>Else if <var>Dest2</var> is the register <code>r</code>, then
+</p><div class="example">
+<pre class="example">la r,<var>Dest1</var>
+std r,<var>Dest1</var> <b>[PERM:</b> // saner as ''std r,r'' I think<b>]</b>
+</pre></div>
+
+<p>Else
+ <b>[PERM:</b> FIXME: <code>arg0..arg2</code> must be preserved, use something else.<b>]</b>
+</p><div class="example">
+<pre class="example">la arg0,<var>Dest1</var>
+std arg0,<var>Dest1</var> <b>[PERM:</b> // saner as ''std arg0,arg0'' I think (since arg0 contains the address)<b>]</b>
+std arg0,<var>Dest2</var>
+</pre></div>
+
+
+</dd>
+</dl>
+
+
+<a name="pop"></a>
+<h4 class="subsection">2.5.22 pop</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To discard the top of the stack.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><div class="example">
+<pre class="example">pop %rax
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><div class="example">
+<pre class="example">/* nothing */
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="context_0028Target_0029"></a>
+<h4 class="subsection">2.5.23 context(<var>Target</var>)</h4>
+<p><var>Target</var> is a local label.
+</p>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To refresh the TOC pointer.
+</p></dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dd><div class="example">
+<pre class="example">/* nothing */
+</pre></div>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>The <code>CTR</code> is assumed to contain the address of the local label
+(this is ensured by the caller, typically by jumping to the label
+using <code>bctr</code> or the like).
+</p>
+<p>Let <var>OFF</var> be the offset to the TOC from <var>Target</var>.
+Reduce to
+</p><div class="example">
+<pre class="example">mfctr toc
+add(toc,<var>OFF</var>,toc)
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="half_0028Constant_0029"></a>
+<h4 class="subsection">2.5.24 half(<var>Constant</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To lay out an aligned constant occupying half a machine word.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dd><div class="example">
+<pre class="example">[possible padding]
+.value <var>Constant</var>
+</pre></div>
+
+</dd>
+<dt><code>x86_64</code> <b>[PERM:</b> No padding for x86_64? jit.c does padding for all Intel<b>]</b></dt>
+<dt><code>PPC64</code></dt>
+<dd><div class="example">
+<pre class="example">.long <var>Constant</var>
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="word_0028Constant_0029"></a>
+<h4 class="subsection">2.5.25 word(<var>Constant</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To lay out an aligned constant occupying one machine word.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dd><div class="example">
+<pre class="example">[possible padding]
+.long <var>Constant</var>
+</pre></div>
+
+</dd>
+<dt><code>x86_64</code></dt>
+<dt><code>PPC64</code></dt>
+<dd><div class="example">
+<pre class="example">[possible padding]
+.quad <var>Constant</var>
+</pre></div>
+</dd>
+</dl>
+
+
+
+
+<a name="label_0028L_0029"></a>
+<h4 class="subsection">2.5.26 label(L)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>A label indicating a code point that can be referred to by other
+instructions.  <code>L</code> is on the form <code>'$VAR'(<var>Int</var>)</code>.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p></dd>
+</dl>
+
+
+
+<a name="align_0028Int_0029"></a>
+<h4 class="subsection">2.5.27 align(<var>Int</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To enforce code alignment.
+Let <em>pc16</em> denote &ldquo;program counter modulo 16&rdquo;.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dd><p>Depending on <var>Int</var>:
+</p><dl compact="compact">
+<dt>0</dt>
+<dd><p>If pc16 in [1,8], bump pc until pc16=8.
+Else if pc16 in [9,12], bump pc until pc16=12.
+Else, bump pc until pc16=0.
+</p></dd>
+<dt>1</dt>
+<dd><p>If pc16 in [3,10], bump pc until pc16=10.
+Else if pc16 in [11,14], bump pc until pc16=14.
+Else, bump pc until pc16=2.
+</p></dd>
+<dt>2</dt>
+<dd><p>If pc16 in [9,15], bump pc until pc16=0.
+</p></dd>
+<dt>3</dt>
+<dd><p>Bump pc until pc16=12.
+</p></dd>
+<dt>4</dt>
+<dd><p>Bump pc until pc16 in {0,4,8,12}.
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>x86_64</code></dt>
+<dd><p>Depending on <var>Int</var>:
+</p><dl compact="compact">
+<dt>0</dt>
+<dd><p>If pc16 in [1,8], bump pc until pc16=8.
+Else, bump pc until pc16=0.
+</p></dd>
+<dt>1</dt>
+<dd><p>Else if pc16 in [5,12], bump pc until pc16=12.
+Else, bump pc until pc16=4.
+</p></dd>
+<dt>2</dt>
+<dd><p>If pc16 in [9,15], bump pc until pc16=0.
+</p></dd>
+<dt>3</dt>
+<dd><p>Bump pc until pc16=8.
+</p></dd>
+<dt>4</dt>
+<dd><p>Bump pc until pc16 in {0,8}.
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>PPC64</code></dt>
+<dd><p>Depending on <var>Int</var>:
+</p><dl compact="compact">
+<dt>1</dt>
+<dd><p>Bump pc until pc16 in {4,12}.
+</p></dd>
+<dt>2</dt>
+<dd><p>No alignment needed.
+</p></dd>
+<dt>0</dt>
+<dt>3</dt>
+<dt>4</dt>
+<dd><p>Bump pc until pc16 in {0,8}.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+
+
+<a name="try_005fchain_0028list-of-_0028Label_002dAlternative_0029_002cArity_0029"></a>
+<h4 class="subsection">2.5.28 try_chain(<var>list of</var> (<var>Label</var>-<var>Alternative</var>),<var>Arity</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To lay out a data structure for backtracking purposes.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dt><code>PPC64</code></dt>
+<dd><p>Every element of the list of pairs corresponds to a block of three
+machine words followed by two half machine words, laid out as follows,
+where <code>b+o</code> denotes an address at <code>o</code> machine words after the
+start of the block:
+</p><div class="example">
+<pre class="example">b+0  : <span class="roman">Pointer to the next block, or NULL if it is the last block.</span>
+b+1  : <var>Label</var>, i.e. code address.
+b+2  : <var>Alternative</var>, i.e. <code>struct try_node</code> pointer.
+b+3  : offsetof(struct node,term[<var>Arity</var>])
+b+3.5: Wmode(TRY)
+</pre></div>
+</dd>
+</dl>
+
+
+
+<a name="switch_0028list-of-_0028Key_002dTarget_0029_002cDefault_0029"></a>
+<h4 class="subsection">2.5.29 switch(<var>list of</var> (<var>Key</var>-<var>Target</var>),<var>Default</var>)</h4>
+<dl compact="compact">
+<dt>Purpose</dt>
+<dd><p>To perform a switch on the principal functor of register <code>x0</code>.
+<var>Target</var> is the jump target when <code>x0</code> matches <var>Key</var>.
+<var>Default</var> is the default jump target.
+</p>
+</dd>
+<dt>Condition Codes</dt>
+<dd><p>Undefined.
+</p>
+</dd>
+<dt><code>x86</code></dt>
+<dt><code>x86_64</code></dt>
+<dt><code>PPC64</code></dt>
+<dd><p>This is laid out as a regular <code>struct sw_on_key</code>, machine-word aligned.
+</p></dd>
+</dl>
+
+<a name="trampolines_0028Base_0029"></a>
+<h4 class="subsection">2.5.30 trampolines(<var>Base</var>)</h4>
+<p><var>Base</var> is a local label that must be thre preceeding instruction.
+</p>
+<p>The trampolines, if any, are emitted here.
+</p>
+
+<a name="toc_0028Base_0029"></a>
+<h4 class="subsection">2.5.31 toc(<var>Base</var>)</h4>
+<p><var>Base</var> is a local label that must be thre preceeding instruction.
+</p>
+<p>The TOC entries, if any, are emitted here.
+</p>
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT1" href="#DOCF1">(1)</a></h3>
+<p>The <code>mcrxr 0</code> instruction would be shorter,
+but it is not available on server class Power CPUs.</p>
+<h3><a name="FOOT2" href="#DOCF2">(2)</a></h3>
+<p>Unlike the case for x86/x86_64</p>
+</div>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Constants.html#Constants" accesskey="p" rel="prev">Previous</a>
+<li><a href="Intermediate-Representation.html#Intermediate-Representation" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/Instructions.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/Instructions.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

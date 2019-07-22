@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-som</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-som">
+<meta name="keywords" content="SICStus Prolog: ref-mod-som">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002dtyi.html#ref_002dmod_002dtyi" rel="next" title="ref-mod-tyi">
+<link href="ref_002dmod_002dvis.html#ref_002dmod_002dvis" rel="prev" title="ref-mod-vis">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dsom"></a>
+<hr>
+<a name="The-Source-Module"></a>
+<h4 class="subsection">4.11.7 The Source Module</h4>
+
+<a name="index-source-module"></a>
+
+<a name="index-module_002c-source"></a>
+
+<a name="index-type_002din-module-1"></a>
+
+<a name="index-module_002c-type_002din-1"></a>
+
+
+<p>For any given procedure call, or goal, the <em>source module</em> is the module
+in which the corresponding predicate must be visible.  That is, unless the
+predicate is built-in, it must be defined in, or imported into, the source
+module.  
+</p>
+<p>For goals typed at the top-level, the source module is the <em>type-in
+module</em>, which is <code>user</code> by default&mdash;see <a href="ref_002dmod_002dtyi.html#ref_002dmod_002dtyi">ref-mod-tyi</a>.  For
+goals appearing in a file, whether in a directive or in the body of a
+clause, the source module is the one into which that file has been
+loaded.
+</p>
+<p>There are a number of built-in predicates that take predicate
+specifications, clauses, or goals as arguments.  Each of these types
+of argument must be understood with reference to some module.  For
+example, <code>assert/1</code> takes a clause as its argument, and it must
+decide into which module that clause should be asserted.  The default
+assumption is that it asserts the clause into the source module.
+Another example is <code>call/1</code>.  The goal (A) calls the predicate
+<code>foo/1</code> in the source module; this ensures that in the compound goal (B)
+both occurrences of <code>foo/1</code> refer to the same predicate.
+</p>
+<div class="example">
+<pre class="example">call(foo(X)) <!-- /@w --> (A)
+
+call(foo(X)), foo(Y)  <!-- /@w --> (B)
+</pre></div>
+
+
+<p>All predicates that refer to the source module allow you to override
+it by explicitly naming some other module to be used instead.  This is
+done by prefixing the relevant argument of the predicate with the
+module to be used followed by a &lsquo;<samp>:</samp>&rsquo; operator.  For example (C),
+asserts <code>f(x)</code> in module <code>m</code>.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>assert(m:f(x)).</kbd> <!-- /@w --> (C)
+</pre></div>
+
+<p>Note that if you call a goal in a specified module, overriding the
+normal visibility rules (see <a href="ref_002dmod_002dvis.html#ref_002dmod_002dvis">ref-mod-vis</a>), then the source module
+for that goal is the one you specify, not the module in which this call
+occurs.  For example (D), has exactly the same effect as
+(C)&mdash;<code>f(x)</code> is asserted in module <code>m</code>.  In other words,
+prefixing a goal with a module duplicates the effect of calling that
+goal from that module.
+</p><div class="example">
+<pre class="example">| ?- <kbd>m:assert(f(x)).</kbd> <!-- /@w --> (D)
+</pre></div>
+
+<p>Another built-in predicate that refers to the source module is
+<code>compile/1</code>.  In this case, the argument is a file, or list of
+files, rather than a predicate specification, clause, or goal.
+However, in the case where a file is not a module-file, <code>compile/1</code>
+must decide into which module to compile its clauses, and it chooses
+the source module by default.  This means that you can compile a file
+<var>File</var> into a specific module <var>M</var> using
+</p><div class="example">
+<pre class="example">| ?- <kbd>compile(<var>M</var>:<var>File</var>).</kbd>
+</pre></div>
+
+
+<p>Thus if <var>File</var> is a module-file, then this command would cause its public
+predicates to be imported into module <var>M</var>.  If <var>File</var> is a
+non-module-file, then it is loaded into module <var>M</var>.
+</p>
+<p>For a list of the built-in predicates that depend on the source
+module, see <a href="ref_002dmod_002dmne.html#ref_002dmod_002dmne">ref-mod-mne</a>.  In some cases,
+user-defined predicates may also require the concept of a source
+module.  This is discussed in <a href="ref_002dmod_002dmet.html#ref_002dmod_002dmet">ref-mod-met</a>.  
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002dtyi.html#ref_002dmod_002dtyi" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod_002dvis.html#ref_002dmod_002dvis" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dsom.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dsom.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

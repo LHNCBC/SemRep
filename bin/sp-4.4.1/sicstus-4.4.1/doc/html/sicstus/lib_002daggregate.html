@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-aggregate</title>
+
+<meta name="description" content="SICStus Prolog: lib-aggregate">
+<meta name="keywords" content="SICStus Prolog: lib-aggregate">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dassoc.html#lib_002dassoc" rel="next" title="lib-assoc">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="prev" title="The Prolog Library">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002daggregate"></a>
+<hr>
+<a name="An-Aggregation-Operator-for-Data_002dBase_002dStyle-Queries_002d_002d_002dlibrary_0028aggregate_0029"></a>
+<h3 class="section">10.1 An Aggregation Operator for Data-Base-Style Queries&mdash;<code>library(aggregate)</code></h3>
+<a name="index-aggregation"></a>
+<p>Data base query languages usually provide so-called &quot;aggregation&quot;
+operations.  Given a relation, aggregation specifies
+</p><ul>
+<li> a column of the relation
+</li><li> an operation, one of {sum,max,min,ave,var} or more
+</li></ul>
+
+<p>One might, for example, ask
+</p>
+<div class="example">
+<pre class="example">    PRINT DEPT,SUM(AREA) WHERE OFFICE(_ID,DEPT,AREA,_OCCUPANT)
+</pre></div>
+
+<p>and get a table of &lt;<var>Department</var>,<var>TotalArea</var>&gt; pairs.  The Prolog
+equivalent of this might be
+</p>
+<div class="example">
+<pre class="example">    dept_office_area(Dept, TotalArea) :-
+            aggregate(sum(Area),
+                I^O^office(I,Dept,Area,O), TotalArea).
+</pre></div>
+
+<p>where <var>Area</var> is the column and <code>sum(_)</code> is the aggregation operator.
+We can also ask who has the smallest office in each department:
+</p>
+<div class="example">
+<pre class="example">    smallest_office(Dept, Occupant) :-
+            aggregate(min(Area),
+                    I^O^office(I,Dept,Area,O), MinArea),
+            office(_, Dept, MinArea, Occupant).
+</pre></div>
+
+<p>This module provides an aggregation operator in Prolog:
+</p>
+<div class="example">
+<pre class="example">        aggregate(Template, Generator, Results)
+</pre></div>
+
+<p>where:
+</p><ul>
+<li> <var>Template</var> is <var>operator</var>(<var>expression</var>)
+or  <var>constructor</var>(<var>arg</var>,...,<var>arg</var>)
+</li><li> each <var>arg</var> is <var>operator</var>(<var>expression</var>)
+</li><li> <var>operator</var> is <code>sum | min | max</code>  {for now}
+</li><li> <var>expression</var> is an arithmetic expression
+</li></ul>
+
+<p><var>Results</var> is unified with a form of the same structure as <var>Template</var>.
+</p>
+<p>Things like mean and standard deviation can be calculated from
+sums, e.g. to find the average population of countries (defined
+as &quot;if you sampled people at random, what would be the mean
+size of their answers to the question &rsquo;what is the population
+of your country?&rsquo;?&quot;) we could do
+</p>
+<div class="example">
+<pre class="example">?-  aggregate(x(sum(Pop),sum(Pop*Pop)),
+              Country^population(Country,Pop),
+              x(People,PeopleTimesPops)),
+    AveragePop is PeopleTimesPops/People.
+</pre></div>
+
+<p>Note that according to this definition, <code>aggregate/3</code> FAILS if
+there are no solutions.  For <code>max(_)</code>, <code>min(_)</code>, and many other
+operations (such as <code>mean(_)</code>) this is the only sensible
+definition (which is why <code>bagof/3</code> works that way).  Even if
+<var>bagof/3</var> yielded an empty list, <var>aggregate/3</var> would still fail.
+</p>
+<p>Concerning the minimum and maximum, it is convenient at times to
+know Which term had the minimum or maximum value.  So we write
+</p>
+<div class="example">
+<pre class="example">    min(Expression, Term)
+    max(Expression, Term)
+</pre></div>
+
+<p>and in the constructed term we will have
+</p>
+<div class="example">
+<pre class="example">    min(MinimumValue, TermForThatValue)
+    max(MaximumValue, TermForThatValue)
+</pre></div>
+
+<p>So another way of asking who has the smallest office is
+</p>
+<div class="example">
+<pre class="example">    smallest_office(Dept, Occupant) :-
+            aggregate(min(Area,O),
+                    I^office(I,Dept,Area,O), min(_,Occupant)).
+</pre></div>
+
+<p>Consider queries like
+</p>
+<div class="example">
+<pre class="example">    aggregate(sum(Pay), Person^pay(Person,Pay), TotalPay)
+</pre></div>
+
+<p>where for some reason <code>pay/2</code> might have multiple solutions.
+(For example, someone might be listed in two departments.)
+We need a way of saying &quot;treat identical instances of the
+Template as a single instance, UNLESS they correspond to
+different instances of a Discriminator.&quot;  That is what
+</p>
+<div class="example">
+<pre class="example">    aggregate(Template, Discriminator, Generator, Results)
+</pre></div>
+
+<p>does.  
+</p>
+<p>Operations available:
+</p><dl compact="compact">
+<dt><code>count</code></dt>
+<dd><p><code>sum(1)</code>
+</p></dd>
+<dt><code>sum(<var>E</var>)</code></dt>
+<dd><p>sum of values of <var>E</var>
+</p></dd>
+<dt><code>min(<var>E</var>)</code></dt>
+<dd><p>minimum of values of <var>E</var>
+</p></dd>
+<dt><code>min(<var>E</var>,<var>X</var>)</code></dt>
+<dd><p><code>min(<var>E</var>)</code> with corresponding instance of <var>X</var>
+</p></dd>
+<dt><code>max(<var>E</var>)</code></dt>
+<dd><p>maximum of values of <var>E</var>
+</p></dd>
+<dt><code>max(<var>E</var>,<var>X</var>)</code></dt>
+<dd><p><code>max(<var>E</var>)</code> with corresponding instance of <var>X</var>
+</p></dd>
+<dt><code>set(<var>X</var>)</code></dt>
+<dd><p>ordered set of instances of <var>X</var>
+</p></dd>
+<dt><code>bag(<var>X</var>)</code></dt>
+<dd><p>list of instances of <var>X</var> in generated order.
+</p></dd>
+</dl>
+
+<div class="example">
+<pre class="example">bagof(X, G, B) :- aggregate(bag(X),    G, L).
+setof(X, G, B) :- aggregate(set(X), X, G, L).
+</pre></div>
+
+
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>forall(<var>:Generator</var>, <var>:Goal</var>)</code></dt>
+<dd>
+<a name="index-forall_002f2-_0028aggregate_0029-1"></a>
+<a name="index-forall_002f2-_0028aggregate_0029"></a>
+
+<p>succeeds when <var>Goal</var> is provable for each true instance of <var>Generator</var>.
+Note that there is a sort of double negation going on in here (it
+is in effect a nested pair of failure-driven loops), so it will
+never bind any of the variables which occur in it.
+</p></dd>
+<dt><code>foreach(<var>:Generator</var>, <var>:Goal</var>)</code></dt>
+<dd>
+<a name="index-foreach_002f2-_0028aggregate_0029-1"></a>
+<a name="index-foreach_002f2-_0028aggregate_0029"></a>
+
+<p>for each proof of Generator in turn, we make a copy of <var>Goal</var> with
+the appropriate substitution, then we execute these copies in
+sequence.  For example, <code>foreach(between(1,3,I), p(I))</code> is
+equivalent to <code>p(1), p(2), p(3)</code>.
+</p>
+<p>Note that this is not the same as <code>forall/2</code>.  For example,
+<code>forall(between(1,3,I), p(I))</code> is equivalent to
+<code>\+ \+ p(1), \+ \+ p(2), \+ \+ p(3)</code>.
+</p>
+<p>The trick in <code>foreach/2</code> is to ensure that the variables of <var>Goal</var> which
+do not occur in <var>Generator</var> are restored properly.  (If there are no
+such variables, you might as well use <code>forall/2</code>.)
+</p>
+<p>Like <code>forall/2</code>, this predicate does a failure-driven loop over the
+<var>Generator</var>.  Unlike <code>forall/2</code>, the <var>Goals</var> are executed as an ordinary
+conjunction, and may succeed in more than one way.
+</p></dd>
+<dt><code>aggregate(<var>+Template</var>, <var>+Discriminator</var>, <var>:Generator</var>, <var>-Result</var>)</code></dt>
+<dd>
+<a name="index-aggregate_002f4-_0028aggregate_0029-1"></a>
+<a name="index-aggregate_002f4-_0028aggregate_0029"></a>
+
+<p>is a generalisation of <code>setof/3</code> which lets you compute sums,
+minima, maxima, and so on.  
+</p></dd>
+<dt><code>aggregate(<var>+Template</var>, <var>:Generator</var>, <var>-Result</var>)</code></dt>
+<dd>
+<a name="index-aggregate_002f3-_0028aggregate_0029-1"></a>
+<a name="index-aggregate_002f3-_0028aggregate_0029"></a>
+
+<p>is a generalisation of <code>findall/3</code> which lets you compute sums,
+minima, maxima, and so on.  
+</p></dd>
+<dt><code>aggregate_all(+Template, +Discriminator, :Generator, -Result)</code></dt>
+<dd>
+<a name="index-aggregate_005fall_002f4-_0028aggregate_0029-1"></a>
+<a name="index-aggregate_005fall_002f4-_0028aggregate_0029"></a>
+
+<p>is like <code>aggregate/4</code> except that it will find at most one solution,
+and does not bind free variables in the <var>Generator</var>.  
+</p></dd>
+<dt><code>aggregate_all(+Template, :Generator, -Result)</code></dt>
+<dd>
+<a name="index-aggregate_005fall_002f3-_0028aggregate_0029-1"></a>
+<a name="index-aggregate_005fall_002f3-_0028aggregate_0029"></a>
+
+<p>is like <code>aggregate/3</code> except that it will find at most one solution,
+and does not bind free variables in the <var>Generator</var>.  
+</p></dd>
+<dt><code>free_variables(:Goal, +Bound, +Vars0, -Vars)</code></dt>
+<dd>
+<a name="index-free_005fvariables_002f4-_0028aggregate_0029-1"></a>
+<a name="index-free_005fvariables_002f4-_0028aggregate_0029"></a>
+
+<p>binds <var>Vars</var> to the union of <var>Vars0</var> with the set of <em>free</em> variables
+in <var>Goal</var>, that is the set of variables which are captured neither
+by <var>Bound</var> nor by any internal quantifiers or templates in <var>Goal</var>.
+We have to watch out for <code>setof/3</code> and <code>bagof/3</code> themselves, for the
+explicit existential quantifier <code><var>Vars</var>^<var>Goal</var></code>, and for things like
+<code>\+(_)</code> which might look as though they bind variables but can&rsquo;t.
+</p></dd>
+<dt><code>term_variables(<var>+Term</var>, <var>+Vars0</var>, <var>-Vars</var>)</code></dt>
+<dd>
+<a name="index-term_005fvariables_002f3-_0028aggregate_0029-1"></a>
+<a name="index-term_005fvariables_002f3-_0028aggregate_0029"></a>
+
+<p>binds <var>Vars</var> to a union of <var>Vars0</var> and the variables which occur in <var>Term</var>.
+This doesn&rsquo;t take quantifiers into account at all.
+</p>
+<p>New code should consider the built in <code>term_variables/2</code> which is likely
+to be faster, and works for cyclic terms.
+</p>
+<p>Could be defined as:
+</p>
+<div class="example">
+<pre class="example">term_variables(Term, Vars0, Vars) :-
+	nonvar(Term), !,
+	(   foreacharg(Arg,Term),
+	    fromto(Vars0,S0,S,Vars)
+	do  term_variables(Arg, S0, S)
+	).
+term_variables(Term, Vars0, Vars) :-
+	(   foreach(X,Vars0),
+	    param(Term)
+	do  X\==Term
+	), !,
+    Vars = [Term|Vars0].
+term_variables(_, Vars, Vars).
+</pre></div>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dassoc.html#lib_002dassoc" accesskey="n" rel="next">Next</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002daggregate.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002daggregate.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

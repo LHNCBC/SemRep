@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPFD Caveats</title>
+
+<meta name="description" content="SICStus Prolog: CLPFD Caveats">
+<meta name="keywords" content="SICStus Prolog: CLPFD Caveats">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dclpfd.html#lib_002dclpfd" rel="up" title="lib-clpfd">
+<link href="CLPFD-Interface.html#CLPFD-Interface" rel="next" title="CLPFD Interface">
+<link href="Acknowledgments-CLPFD.html#Acknowledgments-CLPFD" rel="prev" title="Acknowledgments CLPFD">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPFD-Caveats"></a>
+<hr>
+<a name="Caveats-and-Limitations"></a>
+<h4 class="subsection">10.10.2 Caveats and Limitations</h4>
+
+<p>Following are some general statements about the constraints and
+libraries of this library module.
+</p>
+<dl compact="compact">
+<dt><b>Domain Variables</b></dt>
+<dd><p>Only small integers (see <a href="Glossary.html#Glossary">Glossary</a>) and domain variables are
+allowed as arguments to finite domain constraints.  Whenever a domain
+variable is required in the argument of a constraint, a small integer
+can be given instead.  The conversion from unbound variable to domain
+variable is automatic.
+</p>
+</dd>
+<dt><b>Aliasing</b></dt>
+<dd><p>In case of variable aliasing, i.e. if a variable occurs more than once
+in a global constraint that is being posted, or due to a subsequent
+variable-variable unification, then any guarantee to maintain a particular
+level of consistency no longer holds, and idempotency is almost always
+lost.
+</p>
+</dd>
+<dt><b>Termination</b></dt>
+<dd><p>Of course, all constraints and predicates terminate.  However, due to
+the combinatorial nature of constraint solving, and to the fact that
+constraint solving is based on filtering domains, which can be huge,
+pathological cases where termination takes extremely long time are
+easily constructed.  After about 15,000 years on a 64-bit machine, the
+following query terminates with a representation error, when the lower
+bound of X exceeds the small integer range:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>X #&gt; abs(X).</kbd>
+[... ... ...]
+! Representation error in user:'t=&lt;u+c'/3
+! CLPFD integer overflow
+! goal:  't=&lt;u+c'(_245,_247,-1)
+</pre></div>
+
+<p>Anyway, if you find non-pathological cases that take longer than
+reasonable time to terminate, then please write to
+<a href="mailto:sicstus-support@sics.se">sicstus-support@sics.se</a>.
+</p>
+</dd>
+<dt><b>Error Checking</b></dt>
+<dd><p>Contrary to most library modules, CLPFD constraints and predicates check
+their arguments to almost the same extent as built-in predicates.
+If you find a case where reasonable error checking is missing,
+then please write to <a href="mailto:sicstus-support@sics.se">sicstus-support@sics.se</a>.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPFD-Interface.html#CLPFD-Interface" accesskey="n" rel="next">Next</a>
+<li><a href="CLPFD-Intro.html#CLPFD-Intro" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dclpfd.html#lib_002dclpfd" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPFD-Caveats.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPFD-Caveats.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

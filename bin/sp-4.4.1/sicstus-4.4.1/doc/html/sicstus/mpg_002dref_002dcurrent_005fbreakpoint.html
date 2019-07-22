@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-current_breakpoint</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-current_breakpoint">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-current_breakpoint">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dcurrent_005fchar_005fconversion.html#mpg_002dref_002dcurrent_005fchar_005fconversion" rel="next" title="mpg-ref-current_char_conversion">
+<link href="mpg_002dref_002dcurrent_005fatom.html#mpg_002dref_002dcurrent_005fatom" rel="prev" title="mpg-ref-current_atom">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dcurrent_005fbreakpoint"></a>
+<hr>
+<a name="current_005fbreakpoint_002f5---development"></a>
+<h4 class="subsection">11.3.48 <code>current_breakpoint/5</code> &nbsp;<!-- /@w --> <i>development</i></h4>
+<a name="index-current_005fbreakpoint_002f5-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-current_005fbreakpoint_002f5-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-73"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>current_breakpoint(<var>-Conditions</var>, <var>-BID</var>, <var>-Status</var>, <var>-Kind</var>, <var>-Type</var>)</code>
+</p>
+<p>There is a breakpoint with conditions <var>Conditions</var>, identifier
+<var>BID</var>, enabledness <var>Status</var>, kind <var>Kind</var>, and type <var>Type</var>.
+</p>
+<a name="Arguments-69"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:Conditions</var></dt>
+<dd><p><em>term</em>
+</p>
+<p>Breakpoint conditions.
+</p>
+</dd>
+<dt><var>BID</var></dt>
+<dd><p><em>integer</em>
+</p>
+<p>Breakpoint identifier.
+</p>
+</dd>
+<dt><var>Status</var></dt>
+<dd><p><em>one of <code>[on,off]</code></em>
+</p>
+<p><code>on</code> for enabled breakpoints and <code>off</code> for disabled ones
+</p>
+</dd>
+<dt><var>Kind</var></dt>
+<dd><p><em>one of <code>[plain(<var>MFunc</var>),conditional(<var>MFunc</var>),generic]</code></em>
+</p>
+<p><var>MFunc</var> is the module qualified functor of
+the specific breakpoint.
+</p>
+</dd>
+<dt><var>Type</var></dt>
+<dd><p><em>one of <code>[debugger,advice]</code></em>
+</p></dd>
+</dl>
+
+<a name="Exceptions-64"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Conditions</var> not instantiated enough.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Conditions</var> not a proper list of callable term.
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p><var>Conditions</var> not a proper list of valid breakpoint conditions
+</p></dd>
+</dl>
+
+<a name="See-Also-70"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Built_002din-Predicates-for-Breakpoint-Handling.html#Built_002din-Predicates-for-Breakpoint-Handling">Built-in Predicates for Breakpoint Handling</a>, <a href="Breakpoint-Predicates.html#Breakpoint-Predicates">Breakpoint Predicates</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dcurrent_005fchar_005fconversion.html#mpg_002dref_002dcurrent_005fchar_005fconversion" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dcurrent_005fatom.html#mpg_002dref_002dcurrent_005fatom" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcurrent_005fbreakpoint.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcurrent_005fbreakpoint.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

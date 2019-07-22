@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Current Limitations</title>
+
+<meta name="description" content="SICStus Prolog: Current Limitations">
+<meta name="keywords" content="SICStus Prolog: Current Limitations">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dbdb.html#lib_002dbdb" rel="up" title="lib-bdb">
+<link href="Berkeley-DB.html#Berkeley-DB" rel="next" title="Berkeley DB">
+<link href="BDB-Basics.html#BDB-Basics" rel="prev" title="BDB Basics">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Current-Limitations"></a>
+<hr>
+<a name="Current-Limitations-1"></a>
+<h4 class="subsection">10.6.2 Current Limitations</h4>
+
+<ul>
+<li> The terms are not necessarily fetched in the same order as they
+were stored.
+
+</li><li> If the process dies during an update operation (<code>db_store/3</code>,
+<code>db_erase/[2,3]</code>), the database can be inconsistent.
+
+</li><li> Databases can only be shared between processes running on the
+machine where the environment is created (see <a href="Predicates.html#Predicates">Predicates</a>).  The
+database itself can be on a different machine.
+
+</li><li> The number of terms ever inserted in a database cannot
+exceed 2^32-1.
+
+</li><li> Duplicate keys are not handled efficiently by Berkeley DB.  This
+limitation is supposed to get lifted in the future.  Duplicate keys can
+result from indexing on non-key attribute sets, inserting terms
+with variables on indexing positions, or simply from storing the
+same term more than once.
+</li></ul>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Berkeley-DB.html#Berkeley-DB" accesskey="n" rel="next">Next</a>
+<li><a href="BDB-Basics.html#BDB-Basics" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dbdb.html#lib_002dbdb" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Current-Limitations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Current-Limitations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

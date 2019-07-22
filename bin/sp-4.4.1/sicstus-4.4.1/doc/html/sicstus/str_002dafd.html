@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: str-afd</title>
+
+<meta name="description" content="SICStus Prolog: str-afd">
+<meta name="keywords" content="SICStus Prolog: str-afd">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dstructs.html#lib_002dstructs" rel="up" title="lib-structs">
+<link href="str_002dcas.html#str_002dcas" rel="next" title="str-cas">
+<link href="str_002dcdf.html#str_002dcdf" rel="prev" title="str-cdf">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="str_002dafd"></a>
+<hr>
+<a name="Accessing-and-Modifying-Foreign-Term-Contents"></a>
+<h4 class="subsection">10.37.4 Accessing and Modifying Foreign Term Contents</h4>
+
+
+<a name="index-get_005fcontents_002f3-_0028structs_0029-1"></a>
+<a name="index-get_005fcontents_002f3-_0028structs_0029"></a>
+
+
+
+<a name="index-put_005fcontents_002f3-_0028structs_0029-1"></a>
+<a name="index-put_005fcontents_002f3-_0028structs_0029"></a>
+
+
+<p>Prolog can get or modify the contents of a foreign term with the
+procedures
+</p><div class="example">
+<pre class="example">get_contents(<var>+Datum</var>, <var>?Part</var>, <var>?Value</var>) 
+put_contents(<var>+Datum</var>, <var>+Part</var>, <var>+Value</var>).
+</pre></div>
+
+
+
+<a name="index-get_005faddress_002f3-_0028structs_0029-1"></a>
+<a name="index-get_005faddress_002f3-_0028structs_0029"></a>
+
+
+<p>It can also get a pointer to a field or element of a foreign term
+with the procedure
+</p><div class="example">
+<pre class="example">get_address(<var>+Datum</var>, <var>?Part</var>, <var>?Value</var>).
+</pre></div>
+
+
+<p>For all three of these, <var>Datum</var> must be a foreign term, and
+<var>Part</var> specifies what part of <var>Datum</var> <var>Value</var> is.  If
+<var>Datum</var> is an array, then <var>Part</var> should be an integer index into
+the array, where 0 is the first element.  For a pointer, <var>Part</var>
+should be the atom <code>contents</code> and <var>Value</var> will be what the pointer
+points to.  For a struct, <var>Part</var> should be a field name, and
+<var>Value</var> will be the contents of that field.  In the case of
+<code>get_contents/3</code> and <code>get_address/3</code>, if <var>Part</var> is unbound,
+then <code>get_contents/3</code> will backtrack through all the valid parts of
+<var>Datum</var>, binding both <var>Part</var> and <var>Value</var>.  A C programmer
+might think of the following pairs as corresponding to each other:
+</p><div class="example">
+<pre class="example">Prolog: get_contents(Foo, Bar, Baz)
+     C: Baz = Foo-&gt;Bar 
+
+Prolog: put_contents(Foo, Bar, Baz)
+     C: Foo-&gt;Bar = Baz
+
+Prolog: get_address(Foo, Bar, Baz) 
+     C: Baz = &amp;Foo-&gt;Bar.
+</pre></div>
+
+
+<p>The hitch is that only atomic and pointer types can be got and put
+by <code>get_contents/3</code> and <code>put_contents/3</code>.  This is because Prolog can
+only hold pointers to C structures, not the structures themselves.
+This is not quite as bad as it might seem, though, since usually
+structures contain pointers to other structures, anyway.  When a
+structure directly contains another structure, Prolog can get a
+pointer to it with <code>get_address/3</code>.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="str_002dcas.html#str_002dcas" accesskey="n" rel="next">Next</a>
+<li><a href="str_002dcdf.html#str_002dcdf" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dstructs.html#lib_002dstructs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002dafd.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002dafd.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

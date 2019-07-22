@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Making Predicates Determinate</title>
+
+<meta name="description" content="SICStus Prolog: Making Predicates Determinate">
+<meta name="keywords" content="SICStus Prolog: Making Predicates Determinate">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Cut.html#The-Cut" rel="up" title="The Cut">
+<link href="Placement-of-Cuts.html#Placement-of-Cuts" rel="next" title="Placement of Cuts">
+<link href="Cut-Overview.html#Cut-Overview" rel="prev" title="Cut Overview">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Making-Predicates-Determinate"></a>
+<hr>
+<a name="Making-Predicates-Determinate-1"></a>
+<h4 class="subsection">9.4.2 Making Predicates Determinate</h4>
+
+<p>Consider the following predicate, which calculates the factorial
+of a number:
+</p>
+<div class="example">
+<pre class="example">fac(0, 1).
+fac(N, X) :- 
+        N1 is N - 1, 
+        fac(N1, Y), 
+        X is N * Y.
+</pre></div>
+
+<p>The factorial of 5 can be found by typing:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>fac(5, X).</kbd>
+
+X = 120 
+</pre></div>
+
+<p>However, backtracking into the above predicate by typing a
+semicolon at this point, causes an infinite loop because the system
+starts attempting to satisfy the goals <code>fac(-1, X).</code>,
+<code>fac(-2, X).</code>, etc.  The problem is that there are two
+clauses that match the goal <code>fac(0, F).</code>, but the
+effect of the second clause on backtracking has not been
+taken into account.  There are at least three possible ways of fixing
+this:
+</p>
+<ol>
+<li> Efficient solution: rewrite the first clause as
+<div class="example">
+<pre class="example">fac(0,1) :- !.
+</pre></div>
+
+<p>Adding the cut essentially makes the first solution the only one
+for the factorial of 0 and hence solves the immediate problem.  This
+solution is space-efficient because as soon as Prolog encounters the
+cut, it knows that the predicate is determinate. Thus,
+when it tries the second clause, it can throw away the information
+it would otherwise need in order to backtrack to this point.
+Unfortunately, if this solution is implemented, then typing &lsquo;<samp>fac(-1, X)</samp>&rsquo;
+still generates an infinite search.
+</p>
+</li><li> Robust solution: rewrite the second clause as
+<div class="example">
+<pre class="example">fac(N, X) :- 
+        N &gt; 0, 
+        N1 is N - 1, 
+        fac(N1, Y), 
+        X is N * Y.
+</pre></div>
+
+<p>This also solves the problem, but it is a more robust solution because this
+way it is impossible to get into an infinite loop.
+</p>
+<p>This solution makes the predicate <em>logically</em>
+determinate&mdash;there is only one possible clause for any
+input&mdash;but the Prolog system is unable to detect this and must waste
+space for backtracking information.  The space-efficiency point is
+more important than it may at first seem; if <code>fac/2</code> is called from
+another determinate predicate, and if the cut is
+omitted, then Prolog cannot detect the fact that <code>fac/2</code> is
+determinate. Therefore, it will not be able to detect the fact
+that the calling predicate is determinate, and space will be
+wasted for the calling predicate as well as for <code>fac/2</code>
+itself.  This argument applies again if the calling
+predicate is itself called by a determinate predicate,
+and so on, so that the cost of an omitted cut can be very high in
+certain circumstances.
+</p>
+</li><li> Preferred solution: rewrite the entire predicate as the single
+clause
+<div class="example">
+<pre class="example">fac(N, X) :-
+    (   N &gt; 0 -&gt;
+            N1 is N - 1,
+            fac(N1, Y),
+            X is N * Y
+    ;   N =:= 0 -&gt;
+            X = 1
+    ).
+</pre></div>
+
+<p>This solution is as robust as solution 2, and more efficient than
+solution 1, since it exploits conditionals with arithmetic tests
+(see <a href="Conditionals-and-Disjunction.html#Conditionals-and-Disjunction">Conditionals and Disjunction</a> for more information on
+optimization using conditionals).
+</p></li></ol>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Placement-of-Cuts.html#Placement-of-Cuts" accesskey="n" rel="next">Next</a>
+<li><a href="Cut-Overview.html#Cut-Overview" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Cut.html#The-Cut" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Making-Predicates-Determinate.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Making-Predicates-Determinate.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

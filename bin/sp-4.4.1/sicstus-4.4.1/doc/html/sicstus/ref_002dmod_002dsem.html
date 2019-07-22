@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-sem</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-sem">
+<meta name="keywords" content="SICStus Prolog: ref-mod-sem">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002dsum.html#ref_002dmod_002dsum" rel="next" title="ref-mod-sum">
+<link href="ref_002dmod_002dmet.html#ref_002dmod_002dmet" rel="prev" title="ref-mod-met">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dsem"></a>
+<hr>
+<a name="Semantics-of-Module-Name-Expansion"></a>
+<h4 class="subsection">4.11.17 Semantics of Module Name Expansion</h4>
+
+<p>Although module name expansion is performed when code is consulted, compiled or asserted,
+it is perhaps best explained in terms of an interpreter,
+especially the issue of how deeply clauses are expanded.
+The semantics of <code>call/1</code>, taking <code>meta_predicate</code>
+declarations into account, is shown as if defined by the interpreter
+shown below.  The interpreter&rsquo;s case analysis is as follows:
+</p>
+<dl compact="compact">
+<dt><var>control constructs</var></dt>
+<dd><p>(Including cuts and module prefixes).
+The interpreter implements the semantics of the construct,
+expanding its argument.
+</p></dd>
+<dt><var>callable terms with functor <var>N/A</var></var></dt>
+<dd><p>First, we look for a <code>meta_predicate</code> declaration for <var>N/A</var>.
+If one exists, then the relevant arguments are expanded.
+Otherwise, the goal is left unexpanded.
+Then, if <var>N/A</var> is a built-in predicate, then it is called.
+Otherwise, a clause with head functor <var>N/A</var> is looked up
+using the imaginary predicate <code>:-/2</code>,
+unified against, and its body is interpreted.
+</p></dd>
+<dt><var>non-callable terms</var></dt>
+<dd><p>Raise error exception.
+</p></dd>
+</dl>
+
+<p>Throughout the interpretation, we must keep track of the module context.
+The interpreter is as follows, slightly simplified.
+<code>--&gt;/2</code> is <em>not</em> a predicate:
+</p>
+<div class="example">
+<pre class="example">call(M:Body) :-
+        icall(Body, M).
+
+icall(Var, M) :- \+callable(Var), !,
+        must_be(Var, callable, call(M:Var), 1).
+icall(!, _) :- !,
+        % <em>cut relevant choicepoints.</em>
+icall((A, B), M) :- !,
+        icall(A, M),
+        icall(B, M).
+icall((A -&gt; B), M) :- !,
+    (   icall(A, M) -&gt;
+        icall(B, M)
+    ).
+icall((A -&gt; B ; C), M) :- !,
+    (   icall(A, M) -&gt;
+        icall(B, M)
+    ;   icall(C, M)
+    ).
+icall((A ; B), M) :- !,
+    (   icall(A, M)
+    ;   icall(B, M)
+    ).
+icall(\+(A), M) :- !,
+    (   icall(A, M) -&gt;
+        fail
+    ;   true
+    ).
+icall(_^A, M) :- !,
+        icall(A, M).
+icall(do(Iter,Body), M) :- !,
+    (   Iter
+    do  icall(Body, M)
+    ).
+icall(if(A,B,C), M) :- !,
+     if(icall(A, M),
+        icall(B, M),
+        icall(C, M)).
+icall(once(A), M) :- !,
+    (   icall(A, M) -&gt; true
+    ).
+icall(Goal, M) :-
+    (   predicate_property(M:Goal, meta_predicate(Meta)) -&gt;
+        functor(Goal, Name, Arity),
+        functor(AGoal, Name, Arity),
+        (   foreacharg(Spec,Meta),
+            foreacharg(Arg,Goal),
+            foreacharg(Ann,AGoal),
+            param(M)
+        do  (   Spec==(:) -&gt; Ann = M:Arg
+            ;   integer(Spec) -&gt; Ann = M:Arg
+            ;   Ann = Arg
+            )
+        ),
+        call_goal(AGoal, M)
+    ;   call_goal(Goal, M)
+    ).
+
+call_goal(asserta(X), _) :- !,
+        asserta(X).
+call_goal(asserta(X,R), _) :- !,
+        asserta(X, R).
+% <em>and so on for all built-in predicates</em>
+call_goal(Goal, M) :-
+        (M:Goal :- Body),
+        icall(Body, M).
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002dsum.html#ref_002dmod_002dsum" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod_002dmet.html#ref_002dmod_002dmet" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dsem.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dsem.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

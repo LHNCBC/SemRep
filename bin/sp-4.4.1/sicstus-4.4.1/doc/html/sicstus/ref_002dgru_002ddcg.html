@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-gru-dcg</title>
+
+<meta name="description" content="SICStus Prolog: ref-gru-dcg">
+<meta name="keywords" content="SICStus Prolog: ref-gru-dcg">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dgru.html#ref_002dgru" rel="up" title="ref-gru">
+<link href="ref_002dgru_002dgru.html#ref_002dgru_002dgru" rel="next" title="ref-gru-gru">
+<link href="ref_002dgru.html#ref_002dgru" rel="prev" title="ref-gru">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dgru_002ddcg"></a>
+<hr>
+<a name="Definite-Clause-Grammars"></a>
+<h4 class="subsection">4.14.1 Definite Clause Grammars</h4>
+
+<a name="index-grammars_002c-definite-clause"></a>
+<a name="index-definite-clause-grammars"></a>
+<a name="index-DCG"></a>
+<a name="index-_002d_002d_003e_002c-grammar-rules"></a>
+
+<p>Prolog&rsquo;s grammar rules provide a convenient notation for 
+expressing definite clause grammars, which are useful for the 
+analysis of both artificial and natural languages. 
+</p>
+<p>The usual way one attempts to make precise the definition of a
+language, whether it is a natural language or a programming language,
+is through a collection of rules called a &ldquo;grammar&rdquo;.  The rules of a
+grammar define which strings of words or symbols are valid sentences
+of the language.  In addition, the grammar generally analyzes the
+sentence into a structure that makes its meaning more explicit.
+</p>
+<p>A fundamental class of grammar is the context-free grammar (CFG),
+familiar to the computing community in the notation of &ldquo;BNF&rdquo;
+(Backus-Naur form). In CFGs, the words, or basic symbols, of the
+language are identified by &ldquo;terminal symbols&rdquo;, while categories of
+phrases of the language are identified by non-terminal symbols.  Each
+rule of a CFG expresses a possible form for a non-terminal, as a
+sequence of terminals and non-terminals.  The analysis of a string
+according to a CFG is a parse tree, showing the constitutent phrases
+of the string and their hierarchical relationships.
+</p>
+<p>Context-free grammars (CFGs) consist of a series of rules of the form:
+</p><div class="example">
+<pre class="example"><var>nt</var> --&gt; <var>body</var>.
+</pre></div>
+
+<p>where <var>nt</var> is a non-terminal symbol and body is a sequence of one or
+more items separated by commas.  Each item is either a non-terminal
+symbol or a sequence of terminal symbols.  The meaning of the rule is
+that <var>body</var> is a possible form for a phrase of type <var>nt</var>. A
+non-terminal symbol is written as a Prolog atom, while a sequence of
+terminals is written as a Prolog list, whereas a terminal may be any
+Prolog term.
+</p>
+<a name="index-grammars_002c-context_002dfree"></a>
+<a name="index-context_002dfree-grammars"></a>
+
+<p>Definite clause grammars (DCGs) are a generalization of context-free grammars 
+and rules corresponding to DCGs are referred to as &ldquo;Grammar Rules&rdquo;.
+A grammar rule in Prolog takes the general form
+</p><div class="example">
+<pre class="example"><var>head</var> --&gt; <var>body</var>.
+</pre></div>
+
+<p>meaning &ldquo;a possible form for  <var>head</var>  is  <var>body</var>&rdquo;.  
+Both  <var>body</var>  and  <var>head</var>  are
+sequences  of  one  or  more  items  linked  by  the  standard  Prolog
+conjunction operator &lsquo;<samp>,</samp>&rsquo; (comma).
+</p>
+<p>Definite clause grammars  extend  context-free  grammars  in  the
+following ways:
+</p>
+<ul>
+<li> A non-terminal symbol  may  be  any  callable Prolog  term.
+</li><li> A  terminal  symbol  may  be  any  Prolog  term.   To  distinguish
+terminals  from  non-terminals,  a  sequence  of  one or more terminal
+symbols is written within a grammar rule as a Prolog list.   An  empty
+sequence  is  written  as the empty list &lsquo;<samp>[]</samp>&rsquo;. If the terminal symbols
+are character codes, then such lists can be written (as elsewhere) as
+strings.  An empty sequence is written as the empty list (&lsquo;<samp>[]</samp>&rsquo; or 
+&lsquo;<samp>&quot;&quot;</samp>&rsquo;).
+<a name="index-_005b_005d_002c-empty-grammar-body"></a>
+
+</li><li> Extra conditions, in the form of Prolog procedure  calls,  may  be
+included  in  the  right-hand  side of a grammar rule.
+These extra conditions allow the explicit use of procedure calls in the
+body of a rule to restrict the constitutents accepted.  Such procedure
+calls are written enclosed in curly brackets (&lsquo;<samp>{</samp>&rsquo; and &lsquo;<samp>}</samp>&rsquo;).
+</li><li> The left-hand side of a grammar rule consists of  a  non-terminal,
+optionally  followed  by  a  sequence of terminals (again written as a
+Prolog list).
+</li><li> Alternatives may be stated explicitly in the right-hand side of  a
+grammar rule, using the disjunction operator &lsquo;<samp>;</samp>&rsquo; (semicolon) 
+as in Prolog.
+</li><li> The cut symbol &lsquo;<samp>!</samp>&rsquo; may be included in the right-hand side of a
+grammar rule, as in a Prolog clause.  The cut symbol does not need to
+be enclosed in curly brackets.  The same is true for the control
+constructs. However, all other built-in predicates not enclosed in
+curly brackets will be treated as non-terminal symbols.  The precise
+meaning of this rule is clarified in <a href="ref_002dgru_002dtra.html#ref_002dgru_002dtra">ref-gru-tra</a>.
+</li><li> <a name="index-grammar-rules_002c-control-constructs-in"></a>
+<a name="index-control-constructs-in-grammar-rules"></a>
+The extra arguments of non-terminals provide the means of building
+structure (such as parse trees) in grammar rules.  As non-terminals
+are &ldquo;expanded&rdquo; by matching against grammar rules, structures are
+progressively built up in the course of the unification process.
+</li><li> The extra arguments of non-terminals can also provide a general treatment
+of context dependency by carrying test and contextual information.
+</li></ul>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dgru_002dgru.html#ref_002dgru_002dgru" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dgru.html#ref_002dgru" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dgru_002ddcg.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dgru_002ddcg.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

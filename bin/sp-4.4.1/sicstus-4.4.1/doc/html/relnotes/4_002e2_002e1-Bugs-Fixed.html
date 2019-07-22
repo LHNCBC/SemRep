@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.2.1 Bugs Fixed</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.2.1 Bugs Fixed">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.2.1 Bugs Fixed">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e2_002e1-Changes.html#g_t4_002e2_002e1-Changes" rel="up" title="4.2.1 Changes">
+<link href="4_002e2_002e1-Other-Changes.html#g_t4_002e2_002e1-Other-Changes" rel="next" title="4.2.1 Other Changes">
+<link href="4_002e2_002e1-New-Features.html#g_t4_002e2_002e1-New-Features" rel="prev" title="4.2.1 New Features">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e2_002e1-Bugs-Fixed"></a>
+<hr>
+<a name="Bugs-Fixed-12"></a>
+<h4 class="subsection">14.17.2 Bugs Fixed</h4>
+
+<ul>
+<li> <code>restore/1</code> would behave inconsistently if invoked while loading files.
+</li><li> Nondet <code>user:portray/1</code> would switch off the debugger.
+</li><li> The prompt written to <code>user_error</code> would sometimes appear out of
+order wrt. output to other interactive streams.
+</li><li> Module name expansion of clauses was not robust to incorrect layout terms.
+</li><li> Format strings with &lsquo;<samp>~t</samp>&rsquo; not followed by tab stop would raise an
+instantiation error.
+</li><li> Dead code elimination could interfere with garbage collection.
+</li><li> Detection of redundant declarations is more precise.
+</li><li> A performance issue on the Windows platform has been fixed.
+</li><li> Typo in <a href="../sicstus/Action-Variables.html#Action-Variables">The Action Variables</a> in <cite>the SICStus Prolog Manual</cite>: <code>exception(<var>E</var>)</code> should read
+<code>raise(<var>E</var>)</code>. 
+</li><li> Float to big integer conversion bug on 64-bit platforms.
+</li><li> Better handling of do-loops whose iterators are not instantiated enough
+at compile time.
+</li><li> The virtual clauses <code>beginning_of_file</code> and <code>end_of_file</code> are
+now seen by term expansions only for source files, but not for files
+embedded by the <code>:-include</code> directive.
+</li><li> <code>predicate_property/2</code> with nonvar arguments would succeed nondeterminately.
+</li><li> <code>=..(<var>+Term</var>,<var>+List</var>)</code> could raise spurious errors instead of merely failing.
+</li><li> Stack overflow issue with pending unblocked goals.
+</li><li> Saved-states would not preserve the attribute handler order.
+</li><li> Source-info bug for huge interpreted clauses.
+</li><li> On Windows only, writing large amounts of data to the Windows console
+could fail with <code>SPIO_E_IO_ERROR</code>.
+</li><li> <code>library(between)</code>: <code>between/3</code> was not steadfast for constrained variables.
+</li><li> Exceptions used internally by 
+<code>library(timeout)</code> can be intercepted by the debugger again.  They
+were made transparent in release 4.1.3, but that hinders debugging.
+</li><li> <code>library(timeout)</code> did not work consulted.
+</li><li> <code>library(plunit)</code> did not handle <code>:- include</code> directives correctly.
+</li><li> <code>library(bdb)</code>: <code>db_findall/5</code> was not declared as a meta
+predicate. Determinacy bugs.
+</li><li> CHR: Spurious instantiation error bug fixed.
+</li><li> <code>library(zinc)</code>
+<ul class="no-bullet">
+<li>- Bug in constraint <code>all_equal</code> fixed.
+</li><li>- Removed <samp>--no-output-pred-decls</samp> to
+<code>mzn2fzn</code>, not supported as of release 1.3.
+</li></ul>
+</li><li> CLPFD: 
+<ul class="no-bullet">
+<li>- Propagation phase could be preempted if domain variables had
+blocked goals or attributes.
+</li><li>- Entailment detection bug in <code>maximum/2</code>, <code>minimum/2</code> caused memory leak.
+</li><li>- Bug in the <code>precedences/1</code> option to <code>cumulative/2</code>.
+</li></ul>
+</li><li> <code>library(ugraphs)</code>, <code>library(wgraphs)</code>: determinacy bugs.
+</li><li> <code>library(odbc)</code>: Non-ASCII error messages from the ODBC driver
+could give an exception about misencoded string. Incorrect handling of
+<code>SQL_BIGINT</code> and related types. Improved robustness.
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e2_002e1-Other-Changes.html#g_t4_002e2_002e1-Other-Changes" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e2_002e1-New-Features.html#g_t4_002e2_002e1-New-Features" accesskey="p" rel="prev">Previous</a>
+<li><a href="4_002e2_002e1-Changes.html#g_t4_002e2_002e1-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e2_002e1-Bugs-Fixed.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e2_002e1-Bugs-Fixed.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

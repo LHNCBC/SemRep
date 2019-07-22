@@ -1,0 +1,269 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-assoc</title>
+
+<meta name="description" content="SICStus Prolog: lib-assoc">
+<meta name="keywords" content="SICStus Prolog: lib-assoc">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002datts.html#lib_002datts" rel="next" title="lib-atts">
+<link href="lib_002daggregate.html#lib_002daggregate" rel="prev" title="lib-aggregate">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dassoc"></a>
+<hr>
+<a name="Association-Lists_002d_002d_002dlibrary_0028assoc_0029"></a>
+<h3 class="section">10.2 Association Lists&mdash;<code>library(assoc)</code></h3>
+<a name="index-association-list"></a>
+<a name="index-list_002c-association"></a>
+<a name="index-binary-tree"></a>
+<a name="index-tree_002c-binary"></a>
+<p>This library provides a binary tree implementation of &quot;association
+lists&quot;. The binary tree is <em>not</em> kept balanced, as opposed to
+<code>library(avl)</code>, which provides similar functionality based on balanced
+AVL trees.
+</p>
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>empty_assoc(<var>?Assoc</var>)</code></dt>
+<dd>
+<a name="index-empty_005fassoc_002f1-_0028assoc_0029-1"></a>
+<a name="index-empty_005fassoc_002f1-_0028assoc_0029"></a>
+
+<p>is true when <var>Assoc</var> is an empty assoc.
+</p></dd>
+<dt><code>assoc_to_list(<var>+Assoc</var>, <var>-List</var>)</code></dt>
+<dd>
+<a name="index-assoc_005fto_005flist_002f2-_0028assoc_0029-1"></a>
+<a name="index-assoc_005fto_005flist_002f2-_0028assoc_0029"></a>
+
+<p>assumes that <var>Assoc</var> is a proper &quot;assoc&quot; tree, and is true when
+<var>List</var> is a list of <var>Key-Value</var> pairs in ascending order with no
+duplicate <var>Keys</var> specifying the same finite function as <var>Assoc</var>.
+Use this to convert an assoc to a list.
+</p></dd>
+<dt><code>gen_assoc(<var>?Key</var>, <var>+Assoc</var>, <var>?Value</var>)</code></dt>
+<dd>
+<a name="index-gen_005fassoc_002f3-_0028assoc_0029-1"></a>
+<a name="index-gen_005fassoc_002f3-_0028assoc_0029"></a>
+
+<p>assumes that <var>Assoc</var> is a proper &quot;assoc&quot; tree, and is true when
+<var>Key</var> is associated with <var>Value</var> in <var>Assoc</var>.  Use this to enumerate
+<var>Keys</var> and <var>Values</var> in the <var>Assoc</var>, or to find <var>Keys</var> associated with
+a particular <var>Value</var>.  If you want to look up a particular <var>Key</var>,
+you should use <code>get_assoc/3</code>.  Note that this predicate is not
+determinate.  If you want to maintain a finite bijection, it
+is better to maintain two assocs than to drive one both ways.
+The <var>Keys</var> and <var>Values</var> are enumerated in ascending order of <var>Keys</var>.
+</p></dd>
+<dt><code>get_assoc(<var>+Key</var>, <var>+Assoc</var>, <var>-Value</var>)</code></dt>
+<dd>
+<a name="index-get_005fassoc_002f3-_0028assoc_0029-1"></a>
+<a name="index-get_005fassoc_002f3-_0028assoc_0029"></a>
+
+<p>assumes that <var>Assoc</var> is a proper &quot;assoc&quot; tree.  It is true when
+<var>Key</var> is identical to (<code>==</code>) one of the keys in <var>Assoc</var>, and Value
+unifies with the associated value.  Note that since we use the
+term ordering to identify keys, we obtain logarithmic access,
+at the price that it is not enough for the <var>Key</var> to unify with a
+key in <var>Assoc</var>, it must be identical.  This predicate is determinate.
+The argument order follows the pattern established by the
+built-in predicate <code>arg/3</code> (called the <code>arg/3</code>, or selector, rule):
+</p><div class="example">
+<pre class="example">    <var>predicate(indices, structure, element)</var>.
+</pre></div>
+<p>The analogy with <code>arg(<var>N</var>, <var>Term</var>, <var>Element</var>)</code> is that
+</p><div class="example">
+<pre class="example">    <var>Key:N :: Assoc:Term :: Value:Element</var>.
+</pre></div>
+</dd>
+<dt><code>get_next_assoc(<var>+Key</var>, <var>+Assoc</var>, <var>-Knext</var>, <var>-Vnext</var>)</code></dt>
+<dd>
+<a name="index-get_005fnext_005fassoc_002f4-_0028assoc_0029-1"></a>
+<a name="index-get_005fnext_005fassoc_002f4-_0028assoc_0029"></a>
+
+<p>is true when <var>Knext</var> is the smallest key in <var>Assoc</var> such that <var>Knext@&gt;Key</var>,
+and <var>Vnext</var> is the value associated with <var>Knext</var>.  If there is no such
+<var>Knext</var>, <code>get_next_assoc/4</code> naturally fails.  It assumes that <var>Assoc</var> is
+a proper assoc.  <var>Key</var> should normally be ground.  Note that there is
+no need for <var>Key</var> to be in the association at all.  You can use this
+predicate in combination with <code>min_assoc/3</code> to traverse an association
+tree; but if there are <var>N</var> pairs in the tree the cost will be <var>O(N lg N)</var>.
+If you want to traverse all the pairs, calling <code>assoc_to_list/2</code> and
+walking down the list will take <var>O(N)</var> time.
+</p></dd>
+<dt><code>get_prev_assoc(<var>+Key</var>, <var>+Assoc</var>, <var>-Kprev</var>, <var>-Vprev</var>)</code></dt>
+<dd>
+<a name="index-get_005fprev_005fassoc_002f4-1"></a>
+<a name="index-get_005fprev_005fassoc_002f4"></a>
+
+<p>is true when <var>Kprev</var> is the largest key in <var>Assoc</var> such that <var>Kprev@&lt;Key</var>,
+and <var>Vprev</var> is the value associated with <var>Kprev</var>.  You can use this
+predicate in combination with <code>max_assoc/3</code> to traverse an assoc.
+See the notes on <code>get_next_assoc/4</code>.
+</p></dd>
+<dt><code>is_assoc(<var>+Thing</var>)</code></dt>
+<dd>
+<a name="index-is_005fassoc_002f1-_0028assoc_0029-1"></a>
+<a name="index-is_005fassoc_002f1-_0028assoc_0029"></a>
+
+<p>is true when <var>Thing</var> is a (proper) association tree.  If you use the
+routines in this file, you have no way of constructing a tree with
+an unbound tip, and the heading of this file explicitly warns
+against using variables as keys, so such structures are NOT
+recognised as being association trees.  Note that the code relies
+on variables (to be precise, the first anonymous variable in
+<code>is_assoc/1</code>) being <code>@&lt;</code> than any non-variable.
+</p></dd>
+<dt><code>list_to_assoc(<var>+List</var>, <var>-Assoc</var>)</code></dt>
+<dd>
+<a name="index-list_005fto_005fassoc_002f2-_0028assoc_0029-1"></a>
+<a name="index-list_005fto_005fassoc_002f2-_0028assoc_0029"></a>
+
+<p>is true when <var>List</var> is a proper list of <var>Key-Val</var> pairs (in any order)
+and <var>Assoc</var> is an association tree specifying the same finite function
+from <var>Keys</var> to <var>Values</var>.  Note that the list should not contain any
+duplicate keys.  In this release, <code>list_to_assoc/2</code> doesn&rsquo;t check for
+duplicate keys, but the association tree which gets built won&rsquo;t work.
+</p></dd>
+<dt><code>ord_list_to_assoc(<var>+List</var>, <var>-Assoc</var>)</code></dt>
+<dd>
+<a name="index-ord_005flist_005fto_005fassoc_002f2-_0028assoc_0029-1"></a>
+<a name="index-ord_005flist_005fto_005fassoc_002f2-_0028assoc_0029"></a>
+
+<p>is a version of <code>list_to_assoc/2</code> which trusts you to have sorted
+the list already.  If you pair up an ordered set with suitable
+values, calling this instead will save the sort.
+</p></dd>
+<dt><code>map_assoc(<var>:Pred</var>, <var>+Assoc</var>)</code></dt>
+<dd>
+<a name="index-map_005fassoc_002f2-_0028assoc_0029-1"></a>
+<a name="index-map_005fassoc_002f2-_0028assoc_0029"></a>
+
+<p>is true when <var>Assoc</var> is a proper association tree, and for each
+<var>Key-&gt;Val</var> pair in <var>Assoc</var>, the proposition <var>Pred(Val)</var> is true.
+<var>Pred</var> must be a closure, and <var>Assoc</var> should be proper.
+There should be a version of this predicate which passes <var>Key</var>
+to <var>Pred</var> as well as <var>Val</var>, but there isn&rsquo;t.
+</p></dd>
+<dt><code>map_assoc(<var>:Pred</var>, <var>?OldAssoc</var>, <var>?NewAssoc</var>)</code></dt>
+<dd>
+<a name="index-map_005fassoc_002f3-_0028assoc_0029-1"></a>
+<a name="index-map_005fassoc_002f3-_0028assoc_0029"></a>
+
+<p>is true when <var>OldAssoc</var> and <var>NewAssoc</var> are association trees of the
+same shape (at least one of them should be provided as a proper
+assoc, or <code>map_assoc/3</code> may not terminate), and for each <var>Key</var>,
+if <var>Key</var> is associated with <var>Old</var> in <var>OldAssoc</var> and with <var>New</var> in
+<var>NewAssoc</var>, the proposition <var>Pred(Old,New)</var> is true.  Normally we
+assume that <var>Pred</var> is a function from <var>Old</var> to <var>New</var>, but the code
+does not require that.  There should be a version of this
+predicate which passes <var>Key</var> to <var>Pred</var> as well as <var>Old</var> and <var>New</var>,
+but there isn&rsquo;t.  If you&rsquo;d have a use for it, please tell us.
+</p></dd>
+<dt><code>max_assoc(<var>+Assoc</var>, <var>-Key</var>, <var>-Val</var>)</code></dt>
+<dd>
+<a name="index-max_005fassoc_002f3-_0028assoc_0029-1"></a>
+<a name="index-max_005fassoc_002f3-_0028assoc_0029"></a>
+
+<p>is true when <var>Key</var> is the largest <var>Key</var> in <var>Assoc</var>, and <var>Val</var> is the
+associated value.  It assumes that <var>Assoc</var> is a proper assoc.
+This predicate is determinate.  If <var>Assoc</var> is empty, it just
+fails quietly; an empty set can have no largest element!
+</p></dd>
+<dt><code>min_assoc(<var>+Assoc</var>, <var>-Key</var>, <var>-Val</var>)</code></dt>
+<dd>
+<a name="index-min_005fassoc_002f3-_0028assoc_0029-1"></a>
+<a name="index-min_005fassoc_002f3-_0028assoc_0029"></a>
+
+<p>is true when <var>Key</var> is the smallest <var>Key</var> in <var>Assoc</var>, and <var>Val</var> is the
+associated value.  It assumes that <var>Assoc</var> is a proper assoc.
+This predicate is determinate.  If <var>Assoc</var> is empty, it just
+fails quietly; an empty set can have no smallest element!
+</p></dd>
+<dt><code>portray_assoc(<var>+Assoc</var>)</code></dt>
+<dd>
+<a name="index-portray_005fassoc_002f1-_0028assoc_0029-1"></a>
+<a name="index-portray_005fassoc_002f1-_0028assoc_0029"></a>
+
+<p>writes an association tree to the current output stream in a
+pretty form so that you can easily see what it is.  Note that
+an association tree written out this way can NOT be read back
+in.  For that, use <code>writeq/1</code>.  The point of this predicate is
+to get association trees displayed nicely by <code>print/1</code>.
+</p></dd>
+<dt><code>put_assoc(<var>+Key</var>, <var>+OldAssoc</var>, <var>+Val</var>, <var>-NewAssoc</var>)</code></dt>
+<dd>
+<a name="index-put_005fassoc_002f4-_0028assoc_0029-1"></a>
+<a name="index-put_005fassoc_002f4-_0028assoc_0029"></a>
+
+<p>is true when <var>OldAssoc</var> and <var>NewAssoc</var> define the same finite function,
+except that <var>NewAssoc</var> associates <var>Val</var> with <var>Key</var>.  <var>OldAssoc</var> need not
+have associated any value at all with Key,
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002datts.html#lib_002datts" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002daggregate.html#lib_002daggregate" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dassoc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dassoc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

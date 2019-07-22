@@ -1,0 +1,6 @@
+entrezgene_glue {
+  global:
+    sp_main_SPENV_entrezgene;
+  local:
+    *;
+};

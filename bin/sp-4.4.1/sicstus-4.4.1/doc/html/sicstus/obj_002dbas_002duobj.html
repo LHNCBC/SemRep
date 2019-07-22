@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-bas-uobj</title>
+
+<meta name="description" content="SICStus Prolog: obj-bas-uobj">
+<meta name="keywords" content="SICStus Prolog: obj-bas-uobj">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dbas.html#obj_002dbas" rel="up" title="obj-bas">
+<link href="obj_002dbas_002ddef.html#obj_002dbas_002ddef" rel="next" title="obj-bas-def">
+<link href="obj_002dbas.html#obj_002dbas" rel="prev" title="obj-bas">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dbas_002duobj"></a>
+<hr>
+<a name="Using-SICStus-Objects"></a>
+<h4 class="subsubsection">10.23.1.1 Using SICStus Objects</h4>
+
+
+<p>One of the basic ideas of object-oriented programming is the
+encapsulation of data and procedures into objects. Each object belongs
+to exactly one class, and an object is referred to as an instance of
+its class. A class definition determines the following things for its
+objects:
+</p>
+<ul>
+<li> slots, where an object holds data
+</li><li> messages, the commands that can be sent to an object
+</li><li> methods, the procedures the object uses to respond to the messages
+</li></ul>
+
+
+<p>All interaction with an object is by sending it messages. The command
+to send a message to an object has the form
+</p>
+<div class="example">
+<pre class="example"><var>Object</var> <var>MessageOp</var> <var>Message</var>
+</pre></div>
+
+
+<p>where <var>Object</var> is an object, <var>MessageOp</var> is one of the message
+operators (&lsquo;<samp>&lt;&lt;</samp>&rsquo;, &lsquo;<samp>&gt;&gt;</samp>&rsquo;, or &lsquo;<samp>&lt;-</samp>&rsquo;) and <var>Message</var> is a message
+defined for the object&rsquo;s class.  Roughly speaking, the &lsquo;<samp>&gt;&gt;</samp>&rsquo; message
+operator is used for extracting information from an object, &lsquo;<samp>&lt;&lt;</samp>&rsquo; is for
+storing information into an object, and &lsquo;<samp>&lt;-</samp>&rsquo; is for any other sort
+of operation.
+</p>
+<p>For example, using the point class defined in the next section, it
+would be possible to give the following command, which demonstrates
+all three message operators.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(point, PointObj), 
+     PointObj &gt;&gt; x(InitX), 
+     PointObj &gt;&gt; y(InitY), 
+     PointObj &lt;&lt; x(2.71828), 
+     PointObj &lt;&lt; y(3.14159), 
+     PointObj &lt;- print(user_output),
+     nl(user_output).</kbd>
+
+(2.71828,3.14159)
+PointObj = point(23461854),
+InitX = 1.0,
+InitY = 2.0
+</pre></div>
+
+
+<p>First it binds the variable
+<code>PointObj</code> to a newly created <code>point</code> object. Then, the two get messages (sent with the &lsquo;<samp>&gt;&gt;</samp>&rsquo;
+operator) fetch the initial values of the point&rsquo;s <code>x</code> and <code>y</code> slots, binding
+the variables <code>InitX</code> and <code>InitY</code> to these values.  Next, the two
+put messages (sent with the &lsquo;<samp>&lt;&lt;</samp>&rsquo; operator) assign new values to
+the object&rsquo;s <code>x</code> and <code>y</code> slots. Finally, the send message (sent with the
+&lsquo;<samp>&lt;-</samp>&rsquo; operator) instructs the point object to print itself to the
+<code>user_output</code> stream, followed by a newline.  Following the goal, we see
+the point has been printed in a suitable form.  Following this, the values of
+<code>PointObj</code>, <code>InitX</code>, and <code>InitY</code> are printed as usual
+for goals entered at the top-level prompt.
+</p>
+<p>Because this goal is issued at the top-level prompt, the values of the
+variables <code>PointObj</code>, <code>InitX</code> and <code>InitY</code> are not retained after
+the command is executed and their values are displayed, as with any
+goal issued at the top-level prompt.  However, the
+point object still exists, and it retains the changes made to its
+slots. Hence, objects, like clauses  
+asserted to the Prolog database, are more persistent than Prolog variables.
+</p>
+<p>Another basic idea of object-oriented programming is the notion of
+inheritance. Rather than defining each class separately, a new class
+can inherit the properties of a more general superclass. Or, it can be
+further specialized by defining a new subclass, which inherits its
+properties. (C++ uses the phrase &ldquo;base class&rdquo; where we use
+&ldquo;superclass.&rdquo; It also uses &ldquo;derived class&rdquo; where we use &ldquo;subclass.&rdquo;)
+</p>
+<p>SICStus Objects uses term expansion to translate object-oriented
+programs into ordinary Prolog. (This is the same technique that Prolog
+uses for its DCG grammar rules.) As much as possible is done at
+compile time. Class definitions are used to generate Prolog clauses
+that implement the class&rsquo;s methods. Message commands are translated into
+calls to those Prolog clauses.  And, inheritance is resolved at
+translation time.
+</p>
+<p>SICStus Objects consists of two modules, <code>obj_decl</code> and <code>objects</code>. The
+<code>obj_decl</code> module is used at compile time to translate the
+object-oriented features of SICStus Objects. Any file that defines
+classes or sends messages should include the command
+</p>
+<div class="example">
+<pre class="example">:- load_files(library(obj_decl),
+              [when(compile_time), if(changed)]).
+</pre></div>
+
+
+<p>The <code>objects</code> module provides runtime support for SICStus Objects
+programs. A file that sends messages or asks questions about what
+classes are defined or to what class an object belongs should include
+the command:
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(objects)).
+</pre></div>
+
+
+<p>You will probably include both in most files that define and use classes.
+</p>
+<p><strong>Please note:</strong> A file that loads <code>library(obj_decl)</code> currently cannot
+recursively load another file that loads <code>library(obj_decl)</code>, because that would
+confuse the internal database being used by the package.
+</p>
+<p>If you use the foreign resource linker, <code>splfr</code>, on a Prolog
+file that uses the <code>objects</code> package, then you must pass it the
+<samp>--objects</samp> option.  This will make <code>splfr</code> understand
+the package&rsquo;s syntax extensions.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dbas_002ddef.html#obj_002dbas_002ddef" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dbas.html#obj_002dbas" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dbas_002duobj.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dbas_002duobj.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

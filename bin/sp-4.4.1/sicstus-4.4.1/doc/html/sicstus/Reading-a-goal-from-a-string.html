@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Reading a goal from a string</title>
+
+<meta name="description" content="SICStus Prolog: Reading a goal from a string">
+<meta name="keywords" content="SICStus Prolog: Reading a goal from a string">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" rel="up" title="Calling Prolog from C">
+<link href="SICStus-Streams.html#SICStus-Streams" rel="next" title="SICStus Streams">
+<link href="Exception-Handling-in-C.html#Exception-Handling-in-C" rel="prev" title="Exception Handling in C">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Reading-a-goal-from-a-string"></a>
+<hr>
+<a name="Reading-a-goal-from-a-string-1"></a>
+<h4 class="subsection">6.5.6 Reading a goal from a string</h4>
+<a name="index-reading-a-goal-from-a-string"></a>
+
+<p>A simple way to call arbitrary Prolog code is to use
+<code>SP_read_from_string()</code> (see <a href="Creating-Prolog-Terms.html#Creating-Prolog-Terms">Creating Prolog Terms</a>) to create
+an argument to <code>call/1</code>. It is a good idea to always
+explicitly specify the module context when using <code>call/1</code> or
+other meta-predicates from C.
+</p>
+<p>This example calls a compound goal (without error checking):
+</p><div class="example">
+<pre class="example">SP_pred_ref call_pred = SP_predicate(&quot;call&quot;, 1, &quot;prolog&quot;);
+SP_term_ref x = SP_new_term_ref();
+SP_term_ref goal = SP_new_term_ref();
+SP_term_ref vals[] = {x, 0 /* zero termination */};
+SP_integer len;
+
+SP_put_variable(x);
+/* The X=_ is a trick to ensure that X is the first variable
+   in the depth-first order and thus corresponds to vals[0] (x).
+   There are no entries in vals for _,L1,L2.
+*/
+SP_read_from_string(goal,
+   &quot;user:(X=_, length([0,1,2],L1), length([3,4],L2), X is L1+L2).&quot;, vals);
+
+SP_query(call_pred, goal);
+SP_get_integer(x, &amp;len);
+/* here len is 5 */
+</pre></div>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Exception-Handling-in-C.html#Exception-Handling-in-C" accesskey="p" rel="prev">Previous</a>
+<li><a href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Reading-a-goal-from-a-string.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Reading-a-goal-from-a-string.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

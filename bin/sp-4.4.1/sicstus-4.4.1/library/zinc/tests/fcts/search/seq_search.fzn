@@ -1,0 +1,9 @@
+% RUNS ON flatzinc
+% RUNS ON fzn_fd
+% RUNS ON fzn_lazyfd
+
+var bool: x1 :: output_var;
+var bool: x2 :: output_var;
+var bool: x3 :: output_var;
+
+solve :: seq_search([bool_search([x2], input_order, indomain_min, complete), bool_search([x1], input_order, indomain_min, complete), bool_search([x3], input_order, indomain_min, complete)]) satisfy;

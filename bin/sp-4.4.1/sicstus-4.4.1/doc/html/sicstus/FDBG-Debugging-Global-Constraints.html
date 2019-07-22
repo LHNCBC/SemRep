@@ -1,0 +1,307 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FDBG Debugging Global Constraints</title>
+
+<meta name="description" content="SICStus Prolog: FDBG Debugging Global Constraints">
+<meta name="keywords" content="SICStus Prolog: FDBG Debugging Global Constraints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" rel="up" title="FDBG Advanced Usage">
+<link href="lib_002dfile_005fsystems.html#lib_002dfile_005fsystems" rel="next" title="lib-file_systems">
+<link href="FDBG-Showing-Selected-Constraints-_0028advanced-version_0029.html#FDBG-Showing-Selected-Constraints-_0028advanced-version_0029" rel="prev" title="FDBG Showing Selected Constraints (advanced version)">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FDBG-Debugging-Global-Constraints"></a>
+<hr>
+<a name="Debugging-Global-Constraints"></a>
+<h4 class="subsubsection">10.15.4.6 Debugging Global Constraints</h4>
+
+<p>Missing pruning and excessive pruning are the two major classes of bugs
+in the implementation of global constraints.  Since CLP(FD) is an
+incomplete constraint solver, missing pruning is mainly an efficiency
+concern (but <em>ground</em> instances for which the constraint does
+not hold should be rejected).  Excessive pruning, however, means that
+some valid combinations of values are pruned away, leading to missing
+solutions.  The following exported predicate helps spotting
+excessive pruning in user-defined global constraints:
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-fdbg_005fguard_002f3-_0028fdbg_0029-1"></a>
+<a name="index-fdbg_005fguard_002f3-_0028fdbg_0029"></a>
+
+</dd>
+<dt><code>fdbg_guard(<var>:Goal</var>, <var>+Constraint</var>, <var>+Actions</var>)</code></dt>
+<dd><p>A constraint visualizer that does no output, but notifies the user by
+calling <var>Goal</var> if a solution is lost through domain narrowings.
+Naturally you have to inform <code>fdbg_guard/3</code> about the solution in
+question&mdash;stating which variables should have which values.  To
+use <code>fdbg_guard/3</code>, first:
+</p>
+<ol>
+<li> Set it up as a visualizer by calling:
+
+<div class="example">
+<pre class="example">fdbg_on([&hellip;, constraint_hook(fdbg_guard(<var>Goal</var>)), &hellip;])
+</pre></div>
+
+<p>As usual, the two other arguments will be supplied by the FDBG
+core when calling <code>fdbg_guard/3</code>.
+</p>
+</li><li> At the beginning of your program, form a pair of lists
+<code><var>Xs</var>-<var>Vs</var></code> where <var>Xs</var> is the list of
+variables and <var>Vs</var> is the list of values in question.
+This pair should then be assigned the name <code>fdbg_guard</code>
+using:
+<div class="example">
+<pre class="example">| ?- <kbd>fdbg_assign_name(<var>Xs</var>-<var>Vs</var>, fdbg_guard).</kbd>
+</pre></div>
+</li></ol>
+
+<p>When these steps have been taken, <code>fdbg_guard/3</code> will watch the
+domain changes of <var>Xs</var> done by each constraint <var>C</var>.
+Whenever <var>Vs</var> is in the domains of <var>Xs</var> at entry to <var>C</var>, but
+not at exit from <var>C</var>, <var>Goal</var> is called with three more
+arguments:
+</p>
+<dl compact="compact">
+<dt><var>Variable List</var></dt>
+<dd><p>a list of <code><var>Variable</var>-<var>Value</var></code> terms for which
+<var>Value</var> was removed from the domain of <var>Variable</var>
+</p></dd>
+<dt><var>Constraint</var></dt>
+<dd><p>the constraint that was handled by the dispatcher
+</p></dd>
+<dt><var>Actions</var></dt>
+<dd><p>the action list returned by the dispatcher
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<p>We will now show an example using <code>fdbg_guard/3</code>.  First, we will need a
+few extra lines of code:
+</p>
+<div class="example">
+<pre class="example">%% print_and_trace(MissValues, Constraint, Actions):  To be used as a Goal for
+%%   fdbg_guard to call when the given solution was removed from the domains
+%%   of the variables.
+%%
+%%   MissValues is a list of Var-Value pairs, where Value is the value that
+%%   should appear in the domain of Var, but has been removed.  Constraint is
+%%   the current constraint and Actions is the list of actions returned by it.
+%%
+%%   This predicate prints MissValues in a textual form, then shows the current
+%%   (culprit) constraint (as done by fdbg_show/2), then turns on the Prolog
+%%   tracer.
+print_and_trace(MissValues, Constraint, Actions) :-
+        print(fdbg_output, '\nFDBG Guard:\n'),
+        display_missing_values(MissValues),
+        print(fdbg_output, '\nCulprit constraint:\n\n'),
+        fdbg_show(Constraint, Actions),
+        trace.
+
+display_missing_values([]).
+display_missing_values([Var-Val|MissVals]) :-
+        fdbg_annotate(Var,AVar,_),
+        format(fdbg_output, '  ~d was removed from ~p~n', [Val,AVar]),
+        display_missing_values(MissVals).
+</pre></div>
+
+<p>Suppose that we have written the following N Queens program, using
+a global constraint <code>no_threat/3</code> with a bug in it:
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(fdbg)).
+:- use_module(library(clpfd)).
+
+queens(L, N) :-
+        length(L, N),
+        domain(L, 1, N),
+        constrain_all(L),
+        labeling([enum], L).
+
+constrain_all([]).
+constrain_all([X|Xs]):-
+        constrain_between(X,Xs,1),
+        constrain_all(Xs).
+
+constrain_between(_X,[],_N).
+constrain_between(X,[Y|Ys],N) :-
+        no_threat(X,Y,N),
+        N1 is N+1,
+        constrain_between(X,Ys,N1).
+
+no_threat(X,Y,I) :-
+        fd_global(no_threat(X,Y,I), 0, [val(X),val(Y)]).
+
+:- multifile clpfd:dispatch_global/4.
+clpfd:dispatch_global(no_threat(X,Y,I), S, S, Actions) :-
+        ground(X), !,
+        remove_threat(Y, X, I, NewYSet),
+        Actions = [exit, Y in_set NewYSet].
+clpfd:dispatch_global(no_threat(X,Y,I), S, S, Actions) :-
+        ground(Y), !,
+        remove_threat(X, Y, I, NewXSet),
+        Actions = [exit, X in_set NewXSet].
+clpfd:dispatch_global(no_threat(_,_,_), S, S, []).
+
+remove_threat(X, V, I, Set) :-
+        Vp is V+I+1,   % Bug introduced here
+%       Vp is V+I,     % Good code
+        Vn is V-I,
+        fd_set(X, Set0),
+        list_to_fdset([Vn, V, Vp], VSet),
+        fdset_subtract(Set0, VSet, Set).
+
+missing(L, Tuple) :-
+     length(Tuple, N),
+     length(L, N),
+     domain(L, 1, N),
+     lex_chain([[2,4,1,3],L]),
+     fdbg_assign_name(L-Tuple, fdbg_guard),
+     fdbg_assign_name(L, board),
+     fdbg_on([constraint_hook(fdbg_guard(print_and_trace))]),
+     queens(L, N).
+</pre></div>
+
+<p>We will now use <code>print_and_trace/3</code> as an argument to the
+<code>fdbg_guard</code> visualizer to handle the case when a solution has been
+removed by a constraint. The bug shown above causes three invalid
+solutions to be found instead of the two correct solutions
+<code>[2,4,1,3]</code> and <code>[3,1,4,2]</code>.  The constraint:
+</p>
+<div class="display">
+<pre class="display"><code>lex_chain([[2,4,1,3],L]),</code>
+</pre></div>
+
+<p>constraints the search to solutions lexicographically greater than or
+equal to the first correct solution, and FDBG is told to watch for its
+disappearance.  At some point, the buggy constraint removes it, and
+<code>fdbg_guard/3</code> calls the given predicate.  This prints the cause of
+waking (the value that should not have been removed by the constraint),
+prints the constraint itself, then switches the Prolog debugger to trace
+mode.  At this point, we type &lsquo;<samp>A</samp>&rsquo; (see <a href="FDBG-Debugger-Commands.html#FDBG-Debugger-Commands">FDBG Debugger Commands</a>)
+to print the annotated form of the goal containing the culprit
+constraint.  Finally, we type &lsquo;<samp>A [2,4]</samp>&rsquo; to print the same
+information, but taking into account the action list, which is the 4th
+argument of the 2nd argument of the module prefixed goal.  For clarity,
+the labeling events were not turned off in the session below.
+</p>
+<p>This example shows how FDBG can be used to narrow down what causes
+invalid pruning.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>missing(L, [2,4,1,3]).</kbd>
+% The clp(fd) debugger is switched on
+Labeling [8, &lt;board_1&gt;]: starting in range 2..4.
+Labeling [8, &lt;board_1&gt;]: indomain_up: &lt;board_1&gt; = 2
+
+
+FDBG Guard:
+  4 was removed from &lt;board_2&gt;
+
+Culprit constraint:
+
+user:no_threat(2,&lt;board_2&gt;,1)
+    board_2 = 1..4 -&gt; {3}
+    Constraint exited.
+
+% The debugger will first creep -- showing everything (trace)
+       11      2 Exit:
+       clpfd:dispatch_global_fast(no_threat(2,_1511,1),0,0,
+       [exit,_1511 in_set[[3|3]]],
+       global('$mutable'(0,0),no_threat(2,_1511,1),'$mutable'(11,596),
+       _10779,user:no_threat(2,_1511,1))) ? <kbd>A</kbd>
+
+clpfd:dispatch_global_fast(no_threat(2,&lt;board_2&gt;,1),0,0,
+        [exit,&lt;board_2&gt; in_set[[3|3]]],global($mutable(0,0),no_threat(2,&lt;board_2&gt;,1),
+        $mutable(11,596),&lt;fdvar_1&gt;,user:no_threat(2,&lt;board_2&gt;,1)))
+    board_2 = 1..4
+    fdvar_1 = inf..sup
+
+       11      2 Exit:
+       clpfd:dispatch_global_fast(no_threat(2,_1511,1),0,0,
+       [exit,_1511 in_set[[3|3]]],
+       global('$mutable'(0,0),no_threat(2,_1511,1),'$mutable'(11,596),
+       _23859,user:no_threat(2,_1511,1))) ? <kbd>A [2,4]</kbd>
+
+clpfd:dispatch_global_fast(no_threat(2,&lt;board_2&gt;,1),0,0,
+        [exit,&lt;board_2&gt; in_set[[3|3]]],global($mutable(0,0),no_threat(2,&lt;board_2&gt;,1),
+        $mutable(11,596),&lt;fdvar_1&gt;,user:no_threat(2,&lt;board_2&gt;,1)))
+    board_2 = 1..4 -&gt; {3}
+    fdvar_1 = inf..sup
+    Constraint exited.
+
+       11      2 Exit:
+       clpfd:dispatch_global_fast(no_threat(2,_1511,1),0,0,
+       [exit,_1511
+       in_set[[3|3]]],global('$mutable'(0,0),no_threat(2,_1511,1),'$mutable'(11,596),
+       _23859,user:no_threat(2,_1511,1))) ? <kbd>a</kbd>
+% Execution aborted
+% advice,source_info
+| ?- <kbd>fdbg_off.</kbd>
+% The clp(fd) debugger is switched off
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FDBG-Showing-Selected-Constraints-_0028advanced-version_0029.html#FDBG-Showing-Selected-Constraints-_0028advanced-version_0029" accesskey="p" rel="prev">Previous</a>
+<li><a href="FDBG-Advanced-Usage.html#FDBG-Advanced-Usage" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Debugging-Global-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Debugging-Global-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

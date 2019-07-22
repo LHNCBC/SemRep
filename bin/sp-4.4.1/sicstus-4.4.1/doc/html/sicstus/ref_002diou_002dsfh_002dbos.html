@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-sfh-bos</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-sfh-bos">
+<meta name="keywords" content="SICStus Prolog: ref-iou-sfh-bos">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" rel="up" title="ref-iou-sfh">
+<link href="ref_002diou_002dsfh_002dcst.html#ref_002diou_002dsfh_002dcst" rel="next" title="ref-iou-sfh-cst">
+<link href="ref_002diou_002dsfh_002dcos.html#ref_002diou_002dsfh_002dcos" rel="prev" title="ref-iou-sfh-cos">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002dsfh_002dbos"></a>
+<hr>
+<a name="Finding-Out-About-Open-Streams"></a>
+<h4 class="subsubsection">4.6.7.8 Finding Out About Open Streams</h4>
+
+
+<a name="index-current_005fstream_002f3-_0028built_002din_0029-1"></a>
+<a name="index-current_005fstream_002f3-_0028built_002din_0029"></a>
+
+<a name="index-current-stream"></a>
+<a name="index-stream_002c-current"></a>
+<p><code>current_stream(<var>File</var>, <var>Mode</var>, <var>Stream</var>)</code> succeeds if
+<var>Stream</var> is a stream that is currently open on file <var>File</var> in mode 
+<var>Mode</var>, where <var>Mode</var> is either <code>read</code>, <code>write</code>, or
+<code>append</code>.  None of the arguments need be initially instantiated.
+This predicate is nondeterminate and can be used to backtrack through all
+open streams.  
+<code>current_stream/3</code> ignores certain predefined streams, including
+the initial values of the special streams for the standard input,
+output, and error channels.
+See <a href="mpg_002dref_002dcurrent_005fstream.html#mpg_002dref_002dcurrent_005fstream">mpg-ref-current_stream</a>.
+</p>
+
+
+<a name="index-stream_005fproperty_002f2-_0028built_002din_0029-1"></a>
+<a name="index-stream_005fproperty_002f2-_0028built_002din_0029"></a>
+
+<p><code>stream_property(<var>Stream</var>, <var>Property</var>)</code> succeeds if
+<var>Stream</var> is a currently open stream with property <var>Property</var>.
+Predefined streams, like the three standard channels, are <em>not</em> ignored.
+See <a href="mpg_002dref_002dstream_005fproperty.html#mpg_002dref_002dstream_005fproperty">mpg-ref-stream_property</a>.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002dsfh_002dcst.html#ref_002diou_002dsfh_002dcst" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002diou_002dsfh_002dcos.html#ref_002diou_002dsfh_002dcos" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002diou_002dsfh.html#ref_002diou_002dsfh" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002dsfh_002dbos.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002dsfh_002dbos.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

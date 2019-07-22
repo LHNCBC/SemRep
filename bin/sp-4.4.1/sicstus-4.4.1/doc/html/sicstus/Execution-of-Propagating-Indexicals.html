@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Execution of Propagating Indexicals</title>
+
+<meta name="description" content="SICStus Prolog: Execution of Propagating Indexicals">
+<meta name="keywords" content="SICStus Prolog: Execution of Propagating Indexicals">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" rel="up" title="Defining Primitive Constraints">
+<link href="Execution-of-Checking-Indexicals.html#Execution-of-Checking-Indexicals" rel="next" title="Execution of Checking Indexicals">
+<link href="FD-Predicates.html#FD-Predicates" rel="prev" title="FD Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Execution-of-Propagating-Indexicals"></a>
+<hr>
+<a name="Execution-of-Propagating-Indexicals-1"></a>
+<h4 class="subsubsection">10.10.10.8 Execution of Propagating Indexicals</h4>
+
+<p>Consider the definition of a constraint <var>C</var> containing a propagating
+indexical <code><var>X</var> in <var>R</var></code>.  Let <var>TV(X,C,S)</var> denote the set
+of values for <var>X</var> that can make <var>C</var> true in some ground
+extension of the store <var>S</var>.  Then the indexical should obey the
+following coding rules:
+</p>
+<ul>
+<li> all arguments of <var>C</var> except <var>X</var> should occur in <var>R</var>
+</li><li> if <var>R</var> is ground in <var>S</var>, <var>S(R) = TV(X,C,S)</var>
+</li></ul>
+
+<p>If the coding rules are observed, then <var>S(R)</var> can be proven to contain
+<var>TV(X,C,S)</var> for all stores in which <var>R</var> is monotone.  Hence it
+is natural for the implementation to wait until <var>R</var> becomes monotone
+before admitting the propagating indexical for execution.  The execution
+of <code><var>X</var> in <var>R</var></code> thus involves the following:
+</p>
+<ul>
+<li> If <var>D(X,S)</var> is disjoint from <var>S(R)</var>, then a contradiction is
+detected.
+
+</li><li> If <var>D(X,S)</var> is contained in <var>S(R)</var>, then <var>D(X,S)</var> does not
+contain any values known to be incompatible with <var>C</var>, and the
+indexical suspends, unless <var>R</var> is ground in <var>S</var>, in which case
+<var>C</var> is detected as entailed.
+
+</li><li> Otherwise, <var>D(X,S)</var> contains some values that are known to be
+incompatible with <var>C</var>.  Hence, <var>S</var> is extended to <var>(X in
+S(R))(S)</var> (<var>X</var> is <em>pruned</em>), and the indexical suspends, unless
+<var>R</var> is ground in <var>S</var>, in which case <var>C</var> is detected as
+entailed.
+</li></ul>
+
+<p>A propagating indexical is scheduled for execution as follows:
+</p>
+<ul>
+<li> it is evaluated initially as soon as it has become monotone
+</li><li> it is re-evaluated when one of the following conditions occurs:
+<ol>
+<li> the domain of a variable <var>Y</var> that occurs as <code>dom(<var>Y</var>)</code>
+      or <code>card(<var>Y</var>)</code> in <var>R</var> has been updated
+</li><li> the lower bound of a variable <var>Y</var> that occurs as <code>min(<var>Y</var>)</code>
+      in <var>R</var> has been updated
+</li><li> the upper bound of a variable <var>Y</var> that occurs as <code>max(<var>Y</var>)</code>
+      in <var>R</var> has been updated
+</li></ol>
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Execution-of-Checking-Indexicals.html#Execution-of-Checking-Indexicals" accesskey="n" rel="next">Next</a>
+<li><a href="FD-Predicates.html#FD-Predicates" accesskey="p" rel="prev">Previous</a>
+<li><a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Execution-of-Propagating-Indexicals.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Execution-of-Propagating-Indexicals.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

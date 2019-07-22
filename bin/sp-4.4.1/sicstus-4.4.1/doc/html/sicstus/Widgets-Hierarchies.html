@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Widgets Hierarchies</title>
+
+<meta name="description" content="SICStus Prolog: Widgets Hierarchies">
+<meta name="keywords" content="SICStus Prolog: Widgets Hierarchies">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tk.html#Tk" rel="up" title="Tk">
+<link href="Widget-Creation.html#Widget-Creation" rel="next" title="Widget Creation">
+<link href="Types-of-Widget.html#Types-of-Widget" rel="prev" title="Types of Widget">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Widgets-Hierarchies"></a>
+<hr>
+<a name="Widgets-Hierarchies-1"></a>
+<h4 class="subsubsection">10.39.3.3 Widgets Hierarchies</h4>
+
+<p>Before going further it is necessary to understand how instances of
+widgets are named.  Widgets are arranged in a hierarchy. The names of
+widget instances are formed from dot separated words.  The root window
+is simply <code>.</code> on its own.  So for, example, a button widget that
+is displayed in the root window might have the name <code>.b1</code>.  A
+button that is displayed inside a frame that is displayed inside the
+root window may have the name <code>.frame1.b1</code>.  The frame would have
+the name <code>.frame1</code>.
+</p>
+<p>Following this notation, it is clear that widgets are both
+formed in hierarchies, with the dot notation giving the path to
+a widget, and in groups, all widgets with the same leading path
+are notionaly in the same group.
+</p>
+<p>(It is a similar to the way file systems are organized.
+ A file has a path that shows where to find it in the hierarchical
+ file system. But also files with the same leading path are in the same
+ directory/folder and so are notionaly grouped together.)
+</p>
+<p>An instance of a widget is created through the a Tcl command for that
+widget.  The widget command my have optional arguments set for
+specifying various attributes of the widget that it will have when it is
+created.  The result of a successful widget command is the name of the
+new widget.
+</p>
+<p>For example, a command to create a button widget named <code>.mybutton</code>
+that displays the text &ldquo;I am a button&rdquo; would look like this:
+</p>
+<div class="example">
+<pre class="example">button .mybutton -text &quot;I am a button&quot;
+</pre></div>
+
+<p>and this will return the name <code>.mybutton</code>.
+</p>
+<p>A widget will only be created if all the windows/widgets
+in the leading path of the new widget also exist, and also that the
+name of the new widget does not already exist.
+</p>
+<p>For example, the following
+</p>
+<div class="example">
+<pre class="example">button .mybutton -text &quot;I am a button&quot;
+button .mybutton -text &quot;and so am I&quot;
+</pre></div>
+
+<p>will fail at the second command because there is also a widget named
+<code>.mybutton</code> from the first command.
+</p>
+<p>The following will also fail
+</p>
+<div class="example">
+<pre class="example">button .frame.mybutton -text &quot;I am a button&quot;
+</pre></div>
+
+<p>if there is no existing widget with the name <code>.frame</code> to be the parent
+of <code>.mybutton</code>.
+</p>
+<p>All this begs the question: why are widgets named and arranged in
+a hierarchy? Is not a GUI just a bunch of widgets displayed
+in a window?
+</p>
+<p>This is not generally how GUIs are arranged.
+For example, they often have a menubar over the top of each window.
+The menubar contains pulldown menus. The pulldown menus may have
+cascading menu items that may cascade down several levels.
+Under the menu bar is the main part of the window that may
+also be split into several &ldquo;frames&rdquo;. A left hand frame my have
+a set of buttons in it, for example. And so on.
+From this you can see that the widgets in GUIs are naturally
+arranged in a hierarchy. To achieve this in Tcl/Tk
+instances of widgets are placed in a hierarchy, which is reflected in their
+names.
+</p>
+<p>Now we will go through each of the widget commands in turn.
+Each widget command has many options most of which will not
+be described here. Just enough will be touched on for the reader
+to understand the basic operation of each widget.
+For a complete description of each widget and
+its many options refer to the Tk manual.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Widget-Creation.html#Widget-Creation" accesskey="n" rel="next">Next</a>
+<li><a href="Types-of-Widget.html#Types-of-Widget" accesskey="p" rel="prev">Previous</a>
+<li><a href="Tk.html#Tk" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Widgets-Hierarchies.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Widgets-Hierarchies.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Directives</title>
+
+<meta name="description" content="SICStus Prolog: Directives">
+<meta name="keywords" content="SICStus Prolog: Directives">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Queries-and-Directives.html#Queries-and-Directives" rel="up" title="Queries and Directives">
+<link href="Syntax-Errors.html#Syntax-Errors" rel="next" title="Syntax Errors">
+<link href="Queries.html#Queries" rel="prev" title="Queries">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Directives"></a>
+<hr>
+<a name="Directives-1"></a>
+<h4 class="subsection">3.4.2 Directives</h4>
+
+<a name="index-_003a_002d-_002f1_002c-directive-1"></a>
+<a name="index-_003a_002d-_002f1_002c-directive"></a>
+
+<p>Directives start with the symbol &lsquo;<samp>:-</samp>&rsquo;.  Any required output
+must be programmed explicitly; e.g. the directive:
+</p>
+<div class="example">
+<pre class="example">:- memb(3, [1,2,3]), write(ok).
+</pre></div>
+
+<p>asks the system to check whether <code>3</code> belongs to the list
+<code>[1,2,3]</code>.  Execution of a directive terminates when all the
+goals in the directive have been successfully executed.
+Other alternative solutions are not sought.  If no solution can be
+found, then the system prints:
+</p>
+<div class="example">
+<pre class="example">* <var>Goal</var> - goal failed
+</pre></div>
+
+<p>as a warning.
+</p>
+<p>The principal use for directives (as opposed to queries) is
+to allow files to contain directives that call various
+predicates, but for which you do not want to have the answers
+printed out.  In such cases you only want to call the predicates
+for their effect, i.e. you do not want terminal interaction in the
+middle of consulting the file.  A useful example would be the use
+of a directive in a file that loads a whole list of
+other files, e.g.:
+</p>
+<div class="example">
+<pre class="example">:- ensure_loaded([ bits, bobs, main, tests, data, junk ]).
+</pre></div>
+
+<p>If a directive like this were contained in the file <samp>myprog</samp>, then 
+typing the following at top-level would be a quick way of reading
+in your entire program:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>[myprog].</kbd>
+</pre></div>
+
+<p>When simply interacting with the top-level, this distinction between
+queries and directives is not normally very important.  At
+top-level you should just type queries normally.  In a file,
+queries are in fact treated as directives, i.e. if you
+wish to execute some goals, then the directive in the file
+must be preceded by &lsquo;<samp>:-</samp>&rsquo; or &lsquo;<samp>?-</samp>&rsquo;; otherwise, it would be
+treated as a clause.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Queries.html#Queries" accesskey="p" rel="prev">Previous</a>
+<li><a href="Queries-and-Directives.html#Queries-and-Directives" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Directives.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Directives.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

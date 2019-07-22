@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mgc-ove</title>
+
+<meta name="description" content="SICStus Prolog: ref-mgc-ove">
+<meta name="keywords" content="SICStus Prolog: ref-mgc-ove">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmgc.html#ref_002dmgc" rel="up" title="ref-mgc">
+<link href="ref_002dmgc_002dove_002drsp.html#ref_002dmgc_002dove_002drsp" rel="next" title="ref-mgc-ove-rsp">
+<link href="ref_002dmgc.html#ref_002dmgc" rel="prev" title="ref-mgc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmgc_002dove"></a>
+<hr>
+<a name="Overview-8"></a>
+<h4 class="subsection">4.10.1 Overview</h4>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dove_002drsp.html#ref_002dmgc_002dove_002drsp" accesskey="1">ref-mgc-ove-rsp</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Reclaiming Space
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc_002dove_002dsta.html#ref_002dmgc_002dove_002dsta" accesskey="2">ref-mgc-ove-sta</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Displaying Statistics
+</td></tr>
+</table>
+
+
+
+<p>SICStus Prolog uses five data areas: program space, global stack,
+local stack, choice stack, and trail stack.  Each of these areas
+is automatically expanded if it overflows.
+</p>
+<a name="index-local-stack"></a>
+<a name="index-stack_002c-local"></a>
+<p>The local stack contains all the control information and variable bindings
+needed in a Prolog execution.  Space on the local stack is reclaimed on
+determinate success of predicates and by tail recursion optimization, as
+well as on backtracking.
+</p>
+<a name="index-choice-stack"></a>
+<a name="index-stack_002c-choice"></a>
+<p>The choice stack contains data representing outstanding choices
+for some goals or disjunctions.  Space on the choice stack is
+reclaimed on backtracking.
+</p>
+<a name="index-global-stack"></a>
+<a name="index-stack_002c-global"></a>
+<p>The global stack contains all the data structures constructed in an
+execution of the program.  This area grows with forward execution and
+shrinks on backtracking.
+</p>
+<a name="index-trail-stack"></a>
+<a name="index-stack_002c-trail"></a>
+<p>The trail stack contains references to all the variables that need to be reset when
+backtracking occurs.  This area grows with forward execution
+and shrinks on backtracking.  
+</p>
+<a name="index-program-space"></a>
+<a name="index-space_002c-program"></a>
+<p>The program space contains compiled and interpreted code, recorded terms, 
+and atoms.  The space occupied by compiled code, interpreted code, 
+and recorded terms is recovered when it is no longer needed; the 
+space occupied by atoms that are no longer in use can be recovered by
+atom garbage collection described in <a href="ref_002dmgc_002dago.html#ref_002dmgc_002dago">ref-mgc-ago</a>.
+</p>
+<p>These fluctuations in memory usage of the above areas can be monitored by
+<code>statistics/[0,2]</code>.
+</p>
+<p>SICStus Prolog uses the
+global stack to construct compound terms, including lists.
+Global Stack space is used as Prolog execution moves forward.
+When Prolog backtracks, it automatically reclaims space on the global stack.
+However, if a program uses a large amount of space before failure and
+backtracking occur, then this type of reclamation may be inadequate. 
+</p>
+<a name="index-global-stack_002c-expansion"></a>
+
+<a name="index-garbage-collection-1"></a>
+
+<p>Without garbage collection, the Prolog system must attempt to expand
+the global stack
+whenever a global stack overflow occurs.  To do this, it first requests additional
+space from the operating system.  If no more space is available, then the Prolog
+system attempts to allocate unused space from the other Prolog data areas.
+If additional space cannot be found, then a resource error is raised.
+</p>
+<p>Global stack expansion and abnormal termination of execution due to
+lack of stack space can occur even if there are structures on the
+global stack that are no longer accessible to the computation (these
+structures are what is meant by &ldquo;garbage&rdquo;).  The proportion of
+garbage to non-garbage terms varies during execution and with the
+Prolog code being executed.  The global stack may contain no garbage
+at all, or may be nearly all garbage.
+</p>
+<p>The  garbage collector periodically reclaims
+inaccessible global stack space, reducing the need for global stack expansion and lessening
+the likelihood of running out of global stack.  When
+the garbage collector is enabled (as it is by default), the system makes 
+fewer requests to the
+operating system for additional space.
+The fact that less space is required from
+the operating system can produce a substantial savings in the time taken to
+run a program, because paging overhead can be much less.  
+</p>
+<p>For example, without garbage collection, compiling a file containing the
+sequence 
+</p><div class="example">
+<pre class="example">p(_) :- p([a]).
+:- p(_).
+</pre></div>
+
+<p>causes the global stack to expand until the Prolog process eventually runs out of
+space.  With garbage collection enabled, the above sequence 
+continues indefinitely.  The list built on the global stack by each recursive 
+call is inaccessible to future calls (since <code>p/1</code> ignores its argument)
+and can be reclaimed by the garbage collector.  
+</p>
+<p>Garbage collection does not guarantee freedom from out-of-space errors, 
+however.  Compiling a file containing the sequence
+</p><div class="example">
+<pre class="example">p(X) :- p([X]).
+:- p(a).
+</pre></div>
+
+<p>expands the global stack until the Prolog process eventually runs out of
+space.  This happens in spite of the garbage collector, 
+because all the terms built on the global stack are accessible to
+future computation and cannot be reclaimed.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmgc_002dgcp.html#ref_002dmgc_002dgcp" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmgc.html#ref_002dmgc" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmgc_002dove.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmgc_002dove.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

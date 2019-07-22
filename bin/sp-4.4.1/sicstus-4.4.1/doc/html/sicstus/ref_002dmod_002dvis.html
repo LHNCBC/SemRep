@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-vis</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-vis">
+<meta name="keywords" content="SICStus Prolog: ref-mod-vis">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002dsom.html#ref_002dmod_002dsom" rel="next" title="ref-mod-som">
+<link href="ref_002dmod_002dlod.html#ref_002dmod_002dlod" rel="prev" title="ref-mod-lod">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dvis"></a>
+<hr>
+<a name="Visibility-Rules"></a>
+<h4 class="subsection">4.11.6 Visibility Rules</h4>
+
+<a name="index-modules_002c-visibility-rules"></a>
+<a name="index-visibility-rules-for-modules"></a>
+
+<a name="index-_003a_002c-use-in-Module_003aGoal"></a>
+
+
+<p>By default, predicates defined in one module cannot be called from
+another module.  This section enumerates the exceptions to this&mdash;the
+ways in which a predicate can be <em>visible</em> to modules other than the
+one in which it is defined.
+</p><ol>
+<li> The built-in predicates can be called from any module.
+</li><li> Any predicate that is named in the <var>PublicPredList</var> of a module,
+and that is imported by some other module <var>M</var>, can be called from
+within <var>M</var>.
+</li><li> Module Prefixing: Any predicate, whether public or not, can be called
+from any other module if its module is explicitly given as a prefix to
+the goal, attached with the <code>:/2</code> operator.  The module prefix
+overrides the default module.  For example,
+<div class="example">
+<pre class="example">:- mod:foo(X,Y).
+</pre></div>
+
+<p>always calls <code>foo/2</code> in module <var>mod</var>.  This is effectively a
+loophole in the module system, which allows you to override the normal
+module visibility rules.  It is intended primarily to facilitate program
+development and debugging, and it should not be used extensively since it
+subverts the original purposes of using the module system.  
+</p>
+
+<p>Note that a predicate called in this way does not necessarily have to be
+defined in the specified module.  It may be imported into it.  It can even
+be a built-in predicate, and this is sometimes useful&mdash;see
+<a href="ref_002dmod_002dsom.html#ref_002dmod_002dsom">ref-mod-som</a> for an example.  
+</p></li></ol>
+ 
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002dsom.html#ref_002dmod_002dsom" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod_002dlod.html#ref_002dmod_002dlod" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dvis.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dvis.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,88 @@
+      Examples-directory for the SICStus-Java interface 'Jasper'
+      ==========================================================
+
+      CVS: $Id$
+
+This directory contains a few examples to demonstrate how Java can be
+used together with Prolog.
+
+The Swing/Jasper demo is in a separate subdirectory (swing_example).
+See swing_example/Makefile for (brief) instructions on how to run the
+swing/jasper demo.
+
+The Swing/Jasper demo is in a separate subdirectory (swing_example).
+See swing_example/Makefile for (brief) instructions on how to run the
+swing/jasper demo.
+
+Simple
+======
+
+This example shows how to call some simple Java methods from Prolog.
+
+% sicstus
+SICStus 3.8 [...]
+| ?- use_module(library('jasper/examples/simple')),main.
+call square(395,_1496)
+exit square(395,156025)
+call get_str('$java_object'(135058944),_1499)
+exit get_str('$java_object'(135058944),'hello 4711')
+call set_str('$java_object'(135058944),'hello-string #2')
+exit set_str('$java_object'(135058944),'hello-string #2')
+call append_str('$java_object'(135058944),' more stuff...')
+exit append_str('$java_object'(135058944),' more stuff...')
+call get_str('$java_object'(135058944),_1508)
+exit get_str('$java_object'(135058944),'hello-string #2 more stuff...')
+call train('[...]/library/jasper/examples/simple.po',_1511)
+{loading [...]/library/jasper/examples/simple.po...}
+{module jasper imported into simple}
+{loaded [...]/library/jasper/examples/simple.po in module simple, 10 msec 440 bytes}
+exit train('[...]/library/jasper/examples/simple.po',['Stockholm','Katrineholm','Hallsberg','Kumla','Orebro'])
+[...]
+
+yes
+
+Train
+=====
+
+This example is a Java-encapsulation of the train-example found in the
+manual, with a few minor modification (it only shows the first
+solution). It uses the same class, Simple.
+
+If SICStus has been installed in $PREFIX, invoke the train-example
+like this:
+
+        % cd $PREFIX/lib/sicstus-3.8/library/jasper/examples
+        % java -Djava.library.path=$PREFIX/lib -Dsicstus.path=$PREFIX/lib/sicstus-3.8 -classpath $PREFIX/lib/sicstus-3.8/bin/jasper.jar:. Simple
+	.(Stockholm,.(Katrineholm,.(Hallsberg,.(Kumla,.(Orebro,[])))))
+	%
+
+See the Release Notes (Available at http://www.sics.se/sicstus/docs/)
+for more info on how to invoke Java for use with Jasper/SICStus.
+
+NQueens
+=======
+
+This example is a little more demonstrative in showing how Java and
+Prolog can be combined. The example is basically a very visualizer for the
+N-queens problem, solved by using the constraint-solver module
+library(clpfd).
+
+It is started by 
+
+        % cd $PREFIX/lib/sicstus-3.8/library/jasper/examples
+        % java -Djava.library.path=$PREFIX/lib -Dsicstus.path=$PREFIX/lib/sicstus-3.8 -classpath $PREFIX/lib/sicstus-3.8/bin/jasper.jar:. Queens [boardsize]
+
+This will pop up a window showing a solution to the N-queens
+problem. The file-menu contains the following choices:
+
+	Restart		- Restarts the solver to display the first
+			  solution again.
+	Next solution	- Show the next solution
+	Quit		- Quit the demo.
+
+swing_example/
+========
+A SWING demo containing several useful classes
+A simple Prolog top-level usable when embedding SICStus in Java.
+A shortcut menu where you can associate, e.g., goals with menu items.
+A demo that demonstrates the other classes and SWING.

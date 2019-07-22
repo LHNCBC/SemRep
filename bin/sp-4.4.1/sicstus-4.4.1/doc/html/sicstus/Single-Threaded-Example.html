@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Single Threaded Example</title>
+
+<meta name="description" content="SICStus Prolog: Single Threaded Example">
+<meta name="keywords" content="SICStus Prolog: Single Threaded Example">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-Prolog-from-Java.html#Calling-Prolog-from-Java" rel="up" title="Calling Prolog from Java">
+<link href="Multi-Threaded-Example.html#Multi-Threaded-Example" rel="next" title="Multi Threaded Example">
+<link href="Calling-Prolog-from-Java.html#Calling-Prolog-from-Java" rel="prev" title="Calling Prolog from Java">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Single-Threaded-Example"></a>
+<hr>
+<a name="Single-Threaded-Example-1"></a>
+<h4 class="subsubsection">10.19.3.1 Single Threaded Example</h4>
+
+<p>The following is a Java version of the <code>train</code> example.
+See <a href="Train-Example.html#Train-Example">Train Example</a> for information about how the <samp>train.sav</samp> file is
+created.
+</p>
+<p>This code demonstrates the use of Jasper in single threaded mode. In
+this mode only one thread can access the SICStus runtime via a
+<code>SICStus</code> object.
+</p>
+<div class="example">
+<pre class="example"><em>// Simple.java</em>
+</pre><pre class="example">import se.sics.jasper.SICStus;
+import se.sics.jasper.Query;
+import java.util.HashMap;
+
+public class Simple
+{
+    public static void main(String argv[]) {
+     
+        SICStus sp;
+        Query query;
+        HashMap WayMap = new HashMap();
+     
+        try {
+            sp = new SICStus(argv,null);
+     
+	    sp.restore(&quot;train.sav&quot;);
+          
+            query = sp.openPrologQuery(&quot;connected('Örebro', 'Stockholm', 
+                                       Way, Way).&quot;,
+                                 WayMap);
+     
+            try {
+                while (query.nextSolution()) {
+                    System.out.println(WayMap);
+                }
+            } finally {
+                query.close();
+            }
+        }
+        catch ( Exception e ) {
+            e.printStackTrace();
+        }
+    }
+}
+</pre></div>
+
+
+
+
+
+<p>It is assumed that the reader has read the section on <a href="Getting-Started.html#Getting-Started">Getting Started</a>, which describes how to get the basics up and running.
+</p>
+<p>This is how the example works:
+</p>
+<ol>
+<li> Before any predicates can be called, the SICStus runtime system
+must be initialized. This is done by instantiating the <code>SICStus</code>
+class. Each SICStus object correspond to one independent copy of the
+SICStus runtime system (a rather heavy-weight entity).
+
+<p>In this example, we have specified <code>null</code> as the second
+argument to <code>SICStus</code>. This instructs SICStus to search for
+<code>sprt.sav</code> using its own internal methods.
+</p>
+
+</li><li> Queries are made through method <code>query</code>. The arguments
+to this method are a string specifying a Prolog goal, and a
+<code>Map</code>, which will contain a mapping of variable names to
+bindings. This method is for finding a single solution.  Note that
+the string is read by the Prolog reader, so it must conform to the
+syntax rules for Prolog, including the terminating period.  There
+are two more methods for making queries: <code>queryCutFail</code>, for
+side-effects only, and <code>openQuery</code> to produce several
+solutions through backtracking.
+
+</li><li> The next step is to load the Prolog code. This is done by the
+method <code>restore</code>. Corresponds to <code>SP_restore()</code> in the
+C-interface. See <a href="Loading-Prolog-Code.html#Loading-Prolog-Code">Loading Prolog Code</a>. Note that this method must be
+called before any other SICStus method is called. See the HTML Jasper
+documentation for details.
+
+
+
+
+
+
+
+
+</li><li> The <code>openQuery</code> method returns a reference to a query, an
+object implementing the <code>Query</code> interface. To obtain solutions, the
+method <code>nextSolution</code> is called with no
+arguments. <code>nextSolution</code> returns <code>true</code> as long as
+there are more solutions, and the example above will print the value of
+the Map <code>WayMap</code> until there are no more solutions. Note that the
+query must be closed, even if <code>nextSolution</code> has indicated
+that there are no more solutions.
+
+</li></ol>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Multi-Threaded-Example.html#Multi-Threaded-Example" accesskey="n" rel="next">Next</a>
+<li><a href="Calling-Prolog-from-Java.html#Calling-Prolog-from-Java" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Single-Threaded-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Single-Threaded-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

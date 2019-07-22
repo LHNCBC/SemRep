@@ -1,0 +1,5 @@
+predicate arg_sort_int(array [int] of var int: x,array [int] of var int: p,int: base);
+array [1..4] of int: input = [3,1,4,2];
+array [1..4] of var int: sorted:: output_array([1..4]);
+constraint arg_sort_int(input,sorted,1);
+solve  satisfy;

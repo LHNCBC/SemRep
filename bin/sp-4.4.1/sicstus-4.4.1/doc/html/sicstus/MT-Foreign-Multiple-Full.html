@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: MT Foreign Multiple Full</title>
+
+<meta name="description" content="SICStus Prolog: MT Foreign Multiple Full">
+<meta name="keywords" content="SICStus Prolog: MT Foreign Multiple Full">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="MT-Foreign-Multiple.html#MT-Foreign-Multiple" rel="up" title="MT Foreign Multiple">
+<link href="Threads.html#Threads" rel="next" title="Threads">
+<link href="MT-Foreign-Multiple.html#MT-Foreign-Multiple" rel="prev" title="MT Foreign Multiple">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="MT-Foreign-Multiple-Full"></a>
+<hr>
+<a name="Full-Support-for-Multiple-SICStus-Runtimes"></a>
+<h4 class="subsubsection">8.3.2.1 Full Support for Multiple SICStus Runtimes</h4>
+
+<p>To fully support multiple SICStus runtimes, a foreign resource
+should be built with <code>splfr --multi-sp-aware</code>.
+</p>
+<p>C code compiled by <code>splfr --multi-sp-aware</code> will have the C
+preprocessor macro <code>MULTI_SP_AWARE</code> defined to a non-zero value.
+</p>
+<p>Full support for multiple SICStus runtimes means that more than one
+SICStus runtime can execute code in the foreign resource at the
+same time. This rules out the option to use any global variables for
+information that should be specific to each SICStus runtime.  In
+particular, the SICStus dispatch vector cannot be stored in a global
+variable. Instead, the SICStus dispatch vector is passed as an extra
+first argument to each foreign function.
+</p>
+<p>To ensure some degree of link time type checking, the name of each foreign
+function will be changed (using <code>#define</code> in the generated
+header file).
+</p>
+<p>The extra argument is used in the same way as when using multiple
+SICStus runtimes from an embedding application. It must be passed on to
+any function that needs access to the SICStus API.
+</p>
+<p>To simplify the handling of this extra argument, several macros
+are defined so that the same foreign resource code can be compiled
+both with and without support for multiple SICStus runtimes:
+</p><ul>
+<li> <code>SPAPI_ARG0</code>
+</li><li> <code>SPAPI_ARG</code>
+</li><li> <code>SPAPI_ARG_PROTO_DECL0</code>
+</li><li> <code>SPAPI_ARG_PROTO_DECL</code>
+</li></ul>
+
+<p>Their use is easiest to explain with an example. Suppose the original
+foreign code looked like:
+</p><div class="example">
+<pre class="example">static int f1(void)
+{
+        <var>some SICStus API calls</var>
+}
+
+static int f2(SP_term_ref t, int x)
+{
+        <var>some SICStus API calls</var>
+}
+
+/* :- foreign(foreign_fun, c, foreign_pred(+integer)). */
+void foreign_fun(SP_integer x)
+{
+  <var>&hellip; some SICStus API calls &hellip;</var>
+  f1();
+  &hellip;
+  f2(SP_new_term_ref(), 42);
+  &hellip;
+}
+</pre></div>
+
+<p>Assuming no global variables are used, the following change will ensure
+that the SICStus API dispatch vector is passed around to all functions:
+</p>
+<div class="example">
+<pre class="example">static int f1(SPAPI_ARG_PROTO_DECL0) // _DECL&lt;ZERO&gt; for no-arg functions
+{
+        <var>some SICStus API calls</var>
+}
+
+static int f2(SPAPI_ARG_PROTO_DECL SP_term_ref t, int x) // Note: no comma
+{
+        <var>some SICStus API calls</var>
+}
+
+/* :- foreign(foreign_fun, c, foreign_pred([-integer])). */
+void foreign_fun(SPAPI_ARG_PROTO_DECL SP_integer x) // Note: no comma
+{
+  <var>&hellip; some SICStus API calls &hellip;</var>
+  f1(SPAPI_ARG0);               // ARG&lt;ZERO&gt; for no-arg functions
+  &hellip;
+  f2(SPAPI_ARG SP_new_term_ref(), 42);       // Note: no comma
+  &hellip;
+}
+</pre></div>
+
+<p>If <code>MULTI_SP_AWARE</code> is not defined, i.e. <samp>--multi-sp-aware</samp> is
+not specified to <code>splfr</code>, then all these macros expand to nothing,
+except <code>SPAPI_ARG_PROTO_DECL0</code>, which will expand to <code>void</code>.
+</p>
+<p>You can use <code>SP_foreign_stash()</code> to get access to a location,
+initially set to NULL, where the foreign resource can store a
+<code>void*</code>. Typically this would be a pointer to a C struct that holds
+all information that need to be stored in global variables. This struct
+can be allocated and initialized by the foreign resource init
+function.  It should be deallocated by the foreign resource
+deinit function. See <a href="OS-Threads.html#OS-Threads">OS Threads</a> for
+details.
+</p>
+
+<p>Most foreign resources that come with SICStus fully support
+multiple SICStus runtimes. For a particularly simple example, see the
+code for <code>library(random)</code>.  For an example that hides the passing
+of the extra argument by using the C preprocessor, see the files
+in <samp>library/clpfd/</samp>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="MT-Foreign-Multiple.html#MT-Foreign-Multiple" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/MT-Foreign-Multiple-Full.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/MT-Foreign-Multiple-Full.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Handling Java Exceptions</title>
+
+<meta name="description" content="SICStus Prolog: Handling Java Exceptions">
+<meta name="keywords" content="SICStus Prolog: Handling Java Exceptions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Jasper-Library.html#The-Jasper-Library" rel="up" title="The Jasper Library">
+<link href="Deprecated-Jasper-API.html#Deprecated-Jasper-API" rel="next" title="Deprecated Jasper API">
+<link href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References" rel="prev" title="Global vs. Local References">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Handling-Java-Exceptions"></a>
+<hr>
+<a name="Handling-Java-Exceptions-1"></a>
+<h4 class="subsubsection">10.19.8.5 Handling Java Exceptions</h4>
+
+<p>If a Java method throws an exception, e.g. by using <code>throw new
+Exception(&quot;&hellip;&quot;)</code> and the exception is not caught by Java, then it is
+passed on as a Prolog exception. The thrown term is a
+<em>global</em> reference to the Exception object. The following example
+code illustrates how to handle Java exceptions in Prolog:
+</p>
+<div class="example">
+<pre class="example">exception_example(JVM, &hellip;) :-
+   catch(
+         %% Call Java method that may raise an exception
+         jasper_call(JVM, &hellip;),
+         Excp,
+         (
+           ( is_java_exception(JVM, Excp)
+           -&gt; print_exception_info(JVM, Excp)
+           ; throw(Excp)       % pass non-Java exceptions to caller
+           )
+         )
+        ).
+   
+is_java_exception(_JVM, Thing) :- var(Thing), !, fail.
+is_java_exception(_JVM, Thing) :-
+   Thing = java_exception(_),      % misc error in Java/Prolog glue
+   !.
+is_java_exception(JVM, Thing) :-
+   jasper_is_object(JVM, Thing),
+   jasper_is_instance_of(JVM, Thing, 'java/lang/Throwable').
+</pre><pre class="example">print_exception_info(_JVM, java_exception(Message)) :- !,
+   format(user_error, '~NJasper exception: ~w~n', [Message]).
+print_exception_info(JVM, Excp) :-
+   /*
+   // Approximate Java code
+   {
+      String messageChars = excp.getMessage();
+   }
+   */
+   jasper_call(JVM,
+               method('java/lang/Throwable', 'getMessage', [instance]),
+               get_message(+object('java/lang/Throwable'), [-chars]),
+               get_message(Excp, MessageChars)),
+   /* // Approximate Java code
+   {
+      StringWriter stringWriter = new StringWriter();
+      PrintWriter printWriter =  new PrintWriter(stringWriter);
+      excp.printStackTrace(printWriter);
+      printWriter.close();
+      stackTraceChars = StringWriter.toString();
+   }
+   */
+   jasper_new_object(JVM, 'java/io/StringWriter',
+                     init, init, StringWriter),
+   jasper_new_object(JVM, 'java/io/PrintWriter',
+                     init(+object('java/io/Writer')),
+                     init(StringWriter), PrintWriter),
+   jasper_call(JVM, 
+               method('java/lang/Throwable', 'printStackTrace', [instance]),
+               print_stack_trace(+object('java/lang/Throwable'),
+                                 +object('java/io/PrintWriter')),
+               print_stack_trace(Excp, PrintWriter)),
+   jasper_call(JVM,
+               method('java/io/PrintWriter','close',[instance]),
+               close(+object('java/io/PrintWriter')),
+               close(PrintWriter)),
+   jasper_call(JVM,
+               method('java/io/StringWriter','toString',[instance]),
+               to_string(+object('java/io/StringWriter'),[-chars]),
+               to_string(StringWriter, StackTraceChars)),
+   jasper_delete_local_ref(JVM, PrintWriter),
+   jasper_delete_local_ref(JVM, StringWriter),
+   %% ! exceptions are thrown as global references
+   jasper_delete_global_ref(JVM, Excp),
+   format(user_error, '~NJava Exception: ~s\nStackTrace: ~s~n',
+          [MessageChars, StackTraceChars]).
+</pre></div>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Deprecated-Jasper-API.html#Deprecated-Jasper-API" accesskey="n" rel="next">Next</a>
+<li><a href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Jasper-Library.html#The-Jasper-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Handling-Java-Exceptions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Handling-Java-Exceptions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

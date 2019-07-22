@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Writing Efficient Programs</title>
+
+<meta name="description" content="SICStus Prolog: Writing Efficient Programs">
+<meta name="keywords" content="SICStus Prolog: Writing Efficient Programs">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Eff-Overview.html#Eff-Overview" rel="next" title="Eff Overview">
+<link href="Threads.html#Threads" rel="prev" title="Threads">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Writing-Efficient-Programs"></a>
+<hr>
+<a name="Writing-Efficient-Programs-1"></a>
+<h2 class="chapter">9 Writing Efficient Programs</h2>
+<a name="index-efficiency_002c-increasing"></a>
+<a name="index-increasing-efficiency"></a>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Eff-Overview.html#Eff-Overview" accesskey="1">Eff Overview</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Overview
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Execution-Profiling.html#Execution-Profiling" accesskey="2">Execution Profiling</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Execution Profiling
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Coverage-Analysis.html#Coverage-Analysis" accesskey="3">Coverage Analysis</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Coverage Analysis
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="The-Cut.html#The-Cut" accesskey="4">The Cut</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The Cut
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Indexing.html#Indexing" accesskey="5">Indexing</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Indexing
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Last-Clause-Determinacy-Detection.html#Last-Clause-Determinacy-Detection" accesskey="6">Last Clause Determinacy Detection</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Last Clause Determinacy Detection
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="The-Determinacy-Checker.html#The-Determinacy-Checker" accesskey="7">The Determinacy Checker</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The Determinacy Checker
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Last-Call-Optimization.html#Last-Call-Optimization" accesskey="8">Last Call Optimization</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Last Call Optimization
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Building-and-Dismantling-Terms.html#Building-and-Dismantling-Terms" accesskey="9">Building and Dismantling Terms</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Building and Dismantling Terms
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Conditionals-and-Disjunction.html#Conditionals-and-Disjunction">Conditionals and Disjunction</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Conditionals and Disjunction
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Programming-Examples.html#Programming-Examples">Programming Examples</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Programming Examples
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="The-Cross_002dReferencer.html#The-Cross_002dReferencer">The Cross-Referencer</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The Cross-Referencer
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="n" rel="next">Next</a>
+<li><a href="Multiple-SICStus-Runtimes.html#Multiple-SICStus-Runtimes" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Writing-Efficient-Programs.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Writing-Efficient-Programs.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

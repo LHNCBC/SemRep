@@ -1,0 +1,5 @@
+array[1 .. 4] of var 1 .. 4: a :: output_array([1..4]);
+
+constraint all_different_int(a);
+
+solve satisfy;

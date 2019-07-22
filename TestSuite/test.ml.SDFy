@@ -1,0 +1,295 @@
+SE|15996060||ti|1|text|172|317|Sex hormone concentrations in patients with rheumatoid arthritis are not       normalized during 12 weeks of anti-tumor necrosis factor therapy.
+SE|15996060||ti|1|entity|C0036884|Gonadal Steroid Hormones|horm|||Sex hormone|||0|901|172|183
+SE|15996060||ti|1|entity|C0030705|Patients|podg|||patients|||0|1000|202|210
+SE|15996060||ti|1|entity|C0003873|Rheumatoid Arthritis|dsyn|||rheumatoid arthritis|||0|1000|216|236
+SE|15996060||ti|1|entity|C1518422|Not|ftcn|||not|||0|1000|241|244
+SE|15996060||ti|1|entity|C0439230|week|tmco|||weeks|||0|861|272|277
+SE|15996060||ti|1|entity|C0281481|anti-tumor necrosis factor therapy|topp|||anti-tumor necrosis factor therapy|||0|1000|281|315
+SE|15996060||ti|1|relation|0|0|C0036884|Gonadal Steroid Hormones|horm|horm|||Sex hormone|||0|901|172|183|INFER|TREATS(INFER)||199|201|0|0|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||rheumatoid arthritis|||0|1000|216|236
+SE|15996060||ti|1|relation|1|1|C0036884|Gonadal Steroid Hormones|horm|horm|||Sex hormone|||0|901|172|183|PREP|TREATS||199|201|4|1|C0030705|Patients|podg,humn|podg|||patients|||0|1000|202|210
+SE|15996060||ti|1|relation|3|1|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||rheumatoid arthritis|||0|1000|216|236|PREP|PROCESS_OF||211|215|2|1|C0030705|Patients|podg,humn|humn|||patients|||0|1000|202|210
+
+SE|15996060|OBJECTIVE|ab|1|text|336|525|OBJECTIVE: Androgens such as dehydroepiandrosterone sulfate (DHEAS) and       testosterone are markedly lower in postmenopausal women with rheumatoid       arthritis (RA) than in controls.
+SE|15996060|OBJECTIVE|ab|1|entity|C0002844|Androgens|horm,phsu|||Androgens|||0|1000|347|356
+SE|15996060|OBJECTIVE|ab|1|entity|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|||dehydroepiandrosterone sulfate|||0|1000|365|395
+SE|15996060|OBJECTIVE|ab|1|entity|C0039601|Testosterone|horm,phsu,strd|||testosterone|||0|1000|414|426
+SE|15996060|OBJECTIVE|ab|1|entity|C0522501|Massive|qlco|||markedly|||0|888|431|439
+SE|15996060|OBJECTIVE|ab|1|entity|C0441994|Lower|ftcn|||lower|||0|888|440|445
+SE|15996060|OBJECTIVE|ab|1|entity|C0043210|Woman|popg|||women|||0|861|464|469
+SE|15996060|OBJECTIVE|ab|1|entity|C0003873|Rheumatoid Arthritis|dsyn|||rheumatoid       arthritis|||0|1000|475|501
+SE|15996060|OBJECTIVE|ab|1|entity|C0243148|control|ftcn|||controls|||0|966|515|523
+SE|15996060|OBJECTIVE|ab|1|relation|0|0|C0039601|Testosterone|horm,phsu,strd|horm|||testosterone|||0|1000|414|426|SPEC|ISA||347|395|0|0|C0002844|Androgens|horm,phsu|horm|||Androgens|||0|1000|347|356
+SE|15996060|OBJECTIVE|ab|1|relation|0|0|C0039601|Testosterone|horm,phsu,strd|phsu|||testosterone|||0|1000|414|426|INFER|TREATS(INFER)||446|448|0|0|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||rheumatoid       arthritis|||0|1000|475|501
+SE|15996060|OBJECTIVE|ab|1|relation|0|0|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|bacs|||dehydroepiandrosterone sulfate|||0|1000|365|395|SPEC|ISA||347|395|0|0|C0002844|Androgens|horm,phsu|horm|||Androgens|||0|1000|347|356
+SE|15996060|OBJECTIVE|ab|1|relation|0|0|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|phsu|||dehydroepiandrosterone sulfate|||0|1000|365|395|INFER|TREATS(INFER)||446|448|0|0|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||rheumatoid       arthritis|||0|1000|475|501
+SE|15996060|OBJECTIVE|ab|1|relation|2|1|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||rheumatoid       arthritis|||0|1000|475|501|PREP|PROCESS_OF||470|474|6|1|C0043210|Woman|popg,humn|humn|||women|||0|861|464|469
+SE|15996060|OBJECTIVE|ab|1|relation|5|2|C0039601|Testosterone|horm,phsu,strd|phsu|||testosterone|||0|1000|414|426|PREP|TREATS||446|448|3|1|C0043210|Woman|popg,humn|popg|||women|||0|861|464|469
+SE|15996060|OBJECTIVE|ab|1|relation|5|2|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|phsu|||dehydroepiandrosterone sulfate|||0|1000|365|395|PREP|TREATS||446|448|3|1|C0043210|Woman|popg,humn|popg|||women|||0|861|464|469
+
+SE|15996060|OBJECTIVE|ab|2|text|525|633|In contrast, compared to controls, serum       levels of estrogens are normal or elevated in women with RA.
+SE|15996060|OBJECTIVE|ab|2|entity|C0243148|control|ftcn|||controls|||0|966|550|558
+SE|15996060|OBJECTIVE|ab|2|entity|C0229671|Serum|bdsu|||serum|||0|888|560|565
+SE|15996060|OBJECTIVE|ab|2|entity|C0441889|Levels|inpr|||levels|||0|888|572|578
+SE|15996060|OBJECTIVE|ab|2|entity|C0014939|Estrogens|horm,phsu,strd|||estrogens|||0|1000|582|591
+SE|15996060|OBJECTIVE|ab|2|entity|C0205307|Normal|qlco|||normal|||0|1000|596|602
+SE|15996060|OBJECTIVE|ab|2|entity|C0043210|Woman|popg|||women|||0|1000|618|623
+SE|15996060|OBJECTIVE|ab|2|entity|C0003873|Rheumatoid Arthritis|dsyn|||RA|||0|1000|629|631
+SE|15996060|OBJECTIVE|ab|2|relation|0|0|C0014939|Estrogens|horm,phsu,strd|phsu|||estrogens|||0|1000|582|591|INFER|TREATS(INFER)||615|617|0|0|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||RA|||0|1000|629|631
+SE|15996060|OBJECTIVE|ab|2|relation|1|1|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||RA|||0|1000|629|631|PREP|PROCESS_OF||624|628|6|1|C0043210|Woman|popg,humn|humn|||women|||0|1000|618|623
+SE|15996060|OBJECTIVE|ab|2|relation|5|2|C0014939|Estrogens|horm,phsu,strd|phsu|||estrogens|||0|1000|582|591|PREP|TREATS||615|617|2|1|C0043210|Woman|popg,humn|popg|||women|||0|1000|618|623
+
+SE|15996060|OBJECTIVE|ab|3|text|633|844|Since tumor       necrosis factor (TNF) alters production of these hormones, we investigated       changes of these hormones during anti-TNF antibody (anti-TNF) therapy with       adalimumab in longstanding RA.
+SE|15996060|OBJECTIVE|ab|3|entity|C0041368|Tumor Necrosis Factors|aapp,imft|7124|TNF|tumor       necrosis factor|||0|1000|639|666
+SE|15996060|OBJECTIVE|ab|3|entity|C0033268|production|ocac|||production|||0|1000|680|690
+SE|15996060|OBJECTIVE|ab|3|entity|C0019932|Hormones|horm|||hormones|||0|1000|700|708
+SE|15996060|OBJECTIVE|ab|3|entity|C0019932|Hormones|horm|||hormones|||0|1000|749|757
+SE|15996060|OBJECTIVE|ab|3|entity|C0041368|Tumor Necrosis Factors|aapp,imft|7124|TNF|TNF|||0|882|770|773
+SE|15996060|OBJECTIVE|ab|3|entity|C0003242|Antibodies, Anti-Idiotypic|aapp,imft|||anti-TNF antibody|||0|882|765|782
+SE|15996060|OBJECTIVE|ab|3|entity|C0041368|Tumor Necrosis Factors|aapp,imft|7124|TNF|TNF|||0|923|789|792
+SE|15996060|OBJECTIVE|ab|3|entity|C0087111|Therapeutic procedure|topp|||therapy|||0|1000|794|801
+SE|15996060|OBJECTIVE|ab|3|entity|C1122087|adalimumab|aapp,imft,phsu|||adalimumab|||0|1000|813|823
+SE|15996060|OBJECTIVE|ab|3|entity|C0003873|Rheumatoid Arthritis|dsyn|||RA|||0|901|840|842
+SE|15996060|OBJECTIVE|ab|3|relation|1|1|C0041368|Tumor Necrosis Factors|aapp,gngm,imft|aapp|7124|TNF|tumor       necrosis factor|||0|1000|639|666|VERB|INTERACTS_WITH||673|679|9|2|C0019932|Hormones|horm|horm|||hormones|||0|1000|700|708
+SE|15996060|OBJECTIVE|ab|3|relation|5|1|C0019932|Hormones|horm|horm|||hormones|||0|1000|749|757|PREP|COEXISTS_WITH||758|764|5|1|C0003242|Antibodies, Anti-Idiotypic|aapp,gngm,imft|aapp|||anti-TNF antibody|||0|882|765|782
+SE|15996060|OBJECTIVE|ab|3|relation|8|1|C0087111|Therapeutic procedure|topp|topp|||therapy|||0|1000|794|801|PREP|USES||802|806|2|1|C1122087|adalimumab|aapp,gngm,imft,phsu|aapp|||adalimumab|||0|1000|813|823
+
+SE|15996060|METHODS|ab|4|text|844|1180|METHODS: In this longitudinal anti-TNF       therapy study in 13 patients with long-standing RA without prior       prednisolone (7 infusions of anti-TNF: Week 0, 2, 4, 6, 8, 10, and 12), we       measured serum concentrations of interleukin 6 (IL-6), androstenedione,       DHEA, DHEAS, free testosterone, estrone, and 17ss-estradiol.
+SE|15996060|METHODS|ab|4|entity|C0025663|Methods|inpr|||METHODS|||0|1000|844|851
+SE|15996060|METHODS|ab|4|entity|C0281481|anti-tumor necrosis factor therapy|topp|||anti-TNF       therapy|||0|909|874|896
+SE|15996060|METHODS|ab|4|entity|C0023981|Longitudinal Studies|qnco,resa|||longitudinal anti-TNF       therapy study|||0|909|861|902
+SE|15996060|METHODS|ab|4|entity|C0030705|Patients|podg|||patients|||0|861|909|917
+SE|15996060|METHODS|ab|4|entity|C0205166|Long|qlco|||long|||0|861|923|927
+SE|15996060|METHODS|ab|4|entity|C0231472|Orthostatic body position|spco|||standing|||0|861|928|936
+SE|15996060|METHODS|ab|4|entity|C0003873|Rheumatoid Arthritis|dsyn|||RA|||0|861|937|939
+SE|15996060|METHODS|ab|4|entity|C0332152|Status pre-|tmco|||prior|||1|888|948|953
+SE|15996060|METHODS|ab|4|entity|C0032950|prednisolone|phsu,strd|||prednisolone|||1|888|960|972
+SE|15996060|METHODS|ab|4|entity|C0574032|Infusion procedures|topp|||infusions|||0|827|976|985
+SE|15996060|METHODS|ab|4|entity|C0041368|Tumor Necrosis Factors|aapp,imft|7124|TNF|TNF|||0|923|994|997
+SE|15996060|METHODS|ab|4|entity|C0439230|week|tmco|||Week|||0|861|999|1003
+SE|15996060|METHODS|ab|4|entity|C0683149|serum drug concentration|qnco|||serum concentrations|||0|983|1050|1070
+SE|15996060|METHODS|ab|4|entity|C0021760|Interleukin-6|aapp,imft|||interleukin 6|||0|1000|1074|1087
+SE|15996060|METHODS|ab|4|entity|C0002860|Androstenedione|horm,phsu,strd|||androstenedione|||0|1000|1096|1111
+SE|15996060|METHODS|ab|4|entity|C0011185|dehydroepiandrosterone|horm,phsu,strd|||DHEA|||0|1000|1119|1123
+SE|15996060|METHODS|ab|4|entity|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|||DHEAS|||0|1000|1125|1130
+SE|15996060|METHODS|ab|4|entity|C0443483|Free testosterone|horm,strd|||free testosterone|||0|1000|1132|1149
+SE|15996060|METHODS|ab|4|entity|C0014942|Estrone|horm,phsu,strd|||estrone|||0|1000|1151|1158
+SE|15996060|METHODS|ab|4|entity|C0014912|Estradiol|horm,phsu,strd|||estradiol|||0|861|1169|1178
+SE|15996060|METHODS|ab|4|relation|0|0|C0023981|Longitudinal Studies|qnco,resa|resa|||longitudinal anti-TNF       therapy study|||0|909|861|902|MOD/HEAD|USES||874|902|0|0|C0281481|anti-tumor necrosis factor therapy|topp|topp|||anti-TNF       therapy|||0|909|874|896
+SE|15996060|METHODS|ab|4|relation|7|6|C0023981|Longitudinal Studies|qnco,resa|resa|||longitudinal anti-TNF       therapy study|||0|909|861|902|VERB|MEASURES||1041|1049|7|1|C0683149|serum drug concentration|qnco|qnco|||serum concentrations|||0|983|1050|1070
+SE|15996060|METHODS|ab|4|relation|11|1|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||RA|||0|861|937|939|PREP|PROCESS_OF||918|922|3|1|C0030705|Patients|podg,humn|humn|||patients|||0|861|909|917
+
+SE|15996060|METHODS|ab|5|text|1180|1303|Levels of       these hormones in patients were compared to serum levels of 31 age and sex       matched healthy controls.
+SE|15996060|METHODS|ab|5|entity|C0441889|Levels|inpr|||Levels|||0|1000|1180|1186
+SE|15996060|METHODS|ab|5|entity|C0019932|Hormones|horm|||hormones|||0|1000|1202|1210
+SE|15996060|METHODS|ab|5|entity|C0030705|Patients|podg|||patients|||0|1000|1214|1222
+SE|15996060|METHODS|ab|5|entity|C0229671|Serum|bdsu|||serum|||0|888|1240|1245
+SE|15996060|METHODS|ab|5|entity|C0441889|Levels|inpr|||levels|||0|888|1246|1252
+SE|15996060|METHODS|ab|5|entity|C0001779|Age|orga|||age|||0|861|1259|1262
+SE|15996060|METHODS|ab|5|entity|C0150103|MATCHING|resa|||matched|||0|808|1277|1284
+SE|15996060|METHODS|ab|5|entity|C1456614|Sexual Health|clna|||sex       matched healthy|||0|808|1267|1292
+SE|15996060|METHODS|ab|5|entity|C0243148|control|ftcn|||controls|||0|808|1293|1301
+SE|15996060|METHODS|ab|5|relation|2|1|C0019932|Hormones|horm|horm|||hormones|||0|1000|1202|1210|PREP|TREATS||1211|1213|4|1|C0030705|Patients|podg,humn|podg|||patients|||0|1000|1214|1222
+
+SE|15996060|RESULTS|ab|6|text|1303|1482|RESULTS: Upon treatment with anti-TNF, there was       an impressive decrease of clinical markers of inflammation, erythrocyte       sedimentation rate, and serum levels of IL-6.
+SE|15996060|RESULTS|ab|6|entity|C1274040|result|ftcn|||RESULTS|||0|966|1303|1310
+SE|15996060|RESULTS|ab|6|entity|C0087111|Therapeutic procedure|topp|||treatment|||0|1000|1317|1326
+SE|15996060|RESULTS|ab|6|entity|C0041368|Tumor Necrosis Factors|aapp,imft|7124|TNF|TNF|||0|923|1337|1340
+SE|15996060|RESULTS|ab|6|entity|C0547047|Decrease|qnco|||decrease|||0|861|1372|1380
+SE|15996060|RESULTS|ab|6|entity|C0008963|Markers, Clinical|qlco|||clinical markers|||0|1000|1384|1400
+SE|15996060|RESULTS|ab|6|entity|C0021368|Inflammation|patf|||inflammation|||0|1000|1404|1416
+SE|15996060|RESULTS|ab|6|entity|C0086250|Erythrocyte Sedimentation Rate|celf|||erythrocyte       sedimentation rate|||0|1000|1418|1454
+SE|15996060|RESULTS|ab|6|entity|C0229671|Serum|bdsu|||serum|||0|888|1460|1465
+SE|15996060|RESULTS|ab|6|entity|C0441889|Levels|inpr|||levels|||0|888|1466|1472
+SE|15996060|RESULTS|ab|6|entity|C0021760|Interleukin-6|aapp,imft|||IL-6|||0|1000|1476|1480
+SE|15996060|RESULTS|ab|6|relation|2|1|C0087111|Therapeutic procedure|topp|topp|||treatment|||0|1000|1317|1326|PREP|USES||1327|1331|6|1|C0041368|Tumor Necrosis Factors|aapp,gngm,imft|aapp|7124|TNF|TNF|||0|923|1337|1340
+
+SE|15996060|RESULTS|ab|7|text|1482|1653|Serum levels of DHEAS and       free testosterone were markedly lower at baseline in patients compared to       controls, but this did not change during anti-TNF therapy.
+SE|15996060|RESULTS|ab|7|entity|C0229671|Serum|bdsu|||Serum|||0|888|1482|1487
+SE|15996060|RESULTS|ab|7|entity|C0441889|Levels|inpr|||levels|||0|888|1488|1494
+SE|15996060|RESULTS|ab|7|entity|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|||DHEAS|||0|1000|1498|1503
+SE|15996060|RESULTS|ab|7|entity|C0443483|Free testosterone|horm,strd|||free testosterone|||0|1000|1514|1531
+SE|15996060|RESULTS|ab|7|entity|C0522501|Massive|qlco|||markedly|||0|888|1537|1545
+SE|15996060|RESULTS|ab|7|entity|C0441994|Lower|ftcn|||lower|||0|888|1546|1551
+SE|15996060|RESULTS|ab|7|entity|C1442488|BASELINE|qnco|||baseline|||0|1000|1555|1563
+SE|15996060|RESULTS|ab|7|entity|C0030705|Patients|podg|||patients|||0|1000|1567|1575
+SE|15996060|RESULTS|ab|7|entity|C0243148|control|ftcn|||controls|||0|966|1594|1602
+SE|15996060|RESULTS|ab|7|entity|C1518422|Not|ftcn|||not|||0|1000|1617|1620
+SE|15996060|RESULTS|ab|7|entity|C0281481|anti-tumor necrosis factor therapy|topp|||anti-TNF therapy|||0|1000|1635|1651
+SE|15996060|RESULTS|ab|7|relation|5|3|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|strd|||DHEAS|||0|1000|1498|1503|PREP|TREATS||1564|1566|3|1|C0030705|Patients|podg,humn|podg|||patients|||0|1000|1567|1575
+SE|15996060|RESULTS|ab|7|relation|5|3|C0443483|Free testosterone|horm,strd|horm|||free testosterone|||0|1000|1514|1531|PREP|TREATS||1564|1566|3|1|C0030705|Patients|podg,humn|podg|||patients|||0|1000|1567|1575
+
+SE|15996060|RESULTS|ab|8|text|1653|1848|Serum levels of       DHEA and 17ss-estradiol were significantly elevated in patients compared       to controls, but similarly, anti-TNF therapy did not change initially       increased levels.
+SE|15996060|RESULTS|ab|8|entity|C0229671|Serum|bdsu|||Serum|||0|888|1653|1658
+SE|15996060|RESULTS|ab|8|entity|C0441889|Levels|inpr|||levels|||0|888|1659|1665
+SE|15996060|RESULTS|ab|8|entity|C0011185|dehydroepiandrosterone|horm,phsu,strd|||DHEA|||0|1000|1675|1679
+SE|15996060|RESULTS|ab|8|entity|C0014912|Estradiol|horm,phsu,strd|||estradiol|||0|861|1689|1698
+SE|15996060|RESULTS|ab|8|entity|C0030705|Patients|podg|||patients|||0|1000|1730|1738
+SE|15996060|RESULTS|ab|8|entity|C0243148|control|ftcn|||controls|||0|966|1757|1765
+SE|15996060|RESULTS|ab|8|entity|C0281481|anti-tumor necrosis factor therapy|topp|||anti-TNF therapy|||0|1000|1782|1798
+SE|15996060|RESULTS|ab|8|entity|C1518422|Not|ftcn|||not|||0|1000|1803|1806
+SE|15996060|RESULTS|ab|8|entity|C0205265|Initially|tmco|||initially|||1|851|1814|1823
+SE|15996060|RESULTS|ab|8|entity|C0205217|Increased|qnco|||increased|||1|851|1830|1839
+SE|15996060|RESULTS|ab|8|entity|C0441889|Levels|inpr|||levels|||1|851|1840|1846
+SE|15996060|RESULTS|ab|8|relation|3|1|C0011185|dehydroepiandrosterone|horm,phsu,strd|horm|||DHEA|||0|1000|1675|1679|PREP|TREATS||1727|1729|4|1|C0030705|Patients|podg,humn|podg|||patients|||0|1000|1730|1738
+SE|15996060|RESULTS|ab|8|relation|3|1|C0014912|Estradiol|horm,phsu,strd|horm|||estradiol|||0|861|1689|1698|PREP|TREATS||1727|1729|4|1|C0030705|Patients|podg,humn|podg|||patients|||0|1000|1730|1738
+
+SE|15996060|RESULTS|ab|9|text|1848|2032|Molar ratios of hormones, which reflect hormone shifts       via converting enzymes, showed typical alterations at baseline, but did       not change markedly during anti-TNF therapy.
+SE|15996060|RESULTS|ab|9|entity|C1610540|Kind of quantity - Ratios|qnco|||ratios|||0|861|1854|1860
+SE|15996060|RESULTS|ab|9|entity|C0019932|Hormones|horm|||hormones|||0|1000|1864|1872
+SE|15996060|RESULTS|ab|9|entity|C0019932|Hormones|horm|||hormone|||0|1000|1888|1895
+SE|15996060|RESULTS|ab|9|entity|C1550513|via|idcn|||via|||0|802|1909|1912
+SE|15996060|RESULTS|ab|9|entity|C0014442|Enzymes|enzy,orch|||enzymes|||0|802|1924|1931
+SE|15996060|RESULTS|ab|9|entity|C1515926|Alteration|idcn|||alterations|||0|827|1948|1959
+SE|15996060|RESULTS|ab|9|entity|C1442488|BASELINE|qnco|||baseline|||0|1000|1963|1971
+SE|15996060|RESULTS|ab|9|entity|C1518422|Not|ftcn|||not|||0|1000|1987|1990
+SE|15996060|RESULTS|ab|9|entity|C0522501|Massive|qlco|||markedly|||1|1000|1998|2006
+SE|15996060|RESULTS|ab|9|entity|C0281481|anti-tumor necrosis factor therapy|topp|||anti-TNF therapy|||0|1000|2014|2030
+
+SE|15996060|CONCLUSION|ab|10|text|2032|2217|CONCLUSION: Longterm therapy       with anti-TNF did not change altered serum levels of typical sex hormones       in patients with RA, although baseline values were largely different.
+SE|15996060|CONCLUSION|ab|10|entity|C0087111|Therapeutic procedure|topp|||therapy|||0|861|2053|2060
+SE|15996060|CONCLUSION|ab|10|entity|C0041368|Tumor Necrosis Factors|aapp,imft|7124|TNF|TNF|||0|923|2077|2080
+SE|15996060|CONCLUSION|ab|10|entity|C1518422|Not|ftcn|||not|||0|1000|2085|2088
+SE|15996060|CONCLUSION|ab|10|entity|C0205349|Altered|ftcn|||altered|||1|851|2096|2103
+SE|15996060|CONCLUSION|ab|10|entity|C0229671|Serum|bdsu|||serum|||0|851|2104|2109
+SE|15996060|CONCLUSION|ab|10|entity|C0441889|Levels|inpr|||levels|||0|851|2110|2116
+SE|15996060|CONCLUSION|ab|10|entity|C0036884|Gonadal Steroid Hormones|horm|||sex hormones|||0|901|2128|2140
+SE|15996060|CONCLUSION|ab|10|entity|C0030705|Patients|podg|||patients|||0|1000|2150|2158
+SE|15996060|CONCLUSION|ab|10|entity|C0003873|Rheumatoid Arthritis|dsyn|||RA|||0|1000|2164|2166
+SE|15996060|CONCLUSION|ab|10|entity|C1442488|BASELINE|qnco|||baseline|||0|888|2177|2185
+SE|15996060|CONCLUSION|ab|10|entity|C0042295|Values|qlco|||values|||0|888|2186|2192
+SE|15996060|CONCLUSION|ab|10|entity|C1547020|*Difference|qnco|||different|||0|789|2206|2215
+SE|15996060|CONCLUSION|ab|10|relation|0|0|C0036884|Gonadal Steroid Hormones|horm|horm|||sex hormones|||0|901|2128|2140|INFER|TREATS(INFER)||2147|2149|0|0|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||RA|||0|1000|2164|2166
+SE|15996060|CONCLUSION|ab|10|relation|2|1|C0087111|Therapeutic procedure|topp|topp|||therapy|||0|861|2053|2060|PREP|USES||2067|2071|7|1|C0041368|Tumor Necrosis Factors|aapp,gngm,imft|aapp|7124|TNF|TNF|||0|923|2077|2080
+SE|15996060|CONCLUSION|ab|10|relation|3|1|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||RA|||0|1000|2164|2166|PREP|PROCESS_OF||2159|2163|6|1|C0030705|Patients|podg,humn|humn|||patients|||0|1000|2150|2158
+SE|15996060|CONCLUSION|ab|10|relation|5|1|C0036884|Gonadal Steroid Hormones|horm|horm|||sex hormones|||0|901|2128|2140|PREP|TREATS||2147|2149|4|1|C0030705|Patients|podg,humn|podg|||patients|||0|1000|2150|2158
+
+SE|15996060|CONCLUSION|ab|11|text|2217|2421|In       patients with RA, this indicates that alterations of sex hormones and       altered activity of respective converting enzymes are imprinted for a       long-lasting period over at least 12 weeks.
+SE|15996060|CONCLUSION|ab|11|entity|C0030705|Patients|podg|||patients|||0|1000|2226|2234
+SE|15996060|CONCLUSION|ab|11|entity|C0003873|Rheumatoid Arthritis|dsyn|||RA|||0|1000|2240|2242
+SE|15996060|CONCLUSION|ab|11|entity|C1515926|Alteration|idcn|||alterations|||0|966|2264|2275
+SE|15996060|CONCLUSION|ab|11|entity|C0036884|Gonadal Steroid Hormones|horm|||sex hormones|||0|1000|2279|2291
+SE|15996060|CONCLUSION|ab|11|entity|C0205349|Altered|ftcn|||altered|||0|888|2302|2309
+SE|15996060|CONCLUSION|ab|11|entity|C0014442|Enzymes|enzy,orch|||enzymes|||0|827|2344|2351
+SE|15996060|CONCLUSION|ab|11|entity|C0205166|Long|qlco|||long|||0|763|2378|2382
+SE|15996060|CONCLUSION|ab|11|entity|C0439531|/period|tmco|||period|||0|763|2391|2397
+SE|15996060|CONCLUSION|ab|11|entity|C0439230|week|tmco|||weeks|||0|827|2415|2420
+SE|15996060|CONCLUSION|ab|11|relation|7|1|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||RA|||0|1000|2240|2242|PREP|PROCESS_OF||2235|2239|1|1|C0030705|Patients|podg,humn|humn|||patients|||0|1000|2226|2234
+
+SE|167592||ti|1|text|171|295|Control of hepatic glycogen metabolism in the rhesus monkey: effect of glucose,       insulin, and glucagon administration.
+SE|167592||ti|1|entity|C0243148|control|ftcn|||Control|||0|1000|171|178
+SE|167592||ti|1|entity|C0017911|Glycogen|bacs,carb|||glycogen|||0|901|190|198
+SE|167592||ti|1|entity|C1373178|Hepatic Metabolism|ortf|||hepatic glycogen metabolism|||0|901|182|209
+SE|167592||ti|1|entity|C0024400|Macaca mulatta|mamm|||rhesus monkey|||0|1000|217|230
+SE|167592||ti|1|entity|C1280500|Effect|qlco|||effect|||0|1000|232|238
+SE|167592||ti|1|entity|C0017725|Glucose|bacs,carb,phsu|||glucose|||0|1000|242|249
+SE|167592||ti|1|entity|C0021641|Insulin|aapp,horm,phsu|||insulin|||0|1000|257|264
+SE|167592||ti|1|entity|C0017687|Glucagon|aapp,horm,nsba,phsu|2641|GCG|glucagon|||0|888|270|278
+SE|167592||ti|1|relation|2|1|C1373178|Hepatic Metabolism|ortf|ortf|||hepatic glycogen metabolism|||0|901|182|209|PREP|PROCESS_OF||210|212|5|1|C0024400|Macaca mulatta|mamm|mamm|||rhesus monkey|||0|1000|217|230
+SE|167592||ti|1|relation|6|5|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG|glucagon|||0|888|270|278|NOM|AFFECTS||171|178|6|1|C1373178|Hepatic Metabolism|ortf|ortf|||hepatic glycogen metabolism|||0|901|182|209
+SE|167592||ti|1|relation|6|5|C0017725|Glucose|bacs,carb,phsu|phsu|||glucose|||0|1000|242|249|NOM|AFFECTS||171|178|6|1|C1373178|Hepatic Metabolism|ortf|ortf|||hepatic glycogen metabolism|||0|901|182|209
+SE|167592||ti|1|relation|6|5|C0021641|Insulin|aapp,gngm,horm,phsu|aapp|||insulin|||0|1000|257|264|NOM|AFFECTS||171|178|6|1|C1373178|Hepatic Metabolism|ortf|ortf|||hepatic glycogen metabolism|||0|901|182|209
+
+SE|167592||ab|1|text|312|516|The effects of intravenous glucose, insulin and glucagon admininistration on the        hepatic glycogen synthase and glycogen phosphorylase systems were assessed in the       anesthetized rhesus monkey.
+SE|167592||ab|1|entity|C1280500|Effect|qlco|||effects|||0|966|316|323
+SE|167592||ab|1|entity|C0357164|Parenteral form glucose|carb,phsu|||intravenous glucose|||0|1000|327|346
+SE|167592||ab|1|entity|C0021641|Insulin|aapp,horm,phsu|||insulin|||0|1000|348|355
+SE|167592||ab|1|entity|C0017687|Glucagon|aapp,horm,nsba,phsu|2641|GCG|glucagon|||0|694|360|368
+SE|167592||ab|1|entity|C0205054|Hepatic|blor|||hepatic|||0|901|400|407
+SE|167592||ab|1|entity|C0017932|Glycogen (Starch) Synthase|aapp,enzy|||glycogen synthase|||0|901|408|425
+SE|167592||ab|1|entity|C0917785|Glycogen Phosphorylase|aapp,enzy|||glycogen phosphorylase|||0|901|430|452
+SE|167592||ab|1|entity|C0449913|System|ftcn|||systems|||0|901|453|460
+SE|167592||ab|1|entity|C0024400|Macaca mulatta|mamm|||rhesus monkey|||0|901|501|514
+SE|167592||ab|1|relation|0|0|C0017932|Glycogen (Starch) Synthase|aapp,gngm,enzy|gngm|||glycogen synthase|||0|901|408|425|MOD/HEAD|PART_OF||400|425|0|0|C0205054|Hepatic|blor|blor|||hepatic|||0|901|400|407
+SE|167592||ab|1|relation|6|4|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG|glucagon|||0|694|360|368|PREP|TREATS||475|477|1|1|C0024400|Macaca mulatta|mamm|mamm|||rhesus monkey|||0|901|501|514
+SE|167592||ab|1|relation|6|4|C0021641|Insulin|aapp,gngm,horm,phsu|horm|||insulin|||0|1000|348|355|PREP|TREATS||475|477|1|1|C0024400|Macaca mulatta|mamm|mamm|||rhesus monkey|||0|901|501|514
+SE|167592||ab|1|relation|6|4|C0357164|Parenteral form glucose|carb,phsu|phsu|||intravenous glucose|||0|1000|327|346|PREP|TREATS||475|477|1|1|C0024400|Macaca mulatta|mamm|mamm|||rhesus monkey|||0|901|501|514
+
+SE|167592||ab|2|text|516|673|Results were correlated with measurements of hepatic        cyclic AMP (cAMP) concentrations and plasma glucose, insulin, and glucagon       concentrations.
+SE|167592||ab|2|entity|C1274040|result|ftcn|||Results|||0|966|516|523
+SE|167592||ab|2|entity|C0242485|Measurement|ftcn|||measurements|||0|1000|545|557
+SE|167592||ab|2|entity|C0205054|Hepatic|blor|||hepatic|||0|861|561|568
+SE|167592||ab|2|entity|C0001455|Cyclic AMP|bacs,nnon|||cyclic AMP|||0|861|576|586
+SE|167592||ab|2|entity|C0032105|Plasma|bdsu|||plasma|||0|888|613|619
+SE|167592||ab|2|entity|C0017725|Glucose|bacs,carb,phsu|||glucose|||0|888|620|627
+SE|167592||ab|2|entity|C0021641|Insulin|aapp,horm,phsu|||insulin|||0|1000|629|636
+SE|167592||ab|2|entity|C0017687|Glucagon|aapp,horm,nsba,phsu|2641|GCG|glucagon|||0|888|642|650
+SE|167592||ab|2|relation|0|0|C0032105|Plasma|bdsu|bdsu|||plasma|||0|888|613|619|MOD/HEAD|LOCATION_OF||613|627|0|0|C0017725|Glucose|bacs,carb,phsu|bacs|||glucose|||0|888|620|627
+
+SE|167592||ab|3|text|673|845|Both glucose and insulin administration promoted significant       inactivation of phosphorylase by 1 min, which was followed by more gradual       activation of synthase.
+SE|167592||ab|3|entity|C0017725|Glucose|bacs,carb,phsu|||glucose|||0|1000|678|685
+SE|167592||ab|3|entity|C0021641|Insulin|aapp,horm,phsu|||insulin|||0|888|690|697
+SE|167592||ab|3|entity|C0750502|Significant|idcn|||significant|||0|888|722|733
+SE|167592||ab|3|entity|C0544461|Inactivation|comd|||inactivation|||0|888|740|752
+SE|167592||ab|3|entity|C0917783|Glycogen Phosphorylase, Muscle Form|aapp,enzy|||phosphorylase|||0|1000|756|769
+SE|167592||ab|3|entity|C0439232|Minute of time|tmco|||min|||0|861|775|778
+SE|167592||ab|3|entity|C0205172|More|ftcn|||more|||0|623|802|806
+SE|167592||ab|3|entity|C0439833|Gradual|qlco|||gradual|||0|623|807|814
+SE|167592||ab|3|relation|2|2|C0017725|Glucose|bacs,carb,phsu|bacs|||glucose|||0|1000|678|685|VERB|PREDISPOSES||713|721|5|1|C0544461|Inactivation|comd|comd|||inactivation|||0|888|740|752
+SE|167592||ab|3|relation|2|2|C0021641|Insulin|aapp,gngm,horm,phsu|phsu|||insulin|||0|888|690|697|VERB|PREDISPOSES||713|721|5|1|C0544461|Inactivation|comd|comd|||inactivation|||0|888|740|752
+
+SE|167592||ab|4|text|845|923|Neither glucose nor insulin caused significant changes in       hepatic cAMP.
+SE|167592||ab|4|entity|C0017725|Glucose|bacs,carb,phsu|||glucose|||1|1000|853|860
+SE|167592||ab|4|entity|C0021641|Insulin|aapp,horm,phsu|||insulin|||1|1000|865|872
+SE|167592||ab|4|entity|C0750502|Significant|idcn|||significant|||0|872|880|891
+SE|167592||ab|4|entity|C0205054|Hepatic|blor|||hepatic|||0|901|909|916
+SE|167592||ab|4|entity|C0001455|Cyclic AMP|bacs,nnon|||cAMP|||0|901|917|921
+SE|167592||ab|4|relation|3|2|C0017725|Glucose|bacs,carb,phsu|phsu|||glucose|||1|1000|853|860|PREP|COEXISTS_WITH|negation|900|902|1|1|C0001455|Cyclic AMP|bacs,nnon|bacs|||cAMP|||0|901|917|921
+SE|167592||ab|4|relation|3|2|C0021641|Insulin|aapp,gngm,horm,phsu|aapp|||insulin|||1|1000|865|872|PREP|COEXISTS_WITH|negation|900|902|1|1|C0001455|Cyclic AMP|bacs,nnon|bacs|||cAMP|||0|901|917|921
+
+SE|167592||ab|5|text|923|1179|Marked hyperglucagonemia resulting from insulin-induced       hypoglycemia did not cause increases IN in hepatic cAMP, suggesting that the       elevated insulin levels possibly inhibited glucagon action on the hepatic       adenylate cyclase-cAMP system.
+SE|167592||ab|5|entity|C0522501|Massive|qlco|||Marked|||0|888|923|929
+SE|167592||ab|5|entity|C0342218|Excessive glucagon secretion|patf|||hyperglucagonemia|||0|888|930|947
+SE|167592||ab|5|entity|C0205263|Induced|ftcn|||induced|||0|901|971|978
+SE|167592||ab|5|entity|C0858734|Insulin hypoglycemia|dsyn|||insulin-induced       hypoglycemia|||0|901|963|997
+SE|167592||ab|5|entity|C1518422|Not|ftcn|||not|||0|1000|1002|1005
+SE|167592||ab|5|entity|C0442805|Increase|ftcn|||increases|||0|966|1012|1021
+SE|167592||ab|5|entity|C0205054|Hepatic|blor|||hepatic|||0|901|1028|1035
+SE|167592||ab|5|entity|C0001455|Cyclic AMP|bacs,nnon|||cAMP|||0|901|1036|1040
+SE|167592||ab|5|entity|C0205250|High|qlco|||elevated|||0|890|1068|1076
+SE|167592||ab|5|entity|C0202098|Insulin measurement|lbpr|||insulin levels|||0|890|1077|1091
+SE|167592||ab|5|entity|C0332149|Possible|qlco|||possibly|||0|1000|1092|1100
+SE|167592||ab|5|entity|C0017687|Glucagon|aapp,horm,nsba,phsu|2641|GCG|glucagon|||0|694|1111|1119
+SE|167592||ab|5|entity|C0205054|Hepatic|blor|||hepatic|||0|839|1134|1141
+SE|167592||ab|5|entity|C0001492|Adenylate Cyclase|aapp,enzy|||adenylate cyclase|||0|839|1148|1165
+SE|167592||ab|5|entity|C0001455|Cyclic AMP|bacs,nnon|||cAMP|||0|839|1166|1170
+SE|167592||ab|5|entity|C0449913|System|ftcn|||system|||0|839|1171|1177
+SE|167592||ab|5|relation|5|2|C0001455|Cyclic AMP|bacs,nnon|bacs|||cAMP|||0|901|1036|1040|NOM|INTERACTS_WITH||1120|1126|5|0|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG|glucagon|||0|694|1111|1119
+SE|167592||ab|5|relation|6|1|C0858734|Insulin hypoglycemia|dsyn|dsyn|||insulin-induced       hypoglycemia|||0|901|963|997|VERB|CAUSES||948|957|1|1|C0342218|Excessive glucagon secretion|patf|patf|||hyperglucagonemia|||0|888|930|947
+
+SE|167592||ab|6|text|1179|1407|Glucagon administration caused large increases in        hepatic cAMP and activation of phosphorylase within 1 min, followed by more       gradual inactivation of synthase when it had been previously activated by       glucose.
+SE|167592||ab|6|entity|C0017687|Glucagon|aapp,horm,nsba,phsu|2641|GCG|Glucagon|||0|888|1179|1187
+SE|167592||ab|6|entity|C0549177|Large|qnco|||large|||0|872|1210|1215
+SE|167592||ab|6|entity|C0442805|Increase|ftcn|||increases|||0|872|1216|1225
+SE|167592||ab|6|entity|C0205054|Hepatic|blor|||hepatic|||0|901|1236|1243
+SE|167592||ab|6|entity|C0001455|Cyclic AMP|bacs,nnon|||cAMP|||0|901|1244|1248
+SE|167592||ab|6|entity|C0917783|Glycogen Phosphorylase, Muscle Form|aapp,enzy|||phosphorylase|||0|1000|1267|1280
+SE|167592||ab|6|entity|C0439232|Minute of time|tmco|||min|||0|861|1290|1293
+SE|167592||ab|6|entity|C0205172|More|ftcn|||more|||0|851|1307|1311
+SE|167592||ab|6|entity|C0439833|Gradual|qlco|||gradual|||0|851|1318|1325
+SE|167592||ab|6|entity|C0544461|Inactivation|comd|||inactivation|||0|851|1326|1338
+SE|167592||ab|6|entity|C0017725|Glucose|bacs,carb,phsu|||glucose|||0|1000|1398|1405
+SE|167592||ab|6|relation|1|1|C0017725|Glucose|bacs,carb,phsu|bacs|||glucose|||0|1000|1398|1405|VERB|STIMULATES||1379|1388|8|4|C0917783|Glycogen Phosphorylase, Muscle Form|aapp,gngm,enzy|gngm|||phosphorylase|||0|1000|1267|1280
+
+SE|167592||ab|7|text|1407|1700|Concomitant glucose infusion, with resulting increased plasma insulin       concentrations, markedly diminished the duration of hepatic cAMP elevations       following glucagon adminstration, again suggesting an insulin inhibition of       glucagon action on the hepatic adenylate-cAMP system.
+SE|167592||ab|7|entity|C1516780|Concomitant|qlco|||Concomitant|||0|851|1407|1418
+SE|167592||ab|7|entity|C0017725|Glucose|bacs,carb,phsu|||glucose|||0|851|1419|1426
+SE|167592||ab|7|entity|C0574032|Infusion procedures|topp|||infusion|||0|851|1427|1435
+SE|167592||ab|7|entity|C1274040|result|ftcn|||resulting|||0|833|1442|1451
+SE|167592||ab|7|entity|C0205217|Increased|qnco|||increased|||0|833|1452|1461
+SE|167592||ab|7|entity|C0857690|Plasma insulin|lbpr|||plasma insulin|||0|833|1462|1476
+SE|167592||ab|7|entity|C0522501|Massive|qlco|||markedly|||0|1000|1499|1507
+SE|167592||ab|7|entity|C0449238|Duration|tmco|||duration|||0|1000|1523|1531
+SE|167592||ab|7|entity|C0205054|Hepatic|blor|||hepatic|||0|850|1535|1542
+SE|167592||ab|7|entity|C0001455|Cyclic AMP|bacs,nnon|||cAMP|||0|850|1543|1547
+SE|167592||ab|7|entity|C0702240|Elevation|spco|||elevations|||0|850|1548|1558
+SE|167592||ab|7|entity|C0017687|Glucagon|aapp,horm,nsba,phsu|2641|GCG|glucagon|||0|694|1575|1583
+SE|167592||ab|7|entity|C0021641|Insulin|aapp,horm,phsu|||insulin|||0|888|1619|1626
+SE|167592||ab|7|entity|C0017687|Glucagon|aapp,horm,nsba,phsu|2641|GCG|glucagon|||0|694|1647|1655
+SE|167592||ab|7|entity|C0205054|Hepatic|blor|||hepatic|||0|840|1670|1677
+SE|167592||ab|7|entity|C0597765|adenylate|bacs,nnon|||adenylate|||0|840|1678|1687
+SE|167592||ab|7|entity|C0001455|Cyclic AMP|bacs,nnon|||cAMP|||0|840|1688|1692
+SE|167592||ab|7|entity|C0449913|System|ftcn|||system|||0|840|1693|1699
+SE|167592||ab|7|relation|3|3|C0017725|Glucose|bacs,carb,phsu|bacs|||glucose|||0|851|1419|1426|NOM|STIMULATES||1548|1558|3|0|C0001455|Cyclic AMP|bacs,nnon|bacs|||cAMP|||0|850|1543|1547
+SE|167592||ab|7|relation|5|5|C0017725|Glucose|bacs,carb,phsu|bacs|||glucose|||0|851|1419|1426|NOM|INHIBITS||1627|1637|5|0|C0021641|Insulin|aapp,gngm,horm,phsu|gngm|||insulin|||0|888|1619|1626
+SE|167592||ab|7|relation|6|6|C0017725|Glucose|bacs,carb,phsu|bacs|||glucose|||0|851|1419|1426|NOM|INTERACTS_WITH||1656|1662|6|0|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG|glucagon|||0|694|1647|1655
+

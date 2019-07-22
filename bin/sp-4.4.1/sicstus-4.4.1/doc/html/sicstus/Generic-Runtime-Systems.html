@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Generic Runtime Systems</title>
+
+<meta name="description" content="SICStus Prolog: Generic Runtime Systems">
+<meta name="keywords" content="SICStus Prolog: Generic Runtime Systems">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables" rel="up" title="Stand-Alone Executables">
+<link href="Mixing-C-and-Prolog-Examples.html#Mixing-C-and-Prolog-Examples" rel="next" title="Mixing C and Prolog Examples">
+<link href="Loading-Prolog-Code.html#Loading-Prolog-Code" rel="prev" title="Loading Prolog Code">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Generic-Runtime-Systems"></a>
+<hr>
+<a name="Generic-Runtime-Systems-1"></a>
+<h4 class="subsection">6.7.5 Generic Runtime Systems</h4>
+
+<p>There are three ready-made runtime systems provided with the
+distributions, <samp>sprt.exe</samp>, <samp>sprti.exe</samp>, and (only on Windows)
+<samp>sprtw.exe</samp>. These have been created using <code>spld</code>:
+</p>
+<div class="example">
+<pre class="example">$ <kbd>spld --main=restore '$SP_APP_DIR/main.sav' -o sprt.exe</kbd>
+$ <kbd>spld --main=restore '$SP_APP_DIR/main.sav' -i -o sprti.exe</kbd>
+$ <kbd>spld --main=restore '$SP_APP_DIR/main.sav' --window -o sprtw.exe</kbd>
+</pre></div>
+
+<p>These are provided for users who do not have a C-compiler available. Each
+program launches a runtime system by restoring the saved-state
+<samp>main.sav</samp> (located in the same folder as the program).
+</p>
+<p>The saved-state is created by <code>save_program/[1,2]</code>.  If it was
+created by <code>save_program/2</code>, then the given startup goal is run.  Then,
+<code>user:runtime_entry(start)</code> is run.  The program exits with 0 upon
+normal temination and with 1 on failure or exception.
+</p>
+<p>The program <code>sprti.exe</code> assumes that the standard streams are
+connected to a terminal, even if they do not seem to be (useful under
+Emacs, for example). On Windows only, <code>sprtw.exe</code> is a windowed
+executable, corresponding to <code>spwin.exe</code>.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="User_002ddefined-Main-Programs.html#User_002ddefined-Main-Programs" accesskey="p" rel="prev">Previous</a>
+<li><a href="Stand_002dAlone-Executables.html#Stand_002dAlone-Executables" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Generic-Runtime-Systems.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Generic-Runtime-Systems.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

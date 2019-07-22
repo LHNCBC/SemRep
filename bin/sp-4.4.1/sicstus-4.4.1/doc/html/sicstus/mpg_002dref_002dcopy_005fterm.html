@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-copy_term</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-copy_term">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-copy_term">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dcoverage_005fdata.html#mpg_002dref_002dcoverage_005fdata" rel="next" title="mpg-ref-coverage_data">
+<link href="mpg_002dref_002dconsult.html#mpg_002dref_002dconsult" rel="prev" title="mpg-ref-consult">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dcopy_005fterm"></a>
+<hr>
+<a name="copy_005fterm_002f_005b2_002c3_005d---ISO"></a>
+<h4 class="subsection">11.3.44 <code>copy_term/[2,3]</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-copy_005fterm_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-copy_005fterm_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-69"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>copy_term(<var>+Term</var>, <var>-Copy</var>)</code>
+</p>
+<p>Unifies <var>Copy</var> with a copy of <var>Term</var>
+in which all variables have been replaced by brand new variables,
+and all mutables by brand new mutables.
+</p>
+<p><code>copy_term(<var>+Term</var>, <var>-Copy</var>, <var>-Body</var>)</code>
+</p>
+<p>Furthermore, if <var>Term</var> contains variables with goals blocked on
+them, or variables with attributes that can be interpreted as a goal
+(see <a href="lib_002datts.html#lib_002datts">lib-atts</a>), then <var>Body</var> is unified with the conjunction of
+such goals.  If no such goals are present, then <var>Body</var> is unified with
+the atom <code>true</code>.  The idea is that executing <var>Body</var>
+will reinstate blocked goals and attributes on the variables in <var>Copy</var>
+equivalent to those on the variables in <var>Term</var>.
+</p>
+<a name="Arguments-65"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Term</var></dt>
+<dd><p><em>term</em>
+</p>
+</dd>
+<dt><var>Copy</var></dt>
+<dd><p><em>term</em>
+</p>
+</dd>
+<dt><var>Body</var></dt>
+<dd><p><em>callable</em>
+</p></dd>
+</dl>
+
+<a name="Description-57"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Independent copies are substituted for any mutable terms in
+<var>term</var>.  It behaves as if defined by:
+</p>
+<div class="example">
+<pre class="example">copy_term(X, Y) :-
+        assert('copy of'(X)),
+        retract('copy of'(Y)).
+</pre></div>
+
+<p>The implementation of <code>copy_term/2</code> endeavors to conserve space
+by not copying ground subterms.
+</p>
+<p>When you call <code>clause/[2,3]</code> or <code>instance/2</code>, you get a new copy
+of the term stored in the database, in precisely
+the same sense that <code>copy_term/2</code> gives you a new copy.
+</p>
+<a name="Examples-24"></a>
+<h4 class="subheading">Examples</h4>
+
+<ul>
+<li> A naive way to attempt to find out whether one term is a copy of another:
+
+<div class="example">
+<pre class="example">identical_but_for_variables(X, Y) :-
+   \+ \+ (
+      numbervars(X, 0, N),
+      numbervars(Y, 0, N),
+      X = Y
+   ).
+</pre></div>
+
+<p>This solution is sometimes sufficient, but will not work if the two
+terms have any variables in common.
+</p>
+</li><li> If you want the test to succeed even when the two terms do have
+some variables in common, then you need to copy one of them; for example,
+<div class="example">
+<pre class="example">identical_but_for_variables(X, Y) :-
+   \+ \+ (
+      copy_term(X, Z),
+      numbervars(Z, 0, N),
+      numbervars(Y, 0, N),
+      Z = Y
+   ).
+</pre></div>
+
+</li><li> An example of <code>copy_term/3</code>.  Suppose that you want to make <code>copy_term/3</code>
+aware of the attribute <code>tfs/1</code> in some module.  Then with the module-file:
+
+<div class="example">
+<pre class="example">:- module(foo, []).
+
+:- use_module(library(atts)).
+:- attribute tfs/1.
+
+attribute_goal(X, put_atts(X,tfs(Y))) :-
+    get_atts(X, tfs(Y)).
+</pre></div>
+
+<p>the following query works:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>foo:put_atts(X, tfs(ind)), copy_term(f(X), Copy, Body).</kbd>
+Body = foo:put_atts(_A,tfs(ind)),
+Copy = f(_A),
+put_atts(X,tfs(ind)) ? <span class="key">RET</span>
+yes
+</pre></div>
+
+</li></ul>
+
+<a name="Comments-4"></a>
+<h4 class="subheading">Comments</h4>
+
+<p><code>copy_term/2</code> is part of the ISO Prolog standard; <code>copy_term/3</code> is not.
+</p>
+<a name="Exceptions-60"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+</p>
+<a name="See-Also-66"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt">ref-lte-cpt</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dcoverage_005fdata.html#mpg_002dref_002dcoverage_005fdata" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dconsult.html#mpg_002dref_002dconsult" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dcopy_005fterm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dcopy_005fterm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

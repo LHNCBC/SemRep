@@ -1,0 +1,38 @@
+# @(#)plural.rul	1.1 09/18/06
+
+# Inflection Rules For Irregular Nouns:
+#
+# OF MICE AND MEN (and TEETH and WIVES): (1-Oct-92)
+
+man$|noun|singular|men$|noun|plural
+
+# It is not clear from the dictionaries what the plurals of the non-rodential
+# terms:  "peritoneal mouse", "pleural mouse" and "joint mouse" is.  I assume
+# that analogy is strong enough to support "mice" plurals for these.
+
+mouse$|noun|singular|mice$|noun|plural
+
+# tooth teeth
+
+tooth$|noun|singular|teeth$|noun|plural
+
+# f(e) -> ves  (1-Oct-92) (ACB)
+
+fe$|noun|singular|ves$|noun|plural
+   rife|rives;
+   safe|saves;
+   strife|strives;
+
+# "belief" and "believes" are of course morphologically related  by an
+# "f|noun|ve|verb" derivational rule too unproductive  to make it into
+# dm.rul.
+
+f$|noun|singular|ves$|noun|plural
+   belief|believes;
+   dif|dives;
+   disbelief|disbelieves;
+   grief|grieves;
+   motif|motives;
+   pelf|pelves;
+   relief|relieves;
+   serf|serves;

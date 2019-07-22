@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-rve</title>
+
+<meta name="description" content="SICStus Prolog: cpg-rve">
+<meta name="keywords" content="SICStus Prolog: cpg-rve">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="C-Reference-Pages.html#C-Reference-Pages" rel="up" title="C Reference Pages">
+<link href="cpg_002dtop.html#cpg_002dtop" rel="next" title="cpg-top">
+<link href="C-Reference-Pages.html#C-Reference-Pages" rel="prev" title="C Reference Pages">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002drve"></a>
+<hr>
+<a name="Return-Values-and-Errors"></a>
+<h3 class="section">12.1 Return Values and Errors</h3>
+
+<a name="index-C-functions_002c-return-values_002c-errors"></a>
+
+<a name="index-SP_005fSUCCESS-_0028C-macro_0029-1"></a>
+<a name="index-SP_005fFAILURE-_0028C-macro_0029-1"></a>
+<a name="index-SP_005fERROR-_0028C-macro_0029-1"></a>
+<a name="index-SP_005ferrno-_0028C-macro_0029-1"></a>
+<a name="index-SP_005ferror_005fmessage_0028_0029-_0028C-function_0029-1"></a>
+
+<p>Many, but not all, C functions return one of the codes
+<code>SP_SUCCESS</code> for success, <code>SP_FAILURE</code> for failure,
+<code>SP_ERROR</code> if an error condition occurred, or if an uncaught
+exception was raised during a call from C to Prolog.
+If the value is <code>SP_ERROR</code>, then the macro <code>SP_errno</code> will return a
+value (an integer) describing the error condition.
+</p>
+<p>The function <code>SP_error_message()</code> returns a pointer to the diagnostic
+message corresponding to a specified error number.
+</p>
+<p>See <a href="mpg_002dref_002dove.html#mpg_002dref_002dove">mpg-ref-ove</a> for a description of the conventions observed in
+the Reference Pages for Prolog predicates.  C function Reference Pages
+differ primarily in the synopsis. Also, the Reference Page for each C
+function documents its return values.
+</p>
+<p>The following function annotations are used in the Reference Pages:
+</p>
+<dl compact="compact">
+<dd><a name="index-hook-_0028function-annotation_0029"></a>
+</dd>
+<dt><em>hook</em></dt>
+<dd><p>The function is user defined and is called in some specific context.
+</p>
+<a name="index-macro-_0028function-annotation_0029"></a>
+</dd>
+<dt><em>macro</em></dt>
+<dd><p>The function is defined as a C macro.
+</p>
+<a name="index-preinit-_0028function-annotation_0029"></a>
+</dd>
+<dt><em>preinit</em></dt>
+<dd><p>It is only meaningful to call the function before initializing the
+Prolog engine
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dtop.html#cpg_002dtop" accesskey="n" rel="next">Next</a>
+<li><a href="C-Reference-Pages.html#C-Reference-Pages" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002drve.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002drve.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-top-fin</title>
+
+<meta name="description" content="SICStus Prolog: cpg-top-fin">
+<meta name="keywords" content="SICStus Prolog: cpg-top-fin">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dtop.html#cpg_002dtop" rel="up" title="cpg-top">
+<link href="cpg_002dtop_002dmain.html#cpg_002dtop_002dmain" rel="next" title="cpg-top-main">
+<link href="cpg_002dtop_002dfst.html#cpg_002dtop_002dfst" rel="prev" title="cpg-top-fst">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dtop_002dfin"></a>
+<hr>
+<a name="Foreign-Interface-1"></a>
+<h4 class="subsection">12.2.5 Foreign Interface</h4>
+
+<a name="index-Foreign-Interface_002c-C-functions-for"></a>
+<a name="index-C-functions-for-Foreign-Interface"></a>
+
+
+<dl compact="compact">
+<dt><code>SP_atom_from_string()</code></dt>
+<dd><p>returns the encoded string representing a Prolog atom
+</p>
+</dd>
+<dt><code>SP_atom_length()</code></dt>
+<dd><p>returns the length of the encoded string representing a Prolog atom
+</p>
+</dd>
+<dt><code>SP_close_query()</code></dt>
+<dd><p>closes a Prolog query opened from C by <code>SP_open_query()</code>
+</p>
+</dd>
+<dt><code>SP_cons_functor()</code></dt>
+<dt><code>SP_cons_functor_array()</code></dt>
+<dd><p>creates a Prolog compound term from C
+</p>
+</dd>
+<dt><code>SP_cons_list()</code></dt>
+<dd><p>creates a Prolog list from C
+</p>
+</dd>
+<dt><code>SP_cut_query()</code></dt>
+<dd><p>terminates a nondeterminate Prolog query opened from C
+</p>
+</dd>
+<dt><code>SP_define_c_predicate()</code></dt>
+<dd><p>defines a Prolog predicate linked to a C function
+</p>
+</dd>
+<dt><code>SP_exception_term()</code></dt>
+<dd><p>returns the Prolog term to C corresponding to the
+most recent Prolog error
+</p>
+</dd>
+<dt><code>SP_get_address()</code></dt>
+<dd><p>fetches an integer representing a pointer in an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_arg()</code></dt>
+<dd><p>fetches a specified argument of a compound term in
+an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_atom()</code></dt>
+<dd><p>fetches an atom from an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_current_dir()</code></dt>
+<dd><p>obtain name of current working directory
+</p>
+</dd>
+<dt><code>SP_get_float()</code></dt>
+<dd><p>fetches a floating point number from an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_functor()</code></dt>
+<dd><p>fetches the name and arity of a term in an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_integer()</code></dt>
+<dd><p>fetches an integer in an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_integer_bytes()</code></dt>
+<dd><p>fetches an arbitrarily sized integer in an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_list()</code></dt>
+<dd><p>fetches the head and tail of a list in an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_list_codes()</code></dt>
+<dd><p>fetches a code-list in an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_list_n_codes()</code></dt>
+<dd><p>fetches the first part of a code-list in an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_list_n_bytes()</code></dt>
+<dd><p>fetches the first part of a byte-list in an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_number_codes()</code></dt>
+<dd><p>fetches a number encoded as a code-list in an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_get_string()</code></dt>
+<dd><p>fetches the encoded string representing a Prolog atom in an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_next_solution()</code></dt>
+<dd><p>gets the next solution, if any, to an open
+Prolog query
+</p>
+</dd>
+<dt><code>SP_open_query()</code></dt>
+<dd><p>opens a Prolog query from C
+</p>
+</dd>
+<dt><code>SP_pred()</code></dt>
+<dd><p>fetches an identifier for a Prolog predicate
+</p>
+</dd>
+<dt><code>SP_predicate()</code></dt>
+<dd><p>fetches an identifier a Prolog predicate
+</p>
+</dd>
+<dt><code>SP_put_address()</code></dt>
+<dd><p>assigns a pointer to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_atom()</code></dt>
+<dd><p>assigns an atom to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_float()</code></dt>
+<dd><p>assigns a floating point number to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_functor()</code></dt>
+<dd><p>assigns a new compound term to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_integer()</code></dt>
+<dd><p>assigns an integer to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_integer_bytes()</code></dt>
+<dd><p>assigns an arbitrarily sized integer to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_list()</code></dt>
+<dd><p>assigns a new list to an SP_term_ref 
+</p>
+</dd>
+<dt><code>SP_put_list_codes()</code></dt>
+<dd><p>assigns a code-list to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_list_n_codes()</code></dt>
+<dd><p>assigns the first part of a code-list to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_list_n_bytes()</code></dt>
+<dd><p>assigns the first part of a byte-list to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_number_codes()</code></dt>
+<dd><p>assigns a number encoded as a code-list to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_string()</code></dt>
+<dd><p>assigns the atom represented by an encoded string to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_term()</code></dt>
+<dd><p>assigns the value of an SP_term_ref to another SP_term_ref
+</p>
+</dd>
+<dt><code>SP_put_variable()</code></dt>
+<dd><p>assigns a Prolog variable to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_query()</code></dt>
+<dd><p>makes a determinate query to a Prolog predicate, committing to the solution
+</p>
+</dd>
+<dt><code>SP_query_cut_fail()</code></dt>
+<dd><p>makes a determinate query to a Prolog predicate for side-effects only
+</p>
+</dd>
+<dt><code>SP_read_from_string()</code></dt>
+<dd><p>assigns a Prolog term read from a string to an SP_term_ref
+</p>
+</dd>
+<dt><code>SP_set_current_dir()</code></dt>
+<dd><p>set name of current working directory
+</p>
+</dd>
+<dt><code>SP_string_from_atom()</code></dt>
+<dd><p>returns a null-terminated string corresponding
+to a Prolog atom
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dtop_002dmain.html#cpg_002dtop_002dmain" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dtop_002dfst.html#cpg_002dtop_002dfst" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dtop.html#cpg_002dtop" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dtop_002dfin.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dtop_002dfin.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

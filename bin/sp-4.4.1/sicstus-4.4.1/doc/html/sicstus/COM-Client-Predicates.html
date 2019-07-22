@@ -1,0 +1,279 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: COM Client Predicates</title>
+
+<meta name="description" content="SICStus Prolog: COM Client Predicates">
+<meta name="keywords" content="SICStus Prolog: COM Client Predicates">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dcomclient.html#lib_002dcomclient" rel="up" title="lib-comclient">
+<link href="COM-Client-Examples.html#COM-Client-Examples" rel="next" title="COM Client Examples">
+<link href="Terminology.html#Terminology" rel="prev" title="Terminology">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="COM-Client-Predicates"></a>
+<hr>
+<a name="Predicate-Reference"></a>
+<h4 class="subsection">10.14.3 Predicate Reference</h4>
+
+<dl compact="compact">
+<dt><code>comclient_garbage_collect</code></dt>
+<dd>
+<a name="index-comclient_005fgarbage_005fcollect_002f0-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fgarbage_005fcollect_002f0-_0028comclient_0029"></a>
+
+<p>Release Objects that are no longer reachable from SICStus
+Prolog. To achieve this the predicate
+<code>comclient_garbage_collect/0</code> performs an atom garbage
+collection, i.e. <code>garbage_collect_atoms/0</code>, so it should be used
+sparingly.
+</p></dd>
+<dt><code>comclient_is_object(<var>+Object</var>)</code></dt>
+<dd>
+<a name="index-comclient_005fis_005fobject_002f1-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fis_005fobject_002f1-_0028comclient_0029"></a>
+
+<p>Succeeds if <var>Object</var> &quot;looks like&quot; an object. It does not check that
+the object is (still) reachable from SICStus Prolog, see
+<code>comclient_valid_object/1</code>. Currently an object looks like
+<code>'$comclient_object'(<var>stuff</var>)</code> where <var>stuff</var> is some prolog
+term. Do not rely on this representation!
+</p></dd>
+<dt><code>comclient_valid_object(<var>+Object</var>)</code></dt>
+<dd>
+<a name="index-comclient_005fvalid_005fobject_002f1-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fvalid_005fobject_002f1-_0028comclient_0029"></a>
+
+<p>Succeeds if <var>Object</var> is an object that is still available to
+SICStus Prolog.
+</p></dd>
+<dt><code>comclient_equal(<var>+Object1</var>, <var>+Object2</var>)</code></dt>
+<dd>
+<a name="index-comclient_005fequal_002f2-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fequal_002f2-_0028comclient_0029"></a>
+
+<p>Succeeds if <var>Object1</var> and <var>Object2</var> are the same object. (It
+succeeds if their <code>'IUnknown'</code> interfaces are identical)
+</p></dd>
+<dt><code>comclient_clsid_from_progid(<var>+ProgID</var>, <var>-CLSID</var>).</code></dt>
+<dd>
+<a name="index-comclient_005fclsid_005ffrom_005fprogid_002f2-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fclsid_005ffrom_005fprogid_002f2-_0028comclient_0029"></a>
+
+<p>Obtain the <var>CLSID</var> corresponding to a particular <var>ProgID</var>. Uses
+the Win32 routine <code>CLSIDFromProgID</code>. You rarely need this since
+you can use the ProgID directly in most cases.
+</p></dd>
+<dt><code>comclient_progid_from_clsid(<var>+CLSID</var>, <var>-ProgID</var>).</code></dt>
+<dd>
+<a name="index-comclient_005fprogid_005ffrom_005fclsid_002f2-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fprogid_005ffrom_005fclsid_002f2-_0028comclient_0029"></a>
+
+<p>Obtain the <var>ProgID</var> corresponding to a particular <var>CLSID</var>. Uses the
+Win32 routine <code>ProgIDFromCLSID</code>. Rarely needed. The <var>ProgID</var>
+returned will typically have the version suffix appended.
+</p>
+<p>Example, to determine what version of <code>Excel.Application</code> is installed:
+</p><div class="example">
+<pre class="example">| ?- <kbd>comclient_clsid_from_progid('Excel.Application, CLSID),</kbd>
+     <kbd>comclient_progid_from_clsid(CLSID, ProgID).</kbd>
+CLSID = '{00024500-0000-0000-C000-000000000046}',
+ProgID = 'Excel.Application.8'
+</pre></div>
+</dd>
+<dt><code>comclient_iid_from_name(<var>+IName</var>, <var>-IID</var>)</code></dt>
+<dd>
+<a name="index-comclient_005fiid_005ffrom_005fname_002f2-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fiid_005ffrom_005fname_002f2-_0028comclient_0029"></a>
+
+<p>Look in the registry for the <var>IID</var> corresponding to a particular
+Interface. Currently of little use.
+</p><div class="example">
+<pre class="example">| ?- <kbd>comclient_iid_from_name('IDispatch', IID).</kbd>
+IID = '{00020400-0000-0000-C000-000000000046}'
+</pre></div>
+</dd>
+<dt><code>comclient_name_from_iid(<var>+IID</var>, <var>-IName</var>)</code></dt>
+<dd>
+<a name="index-comclient_005fname_005ffrom_005fiid_002f2-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fname_005ffrom_005fiid_002f2-_0028comclient_0029"></a>
+
+<p>Look in the registry for the name corresponding to a particular
+<var>IID</var>. Currently of little use.
+</p></dd>
+<dt><code>comclient_create_instance(<var>+ID</var>, <var>-Object</var>)</code></dt>
+<dd>
+<a name="index-comclient_005fcreate_005finstance_002f2-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fcreate_005finstance_002f2-_0028comclient_0029"></a>
+
+<p>Create an instance of the Class identified by the CLSID or ProgID <var>ID</var>.
+</p><div class="example">
+<pre class="example">comclient_create_instance('Excel.Application', App)
+</pre></div>
+<p>Corresponds to <code>CoCreateInstance</code>.
+</p></dd>
+<dt><code>comclient_get_active_object(<var>+ID</var>, <var>-Object</var>)</code></dt>
+<dd>
+<a name="index-comclient_005fget_005factive_005fobject_002f2-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fget_005factive_005fobject_002f2-_0028comclient_0029"></a>
+
+<p>Retrieves a running object of the Class identified by the CLSID
+or ProgID <var>ID</var>.
+</p><div class="example">
+<pre class="example">comclient_get_active_object('Excel.Application', App)
+</pre></div>
+<p>An exception is thrown if there is no suitable running object.
+Corresponds to <code>GetActiveObject</code>.
+</p></dd>
+<dt><code>comclient_invoke_method_fun(<var>+Object</var>, <var>+CallSpec</var>, <var>-ComValue</var>)</code></dt>
+<dd>
+<a name="index-comclient_005finvoke_005fmethod_005ffun_002f3-_0028comclient_0029-1"></a>
+<a name="index-comclient_005finvoke_005fmethod_005ffun_002f3-_0028comclient_0029"></a>
+
+<p>Call a method that returns a value. Also use this to get the
+value of properties.
+</p>
+</dd>
+<dt><code>comclient_invoke_method_proc(<var>+Object</var>, <var>+CallSpec</var>)</code></dt>
+<dd>
+<a name="index-comclient_005finvoke_005fmethod_005fproc_002f2-_0028comclient_0029-1"></a>
+<a name="index-comclient_005finvoke_005fmethod_005fproc_002f2-_0028comclient_0029"></a>
+
+<p>Call a method that does not return a value.
+</p></dd>
+<dt><code>comclient_invoke_put(<var>+Object</var>, <var>+CallSpec</var>, <var>+ComInArg</var>)</code></dt>
+<dd>
+<a name="index-comclient_005finvoke_005fput_002f3-_0028comclient_0029-1"></a>
+<a name="index-comclient_005finvoke_005fput_002f3-_0028comclient_0029"></a>
+
+<p>Set the property denoted by <var>CallSpec</var> to <var>ComValue</var>.
+Example: <code>comclient_invoke_put(App, visible, 1)</code>
+</p></dd>
+<dt><code>comclient_release(<var>+Object</var>)</code></dt>
+<dd>
+<a name="index-comclient_005frelease_002f1-_0028comclient_0029-1"></a>
+<a name="index-comclient_005frelease_002f1-_0028comclient_0029"></a>
+
+<p>Release the object and free the datastructures used by SICStus
+Prolog to keep track of this object. After releasing an object the
+term denoting the object can no longer be used to access the
+object (any attempt to do so will raise an exception).
+</p><blockquote>
+<p><strong>Please note</strong>: The same COM-object can be represented by different prolog 
+terms. A COM object is not released from SICStus Prolog until all
+such representations have been released, either
+explicitly by calling <code>comclient_release/1</code> or by
+calling <code>comclient_garbage_collect/0</code>.
+</p>
+<p>You cannot use <code><var>Obj1</var> == <var>Obj2</var></code> to determine whether two
+COM-objects are identical. Instead use <code>comclient_equal/2</code>.
+</p></blockquote>
+</dd>
+<dt><code>comclient_is_exception(<var>+ExceptionTerm</var>)</code></dt>
+<dd>
+<a name="index-comclient_005fis_005fexception_002f1-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fis_005fexception_002f1-_0028comclient_0029"></a>
+
+<p>Succeeds if <var>ExceptionTerm</var> is an exception raised by the
+comclient module.
+</p><div class="example">
+<pre class="example">catch(&lt;some code&gt;,
+      Exception,
+      ( comclient_is_exception(E) -&gt;
+         handle_com_related_errors(E)
+      ; otherwise -&gt; % Pass other exceptions upwards
+         throw(E)
+      ))
+</pre></div>
+</dd>
+<dt><code>comclient_exception_code(<var>+ExceptionTerm</var>, <var>-ErrorCode</var>)</code></dt>
+<dd>
+<a name="index-comclient_005fexception_005fcode_002f2-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fexception_005fcode_002f2-_0028comclient_0029"></a>
+
+</dd>
+<dt><code>comclient_exception_culprit(<var>+ExceptionTerm</var>, <var>-Culprit</var>)</code></dt>
+<dd>
+<a name="index-comclient_005fexception_005fculprit_002f2-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fexception_005fculprit_002f2-_0028comclient_0029"></a>
+
+</dd>
+<dt><code>comclient_exception_description(<var>+ExceptionTerm</var>, <var>-Description</var>)</code></dt>
+<dd>
+<a name="index-comclient_005fexception_005fdescription_002f2-_0028comclient_0029-1"></a>
+<a name="index-comclient_005fexception_005fdescription_002f2-_0028comclient_0029"></a>
+
+<p>Access the various parts of a comclient exception. The <var>ErrorCode</var>
+is the <code>HRESULT</code> causing the exception. <var>Culprit</var> is a
+term corresponding to the call that gave an
+exception. <var>Description</var>, if available, is either a term
+<code>'EXCEPINFO'(&hellip;)</code> corresponding to an <code>EXCEPINFO</code>
+structure or <code>'ARGERR'(MethodName, ArgNumber)</code>.
+</p>
+<p>The <code>EXCEPINFO</code> has six arguments corresponding to, and in the
+same order as, the arguments of the <code>EXCEPINFO</code> struct.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="COM-Client-Examples.html#COM-Client-Examples" accesskey="n" rel="next">Next</a>
+<li><a href="Terminology.html#Terminology" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dcomclient.html#lib_002dcomclient" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/COM-Client-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/COM-Client-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

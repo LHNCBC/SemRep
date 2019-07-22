@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-exp-create</title>
+
+<meta name="description" content="SICStus Prolog: obj-exp-create">
+<meta name="keywords" content="SICStus Prolog: obj-exp-create">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dexp.html#obj_002dexp" rel="up" title="obj-exp">
+<link href="obj_002dexp_002dcurrent_005fclass.html#obj_002dexp_002dcurrent_005fclass" rel="next" title="obj-exp-current_class">
+<link href="obj_002dexp_002dclass_005fof.html#obj_002dexp_002dclass_005fof" rel="prev" title="obj-exp-class_of">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dexp_002dcreate"></a>
+<hr>
+<a name="create_002f2"></a>
+<h4 class="subsubsection">10.23.6.9 <code>create/2</code></h4>
+
+
+
+
+
+<a name="index-create_002f2-_0028objects_0029-1"></a>
+<a name="index-create_002f2-_0028objects_0029"></a>
+
+
+
+
+
+
+<a name="Synopsis-8"></a>
+<h4 class="subheading">Synopsis</h4>
+<p><code>create(<var>+Descriptor</var>,<var>-Obj</var>)</code>
+</p>
+<a name="Arguments-8"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Descriptor</var></dt>
+<dd><p><em>term</em>
+</p>
+</dd>
+<dt><var>Obj</var></dt>
+<dd><p><em>object</em>
+</p>
+</dd>
+</dl>
+
+
+<a name="Description-8"></a>
+<h4 class="subheading">Description</h4>
+<p><var>Obj</var> is a newly created and initialized
+object. Descriptor is a term describing the object to create. After
+memory is allocated and any slot initializations are performed, a
+create message is sent to the object.
+</p>
+<p>The functor of <var>Descriptor</var> indicates the class to create. The
+arguments of the create message are the arguments of <var>Descriptor</var>.
+</p>
+
+<a name="Exceptions-7"></a>
+<h4 class="subheading">Exceptions</h4>
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd>
+<p><var>Descriptor</var> is unbound.
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd>
+<p><var>Descriptor</var> is not a valid <code>create</code> descriptor.
+</p>
+</dd>
+<dt><code>resource_error</code></dt>
+<dd>
+<p>unable to allocate enough memory for object.
+</p></dd>
+</dl>
+
+
+<a name="Caveat-4"></a>
+<h4 class="subheading">Caveat</h4>
+<p>You must have a <code>create/<var>N</var></code> method for every
+arity <var>N</var> you want to be able to use in creating instances of a
+class.  This includes arity 0.  If no such method exists, then a domain
+error will be raised.
+</p>
+<a name="Examples-7"></a>
+<h4 class="subheading">Examples</h4>
+<p>Given the class definition
+</p>
+<div class="example">
+<pre class="example">:- class point =
+                [public x:integer=1, 
+                 public y:integer=2].
+
+Self &lt;- create. 
+Self &lt;- create(X, Y) :-
+                Self &lt;&lt; x(X), 
+                Self &lt;&lt; y(Y). 
+:- end_class point.
+</pre></div>
+
+
+<p>the command
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(point, Point1).</kbd>
+</pre></div>
+
+
+<p>creates a <code>point</code> object, with the default slot values for <code>x</code> and <code>y</code>, and
+binds variable <code>Point1</code> to the new object. The command
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(point(10,15), Point2).</kbd>
+</pre></div>
+
+
+<p>creates a <code>point</code> object with values 10 and 15 for slots <code>x</code> and <code>y</code>,
+respectively, and binds variable <code>Point2</code> to the new object.
+</p>
+
+<a name="See-Also-8"></a>
+<h4 class="subheading">See Also</h4>
+<p><code>destroy/1</code>
+</p>
+
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dexp_002dcurrent_005fclass.html#obj_002dexp_002dcurrent_005fclass" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dexp_002dclass_005fof.html#obj_002dexp_002dclass_005fof" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dexp.html#obj_002dexp" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp_002dcreate.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp_002dcreate.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

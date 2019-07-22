@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Storing User Information  in the Backtrace</title>
+
+<meta name="description" content="SICStus Prolog: Storing User Information  in the Backtrace">
+<meta name="keywords" content="SICStus Prolog: Storing User Information  in the Backtrace">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="up" title="Advanced Debugging">
+<link href="Hooks-Related-to-Breakpoints.html#Hooks-Related-to-Breakpoints" rel="next" title="Hooks Related to Breakpoints">
+<link href="Accessing-Past-Debugger-States.html#Accessing-Past-Debugger-States" rel="prev" title="Accessing Past Debugger States">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Storing-User-Information-in-the-Backtrace"></a>
+<hr>
+<a name="Storing-User-Information-in-the-Backtrace-1"></a>
+<h4 class="subsection">5.6.9 Storing User Information  in the Backtrace</h4>
+
+<a name="index-private_002f1-_0028debugger-condition_0029"></a>
+<a name="index-goal_005fprivate_002f1-_0028debugger-condition_0029"></a>
+<p>The debugger allows the user to store some private information in the
+backtrace. It allocates a Prolog variable in each break
+level and in each invocation. The breakpoint test
+<code>private(<var>Priv</var>)</code> unifies <var>Priv</var> with the private
+information associated with the break level, while the test
+<code>goal_private(<var>GPriv</var>)</code> unifies <var>GPriv</var> with the
+Prolog variable stored in the invocation.
+</p>
+<p>Both variables are initially unbound, and behave as if they
+were passed around the program being debugged in additional
+arguments. This implies that any variable assignments done
+within these variables are undone on backtracking.
+</p>
+<p>In practice, the <code>private</code> condition gives you access to a Prolog
+variable shared by all invocations of a break level. This makes it
+possible to remember a term and look at it later, in a possibly
+more instantiated form, as shown by the following example.
+</p>
+<div class="example">
+<pre class="example">memory(Term) :-
+        execution_state(private(P)),
+        memberchk(myterm(Term), P).
+
+| ?- <kbd>trace, append([1,2,3,4], [5,6], L).</kbd>
+        1      1 Call: append([1,2,3,4],[5,6],_514) ? <kbd>@</kbd>
+| :- <kbd>append(_,_,L)^memory(L).</kbd>
+        1      1 Call: append([1,2,3,4],[5,6],_514) ? <kbd>c</kbd>
+        2      2 Call: append([2,3,4],[5,6],_2064) ? <kbd>c</kbd>
+        3      3 Call: append([3,4],[5,6],_2422) ? <kbd>c</kbd>
+        4      4 Call: append([4],[5,6],_2780) ? <kbd>@</kbd>
+| :- <kbd>memory(L), write(L), nl.</kbd>
+[1,2,3|_2780]
+        4      4 Call: append([4],[5,6],_2780) ? 
+</pre></div>
+
+<p>The predicate <code>memory/1</code> receives the term to be
+remembered in its argument. It gets hold of the private field
+associated with the break level in variable <code>P</code>, and calls
+<code>memberchk/2</code> (see <a href="lib_002dlists.html#lib_002dlists">lib-lists</a>), with the term to be
+remembered, wrapped in <code>myterm</code>, as the list element, and the
+private field, as the list.  Thus the latter, initially unbound
+variable, is used as an open-ended list.  For example, when
+<code>memory/1</code> is called for the first time, the private field gets
+instantiated to <code>[myterm(Term)|_]</code>.  If later you call
+<code>memory/1</code> with an uninstantiated argument, then it will
+retrieve the term remembered earlier and unify it with the
+argument.
+</p>
+<p>The above trace excerpt shows how this utility predicate can be
+used to remember an interesting Prolog term. Within invocation
+number 1 we call <code>memory/1</code> with the third, output argument
+of <code>append/3</code>, using the &lsquo;<samp>@</samp>&rsquo; command (see <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>). A few tracing steps later, we retrieve the term
+remembered and print it, showing its current instantiation. Being
+able to access the instantiation status of some terms of interest
+can be very useful in debugging. In <code>library(debugger_examples)</code> we
+describe new debugger commands for naming Prolog variables and
+providing name-based access to these variables, based on the above
+technique.
+</p>
+<p>We could have avoided the use of <code>memberchk/2</code> in the example by
+simply storing the term to be remembered in the private field
+itself (<code>memory(Term) :- execution_state(private(Term)).</code>). But
+this would have made the private field unusable for other purposes. For
+example, the finite domain constraint debugger (see <a href="lib_002dfdbg.html#lib_002dfdbg">lib-fdbg</a>) would stop
+working, as it relies on the private fields.
+</p>
+<p>There is only a single private variable of both kinds within the given
+scope. Therefore the convention of using an open ended list for storing
+information in private fields, as shown in the above example, is very
+much recommended. The different users of the private field are
+distinguished by the wrapper they use (e.g. <code>myterm/1</code> above,
+<code>fdbg/1</code> for the constraint debugger, etc.). Future releases may
+enforce this convention by providing appropriate breakpoint tests.
+</p>
+<p>We now present an example of using the goal private field. Earlier
+we have shown a spypoint definition that made a predicate
+invisible in the sense that its ports are silently passed through
+and it is automatically skipped over. However, with that earlier
+solution, execution always continues in trace mode after
+skipping. We now improve the spypoint definition: the mode in
+which the Call port was reached is remembered in the goal
+private field, and the mode action variable is reset to this value at
+the Exit port.
+</p>
+<div class="example">
+<pre class="example">mode_memory(Mode) :-
+        execution_state(goal_private(GP)),
+        memberchk(mymode(Mode), GP).
+
+| ?- <kbd>spy(foo/2, -[silent,proceed,</kbd>
+                 <kbd>true(mode_memory(MM)),</kbd>
+                <kbd>(   call -&gt; get(mode(MM)), inv(Inv), skip(Inv)</kbd>
+                <kbd>;   exit -&gt; mode(MM)</kbd>
+                <kbd>;   true</kbd>
+                <kbd>)]).</kbd>
+</pre></div>
+
+<p>Here, we first define an auxiliary predicate <code>mode_memory/1</code>,
+which uses the open list convention for storing information in the
+goal private field, applying the <code>mymode/1</code> wrapper. We then
+create a spypoint for <code>foo/2</code>, whose action part first sets
+the <code>print</code> and <code>command</code> action variables. Next, the
+<code>mode_memory/1</code> predicate is called, unifying the mode
+memory with the <code>MM</code> variable. We then branch in the action
+part: at Call ports the uninstantiated <code>MM</code> is
+unified with the current mode, and a <code>skip</code> command is
+issued. At Exit ports <code>MM</code> holds the mode saved at the Call
+port, so the <code>mode(MM)</code> action re-activates this mode. At all
+other ports we just silently proceed without changing the debugger
+mode.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Hooks-Related-to-Breakpoints.html#Hooks-Related-to-Breakpoints" accesskey="n" rel="next">Next</a>
+<li><a href="Accessing-Past-Debugger-States.html#Accessing-Past-Debugger-States" accesskey="p" rel="prev">Previous</a>
+<li><a href="Advanced-Debugging.html#Advanced-Debugging" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Storing-User-Information-in-the-Backtrace.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Storing-User-Information-in-the-Backtrace.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

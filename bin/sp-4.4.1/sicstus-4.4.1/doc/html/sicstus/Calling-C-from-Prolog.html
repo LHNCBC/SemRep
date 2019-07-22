@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Calling C from Prolog</title>
+
+<meta name="description" content="SICStus Prolog: Calling C from Prolog">
+<meta name="keywords" content="SICStus Prolog: Calling C from Prolog">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" rel="up" title="Mixing C and Prolog">
+<link href="Foreign-Resources.html#Foreign-Resources" rel="next" title="Foreign Resources">
+<link href="CPL-Notes.html#CPL-Notes" rel="prev" title="CPL Notes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Calling-C-from-Prolog"></a>
+<hr>
+<a name="Calling-C-from-Prolog-1"></a>
+<h3 class="section">6.2 Calling C from Prolog</h3>
+<a name="index-foreign-language-interface-1"></a>
+<a name="index-interface_002c-foreign-language-1"></a>
+
+<p>Functions written in the C language may be called from Prolog using an
+interface in which automatic type conversions between Prolog terms
+and common C types are declared as Prolog facts.  Calling without
+type conversion can also be specified, in which case the arguments
+and values are passed as SP_term_refs. This interface is partly
+modeled after Quintus Prolog.
+</p>
+<p>The functions installed using this foreign language interface may invoke
+Prolog code and use the support functions described in the other
+sections of this chapter.
+</p>
+<p>Functions, or their equivalent, in any other language having C
+compatible calling conventions may also be interfaced using this
+interface. When referring to C functions in the following, we also
+include such other language functions. Note however that a C compiler is
+needed since a small amount of glue code (in C) must be generated
+for interfacing purposes.
+</p>
+<p>As an alternative to this interface,
+<code>SP_define_c_predicate()</code> defines a Prolog predicate such
+that when the Prolog predicate is called it will call a C function
+with a term corresponding to the Prolog goal. For details,
+see <a href="cpg_002dref_002dSP_005fdefine_005fc_005fpredicate.html#cpg_002dref_002dSP_005fdefine_005fc_005fpredicate">cpg-ref-SP_define_c_predicate</a>.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Foreign-Resources.html#Foreign-Resources" accesskey="1">Foreign Resources</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Foreign Resources
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Conversion-Declarations.html#Conversion-Declarations" accesskey="2">Conversion Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Conversion Declarations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types" accesskey="3">Conversions between Prolog Arguments and C Types</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Conversions between Prolog Arguments and C Types
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Interface-Predicates.html#Interface-Predicates" accesskey="4">Interface Predicates</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Interface Predicates
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker" accesskey="5">The Foreign Resource Linker</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The Foreign Resource Linker
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Init-and-Deinit-Functions.html#Init-and-Deinit-Functions" accesskey="6">Init and Deinit Functions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Init and Deinit Functions
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Creating-the-Linked-Foreign-Resource.html#Creating-the-Linked-Foreign-Resource" accesskey="7">Creating the Linked Foreign Resource</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Creating the Linked Foreign Resource
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Foreign-Code-Examples.html#Foreign-Code-Examples" accesskey="8">Foreign Code Examples</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Foreign Code Examples
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Calling-C_002b_002b-from-Prolog.html#Calling-C_002b_002b-from-Prolog" accesskey="n" rel="next">Next</a>
+<li><a href="CPL-Notes.html#CPL-Notes" accesskey="p" rel="prev">Previous</a>
+<li><a href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Calling-C-from-Prolog.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Calling-C-from-Prolog.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

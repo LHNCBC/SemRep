@@ -1,0 +1,621 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-absolute_file_name</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-absolute_file_name">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-absolute_file_name">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dacyclic_005fterm.html#mpg_002dref_002dacyclic_005fterm" rel="next" title="mpg-ref-acyclic_term">
+<link href="mpg_002dref_002dabort.html#mpg_002dref_002dabort" rel="prev" title="mpg-ref-abort">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dabsolute_005ffile_005fname"></a>
+<hr>
+<a name="absolute_005ffile_005fname_002f_005b2_002c3_005d---hookable"></a>
+<h4 class="subsection">11.3.3 <code>absolute_file_name/[2,3]</code> &nbsp;<!-- /@w --> <i>hookable</i></h4>
+<a name="index-absolute_005ffile_005fname_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-absolute_005ffile_005fname_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-28"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>absolute_file_name</code>(<var>+RelFileSpec</var>,
+                          <var>-AbsFileName</var>)
+</p>
+<p><code>absolute_file_name</code>(<var>+RelFileSpec</var>,
+                          <var>-AbsFileName</var>,
+                          <var>+Options</var>)
+</p>
+<p>Unifies <var>AbsFileName</var> with the absolute filename
+that corresponds to the relative file specification <var>RelFileSpec</var>.
+</p>
+<a name="Arguments-25"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>RelFileSpec</var></dt>
+<dd><p><em>file_spec</em>, must be ground
+</p>
+<p>A valid file specification. See below for details.
+</p>
+</dd>
+<dt><var>AbsFileName</var></dt>
+<dd><p><em>atom</em>
+</p>
+<p>Corresponding absolute filename.
+</p>
+</dd>
+<dt><var>Options</var></dt>
+<dd><p><em>list of term</em>, must be ground
+</p>
+<p>A list of zero or more of the following.
+The default is the empty list:
+</p>
+<dl compact="compact">
+<dt><code>extensions(<var>Ext</var>)</code></dt>
+<dd><a name="index-extensions_002f1-_0028absolute_005ffile_005fname_002f3-option_0029"></a>
+<p>Has no effect if <var>FileSpec</var> contains a file extension.  <var>Ext</var> is
+an atom or a list of atoms, each atom
+representing an extension (e.g. <code>'.pl'</code>) that should be tried
+when constructing the absolute file name.  The extensions are tried in
+the order they appear in the list.  Default value is <var>Ext</var> =
+[&rdquo;], i.e. only the given <var>FileSpec</var> is tried, no extension is
+added.  To specify <code>extensions('')</code> or <code>extensions([])</code> is
+equal to not giving any extensions option at all.
+</p>
+<p>When case-normalization is applied to the <var>FileSpec</var>, e.g. on Windows, each atom in <var>Ext</var> will also be case-normalized before use. 
+That is, on Windows, specifying <code>extensions(['.pl'])</code> will typically give the same result as <code>extensions(['.PL'])</code>.
+Prior to release 4.3 the <code>extensions/1</code> option was always case sensitive, also on Windows.
+</p>
+</dd>
+<dt><code>file_type(<var>Type</var>)</code></dt>
+<dd><a name="index-file_005ftype_002f1-_0028absolute_005ffile_005fname_002f3-option_0029"></a>
+<p>Picks an adequate extension for the operating system currently running,
+which means that programs using this option instead of
+<code>extensions(Ext)</code> will be more portable between operating systems.
+This extension mechanism has no effect if <var>FileSpec</var> contains a file
+extension.  <var>Type</var> must be one of the following atoms:
+</p>
+<dl compact="compact">
+<dt><code>text</code></dt>
+<dt><code>file</code></dt>
+<dd><a name="index-text-_0028absolute_005ffile_005fname_002f3-file-type_0029"></a>
+<a name="index-any-_0028absolute_005ffile_005fname_002f3-file-type_0029"></a>
+<p>implies <code>extensions([''])</code>. 
+<var>FileSpec</var> is a file without any extension.  (Default)
+</p>
+</dd>
+<dt><code>source</code></dt>
+<dd><a name="index-source-_0028absolute_005ffile_005fname_002f3-file-type_0029"></a>
+<p>implies <code>extensions(['.pro','.pl',''])</code>.
+<var>FileSpec</var> is a Prolog source file, maybe with a &lsquo;<samp>.pro</samp>&rsquo; or &lsquo;<samp>.pl</samp>&rsquo; extension.
+</p>
+</dd>
+<dt><code>object</code></dt>
+<dd><a name="index-object-_0028absolute_005ffile_005fname_002f3-file-type_0029"></a>
+<p>implies <code>extensions(['.po'])</code>.
+<var>FileSpec</var> is a Prolog object file.
+</p>
+
+</dd>
+<dt><code>saved_state</code></dt>
+<dd><a name="index-saved_005fstate-_0028absolute_005ffile_005fname_002f3-file-type_0029"></a>
+<p>implies <code>extensions(['.sav',''])</code>.  <var>FileSpec</var> is a
+saved-state, maybe with a &lsquo;<samp>.sav</samp>&rsquo; extension.
+</p>
+</dd>
+<dt><code>foreign_resource</code></dt>
+<dd><a name="index-foreign_005fresource-_0028absolute_005ffile_005fname_002f3-file-type_0029"></a>
+<p><var>FileSpec</var> is a foreign language shared object file, 
+maybe with a system dependent extension.
+</p>
+</dd>
+<dt><code>executable &nbsp;<!-- /@w --> <i>since release 4.0.2</i></code></dt>
+<dd><a name="index-executable-_0028absolute_005ffile_005fname_002f3-file-type_0029"></a>
+<p><var>FileSpec</var> is an executable file, 
+maybe with a system dependent extension.
+</p>
+</dd>
+<dt><code>directory</code></dt>
+<dd><a name="index-directory-_0028absolute_005ffile_005fname_002f3-file-type_0029"></a>
+<p>implies <code>extensions([''])</code>.
+This option has two effects. First, for an access option other than
+<code>access(none)</code> the file must exist and be a directory. Second, the
+returned file name will end in slash (<code>/</code>).
+</p>
+<p>Only when this option is present can <code>absolute_file_name/3</code>
+return the name of an existing directory with an access option other
+than <code>access(none)</code> without raising an exception.
+</p>
+</dd>
+</dl>
+
+</dd>
+<dt><code>glob(<var>Glob</var>)</code></dt>
+<dd><a name="index-glob_002f1-_0028absolute_005ffile_005fname_002f3-option_0029"></a>
+<p>Match file names against a pattern. <var>RelFileSpec</var> will be expanded
+to a directory and <var>AbsFileName</var> will be the absolute path to each
+child that matches both the <var>Glob</var> pattern and any other filtering
+option, like <code>access/1</code>, <code>extensions/1</code>, <code>file_type/1</code>,
+&hellip;. The special children <samp>.</samp> and <samp>..</samp> will never be
+returned.
+</p>
+<p>The <var>Glob</var> should be an atom specifying a <em>glob pattern</em>
+consisting of characters interpreted as follows:
+</p><ul>
+<li> A &lsquo;<samp>*</samp>&rsquo; matches any sequence of zero or more characters.
+
+</li><li> A &lsquo;<samp>?</samp>&rsquo; matches exactly one character.
+
+</li><li> A &lsquo;<samp>{</samp>&rsquo;, &lsquo;<samp>}</samp>&rsquo;, &lsquo;<samp>[</samp>&rsquo;, &lsquo;<samp>]</samp>&rsquo; currently matches
+themself but are reserved for future expansion of the allowable
+patterns.
+
+</li><li> Any other character matches itself.
+
+</li></ul>
+
+
+<p>With the options <code>solutions(all)</code> and <code>file_errors(fail)</code>
+this can be used to enumerate the contents of a directory.
+</p>
+</dd>
+<dt><code>access(<var>Mode</var>)</code></dt>
+<dd><a name="index-access_002f1-_0028absolute_005ffile_005fname_002f3-option_0029"></a>
+<p><var>Mode</var> must be an atom or a list of atoms.  If a
+list is given, then <var>AbsFileName</var> must obey every specified option
+in the list. This makes it possible to combine a read and write,
+or write and exist check, into one call. If <var>AbsFileName</var>
+specifies a directory and an access option other than
+<code>access(none)</code> is specified, then a permission error is signaled
+unless <code>file_type(directory)</code> is also specified.
+</p>
+<p>Each atom must be one of the following:
+</p>
+<dl compact="compact">
+<dt><code>read</code></dt>
+<dd><a name="index-read-_0028absolute_005ffile_005fname_002f3-access_0029"></a>
+<p><var>AbsFileName</var> must be readable and exist.
+</p>
+</dd>
+<dt><code>write</code></dt>
+<dd><a name="index-write-_0028absolute_005ffile_005fname_002f3-access_0029"></a>
+</dd>
+<dt><code>append</code></dt>
+<dd><a name="index-append-_0028absolute_005ffile_005fname_002f3-access_0029"></a>
+<p>If <var>AbsFileName</var> exists, then it must be writable.  If it doesn&rsquo;t exist, then 
+it must be possible to create.
+</p>
+</dd>
+<dt><code>exist</code></dt>
+<dd><a name="index-exist-_0028absolute_005ffile_005fname_002f3-access_0029"></a>
+<p>The file represented by <var>AbsFileName</var> must exist.
+</p>
+</dd>
+<dt><code>execute</code></dt>
+<dt><code>executable</code></dt>
+<dd><a name="index-execute-_0028absolute_005ffile_005fname_002f3-access_0029"></a>
+<a name="index-executable-_0028absolute_005ffile_005fname_002f3-access_0029"></a>
+<p>The file represented by <var>AbsFileName</var> must be executable and exist.
+This is ignored if <code>file_type(directory)</code> is also specified.
+</p>
+</dd>
+<dt><code>search</code></dt>
+<dt><code>searchable</code></dt>
+<dd><a name="index-search-_0028absolute_005ffile_005fname_002f3-access_0029"></a>
+<a name="index-searchable-_0028absolute_005ffile_005fname_002f3-access_0029"></a>
+<p>The directory represented by <var>AbsFileName</var> must be searchable and exist.
+This is ignored unless <code>file_type(directory)</code> is also specified.
+</p>
+</dd>
+<dt><code>none</code></dt>
+<dd><a name="index-none-_0028absolute_005ffile_005fname_002f3-access_0029"></a>
+<p>The file system is not accessed to determine existence or access properties of <var>AbsFileName</var>.
+The first absolute file name that is
+derived from <var>FileSpec</var> is returned. Note that if this option is
+specified, then no existence exceptions can be raised.  (Default)
+</p></dd>
+</dl>
+
+<p><strong>Please note:</strong> Most current file systems have complex access
+control mechanisms, such as access control lists (ACLs). These
+mechanisms makes it hard to determine the effective access
+permissions, short of actually attempting the file operations in
+question. With networked file systems it may in fact be impossible to
+determine the effective access rights.
+</p>
+<p>Therefore, a simplified access control model is used by
+<code>absolute_file_name/3</code> and elsewhere in SICStus.
+</p>
+<p>On UNIX systems only the &ldquo;classical&rdquo; access control information is
+used, i.e. the read/write/execute &ldquo;bits&rdquo; for owner/group/other.
+</p>
+<p>Under Windows only the &ldquo;FAT&rdquo; access control information is used, i.e.
+a file may be marked as read-only.
+A file is deemed executable if its extension is one of <samp>.cmd</samp>,
+<samp>.bat</samp> or if it is classified as an executable by the Win32 API
+<code>GetBinaryType</code>.
+</p>
+<p>This may change to more faithfully reflect the effective permissions
+in a future release.
+</p>
+</dd>
+<dt><code>file_errors(<var>Val</var>)</code></dt>
+<dt><code>fileerrors(<var>Val</var>)</code></dt>
+<dd><a name="index-file_005ferrors_002f1-_0028absolute_005ffile_005fname_002f3-option_0029"></a>
+<a name="index-fileerrors_002f1-_0028absolute_005ffile_005fname_002f3-option_0029"></a>
+<p><var>Val</var> is one of the following, where the default is determined by the
+current value of the <code>fileerrors</code> Prolog flag:
+<a name="index-fileerrors-_0028prolog-flag_0029-5"></a>
+</p>
+<dl compact="compact">
+<dt><code>error</code></dt>
+<dd><a name="index-error-_0028absolute_005ffile_005fname_002f3-fileerrors_0029"></a>
+<p>Raise an exception if a file derived from <var>FileSpec</var>
+has the wrong permissions, that is, can&rsquo;t be accessed at all, or doesn&rsquo;t
+satisfy the access modes specified with the <code>access</code> option.
+This is the default if the Prolog flag <code>fileerrors</code> is set to its default value, <code>on</code>.
+</p>
+</dd>
+<dt><code>fail</code></dt>
+<dd><a name="index-fail-_0028absolute_005ffile_005fname_002f3-fileerrors_0029"></a>
+<p>Fail if a file derived from <var>FileSpec</var> has the wrong
+permissions. Normally an exception is raised, which
+might not always be a desirable
+behavior, since files that do obey the access options might
+be found later on in the search.  When this option is given, the search 
+space is guaranteed to be exhausted. 
+This is the default if the Prolog flag <code>fileerrors</code> is set to <code>off</code>.
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>solutions(<var>Val</var>)</code></dt>
+<dd><a name="index-solutions_002f1-_0028absolute_005ffile_005fname_002f3-option_0029"></a>
+<p><var>Val</var> is one of the following:
+</p>
+<dl compact="compact">
+<dt><code>first</code></dt>
+<dd><a name="index-first-_0028absolute_005ffile_005fname_002f3-solutions_0029"></a>
+<p>As soon as a file derived from <var>FileSpec</var> is found, commit to that
+file. Makes <code>absolute_file_name/3</code> determinate.  (Default)
+</p>
+</dd>
+<dt><code>all</code></dt>
+<dd><a name="index-all-_0028absolute_005ffile_005fname_002f3-solutions_0029"></a>
+<p>Return each file derived from <var>FileSpec</var> that is found. The files
+are returned through backtracking. This option is probably most
+useful in combination with the option <code>file_errors(fail)</code>.
+</p></dd>
+</dl>
+
+
+</dd>
+<dt><code>relative_to(<var>FileOrDirectory</var>)</code></dt>
+<dd><a name="index-relative_005fto_002f1-_0028absolute_005ffile_005fname_002f3-option_0029"></a>
+<p><var>FileOrDirectory</var> should be an atom, and controls how to
+resolve relative filenames.  If it is <code>''</code>, then file names will be
+treated as relative to the current working directory.  If a regular,
+existing file is given, then file names will be treated as relative to the
+directory containing <var>FileOrDirectory</var>.  Otherwise, file names will
+be treated as relative to <var>FileOrDirectory</var>.
+</p>
+<p>If <code>absolute_file_name/3</code> is called from a goal in a file
+being loaded, then the default is the directory containing that file,
+accessible from the load context (<code>prolog_load_context/2</code>).
+Otherwise, the default is the current working directory.
+</p>
+<p>You can use <code>file_systems:current_directory/1</code> to obtain the
+current working directory from a goal in a file being loaded.
+</p>
+</dd>
+<dt><code>if_user(<var>Val</var>) &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-if_005fuser_002f1-_0028absolute_005ffile_005fname_002f3-option_0029"></a>
+<p>controls how to resolve the special file name <code>user</code>. 
+<var>Val</var> is one of the following:
+</p>
+<dl compact="compact">
+<dt><code>file</code></dt>
+<dd><p>Treat the name <code>user</code> like any other name, e.g. like <code>open/3</code> does.
+This is the default.
+</p>
+</dd>
+<dt><code>user</code></dt>
+<dd><p>Unifies <var>AbsFileName</var> with the atom <code>user</code> and ignores the other options.
+This corresponds to the behavior prior to SICStus Prolog 4.3.
+</p>
+</dd>
+<dt><code>error</code></dt>
+<dd><p>Treat the name <code>user</code> as a non-existing file, subject to the <code>file_errors/1</code> option.
+</p>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+<a name="Description-27"></a>
+<h4 class="subheading">Description</h4>
+
+
+<p>If <var>FileSpec</var> is <code>user</code>, and the option <code>if_user(file)</code> is not in effect,
+then special processing takes place, see the description of the <code>if_user/1</code>
+option, above.
+Otherwise (the default),
+unifies <var>AbsFileName</var> with the first absolute file name that
+corresponds to the relative file specification <var>FileSpec</var> and
+that satisfies the access modes given by <var>Options</var>.  
+</p>
+<p>The functionality of <code>absolute_file_name/3</code>
+is most easily described as multi-phase process, in which each phase
+gets an infile from the preceding phase, and constructs one or more
+outfiles to be consumed by the succeeding phases. The phases are:
+</p>
+<ol>
+<li> Syntactic rewriting
+
+
+</li><li> Pattern expansion
+
+</li><li> Extension expansion
+
+</li><li> Access checking
+</li></ol>
+
+<p>The first phase and each of the expansion phases modifies the infile and produces variants
+that will be fed into the succeeding phases. The functionality of all
+phases but the first are decided with the option list. The last
+phase checks if the generated file exists, and if not asks for a new
+variant from the preceding phases.  If the file exists, but doesn&rsquo;t obey
+the access mode option, then a permission exception is raised. If the file
+obeys the access mode option, then <code>absolute_file_name/3</code> commits to
+that solution, subject to the <code>solutions</code> option, and unifies
+<var>AbsFileName</var> with the file name.  For a thorough description, see
+below.
+</p>
+<p>Note that the relative file specification <var>FileSpec</var> may also
+be of the form <var>Path(FileSpec)</var>, in which case the absolute
+file name of the file <var>FileSpec</var> in one of the directories
+designated by <var>Path</var> is returned (see the description of each
+phase below).
+</p>
+<dl compact="compact">
+<dt><b>Syntactic rewriting</b></dt>
+<dd><p>This phase translates the relative file specification given by
+<var>FileSpec</var> into the corresponding absolute file name.
+The rewrite is
+done wrt. the value of the <code>relative_to</code> option.  There can be
+more than one solution, in which case the outfile becomes the solutions
+in the order they are generated.  If the following phases fails, and
+there are no more solutions, then an existence exception is raised.
+</p>
+<p><var>FileSpec</var> can be a file search path,
+e.g. <code>library('lists.pl')</code>. It can also refer to system properties, environment
+variables and the home directory of users. See <a href="ref_002dfdi_002dsyn.html#ref_002dfdi_002dsyn">ref-fdi-syn</a>, for a
+description of syntactic rewriting.
+</p>
+</dd>
+<dt><b>Pattern expansion</b></dt>
+<dd><p>If the <code>glob/1</code> option was specified all matching children of the
+directory will be enumerated. See the <code>glob</code> option.
+</p>
+
+</dd>
+<dt><b>Extension expansion</b></dt>
+<dd><p>See the <code>extensions</code> and <code>file_type</code> options.
+</p>
+</dd>
+<dt><b>Access checking</b></dt>
+<dd><p>See the <code>access</code> option.
+</p>
+</dd>
+<dt><b>Final stage</b></dt>
+<dd><p>As a final stage, if <code>file_type(directory)</code> is specified, then the
+file is suffixed with slash. Otherwise, trailing slash will be removed
+except for root directories, such as &lsquo;<samp>/</samp>&rsquo; under UNIX or &lsquo;<samp>c:/</samp>&rsquo; under
+Windows.
+</p>
+</dd>
+</dl>
+
+<a name="Backtracking"></a>
+<h4 class="subheading">Backtracking</h4>
+
+<p>Can find multiple solutions only if the <code>solutions(all)</code> option
+is used.
+</p>
+<a name="Exceptions-19"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p>Any of the <var>Options</var> arguments or <var>RelFileSpec</var>
+is not ground.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p>In <var>Options</var> or in <var>RelFileSpec</var>.
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p><var>Options</var> contains an undefined option.
+</p>
+</dd>
+<dt><code>existence_error</code></dt>
+<dd>
+<p><var>RelFileSpec</var> is syntactically valid but does not correspond to
+any file and an access option other than <code>access(none)</code> was
+given.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p><var>RelFileSpec</var> names an existing file but the file does not obey
+the given access mode.
+</p></dd>
+</dl>
+
+<a name="Comments-1"></a>
+<h4 class="subheading">Comments</h4>
+
+<p>If an option is specified more than once, then the rightmost option takes
+precedence. This provides for a convenient way of adding default
+values by putting these defaults at the front of the list of options.
+If <code>absolute_file_name/3</code> succeeds, and the file access option was one
+of {<code>read</code>, <code>write</code>, <code>append</code>}, then it is
+guaranteed<a name="DOCF9" href="#FOOT9"><sup>9</sup></a>
+that the file can be
+opened with <code>open/[3,4]</code>.  If the access option was <code>exist</code>, then the file
+does exist, but might be both read and write protected. 
+</p>
+<p>If <code>file_type(directory)</code> is not given, then 
+the file access option is other than <code>none</code>, and
+a specified file refers to a directory, then
+<code>absolute_file_name/3</code> signals a permission error.
+</p>
+<p><code>absolute_file_name/[2,3]</code> is sensitive to the <code>fileerrors</code>
+Prolog flag, which determines whether the predicate should fail or
+raise permission errors when encountering files with the wrong
+permission.  Failing has the effect that the search space always is
+exhausted.
+<a name="index-fileerrors-_0028prolog-flag_0029-6"></a>
+</p>
+<p>If <var>RelFileSpec</var> contains &lsquo;<samp>..</samp>&rsquo; components, then these are resolved
+by removing directory components from the pathname, not by acessing
+the file system. This can give unexpected results, e.g. when soft
+links or mount points are involved.
+</p>
+
+<p>This predicate is used for resolving file specification by
+built-in predicates that open files.
+</p>
+<a name="Examples-11"></a>
+<h4 class="subheading">Examples</h4>
+
+<p>To check whether the file <samp>my_text</samp> exists in the
+home directory, with one of the extensions &lsquo;<samp>.text</samp>&rsquo; or &lsquo;<samp>.txt</samp>&rsquo;, and is
+both writable and readable:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>absolute_file_name('~/my_text', File,</kbd>
+                        <kbd>[extensions(['.text','.txt']),</kbd>
+                        <kbd>access([read,write])]).</kbd>
+</pre></div>
+
+<p>To check whether the directory <samp>bin</samp> exists in the
+home directory:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>absolute_file_name('~/bin', Dir,</kbd>
+                        <kbd>[file_type(directory),</kbd>
+                        <kbd>access(exist)]).</kbd>
+</pre></div>
+
+<p>Here <var>Dir</var> would get a slash terminated value, such as <code>/home/joe/</code>.
+</p>
+<p>To list all files in the current directory:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>findall(File, absolute_file_name('.', File,</kbd>
+                        <kbd>[glob('*'),</kbd>
+                        <kbd>solutions(all), file_errors(fail)]), Files).</kbd>
+</pre></div>
+
+<p>To list all directories in the parent of the current directory
+containing the string &ldquo;sicstus&rdquo;:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>findall(File, absolute_file_name('..', File,</kbd>
+                        <kbd>[glob('*sicstus*'),file_type(directory),</kbd>
+                        <kbd>solutions(all), file_errors(fail)]), Files).</kbd>
+</pre></div>
+
+<p>To find a file <samp>cmd.exe</samp> in any of the &ldquo;usual places&rdquo; where
+executables are found, i.e. by looking through the <code>PATH</code>
+environment variable:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>absolute_file_name(path('cmd.exe'), File,</kbd>
+                        <kbd>[access(exist)]).</kbd>
+
+</pre></div>
+
+<p>This uses the predefined file search path <code>path/1</code>, <a href="ref_002dfdi.html#ref_002dfdi">ref-fdi</a>.
+</p>
+
+<a name="See-Also-25"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>file_search_path/2</code>, <code>prolog_load_context/2</code>, <a href="ref_002dfdi.html#ref_002dfdi">ref-fdi</a>,
+<a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+</p><div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT9" href="#DOCF9">(9)</a></h3>
+<p>To the extent that the access permissions can be precisely determined. See the <code>access/1</code> option above.</p>
+</div>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dacyclic_005fterm.html#mpg_002dref_002dacyclic_005fterm" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dabort.html#mpg_002dref_002dabort" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dabsolute_005ffile_005fname.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dabsolute_005ffile_005fname.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

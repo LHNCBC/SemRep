@@ -1,0 +1,179 @@
+#!/bin/ksh
+
+OPERATING_SYSTEM=`uname`
+
+DEFAULT_SKRENV=SKRenv.13
+
+export NLS=/nfsvol/nls
+
+if [ "$OPERATING_SYSTEM" = "SunOS" ]
+then
+  export PATH=$NLS/bin:$PATH
+  export PATH=$NLS/tools/gnu/bin:$PATH   
+elif [ "$OPERATING_SYSTEM" = "Linux" ]
+then
+  : 
+  # export PATH=$NLS/bin/Linux-i686:$PATH
+fi
+
+PROGRAM=`basename $0`
+
+USAGE="Usage: $PROGRAM [ -d | -p | -w <WORKING_DIR> ]"
+
+MAKE_DIRS="debug lib db/berkeley_db db lexicon/lexicon"
+
+MAKE="make -f"
+
+SOURCE_HOME_SKRenv=0
+ERROR_DIRS=""
+ERROR_FILES=""
+QUIT=0
+SLEEP=2
+DEFAULT_FLAG="-d"
+CLEAN_ONLY=0
+
+SICStus=
+BITS=
+
+while getopts CdHIMpS:w: option
+do
+   case $option
+   in
+	C) CLEAN_ONLY=1;;
+	I) SICStus='-S';;
+        d) DEFAULT_FLAG='-d';;
+        H) SOURCE_HOME_SKRenv=1;;
+        M) BITS=m32;;
+        p) DEFAULT_FLAG='-p';;
+        S) DEFAULT_SKRENV=$OPTARG;;
+        w) if [ "$OPTARG" = "." ]
+	   then
+	      OPTARG=`pwd`
+	   fi
+           DEFAULT_FLAG="-w $OPTARG";;
+   esac
+done
+
+shift `expr $OPTIND - 1`
+OPTIND=1
+
+if [ $SOURCE_HOME_SKRenv -eq 1 ]
+then
+   if [ ! -f $SKR_HOME/bin/$DEFAULT_SKRENV ]
+   then
+      echo $SKR_HOME/bin/$DEFAULT_SKRENV does not exist.
+      exit 1
+   else
+      echo sourcing $SKR_HOME/bin/$DEFAULT_SKRENV $SICStus $BITS $DEFAULT_FLAG
+      . $SKR_HOME/bin/$DEFAULT_SKRENV $BITS $SICStus $DEFAULT_FLAG
+   fi
+elif [ ! -f $SKR/bin/$DEFAULT_SKRENV ]
+then
+   echo $SKR/bin/$DEFAULT_SKRENV does not exist.
+   exit 1
+else
+   echo sourcing $SKR/bin/$DEFAULT_SKRENV $BITS $SICStus $DEFAULT_FLAG
+   . $SKR/bin/$DEFAULT_SKRENV $BITS $SICStus $DEFAULT_FLAG
+fi
+
+cd $SKR_SRC_HOME
+
+# echo SKR_LEXICON is $SKR_LEXICON
+
+# ensure that the directory is writeable
+if [ ! -w "$SKR_SRC_HOME" ]
+then
+   echo "The directory $SKR_SRC_HOME is not writeable."
+   exit 1
+fi
+
+# ensure that $SKR_SRC_HOME contains all the necessary subdirectories (debug, lib, etc.)
+QUIT=0
+for DIR in $MAKE_DIRS
+do
+   if [ ! -d "$SKR_SRC_HOME/$DIR" ]
+   then
+      echo "$SKR_SRC_HOME does not contain a $DIR subdirectory."
+      QUIT=1
+   fi
+done
+
+if [ $QUIT -eq 1 ]
+then
+   exit 1
+fi
+
+echo ""
+echo "Make will run in the following directories under $SKR_SRC_HOME"
+echo ""
+
+for DIR in $MAKE_DIRS
+do
+   echo "   $DIR"
+done
+
+if [ "$SLEEP" -ne 0 ]
+then
+   echo ""
+   echo "beginning in $SLEEP seconds. Interrupt with Control-C if desired."
+   sleep $SLEEP
+fi
+
+ERROR_DIRS=
+
+for DIR in $MAKE_DIRS
+do
+   cd $DIR
+
+   BASENAME=`basename $PWD`
+   BASENAME=`echo $BASENAME | sed -e 's/\..*//'`
+   
+   CLEAN=clean
+
+   echo ""
+   echo ""
+   echo "----------------------------------------------------------------"
+   echo "making in $DIR dir: $PWD"
+   echo "----------------------------------------------------------------"
+   echo ""
+   echo ""
+
+   MAKEFILE=Makefile.$BASENAME	
+
+   echo $MAKE $MAKEFILE $CLEAN
+   $MAKE $MAKEFILE $CLEAN
+
+   # if CLEAN_ONLY is 0, that means we remake in addition to doing the make clean
+   if [ "$CLEAN_ONLY" -eq 0 ]
+   then
+   echo $MAKE $MAKEFILE
+   $MAKE $MAKEFILE
+   MAKEFILE_STATUS=$?
+
+      if [ $MAKEFILE_STATUS -eq 0 ]
+      then
+         echo "----------------------------------------------------------------"
+         echo "making in $DIR dir: $PWD succeeded"
+         echo "----------------------------------------------------------------"
+      else
+         ERROR_DIRS="$ERROR_DIRS $DIR"
+         echo "################################################################"
+         echo "making in $DIR dir: $PWD GENERATED ERRORS"
+         echo "################################################################"
+      fi
+   fi
+   echo ""
+   cd $SKR_SRC_HOME
+done
+
+echo ""
+echo ""
+
+if [ "$ERROR_DIRS" = "" ]
+then
+   echo "No compilation errors."
+else
+   echo '################################  ERROR!! ################################'
+   echo 'Compilation errors occurred in the following area(s):' "$ERROR_DIRS"
+   echo '################################  ERROR!! ################################'
+fi

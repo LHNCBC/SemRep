@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_fclose</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_fclose">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_fclose">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fflush_005foutput.html#cpg_002dref_002dSP_005fflush_005foutput" rel="next" title="cpg-ref-SP_flush_output">
+<link href="cpg_002dref_002dSP_005ffail.html#cpg_002dref_002dSP_005ffail" rel="prev" title="cpg-ref-SP_fail">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005ffclose"></a>
+<hr>
+<a name="SP_005ffclose_0028_0029"></a>
+<h4 class="subsection">12.3.18 <code>SP_fclose()</code></h4>
+<a name="index-SP_005ffclose_0028_0029-_0028C-function_0029-1"></a>
+
+<a name="Synopsis-298"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+spio_t_error_code
+SP_fclose(
+  SP_stream *stream,
+  spio_t_bits close_options);
+</pre></div>
+
+<p>Close the stream.
+</p>
+<a name="Arguments-273"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>stream</var></dt>
+<dd><p>The stream to close unless the <code>SP_FCLOSE_OPTION_USER_STREAMS</code> is
+set, see below.
+</p>
+</dd>
+<dt><var>close_options</var></dt>
+<dd><p>The following bits can be set:
+</p>
+<dl compact="compact">
+<dt><code>SP_FCLOSE_OPTION_READ</code></dt>
+<dt><code>SP_FCLOSE_OPTION_WRITE</code></dt>
+<dd><p>Close the specified directions. If neither of these options is
+specified, the stream is closed in all opened directions, i.e.
+as if both options were specified. If the stream is not opened in a
+direction specified by an option, that option is ignored.
+</p>
+<p>Note that it is possible to close only one direction of a
+bidirectional stream. The return value will tell whether the stream is
+still open; see below.
+</p>
+</dd>
+<dt><code>SP_FCLOSE_OPTION_FORCE</code></dt>
+<dd><p>Close the specified direction forcibly, i.e. without flushing
+buffers etc.  This also ensures that the close finishes <em>quickly</em>,
+i.e. does not block.
+</p>
+</dd>
+<dt><code>SP_FCLOSE_OPTION_NONBLOCKING</code></dt>
+<dd><p>You should avoid using this option.
+</p>
+<p>Pass non-blocking option to lower level routines, including the call
+to <code>SP_flush_output()</code> that is issued when non-forcibly closing write
+direction.
+</p>
+<p>One possible use for this option is to perform a <em>best effort</em>
+close, which falls back to using <code>SP_FCLOSE_OPTION_FORCE</code> only if
+ordinary close would block.
+</p>
+</dd>
+<dt><code>SP_FCLOSE_OPTION_USER_STREAMS</code></dt>
+<dd><p>In this case the <var>stream</var> should not be a stream but instead be
+the <code>user_class</code> of a user defined stream. When this option is
+passed, all currently opened streams of that class is closed, using
+the remaining option flags. E.g. to close all user defined streams
+of class my_class in the read direction only do:
+<code>SP_fclose((SP_stream*)my_class,SP_FCLOSE_OPTION_USER_STREAMS|SP_FCLOSE_OPTION_READ)</code>.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<a name="Return-Value-15"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, all specified directions has been closed. Since some
+direction may still be open, there are two possible return values on
+success:
+</p>
+<dl compact="compact">
+<dt><code>SPIO_S_NOERR</code></dt>
+<dd><p>The stream is still valid, some direction is still not closed.
+</p>
+</dd>
+<dt><code>SPIO_S_DEALLOCATED</code></dt>
+<dd><p>The stream has been deallocated and cannot be used further. All
+directions have been closed.
+</p></dd>
+</dl>
+
+<p>On failure, returns a SPIO error code. Error codes with special meaning
+for <code>SP_fclose()</code> are the same as for <code>SP_flush_output()</code>, which
+see.  Other error codes may also be returned.
+</p>
+
+<a name="See-Also-295"></a>
+<h4 class="subheading">See Also</h4>
+<p><a href="cpg_002dref_002dSP_005fflush_005foutput.html#cpg_002dref_002dSP_005fflush_005foutput">cpg-ref-SP_flush_output</a>.
+<a href="Prolog-Streams.html#Prolog-Streams">Prolog Streams</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fflush_005foutput.html#cpg_002dref_002dSP_005fflush_005foutput" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005ffail.html#cpg_002dref_002dSP_005ffail" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005ffclose.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005ffclose.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-system</title>
+
+<meta name="description" content="SICStus Prolog: lib-system">
+<meta name="keywords" content="SICStus Prolog: lib-system">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dtcltk.html#lib_002dtcltk" rel="next" title="lib-tcltk">
+<link href="str_002dexa.html#str_002dexa" rel="prev" title="str-exa">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dsystem"></a>
+<hr>
+<a name="Operating-System-Utilities_002d_002d_002dlibrary_0028system_0029"></a>
+<h3 class="section">10.38 Operating System Utilities&mdash;<code>library(system)</code></h3>
+<p>This package contains utilities for invoking services from the operating
+system that does not fit elsewhere.
+</p>
+
+<p>Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>now(<var>-When</var>)</code></dt>
+<dd>
+<a name="index-now_002f1-_0028system_0029-1"></a>
+<a name="index-now_002f1-_0028system_0029"></a>
+
+<p>Unifies the current date and time as a UNIX timestamp with
+<var>When</var>.
+</p></dd>
+<dt><code>datime(<var>-Datime</var>)</code></dt>
+<dd>
+<a name="index-datime_002f_005b1_002c2_005d-_0028system_0029-1"></a>
+<a name="index-datime_002f_005b1_002c2_005d-_0028system_0029"></a>
+
+<p>Unifies <var>Datime</var> with the current date and time as a
+<code>datime/6</code> record of the form
+<code>datime(<var>Year</var>,<var>Month</var>,<var>Day</var>,<var>Hour</var>,<var>Min</var>,<var>Sec</var>)</code>.
+All fields are integers.
+</p></dd>
+<dt><code>datime(<var>+When</var>,<var>-Datime</var>)</code></dt>
+<dt><code>datime(<var>-When</var>,<var>+Datime</var>)</code></dt>
+<dd><p>Convert a time stamp, as obtained by <code>now/1</code>, to a
+<code>datime/6</code> record. Can be used in both directions.
+</p></dd>
+<dt><code>sleep(<var>+Seconds</var>)</code></dt>
+<dd>
+<a name="index-sleep_002f1-_0028system_0029-1"></a>
+<a name="index-sleep_002f1-_0028system_0029"></a>
+
+<p>Puts the SICStus Prolog process asleep for <var>Second</var> seconds, where
+<var>Seconds</var> should be a non-negative number.
+</p></dd>
+<dt><code>environ(<var>?Var</var>, <var>?Value</var>)</code></dt>
+<dd>
+<a name="index-environ_002f_005b2_002c3_005d-_0028system_0029-1"></a>
+<a name="index-environ_002f_005b2_002c3_005d-_0028system_0029"></a>
+
+<p><var>Var</var> is the name of a system property or an environment
+variable, and <var>Value</var> is its value.  Both are atoms.  Can be
+used to enumerate all current system properties and environment
+variables.
+</p>
+<p>The same as <code>environ(<var>Var</var>, <var>Value</var>, merged)</code>.
+</p></dd>
+<dt><code>environ(<var>?Var</var>, <var>?Value</var>, <var>+Source</var>) &nbsp;<!-- /@w --> <i>since release 4.1</i></code></dt>
+<dd><p><var>Var</var> is the name of an environment variable or system property, and <var>Value</var> is its
+value.  Both are atoms.  Can be used to enumerate all current
+environment variables and system properties.
+</p>
+<p><var>Source</var> is one of <code>properties</code>, in which case only system properties are enumerated;
+<code>environment</code>, in which case only environment variables are enumerated; and
+<code>merged</code>, in which case both environment variables and system
+properties are enumerated. When <var>Source</var> is <code>merged</code> and
+an environment variable and a system property have equivalent names,
+the value of the system property is returned.
+</p>
+<p>On UNIX-like platforms, two names are equivalent if and only if they
+are identical.  On Windows-like platforms, a case insensitive
+comparison is used.
+</p>
+
+<p>See <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>, for
+more information.
+</p>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dtcltk.html#lib_002dtcltk" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dstructs.html#lib_002dstructs" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dsystem.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dsystem.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

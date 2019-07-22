@@ -1,0 +1,7 @@
+array[1 .. 2] of var bool: a :: output_array([1..4]);
+
+var bool: x :: output_var;
+
+constraint member_bool(a, x);
+
+solve satisfy;

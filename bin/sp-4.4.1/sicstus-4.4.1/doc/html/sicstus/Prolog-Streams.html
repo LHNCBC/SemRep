@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Prolog Streams</title>
+
+<meta name="description" content="SICStus Prolog: Prolog Streams">
+<meta name="keywords" content="SICStus Prolog: Prolog Streams">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="SICStus-Streams.html#SICStus-Streams" rel="up" title="SICStus Streams">
+<link href="Defining-a-New-Stream.html#Defining-a-New-Stream" rel="next" title="Defining a New Stream">
+<link href="SICStus-Streams.html#SICStus-Streams" rel="prev" title="SICStus Streams">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Prolog-Streams"></a>
+<hr>
+<a name="Prolog-Streams-1"></a>
+<h4 class="subsection">6.6.1 Prolog Streams</h4>
+
+<p>From the Prolog level there is a unique number that identifies a
+stream. This identifier can be converted from/to a Prolog
+stream:
+</p>
+<dl compact="compact">
+<dt><code>stream_code(<var>?Stream</var>,<var>?StreamCode</var>)</code></dt>
+<dd>
+<a name="index-stream_005fcode_002f2-_0028built_002din_0029-3"></a>
+<a name="index-stream_005fcode_002f2-_0028built_002din_0029-1"></a>
+
+<p><var>StreamCode</var> is the C stream identifier (an integer) corresponding
+to the Prolog stream <var>Stream</var>.  This predicate is only useful when
+streams are passed between Prolog and C.
+See <a href="mpg_002dref_002dstream_005fcode.html#mpg_002dref_002dstream_005fcode">mpg-ref-stream_code</a>.
+</p>
+</dd>
+</dl>
+
+<a name="index-SP_005fstream-_0028C-type_0029"></a>
+<p>The <code><var>StreamCode</var></code> is a Prolog integer representing an
+<code>SP_stream *</code> pointer.
+</p>
+<p>To read or write on a Prolog stream from C, the following functions and
+macros can be used:
+</p><dl compact="compact">
+<dt><code>SP_get_byte()</code></dt>
+<dd><a name="index-SP_005fget_005fbyte_0028_0029-_0028C-macro_0029"></a>
+<p>Read one byte from a binary stream.
+</p></dd>
+<dt><code>SP_get_code()</code></dt>
+<dd><a name="index-SP_005fget_005fcode_0028_0029-_0028C-macro_0029"></a>
+<p>Read one character code from a text stream.
+</p></dd>
+<dt><code>SP_put_byte()</code></dt>
+<dd><a name="index-SP_005fput_005fbyte_0028_0029-_0028C-macro_0029"></a>
+<p>Write one byte to a binary stream.
+</p></dd>
+<dt><code>SP_put_code()</code></dt>
+<dd><a name="index-SP_005fput_005fcode_0028_0029-_0028C-macro_0029"></a>
+<p>Write one character code to a text stream.
+</p></dd>
+<dt><code>SP_put_bytes()</code></dt>
+<dd><a name="index-SP_005fput_005fbytes_0028_0029-_0028C-function_0029"></a>
+<p>Write multiple bytes to a binary stream.
+</p></dd>
+<dt><code>SP_put_codes()</code></dt>
+<dd><a name="index-SP_005fput_005fcodes_0028_0029-_0028C-function_0029"></a>
+<p>Write multiple character codes to a text stream.
+</p></dd>
+<dt><code>SP_put_encoded_string()</code></dt>
+<dd><a name="index-SP_005fput_005fencoded_005fstring_0028_0029-_0028C-function_0029"></a>
+<p>Write a <code>NUL</code> terminated encoded string to a text stream.
+</p>
+</dd>
+<dt><code>SP_printf()</code></dt>
+<dd><a name="index-SP_005fprintf_0028_0029-_0028C-function_0029"></a>
+</dd>
+<dt><code>SP_fprintf()</code></dt>
+<dd><a name="index-SP_005ffprintf_0028_0029-_0028C-function_0029"></a>
+<p>Perform formatted output.
+</p></dd>
+<dt><code>SP_flush_output()</code></dt>
+<dd><a name="index-SP_005fflush_005foutput_0028_0029-_0028C-function_0029"></a>
+<p>Flush buffered data of an output stream.
+</p></dd>
+<dt><code>SP_fclose()</code></dt>
+<dd><a name="index-SP_005ffclose_0028_0029-_0028C-function_0029"></a>
+<p>Close a stream.
+</p></dd>
+</dl>
+
+<p>The following predefined streams are accessible from C:
+</p>
+<dl compact="compact">
+<dt><code>SP_stdin</code></dt>
+<dd><a name="index-SP_005fstdin-_0028C-stream_0029"></a>
+<p>Standard input. Refers to the same stream as <code>user_input</code> in
+Prolog. Which stream is referenced by <code>user_input</code> is
+controlled by the Prolog flag <code>user_input</code>.
+<a name="index-user_005finput-_0028prolog-flag_0029-2"></a>
+</p>
+</dd>
+<dt><code>SP_stdout</code></dt>
+<dd><a name="index-SP_005fstdout-_0028C-stream_0029"></a>
+<p>Standard output. Refers to the same stream as <code>user_output</code>
+in Prolog. Which stream is referenced by <code>user_output</code> is
+controlled by the Prolog flag <code>user_output</code>.
+<a name="index-user_005foutput-_0028prolog-flag_0029-2"></a>
+</p>
+</dd>
+<dt><code>SP_stderr</code></dt>
+<dd><a name="index-SP_005fstderr-_0028C-stream_0029"></a>
+<p>Standard error. Refers to the same stream as <code>user_error</code> in
+Prolog. Which stream is referenced by <code>user_error</code> is
+controlled by the flag <code>user_error</code>.
+<a name="index-user_005ferror-_0028prolog-flag_0029-2"></a>
+</p>
+</dd>
+<dt><code>SP_curin</code></dt>
+<dd><a name="index-SP_005fcurin-_0028C-stream_0029"></a>
+<p>Current input. It is initially set equal to <code>SP_stdin</code>.  It can be
+changed with the predicates <code>see/1</code> and <code>set_input/1</code>.
+</p>
+</dd>
+<dt><code>SP_curout</code></dt>
+<dd><a name="index-SP_005fcurout-_0028C-stream_0029"></a>
+<p>Current output. It is initially set equal to <code>SP_stdout</code>.  It can
+be changed with the predicates <code>tell/1</code> and
+<code>set_output/1</code>.
+</p></dd>
+</dl>
+
+<p>Note that these variables are read only.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Defining-a-New-Stream.html#Defining-a-New-Stream" accesskey="n" rel="next">Next</a>
+<li><a href="SICStus-Streams.html#SICStus-Streams" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Prolog-Streams.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Prolog-Streams.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

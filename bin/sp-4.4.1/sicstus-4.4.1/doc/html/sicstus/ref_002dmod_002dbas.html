@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-bas</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-bas">
+<meta name="keywords" content="SICStus Prolog: ref-mod-bas">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002ddef.html#ref_002dmod_002ddef" rel="next" title="ref-mod-def">
+<link href="ref_002dmod_002dove.html#ref_002dmod_002dove" rel="prev" title="ref-mod-ove">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dbas"></a>
+<hr>
+<a name="Basic-Concepts"></a>
+<h4 class="subsection">4.11.2 Basic Concepts</h4>
+
+<p>Each predicate in a program is identified by its <em>module</em>, as well as by
+its name and arity.
+</p>
+  
+<a name="index-public-predicates"></a>
+<a name="index-predicates_002c-public"></a>
+
+<a name="index-private-predicates"></a>
+<a name="index-predicates_002c-private"></a>
+
+
+<p>A module defines a set of predicates, among which some have the property
+of being <em>public</em>.  Public predicates are predicates that can be
+<em>imported</em> by other modules, which means that they can then be
+called from within those modules.  Predicates that are not public are
+<em>private</em> to the module in which they are defined; that is, they
+cannot be called from outside that module (except by explicitly
+overriding the modularity rules as described in <a href="ref_002dmod_002dvis.html#ref_002dmod_002dvis">ref-mod-vis</a>).
+</p>
+<p>There are two kinds of importation: 
+</p>
+<a name="index-importation"></a>
+
+<ol>
+<li> A module <var>M1</var> may import a specified set of predicates from another 
+module <var>M2</var>.  All the specified predicates should be public in <var>M2</var>.
+</li><li> A module <var>M1</var> may import all the public predicates of another module
+<var>M2</var>.
+</li></ol>
+
+
+<p>Built-in predicates do not need to be imported; they are automatically
+available from within any module.
+</p>
+<p>There is a special module called <code>user</code>, which is used by default when 
+predicates are being defined and no other module has been specified.
+</p>
+<p>The other predefined module is the <code>prolog</code> module
+where all the built-in predicates reside.  The exported
+built-in predicates are automatically imported into each new
+module as it is created.
+</p>
+<p>If you are using a program written by someone else, then you need not be
+concerned as to whether or not that program has been made into a module.
+The act of loading a module from a file using <code>compile/1</code>,
+or <code>ensure_loaded/1</code> (see <a href="ref_002dlod.html#ref_002dlod">ref-lod</a>) will automatically import 
+all the public predicates in that module.  Thus the command 
+</p><div class="example">
+<pre class="example">:- ensure_loaded(library(lists)).
+</pre></div>
+
+<p>will load the list-processing predicates from the library and make
+them available.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002ddef.html#ref_002dmod_002ddef" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod_002dove.html#ref_002dmod_002dove" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dbas.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dbas.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Breakpoint Actions</title>
+
+<meta name="description" content="SICStus Prolog: Breakpoint Actions">
+<meta name="keywords" content="SICStus Prolog: Breakpoint Actions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="up" title="Advanced Debugging">
+<link href="Advice_002dpoints.html#Advice_002dpoints" rel="next" title="Advice-points">
+<link href="Specific-and-Generic-Breakpoints.html#Specific-and-Generic-Breakpoints" rel="prev" title="Specific and Generic Breakpoints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Breakpoint-Actions"></a>
+<hr>
+<a name="Breakpoint-Actions-1"></a>
+<h4 class="subsection">5.6.5 Breakpoint Actions</h4>
+
+<a name="index-breakpoint-action-1"></a>
+<a name="index-action_002c-breakpoint-1"></a>
+<a name="index-debugger-action-variables"></a>
+<a name="index-action-variables_002c-debugger"></a>
+<p>The action part of a breakpoint spec supplies information to the
+debugger as to what should be done when the breakpoint is
+activated. This is achieved by setting the three so called <em>debugger
+action variables</em>. These are listed below, together with their most
+important values.
+</p>
+<a name="index-show_002f1-_0028debugger-condition_0029"></a>
+<a name="index-command_002f1-_0028debugger-condition_0029"></a>
+<a name="index-mode_002f1-_0028debugger-condition_0029"></a>
+<ul>
+<li> The <code>show</code> variable prescribes how the debugged goal should
+be displayed: 
+
+<dl compact="compact">
+<dt><code>print</code></dt>
+<dd><p>write the goal according to
+the <code>debugger_print_options</code> Prolog flag.  
+<a name="index-debugger_005fprint_005foptions-_0028prolog-flag_0029-3"></a>
+</p></dd>
+<dt><code>silent</code></dt>
+<dd><p>do not display the goal.  
+</p></dd>
+</dl>
+
+</li><li> The <code>command</code> variable prescribes what the debugger should do:
+
+<dl compact="compact">
+<dt><code>ask</code></dt>
+<dd><p>ask the user.
+</p></dd>
+<dt><code>proceed</code></dt>
+<dd><p>continue the execution without stopping, creating a procedure
+box for the current goal at the Call port,
+</p></dd>
+<dt><code>flit</code></dt>
+<dd><p>continue the execution without stopping, without creating a procedure
+box for the current goal at the Call port.
+</p></dd>
+</dl>
+
+</li><li> The <code>mode</code> variable prescribes in what mode the debugger should
+continue the execution:  
+
+<dl compact="compact">
+<dt><code>trace</code></dt>
+<dd><p>creeping.
+</p></dd>
+<dt><code>debug</code></dt>
+<dd><p>leaping.
+</p></dd>
+<dt><code>zip</code></dt>
+<dd><p>zipping.
+</p></dd>
+<dt><code>off</code></dt>
+<dd><p>without debugging.
+</p></dd>
+</dl>
+</li></ul>
+
+<p>For example, the breakpoint below specifies that whenever the Exit
+port of <code>foo/2</code> is reached, no trace message should be
+output, no interaction should take place and the debugger should be
+switched off.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>add_breakpoint([pred(foo/2),port(exit)]-</kbd>
+                    <kbd>[show(silent),command(proceed),mode(off)], _).</kbd>
+</pre></div>
+
+<p>Here, the action part consists of three actions, setting the three
+action variables. This breakpoint spec can be simplified by
+omitting the wrappers around the variable values, as the sets of
+possible values of the variables are all disjoint. If we use
+<code>spy/2</code>, then the <code>pred</code> wrapper goes away, too, resulting in a
+much more concise, equivalent formulation of the above breakpoint:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2,exit-[silent,proceed,off]).</kbd>
+</pre></div>
+
+<p>Let us now revisit the process of breakpoint selection. When the
+debugger arrives at a port it first initializes the action
+variables according to the current debugging and leashing modes,
+as shown below:
+</p>
+<div class="example">
+<pre class="example">debugging    leashing           |        Action variables        
+mode         mode               |  show        command     mode
+--------------------------------|-------------------------------
+trace        at leashed port    |  print       ask         trace
+                                | 
+trace        at unleashed port  |  print       proceed     trace
+                                | 
+debug        -                  |  silent      proceed     debug
+                                | 
+zip          -                  |  silent      flit        zip
+</pre></div>
+
+<p>It then considers each breakpoint, most recent first, until it
+finds a breakpoint whose test part succeeds. If such a
+breakpoint is found, then its action part is evaluated, normally
+changing the action variable settings. A failure of the action part is
+ignored, in the sense that the breakpoint is still treated as the
+selected one.  However, as a side-effect, a procedure box
+will always be built in such cases. More precisely, the failure of the
+action part causes the <code>flit</code> command value to be changed to
+<code>proceed</code>, all other command values being left unchanged. This is
+to facilitate the creation of breakpoints that stop at non-Call
+ports (see below for an example).
+</p>
+<p>If no applicable breakpoint is found, then the action variables
+remain unchanged.
+</p>
+<a name="index-action-execution_002c-breakpoint"></a>
+<a name="index-breakpoint-action-execution"></a>
+<p>The debugger then executes the actions specified by the action
+variables.  This process, referred to as the <em>action execution</em>,
+means the following:
+</p><ul>
+<li> The current debugging mode is set to
+the value of the <code>mode</code> action variable.
+</li><li> A trace message is displayed according to the <code>show</code> variable.
+</li><li> The program continues according to the <code>command</code> variable.
+</li></ul>
+
+<p>Specifically, if <code>command</code> is <code>ask</code>, then the user is prompted
+for a debugger command, which in turn is converted to new assignments to
+the action variables. The debugger will then repeat the action execution
+process, described above. For example, the &lsquo;<samp>c</samp>&rsquo; (creep) interactive
+command is converted to <code>[silent,proceed,trace]</code>, the &lsquo;<samp>d</samp>&rsquo;
+(display) command to <code>[display,ask]</code> (when command is <code>ask</code>,
+the mode is irrelevant), etc.
+</p>
+<p>The default values of the action variables correspond to the standard
+debugger behavior described in <a href="Basic-Debug.html#Basic-Debug">Basic Debug</a>. For example, when an
+unleashed port is reached in trace mode, a trace
+message is printed and the execution proceeds in trace mode,
+without stopping. In zip mode, no trace message is shown, and
+execution continues in zip mode, without building procedure
+boxes at Call ports.
+</p>
+<p>Note that a spypoint action part that is empty (<code>[]</code> or not
+present) is actually treated as <code>[print,ask]</code>. Again, this is the
+standard behavior of spypoints, as described in <a href="Basic-Debug.html#Basic-Debug">Basic Debug</a>.
+</p>
+<p>If an action part is nonempty, but it does not set the action variables,
+then the only effect it will have is to hide the remaining older
+spypoints, as the debugger will behave in the standard way,
+according to the debugging mode. Still, such breakpoints may be
+useful if they have side-effects, for example:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2, -[parent_pred(P),</kbd>
+                  <kbd>goal(G),</kbd>
+                  <kbd>true(format('~q called from:~w~n',[G,P]))]).</kbd>
+% The debugger will first zip -- showing spypoints (zip)
+% Conditional spypoint for user:foo/2 added, BID=1
+true
+% zip
+| ?- <kbd>foo(3,X).</kbd>
+foo(2,_701) called from:bar/3
+foo(1,_1108) called from:bar/3
+foo(0,_1109) called from:bar/3
+foo(1,_702) called from:bar/3
+X = 2 ? <kbd>;</kbd>
+no
+</pre></div>
+
+<p>This spypoint produces some output at ports of <code>foo/2</code>,
+but otherwise will not influence the debugger. Notice that a
+breakpoint spec with an empty test part can be written
+<var><code>-</code>Actions</var>.
+</p>
+<p>Let us look at some simple examples of what other effects can be achieved
+by appropriate action variable settings:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2, -[print,proceed]).</kbd>
+</pre></div>
+
+<p>This is an example of an unleashed spypoint: it will print a
+trace message passing each port of <code>foo/2</code>, but will not stop
+there. Note that because of the <code>proceed</code> command a procedure
+box will be built, even in zip mode, and so the debugger will be
+activated at non-Call ports of <code>foo/2</code>.
+</p>
+<p>The next example is a variant of the above: 
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2, -[print,flit]).</kbd>
+</pre></div>
+
+<p>This will print a trace message at the Call port of <code>foo/2</code>
+and will then continue the execution in the current debugging mode,
+without building a procedure box for this call. This means that
+the debugger will not be able to notice any other ports of
+<code>foo/2</code>.
+</p>
+<p>Now let us address the task of stopping at a specific non-Call
+port of a predicate. For this to work in zip mode, one
+has to ensure that a procedure box is built at the Call
+port. In the following example, the first spypoint causes a
+box to be built for each call of <code>foo/2</code>, while the second one
+makes the debugger stop when the Fail port of <code>foo/2</code> is
+reached.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2, call-proceed), spy(foo/2, fail).</kbd>
+% Conditional spypoint for user:foo/2 added, BID=1
+% Conditional spypoint for user:foo/2 added, BID=2
+</pre></div>
+
+<p>You can achieve the same effect with a single spypoint, by putting
+the <code>fail</code> condition (which is a shortcut for <code>port(fail)</code>) in
+the <em>action</em> part, rather than in the <em>test</em> part.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2, -[fail,print,ask]).</kbd>
+</pre></div>
+
+<p>Here, when the execution reaches the Call port of <code>foo/2</code>,
+the test part (which contains the <code>pred(foo/2)</code> condition only)
+succeeds, so the breakpoint is found applicable.  However, the
+action part fails at the Call port. This has a side-effect
+in zip mode, as the default <code>flit</code> command value is changed
+to <code>proceed</code>. In other modes the action variables are
+unaffected. The net result is that a procedure box is always built
+for <code>foo/2</code>, which means that the debugger will actually reach the
+Fail port of this predicate. When this happens, the action
+part succeeds, and executing the actions <code>print,ask</code> will cause the
+debugger to stop.
+</p>
+<p>Note that we have to explicitly mention the <code>print,ask</code> actions
+here, because the action part is otherwise nonempty (contains the
+<code>fail</code> condition). It is only the empty or missing action part,
+which is replaced by the default <code>[print,ask]</code>. If you want to
+include a condition in the action part, then you have to explicitly mention
+all action variable settings you need. 
+</p>
+<p>To make this simpler, the debugger handles breakpoint condition
+macros, which expand to other conditions. For example <code>leash</code> is a
+macro that expands to <code>[print,ask]</code>. Consequently, the last example
+can be simplified to:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2, -[fail,leash]).</kbd>
+</pre></div>
+
+<p>Similarly, the macro <code>unleash</code> expands to <code>[print,proceed]</code>,
+while <code>hide</code> to <code>[silent,proceed]</code>.
+</p>
+<p>We now briefly describe further possible settings to the action
+variables.
+</p>
+<p>The <code>mode</code> variable can be assigned the values
+<code>skip(<var>Inv</var>)</code> and <code>qskip(<var>Inv</var>)</code>, meaning skipping and
+quasi-skipping until a port is reached whose invocation number is
+less or equal to <var>Inv</var>. When the debugger arrives at this port
+it sets the <code>mode</code> variable to <code>trace</code>.
+</p>
+<p>It may be surprising that <code>skip(&hellip;)</code> is a mode, rather than a
+command. This is because commands are executed and immediately
+forgotten, but skipping has a lasting effect: the program is to be
+run with no debugging until a specific point, without creating new
+procedure boxes, and ignoring the existing ones in the meantime.
+</p>
+<p>Here is an example using the <code>skip</code> mode:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2,call-[print,proceed,inv(Inv),skip(Inv)]).</kbd>
+</pre></div>
+
+<p>This breakpoint will be found applicable at Call ports of
+<code>foo/2</code>. It will print a trace message there and will skip over to
+the Exit or Fail port without stopping. Notice that the number of
+the current invocation is obtained in the action part, using the
+<code>inv</code> condition with a variable argument. A variant of
+this example follows:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2,-[silent,proceed,</kbd>
+                       <kbd>(   call -&gt; inv(Inv), skip(Inv)</kbd>
+                       <kbd>;   true</kbd>
+                       <kbd>)]).</kbd>
+</pre></div>
+
+<p>This spypoint makes <code>foo/2</code> invisible in the output of the
+debugger: at all ports we silently proceed (i.e. display nothing
+and do not stop).  Furthermore, at the Call port we perform a
+skip, so neither <code>foo/2</code> itself, nor any predicate called
+within it will be shown by the debugger.
+</p>
+<p>Notice the use of the <code>true/0</code> test in the above conditional!  This
+is a breakpoint test that always succeeds.  The debugger also
+recognizes <code>false</code> as a test that always fails. Note that while
+<code>false</code> and <code>fail</code> are synonyms as built-in predicates,
+they are completely different as breakpoint conditions: the latter
+is a shortcut for <code>port(fail)</code>.
+</p>
+<p>The <code>show</code> variable has four additional value patterns. Setting it
+to <code>display</code>, <code>write</code>, or <code>write_term(<var>Options</var>)</code>
+will result in the debugged goal <var><var>G</var></var> being shown using
+<code>display(<var>G</var>)</code>, <code>writeq(<var>G</var>)</code>, or
+<code>write_term(<var>G</var>, <var>Options</var>)</code>, respectively. The fourth
+pattern, <code><var>Method</var>-<var>Sel</var></code>, can be used for replacing the
+goal in the trace message by one of its subterms, the one
+pointed to by the selector <var>Sel</var>.
+</p>
+<p>For example, the following spypoint instructs the debugger to stop
+at each port of <code>foo/2</code>, and to only display the first
+argument of <code>foo/2</code> in the trace message, instead of the
+complete goal.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2, -[print-[1],ask]).</kbd>
+% Conditional spypoint for user:foo/2 added, BID=1
+| ?- <kbd>foo(5,X).</kbd>
+ *      1      1 Call: ^1 5 ? 
+</pre></div>
+
+<p>The <code>command</code> variable has several further value patterns.  The
+variable can be set to <code>proceed(<var>OldGoal</var>,<var>NewGoal</var>)</code>. At a
+Call port this instructs the debugger to first build a
+procedure box for the current goal, then to unify it
+with <var>OldGoal</var> and finally execute <var>NewGoal</var> in its place (cf.
+the &lsquo;<samp>u</samp>&rsquo; (unify) interactive debugger command). At non-Call
+ports this command first goes back to the Call port (cf.
+the &lsquo;<samp>r</samp>&rsquo; (retry) command), and then does the above activities.
+</p>
+<p>A variant of the <code>proceed/2</code> command is
+<code>flit(<var>OldGoal</var>,<var>NewGoal</var>)</code>. This has the same effect,
+except for not building a procedure box for <var>OldGoal</var>.
+</p>
+<p>We now just briefly list further command values (for the details, see
+<a href="Action-Variables.html#Action-Variables">Action Variables</a>). Setting <code>command</code> to
+<code>raise(<var>E</var>)</code> will raise an exception <var>E</var>, <code>abort</code>
+will abort the execution. The values <code>retry(<var>Inv</var>)</code>,
+<code>reexit(<var>Inv</var>)</code>, <code>redo(<var>Inv</var>)</code>, <code>fail(<var>Inv</var>)</code>
+will cause the debugger to go back to an earlier Call, Exit, Redo, or
+Fail port with invocation number <var>Inv</var> (cf. the &lsquo;<samp>j</samp>&rsquo;
+(jump) interactive debugger command).
+</p>
+<p>Sometimes it may be useful to access the value of an action
+variable. This can be done with the <code>get</code> condition: e.g.
+<code>get(mode(M))</code> will unify <code>M</code> with the current execution
+mode. The <code>get(&hellip;)</code> wrapper can be omitted in the test part,
+but not in the action part (since there a <code>mode(M)</code> action will
+set, rather than read, the mode action variable).  For example:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(foo/2, mode(trace)-show(print-[1])).</kbd>
+</pre></div>
+
+<p>This spypoint will be found applicable only in trace mode
+(and will cause the first argument of <code>foo/2</code> to appear in
+the trace message). (The <code>mode</code> and <code>show</code> wrappers can also
+be omitted in the above example, they are used only to help with interpreting
+the breakpoint spec.)
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Advice_002dpoints.html#Advice_002dpoints" accesskey="n" rel="next">Next</a>
+<li><a href="Specific-and-Generic-Breakpoints.html#Specific-and-Generic-Breakpoints" accesskey="p" rel="prev">Previous</a>
+<li><a href="Advanced-Debugging.html#Advanced-Debugging" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Breakpoint-Actions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Breakpoint-Actions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

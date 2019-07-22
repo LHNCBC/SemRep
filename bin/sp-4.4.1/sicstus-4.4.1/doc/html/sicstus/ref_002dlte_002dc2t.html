@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lte-c2t</title>
+
+<meta name="description" content="SICStus Prolog: ref-lte-c2t">
+<meta name="keywords" content="SICStus Prolog: ref-lte-c2t">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlte.html#ref_002dlte" rel="up" title="ref-lte">
+<link href="ref_002dlte_002datm.html#ref_002dlte_002datm" rel="next" title="ref-lte-atm">
+<link href="ref_002dlte_002dacl.html#ref_002dlte_002dacl" rel="prev" title="ref-lte-acl">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlte_002dc2t"></a>
+<hr>
+<a name="Converting-between-Constants-and-Text"></a>
+<h4 class="subsection">4.8.4 Converting between Constants and Text</h4>
+
+
+<a name="index-atom_005fcodes_002f2-_0028built_002din_0029-2"></a>
+<a name="index-atom_005fcodes_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-atom_005fchars_002f2-_0028built_002din_0029-2"></a>
+<a name="index-atom_005fchars_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-number_005fcodes_002f2-_0028built_002din_0029-2"></a>
+<a name="index-number_005fcodes_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-number_005fchars_002f2-_0028built_002din_0029-2"></a>
+<a name="index-number_005fchars_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-name_002f2-_0028built_002din_0029-2"></a>
+<a name="index-name_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-char_005fcode_002f2-_0028built_002din_0029-2"></a>
+<a name="index-char_005fcode_002f2-_0028built_002din_0029"></a>
+
+<p>Three predicates convert between constants and lists of
+character codes:  <code>atom_codes/2</code>, <code>number_codes/2</code>, and <code>name/2</code>.
+Two predicates convert between constants and lists of
+character atoms:  <code>atom_chars/2</code>, <code>number_chars/2</code>.
+</p>
+
+<a name="index-atom_005fcodes_002f2-_0028built_002din_0029-3"></a>
+<a name="index-atom_005fcodes_002f2-_0028built_002din_0029-1"></a>
+
+<p><code>atom_codes(<var>Atom</var>, <var>Codes</var>)</code> is
+a relation between an atom <var>Atom</var> and a list <var>Codes</var>
+consisting of the character codes comprising the printed
+representation of <var>Atom</var>.  Initially, either <var>Atom</var> must be
+instantiated to an atom, or <var>Codes</var> must be instantiated to
+a proper code-list.
+</p>
+
+<a name="index-number_005fcodes_002f2-_0028built_002din_0029-3"></a>
+<a name="index-number_005fcodes_002f2-_0028built_002din_0029-1"></a>
+
+<p><code>number_codes(<var>Number</var>, <var>Codes</var>)</code> is a relation between a
+number <var>Number</var> and a list <var>Codes</var> consisting of the
+character codes comprising the printed representation of
+<var>Number</var>.  Initially, either <var>Number</var> must be instantiated to
+a number, or <var>Codes</var> must be instantiated to a proper code-list.
+</p>
+
+
+<a name="index-atom_005fchars_002f2-_0028built_002din_0029-3"></a>
+<a name="index-atom_005fchars_002f2-_0028built_002din_0029-1"></a>
+
+
+<a name="index-number_005fchars_002f2-_0028built_002din_0029-3"></a>
+<a name="index-number_005fchars_002f2-_0028built_002din_0029-1"></a>
+
+<p>Similarly,
+<code>atom_chars(<var>Atom</var>, <var>Chars</var>)</code> and <code>number_chars(<var>Atom</var>, <var>Chars</var>)</code> are
+relations between a constant and a list
+consisting of the character atoms comprising the printed
+representation of the constant.
+</p>
+
+<a name="index-name_002f2-_0028built_002din_0029-3"></a>
+<a name="index-name_002f2-_0028built_002din_0029-1"></a>
+
+<p><code>name/2</code> converts between a constant and a code-list.  Given a
+code-list, <code>name/2</code> will convert it to a number if
+it can, otherwise to an atom.  This means that there are atoms that
+can be constructed by <code>atom_codes/2</code> but not by <code>name/2</code>.
+<code>name/2</code> is retained for backwards compatibility with other
+Prologs.  New programs should use <code>atom_codes/2</code> or
+<code>number_codes/2</code> as appropriate.
+</p>
+
+<a name="index-char_005fcode_002f2-_0028built_002din_0029-3"></a>
+<a name="index-char_005fcode_002f2-_0028built_002din_0029-1"></a>
+
+<p><code>char_code/2</code> converts between a character atom and a character code.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlte_002datm.html#ref_002dlte_002datm" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlte_002dacl.html#ref_002dlte_002dacl" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlte.html#ref_002dlte" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dc2t.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dc2t.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

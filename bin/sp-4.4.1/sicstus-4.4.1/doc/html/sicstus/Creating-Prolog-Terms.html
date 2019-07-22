@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Creating Prolog Terms</title>
+
+<meta name="description" content="SICStus Prolog: Creating Prolog Terms">
+<meta name="keywords" content="SICStus Prolog: Creating Prolog Terms">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Support-Functions.html#Support-Functions" rel="up" title="Support Functions">
+<link href="Accessing-Prolog-Terms.html#Accessing-Prolog-Terms" rel="next" title="Accessing Prolog Terms">
+<link href="Atoms-in-C.html#Atoms-in-C" rel="prev" title="Atoms in C">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Creating-Prolog-Terms"></a>
+<hr>
+<a name="Creating-Prolog-Terms-1"></a>
+<h4 class="subsection">6.4.3 Creating Prolog Terms</h4>
+
+<p>The following functions create a term and store it as the value of an
+SP_term_ref, which must exist prior to the call.  They return zero
+if the conversion fails (as far as failure can be detected), and a
+nonzero value otherwise, assigning to <code>t</code> the converted value.
+</p>
+<dl compact="compact">
+<dt><code>SP_put_variable()</code></dt>
+<dd><a name="index-SP_005fput_005fvariable_0028_0029-_0028C-function_0029"></a>
+<p>Creates a variable.
+</p></dd>
+<dt><code>SP_put_integer()</code></dt>
+<dd><a name="index-SP_005fput_005finteger_0028_0029-_0028C-function_0029"></a>
+<p>Creates an integer.
+</p></dd>
+<dt><code>SP_put_float()</code></dt>
+<dd><a name="index-SP_005fput_005ffloat_0028_0029-_0028C-function_0029"></a>
+<p>Creates a float.
+</p></dd>
+<dt><code>SP_put_atom()</code></dt>
+<dd><a name="index-SP_005fput_005fatom_0028_0029-_0028C-function_0029"></a>
+<p>Creates an atom.
+</p></dd>
+<dt><code>SP_put_string()</code></dt>
+<dd><a name="index-SP_005fput_005fstring_0028_0029-_0028C-function_0029"></a>
+<p>Creates an atom.
+</p></dd>
+<dt><code>SP_put_address()</code></dt>
+<dd><a name="index-SP_005fput_005faddress_0028_0029-_0028C-function_0029"></a>
+<p>Creates an integer representing a pointer.
+</p></dd>
+<dt><code>SP_put_list_codes()</code></dt>
+<dd><a name="index-SP_005fput_005flist_005fcodes_0028_0029-_0028C-function_0029"></a>
+<p>Creates a char-list.
+</p></dd>
+<dt><code>SP_put_list_n_codes()</code></dt>
+<dd><a name="index-SP_005fput_005flist_005fn_005fcodes_0028_0029-_0028C-function_0029"></a>
+<p>Creates a char-list.
+</p></dd>
+<dt><code>SP_put_list_n_bytes()</code></dt>
+<dd><a name="index-SP_005fput_005flist_005fn_005fbytes_0028_0029-_0028C-function_0029"></a>
+<p>Creates a byte-list.
+</p></dd>
+<dt><code>SP_put_integer_bytes()</code></dt>
+<dd><a name="index-SP_005fput_005finteger_005fbytes_0028_0029-_0028C-function_0029"></a>
+<p>Creates an arbitrarily sized integer.
+</p></dd>
+<dt><code>SP_put_number_codes()</code></dt>
+<dd><a name="index-SP_005fput_005fnumber_005fcodes_0028_0029-_0028C-function_0029"></a>
+<p>Creates a char-list denoting a number.
+</p></dd>
+<dt><code>SP_put_functor()</code></dt>
+<dd><a name="index-SP_005fput_005ffunctor_0028_0029-_0028C-function_0029"></a>
+<p>Creates a compound term.
+</p></dd>
+<dt><code>SP_put_list()</code></dt>
+<dd><a name="index-SP_005fput_005flist_0028_0029-_0028C-function_0029"></a>
+<p>Creates a list.
+</p></dd>
+<dt><code>SP_cons_functor()</code></dt>
+<dd><a name="index-SP_005fcons_005ffunctor_0028_0029-_0028C-function_0029"></a>
+<p>Creates a compound term with arguments filled in.
+</p></dd>
+<dt><code>SP_cons_list()</code></dt>
+<dd><a name="index-SP_005fcons_005flist_0028_0029-_0028C-function_0029"></a>
+<p>Creates a list with arguments filled in.
+</p></dd>
+<dt><code>SP_read_from_string() (C function)</code></dt>
+<dd><a name="index-SP_005fread_005ffrom_005fstring_0028_0029-_0028C-function_0029"></a>
+<p>Reads a term from its textual representation,
+replacing variables by specified terms.
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Accessing-Prolog-Terms.html#Accessing-Prolog-Terms" accesskey="n" rel="next">Next</a>
+<li><a href="Atoms-in-C.html#Atoms-in-C" accesskey="p" rel="prev">Previous</a>
+<li><a href="Support-Functions.html#Support-Functions" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Creating-Prolog-Terms.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Creating-Prolog-Terms.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

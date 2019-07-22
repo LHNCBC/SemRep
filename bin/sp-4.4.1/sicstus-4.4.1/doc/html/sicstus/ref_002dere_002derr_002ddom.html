@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-ere-err-dom</title>
+
+<meta name="description" content="SICStus Prolog: ref-ere-err-dom">
+<meta name="keywords" content="SICStus Prolog: ref-ere-err-dom">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dere_002derr.html#ref_002dere_002derr" rel="up" title="ref-ere-err">
+<link href="ref_002dere_002derr_002deva.html#ref_002dere_002derr_002deva" rel="next" title="ref-ere-err-eva">
+<link href="ref_002dere_002derr_002dtyp.html#ref_002dere_002derr_002dtyp" rel="prev" title="ref-ere-err-typ">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dere_002derr_002ddom"></a>
+<hr>
+<a name="Domain-Errors"></a>
+<h4 class="subsubsection">4.15.4.4 Domain Errors</h4>
+
+<a name="index-domain-errors"></a>
+
+<a name="index-errors_002c-domain"></a>
+
+
+<p>A domain error occurs when an input argument is of the right type but
+there is something wrong with its value.  For example, the second argument to
+<code>open/[3,4]</code> is supposed to be an atom that represents a valid mode for opening
+a file, such as <code>read</code> or <code>write</code>.  If a number or a compound term is given
+instead, then that is a type error.  If an atom is given that is not a valid mode,
+then that is a domain error.
+</p>
+<p>The main reason that we distinguish between type errors and domain errors is
+that they usually represent different sorts of mistakes in your program.  A type
+error usually indicates that you have passed the wrong argument to a command,
+whereas a domain error usually indicates that you passed the argument you meant
+to check, but you hadn&rsquo;t checked it enough.
+</p>
+<p>The <var>SICStus_Error</var> term associated with a domain error is
+</p><div class="example">
+<pre class="example">domain_error(<var>Goal, ArgNo, DomainName, Culprit</var>)
+</pre></div>
+
+
+<p>The arguments correspond to those of the <var>SICStus_Error</var> term for a type error,
+except that <var>DomainName</var> is not in general the name of a unary
+predicate: it needn&rsquo;t even be an atom.  For example, if some command
+requires an argument to be an integer in the range 1..99, then it might use
+<code>between(1,99)</code> as the <var>DomainName</var>.  With respect to the <code>date_plus</code>
+example under <b>Type Errors</b>, if the month had been given as 13, then it
+would have passed the type test but would throw a domain error.
+</p>
+<p>For example, the goal
+</p><div class="example">
+<pre class="example">open(somefile,rread,S)
+</pre></div>
+
+<p>throws the exception
+</p><div class="example">
+<pre class="example">error(domain_error(io_mode,rread),
+      domain_error(open(somefile,rread,_A),2,io_mode,rread))
+</pre></div>
+
+<p>The <var>Message</var> argument is used to provide extra information about the
+problem.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dere_002derr_002deva.html#ref_002dere_002derr_002deva" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dere_002derr_002dtyp.html#ref_002dere_002derr_002dtyp" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dere_002derr.html#ref_002dere_002derr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002ddom.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002ddom.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

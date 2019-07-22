@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-read</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-read">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-read">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dread_005fline.html#mpg_002dref_002dread_005fline" rel="next" title="mpg-ref-read_line">
+<link href="mpg_002dref_002draise_005fexception.html#mpg_002dref_002draise_005fexception" rel="prev" title="mpg-ref-raise_exception">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dread"></a>
+<hr>
+<a name="read_002f_005b1_002c2_005d---ISO"></a>
+<h4 class="subsection">11.3.183 <code>read/[1,2]</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-read_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-read_002f_005b1_002c2_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-208"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>read(<var>-Term</var>)</code>
+</p>
+<p><code>read(<var>+Stream</var>, <var>-Term</var>)</code>
+</p>
+<p>Reads the next term from <var>Stream</var> and unifies it with <var>Term</var>.
+Same as:
+</p>
+<p><code>read_term(<var>Term</var>, [])</code>
+</p>
+<p><code>read_term(<var>Stream</var>, <var>Term</var>, [])</code>
+</p>
+<a name="Arguments-191"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Stream</var></dt>
+<dd><p><em>stream_object</em>, must be ground
+</p>
+<p>A valid Prolog input stream.
+</p>
+</dd>
+<dt><var>Term</var></dt>
+<dd><p><em>term</em>
+</p>
+<p>The term to be read.
+</p></dd>
+</dl>
+
+<a name="Description-147"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Term must be followed by a full-stop.  The full-stop is removed from
+the input stream and is not a part of the term that is read.
+The term is read with respect to current operator declarations.
+</p>
+<a name="index-full_002dstop_002c-use-of-2"></a>
+
+<p>Does not finish until the full-stop
+is encountered.  Thus, if you type at top level
+</p><div class="example">
+<pre class="example">| ?- <kbd>read(X)</kbd>
+</pre></div>
+
+<p>then you will keep getting prompts (first &lsquo;<samp>|: </samp>&rsquo;, and five spaces thereafter) 
+every time you type <tt class="key">RET</tt>,
+but nothing else will happen, whatever you type, until you 
+type a full-stop.
+</p>
+<a name="index-syntax_005ferrors-_0028prolog-flag_0029-3"></a>
+<p>If a syntax error is encountered, then the action taken depends on the
+current value of the <code>syntax_errors</code> Prolog flag.
+</p>
+<a name="index-end_005fof_005ffile-atom"></a>
+<p>If the end of the current input stream has been reached, then
+<var>Term</var> will be unified with the atom <code>end_of_file</code>.  Further
+calls to <code>read/[1,2]</code> for the same stream will then raise an
+exception, unless the stream is connected to the terminal. The
+characters read are subject to character-conversion.
+</p>
+<a name="Exceptions-199"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+</p>
+<dl compact="compact">
+<dt><code>syntax_error</code></dt>
+<dd><p>A syntax error was found.
+</p></dd>
+</dl>
+
+<a name="Examples-75"></a>
+<h4 class="subheading">Examples</h4>
+
+<a name="See-Also-205"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>read_term/[2,3]</code>, <code>char_conversion/2</code>, <a href="ref_002diou_002dtin_002dtrm.html#ref_002diou_002dtin_002dtrm">ref-iou-tin-trm</a>,
+<a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dread_005fline.html#mpg_002dref_002dread_005fline" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002draise_005fexception.html#mpg_002dref_002draise_005fexception" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dread.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dread.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

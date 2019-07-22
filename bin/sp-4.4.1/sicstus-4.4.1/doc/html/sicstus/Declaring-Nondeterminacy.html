@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Declaring Nondeterminacy</title>
+
+<meta name="description" content="SICStus Prolog: Declaring Nondeterminacy">
+<meta name="keywords" content="SICStus Prolog: Declaring Nondeterminacy">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Determinacy-Checker.html#The-Determinacy-Checker" rel="up" title="The Determinacy Checker">
+<link href="Checker-Output.html#Checker-Output" rel="next" title="Checker Output">
+<link href="Using-the-Determinacy-Checker.html#Using-the-Determinacy-Checker" rel="prev" title="Using the Determinacy Checker">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Declaring-Nondeterminacy"></a>
+<hr>
+<a name="Declaring-Nondeterminacy-1"></a>
+<h4 class="subsection">9.7.2 Declaring Nondeterminacy</h4>
+<a name="index-nondeterminacy_002c-declaring"></a>
+<a name="index-declaring-nondeterminacy"></a>
+
+<p>Some predicates are intended to be nondeterminate.  By
+declaring intended nondeterminacy, you avoid warnings about
+predicates you intend to be nondeterminate.  Equally
+importantly, you also inform the determinacy checker about
+nondeterminate predicates.  It uses this information to
+identify unwanted nondeterminacy.
+</p>
+<p>Nondeterminacy is declared by putting a declaration of the form
+</p>
+<div class="example">
+<pre class="example">:- <var>name/arity</var> is nondet.
+</pre></div>
+<p>using the <code>is/2</code>-declarations introduced in SICStus
+Prolog 4.2.1,
+</p>
+<p>or the legacy form
+</p><div class="example">
+<pre class="example">:- nondet <var>name/arity</var>.
+</pre></div>
+
+<p>in your source file.  This is similar to a <code>dynamic</code> or
+<code>discontiguous</code> declaration.  You may have multiple
+<code>nondet</code> declarations, and a single declaration may
+mention several predicates, separating them by commas.
+</p>
+<p>Similarly, a predicate <var>P/N</var> may be classified as
+nondeterminate by the checker, whereas in reality it is
+determinate.  This may happen e.g. if <var>P/N</var> calls a
+dynamic predicate that in reality never has more than one
+clause.  To prevent false alarms arising from this, you can inform
+the checker about determinate predicates by
+declarations of the form:
+</p>
+<div class="example">
+<pre class="example">:- <var>name/arity</var> is det.
+</pre></div>
+<p>using the <code>is/2</code>-declarations introduced in SICStus
+Prolog 4.2.1,
+</p>
+<p>or the legacy form
+</p><div class="example">
+<pre class="example">:- det <var>name/arity</var>.
+</pre></div>
+
+<p>If you wish to include the legacy <code>det</code> and <code>nondet</code> declarations
+in your file and you plan to use the stand-alone determinacy checker,
+then you must include the line
+</p><div class="example">
+<pre class="example">:- load_files(library(nondetdecl),
+              [when(compile_time), if(changed)]).
+</pre></div>
+
+<p>near the top of each file that contains such declarations.  If you
+instead use
+the recommended <code>is/2</code>-declarations, or
+the integrated determinacy checker, then you do not need (and should not
+have) this line.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Checker-Output.html#Checker-Output" accesskey="n" rel="next">Next</a>
+<li><a href="Using-the-Determinacy-Checker.html#Using-the-Determinacy-Checker" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Determinacy-Checker.html#The-Determinacy-Checker" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Declaring-Nondeterminacy.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Declaring-Nondeterminacy.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

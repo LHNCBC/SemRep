@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lte-cpt</title>
+
+<meta name="description" content="SICStus Prolog: ref-lte-cpt">
+<meta name="keywords" content="SICStus Prolog: ref-lte-cpt">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlte.html#ref_002dlte" rel="up" title="ref-lte">
+<link href="ref_002dlte_002dcte.html#ref_002dlte_002dcte" rel="next" title="ref-lte-cte">
+<link href="ref_002dlte_002danv.html#ref_002dlte_002danv" rel="prev" title="ref-lte-anv">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlte_002dcpt"></a>
+<hr>
+<a name="Copying-Terms"></a>
+<h4 class="subsection">4.8.7 Copying Terms</h4>
+
+
+<a name="index-copy_005fterm_002f_005b2_002c3_005d-_0028built_002din_0029-1"></a>
+<a name="index-copy_005fterm_002f_005b2_002c3_005d-_0028built_002din_0029"></a>
+
+
+<p>The meta-logical predicate <code>copy_term/2</code> makes a copy of a term in
+which all variables have been replaced by brand new variables, and all
+mutables by brand new mutables.  This is precisely the effect that would
+have been obtained from the definition:
+</p><div class="example">
+<pre class="example">copy_term(Term, Copy) :-
+   recorda(copy, copy(Term), DBref),
+   instance(DBref, copy(Temp)),
+   erase(DBref),
+   Copy = Temp.
+</pre></div>
+
+<p>although the built-in predicate <code>copy_term/2</code> is more
+efficient.
+</p>
+<p>When you call <code>clause/[2,3]</code> or <code>instance/2</code>, you get a new copy
+of the term stored in the database, in precisely
+the same sense that <code>copy_term/2</code> gives you a new copy.  One of the uses
+of <code>copy_term/2</code> is in writing interpreters for logic-based languages;
+with <code>copy_term/2</code> available you can keep &ldquo;clauses&rdquo; in a Prolog data 
+structure and pass this structure
+as an argument without having to store the &ldquo;clauses&rdquo; in the Prolog
+database.  This is useful if the set of &ldquo;clauses&rdquo; in your interpreted
+language is changing with time, or if you want to use clever indexing
+methods.
+</p>
+<p>A naive way to attempt to find out whether one term is a copy of another is
+shown in this example:
+</p><div class="example">
+<pre class="example">identical_but_for_variables(X, Y) :-
+   \+ \+ (
+      numbervars(X, 0, N),
+      numbervars(Y, 0, N),
+      X = Y
+   ).
+</pre></div>
+
+<p>This solution is sometimes sufficient, but will not work if the two terms 
+have any variables
+in common.  If you want the test to succeed even when the two terms do have
+some variables in common, then you need to copy one of them; for example,
+</p><div class="example">
+<pre class="example">identical_but_for_variables(X, Y) :-
+   \+ \+ (
+      copy_term(X, Z),
+      numbervars(Z, 0, N),
+      numbervars(Y, 0, N),
+      Z = Y
+   ).
+</pre></div>
+
+<p><strong>Please note</strong>:
+If the term being copied contains attributed variables
+(see <a href="lib_002datts.html#lib_002datts">lib-atts</a>) or suspended goals (see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>), then
+those attributes are not retained in the copy.  To retain the
+attributes, you can use:
+</p>
+<div class="example">
+<pre class="example">copy_term(Term, Copy, Body)
+</pre></div>
+
+<p>which in addition to copying the term unifies <var>Body</var> with a goal
+such that executing <var>Body</var> will reinstate the attributes in the
+<var>Copy</var>.  <var>Copy</var> as well as <var>Body</var> contain brand new
+(unattributed) variables only.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlte_002dcte.html#ref_002dlte_002dcte" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlte_002danv.html#ref_002dlte_002danv" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlte.html#ref_002dlte" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dcpt.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dcpt.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

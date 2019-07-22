@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: Top</title>
+
+<meta name="description" content="SICStus JIT White Paper: Top">
+<meta name="keywords" content="SICStus JIT White Paper: Top">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="#Top" rel="start" title="Top">
+<link href="#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="../dir/index.html" rel="up" title="(dir)">
+<link href="Introduction.html#Introduction" rel="next" title="Introduction">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<h1 class="settitle" align="center">SICStus JIT White Paper</h1>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<p>This file documents the SICStus Prolog Just-In-Time compiler.
+</p>
+<p>Copyright 2000 SICS
+</p>
+
+
+<a name="SEC_Contents"></a>
+<h2 class="contents-heading">Table of Contents</h2>
+
+<a name="TOC"></a>
+<div class="contents">
+
+<ul class="no-bullet">
+  <li><a name="toc-Introduction-1" href="Introduction.html#Introduction">1 Introduction</a></li>
+  <li><a name="toc-Intermediate-Representation-1" href="Intermediate-Representation.html#Intermediate-Representation">2 Intermediate Representation</a>
+  <ul class="no-bullet">
+    <li><a name="toc-IR-Instruction-Set-1" href="IR-Instruction-Set.html#IR-Instruction-Set">2.1 IR Instruction Set</a></li>
+    <li><a name="toc-Targets-1" href="Targets.html#Targets">2.2 Targets</a></li>
+    <li><a name="toc-Offsets-1" href="Offsets.html#Offsets">2.3 Offsets</a></li>
+    <li><a name="toc-Constants-1" href="Constants.html#Constants">2.4 Constants</a></li>
+    <li><a name="toc-Instructions-1" href="Instructions.html#Instructions">2.5 Instructions</a>
+    <ul class="no-bullet">
+      <li><a name="toc-move_0028Src_002cDest_0029" href="Instructions.html#move_0028Src_002cDest_0029">2.5.1 move(<var>Src</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-cmps_0028Dest_002cSrc_0029" href="Instructions.html#cmps_0028Dest_002cSrc_0029">2.5.2 cmps(<var>Dest</var>,<var>Src</var>)</a></li>
+      <li><a name="toc-cmpu_0028Dest_002cSrc_0029" href="Instructions.html#cmpu_0028Dest_002cSrc_0029">2.5.3 cmpu(<var>Dest</var>,<var>Src</var>)</a></li>
+      <li><a name="toc-test_0028Dest_002cSrc_0029" href="Instructions.html#test_0028Dest_002cSrc_0029">2.5.4 test(<var>Dest</var>,<var>Src</var>)</a></li>
+      <li><a name="toc-jump_0028Target_0029" href="Instructions.html#jump_0028Target_0029">2.5.5 jump(<var>Target</var>)</a></li>
+      <li><a name="toc-call_0028Target_0029" href="Instructions.html#call_0028Target_0029">2.5.6 call(<var>Target</var>)</a></li>
+      <li><a name="toc-ccall_0028Cond_002cTarget_0029" href="Instructions.html#ccall_0028Cond_002cTarget_0029">2.5.7 ccall(<var>Cond</var>,<var>Target</var>)</a></li>
+      <li><a name="toc-branch_0028Cond_002cTarget_0029" href="Instructions.html#branch_0028Cond_002cTarget_0029">2.5.8 branch(<var>Cond</var>,<var>Target</var>)</a></li>
+      <li><a name="toc-cmove_0028Cond_002cSrc_002cDest_0029" href="Instructions.html#cmove_0028Cond_002cSrc_002cDest_0029">2.5.9 cmove(<var>Cond</var>,<var>Src</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-add_0028Src1_002cSrc2_002cDest_0029" href="Instructions.html#add_0028Src1_002cSrc2_002cDest_0029">2.5.10 add(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-addo_0028Src1_002cSrc2_002cDest_0029" href="Instructions.html#addo_0028Src1_002cSrc2_002cDest_0029">2.5.11 addo(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-sub_0028Src1_002cSrc2_002cDest_0029" href="Instructions.html#sub_0028Src1_002cSrc2_002cDest_0029">2.5.12 sub(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-subo_0028Src1_002cSrc2_002cDest_0029" href="Instructions.html#subo_0028Src1_002cSrc2_002cDest_0029">2.5.13 subo(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-mulo_0028Src1_002cSrc2_002cDest_0029" href="Instructions.html#mulo_0028Src1_002cSrc2_002cDest_0029">2.5.14 mulo(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-sh_0028Src1_002cSrc2_002cDest_0029" href="Instructions.html#sh_0028Src1_002cSrc2_002cDest_0029">2.5.15 sh(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-and_0028Src1_002cSrc2_002cDest_0029" href="Instructions.html#and_0028Src1_002cSrc2_002cDest_0029">2.5.16 and(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-or_0028Src1_002cSrc2_002cDest_0029" href="Instructions.html#or_0028Src1_002cSrc2_002cDest_0029">2.5.17 or(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-xor_0028Src1_002cSrc2_002cDest_0029" href="Instructions.html#xor_0028Src1_002cSrc2_002cDest_0029">2.5.18 xor(<var>Src1</var>,<var>Src2</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-int2cp_0028Src_002cDest_0029" href="Instructions.html#int2cp_0028Src_002cDest_0029">2.5.19 int2cp(<var>Src</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-cp2int_0028Src_002cDest_0029" href="Instructions.html#cp2int_0028Src_002cDest_0029">2.5.20 cp2int(<var>Src</var>,<var>Dest</var>)</a></li>
+      <li><a name="toc-init_0028Dest1_002cDest2_0029" href="Instructions.html#init_0028Dest1_002cDest2_0029">2.5.21 init(<var>Dest1</var>,<var>Dest2</var>)</a></li>
+      <li><a name="toc-pop" href="Instructions.html#pop">2.5.22 pop</a></li>
+      <li><a name="toc-context_0028Target_0029" href="Instructions.html#context_0028Target_0029">2.5.23 context(<var>Target</var>)</a></li>
+      <li><a name="toc-half_0028Constant_0029" href="Instructions.html#half_0028Constant_0029">2.5.24 half(<var>Constant</var>)</a></li>
+      <li><a name="toc-word_0028Constant_0029" href="Instructions.html#word_0028Constant_0029">2.5.25 word(<var>Constant</var>)</a></li>
+      <li><a name="toc-label_0028L_0029" href="Instructions.html#label_0028L_0029">2.5.26 label(L)</a></li>
+      <li><a name="toc-align_0028Int_0029" href="Instructions.html#align_0028Int_0029">2.5.27 align(<var>Int</var>)</a></li>
+      <li><a name="toc-try_005fchain_0028list-of-_0028Label_002dAlternative_0029_002cArity_0029" href="Instructions.html#try_005fchain_0028list-of-_0028Label_002dAlternative_0029_002cArity_0029">2.5.28 try_chain(<var>list of</var> (<var>Label</var>-<var>Alternative</var>),<var>Arity</var>)</a></li>
+      <li><a name="toc-switch_0028list-of-_0028Key_002dTarget_0029_002cDefault_0029" href="Instructions.html#switch_0028list-of-_0028Key_002dTarget_0029_002cDefault_0029">2.5.29 switch(<var>list of</var> (<var>Key</var>-<var>Target</var>),<var>Default</var>)</a></li>
+      <li><a name="toc-trampolines_0028Base_0029" href="Instructions.html#trampolines_0028Base_0029">2.5.30 trampolines(<var>Base</var>)</a></li>
+      <li><a name="toc-toc_0028Base_0029" href="Instructions.html#toc_0028Base_0029">2.5.31 toc(<var>Base</var>)</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-Predicate-Linkage-1" href="Predicate-Linkage.html#Predicate-Linkage">3 Predicate Linkage</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Code-Outline_002c-Lead_002dIn-and-Prefix-Sequences-for-x86" href="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86.html#Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86">3.1 Code Outline, Lead-In and Prefix Sequences for x86</a></li>
+    <li><a name="toc-Code-Outline_002c-Lead_002dIn-and-Prefix-Sequences-for-x86_005f64" href="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86_005f64.html#Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-x86_005f64">3.2 Code Outline, Lead-In and Prefix Sequences for x86_64</a></li>
+    <li><a name="toc-Code-Outline_002c-Lead_002dIn-and-Prefix-Sequences-for-PPC64" href="Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-PPC64.html#Code-Outline-Lead_002dIn-and-Prefix-Sequences-for-PPC64">3.3 Code Outline, Lead-In and Prefix Sequences for PPC64</a></li>
+    <li><a name="toc-WAM_002dJIT-Interface-1" href="WAM_002dJIT-Interface.html#WAM_002dJIT-Interface">3.4 WAM-JIT Interface</a></li>
+  </ul></li>
+  <li><a name="toc-Register-Allocation-1" href="Register-Allocation.html#Register-Allocation">4 Register Allocation</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Placement-of-WAM-and-IR-Registers-1" href="Placement-of-WAM-and-IR-Registers.html#Placement-of-WAM-and-IR-Registers">4.1 Placement of WAM and IR Registers</a></li>
+    <li><a name="toc-Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86-1" href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86">4.2 Use of Machine Registers and Stack Frame Slots for x86</a></li>
+    <li><a name="toc-Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028non_002dWindows_0029-1" href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028non_002dWindows_0029.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028non_002dWindows_0029">4.3 Use of Machine Registers and Stack Frame Slots for x86_64 (non-Windows)</a></li>
+    <li><a name="toc-Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028Windows_0029-1" href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028Windows_0029.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028Windows_0029">4.4 Use of Machine Registers and Stack Frame Slots for x86_64 (Windows)</a></li>
+    <li><a name="toc-Use-of-Machine-Registers-and-Stack-Frame-Slots-for-PPC64-1" href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-PPC64.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-PPC64">4.5 Use of Machine Registers and Stack Frame Slots for PPC64</a></li>
+  </ul></li>
+  <li><a name="toc-Runtime-System-1" href="Runtime-System.html#Runtime-System">5 Runtime System</a></li>
+  <li><a name="toc-Misc-1" href="Misc.html#Misc">6 Misc</a>
+  <ul class="no-bullet">
+    <li><a name="toc-Options-Affecting-Jitting-1" href="Options-Affecting-Jitting.html#Options-Affecting-Jitting">6.1 Options Affecting Jitting</a>
+    <ul class="no-bullet">
+      <li><a name="toc-System-Properties-Affecting-the-JIT-Compilation-1" href="System-Properties-Affecting-the-JIT-Compilation.html#System-Properties-Affecting-the-JIT-Compilation">6.1.1 System Properties Affecting the JIT Compilation</a></li>
+      <li><a name="toc-Configuration-Options-Affecting-the-JIT-Compilation-1" href="Configuration-Options-Affecting-the-JIT-Compilation.html#Configuration-Options-Affecting-the-JIT-Compilation">6.1.2 Configuration Options Affecting the JIT Compilation</a></li>
+    </ul></li>
+  </ul></li>
+  <li><a name="toc-References-1" href="References.html#References">7 References</a></li>
+</ul>
+</div>
+
+
+
+
+<a name="Top"></a>
+<hr>
+<a name="SICStus-Prolog-JIT-White-Paper"></a>
+<h1 class="top">SICStus Prolog JIT White Paper</h1>
+
+<p>This document describes the SICStus Prolog Just-In-Time Compiler.
+</p>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><th colspan="3" align="left" valign="top"></th></tr><tr><td align="left" valign="top">&bull; <a href="Introduction.html#Introduction" accesskey="1">Introduction</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Intermediate-Representation.html#Intermediate-Representation" accesskey="2">Intermediate Representation</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Predicate-Linkage.html#Predicate-Linkage" accesskey="3">Predicate Linkage</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Register-Allocation.html#Register-Allocation" accesskey="4">Register Allocation</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Runtime-System.html#Runtime-System" accesskey="5">Runtime System</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Misc.html#Misc" accesskey="6">Misc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="References.html#References" accesskey="7">References</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">
+</td></tr>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Introduction.html#Introduction" accesskey="n" rel="next">Next</a>
+<li><a href="../dir/index.html" accesskey="p" rel="prev">Previous</a>
+<li><a href="../dir/index.html" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/index.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/index.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

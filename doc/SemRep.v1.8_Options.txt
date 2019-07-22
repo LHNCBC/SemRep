@@ -1,0 +1,82 @@
+*Title: SemRep Options
+*Author: Halil Kilicoglu
+
+*TOC 
+
+* Introduction
+
+SemRep can be run on the command line, the default input and output are
+standard input and output. SemRep also allows specifying input and output
+files on the command line as follows:
+
+^<<
+% semrep.v1.8 [Options] InputFile OutputFile
+^>>
+
+The InputFile and OutputFile arguments, if specified, must be the last two
+arguments. It is not necessary to specify OutputFile, because it will default
+to <InputFile>.sem.<Version> (<Version> in this case is v.1.8). Note that if 
+the output file is an existing file, it will be overwritten.
+
+NOTE: As of SemRep 1.8, some MetaMap options can be directly invoked from
+SemRep (e.g., -J (--restrict_to_sts) or -e (--exclude_sources)). For more
+information on MetaMap options, see [MetaMap Options (https://metamap.nlm.nih.gov/Docs/MM_2016_Usage.pdf)].
+For a list of currently available SemRep options, use -h (--help) option. 
+
+* Data Options
+
+-A (--anaphora_resolution): performs sortal anaphora resolution (expressions such as 'this disease',
+'these agents', etc.). 
+
+-D (--dysonym_processing): blocks MetaMap from using certain UMLS synonyms that are 
+deemed to be harmful (dysonyms) in mapping to concepts (e.g., 'prostate' is a dysonym
+for 'prostate cancer'). Used by default.
+
+-S (--generic_processing): standard (non-domain-specific) SemRep processing. Used by default.
+
+-L (--lexicon_year <year>): allows specifying a UMLS SPECIALIST Lexicon release. Currently,
+available options are '2006' and '2018'. It defaults to '2018'.
+
+-M (--relaxed_model): allows running MetaMap in relaxed mode. 
+
+-n (--use_generic_domain_modification): allows the use of a hand-crafted, supplementary
+knowledgebase that 'corrects' some of the semantic type information in UMLS (e.g.,
+'Smoker' (fndg) -> 'Smoker' (popg,humn) and adds new synonyms for some existing concepts
+(e.g., 'loci' for 'genetic locus' (gngm)).
+
+-N (--use_generic_domain_extensions): equivalent to using -n option, in addition to defining
+new concepts that are absent in UMLS (e.g., 'cancer survival' (orgf) with the synonym 'cancer survival').
+
+-V (--mm_data_version <version>): allows specifying the UMLS data version to use. 
+'USAbase' version is available with the current distribution. In case another version is desired,
+the relevant files must be downloaded first from [MetaMap Datasets (https://metamap.nlm.nih.gov/MetaMap_Optional_Datasets.shtml)] and installed to MetaMap DB directory. 
+
+-y (--word_sense_disambiguation): allows using MetaMap's word sense disambiguation module for
+UMLS concepts. Ued by default.
+
+-Z (--mm_data_year <release>): allows specifying the UMLS data release to use. By default,
+SemRep uses '2006AA'. The other available release in this version is '2018AA'.
+
+* Output Options
+
+-F (--full_fielded_output_format): generates a more verbose output than the standard 
+output. Details for this type of output can be found in [Full Fielded Output documentation 
+(https://semrep.nlm.nih.gov/semrep_full_fielded_output.pdf)].
+
+-P (--extract_phrases_only): generates output that consists of various types of 
+noun phrases (simple, mega, macro). For more details, see [PhraseX (https://ii.nlm.nih.gov/MTI/phrasex.shtml)].
+
+-R (--write_syntax): generates a readable output of the minimal commitment parser.
+
+-r (--write_syntax_only): generates only the output of the minimal commitment parser.
+
+-U (--expanded_utterances_only): outputs only sentences with the acronyms expanded.
+
+-u (--unexpanded_utterances_only): outputs only sentences with no acronym expansion performed.
+
+-X (--xml_output_format): generates verbose XML output, the content of which is similar to full fielded format. 
+For more details, see [XML output documentation (https://semrep.nlm.nih.gov/SemRep.v1.8_XML_output_desc.html)]
+
+Note: With no options specified, semrep.v1.8 shell script will invoke the following options: 
+-DSy -L 2006 -Z 2006AA --negex_st_set ALL. If you need to change this configuration, you may edit
+semrep.v1.8 script or create another script based on semrep.v1.8.

@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Speed</title>
+
+<meta name="description" content="SICStus Prolog: Speed">
+<meta name="keywords" content="SICStus Prolog: Speed">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tips.html#Tips" rel="up" title="Tips">
+<link href="Changing-Colors.html#Changing-Colors" rel="next" title="Changing Colors">
+<link href="Auto_002dfill-Mode.html#Auto_002dfill-Mode" rel="prev" title="Auto-fill Mode">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Speed"></a>
+<hr>
+<a name="Speed-1"></a>
+<h4 class="subsubsection">3.12.6.3 Speed</h4>
+
+<p>There are several things to do if the speed of the Emacs environment
+is a problem:
+</p>
+<ul>
+<li> First of all, make sure that <samp>prolog.el</samp> and
+<samp>sicstus-support.el</samp> are compiled, i.e. that there is a
+<samp>prolog.elc</samp> and a <samp>sicstus-support.elc</samp> file at the same
+location as the original files. To do the compilation, start Emacs
+and type <kbd>M-x byte-compile-file <span class="key">RET</span> <var>path</var> <span class="key">RET</span></kbd>,
+where <var>path</var> is the path to the &lsquo;<samp>*.el</samp>&rsquo; file. Do Not be alarmed
+if there are a few warning messages as this is normal.  If all went
+well, then there should now be a compiled file, which is used the next time
+Emacs is started.
+
+</li><li> The next thing to try is changing the setting of
+<code>prolog-use-prolog-tokenizer-flag</code> to <code>nil</code>. This means that
+Emacs uses built-in functions for some of the source code parsing,
+thus speeding up indentation. The problem is that it does not handle all
+peculiarities of the Prolog syntax, so this is a trade-off between
+correctness and speed.
+
+</li><li> The setting of the <code>prolog-parse-mode</code> variable also affects
+the speed, <code>'beg-of-line</code> being faster than  <code>'beg-of-clause</code>.
+
+</li><li> Font locking may be slow. You can turn it off using customization,
+available through <kbd>M-x customize-group</kbd> <tt class="key">RET</tt> <kbd>font-lock</kbd>
+<tt class="key">RET</tt>. An alternative is to enable one of the lazy font locking
+modes. You can also turn it off completely; see <a href="Basic-Configuration.html#Basic-Configuration">Basic Configuration</a>.
+
+
+</li></ul>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Changing-Colors.html#Changing-Colors" accesskey="n" rel="next">Next</a>
+<li><a href="Auto_002dfill-Mode.html#Auto_002dfill-Mode" accesskey="p" rel="prev">Previous</a>
+<li><a href="Tips.html#Tips" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Speed.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Speed.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

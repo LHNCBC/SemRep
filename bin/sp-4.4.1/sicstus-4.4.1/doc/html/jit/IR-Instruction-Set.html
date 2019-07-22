@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: IR Instruction Set</title>
+
+<meta name="description" content="SICStus JIT White Paper: IR Instruction Set">
+<meta name="keywords" content="SICStus JIT White Paper: IR Instruction Set">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Intermediate-Representation.html#Intermediate-Representation" rel="up" title="Intermediate Representation">
+<link href="Targets.html#Targets" rel="next" title="Targets">
+<link href="Intermediate-Representation.html#Intermediate-Representation" rel="prev" title="Intermediate Representation">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="IR-Instruction-Set"></a>
+<hr>
+<a name="IR-Instruction-Set-1"></a>
+<h3 class="section">2.1 IR Instruction Set</h3>
+
+<table>
+<tr><td width="20%"><var>Insn</var></td><td width="80%">::= <code>move(<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>cmove(<var>Cond</var>,<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>cmps(<var>Dest</var>,<var>Src</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>cmpu(<var>Dest</var>,<var>Src</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>test(<var>Dest</var>,<var>Src</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>jump(<var>Target</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>call(<var>Target</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>ccall(<var>Cond</var>,<var>Target</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>branch(<var>Cond</var>,<var>Target</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>add(<var>Src</var>,<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>addo(<var>Src</var>,<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>sub(<var>Src</var>,<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>subo(<var>Src</var>,<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>mulo(<var>Src</var>,<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>sh(<var>Src</var>,<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>and(<var>Src</var>,<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>or(<var>Src</var>,<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>xor(<var>Src</var>,<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>int2cp(<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>cp2int(<var>Src</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>init(<var>Dest</var>,<var>Dest</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>pop</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>context(<var>Target</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>half(<var>Constant</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>word(<var>Constant</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>label(_)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>align(0 | 1 | 2 | 3 | 4)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>try_chain(<var>list of</var> (label(_)-<var>Int</var>),<var>Int</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>switch(<var>list of</var> (<var>Immediate</var>-<var>Target</var>),<var>Target</var>)</code></td></tr>
+<tr><td width="20%">&nbsp;</td></tr>
+<tr><td width="20%"><var>Cond</var></td><td width="80%">::= <code>gu</code> | <code>geu</code> | <code>lu</code> | <code>leu</code> | <code>g</code> | <code>ge</code> | <code>l</code> | <code>le</code> | <code>e</code> | <code>ne</code> | <code>no</code> | <code>o</code></td></tr>
+<tr><td width="20%">&nbsp;</td></tr>
+<tr><td width="20%"><var>Target</var></td><td width="80%">::= <code>kernel(<var>Atom</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>label(_)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>native_entry(<var>Atom</var>:<var>Atom</var>/<var>Int</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>native_entry(<var>Int</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>cp(<var>Offset</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <var>Int</var></td></tr>
+<tr><td width="20%">&nbsp;</td></tr>
+<tr><td width="20%"><var>Src</var></td><td width="80%">::= <var>Immediate</var> | <var>Reg</var> | <var>Mem</var></td></tr>
+<tr><td width="20%">&nbsp;</td></tr>
+<tr><td width="20%"><var>Dest</var></td><td width="80%">::= <var>Reg</var> | <var>Mem</var></td></tr>
+<tr><td width="20%">&nbsp;</td></tr>
+<tr><td width="20%"><var>Immediate</var></td><td width="80%">::= <code>functor(<var>Atom</var>/<var>Int</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>constant(<var>Atomic</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>nil</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>label(<var>Cont</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <var>Offset</var></td></tr>
+<tr><td width="20%">&nbsp;</td></tr>
+<tr><td width="20%"><var>Reg</var></td><td width="80%">::= <code>val</code> | <code>h</code> | <code>s</code> | <code>ac0</code> | <code>ac1</code> | <code>ab</code> | <code>a</code> | <code>e</code> | <code>cp</code> | <code>b</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>gpr(<var>Int</var>)</code> <span class="roman">// general purpose register</span></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>fpr(<var>Int</var>)</code> <span class="roman">// floating-point register</span></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>arg0</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>arg1</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>arg2</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>w_insn</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>w_heap_warn_soft</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>w_next_node</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>w_numstack_end</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>w_stack_start</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>w_stack_warn</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>w_fli_stack_start</code></td></tr>
+<tr><td width="20%">&nbsp;</td></tr>
+<tr><td width="20%"><var>Mem</var></td><td width="80%">::= <code>x(<var>Int</var>)</code> | <code>x(<var>Int</var>,_)</code> | <code>y(<var>Int</var>)</code> | <code>y(<var>Int</var>,_)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>a(<var>Offset</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>e(<var>Offset</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>cp(<var>Offset</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>h(<var>Offset</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>s(<var>Offset</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>val(<var>Offset</var>)</code></td></tr>
+<tr><td width="20%">&nbsp;</td></tr>
+<tr><td width="20%"><var>Offset</var></td><td width="80%">::= <code>half(<var>Constant</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>word(<var>Constant</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <var>Constant</var></td></tr>
+<tr><td width="20%">&nbsp;</td></tr>
+<tr><td width="20%"><var>Constant</var></td><td width="80%">::= <code>native_op</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>kontinue</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>itoy(<var>Int</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <var>Int</var></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>native_entry(<var>Atom</var>:<var>Atom</var>/<var>Int</var>)</code></td></tr>
+<tr><td width="20%"></td><td width="80%">| <code>native_entry(<var>Int</var>)</code></td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Targets.html#Targets" accesskey="n" rel="next">Next</a>
+<li><a href="Intermediate-Representation.html#Intermediate-Representation" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/IR-Instruction-Set.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/IR-Instruction-Set.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

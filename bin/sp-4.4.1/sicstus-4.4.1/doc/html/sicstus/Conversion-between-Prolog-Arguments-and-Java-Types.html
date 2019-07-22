@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Conversion between Prolog Arguments and Java Types</title>
+
+<meta name="description" content="SICStus Prolog: Conversion between Prolog Arguments and Java Types">
+<meta name="keywords" content="SICStus Prolog: Conversion between Prolog Arguments and Java Types">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Jasper-Library.html#The-Jasper-Library" rel="up" title="The Jasper Library">
+<link href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References" rel="next" title="Global vs. Local References">
+<link href="Jasper-Library-Predicates.html#Jasper-Library-Predicates" rel="prev" title="Jasper Library Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Conversion-between-Prolog-Arguments-and-Java-Types"></a>
+<hr>
+<a name="Conversion-between-Prolog-Arguments-and-Java-Types-1"></a>
+<h4 class="subsubsection">10.19.8.3 Conversion between Prolog Arguments and Java Types</h4>
+
+
+<p>The following table lists the possible values of arguments of the
+argument type specification to <code>jasper_call/4</code> and
+<code>jasper_new_object/5</code> (see <a href="Jasper-Library-Predicates.html#Jasper-Library-Predicates">Jasper Library Predicates</a>). The
+value specifies which conversion between corresponding Prolog
+argument and Java type will take place.
+</p>
+
+<p>There is currently no mechanism for specifying Java arrays in this way.
+</p>
+<p>In the following the package prefix (<code>java/lang</code> or
+<code>se/sics/jasper</code>) has been left out for brevity.
+</p>
+<p>For several of the numerical types there is the possibility that the
+target type cannot accurately represent the source type, e.g. when
+converting from a Prolog integer to a Java byte. The behavior in such
+cases is unspecified.
+</p>
+<dl compact="compact">
+<dt><code>Prolog: <code>+integer</code></code></dt>
+<dt><code>Java:   <code>int</code></code></dt>
+<dd>
+<p>The argument should be a number. It is converted to a Java
+<code>int</code>, a 32 bit signed integer.
+</p>
+</dd>
+<dt><code>Prolog: <code>+byte</code></code></dt>
+<dt><code>Java:   <code>byte</code></code></dt>
+<dd>
+<p>The argument should be a number. It is converted to a Java
+<code>byte</code>.
+</p>
+</dd>
+<dt><code>Prolog: <code>+short</code></code></dt>
+<dt><code>Java:   <code>short</code></code></dt>
+<dd>
+<p>The argument should be a number. It is converted to a Java
+<code>short</code>, a 16 bit signed integer.
+</p>
+</dd>
+<dt><code>Prolog: <code>+long</code></code></dt>
+<dt><code>Java:   <code>long</code></code></dt>
+<dd>
+<p>The argument should be a number. It is converted to a Java
+<code>long</code>, a 64-bit signed integer.
+</p>
+<p>In releases prior to 3.9.1, the value was truncated to 32 bits
+when passed between Java and Prolog. This is no longer the case.
+</p>
+
+</dd>
+<dt><code>Prolog: <code>+float</code></code></dt>
+<dt><code>Java:   <code>float</code></code></dt>
+<dd>
+<p>The argument should be a number. It is converted to a Java
+<code>float</code>.
+</p>
+</dd>
+<dt><code>Prolog: <code>+double</code></code></dt>
+<dt><code>Java:   <code>double</code></code></dt>
+<dd>
+<p>The argument should be a number. It is converted to a Java
+<code>double</code>.
+</p>
+</dd>
+<dt><code>Prolog: <code>+term</code></code></dt>
+<dt><code>Java:   <code>SPTerm</code></code></dt>
+<dd>
+<p>The argument can be any term. It is passed to Java as an
+object of the class <code>SPTerm</code>.
+</p>
+</dd>
+<dt><code>Prolog: <code>+object(<var>Class</var>)</code></code></dt>
+<dt><code>Java:   <var>Class</var></code></dt>
+<dd>
+<p>The argument should be the Prolog representation of a Java object
+of class <var>Class</var>. Unless it is the first argument in a
+non-static method (in which case is it treated as the object on which
+the method should be invoked), it is passed to the Java method as an
+object of class <code>Class</code>.
+</p>
+</dd>
+<dt><code>Prolog: <code>+atom</code> &nbsp;<!-- /@w --> <i>obsolescent</i></code></dt>
+<dt><code>Java:   <code>SPCanonicalAtom</code></code></dt>
+<dd><p>The argument should be an atom. The Java method will be
+passed an object of class <code>SPCanonicalAtom</code>. Often <code>+string</code>,
+see below, is more useful.
+</p>
+</dd>
+<dt><code>Prolog: <code>+boolean</code></code></dt>
+<dt><code>Java:   <code>boolean</code></code></dt>
+<dd>
+<p>The argument should be an atom in
+{<code>true</code>,<code>false</code>}. The Java method will receive a
+<code>boolean</code>.
+</p>
+</dd>
+<dt><code>Prolog: <code>+chars</code></code></dt>
+<dt><code>Java:   <code>String</code></code></dt>
+<dd>
+<p>The argument should be a code-list. The Java method will
+receive an object of class <code>String</code>.
+</p>
+</dd>
+<dt><code>Prolog: <code>+codes</code></code></dt>
+<dt><code>Java:   <code>String</code></code></dt>
+<dd>
+<p><code>+codes</code> is an alias for <code>+chars</code>.
+</p>
+</dd>
+<dt><code>Prolog: <code>+string</code></code></dt>
+<dt><code>Java:   <code>String</code></code></dt>
+<dd>
+<p>The argument should be an atom. The Java method will receive
+an object of class <code>String</code>.
+</p>
+</dd>
+<dt><code>Note.</code></dt>
+<dd><p>When using <code>+chars</code>, <code>+codes</code> or <code>+string</code> the
+automatic type conversion mechanism will also create a type signature
+of the form java/lang/String. If you want to call a method that
+accepts a String object as a parameter, but has different signature,
+then the method lookup will fail. A workaround is to explicitly create a
+String object and then call the method. For example:
+</p><div class="example">
+<pre class="example">:- use_module(library(jasper)).
+
+main :-
+    jasper_initialize([],JVM),
+    jasper_new_object(JVM,
+		      'java/lang/String',
+		      init(+chars),
+		      init(&quot;hamburger&quot;),
+		      H),
+    Str = &quot;urge&quot;,
+    jasper_new_object(JVM,
+ 		      'java/lang/String',
+ 		      init(+chars),
+ 		      init(Str),
+ 		      S),
+    jasper_call(JVM,
+		method('', contains, [instance]),
+		contains(+object(''),
+			+object('java/lang/CharSequence'),
+			[-boolean]),
+		contains(H, S, B)),
+    format('Contains? ~a~n', [B]).
+</pre></div>
+
+</dd>
+<dt><code>Prolog: <code>-atom</code> &nbsp;<!-- /@w --> <i>obsolescent</i></code></dt>
+<dt><code>Java:   <code>SPTerm</code></code></dt>
+<dd><p>The Java method will receive an object of class <code>SPTerm</code>, which
+should be set to an atom (e.g. using
+<code>SPTerm.putString</code>). The argument will be bound to the
+value of the atom when the method returns. Often <code>-term</code>, see
+below, is more useful.
+</p>
+</dd>
+<dt><code>Prolog: <code>-chars</code></code></dt>
+<dt><code>Java:   <code>StringBuffer</code></code></dt>
+<dd>
+<p>The Java method will receive an (empty) object of type
+<code>StringBuffer</code>, which can be modified. The argument will be
+bound to a code-list of the <code>StringBuffer</code> object.
+</p>
+</dd>
+<dt><code>Prolog: <code>-codes</code></code></dt>
+<dt><code>Java:   <code>StringBuffer</code></code></dt>
+<dd>
+<p><code>-codes</code> is an alias for <code>-chars</code>.
+</p>
+</dd>
+<dt><code>Prolog: <code>-string</code></code></dt>
+<dt><code>Java:   <code>StringBuffer</code></code></dt>
+<dd>
+<p>The Java method will receive an object of type <code>StringBuffer</code>,
+which can be modified. The argument will be bound to an
+atom converted from the <code>StringBuffer</code> object.
+</p>
+</dd>
+<dt><code>Prolog: <code>-term</code></code></dt>
+<dt><code>Java:   <code>SPTerm</code></code></dt>
+<dd>
+<p>The Java method will receive an object of class <code>SPTerm</code>, which can
+be set to a term (e.g. using <code>SPTerm.consFunctor</code>). The
+argument will be bound to the term when the method
+returns.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-integer]</code></code></dt>
+<dt><code>Java:   <code>int</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java method should return an <code>int</code>. The value will be converted
+to a Prolog integer.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-byte]</code></code></dt>
+<dt><code>Java:   <code>byte</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java method should return a <code>byte</code>. The value will be converted
+to a Prolog integer.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-short]</code></code></dt>
+<dt><code>Java:   <code>short</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java method should return a <code>short</code>. The value will be converted
+to a Prolog integer.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-long]</code></code></dt>
+<dt><code>Java:   <code>long</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java method should return a <code>long</code>, a 64 bit signed integer.
+The value will be converted to a Prolog integer.
+</p>
+
+</dd>
+<dt><code>Prolog: <code>[-float]</code></code></dt>
+<dt><code>Java:   <code>float</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java method should return a <code>float</code>. The value will be converted
+to a Prolog float.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-double]</code></code></dt>
+<dt><code>Java:   <code>double</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java method should return a <code>double</code>. The value will be converted
+to a Prolog float.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-term]</code></code></dt>
+<dt><code>Java:   <code>SPTerm</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java method should return an object of class <code>SPTerm</code>, which
+will be converted to a Prolog term.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-object(<var>Class</var>)]</code></code></dt>
+<dt><code>Java:   <code>SPTerm</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java method should return an object of class <var>Class</var>, which
+will be converted to the internal Prolog representation of the Java
+object.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-atom]</code>&nbsp;<!-- /@w --> <i>obsolescent</i></code></dt>
+<dt><code>Java:   <code>SPTerm</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java method should return an object of class <code>SPCanonicalAtom</code>,
+which will be converted to a Prolog atom. Often <code>[-term]</code>,
+see above, is more useful.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-boolean]</code></code></dt>
+<dt><code>Java:   <code>boolean</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java should return a <code>boolean</code>. The value will be converted to
+a Prolog atom in {<code>true</code>,<code>false</code>}.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-chars]</code></code></dt>
+<dt><code>Java:   <code>String</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java method should return an object of class <code>String</code>, which
+will be converted to a code-list.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-codes]</code></code></dt>
+<dt><code>Java:   <code>String</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p><code>[-codes]</code> is an alias for <code>[-chars]</code>.
+</p>
+</dd>
+<dt><code>Prolog: <code>[-string]</code></code></dt>
+<dt><code>Java:   <code>String</code> <var>M</var><code>()</code></code></dt>
+<dd>
+<p>The Java method should return an object of class <code>String</code>, which
+will be converted to an atom.
+</p>
+</dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References" accesskey="n" rel="next">Next</a>
+<li><a href="Jasper-Library-Predicates.html#Jasper-Library-Predicates" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Jasper-Library.html#The-Jasper-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Conversion-between-Prolog-Arguments-and-Java-Types.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Conversion-between-Prolog-Arguments-and-Java-Types.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

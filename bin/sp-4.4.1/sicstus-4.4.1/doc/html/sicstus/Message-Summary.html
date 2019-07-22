@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Message Summary</title>
+
+<meta name="description" content="SICStus Prolog: Message Summary">
+<meta name="keywords" content="SICStus Prolog: Message Summary">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmsg.html#ref_002dmsg" rel="up" title="ref-msg">
+<link href="ref_002doth.html#ref_002doth" rel="next" title="ref-oth">
+<link href="Query-Handling-Predicates.html#Query-Handling-Predicates" rel="prev" title="Query Handling Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Message-Summary"></a>
+<hr>
+<a name="Predicate-Summary-4"></a>
+<h4 class="subsection">4.16.5 Predicate Summary</h4>
+
+
+<a name="index-messages-and-queries_002c-predicates-for"></a>
+<a name="index-predicates-for-messages-and-queries"></a>
+
+<dl compact="compact">
+<dt><code>ask_query(<var>+QueryClass</var>, <var>+Query</var>, <var>+Help</var>, <var>-Answer</var>) &nbsp;<!-- /@w --> <i>hookable</i></code></dt>
+<dd><p>Prints the question <var>Query</var>, then reads and processes user input
+according to <var>QueryClass</var>, and returns the result of the processing,
+the abstract answer term <var>Answer</var>.  The <var>Help</var> message is
+printed in case of invalid input.
+</p>
+</dd>
+<dt><code>user:message_hook(<var>+M</var>,<var>+S</var>,<var>+L</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>intercept the printing of a message
+</p>
+</dd>
+<dt><code>'SU_messages':generate_message(<var>+M</var>,<var>?SO</var>,<var>?S</var>) &nbsp;<!-- /@w --> <i>extendible</i></code></dt>
+<dd><p>determines the mapping from a message term
+into a sequence of lines of text to be printed
+</p>
+</dd>
+<dt><code>user:generate_message_hook(<var>+M</var>,<var>?S0</var>,<var>?S</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>intercept message before it is given to
+<code>'SU_messages':generate_message/3</code>
+</p>
+</dd>
+<dt><code>goal_source_info(<var>+AGoal</var>, <var>-Goal</var>, <var>-SourceInfo</var>)</code></dt>
+<dd><p>Decomposes the annotated goal <var>AGoal</var> into a <var>Goal</var> proper
+and the <var>SourceInfo</var> descriptor term, indicating the source
+position of the goal.
+</p>
+</dd>
+<dt><code>user:portray_message(<var>+Severity</var>,<var>+Message</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>Tells <code>print_message/2</code> what to do.
+</p>
+</dd>
+<dt><code>print_message(<var>+S</var>,<var>+M</var>) &nbsp;<!-- /@w --> <i>hookable</i></code></dt>
+<dd><p>print a message <var>M</var> of severity <var>S</var>
+</p>
+</dd>
+<dt><code>print_message_lines(<var>+S</var>,<var>+P</var>,<var>+L</var>)</code></dt>
+<dd><p>print the message lines <var>L</var> to stream <var>S</var> with prefix <var>P</var>
+</p>
+</dd>
+<dt><code>'SU_messages':query_abbreviation(<var>+T</var>,<var>-P</var>) &nbsp;<!-- /@w --> <i>extendible</i></code></dt>
+<dd><p>specifies one letter
+abbreviations for responses to queries from the Prolog system
+</p>
+</dd>
+<dt><code>user:query_hook(<var>+QueryClass</var>, <var>+Query</var>, <var>+QueryLines</var>, <var>+Help</var>, <var>+HelpLines</var>, <var>-Answer</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>Called by <code>ask_query/4</code> before processing the query.  If this
+predicate succeeds, then it is assumed that the query has been
+processed and nothing further is done.
+</p>
+</dd>
+<dt><code>'SU_messages':query_class(<var>+QueryClass</var>, <var>-Prompt</var>, <var>-InputMethod</var>, <var>-MapMethod</var>, <var>-FailureMode</var>) &nbsp;<!-- /@w --> <i>extendible</i></code></dt>
+<dd><p>Access the parameters of a given <var>QueryClass</var>.
+</p>
+</dd>
+<dt><code>user:query_class_hook(<var>+QueryClass</var>, <var>-Prompt</var>, <var>-InputMethod</var>, <var>-MapMethod</var>, <var>-FailureMode</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>Provides the user with a method of overriding the call to
+<code>'SU_messages':query_class/5</code> in the preparation phase of query
+processing.  This way the default query class characteristics can be
+changed.
+</p>
+</dd>
+<dt><code>'SU_messages':query_input(<var>+InputMethod</var>, <var>+Prompt</var>, <var>-RawInput</var>) &nbsp;<!-- /@w --> <i>extendible</i></code></dt>
+<dd><p>Implements the input phase of query processing.
+</p>
+</dd>
+<dt><code>user:query_input_hook(<var>+InputMethod</var>, <var>+Prompt</var>, <var>-RawInput</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>Provides the user with a method of overriding the call to
+<code>'SU_messages':query_input/3</code> in the input phase of query
+processing.  This way the implementation of the default input methods
+can be changed.
+</p>
+</dd>
+<dt><code>'SU_messages':query_map(<var>+MapMethod</var>, <var>+RawInput</var>, <var>-Result</var>, <var>-Answer</var>) &nbsp;<!-- /@w --> <i>extendible</i></code></dt>
+<dd><p>Implements the mapping phase of query processing.
+</p>
+</dd>
+<dt><code>user:query_map_hook(<var>+MapMethod</var>, <var>+RawInput</var>, <var>-Result</var>, <var>-Answer</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>Provides the user with a method of overriding the call to
+<code>'SU_messages':query_map/4</code> in the mapping phase of query
+processing.  This way the implementation of the default map methods
+can be changed.
+</p>
+</dd>
+</dl>
+
+
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Query-Handling-Predicates.html#Query-Handling-Predicates" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmsg.html#ref_002dmsg" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Message-Summary.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Message-Summary.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

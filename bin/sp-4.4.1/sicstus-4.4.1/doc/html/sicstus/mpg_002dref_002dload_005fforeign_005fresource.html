@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-load_foreign_resource</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-load_foreign_resource">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-load_foreign_resource">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dmember.html#mpg_002dref_002dmember" rel="next" title="mpg-ref-member">
+<link href="mpg_002dref_002dload_005ffiles.html#mpg_002dref_002dload_005ffiles" rel="prev" title="mpg-ref-load_files">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dload_005fforeign_005fresource"></a>
+<hr>
+<a name="load_005fforeign_005fresource_002f1---hookable"></a>
+<h4 class="subsection">11.3.118 <code>load_foreign_resource/1</code> &nbsp;<!-- /@w --> <i>hookable</i></h4>
+<a name="index-load_005fforeign_005fresource_002f1-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-load_005fforeign_005fresource_002f1-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-143"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>load_foreign_resource(<var>:Resource</var>)</code>
+</p>
+<p>Load the foreign resource <var>Resource</var> into Prolog.  Relies on the
+hook predicates <code>foreign_resource/2</code> and <code>foreign/[2,3]</code>.
+</p>
+<a name="Arguments-132"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:Resource</var></dt>
+<dd><p><em>file_spec</em>, must be ground
+</p>
+<p>The foreign resource to be loaded. The file extension can be omitted.
+</p></dd>
+</dl>
+
+<a name="Description-108"></a>
+<h4 class="subheading">Description</h4>
+
+<p><code>load_foreign_resource/1</code> takes a foreign resource and loads it
+into Prolog.
+</p>
+<p>The extension can be omitted from the filename given
+in the <var>Resource</var> argument.
+</p>
+<p>Uses the <code>foreign/[2,3]</code> and <code>foreign_resource/2</code> facts defined by the
+user to make the connection between a Prolog procedure and the foreign
+function. In this context,
+the <em>resource name</em> is derived from <var>Resource</var>
+name by deleting any leading path and extension
+from the absolute file name of <var>Resource</var>.
+</p>
+<p>When loading the foreign resource, it looks for a
+<code>foreign_resource/2</code> fact for the resource name.  For each symbol
+in that fact, it looks for a <code>foreign/[2,3]</code> fact that gives the name
+of the Prolog procedure associated with the foreign symbol and the
+argument specification.
+</p>
+<p>Contrary to most hook predicates which reside in the <code>user</code>
+module, <code>load_foreign_resource/1</code> will look for
+<code>foreign_resource/2</code> and <code>foreign/[2,3]</code> facts defined in its source
+module.
+</p>
+<p>Foreign resources are created with the <code>splfr</code> tool
+(see <a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker">The Foreign Resource Linker</a>).
+</p>
+<a name="Exceptions-134"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Errors in the specification of <code>foreign/[2,3]</code> and
+<code>foreign_resource/2</code> will all be reported when
+<code>load_foreign_resource/1</code> is called.
+</p>
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Resource</var> not ground.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Resource</var> not an atom, or argument of a declared fact of the wrong type.
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p>Invalid argument of <code>foreign/[2,3]</code> fact.
+</p>
+</dd>
+<dt><code>existence_error</code></dt>
+<dd><p><var>Resource</var> does not exist as a foreign resource, or
+<var>Resource</var> does not have a <code>foreign_resource/2</code> fact, or
+declared function does not exist, or
+declared function does not have a <code>foreign/[2,3]</code> fact.
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p>Invalid option to <code>foreign_resource/2</code>.
+</p>
+</dd>
+<dt><code>consistency_error</code></dt>
+<dd><p>Function declared twice with clashing declarations.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>Attempt to redefine built-in predicate.
+</p>
+</dd>
+</dl>
+
+<a name="Examples-54"></a>
+<h4 class="subheading">Examples</h4>
+
+<p><code>library(codesio)</code> contains a foreign resource consisting of
+three foreign functions, one init function, and one deinit function.
+The Prolog source file contains the following lines of code:
+</p>
+<div class="example">
+<pre class="example">:- dynamic foreign/2, foreign_resource/2.
+
+foreign(codes_to_stream, '$codes_to_stream'(+codes,-address('SP_stream'))).
+foreign(open_buf_stream, '$open_buf_stream'(-address('SP_stream'))).
+foreign(stream_to_codes, '$stream_to_codes'(+address('SP_stream'),-term,-term)).
+
+foreign_resource(codesio, [
+        init(codesio_init),
+        deinit(codesio_deinit),
+        codes_to_stream,
+        open_buf_stream,
+        stream_to_codes
+                          ]).
+
+:- load_foreign_resource(library(system(codesio))).
+</pre></div>
+
+<a name="Comments-13"></a>
+<h4 class="subheading">Comments</h4>
+
+<p>Note that the foreign declarations are needed by other operations as well
+and should <strong>not</strong> be abolished after loading the foreign resource.
+</p>
+<a name="See-Also-140"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>unload_foreign_resource/1</code>,
+<code>foreign_resource/2</code>,
+<code>foreign/[2,3]</code>,
+<a href="Foreign-Resources.html#Foreign-Resources">Foreign Resources</a>,
+<a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dmember.html#mpg_002dref_002dmember" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dload_005ffiles.html#mpg_002dref_002dload_005ffiles" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dload_005fforeign_005fresource.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dload_005fforeign_005fresource.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mdb-bbd</title>
+
+<meta name="description" content="SICStus Prolog: ref-mdb-bbd">
+<meta name="keywords" content="SICStus Prolog: ref-mdb-bbd">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmdb.html#ref_002dmdb" rel="up" title="ref-mdb">
+<link href="ref_002dmdb_002dsum.html#ref_002dmdb_002dsum" rel="next" title="ref-mdb-sum">
+<link href="ref_002dmdb_002didb.html#ref_002dmdb_002didb" rel="prev" title="ref-mdb-idb">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmdb_002dbbd"></a>
+<hr>
+<a name="Blackboard-Primitives"></a>
+<h4 class="subsection">4.12.9 Blackboard Primitives</h4>
+<a name="index-blackboard"></a>
+
+<p>The predicates described in this section store arbitrary
+terms in a per-module repository known as the
+&ldquo;blackboard&rdquo;.  The main purpose of the blackboard was initially to
+provide a means for communication between branches executing in
+parallel, but the blackboard works equally well during sequential
+execution.  The blackboard implements a mapping from keys to values.
+Keys are restricted to being atoms or small integers,
+whereas values are arbitrary terms.  In contrast to the
+predicates described in the previous sections, a given key can map
+to at most a single term.
+</p>
+<p>Each Prolog module maintains its own blackboard, so as to avoid
+name clashes if different modules happen to use the same
+keys.  The &ldquo;key&rdquo; arguments of these predicates are subject
+to module name expansion, so the module name does not have
+to be explicitly given unless multiple Prolog modules are supposed
+to share a single blackboard.
+</p>
+<p>The predicates below implement atomic blackboard actions.
+</p>
+<dl compact="compact">
+<dt><code>bb_put(<var>:Key</var>, <var>+Term</var>)</code></dt>
+<dd>
+<a name="index-bb_005fput_002f2-_0028built_002din_0029-1"></a>
+<a name="index-bb_005fput_002f2-_0028built_002din_0029"></a>
+
+<p>A copy of <var>Term</var> is stored under <var>Key</var>.  
+See <a href="mpg_002dref_002dbb_005fput.html#mpg_002dref_002dbb_005fput">mpg-ref-bb_put</a>.
+</p>
+</dd>
+<dt><code>bb_get(<var>:Key</var>, <var>?Term</var>)</code></dt>
+<dd>
+<a name="index-bb_005fget_002f2-_0028built_002din_0029-1"></a>
+<a name="index-bb_005fget_002f2-_0028built_002din_0029"></a>
+
+<p>If a term is currently stored under <var>Key</var>, then a copy of it is
+unified with <var>Term</var>.  Otherwise, <code>bb_get/2</code> silently
+fails.
+See <a href="mpg_002dref_002dbb_005fget.html#mpg_002dref_002dbb_005fget">mpg-ref-bb_get</a>.
+</p>
+</dd>
+<dt><code>bb_delete(<var>:Key</var>, <var>?Term</var>)</code></dt>
+<dd>
+<a name="index-bb_005fdelete_002f2-_0028built_002din_0029-1"></a>
+<a name="index-bb_005fdelete_002f2-_0028built_002din_0029"></a>
+
+<p>If a term is currently stored under <var>Key</var>, then the term is
+deleted, and a copy of it is unified with <var>Term</var>.  Otherwise,
+<code>bb_delete/2</code> silently fails.
+See <a href="mpg_002dref_002dbb_005fdelete.html#mpg_002dref_002dbb_005fdelete">mpg-ref-bb_delete</a>.
+</p>
+</dd>
+<dt><code>bb_update(<var>:Key</var>, <var>?OldTerm</var>, <var>?NewTerm</var>)</code></dt>
+<dd>
+<a name="index-bb_005fupdate_002f3-_0028built_002din_0029-1"></a>
+<a name="index-bb_005fupdate_002f3-_0028built_002din_0029"></a>
+
+<p>If a term is currently stored under <var>Key</var> and unifies
+with <var>OldTerm</var>, then the term is replaced by a copy of
+<var>NewTerm</var>.  Otherwise, <code>bb_update/3</code> silently fails.  This
+predicate provides an atomic swap operation.
+See <a href="mpg_002dref_002dbb_005fupdate.html#mpg_002dref_002dbb_005fupdate">mpg-ref-bb_update</a>.
+</p></dd>
+</dl>
+
+<p><strong>Please note</strong>:
+If the term being stored contains attributed variables
+(see <a href="lib_002datts.html#lib_002datts">lib-atts</a>) or suspended goals (see <a href="ref_002dsem_002dsec.html#ref_002dsem_002dsec">ref-sem-sec</a>),
+then those attributes are not stored.  To retain the
+attributes, you can use <code>copy_term/3</code> (see <a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt">ref-lte-cpt</a>).
+</p>
+<p>The following example illustrates how these primitives may be used to
+implement a &ldquo;maxof&rdquo; predicate that finds the maximum value
+computed by some nondeterminate goal.  We use a single key
+<code>max</code><a name="DOCF6" href="#FOOT6"><sup>6</sup></a>.
+We assume that <var>Goal</var> does not produce any &ldquo;false&rdquo; solutions that
+would be eliminated by cuts in a sequential execution.  Thus,
+<var>Goal</var> may need to include redundant checks to ensure that its
+solutions are valid, as discussed above.
+</p>
+<div class="example">
+<pre class="example">maxof(Value, Goal, _) :-
+        bb_put(max, -1),                % initialize max-so-far
+        call(Goal),
+        update_max(Value),
+        fail.
+maxof(_, _, Max) :-
+        bb_delete(max, Max),
+        Max &gt; 1.
+
+update_max(New):-
+        bb_get(max, Old),
+        compare(C, Old, New),
+        update_max(C, Old, New).
+
+update_max(&lt;, Old, New) :- bb_update(max, Old, New).
+update_max(=, _, _).
+update_max(&gt;, _, _).
+</pre></div>
+
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT6" href="#DOCF6">(6)</a></h3>
+<p>This is not necessarily a good example of using
+the blackboard. For instance, the implementation is not reentrant,
+e.g. it will not work if the <var>Goal</var> itself uses <code>maxof/3</code>. A
+reentrant implementation would need to ensure that multiple nested
+calls to <code>maxof/3</code> do not interfer with each other.</p>
+</div>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmdb_002dsum.html#ref_002dmdb_002dsum" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmdb_002didb.html#ref_002dmdb_002didb" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmdb.html#ref_002dmdb" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmdb_002dbbd.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmdb_002dbbd.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FDBG Options</title>
+
+<meta name="description" content="SICStus Prolog: FDBG Options">
+<meta name="keywords" content="SICStus Prolog: FDBG Options">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="FDBG-Basics.html#FDBG-Basics" rel="up" title="FDBG Basics">
+<link href="FDBG-Naming-Terms.html#FDBG-Naming-Terms" rel="next" title="FDBG Naming Terms">
+<link href="FDBG-Basics.html#FDBG-Basics" rel="prev" title="FDBG Basics">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FDBG-Options"></a>
+<hr>
+<a name="FDBG-Options-1"></a>
+<h4 class="subsubsection">10.15.3.1 FDBG Options</h4>
+
+<p>FDBG is switched on and off with the predicates:
+</p>
+<dl compact="compact">
+<dd>
+<a name="index-fdbg_005fon_002f_005b0_002c1_005d-_0028fdbg_0029-1"></a>
+<a name="index-fdbg_005fon_002f_005b0_002c1_005d-_0028fdbg_0029"></a>
+
+</dd>
+<dt><code>fdbg_on</code></dt>
+<dt><code>fdbg_on(<var>:Options</var>)</code></dt>
+<dd><p>Turns on FDBG by putting advice-points on several predicates
+of the CLP(FD) module.  <var>Options</var> is a
+list of options; see <a href="#FDBG-Options">FDBG Options</a>.  The empty list is
+the default value.
+</p>
+<p><code>fdbg_on/[0,1]</code> can be called safely several times consecutively;
+only the first call will have an effect.
+</p>
+
+<a name="index-fdbg_005foff_002f0-_0028fdbg_0029-1"></a>
+<a name="index-fdbg_005foff_002f0-_0028fdbg_0029"></a>
+
+</dd>
+<dt><code>fdbg_off</code></dt>
+<dd><p>Turns the debugger off by removing the previously installed
+advice-points.
+</p></dd>
+</dl>
+
+<p><code>fdbg_on/1</code> accepts the following options:
+</p>
+<dl compact="compact">
+<dt><code>file(<var>Filename</var>, <var>Mode</var>)</code></dt>
+<dd><p>Tells FDBG to attach the stream alias <code>fdbg_output</code> to
+the file called <var>Filename</var> opened in mode <var>Mode</var>.  <var>Mode</var>
+can either be <code>write</code> or <code>append</code>.  The file specified is
+opened on a call to <code>fdbg_on/1</code> and is closed on a call to
+<code>fdbg_off/0</code>.
+</p>
+</dd>
+<dt><code>socket(<var>Host</var>, <var>Port</var>)</code></dt>
+<dd><p>Tells FDBG to attach the stream alias <code>fdbg_output</code> to
+the socket connected to <var>Host</var> on port <var>Port</var>.  The specified
+socket is created on a call to <code>fdbg_on/1</code> and is closed on a call
+to <code>fdbg_off/0</code>.
+</p>
+</dd>
+<dt><code>stream(<var>Stream</var>)</code></dt>
+<dd><p>Tells FDBG to attach the stream alias <code>fdbg_output</code> to
+the stream <var>Stream</var>.  The specified stream remains open
+after calling <code>fdbg_off/0</code>.
+</p>
+<p>If none of the above three options is used, then the stream alias
+<code>fdbg_output</code> is attached to the current output stream.<br>&nbsp;<br>
+</p>
+</dd>
+<dt><code>constraint_hook(<var>Goal</var>)</code></dt>
+<dd><p>Tells FDBG to extend <var>Goal</var> with two (additional) arguments and
+call it on the exit port of the constraint dispatcher.
+</p>
+</dd>
+<dt><code>no_constraint_hook</code></dt>
+<dd><p>Tells FDBG not to use any constraint hook.
+</p>
+<p>If none of the above two options is used, then the default is
+<code>constraint_hook(fdbg:fdbg_show)</code>.<br>&nbsp;<br>
+</p>
+</dd>
+<dt><code>labeling_hook(<var>Goal</var>)</code></dt>
+<dd><p>Tells FDBG to extend <var>Goal</var> with three (additional) arguments and
+call it on any of the three labeling events.
+</p>
+</dd>
+<dt><code>no_labeling_hook</code></dt>
+<dd><p>Tells FDBG not to use any labeling hook.
+</p>
+<p>If none of the above two options is used, then the
+default is <code>labeling_hook(fdbg:fdbg_label_show)</code>.
+</p>
+</dd>
+</dl>
+
+<p>For both <code>constraint_hook</code> and <code>labeling_hook</code>, <var>Goal</var>
+should be a visualizer, either built-in (see <a href="FDBG-Built_002dIn-Visualizers.html#FDBG-Built_002dIn-Visualizers">FDBG Built-In Visualizers</a>) or user defined.  More of these two options may appear in
+the option list, in which case they will be called in their order
+of occurrence.
+</p>
+<p>See <a href="FDBG-Writing-Visualizers.html#FDBG-Writing-Visualizers">FDBG Writing Visualizers</a> for more details on these two options.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FDBG-Naming-Terms.html#FDBG-Naming-Terms" accesskey="n" rel="next">Next</a>
+<li><a href="FDBG-Basics.html#FDBG-Basics" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Options.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Options.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

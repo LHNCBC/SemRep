@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-term_variables</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-term_variables">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-term_variables">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dthrow.html#mpg_002dref_002dthrow" rel="next" title="mpg-ref-throw">
+<link href="mpg_002dref_002dterm_005funify_005fdecided.html#mpg_002dref_002dterm_005funify_005fdecided" rel="prev" title="mpg-ref-term_unify_decided">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dterm_005fvariables"></a>
+<hr>
+<a name="term_005fvariables_002f2---ISO"></a>
+<h4 class="subsection">11.3.234 <code>term_variables/2</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-term_005fvariables_002f2-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-term_005fvariables_002f2-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-259"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>term_variables(<var>+Term</var>, <var>-Variables</var>)</code> &nbsp;<!-- /@w --> <i>since release 4.3</i>
+True if <var>Variables</var> is the list of variables occurring in <var>Term</var>,
+without duplicates, in first occurrence order.
+</p>
+<a name="Arguments-240"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Term</var></dt>
+<dd><p>Any <em>term</em>, a cyclic term is also accepted.
+</p>
+</dd>
+<dt><var>-Variables</var></dt>
+<dd><p>The variables in the term. Must be a variable or a list.
+</p>
+</dd>
+</dl>
+
+<a name="Exceptions-250"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>type_error</code></dt>
+<dd><p><var>Variables</var> is not a variable or a list.
+</p></dd>
+</dl>
+
+<a name="Examples-92"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">| ?- <kbd>term_variables(f(A, B, A), Vs).</kbd>
+Vs = [A,B] ?
+yes
+| ?- <kbd>term_variables(f(a, b, a), Vs).</kbd>
+Vs = [] ?
+yes
+| ?- <kbd>T=[A,B|T], term_variables(f(C,T), Vs).</kbd>
+T = [A,B,A,B,A,B,A,B,A,B|...],
+Vs = [C,A,B] ? 
+yes
+</pre></div>
+
+<a name="See-Also-256"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlte_002dact.html#ref_002dlte_002dact">ref-lte-act</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dthrow.html#mpg_002dref_002dthrow" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dterm_005funify_005fdecided.html#mpg_002dref_002dterm_005funify_005fdecided" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dterm_005fvariables.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dterm_005fvariables.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

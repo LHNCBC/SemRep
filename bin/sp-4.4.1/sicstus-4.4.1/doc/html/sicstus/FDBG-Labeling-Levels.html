@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FDBG Labeling Levels</title>
+
+<meta name="description" content="SICStus Prolog: FDBG Labeling Levels">
+<meta name="keywords" content="SICStus Prolog: FDBG Labeling Levels">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="FDBG-Concepts.html#FDBG-Concepts" rel="up" title="FDBG Concepts">
+<link href="FDBG-Visualizers.html#FDBG-Visualizers" rel="next" title="FDBG Visualizers">
+<link href="FDBG-Events.html#FDBG-Events" rel="prev" title="FDBG Events">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FDBG-Labeling-Levels"></a>
+<hr>
+<a name="Labeling-Levels"></a>
+<h4 class="subsubsection">10.15.2.2 Labeling Levels</h4>
+<a name="index-labeling-levels"></a>
+<a name="index-levels_002c-labeling"></a>
+
+<p>In this subsection we give three definitions regarding the labeling
+procedure.
+</p>
+<dl compact="compact">
+<dt><em>labeling session</em></dt>
+<dd><p>This term denotes the whole labeling procedure that starts with the call
+of <code>labeling/2</code> or an equivalent predicate and finishes by
+exiting this predicate.  Normally, there is at most one labeling
+session per run.
+</p>
+</dd>
+<dt><em>labeling attempt</em></dt>
+<dd><p>One choicepoint of a labeling session.  Exactly one variable
+is associated with a labeling attempt, although this is not necessarily
+true vice versa.  For example in <code>enum</code> mode labeling, a single
+labeling attempt tries every possible value, but in <code>step</code> mode
+labeling, several binary choicepoints are created.
+</p>
+</dd>
+<dt><em>labeling step</em></dt>
+<dd><p>The event of somehow constraining the domain of a variable.  This
+usually means either setting the variable to a specific value or
+limiting it with a lower or an upper bound.
+</p></dd>
+</dl>
+
+<p>As you can see there is a hierarchical relation among these definitions:
+a labeling session consists of several labeling attempts, which, in
+turn, might consist of several labeling steps.
+</p>
+<p>A <em>labeling event</em>, on the other hand, can either be a labeling
+step, or the start of a labeling attempt, or the failure of the same.
+See <a href="FDBG-Events.html#FDBG-Events">FDBG Events</a>.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FDBG-Visualizers.html#FDBG-Visualizers" accesskey="n" rel="next">Next</a>
+<li><a href="FDBG-Events.html#FDBG-Events" accesskey="p" rel="prev">Previous</a>
+<li><a href="FDBG-Concepts.html#FDBG-Concepts" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Labeling-Levels.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Labeling-Levels.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

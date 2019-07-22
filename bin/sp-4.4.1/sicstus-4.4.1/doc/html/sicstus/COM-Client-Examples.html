@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: COM Client Examples</title>
+
+<meta name="description" content="SICStus Prolog: COM Client Examples">
+<meta name="keywords" content="SICStus Prolog: COM Client Examples">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dcomclient.html#lib_002dcomclient" rel="up" title="lib-comclient">
+<link href="lib_002dfdbg.html#lib_002dfdbg" rel="next" title="lib-fdbg">
+<link href="COM-Client-Predicates.html#COM-Client-Predicates" rel="prev" title="COM Client Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="COM-Client-Examples"></a>
+<hr>
+<a name="Examples-3"></a>
+<h4 class="subsection">10.14.4 Examples</h4>
+
+<p>The following example launches <i>Microsoft Excel</i>, adds a new worksheet,
+fill in some fields and finally clears the worksheet and quits <em>Excel</em>
+</p><div class="example">
+<pre class="example">:- use_module(library(comclient)).
+:- use_module(library(lists)).
+
+test :-
+   test('Excel.Application').
+
+test(ProgID) :-
+   comclient_create_instance(ProgID, App),
+   %% Visuall Basic: app.visible = 1 
+   comclient_invoke_put(App, visible, 1),
+   %% VB: app.workbooks.add
+   comclient_invoke_method_proc(App, [workbooks, add]),
+   %% VB: with app.activesheet
+   comclient_invoke_method_fun(App, activesheet, ActiveSheet),
+
+   Rows = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15],
+   Cols = Rows,
+   %% VB: .cells i,j . value = i+j/100 
+   (
+     member(I, Rows),
+     member(J, Cols),
+     ValIJ is I+J/100,
+
+     comclient_invoke_put(ActiveSheet, [cells(I,J),value], ValIJ),
+     fail
+   ; true
+   ),
+   (
+     member(I, Rows),
+     member(J, Cols),
+     %% retrieve cell values
+     comclient_invoke_method_fun(ActiveSheet, [cells(I,J), value],CellValue),
+     format(user_error, '~nCell(~w,~w) = ~w', [I,J,CellValue]),
+     fail
+   ; true
+   ),
+
+   Range = 'A1:O15',
+   format(user_error, '~Npress return to clear range (~w)', [Range]),
+   flush_output(user_error),
+   get_code(_),
+
+   %% VB: .range A1:O15 .Clear 
+   comclient_invoke_method_proc(ActiveSheet, [range(Range),clear]),
+   
+   %% Avoid Excel query &quot;do you want to save&hellip;&quot;
+   %%  VB: app.activeworkbook.saved = 1 
+   comclient_invoke_put(App, [activeworkbook,saved], 1),
+
+   format(user_error, '~Npress return to quit \'~w\'', [ProgID]),
+   flush_output(user_error),
+   get_code(_),
+   
+   %% VB: app.quit
+   comclient_invoke_method_proc(App, quit),
+
+   comclient_release(ActiveSheet),
+   comclient_release(App).
+   
+</pre></div>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="COM-Client-Predicates.html#COM-Client-Predicates" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dcomclient.html#lib_002dcomclient" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/COM-Client-Examples.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/COM-Client-Examples.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

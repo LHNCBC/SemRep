@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: Running SICStus from Java</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: Running SICStus from Java">
+<meta name="keywords" content="SICStus Prolog Release Notes: Running SICStus from Java">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Getting-Started.html#Getting-Started" rel="up" title="Getting Started">
+<link href="Jasper-Package-Options.html#Jasper-Package-Options" rel="next" title="Jasper Package Options">
+<link href="Running-Java-from-SICStus.html#Running-Java-from-SICStus" rel="prev" title="Running Java from SICStus">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Running-SICStus-from-Java"></a>
+<hr>
+<a name="Running-SICStus-from-Java-1"></a>
+<h4 class="subsection">8.2.4 Running SICStus from Java</h4>
+
+<p>If Java is used as parent application, then things are a little more
+complicated. There are a couple of things that need to be taken care
+of. The first is to specify the correct class path so that Java can find 
+the Jasper classes (<code>SICStus</code>, <code>SPTerm</code>, and so on). This is
+done by specifying the pathname of the file <samp>jasper.jar</samp>:
+</p>
+<div class="example">
+<pre class="example">% <kbd>java -classpath $SP_PATH/bin/jasper.jar &hellip;</kbd>
+</pre></div>
+
+<p><code>SP_PATH</code> does not need to be set; it is only used here as a
+placeholder (see <a href="../sicstus/CPL-Notes.html#CPL-Notes">CPL Notes</a> in <cite>the SICStus Prolog Manual</cite>). See the documentation of the Java implementation for
+more info on how to set classpaths.
+</p>
+<p>The second is to specify where Java should find the Jasper native
+library (<samp>libspnative.so</samp> or <samp>spnative.dll</samp>), which the
+<code>SICStus</code> class loads into the JVM by invoking the method
+<code>System.loadLibrary(&quot;spnative&quot;)</code>. Under UNIX, Jasper can usually
+figure this out by itself, but in the event that Jasper is used in a
+non-standard installation, this will most likely fail. A typical
+example of such a failure looks like:
+</p>
+<div class="example">
+<pre class="example">% <kbd>java -classpath [&hellip;]/jasper.jar se.sics.jasper.SICStus</kbd>
+Trying to load SICStus.
+Exception in thread &quot;main&quot; java.lang.UnsatisfiedLinkError: no spnative
+in java.library.path
+	at java.lang.ClassLoader.loadLibrary(ClassLoader.java:1133)
+	at java.lang.Runtime.loadLibrary0(Runtime.java:470)
+	at java.lang.System.loadLibrary(System.java:745)
+	at se.sics.jasper.SICStus.loadNativeCode(SICStus.java:37)
+	at se.sics.jasper.SICStus.initSICStus(SICStus.java:80)
+	at se.sics.jasper.SICStus.&lt;init&gt;(SICStus.java:111)
+	at se.sics.jasper.SICStus.main(SICStus.java:25)
+</pre></div>
+
+<p>Under UNIX, this can be fixed by explicitly setting the Java property
+<code>java.library.path</code> to the location of <samp>libspnative.so</samp>, like this:
+</p>
+<div class="example">
+<pre class="example">% <kbd>java -Djava.library.path=/usr/local/sicstus4.4.1/lib [&hellip;]</kbd>
+</pre></div>
+
+<p>Under Windows, Java must be able to find <samp>spnative.dll</samp> through the
+<code>PATH</code> environment variable (see <a href="Windows.html#Windows">Windows</a>). Setting
+<samp>-Djava.library.path</samp> under Windows
+can lead to problems if multiple versions of SICStus have been installed.  
+</p>
+<p>If this works properly, then SICStus should have been loaded into the JVM
+address space.
+</p>
+<p>If everything is set up correctly, then you should be able to call <code>main</code>
+(which contains a short piece of test-code) in the SICStus root class,
+something like this:
+</p>
+<div class="example">
+<pre class="example">% <kbd>java -Djava.library.path=&quot;/usr/local/sicstus4.4.1/lib&quot; \</kbd>
+       <kbd>-classpath &quot;/usr/local/sicstus4.4.1/lib/sicstus-4.4.1/bin/jasper.jar&quot; \</kbd>
+        <kbd>se.sics.jasper.SICStus</kbd>
+Trying to load SICStus.
+If you see this message, then you have successfully
+initialized the SICStus Prolog engine.
+</pre></div>
+
+<p>Under Windows, it would look something like this, depending on the shell used:
+</p>
+<div class="example">
+<pre class="example">% <kbd>java -classpath &quot;C:/Program Files/SICStus Prolog 4.4.1/bin/jasper.jar&quot; se.sics.jasper.SICStus</kbd>
+Trying to load SICStus.
+If you see this message, then you have successfully
+initialized the SICStus Prolog engine.
+</pre></div>
+
+<p>If more than one <code>se.sics.jasper.SICStus</code> instance will be created, then
+the SICStus runtimes named e.g.
+<samp>sprt4-4-1_instance_01_.dll</samp> need to be available as
+well. See <a href="../sicstus/Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines">Runtime Systems on
+Target Machines</a> in <cite>the SICStus Prolog Manual</cite>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Running-Java-from-SICStus.html#Running-Java-from-SICStus" accesskey="p" rel="prev">Previous</a>
+<li><a href="Getting-Started.html#Getting-Started" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Running-SICStus-from-Java.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Running-SICStus-from-Java.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

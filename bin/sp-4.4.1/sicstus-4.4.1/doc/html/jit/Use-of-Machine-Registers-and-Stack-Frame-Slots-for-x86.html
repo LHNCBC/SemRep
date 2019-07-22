@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus JIT White Paper: Use of Machine Registers and Stack Frame Slots for x86</title>
+
+<meta name="description" content="SICStus JIT White Paper: Use of Machine Registers and Stack Frame Slots for x86">
+<meta name="keywords" content="SICStus JIT White Paper: Use of Machine Registers and Stack Frame Slots for x86">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Register-Allocation.html#Register-Allocation" rel="up" title="Register Allocation">
+<link href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028non_002dWindows_0029.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028non_002dWindows_0029" rel="next" title="Use of Machine Registers and Stack Frame Slots for x86_64 (non-Windows)">
+<link href="Placement-of-WAM-and-IR-Registers.html#Placement-of-WAM-and-IR-Registers" rel="prev" title="Placement of WAM and IR Registers">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86"></a>
+<hr>
+<a name="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86-1"></a>
+<h3 class="section">4.2 Use of Machine Registers and Stack Frame Slots for x86</h3>
+
+<table>
+<tr><td width="10%"><code>%eax</code></td><td width="10%"><code>gpr(0)</code></td><td width="80%"><code>val</code></td></tr>
+<tr><td width="10%"><code>%ecx</code></td><td width="10%"><code>gpr(1)</code></td><td width="80%"><code>cp</code></td></tr>
+<tr><td width="10%"><code>%edx</code></td><td width="10%"><code>gpr(2)</code></td><td width="80%"><code>s</code></td></tr>
+<tr><td width="10%"><code>%ebx</code></td><td width="10%"><code>gpr(3)</code></td><td width="80%"><code>w</code></td></tr>
+<tr><td width="10%"><code>%esp</code></td><td width="10%"><code>gpr(4)</code></td><td width="80%"><code>SP</code></td></tr>
+<tr><td width="10%"><code>%ebp</code></td><td width="10%"><code>gpr(5)</code></td><td width="80%"><code>a</code></td></tr>
+<tr><td width="10%"><code>%esi</code></td><td width="10%"><code>gpr(6)</code></td><td width="80%"><code>h</code></td></tr>
+<tr><td width="10%"><code>%edi</code></td><td width="10%"><code>gpr(7)</code></td><td width="80%"><code>e</code></td></tr>
+<tr><td width="10%"><code>0(%esp)</code></td><td width="10%"></td><td width="80%"><code>arg0</code></td></tr>
+<tr><td width="10%"><code>4(%esp)</code></td><td width="10%"></td><td width="80%"><code>arg1</code></td></tr>
+<tr><td width="10%"><code>8(%esp)</code></td><td width="10%"></td><td width="80%"><code>arg2</code></td></tr>
+<tr><td width="10%"><code>12(%esp)</code></td><td width="10%"></td><td width="80%"><code>%ebx</code> callee save</td></tr>
+<tr><td width="10%"><code>16(%esp)</code></td><td width="10%"></td><td width="80%"><code>%edi</code> callee save</td></tr>
+<tr><td width="10%"><code>20(%esp)</code></td><td width="10%"></td><td width="80%"><code>%esi</code> callee save</td></tr>
+<tr><td width="10%"><code>24(%esp)</code></td><td width="10%"></td><td width="80%"><code>%ebp</code> callee save</td></tr>
+<tr><td width="10%"><code>28(%esp)</code></td><td width="10%"></td><td width="80%"><code>ac0</code></td></tr>
+<tr><td width="10%"><code>32(%esp)</code></td><td width="10%"></td><td width="80%"><code>ac1</code></td></tr>
+<tr><td width="10%"><code>36(%esp)</code></td><td width="10%"></td><td width="80%">pad</td></tr>
+<tr><td width="10%"><code>40(%esp)</code></td><td width="10%"></td><td width="80%">pad</td></tr>
+<tr><td width="10%"><code>44(%esp)</code></td><td width="10%"></td><td width="80%">pad</td></tr>
+<tr><td width="10%"><code>48(%esp)</code></td><td width="10%"></td><td width="80%">ret address</td></tr>
+<tr><td width="10%"><code>52(%esp)</code></td><td width="10%"></td><td width="80%"><code>w</code></td></tr>
+</table>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Jit</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028non_002dWindows_0029.html#Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86_005f64-_0028non_002dWindows_0029" accesskey="n" rel="next">Next</a>
+<li><a href="Placement-of-WAM-and-IR-Registers.html#Placement-of-WAM-and-IR-Registers" accesskey="p" rel="prev">Previous</a>
+<li><a href="Register-Allocation.html#Register-Allocation" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/jit/Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86.html&amp;body=Feedback%20on%20documentation%20node%20html/jit/Use-of-Machine-Registers-and-Stack-Frame-Slots-for-x86.html%20in%20Jit.">Send feedback on this subject.</a>
+</body>
+</html>

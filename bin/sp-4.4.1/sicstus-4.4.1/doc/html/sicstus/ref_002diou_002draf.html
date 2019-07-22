@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-iou-raf</title>
+
+<meta name="description" content="SICStus Prolog: ref-iou-raf">
+<meta name="keywords" content="SICStus Prolog: ref-iou-raf">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002diou.html#ref_002diou" rel="up" title="ref-iou">
+<link href="ref_002diou_002dsum.html#ref_002diou_002dsum" rel="next" title="ref-iou-sum">
+<link href="ref_002diou_002dsos_002dspt.html#ref_002diou_002dsos_002dspt" rel="prev" title="ref-iou-sos-spt">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002diou_002draf"></a>
+<hr>
+<a name="Random-Access-to-Files"></a>
+<h4 class="subsection">4.6.9 Random Access to Files</h4>
+
+
+<a name="index-stream_005fposition_002f2-_0028built_002din_0029-1"></a>
+<a name="index-stream_005fposition_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-set_005fstream_005fposition_002f2-_0028built_002din_0029-1"></a>
+<a name="index-set_005fstream_005fposition_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-seek_002f4-_0028built_002din_0029-1"></a>
+<a name="index-seek_002f4-_0028built_002din_0029"></a>
+
+
+<a name="index-random-access-to-streams"></a>
+
+<a name="index-access-to-streams_002c-random"></a>
+
+<a name="index-streams_002c-random-access-to"></a>
+
+<a name="index-position-in-a-stream"></a>
+
+
+<p>There are two methods of finding and setting the stream position,
+<em>stream positioning</em> and <em>seeking</em>.  The current position of the
+read/write pointer in a specified stream can be obtained by using
+<code>stream_position/2</code> or <code>stream_property/2</code>.  It may be changed by using
+<code>set_stream_position/2</code>.  Alternatively, <code>seek/4</code> may be used.
+</p>
+<p>Seeking is more general, and stream positioning is more portable.
+The differences between them are:
+</p><ul>
+<li> <code>stream_position/2</code> is similar to <code>seek/4</code> with <var>Offset</var> = 0,
+and <var>Method</var> = <code>current</code>.
+</li><li> Where <code>set_stream_position/2</code> asks for stream position objects,
+<code>seek/4</code> uses integer expressions to represent the position or
+offset.  Stream position objects are obtained by calling
+<code>stream_position/2</code>, and are discussed in the reference page.
+<a name="index-stream-position-object"></a>
+<a name="index-object_002c-stream-position"></a>
+</li></ul>
+
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002diou_002dsum.html#ref_002diou_002dsum" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002diou_002dsos.html#ref_002diou_002dsos" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002diou.html#ref_002diou" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002diou_002draf.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002diou_002draf.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

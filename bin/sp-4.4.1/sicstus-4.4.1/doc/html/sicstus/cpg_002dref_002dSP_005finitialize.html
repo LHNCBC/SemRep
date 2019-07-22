@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_initialize</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_initialize">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_initialize">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fis_005fatom.html#cpg_002dref_002dSP_005fis_005fatom" rel="next" title="cpg-ref-SP_is_atom">
+<link href="cpg_002dref_002dSP_005fgetenv.html#cpg_002dref_002dSP_005fgetenv" rel="prev" title="cpg-ref-SP_getenv">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005finitialize"></a>
+<hr>
+<a name="SP_005finitialize_0028_0029---macro"></a>
+<h4 class="subsection">12.3.44 <code>SP_initialize()</code> &nbsp;<!-- /@w --> <i>macro</i></h4>
+<a name="index-SP_005finitialize_0028_0029-_0028C-macro_0029"></a>
+
+<a name="Synopsis-324"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+int
+SP_initialize(int argc,
+	      char **argv,
+	      SP_options *options);
+</pre></div>
+
+<p>Initializes the Prolog engine.
+</p>
+<a name="Arguments-297"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>argc</var></dt>
+<dd><p>The number of elements of the <code>argv</code> vector.
+</p>
+</dd>
+<dt><var>argv</var></dt>
+<dd><p>A vector of strings that can be accessed by <code>prolog_flag(argv,X)</code>.
+This argument is copied by <code>SP_initialize()</code> so it can be discarded
+by the caller. May be passed as <code>NULL</code> if <code>argc</code> is zero.
+</p>
+<p>Each entry should be an encoded string, i.e. encoded using
+&lsquo;<samp>UTF-8</samp>&rsquo;. This may not be the encoding used by the operating
+system when invoking <code>main()</code>. A better alternative is to pass
+zero for <code>argc</code>, NULL for <code>argv</code> and use
+<code>SP_set_argv()</code> to pass the <code>argv</code> entries.
+</p>
+
+</dd>
+<dt><var>options</var></dt>
+<dd><p>A pointer to an option block. In most cases it suffice to pass <code>NULL</code>.
+</p>
+<p>An option block can be initialized with
+<code>SP_OPTIONS_STATIC_INITIALIZER</code> and its <code>options</code> field set
+to point to a <code>SP_option</code> array. Each <code>SP_option</code> is a typed
+value. Currently the only type is
+<code>SP_option_type_system_property</code>, for setting initial system
+properties (see <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>).
+</p>
+<p>To pass the system properties <code>foo</code> and <code>bar</code>, with values <code>true</code> and <code>hello</code>, respectively, you would do something like this
+</p>
+<div class="example">
+<pre class="example">
+  &hellip;
+  int res;
+  SP_options opts = SP_OPTIONS_STATIC_INITIALIZER;
+  SP_option props[2];
+
+  opts.noptions = 0;
+  opts.options = &amp;props;
+  props[opts.noptions].type = SP_option_type_system_property;
+  props[opts.noptions].u.prop.key = &quot;foo&quot;;
+  props[opts.noptions].u.prop.value = &quot;true&quot;;
+  opts.noptions++;
+
+  props[opts.noptions].type = SP_option_type_system_property;
+  props[opts.noptions].u.prop.key = &quot;bar&quot;;
+  props[opts.noptions].u.prop.value = &quot;hello&quot;;
+  opts.noptions++;
+
+  res = SP_initialize(argv, argc, &amp;opts);
+  if (res != SP_SUCCESS) {
+       &hellip; /<!-- /@w -->* error handling *<!-- /@w -->/
+  }
+  &hellip;
+
+</pre></div>
+
+</dd>
+</dl>
+
+<a name="Return-Value-40"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p><code>SP_SUCCESS</code> if initialization was successful.
+If initialization was successful, further calls to
+<code>SP_initialize()</code> will be no-ops (and return <code>SP_SUCCESS</code>).
+</p>
+<a name="Description-206"></a>
+<h4 class="subheading">Description</h4>
+
+<p>This must be done before any interface functions are called, except
+those annotated as <em>[preinit]</em>.
+The function will allocate data
+areas used by Prolog, initialize command line arguments so that they
+can be accessed by the <code>argv</code> Prolog flag, and load the Runtime
+Library.
+</p>
+<a name="See-Also-321"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Initializing-the-Prolog-Engine.html#Initializing-the-Prolog-Engine">Initializing the Prolog Engine</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fis_005fatom.html#cpg_002dref_002dSP_005fis_005fatom" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005fgetenv.html#cpg_002dref_002dSP_005fgetenv" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005finitialize.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005finitialize.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Run Intro</title>
+
+<meta name="description" content="SICStus Prolog: Run Intro">
+<meta name="keywords" content="SICStus Prolog: Run Intro">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Start.html#Start" rel="next" title="Start">
+<link href="Glossary.html#Glossary" rel="prev" title="Glossary">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Run-Intro"></a>
+<hr>
+<a name="How-to-Run-Prolog"></a>
+<h2 class="chapter">3 How to Run Prolog</h2>
+<p>SICStus Prolog offers the user an interactive programming environment
+with tools for incrementally building programs, debugging
+programs by following their executions, and modifying parts of
+programs without having to start again from scratch.
+</p>
+<p>The text of a Prolog program is normally created in a file or a
+number of files using one of the standard text editors.  The Prolog
+interpreter can then be instructed to read in programs from
+these files; this is called <em>consulting</em> the file.  Alternatively,
+the Prolog compiler can be used for <em>compiling</em> the file.
+<a name="index-consulting"></a>
+<a name="index-compiling"></a>
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Start.html#Start" accesskey="1">Start</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Getting Started
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Reading-In.html#Reading-In" accesskey="2">Reading In</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Reading in Programs
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Inserting-Clauses.html#Inserting-Clauses" accesskey="3">Inserting Clauses</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Inserting Clauses at the Terminal
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Queries-and-Directives.html#Queries-and-Directives" accesskey="4">Queries and Directives</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Queries and Directives
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Syntax-Errors.html#Syntax-Errors" accesskey="5">Syntax Errors</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Syntax Errors
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Undefined-Predicates.html#Undefined-Predicates" accesskey="6">Undefined Predicates</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Undefined Predicates
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Execution.html#Execution" accesskey="7">Execution</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Program Execution And Interruption
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Exiting.html#Exiting" accesskey="8">Exiting</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Exiting From The Top-Level
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Nested.html#Nested" accesskey="9">Nested</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Nested Executions&mdash;Break
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Saving.html#Saving">Saving</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Saving and Restoring Program States
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="SPIDER.html#SPIDER">SPIDER</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">SICStus Prolog IDE
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Emacs-Interface.html#Emacs-Interface">Emacs Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Emacs Interface
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Prolog-Intro.html#Prolog-Intro" accesskey="n" rel="next">Next</a>
+<li><a href="Glossary.html#Glossary" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Run-Intro.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Run-Intro.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FDBG Debugger Commands</title>
+
+<meta name="description" content="SICStus Prolog: FDBG Debugger Commands">
+<meta name="keywords" content="SICStus Prolog: FDBG Debugger Commands">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="FDBG-Basics.html#FDBG-Basics" rel="up" title="FDBG Basics">
+<link href="FDBG-Annotation.html#FDBG-Annotation" rel="next" title="FDBG Annotation">
+<link href="FDBG-Built_002dIn-Visualizers.html#FDBG-Built_002dIn-Visualizers" rel="prev" title="FDBG Built-In Visualizers">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FDBG-Debugger-Commands"></a>
+<hr>
+<a name="New-Debugger-Commands"></a>
+<h4 class="subsubsection">10.15.3.4 New Debugger Commands</h4>
+<p>The Prolog debugger is extended by FDBG.
+The <kbd>&amp;</kbd> debugger is modified, and two new commands are added:
+</p>
+<dl compact="compact">
+<dd><a name="index-blocked-goals-_0028debugger-command_0029-1"></a>
+<a name="index-_0026-_0028debugger-command_0029-1"></a>
+</dd>
+<dt><kbd>&amp;</kbd></dt>
+<dt><kbd>&amp; <var>N</var></kbd></dt>
+<dd><p>This debugger command is extended so that the annotated form of domain
+variables is also printed when listing the variables with
+blocked goals.
+</p>
+<a name="index-annotate-goal-_0028debugger-command_0029"></a>
+<a name="index-A-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>A</kbd></dt>
+<dt><kbd>A <var>Selector</var></kbd></dt>
+<dd><p>Annotates and prints the current goal and a legend of the
+variables appearing in it.  If a selector is specified, then the
+subterm specified by it is assumed to be an action list, and
+is taken into account when displaying the legend.  For example:
+</p>
+<div class="example">
+<pre class="example">23  2 Exit: clpfd:dispatch_global_fast(no_threat(2,_1001,1),0,0,
+            [exit,_1001 in_set[[3|3]]]) ? <kbd>A [2,4]</kbd>
+
+clpfd:dispatch_global_fast(no_threat(2,&lt;board_2&gt;,1),0,0,
+                           [exit,&lt;board_2&gt; in_set[[3|3]]])
+    board_2 = 1..4 -&gt; {3}
+    Constraint exited.
+</pre></div>
+
+<a name="index-name-variable-_0028debugger-command_0029"></a>
+<a name="index-W-_0028debugger-command_0029"></a>
+</dd>
+<dt><kbd>W <var>Name</var>=<var>Selector</var></kbd></dt>
+<dd><p>Assigns the atom <var>Name</var> to the variable specified by the
+<var>Selector</var>.  For example:
+</p>
+<div class="example">
+<pre class="example">7      15 Call: bar(4, [_101,_102,_103]) ? <kbd>W foo=[2,#2]</kbd>
+</pre></div>
+
+<p>This would assign the name <code>foo</code> to <code>_102</code>, being the second
+element of the second argument of the current goal.
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FDBG-Annotation.html#FDBG-Annotation" accesskey="n" rel="next">Next</a>
+<li><a href="FDBG-Built_002dIn-Visualizers.html#FDBG-Built_002dIn-Visualizers" accesskey="p" rel="prev">Previous</a>
+<li><a href="FDBG-Basics.html#FDBG-Basics" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FDBG-Debugger-Commands.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FDBG-Debugger-Commands.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

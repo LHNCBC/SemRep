@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: too-sicstus</title>
+
+<meta name="description" content="SICStus Prolog: too-sicstus">
+<meta name="keywords" content="SICStus Prolog: too-sicstus">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Command-Reference-Pages.html#Command-Reference-Pages" rel="up" title="Command Reference Pages">
+<link href="too_002dmzn_002dsicstus.html#too_002dmzn_002dsicstus" rel="next" title="too-mzn-sicstus">
+<link href="Command-Reference-Pages.html#Command-Reference-Pages" rel="prev" title="Command Reference Pages">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="too_002dsicstus"></a>
+<hr>
+<a name="sicstus-_002d_002d_002d-SICStus-Prolog-Development-System"></a>
+<h3 class="section">13.1 <code>sicstus</code> &mdash; SICStus Prolog Development System</h3>
+
+
+<a name="index-sicstus_00281_0029-_0028command-line-tool_0029"></a>
+
+<a name="Synopsis-389"></a>
+<h4 class="subheading">Synopsis</h4>
+
+
+<div class="example">
+<pre class="example">% <kbd>sicstus [<var>options</var>] [-- <var>argument&hellip;</var>]</kbd>
+</pre></div>
+
+<a name="Description-227"></a>
+<h4 class="subheading">Description</h4>
+
+<p>The prompt &lsquo;<samp>| ?-</samp>&rsquo; indicates that the execution of is top-level
+mode.  In this mode, Prolog queries may be issued and executed
+interactively.  To exit from the top-level and return to the shell,
+either type <kbd>^D</kbd> at the top-level, or call the built-in predicate
+<code>halt/0</code>, or use the <kbd>e</kbd> (exit) command following a <kbd>^C</kbd>
+interruption.
+</p>
+<p>Under Windows, <code>sicstus.exe</code> is a console-based
+program that can run in a command prompt window, whereas <code>spwin.exe</code>
+runs in its own window and directs the Prolog standard streams to that
+window.  <code>spwin.exe</code> is a &ldquo;windowed&rdquo; executable.
+</p>
+<a name="Options-1"></a>
+<h4 class="subheading">Options</h4>
+
+<dl compact="compact">
+<dt><samp>-f</samp></dt>
+<dd><p>Fast start. Do Not read any initialization file on startup. If the
+option is omitted and the initialization file exists, then SICStus Prolog
+will consult it on startup after running any initializations and
+printing the version banners. The initialization file is
+<samp>.sicstusrc</samp> or <samp>sicstus.ini</samp> in the users home directory,
+i.e. <samp>~/.sicstusrc</samp> or
+<samp>~/sicstus.ini</samp>. See <a href="ref_002dfdi_002dsyn.html#ref_002dfdi_002dsyn">ref-fdi-syn</a> for an explanation of how a
+file specification starting with &lsquo;<samp>~/</samp>&rsquo; is interpreted.
+</p>
+</dd>
+<dt><samp>-i</samp></dt>
+<dd><p>Forced interactive.  Prompt for user input, even if the standard input
+stream does not appear to be a terminal.
+</p>
+</dd>
+<dt><samp>-m</samp></dt>
+<dd><p>Use <code>malloc()</code> et al. for memory
+allocations. See <a href="cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks.html#cpg_002dref_002dSP_005fset_005fmemalloc_005fhooks">cpg-ref-SP_set_memalloc_hooks</a> for more
+information.
+</p>
+</dd>
+<dt><samp>--noinfo</samp></dt>
+<dd><p>Start with the <code>informational</code> Prolog flag set to <code>off</code>
+initially, suppressing informational messages.  The flag is set before
+any <var>prolog-file</var> or initialization file is loaded or any
+<var>saved-state</var> is restored.
+<a name="index-informational-_0028prolog-flag_0029-2"></a>
+</p>
+</dd>
+<dt><samp>--nologo</samp></dt>
+<dd><p>Start without the initial version message.
+</p>
+</dd>
+<dt><samp>-l <var>prolog-file</var></samp></dt>
+<dd><p>Ensure that the file <var>prolog-file</var> is loaded on startup.  This
+is done before any initialization file is loaded.  Only one
+<samp>-l</samp> option is allowed.
+</p>
+</dd>
+<dt><samp>-r <var>saved-state</var></samp></dt>
+<dd><p>Restore the saved-state <var>saved-state</var> on startup.  This is
+done before any <var>prolog-file</var> or initialization file is
+loaded.  Only one <samp>-r</samp> option is allowed.
+</p>
+</dd>
+<dt><samp>--goal <var>Goal</var></samp></dt>
+<dd><p>Read a term from the text <var>Goal</var> and pass the resulting
+term to <code>call/1</code> after all files have been loaded. As
+usual <var>Goal</var> should be terminated by a full stop (&lsquo;<samp>.</samp>&rsquo;).  Only
+one <samp>--goal</samp> option is allowed.
+</p>
+</dd>
+<dt><samp>-D<var>var</var>=<var>value</var></samp></dt>
+<dd><p>Sets the system property <var>var</var> to value <var>value</var>. Most
+system properties take their default value from the environment but
+often it is convenient to pass a system property directly instead of
+setting the corresponding environment variable. See <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a> for details.
+</p>
+</dd>
+<dt><samp>--locale <var>name</var></samp></dt>
+<dd><p>Sets the process locale to the given locale name. The process locale
+primarily affects the character encoding used for the standard streams.
+</p>
+<p>The default, also available by specifying &lsquo;<samp>default</samp>&rsquo; as the
+<var>name</var>, is to inherit the locale from the environment.
+</p>
+<p>This option is not supported on Windows.
+</p>
+</dd>
+<dt><samp>--no-locale</samp></dt>
+<dd><p>Do not inherit the process locale from the environment.
+</p>
+<p>This is, in effect, the default on Windows.
+</p>
+</dd>
+<dt><samp>-Xrs</samp></dt>
+<dd><p>Reduce use of OS-signals.
+</p>
+<p>On UNIX-like platforms, several OS signals are handled specially in a
+development system. The option <samp>-Xrs</samp>, prevents this and keeps
+the OS default behavior.
+</p>
+<p>On both UNIX-like platforms and Windows, the development system will
+install handlers for the signal <code>SIGINT</code> (corresponding to a
+<kbd>C-c</kbd> keyboard interrupt). On Windows, a signal handler will also be
+added for <code>SIGBREAK</code> (signalled when the console window is
+closed). The handling of <code>SIGINT</code> and <code>SIGBREAK</code> is not
+affected by <samp>-Xrs</samp>.
+</p>
+</dd>
+<dt><samp>--help</samp></dt>
+<dd><p>Display a help message and exit.
+</p>
+</dd>
+<dt><samp>-- <var>argument&hellip;</var> &nbsp;<!-- /@w --> <i>since release 4.0.3</i></samp></dt>
+<dt><samp>-a <var>argument&hellip;</var></samp></dt>
+<dd><p>where the arguments can be retrieved from Prolog by
+<code>prolog_flag(argv, <var>Args</var>)</code>, which will unify <var>Args</var>
+with <var>argument&hellip;</var> represented as a list of atoms.
+<a name="index-argv-_0028prolog-flag_0029-2"></a>
+</p>
+</dd>
+</dl>
+
+<a name="Files"></a>
+<h4 class="subheading">Files</h4>
+
+<dl compact="compact">
+<dt><samp><var>file</var>.pl</samp></dt>
+<dt><samp><var>file</var>.pro</samp></dt>
+<dd><p>Prolog source file
+</p>
+</dd>
+<dt><samp><var>file</var>.po</samp></dt>
+<dd><p>Prolog object file
+</p>
+</dd>
+<dt><samp><var>file</var>.sav</samp></dt>
+<dd><p>Prolog saved-state file
+</p>
+</dd>
+<dt><samp>.sicstusrc</samp></dt>
+<dt><samp>sicstus.ini</samp></dt>
+<dd><p>SICStus Prolog initialization file, looked up in the
+home directory
+</p>
+</dd>
+</dl>
+
+<a name="See-Also-386"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Start.html#Start">Start</a>,
+<a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="too_002dmzn_002dsicstus.html#too_002dmzn_002dsicstus" accesskey="n" rel="next">Next</a>
+<li><a href="Command-Reference-Pages.html#Command-Reference-Pages" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/too_002dsicstus.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/too_002dsicstus.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

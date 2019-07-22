@@ -1,0 +1,111 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Deprecated Jasper Predicates</title>
+
+<meta name="description" content="SICStus Prolog: Deprecated Jasper Predicates">
+<meta name="keywords" content="SICStus Prolog: Deprecated Jasper Predicates">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Deprecated-Jasper-API.html#Deprecated-Jasper-API" rel="up" title="Deprecated Jasper API">
+<link href="lib_002dlinda.html#lib_002dlinda" rel="next" title="lib-linda">
+<link href="Deprecated-Argument-Conversions.html#Deprecated-Argument-Conversions" rel="prev" title="Deprecated Argument Conversions">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Deprecated-Jasper-Predicates"></a>
+<hr>
+<a name="Deprecated-Jasper-Predicates-1"></a>
+<h4 class="subsubsection">10.19.8.8 Deprecated Jasper Predicates</h4>
+<dl compact="compact">
+<dt><code>jasper_new_object(<var>+JVM</var>,<var>+Class</var>,<var>+TypeSig</var>,<var>+Args</var>,<var>-Object</var>) &nbsp;<!-- /@w --> <i>obsolescent</i></code></dt>
+<dd>
+<a name="index-jasper_005fnew_005fobject_002f5-_0028jasper_0029-3"></a>
+<a name="index-jasper_005fnew_005fobject_002f5-_0028jasper_0029-1"></a>
+
+<p>Creates a new Java object.
+</p><dl compact="compact">
+<dt><var>JVM</var></dt>
+<dd><p>A reference to the Java VM, as obtained by
+<code>jasper_initialize/[1,2]</code>. 
+</p></dd>
+<dt><var>Class</var></dt>
+<dd><p>An an atom containing the <em>fully qualified classname</em> (i.e.
+package name separated with &rsquo;/&rsquo;, followed by the class name), for
+example <code>java/lang/String</code>, <code>se/sics/jasper/SICStus</code>.
+</p></dd>
+<dt><var>TypeSig</var></dt>
+<dd><p>The <em>type signature</em> of the class constructor. A type signature is
+a string that uniquely defines a method within a class.  For a
+definition of type signatures, see the
+<a href="http://java.sun.com/products/jdk/1.2/docs/guide/jni/index.html">JNI Documentation</a>.
+</p></dd>
+<dt><var>Args</var></dt>
+<dd><p>A list of argument specifiers. See <a href="Deprecated-Argument-Conversions.html#Deprecated-Argument-Conversions">Deprecated Argument Conversions</a>.
+</p></dd>
+<dt><var>Object</var></dt>
+<dd><p>A term on the form <code>'$java_object'(X)</code>, where X is a Java object
+reference. This is the Prolog handle to the Java object. See <a href="Global-vs_002e-Local-References.html#Global-vs_002e-Local-References">Global vs. Local References</a>.
+</p></dd>
+</dl>
+
+</dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Deprecated-Jasper-API.html#Deprecated-Jasper-API" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Deprecated-Jasper-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Deprecated-Jasper-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

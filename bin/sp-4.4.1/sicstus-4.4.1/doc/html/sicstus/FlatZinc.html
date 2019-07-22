@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FlatZinc</title>
+
+<meta name="description" content="SICStus Prolog: FlatZinc">
+<meta name="keywords" content="SICStus Prolog: FlatZinc">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dzinc.html#lib_002dzinc" rel="up" title="lib-zinc">
+<link href="FlatZinc-Exported-Predicates.html#FlatZinc-Exported-Predicates" rel="next" title="FlatZinc Exported Predicates">
+<link href="Zinc-Notes.html#Zinc-Notes" rel="prev" title="Zinc Notes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FlatZinc"></a>
+<hr>
+<a name="FlatZinc-1"></a>
+<h4 class="subsection">10.48.2 FlatZinc</h4>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="FlatZinc-Exported-Predicates.html#FlatZinc-Exported-Predicates" accesskey="1">FlatZinc Exported Predicates</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Exported Predicates
+</td></tr>
+</table>
+
+<p>The FlatZinc<!-- /@w --> interpreter described here is based on
+<em>&ldquo;Specification of FlatZinc<!-- /@w -->, version 1.6&rdquo;</em>, available at
+<a href="http://www.minizinc.org/specifications.html">http://www.minizinc.org/specifications.html</a>.
+</p>
+<p>A FlatZinc<!-- /@w --> program can be run directly using
+<code>fzn_run_file/[1,2]</code> and <code>fzn_run_stream/[1,2]</code>, as well as
+with <code>spfz</code>, a simple command-line tool interface to
+<code>fzn_run_file/[1,2]</code> (for details, see <a href="too_002dspfz.html#too_002dspfz">too-spfz</a>).  For
+example, a program for solving the 4 Queens problem, located in
+<code>library('zinc/examples/queen4.fzn')</code>, can be run by the following
+goal:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>fzn_run_file(library('zinc/examples/queen4')).</kbd>
+</pre></div>
+
+<p>or command:
+</p>
+<div class="example">
+<pre class="example">% <kbd>spfz $SP_LIBRARY_DIR/zinc/examples/queen4</kbd>
+</pre></div>
+
+<p>The following solution is then written on the current output stream:
+</p><div class="example">
+<pre class="example">q = array1d(1..4, [2, 4, 1, 3]);
+----------
+</pre></div>
+<p>Note the ten consecutive dashes after the solution.
+</p>
+<p>The following goal can be used to find all solutions:
+</p><div class="example">
+<pre class="example">| ?- <kbd>fzn_run_file(library('zinc/examples/queen4'), [solutions(all)]).</kbd>
+</pre></div>
+
+<p>or command:
+</p>
+<div class="example">
+<pre class="example">% <kbd>spfz $SP_LIBRARY_DIR/zinc/examples/queen4 -a</kbd>
+</pre></div>
+
+<p>The following solutions are then written on the current output stream:
+</p><div class="example">
+<pre class="example">q = array1d(1..4, [2, 4, 1, 3]);
+----------
+q = array1d(1..4, [3, 1, 4, 2]);
+----------
+==========
+</pre></div>
+<p>Note the ten consecutive equal signs after all solutions have been found.
+</p>
+
+<p>FlatZinc<!-- /@w --> programs are not intended to be written (or read) by humans,
+but rather to be automatically generated. One way to generate a FlatZinc<!-- /@w -->
+program is by using a MiniZinc<!-- /@w -->-to-FlatZinc<!-- /@w --> translator, such as
+<code>mzn2fzn</code>, bundles with the MiniZinc<!-- /@w --> distribution. One use of this
+translator is to first generate a FlatZinc<!-- /@w --> program from a MiniZinc<!-- /@w -->
+program, e.g. by the following command line (<code>queen.mzn</code> and
+<code>queen4.dat</code> can be found in <code>library('zinc/examples')</code>):
+</p><div class="example">
+<pre class="example"><kbd>mzn2fzn -G sicstus --data queen4.dat --output-to-file queen4.fzn queen.mzn</kbd>
+</pre></div>
+<p>The resulting FlatZinc<!-- /@w --> program <code>queen4.fzn</code> can then be run as
+described above. If a generated FlatZinc<!-- /@w --> program is not desired, then another
+use of <code>mzn2fzn</code> is to pipe its result directly to a SICStus
+process, e.g. by the following command:
+</p>
+<div class="example">
+<pre class="example"><kbd>mzn2fzn -G sicstus --data queen4.dat --output-to-stdout queen.mzn | sicstus --goal 'use_module(library(zinc)), fzn_run_stream(user_input), halt.'</kbd>
+</pre></div>
+
+<p>or, simpler:
+</p>
+<div class="example">
+<pre class="example"><kbd>minizinc -G sicstus --data queen4.dat queen.mzn -f spfz</kbd>
+</pre></div>
+
+<p>or, even simpler:
+</p>
+<div class="example">
+<pre class="example"><kbd>minizinc -G sicstus -D n=4 queen.mzn -f spfz</kbd>
+</pre></div>
+
+<p>or, simpler still:
+</p>
+<div class="example">
+<pre class="example"><kbd>mzn-sicstus -D n=4 queen.mzn</kbd>
+</pre></div>
+
+<p><strong>Please note</strong>: The translator <code>mzn2fzn</code> needs to be made
+aware of the SICStus specific global constraint definitions, located in
+<code>library('zinc/globals')</code>. This is necessary in order for the
+MiniZinc<!-- /@w -->-to-FlatZinc<!-- /@w --> translation to be SICStus specific. If this
+is not done, then the SICStus interpreter may run the resulting FlatZinc<!-- /@w -->
+program significantly slower.  In the commands given above, this is done
+by the option <samp>-G sicstus</samp>, which requires a symbolic link
+e.g. <samp>/opt/minizinc-2.1.6/share/minizinc/sicstus</samp> pointing at
+<code>library('zinc/globals')</code>.  If you are unable to add such a link, then 
+an alternative to <samp>-G sicstus</samp> is to pass the path to
+<code>library('zinc/globals')</code> in the <samp>--search-dir</samp> option of
+<code>mzn2fzn</code>.
+</p>
+<p>It is also possible to just load a FlatZinc<!-- /@w --> program into SICStus by
+<code>fzn_load_file/2</code> and <code>fzn_load_stream/2</code>. The loaded FlatZinc<!-- /@w -->
+program can then be processed further from within SICStus, e.g. by
+retrieving some FlatZinc<!-- /@w --> variables using <code>fzn_identifier/3</code> and
+posting additional <code>library(clpfd)</code> constraints or applying a
+Prolog labeling predicate on those variables.
+</p>
+<p>Finally, it is also possible to load and run MiniZinc<!-- /@w --> programs directly
+from within SICStus by using the predicates described in
+<a href="MiniZinc.html#MiniZinc">MiniZinc</a>. These predicates all rely on the availability of an
+external MiniZinc<!-- /@w -->-to-FlatZinc<!-- /@w --> translator such as <code>mzn2fzn</code>,
+as well as an external solution printer such as <code>solns2out</code>
+(see <a href="MiniZinc.html#MiniZinc">MiniZinc</a>).
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="MiniZinc.html#MiniZinc" accesskey="n" rel="next">Next</a>
+<li><a href="Zinc-Notes.html#Zinc-Notes" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dzinc.html#lib_002dzinc" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FlatZinc.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FlatZinc.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

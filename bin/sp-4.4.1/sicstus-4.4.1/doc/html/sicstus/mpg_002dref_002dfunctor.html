@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-functor</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-functor">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-functor">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dgarbage_005fcollect.html#mpg_002dref_002dgarbage_005fcollect" rel="next" title="mpg-ref-garbage_collect">
+<link href="mpg_002dref_002dfrozen.html#mpg_002dref_002dfrozen" rel="prev" title="mpg-ref-frozen">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dfunctor"></a>
+<hr>
+<a name="functor_002f3---ISO"></a>
+<h4 class="subsection">11.3.88 <code>functor/3</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-functor_002f3-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-functor_002f3-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-113"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>functor(+Term, -Name, -Arity)</code>
+</p>
+<p><code>functor(-Term, +Name, +Arity)</code>
+</p>
+<p>Succeeds if the principal functor of term <var>Term</var> has name
+<var>Name</var> and arity <var>Arity</var>.
+</p>
+<a name="Arguments-104"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Term</var></dt>
+<dd><p><em>term</em>
+</p>
+</dd>
+<dt><var>Name</var></dt>
+<dd><p><em>atom</em>
+</p>
+</dd>
+<dt><var>Arity</var></dt>
+<dd><p><em>arity</em>
+</p></dd>
+</dl>
+
+<a name="Description-85"></a>
+<h4 class="subheading">Description</h4>
+
+<p>There are two ways of using this predicate:
+</p>
+<ol>
+<li> If <var>Term</var> is initially instantiated, then 
+
+<ul>
+<li> if <var>Term</var> is a compound term, then 
+<var>Name</var> and <var>Arity</var> are unified with the name and arity of
+its principal functor.  
+</li><li> otherwise, <var>Name</var> is
+unified with <var>Term</var>, and <var>Arity</var> is unified with 0.
+</li></ul>
+
+</li><li> If <var>Term</var> is initially uninstantiated, then <var>Name</var> and
+<var>Arity</var> must both be instantiated, and
+
+<ul>
+<li> if <var>Arity</var> is an integer in the range 1..255, then <var>Name</var> must 
+be an atom, and <var>Term</var>
+becomes instantiated to the most general term having the specified
+<var>Name</var> and <var>Arity</var>; that is, a term with distinct variables for all
+of its arguments.
+</li><li> if <var>Arity</var> is 0, then
+<var>Name</var> must be atomic, and it is unified with <var>Term</var>.  
+</li></ul>
+</li></ol>
+
+<a name="Exceptions-104"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Term</var> and either <var>Name</var> or <var>Arity</var> are uninstantiated.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Name</var> is not atomic, or
+<var>Arity</var> is not an integer, or
+<var>Name</var> is not an atom when <var>Arity</var> &gt; 0.
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p><var>Arity</var> is an integer &lt; 0.
+</p>
+</dd>
+<dt><code>representation_error</code></dt>
+<dd><p><var>Term</var> is uninstantiated and <var>Arity</var> &gt; 255.
+</p></dd>
+</dl>
+
+<a name="Examples-38"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">
+| ?- <kbd>functor(foo(a,b), N, A).</kbd>
+
+N = foo,
+A = 2
+
+| ?- <kbd>functor(X, foo, 2).</kbd>
+
+X = foo(_A,_B)
+</pre></div>
+
+
+<div class="example">
+<pre class="example">| ?- <kbd>functor(X, 2, 0).</kbd>
+
+X = 2
+</pre></div>
+
+<a name="See-Also-110"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>arg/3</code>, <code>name/2</code>, <code>=../2</code>, <a href="ref_002dlte_002dact.html#ref_002dlte_002dact">ref-lte-act</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dgarbage_005fcollect.html#mpg_002dref_002dgarbage_005fcollect" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dfrozen.html#mpg_002dref_002dfrozen" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dfunctor.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dfunctor.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

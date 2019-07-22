@@ -1,0 +1,137 @@
+
+#############################################################################
+#
+#                          PUBLIC DOMAIN NOTICE                         
+#         Lister Hill National Center for Biomedical Communications
+#                      National Library of Medicine
+#                      National Institues of Health
+#           United States Department of Health and Human Services
+#                                                                         
+#  This software is a United States Government Work under the terms of the
+#  United States Copyright Act. It was written as part of the authors'
+#  official duties as United States Government employees and contractors
+#  and thus cannot be copyrighted. This software is freely available
+#  to the public for use. The National Library of Medicine and the
+#  United States Government have not placed any restriction on its
+#  use or reproduction.
+#                                                                        
+#  Although all reasonable efforts have been taken to ensure the accuracy 
+#  and reliability of the software and data, the National Library of Medicine
+#  and the United States Government do not and cannot warrant the performance
+#  or results that may be obtained by using this software or data.
+#  The National Library of Medicine and the U.S. Government disclaim all
+#  warranties, expressed or implied, including warranties of performance,
+#  merchantability or fitness for any particular purpose.
+#                                                                         
+#  For full details, please see the MetaMap Terms & Conditions, available at
+#  http://metamap.nlm.nih.gov/MMTnCs.shtml.
+#
+############################################################################
+
+/*==========================================================
+#
+#%SOURCE FILE
+#	Makefile
+#
+#%DESCRIPTION OF FILE
+#	Make file.
+#
+#%REVISED
+#	30Aug95 divita -- Initial Version
+#
+#
+#==========================================================*/
+
+O_SYSTEM = $(shell uname)
+
+C_NLS_DB_STATIC_LIB=c_nls_db.a
+SPINCDIR=${SICSTUS_HOME}/include/sicstus
+ifeq '$(O_SYSTEM)' "SunOS"
+  LDFLAGS=-G
+  LIBS = #-lsocket -lnsl -lrt
+  C_NLS_DB_DYNAMIC_LIB=c_nls_db.so
+else
+  ifeq '$(O_SYSTEM)' "Linux"
+    LDFLAGS=$(LINKFLAGS)
+    LIBS = -lpthread
+    C_NLS_DB_DYNAMIC_LIB=c_nls_db.so
+  else 
+    ifeq '$(O_SYSTEM)' "Darwin"
+        LDFLAGS=$(LINKFLAGS)
+	LIBS=db_access_glue.o
+        C_NLS_DB_DYNAMIC_LIB=c_nls_db.dylib
+    endif
+  endif
+endif
+
+CFLAGS=$(BASIC_CFLAGS) -c
+
+SKR_BERKELEY_DB=./berkeley_db
+
+BTREE_QLIB_A = ${SKR_BERKELEY_DB}/btreeQlib.a
+BTREE_QLIB_O = ${SKR_BERKELEY_DB}/btreeQlib.o
+
+# BERKELEY_LIB_A is set in SKRenv.09
+DBLIBS = ${BTREE_QLIB_A} ${BERKELEY_LIB_A} 
+DBSOLIBS = ${BTREE_QLIB_O} ${BERKELEY_LIB_SO} 
+
+# LINK_FLAGS = -- -L${BERKELEY_LIB} -ldb
+LINK_FLAGS = -LD -L${BERKELEY_LIB} -ldb
+
+SPLFR_BASIC_FLAGS =  --vv --keep
+SPLFR_DYNAMIC_FLAGS = ${SPLFR_BASIC_FLAGS} --moveable --conf SPLFR_SHLDFLAGS=${LDFLAGS}
+SPLFR_STATIC_FLAGS = ${SPLFR_BASIC_FLAGS} --static
+DO_SPLFR = ${SPLFR} --conf CC=${CC} --cflag=-I${SKR_BERKELEY_DB} ${addprefix --cflag=, ${CFLAGS}}
+
+# all:		BDB splfr_STATIC splfr_DYNAMIC ${C_NLS_DB_STATIC_LIB} ${C_NLS_DB_DYNAMIC_LIB}
+# all:		BDB splfr_DYNAMIC ${C_NLS_DB_STATIC_LIB} ${C_NLS_DB_DYNAMIC_LIB}
+## FML 09/30/2015
+all:		BDB splfr_STATIC splfr_DYNAMIC ${C_NLS_DB_STATIC_LIB} ${C_NLS_DB_DYNAMIC_LIB}
+		mv db_access.so ..
+
+# all:
+# 		@echo NOTHING TO DO HERE
+
+BDB:
+		cd berkeley_db ; make -f Makefile.berkeley_db
+
+${BTREE_QLIB_A}:
+		cd berkeley_db ; make -f Makefile.berkeley_db
+
+# ${BTREE_QLIB}:
+#		cd berkeley_db;  make -f Makefile.berkeley_db
+
+c_nls_db.a:	c_nls_db.o ${BTREE_QLIB_O} ${BTREE_QLIB_A}
+		${AR} ${ARFLAGS} $@ $?
+
+${C_NLS_DB_DYNAMIC_LIB} :	c_nls_db.o
+		-${RM} $@
+		${LD} ${LDFLAGS} -o ${C_NLS_DB_DYNAMIC_LIB} c_nls_db.o -I${SPINCDIR} ${DBSOLIBS} -lm ${LIBS}
+
+c_nls_db.o:	c_nls_db.c ${BTREE_QLIB} ${SKR_BERKELEY_DB}/embed.h
+		${CC} ${WARNINGS} ${CFLAGS} c_nls_db.c -I${SKR_BERKELEY_DB} -I${SPINCDIR}
+
+splfr_STATIC:	${BTREE_QLIB_A}
+		${DO_SPLFR} ${SPLFR_STATIC_FLAGS} db_access.pl c_nls_db.c ${DBLIBS} ${LINK_FLAGS}
+
+splfr_DYNAMIC:	${BTREE_QLIB_O}
+		${DO_SPLFR} ${SPLFR_DYNAMIC_FLAGS} db_access.pl c_nls_db.c ${BTREE_QLIB_O} ${LINK_FLAGS}
+
+clean:
+		-${RM} *.o *.a *.so *glue*; cd berkeley_db ; make -f Makefile.berkeley_db clean
+#		@echo NOTHING to clean here
+
+
+# original Makefile.db creates c_nls_db.o:
+# /nfsvol/nls/tools/gcc-4.1.1/bin/gcc -g -w -O -fPIC -D__DEBUG -c c_nls_db.c -I./berkeley_db -I/nfsvol/crfiler-ind/II_Research/SICStus/sp-4.0.7-sparc-solaris-5.8/include
+
+# splfr creates c_nls_db.o:
+# /nfsvol/nls/tools/gcc-4.1.1/bin/gcc -g -w -O -fPIC -D__DEBUG -c -I./berkeley_db -I"/nfsvol/crfiler-ind/II_Research/SICStus/sp-4.0.7-sparc-solaris-5.8/include" -I.  -g -O2 -pipe -mcpu=v9 -m32 -mno-app-regs  -Ispio -Wmissing-declarations -Wstrict-prototypes -Wunused  -Wall -Wdisabled-optimization -Wmissing-prototypes -Wnested-externs -Wpointer-arith -W -Wno-sign-compare -fno-common -D__EXTENSIONS__ -DSPDLL -fPIC -DSP_RESNAME=db_0x5Faccess -DSICSTUS_TARGET_VERSION=40007 -c c_nls_db.c -o c_nls_db.o
+
+# original Makefile.db creates c_nls_db.so:
+# ld -G -o c_nls_db.so c_nls_db.o -I/nfsvol/crfiler-ind/II_Research/SICStus/sp-4.0.7-sparc-solaris-5.8/include ./berkeley_db/btreeQlib.a /nfsvol/nls/tools/berkeley_db/db-4.5.20/lib/libdb.a -lm -lsocket -lnsl -lrt
+
+# splfr creates c_nls_db.so:
+# gcc -shared -static-libgcc -mcpu=v9 -m32 -Wl,-M,db_access_glue.mapfile c_nls_db.o db_access_glue.o -o db_access.so /nfsvol/nls/tools/berkeley_db/db-4.5.20/lib/libdb.a ./berkeley_db/btreeQlib.a -ldl -l
+
+

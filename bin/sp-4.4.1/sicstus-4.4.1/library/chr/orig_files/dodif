@@ -1,0 +1,25 @@
+# DIFFOPTION=-q
+DIFFOPTION=
+
+
+diff $DIFFOPTION  a_star.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  binomialheap.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  builtins.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_compiler_options.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_compiler_utility.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_op2.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_op.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_runtime.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_swi_bootstrap.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_swi.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_translate_bootstrap1.chr ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_translate_bootstrap2.chr ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_translate_bootstrap.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_translate.chr ~/SWI/pl/packages/chr
+diff $DIFFOPTION  clean_code.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  find.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  guard_entailment.chr ~/SWI/pl/packages/chr
+diff $DIFFOPTION  listmap.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  pairlist.pl ~/SWI/pl/packages/chr
+diff $DIFFOPTION  chr_compiler_errors.pl ~/SWI/pl/packages/chr
+

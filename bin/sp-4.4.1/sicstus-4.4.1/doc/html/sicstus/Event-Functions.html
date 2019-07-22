@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Event Functions</title>
+
+<meta name="description" content="SICStus Prolog: Event Functions">
+<meta name="keywords" content="SICStus Prolog: Event Functions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" rel="up" title="The Tcl/Tk Prolog Library">
+<link href="Servicing-Tk-Events.html#Servicing-Tk-Events" rel="next" title="Servicing Tk Events">
+<link href="Evaluation-Functions.html#Evaluation-Functions" rel="prev" title="Evaluation Functions">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Event-Functions"></a>
+<hr>
+<a name="Event-Functions-1"></a>
+<h4 class="subsubsection">10.39.4.4 Event Functions</h4>
+
+<p>Another way for Prolog to communicate with Tcl is through the
+predicate <code>tcl_event/3</code>:
+</p>
+
+<a name="index-tcl_005fevent_002f3-_0028tcltk_0029-2"></a>
+<a name="index-tcl_005fevent_002f3-_0028tcltk_0029"></a>
+
+<div class="example">
+<pre class="example">tcl_event(<var>+TclInterpreter</var>, <var>+Command</var>, <var>-Events</var>)
+</pre></div>
+
+<p>This is similar to <code>tcl_eval/3</code> in that the command <var>Command</var>
+is evaluated in the Tcl interpreter <var>TclInterpreter</var>, but the call
+returns a list of events in <var>Events</var> rather than the result of the
+Tcl evaluation. <var>Command</var> is again a Tcl command represented as a
+Prolog term in the special Command Format described previously
+(see <a href="Evaluation-Functions.html#Evaluation-Functions">Evaluation Functions</a>).
+</p>
+<p>This begs the questions what are these events and where does the event
+list come from? The Tcl interpreters in the SICStus Prolog Tcl/Tk
+library have been extended with the notion of a Prolog event queue.
+(This is not available in plain standalone Tcl interpreters.) The Tcl
+interpreter can put events on the event queue by executing a
+<code>prolog_event</code> command. Each event is a Prolog term.  So a
+Tcl interpreter has a method of putting Prolog terms onto a queue,
+which can later be picked up by Prolog as a list as the result of a call
+to <code>tcl_event/3</code>.  (It may be helpful to think of this as a way of
+passing messages as Prolog terms from Tcl to Prolog.)
+</p>
+<p>A call to <code>tcl_event/3</code> blocks until there is something on the event
+queue. 
+</p>
+<p>A second way of getting Prolog events from a Prolog event queue is
+through the <code>tk_next_event/[2,3]</code> predicates.  These have the
+form:
+</p>
+
+<a name="index-tk_005fnext_005fevent_002f_005b2_002c3_005d-_0028tcltk_0029-3"></a>
+<a name="index-tk_005fnext_005fevent_002f_005b2_002c3_005d-_0028tcltk_0029"></a>
+
+<div class="example">
+<pre class="example">tk_next_event(<var>+TclInterpreter</var>, <var>-Event</var>)
+tk_next_event(<var>+Options</var>, <var>+TclInterpreter</var>, <var>-Event</var>)
+</pre></div>
+
+<p>where <var>TclInterpreter</var> reference to a Tcl interpreter and
+<var>Event</var> is the Prolog term at the head of the associated
+Prolog event queue.  (The <var>Options</var> feature will be described
+below in the Housekeeping section when we talk about Tcl and Tk events;
+see <a href="Housekeeping.html#Housekeeping">Housekeeping</a>.).
+</p>
+<p>(We will meet <code>tk_next_event/[2,3]</code> again later when we discuss
+how it can be used to service Tk events; see <a href="Servicing-Tk-Events.html#Servicing-Tk-Events">Servicing Tk Events</a>).
+</p>
+
+<p>If the interpreter has been deleted, then the empty list <code>[]</code> is returned.
+</p>
+<p>The Tcl interpreters under the SICStus Prolog library are extended with
+a command, <code>prolog_event</code>, for adding events to a Prolog event queue.
+</p>
+<p>The <code>prolog_event</code> command has the following form:
+</p>
+<div class="example">
+<pre class="example">   prolog_event <var>Terms</var> <var>&hellip;</var>
+</pre></div>
+
+<p>where <var>Terms</var> are strings that contain the printed representation of
+Prolog terms. These are stored in a queue and retrieved as Prolog
+terms by <code>tcl_event/3</code> or <code>tk_next_event/[2,3]</code>
+(described above).
+</p>
+<p>An example of using the <code>prolog_event</code> command:
+</p>
+<div class="example">
+<pre class="example">test_event(Event) :-
+    tcl_new(Interp),
+    tcl_event(Interp, [prolog_event, dq(write(zap(42)))], Event),
+    tcl_delete(Interp).
+</pre></div>
+
+<p>with the query:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>test_event(Event).</kbd>
+</pre></div>
+
+<p>will succeed, binding <code>Event</code> to the list <code>[zap(42)]</code>.
+</p>
+<p>This is because <code>tcl_event</code> converts its argument using the
+special Command Format conversion (see <a href="Evaluation-Functions.html#Evaluation-Functions">Evaluation Functions</a>), which yields
+the Tcl command <code>prolog_event &quot;zap(42)&quot;</code>.  This command is
+evaluated in the Tcl interpreter referenced by the variable
+<code>Interp</code>.  The effect of the command is to take the string given as
+argument to <code>prolog_event</code> (in this case <code>&quot;zap(42)&quot;</code>)
+and to place it on the Tcl to Prolog event queue.  The final action of a
+<code>tcl_event/3</code> call is to pick up any strings on the Prolog queue
+from Tcl, add a trailing full stop and space to each string, and parse
+them as Prolog terms, binding <code>Event</code> to the list of
+values, which in this case is the singleton list <code>[zap(42)]</code>. (The
+queue is a list the elements of which are terms put there through
+calls to <code>prolog_event</code>).
+</p>
+
+<p>If any of the <var>Term</var>-s in the list of arguments to
+<code>prolog_event</code> is not a valid representation of a Prolog
+term, then an exception is raised in Prolog when it is converted
+from the Tcl string to the Prolog term using <code>read</code>. To
+ensure that Prolog will be able to read the term correctly it is
+better to always use <code>write_canonical</code> and to ensure that Tcl is
+not confused by special characters in the printed representation of the
+Prolog term it is best to wrap the list with <code>list</code>.
+</p> 
+<p>A safer variant that safely passes any term from Prolog via Tcl and back
+to Prolog is thus:
+</p>
+<div class="example">
+<pre class="example">test_event(Term, Event) :-
+    tcl_new(Interp),
+    tcl_event(Interp, list([prolog_event, write_canonical(Term)]), Event),
+    tcl_delete(Interp).
+</pre></div>
+
+<p>As an example of using the Prolog event system supplied by the <code>tcltk</code>
+library, we will return to our 8-queens example but now approaching
+from the Prolog side rather than the Tcl/Tk side:
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(tcltk)).
+
+setup :- 
+    tk_new([name('SICStus+Tcl/Tk - Queens')], Tcl),
+    tcl_eval(Tcl, 'source queens.tcl', _),
+    tk_next_event(Tcl, Event),
+    (   Event = next -&gt; go(Tcl),
+    ;   closedown(Tcl)
+    ).
+
+closedown(Tcl) :-
+    tcl_delete(Tcl).
+
+go(Tcl) :- 
+    tcl_eval(Tcl, 'clear_board', _),
+    queens(8, Qs),
+    show_solution(Qs, Tcl),
+    tk_next_event(Tcl, Event),
+    (   Event = next -&gt; fail
+    ;   closedown(Tcl)
+    ).
+go(Tcl) :- 
+    tcl_eval(Tcl, 'disable_next', _),
+    tcl_eval(Tcl, 'clear_board', _),
+    tk_next_event(Tcl, _Event),
+    closedown(Tcl).
+</pre></div>
+
+<p>This is the top-level fragment of the Prolog side of the 8-queens
+example. It has three predicates: <code>setup/0</code>,
+<code>closedown/1</code>, and <code>go/1</code>.  <code>setup/0</code> simply creates the
+Tcl interpreter, loads the Tcl code into the interpreter using a call to
+<code>tcl_eval/3</code> (which also initializes the display) but then calls
+<code>tk_next_event/2</code> to wait for a message from the Tk side.
+</p>
+<p>The Tk part that sends <code>prolog_event</code>-s to Prolog looks like this:
+</p>
+<div class="example">
+<pre class="example">button .next -text next -command {prolog_event  next}
+pack .next
+
+button .stop -text stop -command {prolog_event stop}
+pack .stop
+</pre></div>
+
+<p>that is two buttons, one that sends the atom <code>next</code>, the
+other that sends the atom <code>stop</code>. They are used to get the
+next solution and to stop the program respectively.
+</p>
+<p>So if the user presses the <code>next</code> button in the Tk window, then the
+Prolog program will receive a <code>next</code> atom via a
+<code>prolog_event</code>/<code>tk_next_event</code> pair, and the program can
+proceed to execute <code>go/1</code>.
+</p>
+<p><code>go/1</code> is a failure driven loop that generates 8-queens solutions
+and displays them. First it generates a solution in Prolog and displays
+it through a <code>tcl_eval/3</code> call. Then it waits again for a Prolog
+events via <code>tk_next_event/2</code>. If the term received on the
+Prolog event queue is <code>next</code>, then corresponding to the user pressing
+the &ldquo;next solution&rdquo; button, then fail is executed and the next
+solution found, thus driving the loop.
+</p>
+<p>If the <code>stop</code> button is pressed, then the program does some
+tidying up (clearing the display and so on) and then executes
+<code>closedown/1</code>, which deletes the Tcl interpreter and the
+corresponding Tk windows altoegther, and the program terminates.
+</p>
+<p>This example fragment show how it is possible for a Prolog program
+and a Tcl/Tk program to communicate via the Prolog event queue.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Servicing-Tk-Events.html#Servicing-Tk-Events" accesskey="n" rel="next">Next</a>
+<li><a href="Evaluation-Functions.html#Evaluation-Functions" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Tcl_002fTk-Prolog-Library.html#The-Tcl_002fTk-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Event-Functions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Event-Functions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

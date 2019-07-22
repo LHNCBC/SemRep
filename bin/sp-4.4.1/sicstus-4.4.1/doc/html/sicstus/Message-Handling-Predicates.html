@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Message Handling Predicates</title>
+
+<meta name="description" content="SICStus Prolog: Message Handling Predicates">
+<meta name="keywords" content="SICStus Prolog: Message Handling Predicates">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmsg.html#ref_002dmsg" rel="up" title="ref-msg">
+<link href="Query-Processing.html#Query-Processing" rel="next" title="Query Processing">
+<link href="Message-Printing-Phase.html#Message-Printing-Phase" rel="prev" title="Message Printing Phase">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Message-Handling-Predicates"></a>
+<hr>
+<a name="Message-Handling-Predicates-1"></a>
+<h4 class="subsection">4.16.2 Message Handling Predicates</h4>
+
+<dl compact="compact">
+<dt><code>print_message(<var>+Severity</var>, <var>+Message</var>) &nbsp;<!-- /@w --> <i>hookable</i></code></dt>
+<dd>
+<a name="index-print_005fmessage_002f2-_0028built_002din_0029-1"></a>
+<a name="index-print_005fmessage_002f2-_0028built_002din_0029"></a>
+
+<p>Portrays or else writes <var>Message</var> of a given <var>Severity</var> on the
+standard error stream.
+See <a href="mpg_002dref_002dprint_005fmessage.html#mpg_002dref_002dprint_005fmessage">mpg-ref-print_message</a>.
+</p>
+</dd>
+<dt><code>portray_message(<var>+Severity</var>, <var>+Message</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dt><code>user:portray_message(<var>+Severity</var>, <var>+Message</var>)</code></dt>
+<dd>
+<a name="index-portray_005fmessage_002f2-_0028user_002c-hook_0029-1"></a>
+<a name="index-portray_005fmessage_002f2-_0028user_002c-hook_0029"></a>
+
+
+<a name="index-user_003aportray_005fmessage_002f2-_0028hook_0029-1"></a>
+<a name="index-user_003aportray_005fmessage_002f2-_0028hook_0029"></a>
+
+<p>Tells <code>print_message/2</code> what to do.
+</p>
+</dd>
+<dt><code>generate_message_hook(<var>+Message</var>, <var>-L0</var>, <var>-L</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dt><code>user:generate_message_hook(<var>+Message</var>, <var>-L0</var>, <var>-L</var>)</code></dt>
+<dd>
+<a name="index-generate_005fmessage_005fhook_002f3-_0028user_002c-hook_0029-1"></a>
+<a name="index-generate_005fmessage_005fhook_002f3-_0028user_002c-hook_0029"></a>
+
+
+<a name="index-user_003agenerate_005fmessage_005fhook_002f3-_0028hook_0029-1"></a>
+<a name="index-user_003agenerate_005fmessage_005fhook_002f3-_0028hook_0029"></a>
+
+<p>A way for the user to override the call to
+<code>'SU_messages':generate_message/3</code> in the message generation phase
+in <code>print_message/2</code>.
+</p>
+</dd>
+<dt><code>'SU_messages':generate_message(<var>+Message</var>, <var>-L0</var>, <var>-L</var>) &nbsp;<!-- /@w --> <i>extendible</i></code></dt>
+<dd>
+<a name="index-generate_005fmessage_002f3-_0028SU_005fmessages_0029-1"></a>
+<a name="index-generate_005fmessage_002f3-_0028SU_005fmessages_0029"></a>
+
+
+<a name="index-_0027SU_005fmessages_0027_003agenerate_005fmessage_002f3-1"></a>
+<a name="index-_0027SU_005fmessages_0027_003agenerate_005fmessage_002f3"></a>
+
+<p>Predefined message generation rules.
+</p>
+</dd>
+<dt><code>message_hook(<var>+Severity</var>, <var>+Message</var>, <var>+Lines</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dt><code>user:message_hook(<var>+Severity</var>, <var>+Message</var>, <var>+Lines</var>)</code></dt>
+<dd>
+<a name="index-message_005fhook_002f3-_0028user_002c-hook_0029-1"></a>
+<a name="index-message_005fhook_002f3-_0028user_002c-hook_0029"></a>
+
+
+<a name="index-user_003amessage_005fhook_002f3-_0028hook_0029-1"></a>
+<a name="index-user_003amessage_005fhook_002f3-_0028hook_0029"></a>
+
+<p>Overrides the call to <code>print_message_lines/3</code> in
+<code>print_message/2</code>.  A way for the user to intercept the abstract
+message term <var>Message</var> of type <var>Severity</var>, whose
+translation is <var>Lines</var>, before it is actually printed.
+</p>
+</dd>
+<dt><code>print_message_lines(<var>+Stream</var>, <var>+Severity</var>, <var>+Lines</var>)</code></dt>
+<dd>
+<a name="index-print_005fmessage_005flines_002f3-_0028built_002din_0029-1"></a>
+<a name="index-print_005fmessage_005flines_002f3-_0028built_002din_0029"></a>
+
+<p>Print the <var>Lines</var> to <var>Stream</var>, preceding each line with a prefix
+defined by <var>Severity</var>.
+</p>
+</dd>
+<dt><code>goal_source_info(<var>+AGoal</var>, <var>-Goal</var>, <var>-SourceInfo</var>)</code></dt>
+<dd>
+<a name="index-goal_005fsource_005finfo_002f3-_0028built_002din_0029-3"></a>
+<a name="index-goal_005fsource_005finfo_002f3-_0028built_002din_0029-1"></a>
+
+<p>Decomposes the annotated goal <var>AGoal</var> into a <var>Goal</var> proper
+and the <var>SourceInfo</var> descriptor term, indicating the source
+position of the goal.
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Query-Processing.html#Query-Processing" accesskey="n" rel="next">Next</a>
+<li><a href="Message-Processing.html#Message-Processing" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmsg.html#ref_002dmsg" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Message-Handling-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Message-Handling-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

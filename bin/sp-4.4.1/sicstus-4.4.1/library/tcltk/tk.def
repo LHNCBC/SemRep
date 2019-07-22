@@ -1,0 +1,8 @@
+EXPORTS
+_Tk_Init
+_Tk_MainWindow
+_Tk_DestroyWindow
+_Tk_MakeWindowExist
+_Tk_GetNumMainWindows
+_TkWinGetAppInstance
+_TkWinXInit

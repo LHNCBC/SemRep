@@ -1,0 +1,6 @@
+qp_morph_glue {
+  global:
+    sp_main_SPENV_qp_0x5Fmorph;
+  local:
+    *;
+};

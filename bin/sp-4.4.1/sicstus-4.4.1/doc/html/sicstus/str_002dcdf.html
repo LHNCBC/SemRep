@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: str-cdf</title>
+
+<meta name="description" content="SICStus Prolog: str-cdf">
+<meta name="keywords" content="SICStus Prolog: str-cdf">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dstructs.html#lib_002dstructs" rel="up" title="lib-structs">
+<link href="str_002dafd.html#str_002dafd" rel="next" title="str-afd">
+<link href="str_002dcft.html#str_002dcft" rel="prev" title="str-cft">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="str_002dcdf"></a>
+<hr>
+<a name="Creating-and-Destroying-Foreign-Terms"></a>
+<h4 class="subsection">10.37.3 Creating and Destroying Foreign Terms</h4>
+
+
+<a name="index-new_002f_005b2_002c3_005d-_0028structs_0029-1"></a>
+<a name="index-new_002f_005b2_002c3_005d-_0028structs_0029"></a>
+
+
+
+<a name="index-dispose_002f1-_0028structs_0029-1"></a>
+<a name="index-dispose_002f1-_0028structs_0029"></a>
+
+
+<p>Prolog can create or destroy foreign terms using
+</p><div class="example">
+<pre class="example">new(<var>+Type</var>, <var>-Datum</var>),
+new(<var>+Type</var>, <var>+Size</var>, <var>-Datum</var>) <span class="roman">and</span>
+dispose(<var>+Datum</var>)
+</pre></div>
+
+<p>where <var>Type</var> is an atom specifying what type of foreign term is to be
+allocated, and <var>Datum</var> is the foreign term.  
+<var>Type</var> should be an atomic type or a previously-defined type name.
+The <var>Datum</var> returned by
+<code>new/[2,3]</code> is initialized to all zeroes.  <code>dispose/1</code> is a dangerous
+operation, since once the memory is disposed, it may be used for
+something else later.  If <var>Datum</var> is later accessed, then the results will
+be unpredictable.  <code>new/3</code> is only used to allocate arrays whose
+size is not known beforehand, as defined by <code>array(<var>Type</var>)</code>, rather
+than <code>array(<var>Num</var>,<var>Type</var>)</code>.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="str_002dafd.html#str_002dafd" accesskey="n" rel="next">Next</a>
+<li><a href="str_002dcft.html#str_002dcft" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dstructs.html#lib_002dstructs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/str_002dcdf.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/str_002dcdf.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

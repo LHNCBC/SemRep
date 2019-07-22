@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-goal_source_info</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-goal_source_info">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-goal_source_info">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dgreater_005fthan.html#mpg_002dref_002dgreater_005fthan" rel="next" title="mpg-ref-greater_than">
+<link href="mpg_002dref_002dgoal_005fexpansion.html#mpg_002dref_002dgoal_005fexpansion" rel="prev" title="mpg-ref-goal_expansion">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dgoal_005fsource_005finfo"></a>
+<hr>
+<a name="goal_005fsource_005finfo_002f3"></a>
+<h4 class="subsection">11.3.98 <code>goal_source_info/3</code></h4>
+<a name="index-goal_005fsource_005finfo_002f3-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-goal_005fsource_005finfo_002f3-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-123"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>goal_source_info(<var>+AGoal</var>, <var>-Goal</var>, <var>-SourceInfo</var>)</code>
+</p>
+<p>Decompose the <var>AGoal</var> annotated goal into a <var>Goal</var> proper
+and the <var>SourceInfo</var> descriptor term, indicating the source
+position of the goal.
+</p>
+<a name="Arguments-112"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>AGoal</var></dt>
+<dd><p><em>callable</em>, must be nonvar
+</p>
+</dd>
+<dt><var>Goal</var></dt>
+<dd><p><em>callable</em>
+</p>
+</dd>
+<dt><var>SourceInfo</var></dt>
+<dd><p><em>term</em>
+</p></dd>
+</dl>
+
+<a name="Description-91"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Annotated goals occur in most of error message terms, and
+carry information on the <var>Goal</var> causing the error and its source
+position. The <var>SourceInfo</var> term, retrieved by
+<code>goal_source_info/3</code> will be one of the following:
+</p><dl compact="compact">
+<dt><code>[]</code></dt>
+<dd><p>The goal has no source information associated with it.
+</p>
+</dd>
+<dt><code>fileref(<var>File</var>,<var>Line</var>)</code></dt>
+<dd><a name="index-fileref_002f2-_0028source-information-descriptor_0029"></a>
+<p>The goal occurs in file <var>File</var>, line <var>Line</var>.
+</p>
+</dd>
+<dt><code>clauseref(<var>File</var>,<var>MFunc</var>,<var>ClauseNo</var>,<var>CallNo</var>,<var>Line</var>)</code></dt>
+<dd><a name="index-clauseref_002f5-_0028source-information-descriptor_0029"></a>
+<p>The goal occurs in file <var>File</var>, within predicate
+<var>MFunc</var>, clause number <var>ClauseNo</var>, call number
+<var>CallNo</var> and virtual line number <var>Line</var>. Here, <var>MFunc</var> is of
+form <code><var>Module</var>:<var>Name</var>/<var>Arity</var></code>, calls are numbered
+textually and the virtual line number shows the position of the
+goal within the listing of the predicate <var>MFunc</var>, as
+produced by <code>listing/1</code>. Such a term is returned for
+goals occurring in interpreted predicates, which do
+not have &ldquo;real&rdquo; line number information, e.g. because they were
+entered from the terminal, or created dynamically.
+</p></dd>
+</dl>
+
+<a name="Exceptions-114"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Goal</var> is uninstantiated
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Goal</var> is not a callable
+</p></dd>
+</dl>
+
+<a name="See-Also-120"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dgreater_005fthan.html#mpg_002dref_002dgreater_005fthan" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dgoal_005fexpansion.html#mpg_002dref_002dgoal_005fexpansion" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dgoal_005fsource_005finfo.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dgoal_005fsource_005finfo.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

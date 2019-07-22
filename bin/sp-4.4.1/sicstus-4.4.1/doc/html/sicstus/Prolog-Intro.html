@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Prolog Intro</title>
+
+<meta name="description" content="SICStus Prolog: Prolog Intro">
+<meta name="keywords" content="SICStus Prolog: Prolog Intro">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="ref_002dsyn.html#ref_002dsyn" rel="next" title="ref-syn">
+<link href="Changing-Colors.html#Changing-Colors" rel="prev" title="Changing Colors">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Prolog-Intro"></a>
+<hr>
+<a name="The-Prolog-Language"></a>
+<h2 class="chapter">4 The Prolog Language</h2>
+
+<p>This chapter describes the syntax and semantics of the Prolog
+language, and introduces the central built-in predicates and other
+important language constructs.  In many cases, an entry in a list of
+built-in predicates, will be annotated with keywords. These
+annotations are defined in <a href="mpg_002dref_002dcat.html#mpg_002dref_002dcat">mpg-ref-cat</a>.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002dsyn.html#ref_002dsyn" accesskey="1">ref-syn</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Syntax
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dsem.html#ref_002dsem" accesskey="2">ref-sem</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Semantics
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlod.html#ref_002dlod" accesskey="3">ref-lod</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Loading Programs
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dsls.html#ref_002dsls" accesskey="4">ref-sls</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Saving and Loading the Prolog Database
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dfdi.html#ref_002dfdi" accesskey="5">ref-fdi</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Files and Directories
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002diou.html#ref_002diou" accesskey="6">ref-iou</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Input and Output
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dari.html#ref_002dari" accesskey="7">ref-ari</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Arithmetic
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlte.html#ref_002dlte" accesskey="8">ref-lte</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Looking at Terms
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dlps.html#ref_002dlps" accesskey="9">ref-lps</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Looking at the Program State
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmgc.html#ref_002dmgc">ref-mgc</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Memory Use and Garbage Collection
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmod.html#ref_002dmod">ref-mod</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Modules
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmdb.html#ref_002dmdb">ref-mdb</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Modification of the Database
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dall.html#ref_002dall">ref-all</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Sets and Bags:  Collecting Solutions to a Goal
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dgru.html#ref_002dgru">ref-gru</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Grammar Rules
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dere.html#ref_002dere">ref-ere</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Errors and Exceptions
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dmsg.html#ref_002dmsg">ref-msg</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Messages and Queries
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002doth.html#ref_002doth">ref-oth</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Other Topics
+</td></tr>
+</table>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Debug-Intro.html#Debug-Intro" accesskey="n" rel="next">Next</a>
+<li><a href="Run-Intro.html#Run-Intro" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Prolog-Intro.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Prolog-Intro.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

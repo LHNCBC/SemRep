@@ -1,0 +1,258 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Accessing Past Debugger States</title>
+
+<meta name="description" content="SICStus Prolog: Accessing Past Debugger States">
+<meta name="keywords" content="SICStus Prolog: Accessing Past Debugger States">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="up" title="Advanced Debugging">
+<link href="Storing-User-Information-in-the-Backtrace.html#Storing-User-Information-in-the-Backtrace" rel="next" title="Storing User Information  in the Backtrace">
+<link href="Built_002din-Predicates-for-Breakpoint-Handling.html#Built_002din-Predicates-for-Breakpoint-Handling" rel="prev" title="Built-in Predicates for Breakpoint Handling">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Accessing-Past-Debugger-States"></a>
+<hr>
+<a name="Accessing-Past-Debugger-States-1"></a>
+<h4 class="subsection">5.6.8 Accessing Past Debugger States</h4>
+
+<p>In this section we introduce the built-in predicates for accessing
+past debugger states, and the breakpoint conditions related to
+these.
+</p>
+<a name="index-backtrace-1"></a>
+<p>The debugger collects control flow information about the goals
+being executed, more precisely about those goals, for which a
+procedure box is built.  This collection of information, the
+backtrace, includes the invocations that were called but not
+exited yet, as well as those that exited nondeterminately. For
+each invocation, the main data items present in the backtrace are
+the following: the goal, the module, the invocation number,
+the depth and the source information, if any.
+</p>
+<p>Furthermore, as you can enter a new break level from within the
+debugger, there can be multiple backtraces, one for each active
+break level.
+</p>
+
+<a name="index-execution_005fstate_002f_005b1_002c2_005d-_0028built_002din_0029-4"></a>
+<a name="index-execution_005fstate_002f_005b1_002c2_005d-_0028built_002din_0029-1"></a>
+
+<p>You can access all the information collected by the debugger using the
+built-in predicate <code>execution_state(<var>Focus</var>,
+<var>Tests</var>)</code>.  Here <var>Focus</var> is a ground term specifying
+which break level and which invocation to access.  It can be one of the
+following:
+</p>
+<ul>
+<li> <code>break_level(<var>BL</var>)</code> selects the <em>current</em> invocation
+within the break level <var>BL</var>.
+</li><li> <code>inv(<var>Inv</var>)</code> selects the invocation number <var>Inv</var> within the
+current break level.
+</li><li> A list containing the above two elements, selects the invocation
+with number <var>Inv</var> within break level <var>BL</var>.
+</li></ul>
+
+<p>Note that the top-level counts as break level 0, while the invocations
+are numbered from 1 upwards.
+</p>
+<p>The second argument of <code>execution_state/2</code>, <var>Tests</var>, is a
+simple or composite breakpoint condition. Most simple tests can
+appear inside <var>Tests</var>, with the exception of the <code>port</code>,
+<code>bid</code>, <code>advice</code>, <code>debugger</code>, and <code>get</code> tests.  These
+tests will be interpreted in the context of the specified past debugger
+state. Specifically, if a <code>true/1</code> condition is used, then any
+<code>execution_state/1</code> queries appearing in it will be evaluated in
+the past context.
+</p>
+<p>To illustrate the use of <code>execution_state/2</code>, we now define a
+predicate <code>last_call_arg(ArgNo, Arg)</code>, which is to be called
+from within a break, and which will look at the last debugged goal
+of the previous break level, and return in <code>Arg</code> the <code>ArgNo</code>th
+argument of this goal.
+</p>
+<div class="example">
+<pre class="example">last_call_arg(ArgNo, Arg) :-
+        execution_state(break_level(BL1)),
+        BL is BL1-1,                         
+        execution_state(break_level(BL), goal(Goal)),
+        arg(ArgNo, Goal, Arg).
+</pre></div>
+
+<p>We see two occurrences of the term <code>break_level(&hellip;)</code> in
+the above example. Although these look very similar, they have different
+roles. The first one, in <code>execution_state/1</code>, is a breakpoint
+test, which unifies the current break level with its
+argument.  Here it is used to obtain the current break level and
+store it in <code>BL1</code>.  The second use of <code>break_level(&hellip;)</code>,
+in the first argument of <code>execution_state/2</code>, is a focus
+condition, whose argument has to be instantiated, and which
+prescribes the break level to focus on. Here we use it to obtain the
+goal of the current invocation of the previous break level.
+</p>
+<p>Note that the goal retrieved from the backtrace is always in
+its latest instantiation state.  For example, it is not possible to
+get hold of the goal instantiation at the Call port,
+if the invocation in question is at the Exit port.
+</p>
+<p>Here is an example run, showing how <code>last_call_arg/2</code> can be used:
+</p>
+<div class="example">
+<pre class="example">        5      2 Call: _937 is 13+8 ? <kbd>b</kbd>
+% Break level 1
+% 1
+| ?- <kbd>last_call_arg(2, A).</kbd>
+A = 13+8
+</pre></div>
+
+<p>There are some further breakpoint tests that are primarily used in
+looking at past execution states.
+</p>
+<a name="index-max_005finv_002f1-_0028debugger-condition_0029"></a>
+<a name="index-exited_002f1-_0028debugger-condition_0029"></a>
+<p>The test <code>max_inv(<var>MaxInv</var>)</code> returns the maximal invocation
+number within the current (or selected) break level. The test
+<code>exited(<var>Boolean</var>)</code> unifies <var>Boolean</var> with
+<code>true</code> if the invocation has exited, and with <code>false</code>
+otherwise.
+</p>
+<p>The following example predicate lists those goals in the
+backtrace, together with their invocation numbers, that have
+exited. These are the invocations that are listed by the <kbd>t</kbd>
+interactive debugger command (print backtrace), but not by the <kbd>g</kbd>
+command (print ancestor goals). Note that the predicate
+<code>between(<em>N,M,I</em>)</code> enumerates all integers such that <em>N
+\leq I \leq M</em>.
+</p>
+<div class="example">
+<pre class="example">exited_goals :-
+     execution_state(max_inv(Max)), 
+     between(1, Max, Inv),
+     execution_state(inv(Inv), [exited(true),goal(G)]),
+     format('~t~d~6| ~p\n', [Inv,G]),
+     fail.
+exited_goals.
+(&hellip;)
+
+?*     41     11 Exit: foo(2,1) ? <kbd>@</kbd>
+| :- exited_goals.
+    26 foo(3,2)
+    28 bar(3,1,1)
+    31 foo(2,1)
+    33 bar(2,1,0)
+    36 foo(1,1)
+    37 foo(0,0)
+    39 foo(1,1)
+    41 foo(2,1)
+    43 bar(2,1,0)
+    46 foo(1,1)
+    47 foo(0,0)
+?*     41     11 Exit: foo(2,1) ? 
+</pre></div>
+
+<p>Note that similar output can be obtained by entering a new break level
+and calling <code>exited_goals</code> from within an <code>execution_state/2</code>:
+</p>
+<div class="example">
+<pre class="example">% 1
+| ?- <kbd>execution_state(break_level(0), true(exited_goals)).</kbd>
+</pre></div>
+
+<a name="index-ancestor_002f2-_0028debugger-condition_0029"></a>
+<a name="index-parent_005finv_002f1-_0028debugger-condition_0029"></a>
+<p>The remaining two breakpoint tests allow you to find parent
+and ancestor invocations in the backtrace. The
+<code>parent_inv(<var>Inv</var>)</code> test unifies <var>Inv</var> with the
+invocation number of the youngest ancestor present in the
+backtrace, called <em>debugger-parent</em> for short. The test
+<code>ancestor(<var>AncGoal</var>,<var>Inv</var>)</code> looks for the youngest
+ancestor in the backtrace that is an instance of
+<var>AncGoal</var>. It then unifies the ancestor goal with
+<var>AncGoal</var> and its invocation number with <var>Inv</var>.
+</p>
+<p>Assume you would like to stop at all invocations of <code>foo/2</code> that
+are somewhere within <code>bar/1</code>, possibly deeply nested. The following
+two breakpoints achieve this effect:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy(bar/1, advice), spy(foo/2, ancestor(bar(_),_)).</kbd>
+% Plain advice point for user:bar/1 added, BID=3
+% Conditional spypoint for user:foo/2 added, BID=4
+</pre></div>
+
+<p>We added an advice-point for <code>bar/1</code> to ensure that all calls
+to it will have procedure boxes built, and so become part of the
+backtrace.  Advice-points are a better choice than
+spypoints for this purpose, as with <code>?- spy(bar/1, -proceed)</code>
+the debugger will not stop at the call port of <code>bar/1</code> in
+trace mode. Note that it is perfectly all right to create an
+advice-point using <code>spy/2</code>, although this is a bit of
+terminological inconsistency.
+</p>
+<p>See <a href="mpg_002dref_002dexecution_005fstate.html#mpg_002dref_002dexecution_005fstate">mpg-ref-execution_state</a>.
+Further examples of accessing past debugger states can be found in
+<code>library(debugger_examples)</code>. 
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Storing-User-Information-in-the-Backtrace.html#Storing-User-Information-in-the-Backtrace" accesskey="n" rel="next">Next</a>
+<li><a href="Built_002din-Predicates-for-Breakpoint-Handling.html#Built_002din-Predicates-for-Breakpoint-Handling" accesskey="p" rel="prev">Previous</a>
+<li><a href="Advanced-Debugging.html#Advanced-Debugging" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Accessing-Past-Debugger-States.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Accessing-Past-Debugger-States.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

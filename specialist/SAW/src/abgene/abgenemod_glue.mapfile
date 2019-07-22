@@ -1,0 +1,6 @@
+abgenemod_glue {
+  global:
+    sp_main_SPENV_abgenemod;
+  local:
+    *;
+};

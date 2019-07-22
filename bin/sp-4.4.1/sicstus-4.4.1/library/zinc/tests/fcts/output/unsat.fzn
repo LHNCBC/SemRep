@@ -1,0 +1,8 @@
+% RUNS ON fzn_fd
+% RUNS ON fzn_lazyfd
+
+% Output test for an unsatisfiable model instance.
+% Should print a single line containing ten equal signs.
+% (And maybe a comment describing why the model was unsatisfiable.)
+constraint bool_eq(true, false);
+solve satisfy;

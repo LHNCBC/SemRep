@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Accumulating Lists</title>
+
+<meta name="description" content="SICStus Prolog: Accumulating Lists">
+<meta name="keywords" content="SICStus Prolog: Accumulating Lists">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Last-Call-Optimization.html#Last-Call-Optimization" rel="up" title="Last Call Optimization">
+<link href="Building-and-Dismantling-Terms.html#Building-and-Dismantling-Terms" rel="next" title="Building and Dismantling Terms">
+<link href="Accumulating-Parameters.html#Accumulating-Parameters" rel="prev" title="Accumulating Parameters">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Accumulating-Lists"></a>
+<hr>
+<a name="Accumulating-Lists-1"></a>
+<h4 class="subsection">9.8.2 Accumulating Lists</h4>
+<a name="index-append_002c-avoiding"></a>
+<a name="index-avoiding-append"></a>
+
+<p>This technique becomes much more important when extended to lists,
+as in this case it can save much building of unneeded lists
+through unnecessary calls to append sublists together.  For example, the
+naive way to reverse a list is:
+</p>
+<div class="example">
+<pre class="example">nreverse([], []).
+nreverse([H|T], L) :-
+        nreverse(T, L1),
+        append(L1, [H], L).
+</pre></div>
+
+<p>This is very wasteful, since each call to <code>append/3</code> copies the
+initial part of the list, and adds one element to it.
+Fortunately, this can be very easily rewritten to use an accumulating
+parameter:
+</p>
+<div class="example">
+<pre class="example">reverse(L1, L2) :- reverse(L1, [], L2).
+
+%  reverse(+X, +Y, -Z)
+%  Z is X reversed, followed by Y
+reverse([], Z, Z).
+reverse([H|T], L0, L) :-
+        reverse(T, [H|L0], L).
+</pre></div>
+
+<p>This version of reverse is many times faster than the naive version, and
+uses much less memory.  The key to understanding the behavior of this
+predicate is the observation made earlier: using an accumulating
+parameter, we build the result backwards.
+</p>
+<p>Do Not let this confuse you.  Building a list forward is easy.  For
+example, a predicate returning a list L of consecutive
+numbers from 1 to N could be written in two different ways: counting up
+and collecting the resulting list forward, or counting down and
+accumulating the result backward.
+</p>
+<div class="example">
+<pre class="example">iota1(N, L) :- iota1(1, N, L).
+iota1(N, Max, L) :-
+        (   N &gt; Max -&gt;
+                L = []
+        ;   N1 is N+1,
+            L = [N|L1],
+            iota1(N1, Max, L1)
+        ).
+</pre></div>
+<p>or,
+</p>
+<div class="example">
+<pre class="example">iota2(N, L) :- iota2(N, [], L).
+iota2(N, L0, L) :-
+        (   N =&lt; 0 -&gt;
+                L = L0
+        ;   N1 is N-1,
+            iota2(N1, [N|L0], L)
+        ).
+</pre></div>
+
+<p>Both versions generate the same results, and neither waste any space.
+The second version is slightly faster.  Choose whichever approach you
+prefer.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Accumulating-Parameters.html#Accumulating-Parameters" accesskey="p" rel="prev">Previous</a>
+<li><a href="Last-Call-Optimization.html#Last-Call-Optimization" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Accumulating-Lists.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Accumulating-Lists.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Interface Predicates</title>
+
+<meta name="description" content="SICStus Prolog: Interface Predicates">
+<meta name="keywords" content="SICStus Prolog: Interface Predicates">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" rel="up" title="Calling C from Prolog">
+<link href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker" rel="next" title="The Foreign Resource Linker">
+<link href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types" rel="prev" title="Conversions between Prolog Arguments and C Types">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Interface-Predicates"></a>
+<hr>
+<a name="Interface-Predicates-1"></a>
+<h4 class="subsection">6.2.4 Interface Predicates</h4>
+
+<dl compact="compact">
+<dt><code>load_foreign_resource(<var>:Resource</var>)</code></dt>
+<dd>
+<a name="index-load_005fforeign_005fresource_002f1-_0028built_002din_0029-1"></a>
+<a name="index-load_005fforeign_005fresource_002f1-_0028built_002din_0029"></a>
+
+
+<p>Unless a foreign resource with the same name as <var>Resource</var> has
+been statically linked, the linked foreign resource specified by
+<var>Resource</var> is linked into the Prolog load image.  In both cases, the
+predicates defined by <var>Resource</var> are installed, and any
+init function is called.  Dynamic linking is not possible if the
+foreign resource was linked using the <samp>--static</samp> option.
+</p>
+<p>If a resource with the same name has been previously loaded, then it will be
+unloaded, as if <code>unload_foreign_resource(<var>Resource</var>)</code> were
+called, before <var>Resource</var> is loaded.
+</p>
+<p>An example of usage of <code>load_foreign_resource/1</code> can be found in its
+reference page, <a href="mpg_002dref_002dload_005fforeign_005fresource.html#mpg_002dref_002dload_005fforeign_005fresource">mpg-ref-load_foreign_resource</a>.
+</p>
+</dd>
+<dt><code>unload_foreign_resource(<var>:ResourceName</var>)</code></dt>
+<dd>
+<a name="index-unload_005fforeign_005fresource_002f1-_0028built_002din_0029-1"></a>
+<a name="index-unload_005fforeign_005fresource_002f1-_0028built_002din_0029"></a>
+
+<p>Any deinit function associated with <var>ResourceName</var>, a resource
+name, is called, and the predicates defined by <var>ResourceName</var>
+are uninstalled.  If <var>ResourceName</var> has been dynamically linked, then it
+is unlinked from the Prolog load image.
+</p>
+<p>If no resource named <code><var>ResourceName</var></code> is currently loaded, then an
+existence error is raised.
+</p>
+<p>For backward compatibility, <var>ResourceName</var> can also be of the same
+type as the argument to <code>load_foreign_resource/1</code>. In that
+case the resource name will be derived from the absolute file name in
+the same manner as for <code>load_foreign_resource/1</code>. Also for backward
+compatibility, <code>unload_foreign_resource/1</code> is a
+meta-predicate, but the module is ignored.
+See <a href="mpg_002dref_002dunload_005fforeign_005fresource.html#mpg_002dref_002dunload_005fforeign_005fresource">mpg-ref-unload_foreign_resource</a>.
+</p>
+
+<blockquote>
+<p><strong>Please note</strong>: all foreign resources are unloaded before Prolog exits.
+This implies that the C library function <code>atexit(<var>func</var>)</code>
+cannot be used if <var>func</var> is defined in a dynamically linked
+foreign resource.
+</p></blockquote>
+
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker" accesskey="n" rel="next">Next</a>
+<li><a href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types" accesskey="p" rel="prev">Previous</a>
+<li><a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Interface-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Interface-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Zinc Notes</title>
+
+<meta name="description" content="SICStus Prolog: Zinc Notes">
+<meta name="keywords" content="SICStus Prolog: Zinc Notes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dzinc.html#lib_002dzinc" rel="up" title="lib-zinc">
+<link href="FlatZinc.html#FlatZinc" rel="next" title="FlatZinc">
+<link href="lib_002dzinc.html#lib_002dzinc" rel="prev" title="lib-zinc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Zinc-Notes"></a>
+<hr>
+<a name="Notes-2"></a>
+<h4 class="subsection">10.48.1 Notes</h4>
+
+<dl compact="compact">
+<dt><em>Domain variables</em></dt>
+<dd><p>Only variables with finite integer domains are supported. This includes
+boolean variables, which are considered finite integer domain variables
+with the domain <code>0..1</code>. Domain variables declared to be of type
+<code>var int</code> are initially given the finite integer domain
+<code>inf..sup</code>, and are given maximally wide bounded domains before any
+search is performed on them, as well as before certain constraints that
+demand bounded domains are posted on them.
+</p>
+</dd>
+<dt><em>Ground set values</em></dt>
+<dd><p>Although set <em>variables</em> are not supported, ground set <em>values</em>
+are. For example, the MiniZinc<!-- /@w --> global constraint <code>sum_pred/4</code>
+takes as second argument an array of such ground set values.
+</p>
+</dd>
+<dt><em>Solve annotations</em></dt>
+<dd><ul>
+<li> The solve annotations currently recognized are <code>bool_search</code>,
+<code>int_search</code>,
+and <code>seq_search</code>.
+
+</li><li> The FlatZinc<!-- /@w --> specification describes several <em>exploration
+strategies</em>. Currently, the only recognized exploration strategies are
+<code>complete</code> and <code>fail</code>.
+
+</li><li> Variables not included in any solve or <code>var_is_introduced</code>
+annotation are labeled with a default first-fail domain splitting
+heuristic.  This corresponds to <code>labeling/2</code> of
+<code>library(clpfd)</code> with the option list <code>[ff,bisect]</code>.
+
+</li><li> The choice method <code>indomain_random</code> as described in the
+FlatZinc<!-- /@w --> specification uses <code>random_member/2</code> of
+<code>library(random)</code>. The random generator of SICStus is initialized
+using the same seed on each start up, meaning that the same sequence
+will be tried for <code>indomain_random</code> on each start up. This
+behavior can be changed by setting a different random seed using
+<code>setrand/1</code> of <code>library(random)</code>.
+
+</li></ul>
+
+</dd>
+<dt><em>Constraint annotations</em></dt>
+<dd><p>Constraint annotations of the form <code>domain</code>, <code>bounds</code>, and
+<code>value</code> are recognized in relevant
+FlatZinc<!-- /@w -->-to-<code>library(clpfd)</code> constraint translations. Any other
+constraint annotation is ignored.
+</p>
+</dd>
+<dt><em>Variable annotations</em></dt>
+<dd><p>The following variable annotations are recognized.
+Any other variable annotation is ignored:
+</p>
+<dl compact="compact">
+<dt><code>output_var &nbsp;<!-- /@w --> <i>since release 4.2</i></code></dt>
+<dd><p>the variable may be written on the current output stream.
+</p>
+</dd>
+<dt><code>output_array &nbsp;<!-- /@w --> <i>since release 4.2</i></code></dt>
+<dd><p>the variable array may be written on the current output stream.
+</p>
+</dd>
+<dt><code>var_is_introduced</code></dt>
+<dd><p>the variable will not be considered in any default labeling (such as
+when the search annotations do not include all variables)
+</p>
+</dd>
+</dl>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="FlatZinc.html#FlatZinc" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dzinc.html#lib_002dzinc" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Zinc-Notes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Zinc-Notes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

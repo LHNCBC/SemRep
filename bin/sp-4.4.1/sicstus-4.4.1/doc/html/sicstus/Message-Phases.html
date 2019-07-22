@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Message Phases</title>
+
+<meta name="description" content="SICStus Prolog: Message Phases">
+<meta name="keywords" content="SICStus Prolog: Message Phases">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Message-Processing.html#Message-Processing" rel="up" title="Message Processing">
+<link href="Message-Generation-Phase.html#Message-Generation-Phase" rel="next" title="Message Generation Phase">
+<link href="Message-Processing.html#Message-Processing" rel="prev" title="Message Processing">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Message-Phases"></a>
+<hr>
+<a name="Phases-of-Message-Processing"></a>
+<h4 class="subsubsection">4.16.1.1 Phases of Message Processing</h4>
+
+<p>Messages are processed in two major phases.  The user can influence the
+behavior of each phase using appropriate hooks, described later.
+</p>
+<p>The first phase is called the <em>message generation phase</em>: it
+determines the text of the message from the input (the abstract message
+term).  No printing is done here.  In this phase the user can
+change the phrasing or the language of the messages.
+</p>
+<a name="index-format_002dcommand"></a>
+<p>The result of the first phase is created in the form of a
+<em>format-command list</em>.  This is a list whose elements are
+<em>format-commands</em>, or the atom <code>nl</code> denoting the end of a
+line.  A format-command describes a piece of text not extending
+over a line boundary and it can be one of the following:
+</p>
+<dl compact="compact">
+<dt><code><var>FormatString</var>-<var>Args</var></code></dt>
+<dt><code>format(<var>FormatString</var>, <var>Args</var>)</code></dt>
+<dd><p>This indicates that the message text should appear as if printed by
+</p><div class="example">
+<pre class="example">format(<var>FormatString</var>, <var>Args</var>).
+</pre></div>
+
+</dd>
+<dt><code>write_term(<var>Term</var>, <var>Options</var>)</code></dt>
+<dd><p>This indicates that the message text should appear as if printed by
+</p><div class="example">
+<pre class="example">write_term(<var>Term</var>, <var>Options</var>).
+</pre></div>
+
+</dd>
+<dt><code>write_term(<var>Term</var>)</code></dt>
+<dd><p>Equivalent to <code>write_term(<var>Term</var>, <var>Options</var>)</code> where
+<var>Options</var> is the actual value of the Prolog flag
+<code>toplevel_print_options</code>.
+<a name="index-toplevel_005fprint_005foptions-_0028prolog-flag_0029-2"></a>
+</p></dd>
+</dl>
+
+<p>As an example, let us see what happens in case of the toplevel call
+<code>_ =:= 3</code>.  An instantiation error is raised by the Prolog
+system, which is caught, and the abstract message term
+<code>error(instantiation_error,instantiation_error(_=:=3,1))</code> is
+generated&mdash;the first argument is the goal, and the second argument is
+the position of the uninstantiated variable within the goal.  In the
+first phase of message processing this is converted to the following
+format-command list:
+</p><div class="example">
+<pre class="example">['Instantiation error'-[],' in argument ~d of ~q'-[1,=:= /2],nl,
+ 'goal:  '-[],write_term(_=:=3),nl]
+</pre></div>
+
+<p>A minor transformation, so-called <em>line splitting</em> is performed on
+the message text before it is handed over to the second phase.  The
+format-command list is broken up along the <code>nl</code> atoms
+into a list of lines, where each line is a list of
+format-commands.  We will use the term format-command lines
+to refer to the result of this transformation.
+</p>
+<p>In the example above, the result of this conversion is the following:
+</p><div class="example">
+<pre class="example">[['Instantiation error'-[],' in argument ~d of ~q'-[1,=:= /2]],
+ ['goal:  '-[],write_term(_=:=3)]]
+</pre></div>
+<p>The above format-command lines term is the input of the
+second phase of message processing.
+</p>
+<p>The second phase is called the <em>message printing phase</em>, this is
+where the message is actually displayed.  The severity of the message is
+used here to prefix each line of the message with some characters
+indicating the type of the message, as listed above.
+</p>
+<p>The user can change the exact method of printing (e.g. redirection of
+messages to a stream, a window, or using different prefixes, etc.)
+through appropriate hooks.
+</p>
+<p>In our example the following lines are printed by the second phase
+of processing:
+</p><div class="example">
+<pre class="example">! Instantiation error in argument 1 of =:= /2
+! goal:  _=:=3
+</pre></div>
+
+<p>The user can override the default message processing mechanism in the
+following two ways:
+</p><ul>
+<li> A global method is to define the hook predicate
+<code>portray_message/2</code>, which is the first thing called by message
+processing.  If this hook exists and succeeds, then it overrides
+all other processing&mdash;nothing further is done by
+<code>print_message/2</code>.
+
+</li><li> If a finer method of influencing the behavior of message processing is
+needed, then there are several further hooks provided, which
+affect only one phase of the process.  These are described in the
+following paragraphs.
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Message-Generation-Phase.html#Message-Generation-Phase" accesskey="n" rel="next">Next</a>
+<li><a href="Message-Processing.html#Message-Processing" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Message-Phases.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Message-Phases.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

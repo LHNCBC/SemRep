@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Programming Breakpoints</title>
+
+<meta name="description" content="SICStus Prolog: Programming Breakpoints">
+<meta name="keywords" content="SICStus Prolog: Programming Breakpoints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="up" title="Advanced Debugging">
+<link href="Breakpoint-Predicates.html#Breakpoint-Predicates" rel="next" title="Breakpoint Predicates">
+<link href="Hooks-Related-to-Breakpoints.html#Hooks-Related-to-Breakpoints" rel="prev" title="Hooks Related to Breakpoints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Programming-Breakpoints"></a>
+<hr>
+<a name="Programming-Breakpoints-1"></a>
+<h4 class="subsection">5.6.11 Programming Breakpoints</h4>
+
+
+<p>We will show two examples using the advanced features of the debugger.  
+</p>
+<p>The first example defines a <code>hide_exit(Pred)</code> predicate,
+which will hide the Exit port for <code>Pred</code> (i.e. it will
+silently proceed), provided the current goal was already
+ground at the Call port, and nothing was traced inside the
+given invocation. The <code>hide_exit(Pred)</code> goal creates two
+spypoints for predicate <code>Pred</code>:
+</p>
+<div class="example">
+<pre class="example">:- meta_predicate hide_exit(:).
+hide_exit(Pred) :-
+        add_breakpoint([pred(Pred),call]-
+                         true(save_groundness), _),
+        add_breakpoint([pred(Pred),exit,true(hide_exit)]-hide, _).
+</pre></div>
+
+<p>The first spypoint is applicable at the Call port, and it
+calls <code>save_groundness</code> to check if the given invocation was
+ground, and if so, then it stores a term <code>hide_exit(ground)</code>
+in the <code>goal_private</code> attribute of the invocation.
+</p>
+<div class="example">
+<pre class="example">save_groundness :-
+        execution_state([goal(_:G),goal_private(Priv)]),
+        ground(G), !, memberchk(hide_exit(ground), Priv).
+save_groundness.
+</pre></div>
+
+<p>The second spypoint created by <code>hide_exit/1</code> is applicable at
+the Exit port and it checks whether the <code>hide_exit/0</code>
+condition is true. If so, then it issues a <code>hide</code> action, which is a
+breakpoint macro expanding to <code>[silent,proceed]</code>.
+</p>
+<div class="example">
+<pre class="example">hide_exit :-
+        execution_state([inv(I),max_inv(I),goal_private(Priv)]),
+        memberchk(hide_exit(Ground), Priv), Ground == ground.
+</pre></div>
+
+<p>Here, <code>hide_exit</code> encapsulates the tests that the invocation number
+be the same as the last invocation number used (<code>max_inv</code>), and
+that the <code>goal_private</code> attribute of the invocation be identical to
+<code>ground</code>. The first test ensures that nothing was traced inside the
+current invocation.
+</p>
+<p>If we load the above code, as well as the small example below, then
+the following interaction, discussed below, can take place. Note that the
+<code>hide_exit</code> predicate is called with the <code>_:_</code>
+argument, resulting in generic spypoints being created.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>consult(user).</kbd>
+| <kbd>cnt(0) :- !.</kbd>
+| <kbd>cnt(N) :-</kbd>
+        <kbd>N &gt; 0, N1 is N-1, cnt(N1).</kbd>
+| <kbd>^D</kbd>
+% consulted user in module user, 0 msec 424 bytes
+
+| ?- <kbd>hide_exit(_:_), trace, cnt(1).</kbd>
+% The debugger will first zip -- showing spypoints (zip)
+% Generic spypoint added, BID=1
+% Generic spypoint added, BID=2
+% The debugger will first creep -- showing everything (trace)
+ #      1      1 Call: cnt(1) ? <kbd>c</kbd>
+ #      2      2 Call: 1&gt;0 ? <kbd>c</kbd>
+ #      3      2 Call: _2019 is 1-1 ? <kbd>c</kbd>
+        3      2 Exit: 0 is 1-1 ? <kbd>c</kbd>
+ #      4      2 Call: cnt(0) ? <kbd>c</kbd>
+        1      1 Exit: cnt(1) ? <kbd>c</kbd>
+
+% trace
+| ?- 
+</pre></div>
+
+<p>Invocation 1 is ground, its Exit port is not hidden, because
+further goals were traced inside it. On the other hand, Exit
+ports of ground invocations 2 and 4 are hidden.
+</p>
+<p>Our second example defines a predicate <code>call_backtrace(Goal,
+BTrace)</code>, which will execute <code>Goal</code> and build a backtrace
+showing the successful invocations executed during the solution of
+<code>Goal</code>.
+</p>
+<p>The advantages of such a special backtrace over the one
+incorporated in the debugger are the following:
+</p>
+<ul>
+<li> it has much lower space consumption;
+</li><li> the user can control what is put on and removed from the backtrace
+(e.g. in this example all goals are kept, even the ones that
+exited determinately);
+</li><li> the interactive debugger can be switched on and off without affecting
+the &ldquo;private&rdquo; backtrace being built.
+</li></ul>
+
+<p>The <code>call_backtrace/2</code> predicate is based on the advice
+facility.  It uses the variable accessible via the
+<code>private(_)</code> condition to store a mutable (see <a href="ref_002dlte_002dmut.html#ref_002dlte_002dmut">ref-lte-mut</a>) holding the
+backtrace. Outside the <code>call_backtrace</code>
+predicate the mutable will have the value <code>off</code>.
+</p>
+<p>The example is a module-file, so that internal invocations can be
+identified by the module name. We load the <code>lists</code>
+library, because <code>memberchk/2</code> will be used in the handling of the
+private field.
+</p>
+<div class="example">
+<pre class="example">:- module(backtrace, [call_backtrace/2]).
+:- use_module(library(lists)).
+
+:- meta_predicate call_backtrace(0, ?).
+call_backtrace(Goal, BTrace) :-
+        Spec = [advice,call]
+               -[true((goal(M:G),store_goal(M,G))),flit],
+        (   current_breakpoint(Spec, _, on, _, _) -&gt; B = []
+        ;   add_breakpoint(Spec, B)
+        ),
+        call_cleanup(call_backtrace1(Goal, BTrace),
+                     remove_breakpoints(B)).
+</pre></div>
+
+<p><code>call_backtrace(Goal, BTrace)</code> is a meta-predicate, which
+first sets up an appropriate advice-point for building the
+backtrace. The advice-point will be activated at each Call
+port and will call the <code>store_goal/2</code> predicate with
+arguments containing the module and the goal in
+question. Note that the advice-point will not build a
+procedure box (cf. the <code>flit</code> command in the action part).
+</p>
+<p>The advice-point will be added just once: any further (recursive)
+calls to <code>call_backtrace/2</code> will notice the existence of the
+breakpoint and will skip the <code>add_breakpoint/2</code> call.
+</p>
+<p>Having ensured the appropriate advice-point exists,
+<code>call_backtrace/2</code> calls <code>call_backtrace1/2</code> with a cleanup
+operation that removes the breakpoint added, if any.
+</p>
+<div class="example">
+<pre class="example">:- meta_predicate call_backtrace1(0, ?).
+call_backtrace1(Goal, BTrace) :-
+        execution_state(private(Priv)),
+        memberchk(backtrace_mutable(Mut), Priv),
+        (   mutable(Mut) -&gt; get_mutable(Old, Mut), 
+            update_mutable([], Mut)
+        ;   create_mutable([], Mut), Old = off
+        ),
+        call(Goal),
+        get_mutable(BTrace, Mut), update_mutable(Old, Mut).
+</pre></div>
+
+<p>The predicate <code>call_backtrace1/2</code> retrieves the private field
+of the execution state and uses it to store a mutable, wrapped in
+<code>backtrace_mutable</code>. When first called within a top-level the
+mutable is created with the value <code>[]</code>. In later calls the
+mutable is re-initialized to <code>[]</code>. Having set up the
+mutable, <code>Goal</code> is called. In the course of the execution of
+the <code>Goal</code> the debugger will accumulate the backtrace in the
+mutable. Finally, the mutable is read, its value is returned
+in <code>BTrace</code>, and it is restored to its old value (or <code>off</code>).
+</p>
+<div class="example">
+<pre class="example">store_goal(M, G) :-
+        M \== backtrace,
+        G \= call(_),
+        execution_state(private(Priv)),
+        memberchk(backtrace_mutable(Mut), Priv),
+        mutable(Mut),
+        get_mutable(BTrace, Mut),
+        BTrace \== off, !,
+        update_mutable([M:G|BTrace], Mut).
+store_goal(_, _).
+</pre></div>
+
+<p><code>store_goal/2</code> is the predicate called by the
+advice-point, with the module and the goal as
+arguments. We first ensure that calls from within the
+<code>backtrace</code> module and those of <code>call/1</code> get
+ignored. Next, the module qualified goal term is
+prepended to the mutable value retrieved from the private field,
+provided the mutable exists and its value is not <code>off</code>.
+</p>
+
+<p>Below is an example run, using a small program:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>consult(user).</kbd>
+| <kbd>cnt(N):- N =&lt; 0, !.</kbd>
+| <kbd>cnt(N) :-</kbd>
+     <kbd>N &gt; 0, N1 is N-1, cnt(N1).</kbd>
+| <kbd>^D</kbd>
+% consulted user in module user, 0 msec 424 bytes
+
+| ?- <kbd>call_backtrace(cnt(1), B).</kbd>
+% Generic advice point added, BID=1
+% Generic advice point, BID=1, removed (last)
+
+B = [user:(0=&lt;0),user:cnt(0),user:(0 is 1-1),user:(1&gt;0),user:cnt(1)]
+
+| ?- 
+</pre></div>
+
+<p>Note that the backtrace produced by <code>call_backtrace/2</code> can
+not contain any information regarding failed branches.  For example, the
+very first invocation within the above execution, <code>1 =&lt; 0</code>, is
+first put on the backtrace at its Call port, but this is
+immediately undone because the goal fails. If you would like to
+build a backtrace that preserves failed branches, then you have to use
+side-effects, e.g. dynamic predicates.
+</p>
+<p>Further examples of complex breakpoint handling are contained in
+<code>library(debugger_examples)</code>.
+</p>
+<p>This concludes the tutorial introduction of the advanced debugger features.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Hooks-Related-to-Breakpoints.html#Hooks-Related-to-Breakpoints" accesskey="p" rel="prev">Previous</a>
+<li><a href="Advanced-Debugging.html#Advanced-Debugging" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Programming-Breakpoints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Programming-Breakpoints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

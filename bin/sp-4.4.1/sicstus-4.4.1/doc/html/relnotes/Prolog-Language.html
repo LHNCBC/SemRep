@@ -1,0 +1,432 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: Prolog Language</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: Prolog Language">
+<meta name="keywords" content="SICStus Prolog Release Notes: Prolog Language">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4" rel="up" title="What Is New In Release 4">
+<link href="Library-Modules.html#Library-Modules" rel="next" title="Library Modules">
+<link href="Virtual-Machine.html#Virtual-Machine" rel="prev" title="Virtual Machine">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Prolog-Language"></a>
+<hr>
+<a name="Prolog-Language-1"></a>
+<h4 class="subsection">14.1.2 Prolog Language</h4>
+
+<a name="Single-Language-Mode"></a>
+<h4 class="subsubsection">14.1.2.1 Single Language Mode</h4>
+<p>Release 3 had the notion of multiple language modes: <code>iso</code> and
+<code>sicstus</code>.  Release 4 does not have this notion.  The syntax and
+semantics of the Prolog language correspond to the previous
+<code>iso</code> language mode.
+</p>
+<a name="DCG-Notation"></a>
+<h4 class="subsubsection">14.1.2.2 DCG Notation</h4>
+<p>The exact rules for translating DCG rules to plain Prolog clauses have
+not been laid down in a standard, but there is a broad consensus in
+the Prolog community about what they should mean.  One of the guiding
+principles is that the translation should be steadfast, in particular
+that the translated code should always treat its last argument as an
+output argument and not use it &ldquo;too early&rdquo;. In some cases, a
+non-steadfast translation was produced in release 3.  This has been
+corrected in release 4.
+</p>
+<a name="Asserting-Terms-with-Attributed-Variables"></a>
+<h4 class="subsubsection">14.1.2.3 Asserting Terms with Attributed Variables</h4>
+<p>In release 3, terms containing attributed variables and blocked goals
+could be asserted, copied, gathered as solutions to <code>findall/3</code>
+and friends, and raised as exceptions.  The copy would contain new
+attributed variables with the attributes copied.  This operation could
+be very expensive, could yield unexpected results and was not always
+safe e.g. in the context of CLPFD constraints.  In release 4, the
+semantics of this operation has changed: in the copy, an attributed
+variable is simply replaced by a plain, brand new variable.  Of
+course, if the same attributed variable occurs more than once, the
+same plain variable will occur in the corresponding places in the
+copy.  If the attributes are relevant, then the program can obtain them by
+using the new built-in predicate <code>copy_term/3</code> described below.
+</p>
+<a name="Arithmetic"></a>
+<h4 class="subsubsection">14.1.2.4 Arithmetic</h4>
+<p>The infix operator &lsquo;<samp>#</samp>&rsquo; (bitwise exclusive or) has been renamed to &lsquo;<samp>\</samp>&rsquo;.
+</p>
+<a name="Syntax"></a>
+<h4 class="subsubsection">14.1.2.5 Syntax</h4>
+<p>Atoms can now contain the <tt class="key">NUL</tt> character, i.e. character code
+zero. It is classified as whitespace and must therefore be entered
+using escapes. As an example <code>'a\0\a'</code> is a three character atom
+containing two <code>a</code>s separated by a <tt class="key">NUL</tt>.
+</p>
+<p>Internally, atom names and other encoded strings, use the non-shortest
+form &lsquo;<samp>0xC0 0x80</samp>&rsquo; to encode <tt class="key">NUL</tt>. This is similar to how <tt class="key">NUL</tt>
+is handled by Tcl/Tk and Java.
+</p>
+<a name="Prolog-Flags"></a>
+<h4 class="subsubsection">14.1.2.6 Prolog Flags</h4>
+<p>The <code>language</code> and <code>wcx</code> Prolog flag have been dropped.
+The <code>profiledcode</code> value of the <code>compiling</code> Prolog flag has been dropped.
+Several new Prolog flags have been added.
+See <a href="../sicstus/ref_002dlps_002dflg.html#ref_002dlps_002dflg">Prolog Flags</a> in <cite>the SICStus Prolog Manual</cite>.
+</p>
+
+<a name="Stream-Properties"></a>
+<h4 class="subsubsection">14.1.2.7 Stream Properties</h4>
+<p>The <code>wcx</code> property has been dropped.
+Several new stream properties have been added.
+See <a href="../sicstus/mpg_002dref_002dstream_005fproperty.html#mpg_002dref_002dstream_005fproperty"><code>stream_property/2</code></a> in <cite>the SICStus Prolog Manual</cite>.
+</p>
+
+<a name="Statistics-Keywords"></a>
+<h4 class="subsubsection">14.1.2.8 Statistics Keywords</h4>
+
+<p>Several new statistics keywords have been added.
+See <a href="../sicstus/mpg_002dref_002dstatistics.html#mpg_002dref_002dstatistics"><code>statistics/[0,1]</code></a> in <cite>the SICStus Prolog Manual</cite>.
+</p>
+
+<a name="Built_002dIn-Predicates"></a>
+<h4 class="subsubsection">14.1.2.9 Built-In Predicates</h4>
+<p>The set of built-in predicates has changed slightly.  The following
+predicates have been removed:
+</p>
+<dl compact="compact">
+<dt><code>'C'/3</code></dt>
+<dd><p>This was used in the Prolog translation of DCG rules.  It could
+trivially be replaced by unifications and served no other reasonable
+purpose.
+</p>
+</dd>
+<dt><code>get0/[1,2]</code></dt>
+<dt><code>put/[1,2]</code></dt>
+<dd><p>These used to have an overloaded semantics meaning one thing on binary
+streams and another thing on text streams.  They have been subsumed by
+their ISO counterparts.
+</p>
+</dd>
+<dt><code>get/[1,2]</code></dt>
+<dt><code>tab/[1,2]</code></dt>
+<dt><code>skip/[1,2]</code></dt>
+<dd><p>Although these do not have ISO counterparts, they have been removed
+for being in the spirit of <code>get0/[1,2]</code> and <code>put/[1,2]</code>.
+We have provided <code>skip_char/[1,2]</code>, <code>skip_code/[1,2]</code>, and
+<code>skip_byte/[1,2]</code> as an ISO style replacement for
+<code>skip/[1,2]</code>.
+</p>
+</dd>
+<dt><code>ttyget0/1</code></dt>
+<dt><code>ttyget/1</code></dt>
+<dt><code>ttynl/0</code></dt>
+<dt><code>ttyput/1</code></dt>
+<dt><code>ttyskip/1</code></dt>
+<dt><code>ttytab/1</code></dt>
+<dt><code>ttyflush/0</code></dt>
+<dd><p>These used to exist as shorthands for the respective predicate with an
+additional <code>user</code> argument. In most cases, the &ldquo;respective
+predicate&rdquo; is one of the non-ISO style predicate mentioned above, so
+there was no point in keeping the shorthand.
+</p>
+</dd>
+<dt><code>fileerrors/0</code></dt>
+<dt><code>nofileerrors/0</code></dt>
+<dd><p>These used to exist as shorthands for <code>set_prolog_flag/2</code> with
+specific arguments, and so can be trivially replaced.
+</p>
+</dd>
+<dt><code>call_residue/2</code></dt>
+<dd><p>Dropped because it was not possible to ensure the correct behavior in
+all circumstances, it relied heavily on copying terms with attributed
+variables, and it was not needed by any library module.  It has been
+replaced by a similar predicate, <code>call_residue_vars/2</code>, which should
+suffice in most cases where <code>call_residue/2</code> was used; see below.
+</p>
+</dd>
+<dt><code>undo/1</code></dt>
+<dd><p>Dropped because it was not possible to ensure the correct behavior in
+all circumstances. Users that know what they are doing can still call
+the unsupported predicate <code>prolog:undo/1</code>. The argument should
+have a module prefix.
+</p>
+</dd>
+<dt><code>help/0</code></dt>
+<dt><code>version/0</code></dt>
+<dt><code>version/1</code></dt>
+<dd><p>These predicates, managing and displaying messages, can be easily
+emulated by feaures of the message system.
+</p>
+</dd>
+<dt><code>fcompile/1</code></dt>
+<dt><code>load/1</code></dt>
+<dd><p>These predicates used to compile Prolog source code into &lsquo;<samp>.ql</samp>&rsquo;
+files, and load such files.  &lsquo;<samp>.ql</samp>&rsquo; files serve a purpose when
+boot-strapping the Prolog system, but offer no advantages over
+&lsquo;<samp>.po</samp>&rsquo; files, the Prolog object code format used by other built-in
+predicates.
+</p>
+</dd>
+<dt><code>load_foreign_files/2</code></dt>
+<dd><p>This predicate provided a shorthand for building and loading a
+temporary foreign resource.  Working with foreign resources is 
+straightforward, and so the shorthand was dropped.
+</p>
+</dd>
+<dt><code>require/1</code></dt>
+<dd><p>This predicate provided a shorthand for locating and loading library
+predicates.  This was originally introduced for a compatibility reason
+that is now obsolete.  It is straightforward to provide the necessary
+<code>:- use_module/2</code> directives, and so the shorthand was dropped.
+</p>
+</dd>
+<dt><code>profile_data/4</code></dt>
+<dt><code>profile_reset/1</code></dt>
+<dd><p>As of release 4.2, the execution profiling technology has been
+reengineered, eliminating the need to specially instrument code before
+it could be profiled.  The new scheme also keeps track of the number of
+calls per caller-callee pair.  Execution profiling is available for
+compiled as well as interpreted code.  These two predicates have been
+replaced by a small number of new ones.
+</p>
+</dd>
+</dl>
+
+<p>The following predicates have been added:
+</p>
+<dl compact="compact">
+<dt><code>call/<var>N</var></code></dt>
+<dd><p>Generalizes <code>call/1</code>.  For example, <code>call(p(1,2), a, b)</code> is
+equivalent to <code>call(p(1,2, a, b))</code>.
+</p>
+</dd>
+<dt><code>skip_char/[1,2]</code></dt>
+<dt><code>skip_code/[1,2]</code></dt>
+<dt><code>skip_byte/[1,2]</code></dt>
+<dd><p>ISO style replacements for the non-ISO style <code>skip/[1,2]</code>.
+</p>
+</dd>
+<dt><code>call_residue_vars/2</code></dt>
+<dd><p>Called as follows:
+</p>
+<div class="example">
+<pre class="example">call_residue_vars(<var>:Goal</var>, <var>-Vars</var>)
+</pre></div>
+
+<p>Executes the procedure call <var>Goal</var>, unifying <var>Vars</var> with
+the list of residual variables that have blocked goals or attributes
+attached to them.  <strong>Please note:</strong> behaves differently from
+<code>call_residue/2</code> of release 3.
+</p>
+</dd>
+<dt><code>copy_term/3</code></dt>
+<dd><p>Called as follows:
+</p>
+<div class="example">
+<pre class="example">copy_term(<var>+Term</var>, <var>-Copy</var>, <var>-Body</var>)
+</pre></div>
+
+<p>Unifies <var>Copy</var> with a copy of <var>Term</var> in which all variables have
+been replaced by brand new variables, and all mutables by brand new
+mutables.  If <var>Term</var> contains variables with goals blocked on them,
+or variables with attributes that can be interpreted as a goal
+(see <a href="../sicstus/lib_002datts.html#lib_002datts"><code>library(atts)</code></a> in <cite>the SICStus Prolog Manual</cite>), then <var>Body</var> is unified with the conjunction of
+such goals.  If no such goals are present, then <var>Body</var> is unified with
+the atom <code>true</code>.  The idea is that executing <var>Body</var>
+will reinstate blocked goals and attributes on the variables in <var>Copy</var>
+equivalent to those on the variables in <var>Term</var>.
+</p>
+</dd>
+<dt><code>profile_reset/0</code></dt>
+<dt><code>profile_data/1</code></dt>
+<dt><code>print_profile/[0,1]</code></dt>
+<dt><code>coverage_data/1</code></dt>
+<dt><code>print_coverage/[0,1]</code></dt>
+<dd><p>As of release 4.2, the execution profiling technology has been
+reengineered, eliminating the need to specially instrument code before
+it could be profiled.  Execution profiling is available for compiled as
+well as interpreted code.  It has been generalized to support coverage
+analysis for compiled as well as interpreted code.  The new scheme also
+keeps track of the number of calls per caller-callee pair.  These are
+the relevant new built-in predicates.
+</p></dd>
+</dl>
+
+<p>Some predicates have been changed slightly; in most cases, this
+affects predicates that take a list of options:
+</p>
+<dl compact="compact">
+<dt><code>[<var>F1</var>,<var>F2</var>,&hellip;]</code></dt>
+<dd>
+<p>This is now a short-hand for <code>load_files([<var>F1</var>,<var>F2</var>,&hellip;])</code>.
+</p>
+</dd>
+<dt><code>is_mutable/1</code></dt>
+<dd>
+<p>The predicate <code>is_mutable/1</code> has been renamed to
+<code>mutable/1</code>, in analogy with <code>integer/1</code>, <code>atom/1</code> etc.
+</p>
+</dd>
+<dt><code>module/1</code></dt>
+<dd>
+<p>The predicate <code>module/1</code> has been renamed to
+<code>set_module/1</code>, to avoid possible confusion with the
+<code>module/2</code> declaration.
+</p>
+</dd>
+<dt><code>format/[2,3]</code></dt>
+<dd>
+<p>For the predicate <code>format/[2,3]</code>, the semantics of the &lsquo;<samp>~@</samp>&rsquo;
+spec has changed slightly: the goal <var>Arg</var> is called as if by
+<code>\+ \+ <var>Arg</var></code>, i.e. any bindings made by the goal are lost.
+</p>
+</dd>
+<dt><code>close/2</code></dt>
+<dd>
+<p>Takes new options:
+</p>
+<dl compact="compact">
+<dt><code>direction/1</code></dt>
+<dd><p>Specifies which directions to close.
+</p></dd>
+</dl>
+
+</dd>
+<dt><code>open/4</code></dt>
+<dd>
+<p>The <code>wcx/1</code> option has been dropped.
+Takes several new options.
+See <a href="../sicstus/mpg_002dref_002dopen.html#mpg_002dref_002dopen"><code>open/4</code></a> in <cite>the SICStus Prolog Manual</cite>.
+</p>
+
+</dd>
+<dt><code>absolute_file_name/[2,3]</code></dt>
+<dd>
+<p>The <code>ignore_underscores/1</code> option has been dropped. 
+The <code>file_type/1</code> option value <code>ql</code> has been dropped,
+whereas the option value <code>executable</code> is new.
+The <code>access/1</code> option values <code>execute</code>,
+<code>executable</code> and <code>search</code> are new.
+The <code>glob/1</code> option is new, allowing to match file names against a
+pattern.
+If available, then the load
+context directory (<code>prolog_load_context/2</code>) will be used as default directory.
+</p>
+</dd>
+<dt><code>load_files/2</code></dt>
+<dd>
+<p>The <code>load_type/1</code> option value <code>ql</code> has been dropped.  
+<code>encoding_signature/1</code>, <code>encoding/1</code>, subsuming the <code>wcx/1</code> option of
+release 3, and <code>eol/1</code>, are new options, corresponding to the
+respective stream properties.
+</p>
+</dd>
+<dt><code>write_term/3</code></dt>
+<dd>
+<p>The <code>quoted_charset/1</code> option is new, reflecting the value of the
+Prolog flag with the same name.
+</p>
+</dd>
+<dt><code>halt/1</code></dt>
+<dd>
+<p>The predicate <code>halt/1</code> now raises an internal exception like
+<code>halt/0</code>. This gives surrounding Prolog and C code an opportunity
+to perform cleanup.
+</p>
+</dd>
+<dt><code>append/3</code></dt>
+<dt><code>member/2</code></dt>
+<dt><code>memberchk/2</code></dt>
+<dd><p>These are now built-in, they used to reside in <code>library(lists)</code>.
+</p>
+</dd>
+</dl>
+
+<a name="Hook-Predicates"></a>
+<h4 class="subsubsection">14.1.2.10 Hook Predicates</h4>
+
+<p>The hook <code>user:term_expansion/[2,4]</code> is replaced by the hook:
+</p>
+<div class="example">
+<pre class="example">user:term_expansion(Term1, Layout1, Tokens,
+                    Term2, Layout2, [Token|Tokens]).
+</pre></div>
+
+<p>The purpose of the new argument <var>Tokens</var> is to support multiple,
+independent expansion rules.  The
+purpose of the arguments <var>Layout1</var> and <var>Layout2</var> is to support
+source-linked debugging of term-expanded code. Each expansion rule
+should have its unique identifying token <var>Token</var>.
+</p>
+<p>The hook <code>user:goal_expansion/3</code> is replaced by the following per-module hook:
+</p>
+<div class="example">
+<pre class="example">M:goal_expansion(Term1, Layout1,
+                 Module, Term2, Layout2).
+</pre></div>
+
+<p>Typically, <var>Module</var> has imported the predicate <var>Term1</var> from
+module <var>M</var>. The purpose of the arguments <var>Layout1</var> and
+<var>Layout2</var> is to support source-linked debugging of goal-expanded
+code.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Library-Modules.html#Library-Modules" accesskey="n" rel="next">Next</a>
+<li><a href="Virtual-Machine.html#Virtual-Machine" accesskey="p" rel="prev">Previous</a>
+<li><a href="What-Is-New-In-Release-4.html#What-Is-New-In-Release-4" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Prolog-Language.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Prolog-Language.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

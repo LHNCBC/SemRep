@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: PB .NET Client Interface</title>
+
+<meta name="description" content="SICStus Prolog: PB .NET Client Interface">
+<meta name="keywords" content="SICStus Prolog: PB .NET Client Interface">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dprologbeans.html#lib_002dprologbeans" rel="up" title="lib-prologbeans">
+<link href="PB-_002eNET-Examples.html#PB-_002eNET-Examples" rel="next" title="PB .NET Examples">
+<link href="PB-Ex-Tomcat.html#PB-Ex-Tomcat" rel="prev" title="PB Ex Tomcat">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="PB-_002eNET-Client-Interface"></a>
+<hr>
+<a name="g_t_002eNET-Client-Interface"></a>
+<h4 class="subsection">10.29.7 .NET Client Interface</h4>
+
+<p>The class <code>PrologSession</code> in the .NET interface represents a
+connection to a Prolog server. <code>PrologSession</code> contains methods
+for establishing a connection and querying the Prolog server. Other
+important classes are: <code>QueryAnswer</code>, which contains the answer
+for a query sent to the Prolog server; <code>PBTerm</code>, which represents a
+Prolog term; and <code>Bindings</code>, which supports stuffing of variable
+values used in queries.
+</p>
+<p>The <code>PrologSession</code> object is the connection to the Prolog
+server. The constructor <code>PrologSession()</code>
+creates a <code>PrologSession</code> with the default settings
+(<code>host = localhost, port = 8066</code>.
+</p>
+<p>The interface is almost exactly as the Java version. See the C# source code (<samp>library/prologbeans.NET/*.cs</samp>) or the JavaDoc, for details.
+</p>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="PB-_002eNET-Examples.html#PB-_002eNET-Examples" accesskey="n" rel="next">Next</a>
+<li><a href="PB-Java-Examples.html#PB-Java-Examples" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dprologbeans.html#lib_002dprologbeans" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-_002eNET-Client-Interface.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-_002eNET-Client-Interface.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Conversion Declarations</title>
+
+<meta name="description" content="SICStus Prolog: Conversion Declarations">
+<meta name="keywords" content="SICStus Prolog: Conversion Declarations">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" rel="up" title="Calling C from Prolog">
+<link href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types" rel="next" title="Conversions between Prolog Arguments and C Types">
+<link href="Foreign-Resources.html#Foreign-Resources" rel="prev" title="Foreign Resources">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Conversion-Declarations"></a>
+<hr>
+<a name="Conversion-Declarations-1"></a>
+<h4 class="subsection">6.2.2 Conversion Declarations</h4>
+
+<p>Conversion declaration predicates:
+</p>
+<dl compact="compact">
+<dt><code>foreign_resource(<var>+ResourceName</var>,<var>+Functions</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd>
+<a name="index-foreign_005fresource_002f2-_0028Module_002c-hook_0029-1"></a>
+<a name="index-foreign_005fresource_002f2-_0028Module_002c-hook_0029"></a>
+
+<a name="index-init-function"></a>
+<a name="index-function_002c-init"></a>
+<a name="index-deinit-function"></a>
+<a name="index-function_002c-deinit"></a>
+<p>Specifies that a set of foreign functions, to be called from Prolog, are
+to be found in the resource named by <var>ResourceName</var>.
+<var>Functions</var> is a list of functions exported by the resource.
+Only functions that are to be called from Prolog and optionally one
+<em>init function</em> and one <em>deinit function</em> should be listed. The
+init and deinit functions are specified as
+<code>init(<var>Function</var>)</code> and <code>deinit(<var>Function</var>)</code>
+respectively (see <a href="Init-and-Deinit-Functions.html#Init-and-Deinit-Functions">Init and Deinit Functions</a>). This predicate
+should be defined entirely in terms of facts (unit clauses)
+and will be called in the relevant module, i.e. not necessarily
+in the <code>user</code> module.  For example:
+</p>
+<div class="example">
+<pre class="example">foreign_resource('terminal', [scroll,pos_cursor,ask]).
+</pre></div>
+
+<p>specifies that functions <code>scroll()</code>, <code>pos_cursor()</code> and
+<code>ask()</code> are to be found in the resource <samp>terminal</samp>.
+See <a href="mpg_002dref_002dforeign_005fresource.html#mpg_002dref_002dforeign_005fresource">mpg-ref-foreign_resource</a>.
+</p>
+</dd>
+<dt><code>foreign(<var>+CFunctionName</var>, <var>+Predicate</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dt><code>foreign(<var>+CFunctionName</var>, <var>+Language</var>, <var>+Predicate</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd>
+<a name="index-foreign_002f_005b2_002c3_005d-_0028Module_002c-hook_0029-1"></a>
+<a name="index-foreign_002f_005b2_002c3_005d-_0028Module_002c-hook_0029"></a>
+
+<p>Specify the Prolog interface to a C function.  <var>Language</var> is at
+present constrained to the atom <code>c</code>, so there is no advantage
+in using <code>foreign/3</code> over <code>foreign/2</code>.  <var>CFunctionName</var> is
+the name of a C function.  <var>Predicate</var> specifies the name of the
+Prolog predicate that will be used to call <var>CFunction()</var>.
+<var>Predicate</var> also specifies how the predicate arguments
+are to be translated to and from the corresponding C
+arguments. These predicates should be defined entirely in
+terms of facts (unit clauses) and will be called in the
+relevant module, i.e. not necessarily in the <code>user</code>
+module.  For example:
+</p>
+<div class="example">
+<pre class="example">foreign(pos_cursor, c, move_cursor(+integer, +integer)).
+</pre></div>
+
+<p>The above example says that the C function <code>pos_cursor()</code> has two
+integer value arguments and that we will use the predicate
+<code>move_cursor/2</code> to call this function.  A goal
+<code>move_cursor(5, 23)</code> would translate into the C call
+<code>pos_cursor(5,23);</code>.
+</p>
+<p>The third argument of the predicate <code>foreign/3</code> specifies how to
+translate between Prolog arguments and C arguments. A call to a foreign
+predicate will throw an Instantiation Error if an input arguments is
+uninstantiated, a Type Error if an input arguments has the wrong type,
+or a Domain Error if an input arguments is in the wrong domain.  The
+call will fail upon return from the function if the output arguments
+do not unify with the actual arguments.
+</p>
+<p>The available conversions are listed in the next subsection.
+See <a href="mpg_002dref_002dforeign.html#mpg_002dref_002dforeign">mpg-ref-foreign</a>.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Conversions-between-Prolog-Arguments-and-C-Types.html#Conversions-between-Prolog-Arguments-and-C-Types" accesskey="n" rel="next">Next</a>
+<li><a href="Foreign-Resources.html#Foreign-Resources" accesskey="p" rel="prev">Previous</a>
+<li><a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Conversion-Declarations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Conversion-Declarations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.1.0 Other Changes</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.1.0 Other Changes">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.1.0 Other Changes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e1_002e0-Changes.html#g_t4_002e1_002e0-Changes" rel="up" title="4.1.0 Changes">
+<link href="4_002e1_002e0-Known-Issues.html#g_t4_002e1_002e0-Known-Issues" rel="next" title="4.1.0 Known Issues">
+<link href="4_002e1_002e0-Bugs-Fixed.html#g_t4_002e1_002e0-Bugs-Fixed" rel="prev" title="4.1.0 Bugs Fixed">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e1_002e0-Other-Changes"></a>
+<hr>
+<a name="Other-Changes-7"></a>
+<h4 class="subsection">14.12.3 Other Changes</h4>
+
+<ul>
+<li> The atom length restriction has been lifted.
+
+</li><li> The Emacs command <code>run-prolog</code> now prompts for a (Lisp) list of
+extra command line arguments, when invoked with a prefix
+argument, i.e. as <kbd>C-U M-x run-prolog</kbd>.
+
+</li><li> While loading clauses from a PO file, if clauses for an existing
+multifile predicate are encountered, but in a precompiled format
+different from the existing clauses, then the existing clauses remain
+untouched, the multifile clauses from the PO file are simply ignored,
+the load continues, and a permission error is raised at the end.
+Previously, the existing clauses would silently be replaced by the
+loaded ones.  This feature is mainly relevant for hook predicates such
+as <code>user:term_expansion/6</code>.
+
+</li><li> &ldquo;System Properties&rdquo; has been introduced as an abstraction to replace
+the direct use of environment variables. See <a href="../sicstus/System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a> in <cite>the SICStus
+Prolog Manual</cite> for more information.
+
+<p>The change is largely backwards compatible with the following notable
+exceptions:
+</p><ul>
+<li> The environment variables <code>SP_APP_DIR</code>, <code>SP_RT_DIR</code>, etc.
+are no longer set in the environment. This means that their value can
+no longer be obtained, e.g. from C code, by using <code>getenv()</code> or
+similar functions. Instead, <code>SP_getenv()</code> can be used for a
+similar effect.
+
+</li><li> For the same reason, sub-processes created with
+<code>process:process_create/[2,3]</code> will no longer see
+<code>SP_APP_DIR</code> et al. in their inherited environment. Instead it
+is now possible to explicitly pass environment variables to the
+sub-process using the new <code>environment/1</code> option to
+<code>process:process_create/3</code>.
+
+</li></ul>
+
+</li><li> New automatically set system properties, <code>SP_APP_PATH</code>, the path to
+the executable, <code>SP_RT_DIR</code>, the path to the SICStus runtime, and
+<code>SP_STARTUP_DIR</code> the initial working directory. See <a href="../sicstus/System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a> in <cite>the
+SICStus Prolog Manual</cite> for more information.
+
+</li><li> The initial working directory can be set with the system property
+<code>SP_STARTUP_DIR</code>, independently from the process&rsquo;s working
+directory. By setting the system property <code>SP_ALLOW_CHDIR</code> to
+&lsquo;<samp>no</samp>&rsquo;, SICStus can be told to never change the process&rsquo;s working
+directory. These features are especially useful when embedding SICStus.
+
+</li><li> The buffer argument to <code>spio_t_simple_device_write</code> is now a
+<code>void const*</code> instead of a plain <code>void *</code>. This affects code
+that use <code>SP_create_stream()</code> to create user-defined streams.
+
+</li><li> <code>SP_get_list_n_bytes()</code> and <code>SP_get_list_n_codes()</code> now use
+stricter input validation.
+
+</li><li> SICStus will no longer flush open streams on exit. This change is to
+prevent SICStus from hanging on exit due to some blocking I/O
+operation. All streams should be explicitly closed
+(<code>close/[1,2]</code>) or flushed (<code>flush_output/1</code>) if their
+contents is precious.
+
+</li><li> <code>clpfd:case/4</code>: the <code>leaves/2</code> option has been dropped,
+and the variable order must be the same on every path.
+
+</li><li> <code>library(system)</code>: <code>library(system)</code> no longer depends on
+any foreign code so the <code>system</code> foreign resource is gone.
+
+</li><li> <code>library(jasper)</code>: The SICStus (Java) working directory is now passed to
+Java (SICStus) when Java (SICStus) is started from SICStus (Java). Also,
+SICStus will not change the process&rsquo;s working directory when started from
+Java.
+
+</li><li> The Berkeley DB library, <code>library(bdb)</code>, is now built using
+Berkeley DB 4.8.24.
+</li></ul>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e1_002e0-Known-Issues.html#g_t4_002e1_002e0-Known-Issues" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e1_002e0-Bugs-Fixed.html#g_t4_002e1_002e0-Bugs-Fixed" accesskey="p" rel="prev">Previous</a>
+<li><a href="4_002e1_002e0-Changes.html#g_t4_002e1_002e0-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e1_002e0-Other-Changes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e1_002e0-Other-Changes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

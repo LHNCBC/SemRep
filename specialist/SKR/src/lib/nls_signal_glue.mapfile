@@ -1,0 +1,6 @@
+nls_signal_glue {
+  global:
+    sp_main_SPENV_nls_0x5Fsignal;
+  local:
+    *;
+};

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: PlUnit Tests Expected to Raise Exceptions</title>
+
+<meta name="description" content="SICStus Prolog: PlUnit Tests Expected to Raise Exceptions">
+<meta name="keywords" content="SICStus Prolog: PlUnit Tests Expected to Raise Exceptions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="PlUnit-A-Unit-Test-Box.html#PlUnit-A-Unit-Test-Box" rel="up" title="PlUnit A Unit Test Box">
+<link href="PlUnit-Running-the-Test_002dSuite.html#PlUnit-Running-the-Test_002dSuite" rel="next" title="PlUnit Running the Test-Suite">
+<link href="PlUnit-Tests-Expected-to-Fail.html#PlUnit-Tests-Expected-to-Fail" rel="prev" title="PlUnit Tests Expected to Fail">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="PlUnit-Tests-Expected-to-Raise-Exceptions"></a>
+<hr>
+<a name="Tests-Expected-to-Raise-Exceptions"></a>
+<h4 class="subsubsection">10.27.3.4 Tests Expected to Raise Exceptions</h4>
+
+<p>Tests that are expected to raise exceptions may be specified using the
+option <code>exception(<var>Expected</var>)</code> or one of its equivalents, or by
+wrapping the test in <code>on_exception/3</code> or <code>catch/3</code>.  The
+following tests are equivalent:
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(terms)).
+test(div01) :-
+     on_exception(Excp, A is 1/0, true),
+     subsumeschk(error(evaluation_error(zero_divisor),_), Excp).
+
+test(div02, [error(evaluation_error(zero_divisor))]) :-
+     A is 1/0.
+
+test(div03, [error(evaluation_error(zero_divisor),_)]) :-
+     A is 1/0.
+
+test(div04, [exception(error(evaluation_error(zero_divisor),_))]) :-
+     A is 1/0.
+
+test(div05, [throws(error(evaluation_error(zero_divisor),_))]) :-
+     A is 1/0.
+</pre></div>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="PlUnit-Tests-Expected-to-Fail.html#PlUnit-Tests-Expected-to-Fail" accesskey="p" rel="prev">Previous</a>
+<li><a href="PlUnit-A-Unit-Test-Box.html#PlUnit-A-Unit-Test-Box" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PlUnit-Tests-Expected-to-Raise-Exceptions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PlUnit-Tests-Expected-to-Raise-Exceptions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

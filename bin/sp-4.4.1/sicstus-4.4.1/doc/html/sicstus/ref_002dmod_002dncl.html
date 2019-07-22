@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mod-ncl</title>
+
+<meta name="description" content="SICStus Prolog: ref-mod-ncl">
+<meta name="keywords" content="SICStus Prolog: ref-mod-ncl">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmod.html#ref_002dmod" rel="up" title="ref-mod">
+<link href="ref_002dmod_002dilm.html#ref_002dmod_002dilm" rel="next" title="ref-mod-ilm">
+<link href="ref_002dmod_002dcim.html#ref_002dmod_002dcim" rel="prev" title="ref-mod-cim">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmod_002dncl"></a>
+<hr>
+<a name="Name-Clashes"></a>
+<h4 class="subsection">4.11.12 Name Clashes</h4>
+
+<a name="index-name-clash"></a>
+<a name="index-clash_002c-name"></a>
+
+<a name="index-modules_002c-name-clashes"></a>
+
+<p>A <em>name clash</em> can arise if:
+</p><ol>
+<li> a module tries to import a predicate from some other
+module <code>m1</code> and it has already imported a predicate with the same name and
+arity from a module <code>m2</code>; 
+</li><li> a module tries to import a predicate from some other
+module <code>m1</code> and it already contains a definition of a predicate with the
+same name and arity; or
+</li><li> a module tries to define a predicate with the same name and arity as
+one that it has imported.
+</li></ol>
+
+
+<p>Whenever a name clash arises, a message is displayed beginning with
+the words &lsquo;<samp>NAME CLASH</samp>&rsquo;.  The user
+is asked to choose from one of several options; for example,
+</p><div class="example">
+<pre class="example">NAME CLASH: f/3 is already imported into module user
+            from module m1; 
+            do you want to override this definition with
+            the one in m2? (y,n,p,s,a or ?)
+</pre></div>
+
+
+<p>The meanings of the five recognized replies are as follows:
+</p>
+<dl compact="compact">
+<dt><kbd>y</kbd></dt>
+<dd><p>forget the previous definition of <code>f/3</code> from <code>m1</code> and use
+the new definition of <code>f/3</code> from <code>m2</code> instead.
+</p></dd>
+<dt><kbd>n</kbd></dt>
+<dd><p>retain the previous definition of <code>f/3</code> from <code>m1</code> and ignore the
+new definition of <code>f/3</code> from <code>m2</code>.
+</p></dd>
+<dt><kbd>p</kbd></dt>
+<dd><p>(for proceed) means forget the previous definition of <code>f/3</code> and of
+all subsequent predicate definitions in <code>m1</code> that clash during the current load of <code>m2</code>.
+Instead, use the new definitions in <code>m2</code>.  When the <kbd>p</kbd> option is chosen,
+predicates being loaded from <code>m1</code> into <code>m2</code> will cause
+no &lsquo;<samp>NAME CLASH</samp>&rsquo; messages for the remainder of the load, though
+clashes with predicates from other modules will still generate such messages.
+</p></dd>
+<dt><kbd>s</kbd></dt>
+<dd><p>(for suppress) means forget the new definition of <code>f/3</code> and of
+all subsequent predicate definitions in <code>m1</code> that clash during the current load of <code>m2</code>.
+Instead, use the old definitions in <code>m2</code>.  When the <kbd>s</kbd> option is chosen,
+predicates being loaded from <code>m1</code> into <code>m2</code> will cause
+no &lsquo;<samp>NAME CLASH</samp>&rsquo; messages for the remainder of the load, though
+clashes with predicates from other modules will still generate such messages.
+</p></dd>
+<dt><kbd>?</kbd></dt>
+<dd><p>gives brief help information.
+</p></dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmod_002dilm.html#ref_002dmod_002dilm" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmod_002dcim.html#ref_002dmod_002dcim" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmod.html#ref_002dmod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmod_002dncl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmod_002dncl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

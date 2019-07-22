@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Backtracking Loops</title>
+
+<meta name="description" content="SICStus Prolog: Backtracking Loops">
+<meta name="keywords" content="SICStus Prolog: Backtracking Loops">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" rel="up" title="Calling Prolog from C">
+<link href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously" rel="next" title="Calling Prolog Asynchronously">
+<link href="Finding-Multiple-Solutions-of-a-Call.html#Finding-Multiple-Solutions-of-a-Call" rel="prev" title="Finding Multiple Solutions of a Call">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Backtracking-Loops"></a>
+<hr>
+<a name="Backtracking-Loops-1"></a>
+<h4 class="subsection">6.5.3 Backtracking Loops</h4>
+
+<p>If you want to call Prolog multiple times in a loop for side-effect,
+for example over the elements of a list, then some care is required in
+order not to cause a memory leak by creating more and more
+SP_term_refs.  The recommended coding scheme is to use a backtracking
+loop (see <a href="Terminating-a-Backtracking-Loop.html#Terminating-a-Backtracking-Loop">Terminating a Backtracking Loop</a>).  For example, suppose
+that you want the C equivalent of the following code:
+</p>
+<div class="example">
+<pre class="example">process_list(L) :-
+        member(X, L),
+        once(process(X)),
+        fail.
+process_list(_).
+
+process(X) :- ...
+</pre></div>
+
+<p>That can be encoded as follows, where <code>refL</code> is the SP_term_ref
+that holds <code>L</code>:
+</p>
+<div class="example">
+<pre class="example">  ...
+  SP_qid goal;
+  SP_pred_ref member2 = SP_predicate(&quot;member&quot;, 2, &quot;user&quot;);
+  SP_pred_ref process1 = SP_predicate(&quot;process&quot;, 1, &quot;user&quot;);
+  SP_term_ref refX = SP_new_term_ref();
+  SP_put_variable(refX);
+  goal = SP_open_query(member2, refX, refL);
+  while (SP_next_solution(goal)==SP_SUCCESS)
+    SP_query_cut_fail(process1, refX);
+  SP_close_query(goal);
+  ...
+</pre></div>
+
+<p>This programming style is particularly relevant in a stand-alone
+executable, where the top level iterates over some transactions to be processed.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously" accesskey="n" rel="next">Next</a>
+<li><a href="Finding-Multiple-Solutions-of-a-Call.html#Finding-Multiple-Solutions-of-a-Call" accesskey="p" rel="prev">Previous</a>
+<li><a href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Backtracking-Loops.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Backtracking-Loops.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

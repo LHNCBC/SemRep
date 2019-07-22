@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPQR Fragments and Bits</title>
+
+<meta name="description" content="SICStus Prolog: CLPQR Fragments and Bits">
+<meta name="keywords" content="SICStus Prolog: CLPQR Fragments and Bits">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CLPQR-Implementation-Architecture.html#CLPQR-Implementation-Architecture" rel="up" title="CLPQR Implementation Architecture">
+<link href="CLPQR-Bugs.html#CLPQR-Bugs" rel="next" title="CLPQR Bugs">
+<link href="CLPQR-Implementation-Architecture.html#CLPQR-Implementation-Architecture" rel="prev" title="CLPQR Implementation Architecture">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPQR-Fragments-and-Bits"></a>
+<hr>
+<a name="Fragments-and-Bits"></a>
+<h4 class="subsubsection">10.11.9.1 Fragments and Bits</h4>
+
+<p><em>Rationals.</em>
+The internal data structure for rational numbers is
+<code>rat(<var>Num</var>,<var>Den</var>)</code>.  <var>Den</var> is always positive, i.e.
+the sign of the rational number is the sign of <var>Num</var>. Further,
+<var>Num</var> and <var>Den</var> are relative prime.  Note that integer <var>N</var>
+looks like <code>rat(<var>N</var>,1)</code> in this representation.  You can
+control printing of terms with <code>user:portray/1</code>.
+</p>
+<a name="index-portray_002f1-_0028user_002c-hook_0029-3"></a>
+<a name="index-portray_002f1-_0028user_002c-hook_0029-1"></a>
+
+
+<a name="index-user_003aportray_002f1-_0028hook_0029-3"></a>
+<a name="index-user_003aportray_002f1-_0028hook_0029-1"></a>
+
+
+<p><em>Partial Evaluation, Compilation.</em>
+Once one has a working solver, it is obvious and attractive to run the
+constraints in a clause definition at read time or compile time and
+proceed with the answer constraints in place of the original
+constraints. This gets you constant folding and in fact the full
+algebraic power of the solver applied to the avoidance of computations
+at runtime.  The mechanism to realize this idea is to use
+<code>dump/3</code> for the expansion of <code>{}/1</code>, via the goal and
+term expansion hook predicates.
+</p>
+<p><em>Asserting with Constraints.</em>
+If you use the database, then the clauses you assert might have
+constraints associated with their variables. You should use
+<code>projecting_assert/1</code> instead of <code>assert/1</code> in order to ensure
+that only the relevant and projected constraints get stored in the
+database.
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>{A+B=&lt;33}, projecting_assert(test(A,B)).</kbd>
+
+{A+B=&lt;33}
+
+| ?- <kbd>listing(test).</kbd>
+test(A, B) :-
+        {A+B=&lt;rat(33,1)}
+
+| ?- <kbd>test(A,B).</kbd>
+
+{A+B=&lt;33}
+</pre></div>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPQR-Bugs.html#CLPQR-Bugs" accesskey="n" rel="next">Next</a>
+<li><a href="CLPQR-Implementation-Architecture.html#CLPQR-Implementation-Architecture" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Fragments-and-Bits.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Fragments-and-Bits.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: UNIX</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: UNIX">
+<meta name="keywords" content="SICStus Prolog Release Notes: UNIX">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Getting-Started.html#Getting-Started" rel="up" title="Getting Started">
+<link href="Running-Java-from-SICStus.html#Running-Java-from-SICStus" rel="next" title="Running Java from SICStus">
+<link href="Windows.html#Windows" rel="prev" title="Windows">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="UNIX"></a>
+<hr>
+<a name="UNIX-1"></a>
+<h4 class="subsection">8.2.2 UNIX</h4>
+
+<p>When <code>library(jasper)</code> is used to embed Java in a SICStus
+development system or runtime system, the runtime linker needs to
+be told where to find the Java libraries (e.g.
+<samp>libjvm.so</samp>). During installation, <samp>InstallSICStus</samp> will build
+either the <code>sicstus</code> executable or the <code>jasper</code> foreign resource
+so that it contains the necessary
+information; the details are platform dependent.
+</p>
+<p>If you use <code>spld</code> to relink SICStus or to build a
+runtime system, then you can use the command line option
+<samp>--resource=-jasper</samp> (note the minus sign).
+This tells <code>spld</code> to include the search
+path (<em>rpath</em>) in the executable needed to ensure that
+<code>library(jasper)</code> can find the Java libraries.
+</p>
+<p>If you want to run <code>sicstus</code> with another Java than what was
+specified during installation, then you can use <code>spld</code> without the
+<samp>--resources</samp> option to get a SICStus executable without any
+embedded Java paths. In this case, you need to set the environment
+variable <code>LD_LIBRARY_PATH</code> (or similar) appropriately.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Running-Java-from-SICStus.html#Running-Java-from-SICStus" accesskey="n" rel="next">Next</a>
+<li><a href="Windows.html#Windows" accesskey="p" rel="prev">Previous</a>
+<li><a href="Getting-Started.html#Getting-Started" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/UNIX.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/UNIX.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

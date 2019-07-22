@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-ere-err-con</title>
+
+<meta name="description" content="SICStus Prolog: ref-ere-err-con">
+<meta name="keywords" content="SICStus Prolog: ref-ere-err-con">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dere_002derr.html#ref_002dere_002derr" rel="up" title="ref-ere-err">
+<link href="ref_002dere_002derr_002dcns.html#ref_002dere_002derr_002dcns" rel="next" title="ref-ere-err-cns">
+<link href="ref_002dere_002derr_002dper.html#ref_002dere_002derr_002dper" rel="prev" title="ref-ere-err-per">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dere_002derr_002dcon"></a>
+<hr>
+<a name="Context-Errors"></a>
+<h4 class="subsubsection">4.15.4.9 Context Errors</h4>
+
+<a name="index-context-errors"></a>
+
+<a name="index-errors_002c-context"></a>
+
+
+<p>A context error occurs when a goal or declaration appears in the wrong
+place.  There may or may not be anything wrong with the goal or
+declaration as such; the point is that it is out of place.  Calling
+<code>multifile/1</code> as a goal is a context error, as is having
+<code>:-module/2</code> anywhere but as the first term in a source file.  This
+error classe is an extension to the ISO Prolog standard.
+</p>
+
+<p>The <var>SICStus_Error</var> term associated with a context error is
+</p><div class="example">
+<pre class="example">context_error(<var>Goal, ContextType, CommandType</var>)
+</pre></div>
+
+
+<dl compact="compact">
+<dt><var>ContextType</var></dt>
+<dd><p>the context in which the command was attempted.
+</p>
+</dd>
+<dt><var>CommandType</var></dt>
+<dd><p>the type of command that was attempted.
+</p>
+</dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dere_002derr_002dcns.html#ref_002dere_002derr_002dcns" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dere_002derr_002dper.html#ref_002dere_002derr_002dper" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dere_002derr.html#ref_002dere_002derr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002dcon.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002dcon.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

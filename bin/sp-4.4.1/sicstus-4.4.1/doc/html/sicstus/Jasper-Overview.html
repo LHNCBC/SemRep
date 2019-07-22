@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Jasper Overview</title>
+
+<meta name="description" content="SICStus Prolog: Jasper Overview">
+<meta name="keywords" content="SICStus Prolog: Jasper Overview">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002djasper.html#lib_002djasper" rel="up" title="lib-jasper">
+<link href="Getting-Started.html#Getting-Started" rel="next" title="Getting Started">
+<link href="lib_002djasper.html#lib_002djasper" rel="prev" title="lib-jasper">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Jasper-Overview"></a>
+<hr>
+<a name="Jasper-Overview-1"></a>
+<h4 class="subsection">10.19.1 Jasper Overview</h4>
+
+<p>Jasper is a bi-directional interface between Java and
+SICStus. The Java-side of the interface consists of a Java package
+(<code>se.sics.jasper</code>) containing classes representing the SICStus
+runtime system (<code>SICStus</code>, <code>SPTerm</code>, etc).  The Prolog part
+is designed as a library module (<code>library(jasper)</code>).
+</p>
+<a name="index-JVM"></a>
+<a name="index-Java-Virtual-Machine"></a>
+<p>The library module <code>library(jasper)</code> (see <a href="The-Jasper-Library.html#The-Jasper-Library">The Jasper Library</a>)
+provides functionality for controlling the loading and unloading the JVM
+(Java Virtual Machine), method call functionality
+(<code>jasper_call/4</code>), and predicates for managing object
+references.
+</p>
+
+<p>Jasper can be used in two modes, depending on which system acts as
+<em>Parent Application</em>. If Java is the parent application, then the SICStus
+runtime kernel will be loaded into the JVM using the
+<code>System.loadLibrary()</code> method (this is done indirectly when
+instantiating a <code>SICStus</code> object). In this mode, SICStus is loaded
+as a runtime system (see <a href="Runtime-Systems.html#Runtime-Systems">Runtime Systems</a>).
+</p>
+<p>As of release 3.9, it is possible to use Jasper in multi threaded
+mode. This means that several Java threads can call SICStus runtime
+via a server thread. The communication between the client threads and
+the server thread is hidden from the programmer, and the API is based
+on Java <code>Interfaces</code>, which are implemented both by the multi thread
+capable classes and the pre-3.9 classes, which are restricted to single
+threaded mode. The decision whether to run in single thread mode or in
+multi threaded mode can thus be left until runtime.
+</p>
+<p>If SICStus is the parent application, then Java will be loaded as a
+foreign resource using the query
+<code>use_module(library(jasper))</code>. The Java engine is initialized using
+<code>jasper_initialize/[1,2]</code>.
+</p>
+<ul>
+<li> Some of the information in this chapter is a recapitulation of the
+information in <a href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog">Mixing C and Prolog</a>. The intention is
+that this chapter should be possible to read fairly independently.
+</li><li> Before proceeding,
+please read
+<a href="../relnotes/Jasper-Notes.html#Jasper-Notes">Jasper Notes</a> in <cite>SICStus Prolog Release Notes</cite>.
+It contains important information about requirements,
+availability, installation tips, limitations, and how to access other
+(online) Jasper/Java resources.
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Getting-Started.html#Getting-Started" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002djasper.html#lib_002djasper" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Jasper-Overview.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Jasper-Overview.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: PB First Example</title>
+
+<meta name="description" content="SICStus Prolog: PB First Example">
+<meta name="keywords" content="SICStus Prolog: PB First Example">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dprologbeans.html#lib_002dprologbeans" rel="up" title="lib-prologbeans">
+<link href="PB-Prolog-Server-Interface.html#PB-Prolog-Server-Interface" rel="next" title="PB Prolog Server Interface">
+<link href="PB-Features.html#PB-Features" rel="prev" title="PB Features">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="PB-First-Example"></a>
+<hr>
+<a name="A-First-Example"></a>
+<h4 class="subsection">10.29.3 A First Example</h4>
+
+<p>This section provides an example to illustrate how PrologBeans can be
+used. This application has a simple Java GUI where the user can enter
+expressions that will be evaluated by an expression evaluation server.
+</p>
+<div class="example">
+<pre class="example">import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import se.sics.prologbeans.*;
+
+public class EvaluateGUI implements ActionListener {
+
+  private JTextArea text = new JTextArea(20, 40);
+  private JTextField input = new JTextField(36);
+  private JButton evaluate = new JButton(&quot;Evaluate&quot;);
+  private PrologSession session = new PrologSession();
+
+  public EvaluateGUI() throws java.io.IOException
+    {
+    if ((Integer.getInteger(&quot;se.sics.prologbeans.debug&quot;, 0)).intValue() != 0) {
+	  session.setTimeout(0);
+      }
+    JFrame frame = new JFrame(&quot;Prolog Evaluator&quot;);
+    Container panel = frame.getContentPane();
+    panel.add(new JScrollPane(text), BorderLayout.CENTER);
+    JPanel inputPanel = new JPanel(new BorderLayout());
+    inputPanel.add(input, BorderLayout.CENTER);
+    inputPanel.add(evaluate, BorderLayout.EAST);
+    panel.add(inputPanel, BorderLayout. SOUTH);
+    text.setEditable(false);
+    evaluate.addActionListener(this);
+    input.addActionListener(this);
+
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    frame.pack();
+    frame.setVisible(true);
+
+    session.connect();
+  }
+
+  public void actionPerformed(ActionEvent event) {
+    try {
+      Bindings bindings = new Bindings().bind(&quot;E&quot;,
+                          input.getText() + '.');
+      QueryAnswer answer =
+        session.executeQuery(&quot;evaluate(E,R)&quot;, bindings);
+      PBTerm result = answer.getValue(&quot;R&quot;);
+      if (result != null) {
+        text.append(input.getText() + &quot; = &quot; + result + '\n');
+        input.setText(&quot;&quot;);
+      } else {
+        text.append(&quot;Error: &quot; + answer.getError() + '\n');
+      }
+    } catch (Exception e) {
+      text.append(&quot;Error when querying Prolog Server: &quot; +
+                  e.getMessage() + '\n');
+      e.printStackTrace();
+    }
+  }
+
+  public static void main(String[] args) throws java.io.IOException
+  {
+    new EvaluateGUI();
+  }
+}
+</pre></div>
+
+<p>The Java code above first sets up the GUI with a text area for showing
+results, a text field for entering expressions, and a button for
+requesting an evaluation (the constructor <code>EvaluateGUI()</code>). It
+will also add itself as <code>ActionListener</code> on both the text field
+and the button. The method <code>actionPerformed(ActionEvent event)</code>
+will be called whenever the user has pressed <tt class="key">RET</tt> or clicked on the
+button.  <code>actionPerformed</code> first binds the variable <var>E</var> to
+the value of the text field, and then sends the query to the Prolog
+server with <code>session.executeQuery(&quot;evaluate(E,R)&quot;,
+bindings);</code>. If everything goes well, then the Prolog server will return an
+answer (bound to <var>R</var>), which will be appended to the text area.
+</p>
+<div class="example">
+<pre class="example">:- module(evaluate,[main/0,my_predicate/2]).
+:- use_module(library(prologbeans)).
+:- use_module(library(codesio), [read_from_codes/2]).
+
+%% Register acceptable queries and start the server (using default port)
+main:-
+    register_query(evaluate(C,P), my_predicate(C,P)),
+    start.
+
+%% We have received a code-list
+%% which needs to be converted into an expression
+my_predicate(Chars, P) :-
+    read_from_codes(Chars, X),
+    P is X.
+</pre></div>
+
+<p>The Prolog code above first defines the module and imports the needed
+modules. Then, in the <code>main/0</code> predicate, it configures the
+server to answer queries on the form <code>evaluate(C,P)</code> and
+starts the server. The last few lines defines the predicate
+<code>my_predicate(Chars, P)</code>, which is the predicate that performs the
+evaluation. Note that, here, the expression to evaluate is represented as a
+code-list and must be converted into a term before
+evaluation.
+</p>
+<p>In general, arbitrary Prolog terms can be passed to the client via
+this mechanism, including terms containing unbound variables.
+However, any unbound variables with attributes or blocked goals
+attached to them will be replaced by plain, brand new variables. This
+is analogous to the way attributed variables are handled in terms that
+are written, copied, asserted, gathered as solutions to
+<code>findall/3</code> and friends, or raised as exceptions. If the
+attributes must be passed to the client, then the Prolog code can obtain
+them by using <code>copy_term/3</code> (see <a href="ref_002dlte_002dcpt.html#ref_002dlte_002dcpt">ref-lte-cpt</a>).
+</p>
+<p><strong>Please note</strong>:
+the environment variable <code>SP_PATH</code> as used here is meant to be a
+shorthand (see <a href="CPL-Notes.html#CPL-Notes">CPL Notes</a>), and does not
+need to be set explicitly.
+</p>
+<p>To start the example, first start the Prolog server by going to
+the <samp>%SP_PATH%\library\prologbeans\examples\evaluate</samp> <span class="roman">(Windows), or</span>
+<samp>$SP_PATH/library/prologbeans/examples/evaluate</samp> <span class="roman">(UNIX/Linux)</span> directory and type:
+</p>
+<div class="example">
+<pre class="example">% <kbd>sicstus -l <var>evaluate.pl</var> --goal &quot;main.&quot;</kbd>
+</pre></div>
+
+<p>To start the GUI type (from the same directory as above):
+</p>
+<div class="example">
+<pre class="example">&gt; <kbd>java -classpath &quot;%SP_PATH%\bin\prologbeans.jar;.&quot; EvaluateGUI</kbd> <span class="roman">(Windows), or</span>
+% <kbd>java -classpath &quot;$SP_PATH/bin/prologbeans.jar:.&quot; EvaluateGUI</kbd> <span class="roman">(UNIX)</span>
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="PB-Prolog-Server-Interface.html#PB-Prolog-Server-Interface" accesskey="n" rel="next">Next</a>
+<li><a href="PB-Features.html#PB-Features" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dprologbeans.html#lib_002dprologbeans" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-First-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-First-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

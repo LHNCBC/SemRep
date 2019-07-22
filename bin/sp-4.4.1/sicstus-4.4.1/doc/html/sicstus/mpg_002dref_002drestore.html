@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-restore</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-restore">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-restore">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dretract.html#mpg_002dref_002dretract" rel="next" title="mpg-ref-retract">
+<link href="mpg_002dref_002drepeat.html#mpg_002dref_002drepeat" rel="prev" title="mpg-ref-repeat">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002drestore"></a>
+<hr>
+<a name="restore_002f1"></a>
+<h4 class="subsection">11.3.192 <code>restore/1</code></h4>
+<a name="index-restore_002f1-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-restore_002f1-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-217"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>restore(<var>+FileSpec</var>)</code>
+</p>
+<p>Restores a saved-state.
+</p>
+<a name="Arguments-199"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>FileSpec</var></dt>
+<dd><p><em>file_spec</em>, must be ground
+</p>
+<p>The name of a saved state, &lsquo;<samp>.sav</samp>&rsquo; extension optional.
+</p></dd>
+</dl>
+
+<a name="Description-153"></a>
+<h4 class="subheading">Description</h4>
+
+<p>The system is returned to the program state previously saved to
+the file denoted by <var>FileSpec</var> with start-up goal <var>Goal</var>.
+<code>restore/1</code> may succeed, fail or raise an exception depending on
+<var>Goal</var>.
+</p>
+<a name="Exceptions-208"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dt><code>type_error</code></dt>
+<dd><p>In <var>FileSpec</var>.
+</p>
+</dd>
+<dt><code>existence_error</code></dt>
+<dd><p>The specified file does not exist.  If the <code>fileerrors</code> Prolog
+flag is <code>off</code>, then the predicate fails instead of raising this
+exception.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>A specified file is not readable.  If the <code>fileerrors</code> Prolog flag
+is <code>off</code>, then the predicate fails instead of raising this exception.
+<a name="index-fileerrors-_0028prolog-flag_0029-7"></a>
+</p></dd>
+</dl>
+
+<a name="Examples-80"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">| ?- <kbd>save_program(state, format('Restored!\n',[])).</kbd>
+% /home/matsc/sicstus4/Bips/state.sav created in 0 msec
+yes
+
+| ?- <kbd>restore(state).</kbd>
+% restoring /home/matsc/sicstus4/Bips/state.sav...
+% /home/matsc/sicstus4/Bips/state.sav restored in 10 msec 16 bytes
+Restored!
+yes
+</pre></div>
+
+<a name="See-Also-214"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>save_program/[1,2]</code>, <a href="Saving.html#Saving">Saving</a>,
+<a href="ref_002dsls.html#ref_002dsls">ref-sls</a>, <a href="ref_002dsls_002dsst.html#ref_002dsls_002dsst">ref-sls-sst</a>, <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dretract.html#mpg_002dref_002dretract" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002drepeat.html#mpg_002dref_002drepeat" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002drestore.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002drestore.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

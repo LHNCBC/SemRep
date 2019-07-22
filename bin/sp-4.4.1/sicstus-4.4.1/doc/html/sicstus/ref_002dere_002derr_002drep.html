@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-ere-err-rep</title>
+
+<meta name="description" content="SICStus Prolog: ref-ere-err-rep">
+<meta name="keywords" content="SICStus Prolog: ref-ere-err-rep">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dere_002derr.html#ref_002dere_002derr" rel="up" title="ref-ere-err">
+<link href="ref_002dere_002derr_002dexi.html#ref_002dere_002derr_002dexi" rel="next" title="ref-ere-err-exi">
+<link href="ref_002dere_002derr_002deva.html#ref_002dere_002derr_002deva" rel="prev" title="ref-ere-err-eva">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dere_002derr_002drep"></a>
+<hr>
+<a name="Representation-Errors"></a>
+<h4 class="subsubsection">4.15.4.6 Representation Errors</h4>
+
+<a name="index-representation-errors"></a>
+<a name="index-errors_002c-representation"></a>
+
+
+<p>A representation error occurs when your program calls for the
+computation of some well-defined value that cannot be represented.
+</p>
+<p>Most representation errors are some sort of overflow.  For example,
+creating a compound term with arity greater than 255 results in a
+representation error.  
+</p>
+<p>The <var>SICStus_Error</var> term for a representation error is
+</p><div class="example">
+<pre class="example">representation_error(<var>Goal, ArgNo, Message</var>)
+</pre></div>
+
+<dl compact="compact">
+<dt><var>ArgNo</var></dt>
+<dd><p>identifies the argument of the goal that cannot be constructed.
+</p>
+</dd>
+<dt><var>Message</var></dt>
+<dd><p>further classifies the problem.  A message of <code>0</code> or
+<code>''</code> provides no further information.
+</p></dd>
+</dl>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dere_002derr_002dexi.html#ref_002dere_002derr_002dexi" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dere_002derr_002deva.html#ref_002dere_002derr_002deva" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dere_002derr.html#ref_002dere_002derr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002drep.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002drep.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

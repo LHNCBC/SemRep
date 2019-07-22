@@ -1,0 +1,153 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mdb-idb</title>
+
+<meta name="description" content="SICStus Prolog: ref-mdb-idb">
+<meta name="keywords" content="SICStus Prolog: ref-mdb-idb">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmdb.html#ref_002dmdb" rel="up" title="ref-mdb">
+<link href="ref_002dmdb_002dbbd.html#ref_002dmdb_002dbbd" rel="next" title="ref-mdb-bbd">
+<link href="ref_002dmdb_002dexa_002dabo.html#ref_002dmdb_002dexa_002dabo" rel="prev" title="ref-mdb-exa-abo">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmdb_002didb"></a>
+<hr>
+<a name="The-Internal-Database"></a>
+<h4 class="subsection">4.12.8 The Internal Database</h4>
+
+<a name="index-internal-database"></a>
+<a name="index-database_002c-internal"></a>
+
+
+
+<p>The following predicates are provided solely for compatibility with
+other Prolog systems.  Their semantics can be understood by imagining
+that they are defined by the following clauses:
+</p><div class="example">
+<pre class="example">recorda(Key, Term, Ref) :- 
+     functor(Key, Name, Arity),
+     functor(F, Name, Arity),
+     asserta('$recorded'(F,Term), Ref).
+recordz(Key, Term, Ref) :-
+     functor(Key, Name, Arity),
+     functor(F, Name, Arity),
+     assertz('$recorded'(F,Term), Ref).
+recorded(Key, Term, Ref) :- 
+     functor(Key, Name, Arity),
+     functor(F, Name, Arity),
+     clause('$recorded'(F,Term), _, Ref).
+</pre></div>
+
+
+<p>The reason for the calls to <code>functor/3</code> in the above definition is
+that only the principal functor of the key is significant.  If
+<var>Key</var> is a compound term, then its arguments are ignored.
+</p>
+<blockquote>
+
+<p><strong>Please note:</strong> Equivalent functionality and performance, with reduced memory
+costs, can usually be had through normal dynamic procedures and
+indexing (see <a href="ref_002dmdb_002dbas.html#ref_002dmdb_002dbas">ref-mdb-bas</a> and <a href="Indexing.html#Indexing">Indexing</a>).
+</p></blockquote>
+
+
+<a name="index-recorda_002f3-_0028built_002din_0029-1"></a>
+<a name="index-recorda_002f3-_0028built_002din_0029"></a>
+
+
+
+<p><code>recorda(<var>Key</var>, <var>Term</var>, <var>Ref</var>)</code>
+records the <var>Term</var> in the internal database as the first item
+for the key <var>Key</var>; a database reference to the newly-recorded term
+is returned in <var>Ref</var>.
+</p>
+
+<a name="index-recordz_002f3-_0028built_002din_0029-1"></a>
+<a name="index-recordz_002f3-_0028built_002din_0029"></a>
+
+
+<p><code>recordz(<var>Key</var>, <var>Term</var>, <var>Ref</var>)</code> is like
+<code>recorda/3</code> except that it records the term as the last item in the
+internal database.
+</p>
+
+<p><code>recorded(<var>Key</var>, <var>Term</var>, <var>Ref</var>)</code> searches
+the internal database for a term recorded under the key
+<var>Key</var> that unifies with <var>Term</var>, and whose database reference
+unifies with <var>Ref</var>.
+</p>
+
+<a name="index-current_005fkey_002f2-_0028built_002din_0029-1"></a>
+<a name="index-current_005fkey_002f2-_0028built_002din_0029"></a>
+
+
+<a name="index-recorded-keys"></a>
+<a name="index-keys_002c-recorded"></a>
+
+<p><code>current_key(<var>KeyName</var>, <var>KeyTerm</var>)</code> succeeds when
+<var>KeyName</var> is the atom or integer that is the name of
+<var>KeyTerm</var>.  <var>KeyTerm</var> is an integer, atom, or compound term
+that is the key for a currently recorded term.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmdb_002dbbd.html#ref_002dmdb_002dbbd" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmdb_002dexa.html#ref_002dmdb_002dexa" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmdb.html#ref_002dmdb" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmdb_002didb.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmdb_002didb.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

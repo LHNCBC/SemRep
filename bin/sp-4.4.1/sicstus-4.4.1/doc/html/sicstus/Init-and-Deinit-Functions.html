@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Init and Deinit Functions</title>
+
+<meta name="description" content="SICStus Prolog: Init and Deinit Functions">
+<meta name="keywords" content="SICStus Prolog: Init and Deinit Functions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" rel="up" title="Calling C from Prolog">
+<link href="Creating-the-Linked-Foreign-Resource.html#Creating-the-Linked-Foreign-Resource" rel="next" title="Creating the Linked Foreign Resource">
+<link href="Windows_002dspecific-splfr-issues.html#Windows_002dspecific-splfr-issues" rel="prev" title="Windows-specific splfr issues">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Init-and-Deinit-Functions"></a>
+<hr>
+<a name="Init-and-Deinit-Functions-1"></a>
+<h4 class="subsection">6.2.6 Init and Deinit Functions</h4>
+
+<p>An init function and/or a deinit function can be declared by
+<code>foreign_resource/2</code>. If this is the case, then these functions should
+have the prototype:
+</p>
+<dl compact="compact">
+<dt><code>void <var>FunctionName</var> (int when)</code></dt>
+</dl>
+
+<p>The init function is called by <code>load_foreign_resource/1</code>
+after the resource has been loaded and the interfaced predicates
+have been installed.  If the init function fails (using
+<code>SP_fail()</code>) or raises an exception (using
+<code>SP_raise_exception()</code>), then the failure or exception is propagated by
+<code>load_foreign_resource/1</code> and the foreign resource is
+unloaded (without calling any deinit function). However, using
+<code>SP_fail()</code> is not recommended, and operations that may require
+<code>SP_raise_exception()</code> are probably better done in an init
+function that is called explicitly after the foreign resource has
+been loaded.
+</p>
+<p>The deinit function is called by <code>unload_foreign_resource/1</code>
+before the interfaced predicates have been uninstalled and the
+resource has been unloaded.  If the deinit function fails or
+raises an exception, then the failure or exception is propagated by
+<code>unload_foreign_resource/1</code>, but the foreign resource is
+still unloaded.
+However, neither <code>SP_fail()</code> nor <code>SP_raise_exception()</code> should
+be called in a deinit function.
+Complex deinitialization should be done in an explicitly
+called deinit function instead.
+</p>
+<p>The init and deinit functions may use the C-interface to call
+Prolog etc.
+</p>
+<p>Foreign resources are unloaded
+when the saved-state is restored; see <a href="Saving.html#Saving">Saving</a>.
+Foreign resources are also unloaded when
+exiting Prolog execution. The parameter <code>when</code> reflects the context
+of the <code>(un)load_foreign_resource/1</code> and is set as follows for
+init functions:
+</p>
+<dl compact="compact">
+<dt><code>SP_WHEN_EXPLICIT</code></dt>
+<dd><a name="index-SP_005fWHEN_005fEXPLICIT-_0028foreign-resource-context_0029"></a>
+<p>Explicit call to <code>load_foreign_resource/1</code>.
+</p></dd>
+<dt><code>SP_WHEN_RESTORE</code></dt>
+<dd><a name="index-SP_005fWHEN_005fRESTORE-_0028foreign-resource-context_0029"></a>
+<p>Resource is reloaded after
+restore.
+</p></dd>
+</dl>
+
+<p>For deinit functions:
+</p>
+<dl compact="compact">
+<dt><code>SP_WHEN_EXPLICIT</code></dt>
+<dd><a name="index-SP_005fWHEN_005fEXPLICIT-_0028foreign-resource-context_0029-1"></a>
+<p>Explicit call to <code>unload_foreign_resource/1</code> or a call to
+<code>load_foreign_resource/1</code> with the name of an already loaded resource.
+</p></dd>
+<dt><code>SP_WHEN_EXIT</code></dt>
+<dd><a name="index-SP_005fWHEN_005fEXIT-_0028foreign-resource-context_0029"></a>
+<p>Resource is unloaded before exiting Prolog.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Creating-the-Linked-Foreign-Resource.html#Creating-the-Linked-Foreign-Resource" accesskey="n" rel="next">Next</a>
+<li><a href="The-Foreign-Resource-Linker.html#The-Foreign-Resource-Linker" accesskey="p" rel="prev">Previous</a>
+<li><a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Init-and-Deinit-Functions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Init-and-Deinit-Functions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

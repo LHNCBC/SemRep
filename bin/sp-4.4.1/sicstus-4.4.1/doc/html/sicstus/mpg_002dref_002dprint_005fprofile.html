@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-print_profile</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-print_profile">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-print_profile">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dprofile_005fdata.html#mpg_002dref_002dprofile_005fdata" rel="next" title="mpg-ref-profile_data">
+<link href="mpg_002dref_002dprint_005fmessage_005flines.html#mpg_002dref_002dprint_005fmessage_005flines" rel="prev" title="mpg-ref-print_message_lines">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dprint_005fprofile"></a>
+<hr>
+<a name="print_005fprofile_002f_005b0_002c1_005d---development"></a>
+<h4 class="subsection">11.3.164 <code>print_profile/[0,1]</code> &nbsp;<!-- /@w --> <i>development</i></h4>
+<a name="index-print_005fprofile_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-print_005fprofile_002f_005b0_002c1_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-189"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>print_profile</code> &nbsp;<!-- /@w --> <i>since release 4.2</i>
+</p>
+<p>Prints the profiling data accumulated so far, to the current output
+stream, in a format similar to <code>gprof(1)</code>.
+</p>
+<p><code>print_profile(<var>+Data</var>)</code> &nbsp;<!-- /@w --> <i>since release 4.2</i>
+</p>
+<p>Prints the profiling data <var>Data</var>, to the current output stream, in
+a format similar to <code>gprof(1)</code>.  <var>Data</var> should be of type
+<em>list of profile_pair</em>; see <code>profile_data/1</code>.
+</p>
+<a name="Arguments-173"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Data</var></dt>
+<dd><p><em>list of profile_pair</em>
+</p></dd>
+</dl>
+
+<a name="Description-139"></a>
+<h4 class="subheading">Description</h4>
+
+<p>The output is formatted into blocks of lines.
+There is one block per predicate with profiling data.
+A typical block looks like:
+</p>
+<div class="example">
+<pre class="example">----------------------------------------------------------------
+                                6667/11582      user:extract_index_2/5
+                                4915/11582      user:safe_insns/5
+      174446       21862       11582        user:safe_insns/5
+                              *10280/37221      user:safe_insn/1
+                                4915/11582      user:safe_insns/5
+----------------------------------------------------------------
+</pre></div>
+
+<p>This block concerns <code>user:safe_insns/5</code>.  We are told that 174446
+virtual instructions were executed and 21862 choicepoints were accessed, and that it was
+called 11582 times.  There are two callers: <code>user:extract_index_2/5</code> and
+<code>user:safe_insns/5</code> itself, which called <code>user:safe_insns/5</code> 6667
+and 4915 times respectively.  Finally <code>user:safe_insns/5</code> accounts for
+10280 out of the 37221 calls to <code>user:safe_insn/1</code> and, as we already know, for
+4915 out of the 11582 calls to itself.  The asterisk in front
+10280 tells us that for at least one of the 10280 calls, <code>user:safe_insn/1</code> left
+a choicepoint behind, which could be a case of unwanted nondeterminacy;
+see <a href="The-Determinacy-Checker.html#The-Determinacy-Checker">The Determinacy Checker</a>.
+</p>
+<p>The variant <code>print_profile/1</code> is useful e.g. if you want to somehow filter
+the execution profile computed by <code>profile_data/1</code> before printing it.
+</p>
+<a name="Exceptions-180"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>None.
+</p>
+<a name="See-Also-186"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Execution-Profiling.html#Execution-Profiling">Execution Profiling</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dprofile_005fdata.html#mpg_002dref_002dprofile_005fdata" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dprint_005fmessage_005flines.html#mpg_002dref_002dprint_005fmessage_005flines" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dprint_005fprofile.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dprint_005fprofile.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

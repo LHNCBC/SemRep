@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPQR Projecting Inequalities</title>
+
+<meta name="description" content="SICStus Prolog: CLPQR Projecting Inequalities">
+<meta name="keywords" content="SICStus Prolog: CLPQR Projecting Inequalities">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CLPQR-Projection.html#CLPQR-Projection" rel="up" title="CLPQR Projection">
+<link href="CLPQR-Why-Disequations.html#CLPQR-Why-Disequations" rel="next" title="CLPQR Why Disequations">
+<link href="CLPQR-Turning-Answers-into-Terms.html#CLPQR-Turning-Answers-into-Terms" rel="prev" title="CLPQR Turning Answers into Terms">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPQR-Projecting-Inequalities"></a>
+<hr>
+<a name="Projecting-Inequalities"></a>
+<h4 class="subsubsection">10.11.5.3 Projecting Inequalities</h4>
+<p>As soon as linear inequations are involved, projection gets more
+demanding complexity wise.  The current clp(Q,R) version uses a
+Fourier-Motzkin algorithm for the projection of linear inequalities.
+The choice of a suitable algorithm is somewhat dependent on the number
+of variables to be eliminated, the total number of
+variables, and other factors. It is quite easy to produce problems
+of moderate size where the elimination step takes some time.  For
+example, when the dimension of the projection is 1, you might be better
+off computing the supremum and the infimum of the remaining
+variable instead of eliminating <code>n-1</code> variables via
+implicit projection.
+</p>
+<p>In order to make answers as concise as possible, redundant constraints
+are removed by the system as well. In the following set of inequalities,
+half of them are redundant.
+</p><div class="example">
+<pre class="example"><em>% library('clpqr/examples/eliminat')</em>
+</pre><pre class="example">example(2, [X0,X1,X2,X3,X4]) :-
+  {
+       +87*X0  +52*X1  +27*X2  -54*X3  +56*X4 =&lt;  -93,
+       +33*X0  -10*X1  +61*X2  -28*X3  -29*X4 =&lt;   63,
+       -68*X0   +8*X1  +35*X2  +68*X3  +35*X4 =&lt;  -85,
+       +90*X0  +60*X1  -76*X2  -53*X3  +24*X4 =&lt;  -68,
+       -95*X0  -10*X1  +64*X2  +76*X3  -24*X4 =&lt;   33,
+       +43*X0  -22*X1  +67*X2  -68*X3  -92*X4 =&lt;  -97,
+       +39*X0   +7*X1  +62*X2  +54*X3  -26*X4 =&lt;  -27,
+       +48*X0  -13*X1   +7*X2  -61*X3  -59*X4 =&lt;   -2,
+       +49*X0  -23*X1  -31*X2  -76*X3  +27*X4 =&lt;    3,
+       -50*X0  +58*X1   -1*X2  +57*X3  +20*X4 =&lt;    6,
+       -13*X0  -63*X1  +81*X2   -3*X3  +70*X4 =&lt;   64,
+       +20*X0  +67*X1  -23*X2  -41*X3  -66*X4 =&lt;   52,
+       -81*X0  -44*X1  +19*X2  -22*X3  -73*X4 =&lt;  -17,
+       -43*X0   -9*X1  +14*X2  +27*X3  +40*X4 =&lt;   39,
+       +16*X0  +83*X1  +89*X2  +25*X3  +55*X4 =&lt;   36,
+        +2*X0  +40*X1  +65*X2  +59*X3  -32*X4 =&lt;   13,
+       -65*X0  -11*X1  +10*X2  -13*X3  +91*X4 =&lt;   49,
+       +93*X0  -73*X1  +91*X2   -1*X3  +23*X4 =&lt;  -87 
+  }.
+</pre></div>
+<p>Consequently, the answer consists of the system of nine non-redundant
+inequalities only:
+</p><div class="example">
+<pre class="example">clp(q) ?- <kbd>[library('clpqr/examples/eliminat')].</kbd>
+clp(q) ?- <kbd>example(2, [X0,X1,X2,X3,X4]).</kbd>
+
+{X0-2/17*X1-35/68*X2-X3-35/68*X4&gt;=5/4},
+{X0-73/93*X1+91/93*X2-1/93*X3+23/93*X4=&lt;-29/31},
+{X0-29/25*X1+1/50*X2-57/50*X3-2/5*X4&gt;=-3/25},
+{X0+7/39*X1+62/39*X2+18/13*X3-2/3*X4=&lt;-9/13},
+{X0+2/19*X1-64/95*X2-4/5*X3+24/95*X4&gt;=-33/95},
+{X0+2/3*X1-38/45*X2-53/90*X3+4/15*X4=&lt;-34/45},
+{X0-23/49*X1-31/49*X2-76/49*X3+27/49*X4=&lt;3/49},
+{X0+44/81*X1-19/81*X2+22/81*X3+73/81*X4&gt;=17/81},
+{X0+9/43*X1-14/43*X2-27/43*X3-40/43*X4&gt;=-39/43}
+</pre></div>
+
+<p>The projection (the shadow) of this polyhedral set into the <code>X0,X1</code>
+space can be computed via the implicit elimination of non-query
+variables:
+</p><div class="example">
+<pre class="example">clp(q) ?- <kbd>example(2, [X0,X1|_]).</kbd>
+
+{X0+2619277/17854273*X1&gt;=-851123/17854273},
+{X0+6429953/16575801*X1=&lt;-12749681/16575801},
+{X0+19130/1213083*X1&gt;=795400/404361},
+{X0-1251619/3956679*X1&gt;=21101146/3956679},
+{X0+601502/4257189*X1&gt;=220850/473021}
+</pre></div>
+
+<p>Projection is quite a powerful concept that leads to surprisingly terse
+executable specifications of nontrivial problems like the computation of
+the convex hull from a set of points in an n-dimensional space: Given
+the program
+</p><div class="example">
+<pre class="example"><em>% library('clpqr/examples/elimination')</em>
+</pre><pre class="example">conv_hull(Points, Xs) :-
+  lin_comb(Points, Lambdas, Zero, Xs),
+  zero(Zero),
+  polytope(Lambdas).
+
+polytope(Xs) :-
+  positive_sum(Xs, 1).
+
+  positive_sum([], Z) :- {Z=0}.
+  positive_sum([X|Xs], SumX) :-
+    { X &gt;= 0, SumX = X+Sum },
+    positive_sum(Xs, Sum).
+
+zero([]).
+zero([Z|Zs]) :- {Z=0}, zero(Zs).
+
+lin_comb([],        [],     S1, S1).
+lin_comb([Ps|Rest], [K|Ks], S1, S3) :-
+  lin_comb_r(Ps, K, S1, S2),
+  lin_comb(Rest, Ks, S2, S3).
+
+  lin_comb_r([],     _, [],     []).
+  lin_comb_r([P|Ps], K, [S|Ss], [Kps|Ss1]) :-
+    { Kps = K*P+S },
+    lin_comb_r(Ps, K, Ss, Ss1).
+</pre></div>
+<p>we can post the following query:
+</p><div class="example">
+<pre class="example">clp(q) ?- <kbd>conv_hull([ [1,1], [2,0], [3,0], [1,2], [2,2] ], [X,Y]).</kbd>
+
+{Y=&lt;2},
+{X+1/2*Y=&lt;3},
+{X&gt;=1},
+{Y&gt;=0},
+{X+Y&gt;=2}
+</pre></div>
+<p>This answer is easily verified graphically:
+</p><div class="example">
+<pre class="example">       |
+     2 -    *    *
+       |
+       |
+     1 -    *
+       |
+       |
+     0 -----|----*----*----
+            1    2    3
+</pre></div>
+<p>The convex hull program directly corresponds to the mathematical
+definition of the convex hull.  What does the trick in operational terms
+is the implicit elimination of the <var>Lambdas</var> from the program
+formulation. Please note that this program does not limit the
+number of points or the dimension of the space they are from. Please
+note further that quantifier elimination is a computationally expensive
+operation and therefore this program is only useful as a benchmark
+for the projector and not so for the intended purpose.
+</p>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPQR-Turning-Answers-into-Terms.html#CLPQR-Turning-Answers-into-Terms" accesskey="p" rel="prev">Previous</a>
+<li><a href="CLPQR-Projection.html#CLPQR-Projection" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Projecting-Inequalities.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Projecting-Inequalities.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

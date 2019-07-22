@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: N Queens</title>
+
+<meta name="description" content="SICStus Prolog: N Queens">
+<meta name="keywords" content="SICStus Prolog: N Queens">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CLPFD-Example-Programs.html#CLPFD-Example-Programs" rel="up" title="CLPFD Example Programs">
+<link href="Cumulative-Scheduling.html#Cumulative-Scheduling" rel="next" title="Cumulative Scheduling">
+<link href="Send-More-Money.html#Send-More-Money" rel="prev" title="Send More Money">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="N-Queens"></a>
+<hr>
+<a name="N-Queens-1"></a>
+<h4 class="subsubsection">10.10.12.2 N Queens</h4>
+
+<p>The problem is to place N queens on an NxN chess board so that no queen
+is threatened by another queen.
+</p>
+<p>The variables of this problem are the N queens.  Each queen has a
+designated row.  The problem is to select a column for it.
+</p>
+<p>The main constraint of this problem is that no queen threaten another.
+This is encoded by the <code>no_threat/3</code> constraint and holds between
+all pairs <code>(X,Y)</code> of queens.  It could be defined as:
+</p>
+<div class="example">
+<pre class="example">no_threat(X, Y, I) :-
+        X   #\= Y,
+        X+I #\= Y,
+        X-I #\= Y.
+</pre></div>
+
+<p>However, this formulation introduces new temporary domain variables and
+creates twelve fine-grained indexicals.  Worse, the disequalities only
+maintain bounds consistency and so may miss some opportunities for
+pruning elements in the middle of domains.
+</p>
+<p>A better idea is to formulate <code>no_threat/3</code> as an FD predicate with
+two indexicals, as shown in the program below.  This constraint will not
+fire until one of the queens has been assigned (the corresponding
+indexical does not become monotone until then).  Hence, the constraint
+is still not as strong as it could be.
+</p>
+<p>For example, if the domain of one queen is <code>2..3</code>, then it will threaten
+any queen placed in column 2 or 3 on an adjacent row, no matter which of
+the two open positions is chosen for the first queen.  The commented out
+formulation of the constraint captures this reasoning, and illustrates
+the use of the <code>unionof/3</code> operator.  This stronger version of the
+constraint indeed gives less backtracking, but is computationally more
+expensive and does not pay off in terms of execution time, except
+possibly for very large chess boards.
+</p>
+<p>It is clear that <code>no_threat/3</code> cannot detect any incompatible
+values for a queen with domain of size greater than three.  This
+observation is exploited in the third version of the constraint.
+</p>
+<p>The first-fail principle is appropriate in the enumeration part of
+this problem.
+</p>
+<div class="example">
+<pre class="example">:- use_module(library(clpfd)).
+
+queens(N, L, LabelingType) :-
+     length(L, N),
+     domain(L, 1, N),
+     constrain_all(L),
+     labeling(LabelingType, L).
+
+constrain_all([]).
+constrain_all([X|Xs]) :-
+     constrain_between(X, Xs, 1),
+     constrain_all(Xs).
+
+constrain_between(_X, [], _N).
+constrain_between(X, [Y|Ys], N) :-
+     no_threat(X, Y, N),
+     N1 is N+1,
+     constrain_between(X, Ys, N1).
+
+
+% version 1: weak but efficient
+no_threat(X, Y, I) +:
+     X in \({Y} \/ {Y+I} \/ {Y-I}),
+     Y in \({X} \/ {X+I} \/ {X-I}).
+
+/*
+% version 2: strong but very inefficient version
+no_threat(X, Y, I) +:
+    X in unionof(B,dom(Y),\({B} \/ {B+I} \/ {B-I})),
+    Y in unionof(B,dom(X),\({B} \/ {B+I} \/ {B-I})).
+
+% version 3: strong but somewhat inefficient version
+no_threat(X, Y, I) +:
+    X in (4..card(Y)) ? (inf..sup) \/ 
+          unionof(B,dom(Y),\({B} \/ {B+I} \/ {B-I})),
+    Y in (4..card(X)) ? (inf..sup) \/ 
+          unionof(B,dom(X),\({B} \/ {B+I} \/ {B-I})).
+*/
+
+| ?- <kbd>queens(8, L, [ff]).</kbd>
+L = [1,5,8,6,3,7,2,4]
+
+</pre></div>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Cumulative-Scheduling.html#Cumulative-Scheduling" accesskey="n" rel="next">Next</a>
+<li><a href="Send-More-Money.html#Send-More-Money" accesskey="p" rel="prev">Previous</a>
+<li><a href="CLPFD-Example-Programs.html#CLPFD-Example-Programs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/N-Queens.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/N-Queens.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Goal Tests</title>
+
+<meta name="description" content="SICStus Prolog: Goal Tests">
+<meta name="keywords" content="SICStus Prolog: Goal Tests">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Breakpoint-Conditions.html#Breakpoint-Conditions" rel="up" title="Breakpoint Conditions">
+<link href="Source-Tests.html#Source-Tests" rel="next" title="Source Tests">
+<link href="Breakpoint-Conditions.html#Breakpoint-Conditions" rel="prev" title="Breakpoint Conditions">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Goal-Tests"></a>
+<hr>
+<a name="Tests-Related-to-the-Current-Goal"></a>
+<h4 class="subsection">5.9.1 Tests Related to the Current Goal</h4>
+<a name="index-breakpoint-test-condition"></a>
+<a name="index-test-condition_002c-breakpoint"></a>
+
+<p>The following tests give access to basic information about the current invocation.
+</p>
+<dl compact="compact">
+<dt><code>inv(<var>Inv</var>)</code></dt>
+<dd><a name="index-inv_002f1-_0028debugger-condition_0029-1"></a>
+<p>The invocation number of the current goal is <var>Inv</var>. Invocation
+numbers start from 1.
+</p></dd>
+<dt><code>depth(<var>Depth</var>)</code></dt>
+<dd><a name="index-depth_002f1-_0028debugger-condition_0029-1"></a>
+<p>The current execution depth is <var>Depth</var>.
+</p></dd>
+<dt><code>goal(<var>MGoal</var>)</code></dt>
+<dd><a name="index-goal_002f1-_0028debugger-condition_0029-1"></a>
+<p>The current goal is an instance of the module name expanded <var>MGoal</var> template. The
+current goal and <var>MGoal</var> are unified. This condition is equivalent
+to
+<code>subsumes(<var>MGoal</var>,<var>CurrentGoal</var>)</code> (<code>subsumes/2</code> is defined
+in <code>library(terms)</code>, see <a href="lib_002dterms.html#lib_002dterms">lib-terms</a>).
+</p></dd>
+<dt><code>pred(<var>MFunc</var>)</code></dt>
+<dd><a name="index-pred_002f1-_0028debugger-condition_0029-1"></a>
+<p>The module name expanded <var>MFunc</var> template matches (see notes below)
+the functor (<var>M</var><code>:</code><var>F</var><code>/</code><var>N</var>) of the current goal.
+The unification required for matching is carried out.
+</p></dd>
+<dt><code>module(<var>Module</var>)</code></dt>
+<dd><a name="index-module_002f1-_0028debugger-condition_0029"></a>
+<p>The  current goal is invoked from module <var>Module</var>. For compiled
+calls to built-in predicates <var>Module</var> will always be <code>prolog</code>.
+</p></dd>
+<dt><code>goal_private(<var>GoalPriv</var>)</code></dt>
+<dd><a name="index-goal_005fprivate_002f1-_0028debugger-condition_0029-1"></a>
+<p>The private information associated with the current goal is
+<var>GoalPriv</var>. This is initialized to an unbound variable at the
+Call port. It is strongly recommended that <var>GoalPriv</var> be used as an
+open ended list, see <a href="Storing-User-Information-in-the-Backtrace.html#Storing-User-Information-in-the-Backtrace">Storing User Information  in the Backtrace</a>.
+</p></dd>
+<dt><code>exited(<var>Boolean</var>)</code></dt>
+<dd><a name="index-exited_002f1-_0028debugger-condition_0029-1"></a>
+<p><var>Boolean</var> is <code>true</code> if the current invocation has exited,
+and <code>false</code> otherwise. This condition is mainly used for looking at
+past execution states.
+</p></dd>
+<dt><code>parent_inv(<var>Inv</var>)</code></dt>
+<dd><a name="index-parent_005finv_002f1-_0028debugger-condition_0029-1"></a>
+<p>The invocation number of the <em>debugger-parent</em> (see notes below) of
+the current goal is <var>Inv</var>.
+</p></dd>
+<dt><code>ancestor(<var>AncGoal</var>,<var>Inv</var>)</code></dt>
+<dd><a name="index-ancestor_002f2-_0028debugger-condition_0029-1"></a>
+<p>The youngest debugger-ancestor of the current goal, which is an
+instance of
+the module name expanded <var>AncGoal</var> template, is at invocation number
+<var>Inv</var>. The unification required for matching is carried out.
+</p></dd>
+</dl>
+
+<p>Notes:
+</p>
+<a name="index-debugger_002dparent"></a>
+<a name="index-debugger_002dancestor"></a>
+<p>The <em>debugger-parent</em> of a goal is the youngest ancestor
+of the goal present on the backtrace.  This will differ from
+the ordinary parent if not all goals are traced, e.g. if
+the goal in question is reached in zip mode.  A
+<em>debugger-ancestor</em> of a goal is any of its ancestors on
+the backtrace.
+</p>
+<p>In the <code>goal</code> and <code>ancestor</code> tests above, there is a given
+module qualified goal template, say <var>ModT<code>:</code>GoalT</var>,
+and it is matched against a concrete goal term
+<var>Mod<code>:</code>Goal</var> in the execution state.  This matching is carried
+out as follows:
+</p>
+<ol>
+<li> It is checked that <var>Goal</var> is an instance of <var>GoalT</var>.
+</li><li> <var>Goal</var> and <var>GoalT</var> are unified.
+</li><li> It is checked that <var>Mod</var> and <var>ModT</var> are either unifiable (and
+are unified), or name such modules in which <var>Goal</var> has the same
+meaning, i.e. either one of <var>Mod<code>:</code>Goal</var> and
+<var>ModT<code>:</code>Goal</var> is an exported variant of the other, or both are
+imported from the same module.
+</li></ol>
+
+<p>Similar matching rules apply for predicate functors, in the
+<code>pred</code> condition. In this test the argument holds a
+module qualified functor template, say
+<var>ModT<code>:</code>Name<code>/</code>Arity</var>, and this is matched against a
+concrete goal term <var>Mod<code>:</code>Goal</var> in the execution
+state.
+</p>
+<ol>
+<li> It is checked that the functor of <var>Goal</var> unifies with
+<var>Name<code>/</code>Arity</var>, and this unification is carried out.
+</li><li> It is checked that <var>Mod</var> and <var>ModT</var> are either unifiable (and
+are unified), or name such modules in which <var>Goal</var> has the same
+meaning.
+</li></ol>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Source-Tests.html#Source-Tests" accesskey="n" rel="next">Next</a>
+<li><a href="Breakpoint-Conditions.html#Breakpoint-Conditions" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Goal-Tests.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Goal-Tests.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

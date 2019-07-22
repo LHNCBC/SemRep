@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-clause</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-clause">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-clause">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dclose.html#mpg_002dref_002dclose" rel="next" title="mpg-ref-close">
+<link href="mpg_002dref_002dcharacter_005fcount.html#mpg_002dref_002dcharacter_005fcount" rel="prev" title="mpg-ref-character_count">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dclause"></a>
+<hr>
+<a name="clause_002f_005b2_002c3_005d---ISO"></a>
+<h4 class="subsection">11.3.38 <code>clause/[2,3]</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-clause_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-clause_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-63"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>clause(<var>+Head</var>, <var>-Body</var>)</code>
+</p>
+<p><code>clause(<var>+Head</var>, <var>-Body</var>, <var>-Ref</var>)</code>
+</p>
+<p><code>clause(<var>-Head</var>, <var>-Body</var>, <var>+Ref</var>)</code>
+</p>
+<p>Searches the database for a clause whose head matches <var>Head</var>
+and whose body matches <var>Body</var>.
+</p>
+<a name="Arguments-59"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:Head</var></dt>
+<dd><p><em>callable</em>
+</p>
+<p>A term whose functor names a dynamic procedure.
+</p>
+</dd>
+<dt><var>Body</var></dt>
+<dd><p><em>callable</em>
+</p>
+</dd>
+<dt><var>Ref</var></dt>
+<dd><p><em>db_reference</em>
+</p></dd>
+</dl>
+
+<a name="Description-52"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Initially, at least one of <var>Head</var> and <var>Ref</var> must be instantiated.
+</p>
+<p>In the case of unit-clauses, <var>Body</var> is unified with <code>true</code>.
+</p>
+<p>If a procedure consists entirely of unit-clauses, then there is no point in
+calling <code>clause/2</code> on it.  It is simpler and faster to call the procedure.
+</p>
+<p>In <code>clause/3</code>, either <var>Head</var> or <var>Ref</var> must be
+instantiated.  If <var>Ref</var> is instantiated, then <code>(<var>Head</var> :-
+<var>Body</var>)</code> is unified with the clause identified by <var>Ref</var>.  (If
+this clause is a unit-clause, then <var>Body</var> is unified with
+<code>true</code>.)
+</p>
+<p>If the predicate did not previously exist, then
+it is created as a dynamic predicate and <code>clause/2</code> fails.  If
+<var>Ref</var> is not instantiated, then <code>clause/3</code> behaves exactly like
+<code>clause/2</code> except that the database reference is returned.
+</p>
+<p>By default, clauses are accessed with respect to the source module.
+</p>
+<a name="Backtracking-7"></a>
+<h4 class="subheading">Backtracking</h4>
+
+<p>Can be used to backtrack through all the clauses matching a given
+<var>Head</var> and <var>Body</var>.  It fails when there are no (or no further)
+matching clauses in the database.
+</p>
+<a name="Exceptions-54"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p>Neither <var>Head</var> nor <var>Ref</var> is instantiated.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Head</var> is not a callable, or
+<var>Ref</var> is not a well-formed db_reference
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>Procedure is not dynamic.
+</p>
+</dd>
+<dt><code>existence_error</code></dt>
+<dd><p><var>Ref</var> is a well-formed db_reference but does
+not correspond to an existing clause or record.
+</p></dd>
+</dl>
+
+<a name="Comments-3"></a>
+<h4 class="subheading">Comments</h4>
+
+<p>If <code>clause/[2,3]</code> is called on an undefined procedure, then it fails, but before
+failing it makes the procedure dynamic.  This can be useful if you wish to
+prevent unknown procedure catching from happening on a call to that procedure.
+</p>
+<p>It is not a limitation that <var>Head</var> is required to be instantiated in
+<code>clause(<var>Head</var>, <var>Body</var>)</code>, because if you want to backtrack
+through all clauses for all dynamic procedures, then this can be achieved by:
+</p><div class="example">
+<pre class="example">| ?- <kbd>predicate_property(P,dynamic), clause(P,B).</kbd>
+</pre></div>
+
+
+<p>If there are clauses with a given name and arity in several different modules,
+or if the module for some clauses is not known, then the clauses can be accessed
+by first finding the module(s) by means of <code>current_predicate/2</code>.
+For example, if the procedure is <code>f/1</code>:
+</p><div class="example">
+<pre class="example">| ?- <kbd>current_predicate(_,M:f(_)), clause(M:f(X),B).</kbd>
+</pre></div>
+
+
+<p><code>clause/3</code> will only access clauses that are defined in, or
+imported into, the source module, except that the source module can be
+overridden by explicitly naming the appropriate module.
+For example:
+</p><div class="example">
+<pre class="example">| ?- <kbd>assert(foo:bar,R).</kbd>
+
+R = '$ref'(771292,1) 
+
+| ?- <kbd>clause(H,B,'$ref'(771292,1)).</kbd>
+
+no
+| ?- <kbd>clause(foo:H,B,'$ref'(771292,1)).</kbd>
+
+H = bar,
+B = true 
+</pre></div>
+
+
+<p>Accessing a clause using <code>clause/2</code> uses first argument indexing when
+possible, in just the same way that calling a procedure uses first argument
+indexing.  See <a href="Indexing.html#Indexing">Indexing</a>.
+</p>
+<p><code>clause/2</code> is part of the ISO Prolog standard; <code>clause/3</code> is not.
+</p>
+<a name="See-Also-60"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>instance/2</code>,
+<code>assert/[1,2]</code>,
+<code>dynamic/1</code>,
+<code>retract/1</code>,
+<a href="ref_002dmdb_002dacl.html#ref_002dmdb_002dacl">ref-mdb-acl</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dclose.html#mpg_002dref_002dclose" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dcharacter_005fcount.html#mpg_002dref_002dcharacter_005fcount" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dclause.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dclause.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

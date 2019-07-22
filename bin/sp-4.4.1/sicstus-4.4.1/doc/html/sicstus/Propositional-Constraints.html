@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Propositional Constraints</title>
+
+<meta name="description" content="SICStus Prolog: Propositional Constraints">
+<meta name="keywords" content="SICStus Prolog: Propositional Constraints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Available-Constraints.html#Available-Constraints" rel="up" title="Available Constraints">
+<link href="Arithmetic_002dLogical-Constraints.html#Arithmetic_002dLogical-Constraints" rel="next" title="Arithmetic-Logical Constraints">
+<link href="Membership-Constraints.html#Membership-Constraints" rel="prev" title="Membership Constraints">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Propositional-Constraints"></a>
+<hr>
+<a name="Propositional-Constraints-1"></a>
+<h4 class="subsubsection">10.10.4.3 Propositional Constraints</h4>
+
+<p>Propositional combinators can be used to combine reifiable constraints
+into propositional formulae over such constraints.  Such formulae are
+goal expanded by the system into sequences of reified constraints and
+arithmetic constraints.  For example,
+</p>
+<div class="example">
+<pre class="example">X #= 4 #\/ Y #= 6
+</pre></div>
+
+<p>expresses the disjunction of two equality constraints.
+</p>
+<p>The leaves of propositional formulae can be reifiable constraints, the
+constants 0 and 1, or 0/1-variables.  New primitive, reifiable
+constraints can be defined with indexicals as described in <a href="Defining-Primitive-Constraints.html#Defining-Primitive-Constraints">Defining Primitive Constraints</a>.
+</p>
+<p>The propositional combinators maintain domain consistency and their
+reified versions detect domain entailment and  disentailment.  The
+following propositional combinators are available:
+</p>
+<dl compact="compact">
+<dt><code>#\ <var>:Q</var> &nbsp;<!-- /@w --> <i>reifiable</i></code></dt>
+<dd>
+<a name="index-_0023_005c-_002f1-_0028clpfd_0029-1"></a>
+<a name="index-_0023_005c-_002f1-_0028clpfd_0029"></a>
+
+<p>True if the constraint <var>Q</var> is false.
+</p>
+</dd>
+<dt><code><var>:P</var> #/\ <var>:Q</var> &nbsp;<!-- /@w --> <i>reifiable</i></code></dt>
+<dd>
+<a name="index-_0023_002f_005c-_002f2-_0028clpfd_0029-1"></a>
+<a name="index-_0023_002f_005c-_002f2-_0028clpfd_0029"></a>
+
+<p>True if the constraints <var>P</var> and <var>Q</var> are both true.
+</p>
+</dd>
+<dt><code><var>:P</var> #\ <var>:Q</var> &nbsp;<!-- /@w --> <i>reifiable</i></code></dt>
+<dd>
+<a name="index-_0023_005c-_002f2-_0028clpfd_0029-1"></a>
+<a name="index-_0023_005c-_002f2-_0028clpfd_0029"></a>
+
+<p>True if exactly one of the constraints <var>P</var> and <var>Q</var> is true.
+</p>
+</dd>
+<dt><code><var>:P</var> #\/ <var>:Q</var> &nbsp;<!-- /@w --> <i>reifiable</i></code></dt>
+<dd>
+<a name="index-_0023_005c_002f-_002f2-_0028clpfd_0029-1"></a>
+<a name="index-_0023_005c_002f-_002f2-_0028clpfd_0029"></a>
+
+<p>True if at least one of the constraints <var>P</var> and <var>Q</var> is true.
+</p>
+</dd>
+<dt><code><var>:P</var> #=&gt; <var>:Q</var> &nbsp;<!-- /@w --> <i>reifiable</i></code></dt>
+<dt><code><var>:Q</var> #&lt;= <var>:P</var> &nbsp;<!-- /@w --> <i>reifiable</i></code></dt>
+<dd>
+<a name="index-_0023_003d_003e-_002f2-_0028clpfd_0029-1"></a>
+<a name="index-_0023_003d_003e-_002f2-_0028clpfd_0029"></a>
+
+
+<a name="index-_0023_003c_003d-_002f2-_0028clpfd_0029-1"></a>
+<a name="index-_0023_003c_003d-_002f2-_0028clpfd_0029"></a>
+
+<p>True if the constraint <var>Q</var> is true or the constraint <var>P</var> is false.
+</p>
+</dd>
+<dt><code><var>:P</var> #&lt;=&gt; <var>:Q</var> &nbsp;<!-- /@w --> <i>reifiable</i></code></dt>
+<dd>
+<a name="index-_0023_003c_003d_003e-_002f2-_0028clpfd_0029-3"></a>
+<a name="index-_0023_003c_003d_003e-_002f2-_0028clpfd_0029-1"></a>
+
+<p>True if the constraints <var>P</var> and <var>Q</var> are both true or both false.
+</p></dd>
+</dl>
+
+<p>Note that the reification scheme introduced in <a href="Reified-Constraints.html#Reified-Constraints">Reified Constraints</a>
+is a special case of a propositional constraint.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Arithmetic_002dLogical-Constraints.html#Arithmetic_002dLogical-Constraints" accesskey="n" rel="next">Next</a>
+<li><a href="Membership-Constraints.html#Membership-Constraints" accesskey="p" rel="prev">Previous</a>
+<li><a href="Available-Constraints.html#Available-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Propositional-Constraints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Propositional-Constraints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

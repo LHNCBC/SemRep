@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-user_write</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-user_write">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-user_write">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="Command-Reference-Pages.html#Command-Reference-Pages" rel="next" title="Command Reference Pages">
+<link href="cpg_002dref_002duser_005fread.html#cpg_002dref_002duser_005fread" rel="prev" title="cpg-ref-user_read">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002duser_005fwrite"></a>
+<hr>
+<a name="user_005fwrite_0028_0029"></a>
+<h4 class="subsection">12.3.108 <code>user_write()</code></h4>
+<a name="index-user_005fwrite_0028_0029-_0028C-function_0029"></a>
+
+<a name="Synopsis-388"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">spio_t_error_code
+user_write(
+  void *user_data,
+  void const *buf,
+  size_t *pbuf_size,
+  spio_t_bits write_options
+  );
+</pre></div>
+
+<p>This is the prototype for one of the <em>methods</em> of user defined
+streams. It is used when SICStus wants to write data to the
+user defined stream.
+</p>
+<a name="Arguments-357"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>user_data</var></dt>
+<dd><p>The same value as was passed to <code>SP_create_stream()</code>.
+</p>
+</dd>
+<dt><var>buf</var></dt>
+<dd><p>Points to a buffer allocated by the caller containing the data to be written.
+</p>
+</dd>
+<dt><var>pbuf_size</var></dt>
+<dd><p>Points to the size of the buffer, always positive. When this function
+returns successfully, <code>*pbuf_size</code> should be set to the number of
+bytes actually written, which should always be positive for
+successful return.
+</p>
+<p>Note that buffer size is measured in bytes also for text streams.
+</p>
+</dd>
+<dt><var>write_options</var></dt>
+<dd><p>The following bits can be set:
+</p>
+<dl compact="compact">
+<dt><code>SPIO_DEVICE_WRITE_OPTION_BINARY</code></dt>
+<dd>
+<p>This is always specified if the device was created as a binary
+device. The buffer contains <code>*pbuf_size</code> bytes.
+</p>
+</dd>
+<dt><code>SPIO_DEVICE_WRITE_OPTION_TEXT</code></dt>
+<dd>
+<p>This is always specified if the device was created as a text
+device. The buffer contains wide characters, i.e.
+<code>spio_t_wchar</code>. Note that <code>*buf_size</code> is size in
+<em>bytes</em>, not in characters.
+</p>
+</dd>
+<dt><code>SPIO_DEVICE_WRITE_OPTION_NONBLOCKING</code></dt>
+<dd>
+<p>If this is set, the function should return <em>quickly</em>,
+either with some data written or with a <code>SPIO_E_WOULD_BLOCK</code>
+code.
+</p>
+<p>If your <code>user_write</code> will never block, you can ignore this value.
+</p>
+<p>You should return <code>SPIO_E_NOT_SUPPORTED</code> if <code>user_write</code>
+cannot support non-blocking write.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<a name="Return-Value-100"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, <code>*pbuf_size</code> should be assigned to with the number of
+bytes written and <code>SPIO_S_NOERR</code> or some other success code
+returned.  On success, something must have been written, e.g.
+<code>*pbuf_size</code> must be set to a positive value.
+</p>
+<p>On failure, return a SPIO error code. Error codes with special meaning
+for <code>user_write</code>:
+</p>
+<dl compact="compact">
+<dt><code>SPIO_E_END_OF_FILE</code></dt>
+<dd><p>Returned if it is not possible to write more data onto the stream,
+e.g. some underlying device has been closed.
+</p>
+</dd>
+<dt><code>SPIO_E_WOULD_BLOCK</code></dt>
+<dd><p><code>SPIO_DEVICE_WRITE_OPTION_NONBLOCKING</code> was set but the operation
+would block.
+</p>
+</dd>
+<dt><code>SPIO_E_NOT_SUPPORTED</code></dt>
+<dd><p>Some unsupported option, e.g.
+<code>SPIO_DEVICE_WRITE_OPTION_NONBLOCKING</code>,  was passed.
+</p></dd>
+</dl>
+
+<p>Other error codes may also be returned.
+</p>
+<a name="Description-226"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Should write up to <code>*buf_size</code> bytes of data from
+<code>buf</code>. Data could be either bytes, for a binary device, or wide
+characters, for a text device.
+</p>
+<a name="See-Also-385"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="cpg_002dref_002dSP_005fcreate_005fstream.html#cpg_002dref_002dSP_005fcreate_005fstream">cpg-ref-SP_create_stream</a>.
+<a href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002duser_005fread.html#cpg_002dref_002duser_005fread" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002duser_005fwrite.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002duser_005fwrite.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

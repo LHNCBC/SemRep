@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-op</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-op">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-op">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dopen.html#mpg_002dref_002dopen" rel="next" title="mpg-ref-open">
+<link href="mpg_002dref_002donce.html#mpg_002dref_002donce" rel="prev" title="mpg-ref-once">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dop"></a>
+<hr>
+<a name="op_002f3---ISO"></a>
+<h4 class="subsection">11.3.147 <code>op/3</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-op_002f3-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-op_002f3-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-172"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>op(<var>+Precedence</var>, <var>+Type</var>, <var>+Name</var>)</code>
+</p>
+<p>declares <var>Name</var> to be an operator of the stated
+<var>Type</var> and <var>Precedence</var>.
+</p>
+<a name="Arguments-157"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Precedence</var></dt>
+<dd><p><em>integer</em>, must be nonvar and in the range 1-1200
+</p>
+</dd>
+<dt><var>Type</var></dt>
+<dd><p><em>one of <code>[xfx,xfy,yfx,fx,fy,xf,yf]</code></em>, must be nonvar
+</p>
+</dd>
+<dt><var>Name</var></dt>
+<dd><p><em>atom</em> or <em>list of atom</em>, must be ground
+</p></dd>
+</dl>
+
+<a name="Description-124"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Operators are a notational convenience
+to read and write Prolog terms. You can define new operators using
+<code>op/3</code>.
+</p>
+<p>The <var>Precedence</var> of an operator is used to disambiguate the way
+terms are parsed. The general rule is that the operator with the
+highest precedence is the principal functor.
+</p>
+<p>The <var>Type</var> of an operator decides the position of an operator
+and its associativity. In the atom that represents the type
+the character &lsquo;<samp>f</samp>&rsquo; represents the position of the operator.
+For example, a type &lsquo;<samp>fx</samp>&rsquo; says that the operator is a prefix operator.
+The character &lsquo;<samp>y</samp>&rsquo; indicates that the operator is associative
+in that direction. For example, an operator of type
+&lsquo;<samp>xfy</samp>&rsquo; is a right-associative, infix operator.
+</p>
+<p>To cancel the operator properties of <var>Name</var>
+(if any) set <var>Precedence</var> to 0.
+</p>
+<p><strong>Please note</strong>: operators are <em>global</em>, as opposed to being
+local to the current module, Prolog text, or otherwise.
+<a name="index-operators"></a>
+</p>
+<a name="Exceptions-163"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p>An argument is not ground
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Precedence</var> is not an integer
+or <var>Type</var> is not an integer
+or an operator is not an atom
+</p>
+</dd>
+<dt><code>domain_error</code></dt>
+<dd><p><var>Precedence</var> is not in the range 1-1200, or <var>Type</var> is invalid,
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>Attempt to redefine the operator <code>','</code>
+</p></dd>
+</dl>
+
+<a name="See-Also-169"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>current_op/3</code>, <a href="ref_002dsyn_002dops.html#ref_002dsyn_002dops">ref-syn-ops</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dopen.html#mpg_002dref_002dopen" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002donce.html#mpg_002dref_002donce" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dop.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dop.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

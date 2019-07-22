@@ -1,0 +1,9 @@
+%-----------------------------------------------------------------------------%
+% Require that the value_precede constraint is true for every pair of adjacent
+% integers in 'c' in the array 'x'.
+%-----------------------------------------------------------------------------%
+array[1 .. 4] of var 1 .. 4: x :: output_array([1..4]);
+
+constraint value_precede_chain_sicstus([1,2,3], x);
+
+solve satisfy;

@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lod-dcl</title>
+
+<meta name="description" content="SICStus Prolog: ref-lod-dcl">
+<meta name="keywords" content="SICStus Prolog: ref-lod-dcl">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlod.html#ref_002dlod" rel="up" title="ref-lod">
+<link href="Multifile-Declarations.html#Multifile-Declarations" rel="next" title="Multifile Declarations">
+<link href="ref_002dlod_002drpx.html#ref_002dlod_002drpx" rel="prev" title="ref-lod-rpx">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlod_002ddcl"></a>
+<hr>
+<a name="Declarations-and-Initializations"></a>
+<h4 class="subsection">4.3.4 Declarations and Initializations</h4>
+
+<a name="index-predicate-declaration"></a>
+<a name="index-declaration_002c-predicate"></a>
+<p>When a program is to be loaded, it is sometimes necessary to
+tell the system to treat some of the predicates specially.  This
+information is supplied by including <em>declarations</em> about such
+predicates in the source file, preceding any clauses for the
+predicates that they concern.  A declaration is written just
+as a directive is, beginning with &lsquo;<samp>:-</samp>&rsquo;.  A declaration is
+effective from its occurrence through the end of file.
+</p>
+<p>Although declarations that affect more than one predicate
+may be collapsed into a single declaration, the recommended style
+is to write the declarations for a predicate immediately
+before its first clause.
+</p>
+<a name="index-operator-declaration"></a>
+<a name="index-declaration_002c-operator"></a>
+<p>Operator declarations are not declarations proper, but
+rather directives that modify the global table of syntax
+operators.  Operator declarations are executed as they
+are encountered while loading programs.
+</p>
+<p>The rest of this section details the available forms of predicate
+declarations.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Multifile-Declarations.html#Multifile-Declarations" accesskey="1">Multifile Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Multifile Declarations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Dynamic-Declarations.html#Dynamic-Declarations" accesskey="2">Dynamic Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Dynamic Declarations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Volatile-Declarations.html#Volatile-Declarations" accesskey="3">Volatile Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Volatile Declarations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Discontiguous-Declarations.html#Discontiguous-Declarations" accesskey="4">Discontiguous Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Discontiguous Declarations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Block-Declarations.html#Block-Declarations" accesskey="5">Block Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Block Declarations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Meta_002dPredicate-Declarations.html#Meta_002dPredicate-Declarations" accesskey="6">Meta-Predicate Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Meta-Predicate Declarations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Module-Declarations.html#Module-Declarations" accesskey="7">Module Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Module Declarations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Public-Declarations.html#Public-Declarations" accesskey="8">Public Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Public Declarations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Mode-Declarations.html#Mode-Declarations" accesskey="9">Mode Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Mode Declarations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Include-Declarations.html#Include-Declarations">Include Declarations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Include Declarations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Initializations.html#Initializations">Initializations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Initializations
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlod_002dexp.html#ref_002dlod_002dexp" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlod_002drpx.html#ref_002dlod_002drpx" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlod.html#ref_002dlod" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlod_002ddcl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlod_002ddcl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

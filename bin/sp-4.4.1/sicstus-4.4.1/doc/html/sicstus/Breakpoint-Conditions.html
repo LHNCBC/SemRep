@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Breakpoint Conditions</title>
+
+<meta name="description" content="SICStus Prolog: Breakpoint Conditions">
+<meta name="keywords" content="SICStus Prolog: Breakpoint Conditions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Debug-Intro.html#Debug-Intro" rel="up" title="Debug Intro">
+<link href="Goal-Tests.html#Goal-Tests" rel="next" title="Goal Tests">
+<link href="Breakpoint-Processing.html#Breakpoint-Processing" rel="prev" title="Breakpoint Processing">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Breakpoint-Conditions"></a>
+<hr>
+<a name="Breakpoint-Conditions-1"></a>
+<h3 class="section">5.9 Breakpoint Conditions</h3>
+<a name="index-conditions_002c-breakpoint"></a>
+<a name="index-breakpoint-conditions"></a>
+
+
+<p>This section describes the format of simple breakpoint conditions.
+We first list the tests that can be used to enquire the state of
+execution. We then proceed to describe the conditions usable in the
+action part and the options for focusing on past execution
+states. Finally, we describe condition macros and the format of the
+values of the debugger action variables.
+</p>
+<a name="index-non_002dbacktraced-tests"></a>
+<p>We distinguish between two kinds of tests, based on whether they refer
+to information stored in the backtrace or not. The latter
+category, the <em>non-backtraced tests</em>, contains the conditions
+related to the current port (<code>port</code>, <code>bid</code>, <code>mode</code>,
+<code>show</code>, <code>command</code>, <code>get</code>) and the breakpoint type
+selection conditions (<code>advice</code> and <code>debug</code>). All remaining
+tests refer to information stored in the backtrace.
+</p>
+<p>Non-backtraced tests will raise an exception, if they appear in
+calls to <code>execution_state/1</code> from outside the debugger, or in
+queries about past execution state, in <code>execution_state/2</code>.
+</p>
+<p>Backtraced tests are allowed both inside and outside the
+debugger. However such tests can fail if the given query is not
+meaningful in the given context, e.g. if
+<code>execution_state(goal(G))</code> is queried before any breakpoints
+were encountered.
+</p>
+<p>Note that if a test is used in the second argument of
+<code>execution_state/2</code>, then the term <em>current</em>, in the
+following descriptions, should be interpreted as referring to the
+execution state focused on (described by the first argument of
+<code>execution_state/2</code>).
+</p>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Goal-Tests.html#Goal-Tests" accesskey="1">Goal Tests</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tests Related to the Current Goal
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Source-Tests.html#Source-Tests" accesskey="2">Source Tests</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tests Related to Source Information
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Port-Tests.html#Port-Tests" accesskey="3">Port Tests</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tests Related to the Current Port
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Break-Tests.html#Break-Tests" accesskey="4">Break Tests</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tests Related to the Break Level
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Other-Tests.html#Other-Tests" accesskey="5">Other Tests</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Other Conditions
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Action-Conditions.html#Action-Conditions" accesskey="6">Action Conditions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Conditions Usable in the Action Part
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Past-States.html#Past-States" accesskey="7">Past States</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Options for Focusing on a Past State
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Condition-Macros.html#Condition-Macros" accesskey="8">Condition Macros</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Condition Macros
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="Action-Variables.html#Action-Variables" accesskey="9">Action Variables</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">The Action Variables
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Consult.html#Consult" accesskey="n" rel="next">Next</a>
+<li><a href="Breakpoint-Processing.html#Breakpoint-Processing" accesskey="p" rel="prev">Previous</a>
+<li><a href="Debug-Intro.html#Debug-Intro" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Breakpoint-Conditions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Breakpoint-Conditions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

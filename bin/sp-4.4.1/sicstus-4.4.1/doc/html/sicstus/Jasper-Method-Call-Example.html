@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Jasper Method Call Example</title>
+
+<meta name="description" content="SICStus Prolog: Jasper Method Call Example">
+<meta name="keywords" content="SICStus Prolog: Jasper Method Call Example">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Jasper-Library.html#The-Jasper-Library" rel="up" title="The Jasper Library">
+<link href="Jasper-Library-Predicates.html#Jasper-Library-Predicates" rel="next" title="Jasper Library Predicates">
+<link href="The-Jasper-Library.html#The-Jasper-Library" rel="prev" title="The Jasper Library">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Jasper-Method-Call-Example"></a>
+<hr>
+<a name="Jasper-Method-Call-Example-1"></a>
+<h4 class="subsubsection">10.19.8.1 Jasper Method Call Example</h4>
+<p>We begin with a small example.
+</p>
+<div class="example">
+<pre class="example"><em>// Simple.java</em>
+</pre><pre class="example">import se.sics.jasper.*;
+
+public class Simple {
+  private String instanceDatum = &quot;this is instance data&quot;;
+
+  static int simpleMethod(int value) {
+    return value*42;
+  }
+
+  public String getInstanceData(String arg) {
+    return instanceDatum + arg;
+  }
+}
+</pre></div>
+
+<p>Compile <samp>Simple.java</samp> (UNIX):
+</p><div class="example">
+<pre class="example">% <kbd>javac -deprecation \</kbd>
+  <kbd>-classpath &lt;installdir&gt;/lib/sicstus-4.4.1/bin/jasper.jar Simple.java</kbd>
+</pre></div>
+
+<p>Under Windows this may look like (the command should go on a single line):
+</p><div class="example">
+<pre class="example">C:\&gt; <kbd>c:\jdk1.2.2\bin\javac -deprecation</kbd>
+ <kbd>-classpath &quot;D:\Program Files\SICStus Prolog 4.4.1\bin\jasper.jar&quot; Simple.java</kbd>
+</pre></div>
+
+<p>The option &lsquo;<samp>-deprecation</samp>&rsquo; is always a good idea, it makes <code>javac</code> warn if your
+code use deprecated methods.
+</p>
+<div class="example">
+<pre class="example"><em>% simple.pl</em>
+</pre><pre class="example">:- use_module(library(jasper)).
+main :-
+   %% Replace '/my/java/dir' below with the path containing
+   %% 'Simple.class', e.g. to look in the current directory use
+   %% classpath(['.']). 
+   %% You can also use the CLASSPATH environment variable and call
+   %% jasper_initialize(JVM)
+   %% Under Windows it may look like classpath(['C:/MyTest'])
+   jasper_initialize([classpath(['/my/java/dir'])],JVM),
+
+   format('Calling a static method...~n',[]),      
+   jasper_call(JVM,
+               method('Simple','simpleMethod',[static]), % Which method
+               simple_method(+integer,[-integer]), % Types of arguments 
+               simple_method(42,X)), % The arguments.
+   format('simpleMethod(~w) = ~w~n',[42,X]),
+   
+   format('Creating an object...~n',[]),
+   jasper_new_object(JVM, 'Simple', init, init, Object),
+   
+   format('Calling an instance method on ~w...~n',[Object]),
+   jasper_call(JVM,
+               method('Simple','getInstanceData',[instance]),
+               %% first arg is the instance to call
+               get_instance_data(+object('Simple'), +string,[-string]),
+               get_instance_data(Object, 'foobar', X1)),
+   format('getInstanceData(~w) = ~w~n',['foobar',X1]).
+</pre></div>
+
+<p>Then, run SICStus:
+</p>
+<div class="example">
+<pre class="example">% <kbd>echo &quot;[simple],main.&quot; | sicstus</kbd>
+SICStus 4.4.1 &hellip;
+Licensed to SICS
+% consulting /home1/jojo/simple.pl...
+[...]
+% consulted /home1/jojo/simple.pl in module user, 100 msec 26644 bytes
+Calling a static method...
+simpleMethod(42) = 1764
+Creating an object...
+Calling and instance method on $java_object(135057576)...
+getInstanceData(foobar) = this is instance datafoobar
+</pre></div>
+
+<p>This example performed three things.
+</p>
+<ul>
+<li> The static method <code>simpleMethod</code> was called with argument
+&rsquo;42&rsquo;, and returned the square of &rsquo;42&rsquo;, &rsquo;1764&rsquo;.
+</li><li> An object of class <code>Simple</code> was created.
+</li><li> The method <code>getInstanceData</code> was executed on the object just
+created. The method took an atom as an argument and appended the atom to
+a string stored as a field in the object, yielding &quot;this is instance
+datafoobar&quot;.
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Jasper-Library-Predicates.html#Jasper-Library-Predicates" accesskey="n" rel="next">Next</a>
+<li><a href="The-Jasper-Library.html#The-Jasper-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Jasper-Method-Call-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Jasper-Method-Call-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,126 @@
+
+#############################################################################
+#
+#                          PUBLIC DOMAIN NOTICE                         
+#         Lister Hill National Center for Biomedical Communications
+#                      National Library of Medicine
+#                      National Institues of Health
+#           United States Department of Health and Human Services
+#                                                                         
+#  This software is a United States Government Work under the terms of the
+#  United States Copyright Act. It was written as part of the authors'
+#  official duties as United States Government employees and contractors
+#  and thus cannot be copyrighted. This software is freely available
+#  to the public for use. The National Library of Medicine and the
+#  United States Government have not placed any restriction on its
+#  use or reproduction.
+#                                                                        
+#  Although all reasonable efforts have been taken to ensure the accuracy 
+#  and reliability of the software and data, the National Library of Medicine
+#  and the United States Government do not and cannot warrant the performance
+#  or results that may be obtained by using this software or data.
+#  The National Library of Medicine and the U.S. Government disclaim all
+#  warranties, expressed or implied, including warranties of performance,
+#  merchantability or fitness for any particular purpose.
+#                                                                         
+#  For full details, please see the MetaMap Terms & Conditions, available at
+#  http://metamap.nlm.nih.gov/MMTnCs.shtml.
+#
+############################################################################
+
+# All comments start with a '#' character in col 1.
+# Empty lines and lines with only whitespace are ignored.
+#
+# @(#)lm.rules	1.1	09/18/06
+#
+# This file describes the rules used to generate inflections.
+#
+# The format is as follows:
+#
+#   <in pattern>|<in cat>|<in infl>|<rule>|<out pattern>|<out cat>|<out infl>
+#
+# where:
+#
+#   <in pattern> is an input pattern to match as a suffix.
+#     Lowercase characters are matched as literals.  Uppercase letters
+#     have the following meaning: D=digit [0-9], L=any letter, ^=start
+#     $=end, [AEIOU]=any vowel, [BCFGHJKMNPQRSTVWXYZ]=any consonant.
+#     The same uppercase letter used in the output pattern unifies with
+#     the actual character that matched the input.
+#   <in cat> is the input category and must be one of: adj, noun or verb.
+#   <in infl> is the input inflection and must be one of: base, singular,
+#     positive, infinitive, plural, comparative, superlative, present,
+#     ing or past.
+#   <rule> is the applicable rule and must be one of: reg, regd, glreg or irreg
+#   <out cat> refers to output category.
+#   <out infl> refers to output inflection.
+#
+# The rules are stated to mean that if the input matches the pattern and is
+# of the appropriate category and inflection, then the stated rule generates
+# the output inflection.  Note that rules only need be stated in one direction.
+# The reverse rules are automatically generated.  Duplicate identical rules
+# are unique'ed out.
+
+
+# Adjective rules
+Cy$|adj|positive|reg|Cier$|adj|comparative
+Cy$|adj|positive|reg|Ciest$|adj|superlative
+
+CEX$|adj|positive|regd|CEXXer$|adj|comparative
+CEX$|adj|positive|regd|CEXXest$|adj|superlative
+
+e$|adj|positive|reg|er$|adj|comparative
+e$|adj|positive|reg|est$|adj|superlative
+
+$|adj|positive|reg|er$|adj|comparative
+$|adj|positive|reg|est$|adj|superlative
+
+# Noun rules (reg)
+^L$|noun|singular|reg|^L's$|noun|plural
+D$|noun|singular|reg|D's$|noun|plural
+Cy$|noun|singular|reg|Cies$|noun|plural
+Co$|noun|singular|reg|Cos$|noun|plural
+ch$|noun|singular|reg|ches$|noun|plural
+sh$|noun|singular|reg|shes$|noun|plural
+s$|noun|singular|reg|ses$|noun|plural
+x$|noun|singular|reg|xes$|noun|plural
+z$|noun|singular|reg|zes$|noun|plural
+$|noun|singular|reg|s$|noun|plural
+
+# Noun rules (glreg)
+us$|noun|singular|glreg|i$|noun|plural
+ma$|noun|singular|glreg|mata$|noun|plural
+a$|noun|singular|glreg|ae$|noun|plural
+um$|noun|singular|glreg|a$|noun|plural
+on$|noun|singular|glreg|a$|noun|plural
+sis$|noun|singular|glreg|ses$|noun|plural
+is$|noun|singular|glreg|ides$|noun|plural
+men$|noun|singular|glreg|mina$|noun|plural
+ex$|noun|singular|glreg|ices$|noun|plural
+x$|noun|singular|glreg|ces$|noun|plural
+
+# Verb rules (present)
+Cy$|verb|infinitive|reg|Cies$|verb|present
+s$|verb|infinitive|reg|ses$|verb|present
+x$|verb|infinitive|reg|xes$|verb|present
+z$|verb|infinitive|reg|zes$|verb|present
+ch$|verb|infinitive|reg|ches$|verb|present
+sh$|verb|infinitive|reg|shes$|verb|present
+Co$|verb|infinitive|reg|Cos$|verb|present
+CEX$|verb|infinitive|regd|CEXs$|verb|present
+$|verb|infinitive|reg|s$|verb|present
+
+# Verb rules (past)
+Cy$|verb|infinitive|reg|Cied$|verb|past
+CEX$|verb|infinitive|regd|CEXXed$|verb|past
+e$|verb|infinitive|reg|ed$|verb|past
+$|verb|infinitive|reg|ed$|verb|past
+
+# Verb rules (ing)
+ie$|verb|infinitive|reg|ying$|verb|ing
+ee$|verb|infinitive|reg|eeing$|verb|ing
+oe$|verb|infinitive|reg|oeing$|verb|ing
+ye$|verb|infinitive|reg|yeing$|verb|ing
+CEX$|verb|infinitive|regd|CEXXing$|verb|ing
+e$|verb|infinitive|reg|ing$|verb|ing
+$|verb|infinitive|reg|ing$|verb|ing

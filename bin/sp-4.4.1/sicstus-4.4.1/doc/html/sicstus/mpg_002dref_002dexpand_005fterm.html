@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-expand_term</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-expand_term">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-expand_term">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dfail.html#mpg_002dref_002dfail" rel="next" title="mpg-ref-fail">
+<link href="mpg_002dref_002dexists.html#mpg_002dref_002dexists" rel="prev" title="mpg-ref-exists">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dexpand_005fterm"></a>
+<hr>
+<a name="expand_005fterm_002f2---hookable"></a>
+<h4 class="subsection">11.3.76 <code>expand_term/2</code> &nbsp;<!-- /@w --> <i>hookable</i></h4>
+<a name="index-expand_005fterm_002f2-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-expand_005fterm_002f2-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-101"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>expand_term(<var>+Term1</var>, <var>-Term2</var>)</code>
+</p>
+<p>Transforms source file terms into Prolog clauses before they are compiled.
+Normally called by the compiler, but can be called directly. The transform
+can be customized by defining <code>user:term_expansion/6</code>.
+</p>
+<p>When a source file is loaded, except by <code>:- include</code>,
+<code>expand_term/2</code> is called with the virtual clauses
+<code>beginning_of_file</code> before and <code>end_of_file</code> after the real
+Prolog clauses, to give <code>user:term_expansion/6</code> an opportunity to
+perform some action at the beginning and end of a source
+file. <strong>Please note</strong>: the virtual clause
+<code>beginning_of_file</code> is &ldquo;seen&rdquo; <em>before</em> any module
+declaration, i.e. before the source module has been updated.
+</p>
+<a name="Arguments-94"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Term1</var></dt>
+<dd><p><em>term</em>
+</p>
+</dd>
+<dt><var>Term2</var></dt>
+<dd><p><em>term</em>
+</p></dd>
+</dl>
+
+<a name="Description-76"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Usually called by the built-in predicates that read code and not directly by
+user programs.
+</p>
+<p>in particular used to translate grammar rules, written with
+<code>--&gt;/2</code>, into ordinary Prolog clauses, written with <code>:-/2</code>.
+If <var>Term1</var> is a grammar rule, then <var>Term2</var> is the
+corresponding clause.  Otherwise <var>Term2</var> is simply <var>Term1</var>
+unchanged.
+</p>
+<p>Calls <code>user:term_expansion/6</code>.
+</p>
+<a name="Exceptions-92"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Prints messages for exceptions raised by <code>user:term_expansion/6</code>.
+</p>
+<a name="See-Also-98"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>phrase/[2,3]</code>,
+<code>--&gt;/2</code>,
+<a href="ref_002dlod_002dexp.html#ref_002dlod_002dexp">ref-lod-exp</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dfail.html#mpg_002dref_002dfail" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dexists.html#mpg_002dref_002dexists" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dexpand_005fterm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dexpand_005fterm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

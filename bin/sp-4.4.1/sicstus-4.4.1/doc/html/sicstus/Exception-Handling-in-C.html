@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Exception Handling in C</title>
+
+<meta name="description" content="SICStus Prolog: Exception Handling in C">
+<meta name="keywords" content="SICStus Prolog: Exception Handling in C">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" rel="up" title="Calling Prolog from C">
+<link href="Reading-a-goal-from-a-string.html#Reading-a-goal-from-a-string" rel="next" title="Reading a goal from a string">
+<link href="Signal-Handling.html#Signal-Handling" rel="prev" title="Signal Handling">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Exception-Handling-in-C"></a>
+<hr>
+<a name="Exception-Handling-in-C-1"></a>
+<h4 class="subsection">6.5.5 Exception Handling in C</h4>
+<a name="index-exception-handling-in-C"></a>
+
+<a name="index-exception-term-1"></a>
+<a name="index-term_002c-exception-1"></a>
+<p>When an exception has been raised, the functions <code>SP_query()</code>,
+<code>SP_query_cut_fail()</code> and <code>SP_next_solution()</code> return
+<code>SP_ERROR</code>.  To access the <em>exception term</em> (the argument
+of the call to <code>raise_exception/1</code>), which is asserted when the
+exception is raised, the function <code>SP_exception_term()</code> is used.
+As a side-effect, the exception term is retracted, so if
+your code wants to pass the exception term back to Prolog, 
+then use <code>SP_raise_exception()</code>.
+<a name="index-SP_005fexception_005fterm_0028_0029-_0028C-function_0029"></a>
+</p>
+<p>To raise an exception from a C function called from Prolog, just call
+<code>SP_raise_exception()</code>.  Upon return, Prolog will detect that an
+exception has been raised, any value returned from the function will be
+ignored, and the exception will be passed back to Prolog.
+<strong>Please note</strong>: this should only be called right before returning
+to Prolog.
+<a name="index-SP_005fraise_005fexception_0028_0029-_0028C-function_0029"></a>
+</p>
+<p>To propagate failure to Prolog, call <code>SP_fail()</code>. Upon return,
+Prolog will backtrack.  <strong>Please note</strong>: this should only be called
+right before returning to Prolog.
+<a name="index-SP_005ffail_0028_0029-_0028C-function_0029"></a>
+</p>
+<a name="index-SP_005fon_005ffault_0028_0029-_0028C-macro_0029"></a>
+<p>Prolog error handling is mostly done by raising and catching exceptions.
+However, some <em>faults</em> are of a nature such that when they occur,
+the internal program state may be corrupted, and it is not safe to
+merely raise an exception.  In runtime systems, the C
+macro <code>SP_on_fault()</code> provides an environment for handling faults.
+</p>
+<a name="index-SP_005fraise_005ffault_0028_0029-_0028C-function_0029"></a>
+<p>The function <code>SP_raise_fault()</code> can be used to raise a fault with an
+encoded string explaining the reason.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Reading-a-goal-from-a-string.html#Reading-a-goal-from-a-string" accesskey="n" rel="next">Next</a>
+<li><a href="Calling-Prolog-Asynchronously.html#Calling-Prolog-Asynchronously" accesskey="p" rel="prev">Previous</a>
+<li><a href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Exception-Handling-in-C.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Exception-Handling-in-C.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

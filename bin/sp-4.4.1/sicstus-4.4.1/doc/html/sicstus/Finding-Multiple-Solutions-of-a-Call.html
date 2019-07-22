@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Finding Multiple Solutions of a Call</title>
+
+<meta name="description" content="SICStus Prolog: Finding Multiple Solutions of a Call">
+<meta name="keywords" content="SICStus Prolog: Finding Multiple Solutions of a Call">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" rel="up" title="Calling Prolog from C">
+<link href="Backtracking-Loops.html#Backtracking-Loops" rel="next" title="Backtracking Loops">
+<link href="Finding-One-Solution-of-a-Call.html#Finding-One-Solution-of-a-Call" rel="prev" title="Finding One Solution of a Call">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Finding-Multiple-Solutions-of-a-Call"></a>
+<hr>
+<a name="Finding-Multiple-Solutions-of-a-Call-1"></a>
+<h4 class="subsection">6.5.2 Finding Multiple Solutions of a Call</h4>
+
+<p>If you are interested in more than one solution, then a more complicated
+scheme is used.  You find the predicate definition as above, but
+you do not call the predicate directly.
+</p>
+<ol>
+<li> Set up a call with <code>SP_open_query()</code>
+</li><li> Call <code>SP_next_solution()</code> to find a solution.  Call this
+predicate again to find more solutions if there are any.
+</li><li> Terminate the call with <code>SP_close_query()</code> or <code>SP_cut_query()</code>
+</li></ol>
+
+<p>The function <code>SP_open_query()</code> will return an identifier of type
+<code>SP_qid</code> that you use in successive calls.  Note that if a new query is
+opened while another is already open, then the new query must be
+terminated before exploring the solutions of the old one.  That is,
+queries must be strictly nested.
+<a name="index-SP_005fqid-_0028C-type_0029"></a>
+<a name="index-SP_005fopen_005fquery_0028_0029-_0028C-function_0029"></a>
+</p>
+<p>The function <code>SP_next_solution()</code> will cause the Prolog engine to
+backtrack over any current solution of an open query and
+look for a new one.
+<a name="index-SP_005fnext_005fsolution_0028_0029-_0028C-function_0029"></a>
+</p>
+<p>A query must be terminated in either of two ways.  The function
+<code>SP_cut_query()</code> will discard the choices created since the
+corresponding <code>SP_open_query()</code>, like the goal <code>!</code>.  The
+current solution is retained in the arguments until
+backtracking into any enclosing query.
+<a name="index-SP_005fcut_005fquery_0028_0029-_0028C-function_0029"></a>
+</p>
+<p>Alternatively, the function <code>SP_close_query()</code> will discard the
+choices created since the corresponding <code>SP_open_query()</code>, and then
+backtrack into the query, throwing away any current
+solution, like the goal <code>!, fail</code>.  
+</p>
+<p>A simple way to call arbitrary Prolog code, whether for one solution or
+for multiple solutions, is to use <code>SP_read_from_string()</code>
+(see <a href="Creating-Prolog-Terms.html#Creating-Prolog-Terms">Creating Prolog Terms</a>) to create an argument to
+<code>call/1</code>. It is a good idea to always explicitly specify the module
+context when using <code>call/1</code> or other meta-predicates from C.
+</p>
+<p>It is important to understand the rules governing the scope of
+SP_term_refs, and the terms they hold, in conjunction with calls from
+Prolog to C and vice versa.  SP_term_refs are internally stored on a stack,
+which is manipulated by the various API functions as follows:
+</p>
+<dl compact="compact">
+<dt><code>SP_new_term_ref()</code></dt>
+<dd><p>The new SP_term_ref is pushed onto the stack.
+</p>
+</dd>
+<dt><em>calling C from Prolog</em></dt>
+<dt><code>SP_query()</code></dt>
+<dt><code>SP_query_cut_fail()</code></dt>
+<dd><p>The top of the stack is saved on call and restored upon return.
+</p>
+</dd>
+<dt><code>SP_open_query()</code></dt>
+<dd><p>The top of the stack is saved in the new query.
+</p>
+</dd>
+<dt><code>SP_close_query()</code></dt>
+<dt><code>SP_cut_query()</code></dt>
+<dt><code>SP_next_solution()</code></dt>
+<dd><p>The top of the stack is restored from the query argument.
+</p></dd>
+</dl>
+
+<p>Among other things, this means that an SP_term_ref cannot be saved
+across multiple calls from Prolog to C.  Thus it makes no sense to declare an
+SP_term_ref as a static C variable.
+</p>
+<p>Prolog terms are also generally stored on a stack, which keeps growing
+until the execution backtracks, either spontaneously or by calling
+<code>SP_close_query()</code> or <code>SP_next_solution()</code>.  It is an abuse of
+the <code>SP_open_query()</code> API to assign a term to an SP_term_ref, and
+then backtrack over the term while the SP_term_ref is still live.  Such
+abuse results in a dangling pointer that can potentially crash SICStus
+Prolog.  The API typically follows the pattern:
+</p>
+<div class="example">
+<pre class="example">  ...
+  SP_pred_ref pred = SP_predicate(...);
+  SP_term_ref ref1 = SP_new_term_ref();
+  SP_qid goal = SP_open_query(pred,ref1,...);
+  /* 
+   * PART A: perform some initializations, and
+   * loop through all solutions.
+   */
+  while (SP_next_solution(goal)==SP_SUCCESS) {
+    /* 
+     * PART B: perform some action on the current solution.
+     */
+  }
+  
+  SP_close_query(goal);
+  ...
+</pre></div>
+
+<p>In order to avoid dangling pointer hazards, we recommend some simple
+coding rules:
+</p>
+<dl compact="compact">
+<dt><b>PART A</b></dt>
+<dd><p>In this part of the code, do not call <code>SP_new_term_ref()</code> or the
+functions in <a href="Creating-Prolog-Terms.html#Creating-Prolog-Terms">Creating Prolog Terms</a> at all.
+</p>
+</dd>
+<dt><b>PART B</b></dt>
+<dd><p>In this part of the code, do not call <code>SP_new_term_ref()</code> except to
+initialize any SP_term_refs declared locally to Part B.  Do Not call the
+functions in <a href="Creating-Prolog-Terms.html#Creating-Prolog-Terms">Creating Prolog Terms</a>, except to set SP_term_refs
+declared locally to Part B.
+</p></dd>
+</dl>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Backtracking-Loops.html#Backtracking-Loops" accesskey="n" rel="next">Next</a>
+<li><a href="Finding-One-Solution-of-a-Call.html#Finding-One-Solution-of-a-Call" accesskey="p" rel="prev">Previous</a>
+<li><a href="Calling-Prolog-from-C.html#Calling-Prolog-from-C" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Finding-Multiple-Solutions-of-a-Call.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Finding-Multiple-Solutions-of-a-Call.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

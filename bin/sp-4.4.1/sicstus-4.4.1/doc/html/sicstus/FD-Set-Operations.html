@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: FD Set Operations</title>
+
+<meta name="description" content="SICStus Prolog: FD Set Operations">
+<meta name="keywords" content="SICStus Prolog: FD Set Operations">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Defining-Global-Constraints.html#Defining-Global-Constraints" rel="up" title="Defining Global Constraints">
+<link href="A-Global-Constraint-Example.html#A-Global-Constraint-Example" rel="next" title="A Global Constraint Example">
+<link href="Reflection-Predicates.html#Reflection-Predicates" rel="prev" title="Reflection Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="FD-Set-Operations"></a>
+<hr>
+<a name="FD-Set-Operations-1"></a>
+<h4 class="subsubsection">10.10.9.3 FD Set Operations</h4>
+<a name="index-FD-set"></a>
+<a name="index-set_002c-FD"></a>
+
+<p>The domains of variables are internally represented compactly as <em>FD
+set</em> terms.  The details of this representation are subject to change
+and should not be relied on.  Therefore, a number of operations on FD
+sets are provided, as such terms play an important role in the
+interface.  The following operations are the primitive ones:
+</p>
+<dl compact="compact">
+<dt><code>is_fdset(<var>+Set</var>)</code></dt>
+<dd>
+<a name="index-is_005ffdset_002f1-_0028clpfd_0029-1"></a>
+<a name="index-is_005ffdset_002f1-_0028clpfd_0029"></a>
+
+<p><var>Set</var> is a valid FD set.
+</p>
+</dd>
+<dt><code>empty_fdset(<var>?Set</var>)</code></dt>
+<dd>
+<a name="index-empty_005ffdset_002f1-_0028clpfd_0029-1"></a>
+<a name="index-empty_005ffdset_002f1-_0028clpfd_0029"></a>
+
+<p><var>Set</var> is the empty FD set.
+</p>
+</dd>
+<dt><code>fdset_parts(<var>?Set</var>, <var>?Min</var>, <var>?Max</var>, <var>?Rest</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fparts_002f4-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fparts_002f4-_0028clpfd_0029"></a>
+
+<p><var>Set</var> is an FD set, which is a union of the non-empty interval
+<var>[Min,Max]</var> and the FD set <var>Rest</var>, and all elements of
+<var>Rest</var> are greater than <var>Max</var>+1.  <var>Min</var> and <var>Max</var> are
+both integers or the atoms <code>inf</code> and <code>sup</code>, denoting minus and
+plus infinity, respectively.  Either <var>Set</var> or all the other
+arguments must be ground.
+</p></dd>
+</dl>
+
+<p>The following operations can all be defined in terms of the primitive
+ones, but in most cases, a more efficient implementation is used:
+</p>
+<dl compact="compact">
+<dt><code>empty_interval(<var>+Min</var>, <var>+Max</var>)</code></dt>
+<dd>
+<a name="index-empty_005finterval_002f2-_0028clpfd_0029-1"></a>
+<a name="index-empty_005finterval_002f2-_0028clpfd_0029"></a>
+
+<p><var>[Min,Max]</var> is an empty interval.
+</p>
+</dd>
+<dt><code>fdset_interval(<var>?Set</var>, <var>?Min</var>, <var>?Max</var>)</code></dt>
+<dd>
+<a name="index-fdset_005finterval_002f3-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005finterval_002f3-_0028clpfd_0029"></a>
+
+<p><var>Set</var> is an FD set, which is the non-empty interval <var>[Min,Max]</var>.
+</p>
+</dd>
+<dt><code>fdset_singleton(<var>?Set</var>, <var>?Elt</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fsingleton_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fsingleton_002f2-_0028clpfd_0029"></a>
+
+<p><var>Set</var> is an FD set containing <var>Elt</var> only.  At least one of the
+arguments must be ground.
+</p>
+</dd>
+<dt><code>fdset_min(<var>+Set</var>, <var>-Min</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fmin_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fmin_002f2-_0028clpfd_0029"></a>
+
+<p><var>Min</var> is the lower bound of <var>Set</var>.
+</p>
+</dd>
+<dt><code>fdset_max(<var>+Set</var>, <var>-Min</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fmax_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fmax_002f2-_0028clpfd_0029"></a>
+
+<p><var>Max</var> is the upper bound of <var>Set</var>.
+This operation is linear in the number of intervals of <var>Set</var>.
+</p>
+</dd>
+<dt><code>fdset_size(<var>+Set</var>, <var>-Size</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fsize_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fsize_002f2-_0028clpfd_0029"></a>
+
+<p><var>Size</var> is the cardinality of <var>Set</var>, represented as <code>sup</code>
+if <var>Set</var> is infinite.
+This operation is linear in the number of intervals of <var>Set</var>.
+</p>
+</dd>
+<dt><code>list_to_fdset(<var>+List</var>, <var>-Set</var>)</code></dt>
+<dd>
+<a name="index-list_005fto_005ffdset_002f2-_0028clpfd_0029-1"></a>
+<a name="index-list_005fto_005ffdset_002f2-_0028clpfd_0029"></a>
+
+<p><var>Set</var> is the FD set containing the elements of <var>List</var>.
+Slightly more efficient if <var>List</var> is ordered.
+</p>
+</dd>
+<dt><code>fdset_to_list(<var>+Set</var>, <var>-List</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fto_005flist_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fto_005flist_002f2-_0028clpfd_0029"></a>
+
+<p><var>List</var> is an ordered list of the elements of <var>Set</var>,
+which must be finite.
+</p>
+</dd>
+<dt><code>range_to_fdset(<var>+Range</var>, <var>-Set</var>)</code></dt>
+<dd>
+<a name="index-range_005fto_005ffdset_002f2-_0028clpfd_0029-1"></a>
+<a name="index-range_005fto_005ffdset_002f2-_0028clpfd_0029"></a>
+
+<p><var>Set</var> is the FD set containing the elements of the
+<var>ConstantRange</var> (see <a href="Syntax-of-Indexicals.html#Syntax-of-Indexicals">Syntax of Indexicals</a>) <var>Range</var>.
+</p>
+</dd>
+<dt><code>fdset_to_range(<var>+Set</var>, <var>-Range</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fto_005frange_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fto_005frange_002f2-_0028clpfd_0029"></a>
+
+<p><var>Range</var> is a constant interval, a singleton constant set, or a
+union of such, denoting the same set as <var>Set</var>.
+</p>
+</dd>
+<dt><code>fdset_add_element(<var>+Set1</var>, <var>+Elt</var> <var>-Set2</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fadd_005felement_002f3-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fadd_005felement_002f3-_0028clpfd_0029"></a>
+
+<p><var>Set2</var> is <var>Set1</var> with <var>Elt</var> inserted in it.
+</p>
+</dd>
+<dt><code>fdset_del_element(<var>+Set1</var>, <var>+Elt</var>, <var>-Set2</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fdel_005felement_002f3-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fdel_005felement_002f3-_0028clpfd_0029"></a>
+
+<p><var>Set2</var> is like <var>Set1</var> but with <var>Elt</var> removed.
+</p>
+</dd>
+<dt><code>fdset_disjoint(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fdisjoint_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fdisjoint_002f2-_0028clpfd_0029"></a>
+
+<p>The two FD sets have no elements in common.  
+</p>
+</dd>
+<dt><code>fdset_intersect(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fintersect_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fintersect_002f2-_0028clpfd_0029"></a>
+
+<p>The two FD sets have at least one element in common.
+</p>
+</dd>
+<dt><code>fdset_intersection(<var>+Set1</var>, <var>+Set2</var>, <var>-Intersection</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fintersection_002f_005b2_002c3_005d-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fintersection_002f_005b2_002c3_005d-_0028clpfd_0029"></a>
+
+<p><var>Intersection</var> is the intersection between <var>Set1</var> and <var>Set2</var>.
+</p>
+</dd>
+<dt><code>fdset_intersection(<var>+Sets</var>, <var>-Intersection</var>)</code></dt>
+<dd><p><var>Intersection</var> is the intersection
+of all the sets in <var>Sets</var>.
+</p>
+</dd>
+<dt><code>fdset_member(<var>?Elt</var>, <var>+Set</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fmember_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fmember_002f2-_0028clpfd_0029"></a>
+
+<p>is true when <var>Elt</var> is a member of <var>Set</var>.  If <var>Elt</var> is
+unbound, then <var>Set</var> must be finite.
+</p>
+</dd>
+<dt><code>fdset_eq(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-fdset_005feq_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005feq_002f2-_0028clpfd_0029"></a>
+
+<p>Is true when the two arguments represent the same set i.e. they
+are identical.
+</p>
+</dd>
+<dt><code>fdset_subset(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fsubset_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fsubset_002f2-_0028clpfd_0029"></a>
+
+<p>Every element of <var>Set1</var> appears in <var>Set2</var>.
+</p>
+</dd>
+<dt><code>fdset_subtract(<var>+Set1</var>, <var>+Set2</var>, <var>-Difference</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fsubtract_002f3-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fsubtract_002f3-_0028clpfd_0029"></a>
+
+<p><var>Difference</var> contains all and only the elements of <var>Set1</var> that
+are not also in <var>Set2</var>. 
+</p>
+</dd>
+<dt><code>fdset_union(<var>+Set1</var>, <var>+Set2</var>, <var>-Union</var>)</code></dt>
+<dd>
+<a name="index-fdset_005funion_002f_005b2_002c3_005d-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005funion_002f_005b2_002c3_005d-_0028clpfd_0029"></a>
+
+<p><var>Union</var> is the union of <var>Set1</var> and <var>Set2</var>.  
+</p>
+</dd>
+<dt><code>fdset_union(<var>+Sets</var>, <var>-Union</var>)</code></dt>
+<dd><p><var>Union</var> is the union of all the sets in <var>Sets</var>.  
+</p>
+</dd>
+<dt><code>fdset_complement(<var>+Set</var>, <var>-Complement</var>)</code></dt>
+<dd>
+<a name="index-fdset_005fcomplement_002f2-_0028clpfd_0029-1"></a>
+<a name="index-fdset_005fcomplement_002f2-_0028clpfd_0029"></a>
+
+<p><var>Complement</var> is the complement of <var>Set</var> wrt. <code>inf..sup</code>.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="A-Global-Constraint-Example.html#A-Global-Constraint-Example" accesskey="n" rel="next">Next</a>
+<li><a href="Reflection-Predicates.html#Reflection-Predicates" accesskey="p" rel="prev">Previous</a>
+<li><a href="Defining-Global-Constraints.html#Defining-Global-Constraints" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/FD-Set-Operations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/FD-Set-Operations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

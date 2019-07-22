@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Predicates for Prolog to Interact with Tcl Interpreters with Tk Extensions</title>
+
+<meta name="description" content="SICStus Prolog: Predicates for Prolog to Interact with Tcl Interpreters with Tk Extensions">
+<meta name="keywords" content="SICStus Prolog: Predicates for Prolog to Interact with Tcl Interpreters with Tk Extensions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Quick-Reference.html#Quick-Reference" rel="up" title="Quick Reference">
+<link href="Commands-for-Tcl-Interpreters-to-Interact-with-The-Prolog-System.html#Commands-for-Tcl-Interpreters-to-Interact-with-The-Prolog-System" rel="next" title="Commands for Tcl Interpreters to Interact with The Prolog System">
+<link href="Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters.html#Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters" rel="prev" title="Predicates for Prolog to Interact with Tcl Interpreters">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters-with-Tk-Extensions"></a>
+<hr>
+<a name="Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters-with-Tk-Extensions-1"></a>
+<h4 class="subsubsection">10.39.6.3 Predicates for Prolog to Interact with Tcl Interpreters with Tk Extensions</h4>
+
+<dl compact="compact">
+<dd>
+<a name="index-tk_005fnew_002f2-_0028tcltk_0029-3"></a>
+<a name="index-tk_005fnew_002f2-_0028tcltk_0029-1"></a>
+
+</dd>
+<dt><code>tk_new(<var>+Options</var>, <var>-Interp</var>)</code></dt>
+<dd><p>Create a Tcl interpreter with Tk extensions.
+</p>
+<p><var>Options</var> should be a list of options described following:
+</p>
+<dl compact="compact">
+<dt><code>top_level_events</code></dt>
+<dd><p>This allows Tk events to be handled while Prolog is waiting
+for terminal input; for example, while the Prolog system is waiting
+for input at the top-level prompt. Without this option, Tk events 
+are not serviced while the Prolog system is waiting for terminal 
+input.
+</p>
+
+</dd>
+<dt><code>name(<var>+ApplicationName</var>)</code></dt>
+<dd><p>This gives the main window a title <var>ApplicationName</var>. 
+This name is also used for communicating between Tcl/Tk 
+applications via the Tcl <code>send</code> command. 
+</p>
+</dd>
+<dt><code>display(<var>+Display</var>)</code></dt>
+<dd><p>(This is X windows specific.) Gives the name of the screen on which
+to create the main window. If this is not given, then the default
+display is determined by the <code>DISPLAY</code> environment variable.
+</p></dd>
+</dl>
+
+
+<a name="index-tk_005fdo_005fone_005fevent_002f_005b0_002c1_005d-_0028tcltk_0029-3"></a>
+<a name="index-tk_005fdo_005fone_005fevent_002f_005b0_002c1_005d-_0028tcltk_0029-1"></a>
+
+</dd>
+<dt><code>tk_do_one_event</code></dt>
+<dt><code>tk_do_one_event(<var>+Options</var>)</code></dt>
+<dd><p>Passes control to Tk to handle a single event before passing control
+back to Prolog. The type of events handled is passed through the
+<var>Options</var> variable, a list of event types and options.
+</p>
+<p>The <var>Options</var> list can contain the following atoms:
+</p>
+<dl compact="compact">
+<dt><code>tk_dont_wait</code></dt>
+<dd><p>do not wait for new events, process only those that are ready
+</p>
+</dd>
+<dt><code>tk_window_events</code></dt>
+<dd><p>process window events
+</p>
+</dd>
+<dt><code>tk_file_events</code></dt>
+<dd><p>process file events
+</p>
+</dd>
+<dt><code>tk_timer_events</code></dt>
+<dd><p>process timer events
+</p>
+</dd>
+<dt><code>tk_idle_events</code></dt>
+<dd><p>process <code>Tcl_DoWhenIdle</code> events
+</p>
+</dd>
+<dt><code>tk_all_events</code></dt>
+<dd><p>process any event
+</p></dd>
+</dl>
+
+<p>Calling <code>tk_do_one_event/0</code> is equivalent to a call to 
+<code>tk_do_one_event/1</code> with all flags set. If the <code>tk_dont_wait</code> 
+flag is set and there is no event to handle, then the call will fail. 
+</p>
+
+<a name="index-tk_005fnext_005fevent_002f_005b2_002c3_005d-_0028tcltk_0029-5"></a>
+<a name="index-tk_005fnext_005fevent_002f_005b2_002c3_005d-_0028tcltk_0029-2"></a>
+
+</dd>
+<dt><code>tk_next_event(<var>+Options</var>, <var>-Event</var>)</code></dt>
+<dt><code>tk_next_event(<var>+Options</var>, <var>+TclInterpreter</var>, <var>-Event</var>)</code></dt>
+<dd><p>These predicates are similar to <code>tk_do_one_event/[0,1]</code>
+except that they processes Tk events until is at least one Prolog event
+happens, when they succeed binding <var>Event</var> to the first
+term on the Prolog event queue associated with the interpreter
+<var>TclInterpreter</var>.
+</p>
+
+<a name="index-tk_005fmain_005floop_002f0-_0028tcltk_0029-3"></a>
+<a name="index-tk_005fmain_005floop_002f0-_0028tcltk_0029-1"></a>
+
+</dd>
+<dt><code>tk_main_loop</code></dt>
+<dd><p>Pass control to Tk until all windows in all Tcl/Tk interpreters are gone.
+</p>
+
+<a name="index-tk_005fmain_005fwindow_002f2-_0028tcltk_0029-3"></a>
+<a name="index-tk_005fmain_005fwindow_002f2-_0028tcltk_0029-1"></a>
+
+</dd>
+<dt><code>tk_main_window(<var>+TclInterpreter</var>, <var>-TkWindow</var>)</code></dt>
+<dd><p>Return in <var>TkWindow</var> a reference to the main window of a Tcl/Tk 
+interpreter with handle passed in <var>TclInterpreter</var>.
+</p>
+
+<a name="index-tk_005fdestroy_005fwindow_002f1-_0028tcltk_0029-3"></a>
+<a name="index-tk_005fdestroy_005fwindow_002f1-_0028tcltk_0029-1"></a>
+
+</dd>
+<dt><code>tk_destroy_window(<var>+TkWindow</var>)</code></dt>
+<dd><p>Destroy a window or widget.
+</p>
+
+<a name="index-tk_005fmake_005fwindow_005fexist_002f1-_0028tcltk_0029-3"></a>
+<a name="index-tk_005fmake_005fwindow_005fexist_002f1-_0028tcltk_0029-1"></a>
+
+</dd>
+<dt><code>tk_make_window_exist(<var>+TkWindow</var>)</code></dt>
+<dd><p>Force display of a window or widget.
+</p>
+
+<a name="index-tk_005fnum_005fmain_005fwindows_002f1-_0028tcltk_0029-3"></a>
+<a name="index-tk_005fnum_005fmain_005fwindows_002f1-_0028tcltk_0029-1"></a>
+
+</dd>
+<dt><code>tk_num_main_windows(<var>-NumberOfWindows</var>)</code></dt>
+<dd><p>Return in <var>NumberOfWindows</var> the total number of Tk main windows
+existing in the system.
+</p></dd>
+</dl>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Commands-for-Tcl-Interpreters-to-Interact-with-The-Prolog-System.html#Commands-for-Tcl-Interpreters-to-Interact-with-The-Prolog-System" accesskey="n" rel="next">Next</a>
+<li><a href="Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters.html#Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters" accesskey="p" rel="prev">Previous</a>
+<li><a href="Quick-Reference.html#Quick-Reference" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters-with-Tk-Extensions.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Predicates-for-Prolog-to-Interact-with-Tcl-Interpreters-with-Tk-Extensions.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

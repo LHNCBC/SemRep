@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-atom_chars</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-atom_chars">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-atom_chars">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002datom_005fcodes.html#mpg_002dref_002datom_005fcodes" rel="next" title="mpg-ref-atom_codes">
+<link href="mpg_002dref_002datom.html#mpg_002dref_002datom" rel="prev" title="mpg-ref-atom">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002datom_005fchars"></a>
+<hr>
+<a name="atom_005fchars_002f2---ISO"></a>
+<h4 class="subsection">11.3.16 <code>atom_chars/2</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-atom_005fchars_002f2-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-atom_005fchars_002f2-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-41"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>atom_chars(<var>+Atom</var>, <var>-Chars</var>)</code>
+</p>
+<p><code>atom_chars(<var>-Atom</var>, <var>+Chars</var>)</code>
+</p>
+<p><var>Chars</var> is the <em>chars</em> comprising the printed
+representation of <var>Atom</var>.
+</p>
+<a name="Arguments-38"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Chars</var></dt>
+<dd><p><em>chars</em>
+</p>
+<p>The <em>chars</em>
+comprising the printed representation of <var>Atom</var>.
+</p>
+</dd>
+<dt><var>Atom</var></dt>
+<dd><p><em>atom</em>
+</p>
+<p>The atom containing
+exactly those characters, even if the characters look like the printed
+representation of a number.
+</p></dd>
+</dl>
+
+
+<a name="Description-38"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Initially, either <var>Atom</var> must be instantiated to an atom, or
+<var>Chars</var> must be instantiated to a proper <em>chars</em>.
+</p>
+<p>Any atom that can be read or written by Prolog can be constructed
+or decomposed by <code>atom_chars/2</code>.
+</p>
+<a name="Exceptions-32"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Atom</var> is uninstantiated and <var>Chars</var> is not instantiated enough.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Atom</var> is not an atom or <var>Chars</var> cannot be unified with a
+<em>chars</em>.
+</p>
+</dd>
+<dt><code>representation_error</code></dt>
+<dd><p><var>Chars</var> is a list corresponding to an atom that can&rsquo;t be represented
+</p></dd>
+</dl>
+
+<p>The check of <var>Chars</var> when <var>Atom</var> is instantiated was added in
+release 4.3 for alignment with the ISO Prolog standard. Previous
+releases simply failed in this case instead of reporting an error for
+malformed <var>Chars</var>.
+</p>
+<a name="See-Also-38"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>atom_codes/2</code>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002datom_005fcodes.html#mpg_002dref_002datom_005fcodes" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002datom.html#mpg_002dref_002datom" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002datom_005fchars.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002datom_005fchars.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

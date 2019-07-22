@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: MiniZinc Prerequisites</title>
+
+<meta name="description" content="SICStus Prolog: MiniZinc Prerequisites">
+<meta name="keywords" content="SICStus Prolog: MiniZinc Prerequisites">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="MiniZinc.html#MiniZinc" rel="up" title="MiniZinc">
+<link href="MiniZinc-Exported-Predicates.html#MiniZinc-Exported-Predicates" rel="next" title="MiniZinc Exported Predicates">
+<link href="MiniZinc.html#MiniZinc" rel="prev" title="MiniZinc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="MiniZinc-Prerequisites"></a>
+<hr>
+<a name="Prerequisites"></a>
+<h4 class="subsubsection">10.48.3.1 Prerequisites</h4>
+
+<p>An external MiniZinc<!-- /@w -->-to-FlatZinc<!-- /@w --> translator must be made available
+to SICStus and must accept:
+</p><ul>
+<li> a MiniZinc<!-- /@w --> program file <code>&lt;model&gt;.mzn</code> as only argument.
+</li><li> the option <samp>--no-optimise</samp> with the meaning
+that the translation should be unoptimized.
+</li><li> the option <samp>--output-fzn-to-file</samp> <var>file</var> with the meaning
+that the translated FlatZinc<!-- /@w --> program is written onto <var>file</var>.
+</li><li> the option <samp>--output-ozn-to-file</samp> <var>file</var> with the meaning
+that the output commands of the FlatZinc<!-- /@w --> program are written onto <var>file</var>.
+</li><li> (multiple instances of) the option <samp>--data</samp> <var>file</var>
+with the meaning that <var>file</var> is an included MiniZinc<!-- /@w --> data
+file.
+</li><li> (multiple instances of) the option <samp>--search-dir</samp>
+<var>dir</var> with the meaning that <var>dir</var> is searched for MiniZinc<!-- /@w --> data
+files and solver specific global constraint definitions.
+</li></ul>
+
+<p>There are two ways to make such a translator available to SICStus:
+</p><ol>
+<li> Set the environment variable <code>MZN2FZN</code> to the location of the
+translator executable.
+</li><li> Put a translator executable named <code>mzn2fzn</code> in a directory included
+in the <code>PATH</code> environment variable.
+</li></ol>
+
+<p>An external solution printer, such as <code>solns2out</code>, should be
+available to SICStus.  This can be done in two ways:
+</p><ol>
+<li> Set the environment variable <code>SOLNS2OUT</code> to the location of the
+translator executable.
+</li><li> Put a translator executable named <code>solns2out</code> in a directory included
+in the <code>PATH</code> environment variable.
+</li></ol>
+
+<p>The MiniZinc<!-- /@w --> distribution includes such <code>mzn2fzn</code> and
+<code>solns2out</code> programs. See <a href="http://www.minizinc.org">http://www.minizinc.org</a> for
+more information and download links.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="MiniZinc-Exported-Predicates.html#MiniZinc-Exported-Predicates" accesskey="n" rel="next">Next</a>
+<li><a href="MiniZinc.html#MiniZinc" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/MiniZinc-Prerequisites.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/MiniZinc-Prerequisites.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

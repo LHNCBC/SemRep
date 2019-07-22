@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lod-rpx</title>
+
+<meta name="description" content="SICStus Prolog: ref-lod-rpx">
+<meta name="keywords" content="SICStus Prolog: ref-lod-rpx">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlod.html#ref_002dlod" rel="up" title="ref-lod">
+<link href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" rel="next" title="ref-lod-dcl">
+<link href="ref_002dlod_002dlod.html#ref_002dlod_002dlod" rel="prev" title="ref-lod-lod">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlod_002drpx"></a>
+<hr>
+<a name="Redefining-Procedures-during-Program-Execution"></a>
+<h4 class="subsection">4.3.3 Redefining Procedures during Program Execution</h4>
+
+<a name="index-procedures_002c-redefining-during-execution"></a>
+
+<a name="index-redefining-procedures_002c-during-execution"></a>
+
+
+<a name="index-break_002f0-_0028built_002din_0029-4"></a>
+<a name="index-break_002f0-_0028built_002din_0029-1"></a>
+
+
+<p>You can redefine procedures during the execution of the program, which
+can be very useful while debugging.  The normal way to do this is to
+use the &lsquo;<samp>break</samp>&rsquo; option of the debugger to enter a break state (see
+<code>break/0</code>, <a href="ref_002dere_002dint.html#ref_002dere_002dint">ref-ere-int</a>), and then load an altered version of
+some procedures.  If you do this, then it is advisable, after redefining
+the procedures and exiting from the break state, to wind the
+computation back to the first call to any of the procedures you are
+changing: you can do this by using the &lsquo;<samp>retry</samp>&rsquo; option with an
+argument that is the invocation number of that call.  If you do not
+wind the computation back like this, then:
+</p><ul>
+<li> if you are in the middle of
+executing a procedure that you redefine, then you will find that the old
+definition of the procedure continues to be used until it exits or fails;
+</li><li> if you should backtrack into a procedure you have just redefined, then
+alternative clauses in the old definition will still be used.
+</li></ul>
+<p>See <a href="mpg_002dref_002dbreak.html#mpg_002dref_002dbreak">mpg-ref-break</a>.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlod_002ddcl.html#ref_002dlod_002ddcl" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dlod_002dlod.html#ref_002dlod_002dlod" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlod.html#ref_002dlod" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlod_002drpx.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlod_002drpx.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

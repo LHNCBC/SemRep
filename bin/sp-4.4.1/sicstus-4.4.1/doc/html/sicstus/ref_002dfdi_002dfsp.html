@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-fdi-fsp</title>
+
+<meta name="description" content="SICStus Prolog: ref-fdi-fsp">
+<meta name="keywords" content="SICStus Prolog: ref-fdi-fsp">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dfdi.html#ref_002dfdi" rel="up" title="ref-fdi">
+<link href="ref_002dfdi_002dfsp_002ddef.html#ref_002dfdi_002dfsp_002ddef" rel="next" title="ref-fdi-fsp-def">
+<link href="ref_002dfdi.html#ref_002dfdi" rel="prev" title="ref-fdi">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dfdi_002dfsp"></a>
+<hr>
+<a name="The-File-Search-Path-Mechanism"></a>
+<h4 class="subsection">4.5.1 The File Search Path Mechanism</h4>
+
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="ref_002dfdi_002dfsp_002ddef.html#ref_002dfdi_002dfsp_002ddef" accesskey="1">ref-fdi-fsp-def</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Defining File Search Paths
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dfdi_002dfsp_002dffs.html#ref_002dfdi_002dfsp_002dffs" accesskey="2">ref-fdi-fsp-ffs</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Frequently Used File Specifications
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="ref_002dfdi_002dfsp_002dpre.html#ref_002dfdi_002dfsp_002dpre" accesskey="3">ref-fdi-fsp-pre</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Predefined File Search Paths
+</td></tr>
+</table>
+
+<a name="index-library_002c-searching-for-a-file-in"></a>
+ 
+<a name="index-searching_002c-for-a-file-in-a-library"></a>
+
+<a name="index-files_002c-searching-for-in-a-library"></a>
+
+
+<p>As a convenience for the developer and as a means for extended portability
+of the final application, SICStus Prolog provides a flexible mechanism
+to localize the definitions of the system dependent parts of the file
+and directory structure a program relies on, in such a way that the
+application can be moved to a different directory hierarchy or to a completely
+new file system, with a minimum of effort.
+</p>
+<p>This mechanism, which can be seen as a generalization of the
+<code>user:library_directory/1</code> scheme available in previous releases, presents
+two main features:
+</p>
+<ol>
+<li> An easy way to create aliases for frequently used directories, thus
+localizing to one single place in the program the physical directory
+name, which typically depends on the file system and directory structure.
+</li><li> A possibility to associate more than one directory specification with each
+alias, thus giving the developer full freedom in sub-dividing libraries,
+and other collections of programs, as it best suits the structure of
+the external file system, without making the process of accessing files
+in the libraries any more complicated. In this case,
+the alias can be said to represent a file search path, not only a
+single directory.
+</li></ol>
+
+
+<p>The directory aliasing mechanism, together with the additional file search
+capabilities of <code>absolute_file_name/3</code>, can effectively serve
+as an intermediate layer between the external world and a portable program.
+For instance, the developer can hide
+the directory representation by defining directory aliases, and he can
+automatically get a proper file extension added, dependent on the type
+of file he wants to access, by using the appropriate options to
+<code>absolute_file_name/3</code>.
+</p>
+<p>A number of directory aliases and file search paths, are predefined in
+the SICStus Prolog system.
+The most important of those is the <code>library</code> file search path,
+giving the user instant access to the SICStus library, consisting of
+several sub-directories and extensive supported programs and tools.
+</p>
+<p>Specifying a library file, using the alias, is possible simply by replacing the
+explicit file (and directory) specification with the following term:
+</p>
+<div class="example">
+<pre class="example">library(<var>file</var>)
+</pre></div>
+ 
+
+<p>The name of the file search path, in this case <code>library</code>, is
+the main functor
+of the term, and indicates that <var>file</var> is to be found in one of the
+library directories.
+</p>
+<p>The association between the alias <code>library</code> (the name of the
+search path) and the library directories (the definitions of the
+search path), is extended by Prolog facts,
+<code>user:library_directory/1</code>, which are searched in sequence to
+locate the file. Each of these facts specifies a directory where to
+search for <var>file</var>, whenever a file specification of the form
+<code>library(<var>file</var>)</code> is encountered.
+</p>
+<a name="index-file-specification"></a>
+<a name="index-specification_002c-file"></a>
+
+<a name="index-directory-specification"></a>
+<a name="index-specification_002c-directory"></a>
+
+<p>The library mechanism discussed above, which can be extended with
+new directories associated with the alias <code>library</code>, has become
+subsumed by a more general aliasing mechanism,
+in which arbitrary names can be used as aliases for directories. The
+general mechanism also gives the possibility of defining
+path aliases in terms of already defined aliases.
+</p>
+<p>In addition to <code>library</code>, the following aliases are predefined in
+SICStus Prolog: <code>runtime</code>, <code>system</code>,
+<code>application</code>, <code>temp</code>, and <code>path</code>. The interpretation of the predefined aliases are
+explained below.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dfdi_002dsyn.html#ref_002dfdi_002dsyn" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dfdi.html#ref_002dfdi" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dfdi_002dfsp.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dfdi_002dfsp.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

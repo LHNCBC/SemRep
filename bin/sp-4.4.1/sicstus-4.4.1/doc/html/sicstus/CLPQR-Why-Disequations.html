@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPQR Why Disequations</title>
+
+<meta name="description" content="SICStus Prolog: CLPQR Why Disequations">
+<meta name="keywords" content="SICStus Prolog: CLPQR Why Disequations">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dclpqr.html#lib_002dclpqr" rel="up" title="lib-clpqr">
+<link href="CLPQR-Monash-Examples.html#CLPQR-Monash-Examples" rel="next" title="CLPQR Monash Examples">
+<link href="CLPQR-Projecting-Inequalities.html#CLPQR-Projecting-Inequalities" rel="prev" title="CLPQR Projecting Inequalities">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPQR-Why-Disequations"></a>
+<hr>
+<a name="Why-Disequations"></a>
+<h4 class="subsection">10.11.6 Why Disequations</h4>
+<p>A beautiful example of disequations at work is due to [Colmerauer
+90]. It addresses the task of tiling a rectangle with squares of
+all-different, a priori unknown sizes. Here is a translation of the
+original <code>Prolog-III</code> program to clp(Q,R):
+</p><div class="example">
+<pre class="example"><em>% library('clpqr/examples/squares')</em>
+</pre><pre class="example">filled_rectangle(A, C) :-
+  { A &gt;= 1 },
+  distinct_squares(C),
+  filled_zone([-1,A,1], _, C, []).
+
+distinct_squares([]).
+distinct_squares([B|C]) :-
+  { B &gt; 0 },
+  outof(C, B),
+  distinct_squares(C).
+
+outof([],     _).
+outof([B1|C], B) :-
+  { B =\= B1 },       % *** note disequation ***
+  outof(C, B).
+
+filled_zone([V|L], [W|L], C0, C0) :-
+  { V=W,V &gt;= 0 }.
+filled_zone([V|L], L3, [B|C], C2) :-
+  { V &lt; 0 },
+  placed_square(B, L, L1),
+  filled_zone(L1, L2, C, C1),
+  { Vb=V+B },
+  filled_zone([Vb,B|L2], L3, C1, C2).
+
+placed_square(B, [H,H0,H1|L], L1) :-
+  { B &gt; H, H0=0, H2=H+H1 },
+  placed_square(B, [H2|L], L1).
+placed_square(B, [B,V|L], [X|L]) :-
+  { X=V-B }.
+placed_square(B, [H|L], [X,Y|L]) :-
+  { B &lt; H, X= -B, Y=H-B }.
+</pre></div>
+<p>There are no tilings with less than nine squares except the trivial one
+where the rectangle equals the only square. There are eight solutions
+for nine squares. Six further solutions are rotations of the first two.
+</p><div class="example">
+<pre class="example">clp(q) ?- <kbd>[library('clpqr/examples/squares')].</kbd>
+clp(q) ?- <kbd>filled_rectangle(A, Squares).</kbd>
+
+A = 1,
+Squares = [1] ? <kbd>;</kbd>
+
+A = 33/32,
+Squares = [15/32,9/16,1/4,7/32,1/8,7/16,1/32,5/16,9/32] ? <kbd>;</kbd>
+
+A = 69/61,
+Squares = [33/61,36/61,28/61,5/61,2/61,9/61,25/61,7/61,16/61] ? <span class="key">RET</span>
+</pre></div>
+<p>Depending on your hardware, the above query may take a few
+minutes.  Supplying the knowledge about the minimal number of squares
+beforehand cuts the computation time by a factor of roughly four:
+</p><div class="example">
+<pre class="example">clp(q) ?- <kbd>length(Squares, 9), filled_rectangle(A, Squares).</kbd>
+
+A = 33/32,
+Squares = [15/32,9/16,1/4,7/32,1/8,7/16,1/32,5/16,9/32] ? <kbd>;</kbd>
+
+A = 69/61,
+Squares = [33/61,36/61,28/61,5/61,2/61,9/61,25/61,7/61,16/61] ? <span class="key">RET</span>
+</pre></div>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPQR-Monash-Examples.html#CLPQR-Monash-Examples" accesskey="n" rel="next">Next</a>
+<li><a href="CLPQR-Projection.html#CLPQR-Projection" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dclpqr.html#lib_002dclpqr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Why-Disequations.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Why-Disequations.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

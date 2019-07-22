@@ -1,0 +1,408 @@
+#!/bin/bash
+
+PROGRAM=`basename $0`
+PLATFORM=`uname`
+
+BITS=64
+# echo ARGNUM=$#
+if [ $# -gt 0 ]
+then
+    if [ $1 == "m32" ]
+    then
+        # echo ARGS1: $*
+	BITS=32
+        shift
+        # echo ARGS2: $*
+    fi
+fi
+
+# echo $BITS
+
+export SAWenv=$PROGRAM
+#GWA=/nfsvol/nls/II_Group_WorkArea/
+#export SICSTUS_BASE=$GWA/SICStus
+export SICSTUS_BASE=/nfsvol/nls/II_Group_WorkArea/SICStus
+
+USAGE="$PROGRAM -d | -p | -w HOME"
+
+export NLS=/nfsvol/nls
+# export HOST=`/bin/hostname`
+# export HOSTNAME=`/bin/hostname`
+if [ "$PLATFORM" = "SunOS" ]
+then
+        export SAW_PROD=$NLS/specialist/SAW
+elif [ "$PLATFORM" = "Linux" ]
+then
+        export SAW_PROD=$NLS/specialist/SAW.Linux
+fi
+#export SKR=$NLS/specialist/SKR
+export SKR_PROD=$SAW_PROD/SKR
+
+# from the man pages for ar:
+# -c    Suppresses the diagnostic message that is written to
+#       standard error by default when archive is created.
+
+export AR="ar cruv"
+export C__DEBUG="-D__DEBUG"
+
+#export SKR_HOME=/nfsvol/nls/II_Group_WorkArea/flang/specialist/SKR.SemRep
+#export SAW_HOME=/nfsvol/nls/II_Group_WorkArea/flang/specialist/SAW
+export SKR=$SKR_HOME
+export SAW=$SAW_HOME
+export SKR_SRC_HOME=$SKR/src
+export SAW_SRC_HOME=$SAW/src
+
+#LEXICON_VERSION="2006"
+WARNINGS="-pedantic -Wall -Wbad-function-cast -Wcast-qual -Wcast-align -Wconversion"
+WARNINGS="$WARNINGS -Wpointer-arith -Wstrict-prototypes -Wmissing-prototypes"
+WARNINGS="$WARNINGS -Wredundant-decls -Wnested-externs -Winline -Wno-long-long"
+
+export BERKELEY_DIR=$NLS/tools/berkeley_db
+
+# Mats Carlsson's fix for the "Toronto" citation
+export PROLOGMAXSIZE=1000M
+
+
+if [ "$PLATFORM" = "SunOS" ]
+then
+
+   OS_VERSION=`uname -r`
+   if [ "$OS_VERSION" != "5.9" ]
+   then
+      ### echo "### WARNING: This machine is not running Solaris 5.9."
+      ### echo "### Please run whatever you are trying to do on a Solaris 5.9 machine."
+      ### exit 1
+      :
+   fi
+
+   # increase to the maximum possible the number of file descriptors
+   ulimit -n 2047
+   export BASIC_CFLAGS="-g -O -fPIC $WARNINGS -DSKR_PLATFORM=$PLATFORM"
+   export BERKELEY_VERSION=$BERKELEY_DIR/db-4.8.24
+   export BERKELEY_INC=$BERKELEY_VERSION/include
+   export BERKELEY_LIB=$BERKELEY_VERSION/lib/
+   export BERKELEY_LIB_A=$BERKELEY_LIB/libdb.a
+   export BERKELEY_LIB_SO=$BERKELEY_LIB/libdb.so
+   export DEFAULT_NETLIBS="-lsocket -lnsl"
+   export DEFAULT_LIBXML_DIR=$NLS/tools/libxml2
+   export COMPILER_DIR=$NLS/tools/gcc-4.1.1
+   export CC=$COMPILER_DIR/bin/gcc
+   export CXX=$COMPILER_DIR/bin/g++
+   export GNU_DIR=$NLS/tools/gnu
+   export GCC=$COMPILER_DIR/bin/gcc
+   # This is needed for BDB-4.8.24 on Solaris only
+   export LIBGCC=$COMPILER_DIR/lib/gcc/sparc-sun-solaris2.9/4.1.1/libgcc.a
+   export LINKFLAGS="-G"
+   export LD_LIBRARY_PATH=$COMPILER_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$GNU_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$BERKELEY_LIB:$LD_LIBRARY_PATH
+   # export QUINTUS=/net/nls3/export/home/quintus
+   # export QUINTUS_PROLOG_PATH=$QUINTUS/quintus3.5/bin3.5/sun4-5/prolog
+   export PATH=$GNU_DIR/bin:$PATH
+
+elif [ "$PLATFORM" = "Linux" ]
+then
+   # increase to the maximum possible the number of file descriptors
+   # Linux complains if this value > 1024
+   ulimit -n 1024
+
+   if [ $BITS -eq 32 ]
+   then
+      # 32-bit
+      export BASIC_CFLAGS="-g -O -m32 -fPIC $WARNINGS -DSKR_PLATFORM=$PLATFORM"
+      export BERKELEY_VERSION=$BERKELEY_DIR/Linux-i686/db-4.8.24
+      export SICSTUS_HOME=$SICSTUS_BASE/sp-4.4.1-x86-linux-glibc2.17
+      export SICSTUS_LIB=$SICSTUS_HOME/lib 
+      export SICSTUS_BIN=$SICSTUS_HOME/bin
+      export SPLFR=$SICSTUS_BIN/splfr
+      export SPLD=$SICSTUS_BIN/spld
+      export SICSTUS_PROG=$SICSTUS_BIN/sicstus
+      export LINKFLAGS="-m32 -shared"
+   else
+       # 64-bit
+       export BASIC_CFLAGS="-g -O -fPIC $WARNINGS -DSKR_PLATFORM=$PLATFORM -FILE_OFFSET_BITS=64"
+       export BERKELEY_VERSION=$BERKELEY_DIR/Linux-x86_64/db-4.8.24
+       export SICSTUS_HOME=$SICSTUS_BASE/sp-4.4.1-x86_64-linux-glibc2.17
+       export SICSTUS_LIB=$SICSTUS_HOME/lib 
+       export SICSTUS_BIN=$SICSTUS_HOME/bin
+       export SPLFR=$SICSTUS_BIN/splfr
+       export SPLD=$SICSTUS_BIN/spld
+       export SICSTUS_PROG=$SICSTUS_BIN/sicstus
+       export LINKFLAGS="-shared"
+       # FML added 07/13/2016
+       export LD_LIBRARY_PATH=$SAW_SRC_HOME/abgene/lib/Linux-x86_64:$LD_LIBRARY_PATH
+   fi
+   export BERKELEY_INC=$BERKELEY_VERSION/include
+   export BERKELEY_LIB=$BERKELEY_VERSION/lib
+   export BERKELEY_LIB_A=$BERKELEY_LIB/libdb.a
+   export BERKELEY_LIB_SO=$BERKELEY_LIB/libdb.so
+
+   export DEFAULT_NETLIBS=""
+   export DEFAULT_LIBXML_DIR=/usr
+   # FML added 07/13/2016
+   export DEFAULT_LIBXML_DIR=$NLS/tools/libxml2
+   export GNU_DIR=/usr
+   export COMPILER_DIR=/usr
+   export CC=gcc
+   export GCC=gcc
+   export CXX=g++
+
+   export LD_LIBRARY_PATH=$COMPILER_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$GNU_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$SICSTUS_LIB:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$BERKELEY_LIB:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$NLS/tools/SemRep:$LD_LIBRARY_PATH
+   export PATH=$GNU_DIR/bin:$PATH
+   # export QUINTUS=/nfsvol/crfiler-ind/_Research/quintus
+   # export QUINTUS_PROLOG_PATH=$QUINTUS/quintus3.5/bin3.5/linux/prolog
+elif [ "$PLATFORM" = "Darwin" ]
+then
+   if [ $BITS -eq 32 ]
+   then
+      # 32-bit
+      export BASIC_CFLAGS="-g -O -m32 -fPIC $WARNINGS -DSKR_PLATFORM=$PLATFORM -I/usr/include/malloc -D__DEBUG"
+     export LINKFLAGS="-m32 -shared"
+   else
+      # 64-bit
+      export BASIC_CFLAGS="-g -O -fPIC $WARNINGS -DSKR_PLATFORM=$PLATFORM -I/usr/include/malloc -D__DEBUG"
+      export LINKFLAGS="-shared"
+   fi
+   export BERKELEY_VERSION=/usr/local/db-4.8.24
+   export BERKELEY_INC=$BERKELEY_VERSION/include
+   export BERKELEY_LIB=$BERKELEY_VERSION/lib
+   export BERKELEY_LIB_A=$BERKELEY_LIB/libdb.a
+   export BERKELEY_LIB_SO=$BERKELEY_LIB/libdb.dylib
+   export DEFAULT_NETLIBS=""
+   export DEFAULT_LIBXML_DIR=/usr
+   export GNU_DIR=/usr
+   export COMPILER_DIR=/usr
+   export CC=gcc
+   export GCC=gcc
+   export CXX=g++
+   export LD_LIBRARY_PATH=$COMPILER_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$GNU_DIR/lib:$LD_LIBRARY_PATH
+   export LD_LIBRARY_PATH=$BERKELEY_LIB:$LD_LIBRARY_PATH
+   export PATH=$GNU_DIR/bin:$PATH
+   # export QUINTUS=/nfsvol/crfiler-ind/II_Research/quintus
+   # export QUINTUS_PROLOG_PATH=$QUINTUS/quintus3.5/bin3.5/linux/prolog
+fi
+
+export LD=$GCC
+export ABGENE_LD=$CXX
+export XML_LIB=${DEFAULT_LIBXML_DIR}/lib/libxml2.a
+export Z_LIB=$SAW_SRC_HOME/abgene/lib/Linux-x86_64/libz.so
+export CPPSTD_LIB=$SAW_SRC_HOME/abgene/lib/Linux-x86_64/libstdc++.so
+export SICStus=
+
+while getopts D:q:KL:SdpCw: option
+do
+   # echo SKRenv option is $option
+   case $option
+   in
+	q) ;;
+	K) ;;
+	L) LEXICON_VERSION=$OPTARG;;
+        S) SICStus="SICStus";;
+ 	# d) export SKR_SRC_HOME=$HOME/specialist/SKR/src;; # redundant
+ 	d) ;;
+  	p) export SKR=$SKR_PROD
+	   export SAW=$SAW_PROD
+	   export SKR_SRC_HOME=$SKR/src
+	   export SAW_SRC_HOME=$SAW/src;;
+	w) export SAW_SRC_HOME=$OPTARG
+	   # ensure that the "-w" flag was followed by another command-line argument
+	   if [ "$SAW_SRC_HOME" = "" ]
+	   then
+	      echo "The '-w' option requires specifying a working directory."
+	      exit 1
+	   fi;;
+	## the C flag is just because SAWenv is sourced by SemRepmake
+        C) export CLEAN=CLEAN; export SAVE_CLEAN=SAVE_CLEAN;;
+	## end of command-line flags; rest of args are command to run
+	?) exit 1;;
+   esac
+done
+
+shift `expr $OPTIND - 1`
+export OPTIND=1
+
+echo SAW_SRC_HOME is $SAW_SRC_HOME
+
+if [ ! -e "$SAW_SRC_HOME" ]
+then
+   echo "The directory $SAW_SRC_HOME does not exist."
+   exit 1
+fi
+
+export USEMREP=$SAW_SRC_HOME
+
+export USEMREP_LIB=$USEMREP/usemrep_lib
+export USEMREP_MAIN=$USEMREP/usemrep_main
+export USEMREP_DOMAIN=$USEMREP/usemrep_domain
+#export USEMREP_VOCABULARY=$USEMREP/usemrep_vocabulary
+export DYNAMIC_LIB_DIR=$USEMREP
+
+export ABGENE_DIR=${SAW_SRC_HOME}/abgene
+export ABGENE_LIB=${ABGENE_DIR}/src/libops.a
+export ABGENEMOD_DIR=${USEMREP_LIB}
+
+#export ABGENE_DATA_DIR=${ABGENE_DIR}/FIXED_DATA.${PLATFORM}/
+#export NORMA_ENTREZGENE_DIR=${SAW_SRC_HOME}/NormaEntrezGene
+
+#export SKR_HOME=`dirname $SKR_SRC_HOME`
+#export MM_TOOLS=$SKR_HOME/tools
+#export MM_TOOLS_LIB=$MM_TOOLS/lib
+
+export BDB_CACHE_SIZE=1048576
+export DEFAULT_CFLAGS="$BASIC_CFLAGS $C__DEBUG"
+
+#export MODEL_LOCATION_BASE_DIR=/nfsvol/nls3aux18/DB
+#export MODEL_LOCATION_BASE_DIR=$SKR_DB/data
+#export MODEL_LOCATION_BASE_DIR=/nfsvol/nls3aux18/DB
+#export MODEL_LOCATION_BASE_DIR=${SKR_DB}/data
+export SKR_DB=$SKR_SRC_HOME/db
+
+export SKR_DEBUG=$SKR_SRC_HOME/debug
+
+export SKR_INCLUDE=$SKR_SRC_HOME/include
+
+export SKR_LEXICON=$SKR_SRC_HOME/lexicon
+
+# echo SKR_LEXICON is $SKR_LEXICON
+
+# export SKR_MORPH=$SKR_LEXICON/morph/DATA/XDR
+
+export SKR_MORPH=$SKR_LEXICON/morph
+
+export SKR_LIB=$SKR_SRC_HOME/lib
+
+export SKR_LEX_LIB=$SKR_LEXICON/lib
+
+export SKR_METAMAP=$SKR_SRC_HOME/metamap
+
+export SKR_MMI=$SKR_SRC_HOME/mmi
+
+export SKR_SKR=$SKR_SRC_HOME/skr
+
+export SKR_NLS_CLNT=$SKR_SRC_HOME/nls_clnt
+
+export SKR_TAGGER=$SKR_SRC_HOME/tagger
+
+export SKR_TEXT=$SKR_SRC_HOME/text
+
+export SKR_WSD=$SKR_SRC_HOME/WSD
+
+# export QPINCDIR=$QUINTUS/quintus3.5/generic/qplib3.5/embed
+
+# for parse_meta.c in WSD/WSD directory
+export SUPPRESSED_CONC_FILE=suppressed_conc
+
+#export LEXICON_DATA=$SKR_LEXICON/data
+
+#export DEFAULT_LEXICON_FILE=$LEXICON_DATA/lexiconStatic${LEXICON_VERSION}
+
+#export DEFAULT_LEXICON_INDEX_FILE=${DEFAULT_LEXICON_FILE}Ind
+
+# export LCAT_HELP_FILE=$SKR_LEXICON/lcat/lcat.help
+
+export LF_HELP_FILE=$SKR_LEXICON/lf/lf.help
+
+export DM_TRANSLATED_RULES_FILE=$SKR_MORPH/dm_translated_rules
+
+export DM_TRANSLATED_FACTS_FILE=$SKR_MORPH/dm_translated_facts
+
+# export IM_TRANSLATED_RULES_FILE=$SKR_MORPH/im_translated_rules
+
+# export IM_TRANSLATED_FACTS_FILE=$SKR_MORPH/im_translated_facts
+ 
+export LM_TRANSLATED_RULES_FILE=$SKR_MORPH/lm_translated_rules
+
+#export TAGGER_SERVER_HOSTS="['indsc1|130.14.111.24', 'indsc2|130.14.111.25', 'indsc3|130.14.111.26', 'ii-server5|130.14.111.123', 'mti2|130.14.111.95', 'ii-server1|130.14.111.16', 'ii-server4|130.14.111.122', 'ii-server2|130.14.111.18']"
+# export TAGGER_SERVER_HOSTS="skr2 indsc2 indsc3 ii-server5 mti1 ii-server1 ii-server2 ii-server4"
+export TAGGER_SERVER_HOSTS="ii-server2 ii-server3vm ii-server4 ii-server5 ii-server10 ii-server11 ii-server12 ii-server13"
+
+#export TAGGER_SERVER_HOSTS="localhost"
+
+export TAGGER_SERVER_PORT=1795
+
+export TAGGER_SERVER_DELIMITER='^THE_END^\n'
+
+#export WSD_SERVER_HOSTS="['mti2|130.14.111.95', 'skr2|130.14.111.97', 'ii-server1|130.14.111.16', 'ii-server2|130.14.111.18']"
+# export WSD_SERVER_HOSTS="ii-server4 skr2 ii-server1 ii-server2"
+# export WSD_SERVER_HOSTS="ii-server2 ii-server4 ii-server7 skr2"
+export WSD_SERVER_HOSTS="ii-server2 ii-server4 ii-server5 ii-server12 ii-server13"
+
+#export WSD_SERVER_HOSTS="localhost"
+
+export WSD_SERVER_PORT=5554
+
+export WSD_SERVER_BEGIN_DELIMITER='<Response>'
+
+export WSD_SERVER_END_DELIMITER='</Response>'
+
+#export WSD_METHODS='['\''STI_METHOD'\'']'
+
+export WSD_METHODS="['STI_METHOD']"
+
+export WSD_WEIGHTS="[1.0]"
+
+export WSD_LOG_FILE=WSD_Client/log/WSD_Proxy.log
+
+export WSD_LOG=false
+
+#export NEGEX_UTTERANCE_MAX_DIST=20
+export NEGEX_UTTERANCE_MAX_DIST=4
+
+#export NEGEX_CONCEPT_MAX_DIST=10
+export NEGEX_CONCEPT_MAX_DIST=2
+
+export XML_VERSION="<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+
+export XML_DOCTYPE="DOCTYPE MMOs PUBLIC"
+export SEMREP_XML_DOCTYPE="DOCTYPE SemRepAnnotation PUBLIC"
+
+export XML_DOCNAME="-//NLM//DTD MetaMap Machine Output//EN"
+export SEMREP_XML_DOCNAME="-//NLM//DTD SemRep Output//EN"
+
+export XML_DTD="http://metamap.nlm.nih.gov/DTD/MMOtoXML_v4.dtd"
+export SEMREP_XML_DTD="http://semrep.nlm.nih.gov/DTD/SemRepXML_v1.8.dtd"
+
+# DATA settings
+export SEMREP_DATA_DIR=/nfsvol/crfiler-semrep/DATA
+# Metathesaurus data
+export MODEL_LOCATION_BASE_DIR=${SEMREP_DATA_DIR}/DB
+# Lexicon data
+export LEXICON_DATA=${SEMREP_DATA_DIR}/LEXICON
+# ABGene data
+export ABGENE_DATA_DIR=${SEMREP_DATA_DIR}/ABGENE/
+# EntrezGene data
+export ENTREZGENE_DIR=${SEMREP_DATA_DIR}/ENTREZGENE
+# export SYMBOL_DB=${ENTREZGENE_DIR}/HUMAN_SYMBOL_2014
+# export ALIAS_DB=${ENTREZGENE_DIR}/HUMAN_ALIAS_2014
+#export SYMBOL_DB=${ENTREZGENE_DIR}/HUMAN_SYMBOL_2015_64bit
+#export ALIAS_DB=${ENTREZGENE_DIR}/HUMAN_ALIAS_2015_64bit
+export SYMBOL_DB=${ENTREZGENE_DIR}/HUMAN_SYMBOL_2017
+export ALIAS_DB=${ENTREZGENE_DIR}/HUMAN_ALIAS_2017
+# UMLS Hierarchy data
+export UMLS_HIERARCHY_DIR=${SEMREP_DATA_DIR}/UMLS_HIERARCHY
+export UMLS_HIERARCHY_DB_PREFIX=${UMLS_HIERARCHY_DIR}/hrel-UMLS_btree.
+
+#File settings for JDI
+##export JDI_DATA_DIR=/nfsvol/nls3aux17/Susanne/TrainingSet
+#export JDI_DATA_DIR=${SAW}/JDI/data
+#export JDI_CITE_COUNT_FILE=${JDI_DATA_DIR}/cite-count-jd.9901-12.l
+#export JDI_STOPWORD_FILE=${JDI_DATA_DIR}/stopwords.l
+#export JDI_RESTRICT_FILE=${JDI_DATA_DIR}/restrictwords.l
+##export JDI_DBROOT=/nfsvol/nls3aux17/JD_works/JGM/DB/4.8.24
+#export JDI_DBROOT=${JDI_DATA_DIR}/DB
+#export JDI_JDLIST=${JDI_DBROOT}/jd_list
+
+echo "$*"
+
+if [ $# -gt 0 ]
+then
+   case $1 in
+   -*) ;;
+    *) "$@" ;;
+   esac
+fi

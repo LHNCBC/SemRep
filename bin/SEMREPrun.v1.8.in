@@ -1,0 +1,123 @@
+#!/bin/bash
+
+PROGRAM=`basename $0`
+ARCHITECTURE=`uname`
+
+USAGE="$PROGRAM -d | -p | -w HOME"
+
+MM_BASEDIR=@@mm_basedir@@
+export MM_BASEDIR
+
+BASEDIR=@@basedir@@
+export BASEDIR_DIR
+
+SKR_LEXICON=$MM_BASEDIR/lexicon
+export SKR_LEXICON
+
+#LEXICON_VERSION="2006"
+#export LEXICON_VERSION
+
+PROLOGMAXSIZE=10000M
+export PROLOGMAXSIZE
+
+if [ "$ARCHITECTURE" = "SunOS" ]
+then
+   ulimit -n 2047
+else
+   ulimit -n 1024
+fi
+# MetaMap settings
+# for mmserver
+export MMSERVER_PORT=8066
+
+# for mmserver
+export ACCEPTED_HOSTS="['127.0.0.1']"
+
+export MODEL_LOCATION_BASE_DIR=$MM_BASEDIR/DB
+
+export BDB_CACHE_SIZE=1048576
+
+shift `expr $OPTIND - 1`
+export OPTIND=1
+
+export LEXICON_DATA=$SKR_LEXICON/data
+
+export SKR_MORPH=$SKR_LEXICON/morph
+
+# Don't think these are necessary anymore
+#export DEFAULT_LEXICON_FILE=$LEXICON_DATA/lexiconStatic${LEXICON_VERSION}
+
+#export DEFAULT_LEXICON_INDEX_FILE=${DEFAULT_LEXICON_FILE}Ind
+
+export DM_TRANSLATED_RULES_FILE=$SKR_MORPH/dm_translated_rules
+
+export DM_TRANSLATED_FACTS_FILE=$SKR_MORPH/dm_translated_facts
+
+export LM_TRANSLATED_RULES_FILE=$SKR_MORPH/lm_translated_rules
+
+export MMI_TREE_DEPTH_SPECIFICITY_DIVISOR=9
+
+export MMI_WORD_SPECIFICITY_DIVISOR=26
+
+export MMI_CHARACTER_SPECIFICITY_DIVISOR=102
+
+export NEGEX_UTTERANCE_MAX_DIST=4
+
+export NEGEX_CONCEPT_MAX_DIST=2
+
+#export TAGGER_SERVER_HOSTS="['localhost|127.0.0.1']"
+export TAGGER_SERVER_HOSTS="localhost"
+
+export TAGGER_SERVER_PORT=1795
+
+export TAGGER_SERVER_DELIMITER='^THE_END^\n'
+
+#export WSD_SERVER_HOSTS="['localhost|127.0.0.1']"
+export WSD_SERVER_HOSTS="localhost"
+
+export WSD_SERVER_PORT=5554
+
+export WSD_SERVER_BEGIN_DELIMITER='<Response>'
+
+export WSD_SERVER_END_DELIMITER='</Response>'
+
+export WSD_METHODS="['STI_METHOD']"
+
+export WSD_WEIGHTS="[1.0]"
+
+export XML_VERSION="<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+
+export XML_DOCTYPE="DOCTYPE MMOs PUBLIC"
+
+export XML_DOCNAME="-//NLM//DTD MetaMap Machine Output//EN"
+
+export XML_DTD="http://metamap.nlm.nih.gov/DTD/MMOtoXML_v5.dtd"
+
+export SEMREP_XML_DOCTYPE="DOCTYPE SemRepAnnotation PUBLIC"
+
+export SEMREP_XML_DOCNAME="-//NLM//DTD SemRep Output//EN"
+
+export SEMREP_XML_DTD="http://semrep.nlm.nih.gov/DTD/SemRepXML_v1.8.dtd"
+
+# SemRep DATA settings
+export SEMREP_DATA_DIR=$BASEDIR/DATA
+
+export ABGENE_DATA_DIR=$SEMREP_DATA_DIR/ABGENE/
+
+export ENTREZGENE_DIR=${SEMREP_DATA_DIR}/ENTREZGENE
+
+export SYMBOL_DB=${ENTREZGENE_DIR}/HUMAN_SYMBOL_2017
+
+export ALIAS_DB=${ENTREZGENE_DIR}/HUMAN_ALIAS_2017
+
+export UMLS_HIERARCHY_DB_PREFIX=${SEMREP_DATA_DIR}/UMLS_HIERARCHY/hrel-UMLS_btree.
+
+#export UMLS_HIERARCHY_FILE_COUNT=5
+
+if [ $# -gt 0 ]
+then
+   case $1 in
+   -*) ;;
+    *) exec $* ;;
+   esac
+fi

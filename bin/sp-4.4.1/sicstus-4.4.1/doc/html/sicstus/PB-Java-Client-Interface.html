@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: PB Java Client Interface</title>
+
+<meta name="description" content="SICStus Prolog: PB Java Client Interface">
+<meta name="keywords" content="SICStus Prolog: PB Java Client Interface">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dprologbeans.html#lib_002dprologbeans" rel="up" title="lib-prologbeans">
+<link href="PB-Java-Examples.html#PB-Java-Examples" rel="next" title="PB Java Examples">
+<link href="PB-Prolog-Server-Interface.html#PB-Prolog-Server-Interface" rel="prev" title="PB Prolog Server Interface">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="PB-Java-Client-Interface"></a>
+<hr>
+<a name="Java-Client-Interface"></a>
+<h4 class="subsection">10.29.5 Java Client Interface</h4>
+
+<p>The Java interface is centered around the class <code>PrologSession</code>,
+which represents a connection (or session) to a Prolog
+server. <code>PrologSession</code> contains static methods for looking up
+named <code>PrologSession</code> instances using JNDI (Java Naming and
+Directory Interface) as well as methods for querying the Prolog server.
+Other important classes are: <code>QueryAnswer</code>, which contains the
+answer for a query sent to the Prolog server; <code>PBTerm</code>, which
+represents a Prolog term; and <code>Bindings</code>, which supports stuffing
+of variable values used in queries.
+</p>
+<p>General information about Java, Servlets and JNDI is available at the
+Java Technology site: <a href="http://java.sun.com/">http://java.sun.com/</a>
+</p>
+
+<p>A brief description of the provided Java classes are
+presented below. More information about the Java APIs is available in
+the JavaDoc files on the page <a href="http://sicstus.sics.se/documentation.html">http://sicstus.sics.se/documentation.html</a>.
+</p>
+<dl compact="compact">
+<dt><code>PrologSession</code></dt>
+<dd><p>The <code>PrologSession</code> object is the connection to the Prolog
+server. The constructor <code>PrologSession()</code>
+creates a <code>PrologSession</code> with the default settings
+(<code>host = localhost, port = 8066</code>.
+</p>
+</dd>
+<dt><code>QueryAnswer</code></dt>
+<dd><p>The <code>QueryAnswer</code> contains the answer (new bindings) for a query
+(or the error that occurred during the query process).
+</p>
+</dd>
+<dt><code>PBTerm</code></dt>
+<dd><p>The <code>PBTerm</code> object is for representing parsed Prolog terms.
+</p>
+</dd>
+<dt><code>Bindings</code></dt>
+<dd><p><code>Bindings</code> is used for binding variables to values
+in a query sent to the Prolog. The values will be automatically
+stuffed before they are sent to the Prolog server.
+</p>
+</dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="PB-Java-Examples.html#PB-Java-Examples" accesskey="n" rel="next">Next</a>
+<li><a href="PB-Prolog-Server-Interface.html#PB-Prolog-Server-Interface" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dprologbeans.html#lib_002dprologbeans" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PB-Java-Client-Interface.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PB-Java-Client-Interface.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

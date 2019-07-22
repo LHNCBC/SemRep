@@ -1,0 +1,369 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-sets</title>
+
+<meta name="description" content="SICStus Prolog: lib-sets">
+<meta name="keywords" content="SICStus Prolog: lib-sets">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dsockets.html#lib_002dsockets" rel="next" title="lib-sockets">
+<link href="lib_002dsamsort.html#lib_002dsamsort" rel="prev" title="lib-samsort">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dsets"></a>
+<hr>
+<a name="Unordered-Set-Operations_002d_002d_002dlibrary_0028sets_0029"></a>
+<h3 class="section">10.34 Unordered Set Operations&mdash;<code>library(sets)</code></h3>
+<p>This library module provides operations on sets represented as unordered lists
+with no repeated elements.
+The ordered representation used in <code>library(ordsets)</code> is much more
+efficient, but these routines were designed before sort/2
+entered the language.
+Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>add_element(<var>+Element</var>, <var>+Set1</var>, <var>-Set2</var>)</code></dt>
+<dd>
+<a name="index-add_005felement_002f3-_0028sets_0029-1"></a>
+<a name="index-add_005felement_002f3-_0028sets_0029"></a>
+
+<p>is true when <var>Set1</var> and <var>Set2</var> are sets represented as unordered lists,
+and <var>Set2 = Set1 U {Element}</var>.  It may only be used to calculate <var>Set2</var>
+given <var>Element</var> and <var>Set1</var>.  
+</p></dd>
+<dt><code>del_element(<var>+Element</var>, <var>+Set1</var>, <var>-Set2</var>)</code></dt>
+<dd>
+<a name="index-del_005felement_002f3-_0028sets_0029-1"></a>
+<a name="index-del_005felement_002f3-_0028sets_0029"></a>
+
+<p>is true when <var>Set1</var> and <var>Set2</var> are sets represented as unordered lists,
+and <var>Set2 = Set1 \ {Element}</var>.  It may only be used to calculate <var>Set2</var>
+given <var>Element</var> and <var>Set1</var>.  If <var>Set1</var> does not contain <var>Element</var>, <var>Set2</var> will
+be identical to <var>Set1</var> (the old version made a new copy of <var>Set1</var>).  If
+<var>Set1</var> is not an unordered set, but contains more than one copy of
+<var>Element</var>, only the first will be removed.  If you want to delete all
+copies of a given element, use <code>lists:delete/3</code>.  For a
+version which fails if <var>Element</var> is not in <var>Set1</var>, use <code>selectchk/3</code>.
+</p></dd>
+<dt><code>disjoint(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-disjoint_002f2-_0028sets_0029-1"></a>
+<a name="index-disjoint_002f2-_0028sets_0029"></a>
+
+<p>is true when the two given sets have no elements in common.
+It is the opposite of <code>intersect/2</code>.  If either of the arguments
+is improper, <code>disjoint/2</code> will fail.  
+</p></dd>
+<dt><code>is_set(<var>+List</var>)</code></dt>
+<dd>
+<a name="index-is_005fset_002f1-_0028sets_0029-1"></a>
+<a name="index-is_005fset_002f1-_0028sets_0029"></a>
+
+<p>is true when <var>List</var> is a proper list that contains no repeated elements.
+</p></dd>
+<dt><code>pairfrom(<var>?Set</var>, <var>?Element1</var>, <var>?Element2</var>, <var>?Residue</var>)</code></dt>
+<dd>
+<a name="index-pairfrom_002f4-_0028sets_0029-1"></a>
+<a name="index-pairfrom_002f4-_0028sets_0029"></a>
+
+<p>is true when <var>Set</var> is a list, <var>Element1</var> occurs in list, <var>Element2</var>
+occurs in list after <var>Element1</var>, and <var>Residue</var> is everything in <var>Set</var>
+bar the two <var>Elements</var>.  The point of this thing is to select
+pairs of elements from a set without selecting the same pair
+twice in different orders.
+</p></dd>
+<dt><code>intersect(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-intersect_002f2-_0028sets_0029-1"></a>
+<a name="index-intersect_002f2-_0028sets_0029"></a>
+
+<p>is true when the two sets have a member in common.  It assumes
+that both sets are known, and that you don&rsquo;t care which element
+it is that they share.  
+</p></dd>
+<dt><code>subset(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-subset_002f2-_0028sets_0029-1"></a>
+<a name="index-subset_002f2-_0028sets_0029"></a>
+
+<p>is true when each member of <var>Set1</var> occurs in <var>Set2</var>.
+It can only be used to test two given sets; it cannot be used
+to generate subsets.  
+There is no predicate for generating
+subsets as such, but the predicates <code>subseq/3</code>, <code>subseq0/2</code>, <code>subseq1/2</code>
+in <code>library(lists)</code> may do what you want (they preserve the order
+of elements within a list).
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">subset(Set1, Set2) :-
+	(   foreach(X,Set1),
+	    param(Set2)
+	do  memberchk(X,Set2)
+	).
+</pre></div>
+</dd>
+<dt><code>set_order(<var>+Xs</var>, <var>+Ys</var>, <var>-R</var>)</code></dt>
+<dd>
+<a name="index-set_005forder_002f3-_0028sets_0029-1"></a>
+<a name="index-set_005forder_002f3-_0028sets_0029"></a>
+
+<p>is true when <var>R</var> is <code>&lt;</code>, <code>=</code>, or <code>&gt;</code> according as <var>Xs</var> is a subset of <var>Ys</var>,
+equivalent to <var>Ys</var>, or a superset of <var>Ys</var>.
+</p></dd>
+<dt><code>seteq(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-seteq_002f2-_0028sets_0029-1"></a>
+<a name="index-seteq_002f2-_0028sets_0029"></a>
+
+<p>is true when each Set is a subset of the other.  
+</p></dd>
+<dt><code>list_to_set(<var>+List</var>, <var>-Set</var>)</code></dt>
+<dd>
+<a name="index-list_005fto_005fset_002f2-_0028sets_0029-1"></a>
+<a name="index-list_005fto_005fset_002f2-_0028sets_0029"></a>
+
+<p>is true when <var>List</var> and <var>Set</var> are lists, and <var>Set</var> has the same elements
+as <var>List</var> in the same order, except that it contains no duplicates.
+The two are thus equal considered as sets.  
+</p></dd>
+<dt><code>power_set(<var>+Set</var>, <var>-PowerSet</var>)</code></dt>
+<dd>
+<a name="index-power_005fset_002f2-_0028sets_0029-1"></a>
+<a name="index-power_005fset_002f2-_0028sets_0029"></a>
+
+<p>is true when <var>Set</var> is a list and <var>PowerSet</var> is a list of lists which
+represents the power set of the set that Set represents.
+</p></dd>
+<dt><code>intersection(<var>+Set1</var>, <var>+Set2</var>, <var>-Intersection</var>)</code></dt>
+<dd>
+<a name="index-intersection_002f_005b2_002c3_005d-_0028sets_0029-1"></a>
+<a name="index-intersection_002f_005b2_002c3_005d-_0028sets_0029"></a>
+
+<p>is true when all three arguments are lists representing sets,
+and <var>Intersection</var> contains every element of <var>Set1</var> which is also
+an element of <var>Set2</var>, the order of elements in <var>Intersection</var>
+being the same as in <var>Set1</var>.  That is, <var>Intersection</var> represents
+the intersection of the sets represented by <var>Set1</var> and <var>Set2</var>.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">intersection(Set1, Set2, Intersection) :-
+	(   foreach(X,Set1),
+	    fromto(Intersection,S0,S,[]),
+	    param(Set2)
+	do  (member(X, Set2) -&gt; S0 = [X|S] ; S0 = S)
+	).
+</pre></div>
+</dd>
+<dt><code>intersection(<var>+ListOfSets</var>, <var>-Intersection</var>)</code></dt>
+<dd><p>is true when <var>Intersection</var> is the intersection of all the sets in
+<var>ListOfSets</var>.  The order of elements in <var>Intersection</var> is taken from
+the first set in <var>ListOfSets</var>.  This has been turned inside out to
+minimise the storage turnover.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">intersection([Set1|Sets], Intersection) :-
+	(   foreach(X,Set1),
+	    fromto(Intersection,S0,S,[]),
+	    param(Sets)
+	do  (   (   foreach(Set,Sets),
+		    param(X)
+		do  memberchk(X, Set)
+		) -&gt; S0 = [X|S]
+	    ;   S0 = S
+	    )
+	).
+</pre></div>
+</dd>
+<dt><code>subtract(<var>+Set1</var>, <var>+Set2</var>, <var>-Difference</var>)</code></dt>
+<dd>
+<a name="index-subtract_002f3-_0028sets_0029-1"></a>
+<a name="index-subtract_002f3-_0028sets_0029"></a>
+
+<p>is like <code>intersect/3</code>, but this time it is the elements of <var>Set1</var> which
+<em>are</em> in <var>Set2</var> that are deleted.  Note that duplicated <var>Elements</var> of
+<var>Set1</var> which are not in <var>Set2</var> are retained in <var>Difference</var>.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">subtract(Set1, Set2, Difference) :-
+	(   foreach(X,Set1),
+	    fromto(Difference,S0,S,[]),
+	    param(Set2)
+	do  (member(X, Set2) -&gt; S0 = S ; S0 = [X|S])
+	).
+</pre></div>
+</dd>
+<dt><code>symdiff(+<var>Set1</var>, <var>+Set2</var>, <var>-Difference</var>)</code></dt>
+<dd>
+<a name="index-symdiff_002f3-_0028sets_0029-1"></a>
+<a name="index-symdiff_002f3-_0028sets_0029"></a>
+
+<p>is true when <var>Difference</var> is the symmetric difference of <var>Set1</var> and <var>Set2</var>,
+that is, if each element of <var>Difference</var> occurs in one of <var>Set1</var> and <var>Set2</var> but
+not both.  The construction method is such that the answer will have
+no duplicates even if the <var>Sets</var> do.
+</p></dd>
+<dt><code>setproduct(<var>+Set1</var>, <var>+Set2</var>, <var>-CartesianProduct</var>)</code></dt>
+<dd>
+<a name="index-setproduct_002f3-_0028sets_0029-1"></a>
+<a name="index-setproduct_002f3-_0028sets_0029"></a>
+
+<p>is true when <var>Set1</var> is a set (list) and <var>Set2</var> is a set (list) and
+<var>CartesianProduct</var> is a set of <var>Elt1-Elt2</var> pairs, with a pair for
+for each element <var>Elt1</var> of <var>Set1</var> and <var>Elt2</var> of <var>Set2</var>.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">setproduct(Set1, Set2, Product) :-
+	(   foreach(H1,Set1),
+	    param(Set2),
+	    fromto(Product,P1,P3,[])
+	do  (   foreach(H2,Set2),
+		param(H1),
+		fromto(P1,[H1-H2|P2],P2,P3)
+	    do  true
+	    )
+	).
+</pre></div>
+</dd>
+<dt><code>disjoint_union(<var>+Set1</var>, <var>+Set2</var>, <var>-Union</var>)</code></dt>
+<dd>
+<a name="index-disjoint_005funion_002f3-_0028sets_0029-1"></a>
+<a name="index-disjoint_005funion_002f3-_0028sets_0029"></a>
+
+<p>is true when <code>disjoint(Set1, Set2)</code> and <code>union(Set1, Set2, Union)</code>,
+that is, <var>Set1</var> and <var>Set2</var> have no element in command and <var>Union</var> is
+their union.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">disjoint_union(Set1, Set2, Union) :-
+	(   foreach(X,Set1),
+	    fromto(Union,[X|S],S,Set2),
+	    param(Set2)
+	do  nonmember(X, Set2)
+	).
+</pre></div>
+</dd>
+<dt><code>union(<var>+Set1</var>, <var>+Set2</var>, <var>-Union</var>)</code></dt>
+<dd>
+<a name="index-union_002f_005b2_002c3_002c4_005d-_0028sets_0029-1"></a>
+<a name="index-union_002f_005b2_002c3_002c4_005d-_0028sets_0029"></a>
+
+<p>is true when <code>subtract(Set1,Set2,Diff)</code> and <code>append(Diff,Set2,Union)</code>,
+that is, when <var>Union</var> is the elements of <var>Set1</var> that do not occur in
+<var>Set2</var>, followed by all the elements of <var>Set2</var>.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">union(Set1, Set2, Union) :-
+	(   foreach(X,Set1),
+	    fromto(Union,S0,S,Set2),
+	    param(Set2)
+	do  (member(X, Set2) -&gt; S0 = S ; S0 = [X|S])
+	).
+</pre></div>
+</dd>
+<dt><code>union(<var>+Set1</var>, <var>+Set2</var>, <var>-Union</var>, <var>-Difference</var>)</code></dt>
+<dd><p>is true when <code>union(Set1, Set2, Union)</code> and <code>subtract(Set1, Set2, Difference)</code>.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">union(Set1, Set2, Union, Difference) :-
+	(   foreach(X,Set1),
+	    fromto(Union,S0,S,Set2),
+	    fromto(Difference,T0,T,[]),
+	    param(Set2)
+	do  (   member(X, Set2) -&gt; S0 = S, T0 = T
+	    ;   S0 = [X|S], T0 = [X|T]
+	    )
+	).
+</pre></div>
+</dd>
+<dt><code>union(<var>+ListOfSets</var>, <var>-Union</var>)</code></dt>
+<dd><p>is true when <var>Union</var> is the union of all the sets in <var>ListOfSets</var>.
+It has been arranged with storage turnover in mind.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">union(Sets, Union) :-
+	(   foreach(Set,Sets),
+	    param(Answer)
+	do  (   foreach(X,Set),
+		param(Answer)
+	    do  memberchk(X, Answer)
+	    )
+	),
+	append(Answer, [], Answer),	% cauterise it
+	!,
+	Union = Answer.
+</pre></div>
+</dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dsockets.html#lib_002dsockets" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dsamsort.html#lib_002dsamsort" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dsets.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dsets.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

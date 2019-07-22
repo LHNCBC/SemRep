@@ -1,0 +1,22 @@
+ORIGIN=~/SWI/pl/packages/chr
+
+cp -f  $ORIGIN/a_star.pl .
+cp -f  $ORIGIN/binomialheap.pl .
+cp -f  $ORIGIN/builtins.pl .
+cp -f  $ORIGIN/chr_compiler_options.pl .
+cp -f  $ORIGIN/chr_compiler_utility.pl .
+cp -f  $ORIGIN/chr_op2.pl .
+cp -f  $ORIGIN/chr_op.pl .
+cp -f  $ORIGIN/chr_runtime.pl .
+cp -f  $ORIGIN/chr_swi_bootstrap.pl .
+cp -f  $ORIGIN/chr_swi.pl .
+cp -f  $ORIGIN/chr_translate_bootstrap1.chr .
+cp -f  $ORIGIN/chr_translate_bootstrap2.chr .
+cp -f  $ORIGIN/chr_translate_bootstrap.pl .
+cp -f  $ORIGIN/chr_translate.chr .
+cp -f  $ORIGIN/clean_code.pl .
+cp -f  $ORIGIN/find.pl .
+cp -f  $ORIGIN/guard_entailment.chr .
+cp -f  $ORIGIN/listmap.pl .
+cp -f  $ORIGIN/pairlist.pl .
+cp -f  $ORIGIN/chr_compiler_errors.pl .

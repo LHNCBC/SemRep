@@ -1,0 +1,217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Breakpoint Processing</title>
+
+<meta name="description" content="SICStus Prolog: Breakpoint Processing">
+<meta name="keywords" content="SICStus Prolog: Breakpoint Processing">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Debug-Intro.html#Debug-Intro" rel="up" title="Debug Intro">
+<link href="Breakpoint-Conditions.html#Breakpoint-Conditions" rel="next" title="Breakpoint Conditions">
+<link href="Breakpoint-Predicates.html#Breakpoint-Predicates" rel="prev" title="Breakpoint Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Breakpoint-Processing"></a>
+<hr>
+<a name="The-Processing-of-Breakpoints"></a>
+<h3 class="section">5.8 The Processing of Breakpoints</h3>
+<a name="index-breakpoint-processing"></a>
+<a name="index-processing_002c-breakpoint"></a>
+
+<p>This section describes in detail how the debugger handles the
+breakpoints. For the purpose of this section disabled
+breakpoints are not taken into account: whenever we refer to the
+existence of some breakpoint(s), we always mean the existence of
+<em>enabled</em> breakpoint(s).
+</p>
+<p>The Prolog engine can be in one of the following three states with
+respect to the debugger:
+</p>
+<dl compact="compact">
+<dt><em>no debugging</em></dt>
+<dd><p>if there are no advice-points and the debugger is either switched
+off, or doing a skip;
+</p></dd>
+<dt><em>full debugging</em></dt>
+<dd><p>if the debugger is in trace or debug mode (creeping or leaping), or
+there are any generic breakpoints;
+</p></dd>
+<dt><em>selective debugging</em></dt>
+<dd><p>in all other cases.
+</p></dd>
+</dl>
+
+<p>In the <em>selective debugging</em> state only those predicate
+invocations are examined, for which there exists a specific
+breakpoint. In the <em>full debugging</em> state all invocations are
+examined, except those calling a predicate of a hidden
+module (but even these will be examined, if there is a
+specific breakpoint for them). In the <em>no debugging</em> state
+the debugger is not entered at predicate invocations.
+</p>
+<p>Now we describe what the debugger does when examining an invocation of a
+predicate, i.e. executing its Call port. The debugger
+activities can be divided into three stages: advice-point
+processing, spypoint processing and interaction with the user. The
+last stage may be repeated several times before program execution
+continues.
+</p>
+<p>The first two stages are similar, as they both search for an applicable
+breakpoint (spypoint or advice-point). This common
+breakpoint search is carried out as follows. The debugger
+considers all breakpoints of the given type, most recent
+first. For each breakpoint, the test part of the spec is
+evaluated, until one successful is found. Any variable
+bindings created in this successful evaluation are then discarded
+(this is implemented by enclosing it in double negation).  The first
+breakpoint, for which the evaluation of the test part succeeds is
+selected. If such a breakpoint can be found, then the
+breakpoint search is said to have completed successfully,
+otherwise it is said to have failed.
+</p>
+<p>If a breakpoint has been selected, then its action part is
+evaluated, normally setting some debugger action variables. If the
+action part fails, then as a side-effect, it is ensured that a
+procedure box will be built. This is achieved by changing the
+value of the <code>command</code> action variable from <code>flit</code> to
+<code>proceed</code>.
+</p>
+<p>Having described the common breakpoint search, let us look at the
+details of the first stage, advice-point processing. This stage is
+executed only if there are any advice-points set. First, the
+debugger action variables are initialized: <code>mode</code> is set to the
+current debugger mode, <code>command</code> to <code>proceed</code> and <code>show</code>
+to <code>silent</code>. Next, advice-point search takes place.  If this
+fails, then <code>command</code> is set to <code>flit</code>, otherwise its value is
+unchanged.
+</p>
+<p>After completing the advice-point search the <code>command</code>
+variable is examined. If its value is divertive, i.e. different from
+<code>proceed</code> and <code>flit</code>, then the spypoint search stage is
+omitted, and the debugger continues with the third stage. Otherwise, it
+is noted that the advice-point processing has requested the building
+of a procedure box (i.e. <code>command = proceed</code>), and the
+debugger continues with the second stage.
+</p>
+<p>The second stage is spypoint processing. This stage is skipped if
+the debugger is switched off or doing a skip (<code>mode</code> is <code>off</code>
+or <code>skip(_)</code>). First the <code>show</code> and <code>command</code>
+variables are re-assigned, based on the hiddenness of the
+predicate being invoked, the debugger mode, and the leashing
+status of the port. If the predicate is both defined in, and
+called from a hidden module, then their values will be
+<code>silent</code> and <code>flit</code>. An example of this is when a
+built-in predicate is called from a hidden module, e.g.
+from a library. Otherwise, in trace mode, their values are
+<code>print</code> and <code>ask</code> for leashed ports, and
+<code>print</code> and <code>proceed</code> for unleashed ports. In
+debug mode, the variables are set to <code>silent</code> and
+<code>proceed</code>, while in zip mode to <code>silent</code> and <code>flit</code>
+(<a href="Breakpoint-Actions.html#Breakpoint-Actions">Breakpoint Actions</a> contains a tabulated listing of these
+initialization values).
+</p>
+<p>Having initialized the debugger action variables, the spypoint
+search phase is performed.  If an empty action part has been selected in
+a successful search, then <code>show</code> and <code>command</code> are set to
+<code>print</code> and <code>ask</code>. The failure of the search is ignored.
+</p>
+<p>The third stage is the interactive part. First, the goal in
+question is displayed according to the value of <code>show</code>. Next, the
+value of <code>command</code> is checked: if it is other than <code>ask</code>, then
+the interactive stage ends. Otherwise, (it is <code>ask</code>), the variable
+<code>show</code> is re-initialized to <code>print</code>, or to
+<code>print-<var>Sel</var></code>, if its value was of form
+<code><var>Method</var>-<var>Sel</var></code>. Next, the debugger prompts the user for a
+command, which is interpreted either in the standard way, or through
+<code>user:debugger_command_hook/2</code>. In both cases the debugger action
+variables are modified as requested, and the interactive part is
+repeated.
+</p>
+<p>After the debugger went through all the three stages, it decides whether
+to build a procedure box. This will happen if either the
+advice-point stage or the other two stages require it. The latter
+is decided by checking the <code>command</code> variable: if that is
+<code>flit</code> or <code>flit(<var>Old</var>,<var>New</var>)</code>, then no procedure
+box is required by the spypoint part.  If the advice-point
+does require the building of a procedure box, then the above
+<code>command</code> values are replaced by <code>proceed</code> and
+<code>proceed(<var>Old</var>,<var>New</var>)</code>, respectively.
+</p>
+<p>At the end of the process the value of <code>mode</code> will be the new
+debugging mode, and <code>command</code> will determine what the debugger will
+do; see <a href="Action-Variables.html#Action-Variables">Action Variables</a>.
+</p>
+<p>A similar three-stage process is carried out when the debugger arrives
+at a non-Call port of a predicate. The only difference is
+that the building of a procedure box is not considered
+(<code>flit</code> is equivalent to <code>proceed</code>), and the hiddenness of the
+predicate is not taken into account.
+</p>
+<p>While the Prolog system is executing the above three-stage process for
+any of the ports, it is said to be <em>inside the
+debugger</em>. This is relevant, because some of the conditions can only be
+evaluated in this context.
+</p>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Breakpoint-Conditions.html#Breakpoint-Conditions" accesskey="n" rel="next">Next</a>
+<li><a href="Breakpoint-Predicates.html#Breakpoint-Predicates" accesskey="p" rel="prev">Previous</a>
+<li><a href="Debug-Intro.html#Debug-Intro" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Breakpoint-Processing.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Breakpoint-Processing.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

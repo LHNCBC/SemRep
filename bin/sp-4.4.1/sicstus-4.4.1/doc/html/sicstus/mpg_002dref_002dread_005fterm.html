@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-read_term</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-read_term">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-read_term">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dreconsult.html#mpg_002dref_002dreconsult" rel="next" title="mpg-ref-reconsult">
+<link href="mpg_002dref_002dread_005fline.html#mpg_002dref_002dread_005fline" rel="prev" title="mpg-ref-read_line">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dread_005fterm"></a>
+<hr>
+<a name="read_005fterm_002f_005b2_002c3_005d---ISO"></a>
+<h4 class="subsection">11.3.185 <code>read_term/[2,3]</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-read_005fterm_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-read_005fterm_002f_005b2_002c3_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-210"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>read_term(<var>-Term</var>, <var>+Options</var>)</code>
+</p>
+<p><code>read_term(<var>+Stream</var>, <var>-Term</var>, <var>+Options</var>)</code>
+</p>
+<p>Read a term from <var>Stream</var>,
+optionally returning extra information about the term.
+</p>
+<a name="Arguments-193"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Stream</var></dt>
+<dd><p><em>stream_object</em>, must be ground
+</p>
+<p>A valid Prolog input stream, defaults to the current input stream.
+</p>
+</dd>
+<dt><var>Term</var></dt>
+<dd><p><em>term</em>
+</p>
+<p>The term that is read.
+</p>
+</dd>
+<dt><var>Options</var></dt>
+<dd><p><em>list of term</em>, must be ground, except <var>Vars</var>, <var>Names</var>, and <var>Layout</var>
+as described below.
+</p>
+<p>A list of zero or more of the following:
+</p>
+<dl compact="compact">
+<dt><code>syntax_errors(<var>Val</var>)</code></dt>
+<dd><a name="index-syntax_005ferrors_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029-1"></a>
+<p>Controls what action to take on syntax errors.  <var>Val</var> must be
+one of the values allowed for the <code>syntax_errors</code> Prolog flag.  The
+default is set by that flag. See <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+<a name="index-syntax_005ferrors-_0028prolog-flag_0029-4"></a>
+</p>
+</dd>
+<dt><code>variables(<var>Vars</var>)</code></dt>
+<dd><a name="index-variables_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p><var>Vars</var> is bound to the list of variables in the
+term input, in left-to-right traversal order.
+</p>
+</dd>
+<dt><code>variable_names(<var>Names</var>)</code></dt>
+<dd><a name="index-variable_005fnames_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p><var>Names</var> is bound to a list of <code><var>Name</var>=<var>Var</var></code>
+pairs, where each <var>Name</var> is an atom indicating the name of a
+non-anonymous variable in the term, and <var>Var</var> is the
+corresponding variable.
+The elements of the list are in the same order as in <var>Term</var>, i.e. in left-to-right traversal order.
+</p>
+</dd>
+<dt><code>singletons(<var>Names</var>)</code></dt>
+<dd><a name="index-singletons_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p><var>Names</var> is bound to a list of <code><var>Name</var>=<var>Var</var></code>
+pairs, one for each non-anonymous variable appearing only once in the term.
+The elements of the list are in the same order as in <var>Term</var>, i.e. in left-to-right traversal order.
+</p>
+</dd>
+<dt><code>cycles(<var>Boolean</var>)</code></dt>
+<dd><a name="index-cycles_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<a name="index-cyclic-term"></a>
+<a name="index-term_002c-cyclic"></a>
+<p><var>Boolean</var> must be <code>true</code> or <code>false</code>.  If selected, then any
+occurrences of <code>@/2</code> in the term read in are replaced by the
+potentially cyclic terms they denote as described below.
+Otherwise (the default), <var>Term</var> is just unified with the
+term read in.
+</p>
+<p>The notation used when this option is selected is
+<code>@(<var>Template</var>,<var>Substitution</var>)</code> where
+<var>Substitution</var> is a list of <var>Var</var>=<var>Term</var> pairs where
+the <var>Var</var> occurs in <var>Template</var> or in one of the <var>Term</var>s.
+This notation stands for the instance of <var>Template</var> obtained by
+binding each <var>Var</var> to its corresponding <var>Term</var>.  The
+purpose of this notation is to provide a finite printed representation
+of cyclic terms.  This notation is not used by default, and
+<code>@/2</code> has no special meaning except in this context.
+</p>
+<p>Terms can be written in this notation using <code>write_term/[2,3]</code> (see <a href="mpg_002dref_002dwrite_005fterm.html#mpg_002dref_002dwrite_005fterm">mpg-ref-write_term</a>).
+</p>
+</dd>
+<dt><code>layout(<var>Layout</var>)</code></dt>
+<dd><a name="index-layout_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<a name="index-layout-term"></a>
+<a name="index-term_002c-layout"></a>
+<p><var>Layout</var> is bound to a <em>layout term</em> corresponding to
+<var>Term</var> (see <a href="Glossary.html#Glossary">Glossary</a>).
+</p>
+</dd>
+<dt><code>consume_layout(<var>Boolean</var>)</code></dt>
+<dd><a name="index-consume_005flayout_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p><var>Boolean</var> must be <code>true</code> or <code>false</code>.  If this option is
+<code>true</code>, then <code>read_term/[2,3]</code> will consume the
+<var>layout-text-item</var> that follows the terminating &lsquo;<samp>.</samp>&rsquo; (this
+<var>layout-text-item</var> can either be a <var>layout-char</var> or a
+<var>comment</var> starting with a &lsquo;<samp>%</samp>&rsquo;). If the option is <code>false</code>, then the
+<var>layout-text-item</var> will remain in the input stream, so that
+subsequent character input predicates will see it. The default of
+the <code>consume_layout</code> option is <code>false</code>.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<a name="Description-148"></a>
+<h4 class="subheading">Description</h4>
+
+<p>The characters read are subject to character-conversion.
+</p>
+<a name="Exceptions-201"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Stream errors (see <a href="ref_002diou_002dsfh_002dest.html#ref_002diou_002dsfh_002dest">ref-iou-sfh-est</a>), plus:
+</p>
+<dl compact="compact">
+<dt><code>syntax_error</code></dt>
+<dd><p>A syntax error was found.
+</p>
+</dd>
+<dt><code>instantiation_error</code></dt>
+<dt><code>type_error</code></dt>
+<dt><code>domain_error</code></dt>
+<dd><p>An illegal option was specified.
+</p></dd>
+</dl>
+
+<a name="Examples-76"></a>
+<h4 class="subheading">Examples</h4>
+
+<div class="example">
+<pre class="example">| ?- <kbd>read_term(T, [variable_names(L)]).</kbd>
+|: <kbd>append([U|X],Y,[U|Z]) :- append(X,Y,Z).</kbd>
+L = ['U'=_A,'X'=_B,'Y'=_C,'Z'=_D],
+T = (append([_A|_B],_C,[_A|_D]):-append(_B,_C,_D))
+</pre></div>
+
+<div class="example">
+<pre class="example">| ?- <kbd>read_term(T, [layout(L), variable_names(Va), singletons(S)]).</kbd>
+|: <kbd>[</kbd>
+     <kbd>foo(X),</kbd>
+     <kbd>X = Y</kbd>
+     <kbd>].</kbd>
+
+L = [35,[36,36],[36,[37,37,37],38]],
+S = ['Y'=_A],
+T = [foo(_B),_B=_A],
+Va = ['X'=_B,'Y'=_A]
+
+| ?- <kbd>read_term(T, [consume_layout(false)]), get_code(C).</kbd>
+|: <kbd>1.</kbd>
+
+C = 10,
+T = 1
+
+| ?- <kbd>read_term(T, [consume_layout(true)]), get_code(C).</kbd>
+|: <kbd>1.</kbd>
+|: <kbd>a</kbd>
+
+C = 97,
+T = 1
+
+</pre></div>
+
+<a name="See-Also-207"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>read/[1,2]</code>, <code>char_conversion/2</code>, <a href="ref_002diou_002dtin_002dtrm.html#ref_002diou_002dtin_002dtrm">ref-iou-tin-trm</a>, <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dreconsult.html#mpg_002dref_002dreconsult" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dread_005fline.html#mpg_002dref_002dread_005fline" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dread_005fterm.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dread_005fterm.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

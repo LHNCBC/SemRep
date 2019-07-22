@@ -1,0 +1,21 @@
+CFLAGS=${DEFAULT_CFLAGS} -c
+
+SPLFR_BASIC_FLAGS = --verbose --keep
+SPLFR_DYNAMIC_FLAGS = ${SPLFR_BASIC_FLAGS} ${LDFLAGS}
+SPLFR_STATIC_FLAGS = ${SPLFR_BASIC_FLAGS} --static
+
+INCLUDES = -I${BERKELEY_INC}
+
+DO_SPLFR = ${SPLFR} --conf CC="${CC}" --cflag="${INCLUDES}" ${addprefix --cflag=, ${CFLAGS}}
+
+STATIC_LINK_FLAGS=  ${BERKELEY_LIB_A}
+DYNAMIC_LINK_FLAGS=  -L${BERKELEY_LIB} -ldb
+
+all:            splfr_STATIC splfr_DYNAMIC
+
+splfr_DYNAMIC:
+	${DO_SPLFR} ${SPLFR_DYNAMIC_FLAGS} entrezgene.pl retrieve_entrezgene.c ${DYNAMIC_LINK_FLAGS}
+
+
+splfr_STATIC:
+	${DO_SPLFR} ${SPLFR_STATIC_FLAGS} entrezgene.pl retrieve_entrezgene.c ${STATIC_LINK_FLAGS}

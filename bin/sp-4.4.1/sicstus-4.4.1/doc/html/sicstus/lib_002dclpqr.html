@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-clpqr</title>
+
+<meta name="description" content="SICStus Prolog: lib-clpqr">
+<meta name="keywords" content="SICStus Prolog: lib-clpqr">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="CLPQR-Introduction.html#CLPQR-Introduction" rel="next" title="CLPQR Introduction">
+<link href="Operator-Declarations.html#Operator-Declarations" rel="prev" title="Operator Declarations">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dclpqr"></a>
+<hr>
+<a name="Constraint-Logic-Programming-over-Rationals-or-Reals_002d_002d_002dlibrary_0028_005bclpq_002cclpr_005d_0029"></a>
+<h3 class="section">10.11 Constraint Logic Programming over Rationals or Reals&mdash;<code>library([clpq,clpr])</code></h3>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="CLPQR-Introduction.html#CLPQR-Introduction" accesskey="1">CLPQR Introduction</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Introduction
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPQR-Interface.html#CLPQR-Interface" accesskey="2">CLPQR Interface</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Solver Interface
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPQR-Linearity.html#CLPQR-Linearity" accesskey="3">CLPQR Linearity</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Linearity and Nonlinear Residues
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPQR-Numerical-Precision.html#CLPQR-Numerical-Precision" accesskey="4">CLPQR Numerical Precision</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Numerical Precision and Rationals
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPQR-Projection.html#CLPQR-Projection" accesskey="5">CLPQR Projection</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Projection and Redundancy Elimination
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPQR-Why-Disequations.html#CLPQR-Why-Disequations" accesskey="6">CLPQR Why Disequations</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Why Disequations
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPQR-Monash-Examples.html#CLPQR-Monash-Examples" accesskey="7">CLPQR Monash Examples</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Monash Examples
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPQR-MIP.html#CLPQR-MIP" accesskey="8">CLPQR MIP</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">A Mixed Integer Linear Optimization Example
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="CLPQR-Implementation-Architecture.html#CLPQR-Implementation-Architecture" accesskey="9">CLPQR Implementation Architecture</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Implementation Architecture
+</td></tr>
+</table>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dcodesio.html#lib_002dcodesio" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dclpfd.html#lib_002dclpfd" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dclpqr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dclpqr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

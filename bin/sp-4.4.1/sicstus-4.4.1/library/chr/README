@@ -1,0 +1,151 @@
+v# The K.U.Leuven CHR system: starting from SWI-Prolog (Multi-threaded,
+# Version 5.5.39) and going to SICStus Prolog 3.12.0
+# (x86-linux-glibc2.2) with option --iso
+# 
+# Sat Mar  4 20:10:12 CET 2006
+# 
+# 2006 Author Bart Demoen K.U.Leuven
+
+Initially, this directory contains
+
+	this README file
+	a Makefile
+	a bootstrap script named boot_script
+	a subdirectory named orig_files
+	a subdirectory named examples
+	a file installationlog
+
+The orig_files directory contains two subdirs named errors and warnings:
+they contains file(s) which are supposed to show every possible error
+and warning, when the file is loaded, i.e. compiler warnings/errors.
+
+The examples directory contains a subset of the SICStus examples
+directory: some examples don't yet run (or never will). See file
+queries for a little bit more info.
+
+
+This README file is in a directory which is meant to be installed as
+<sicstus>/library/chr: the Prolog/CHR files contain no absolute
+filenames, but counts on being installed in the chr library.
+
+The whole of the chr package can be regenerated from the files in the
+subdirectory orig_files, which contains
+
+	a set of .chr and .pl files 
+	a script (named copy_script) for installing some file in ..
+	the files copyfromswi and dodif used during development
+	subdirectories errors and warnings, with files that together
+		generate all possible warnings and errors (except
+		the internal ones that shouldn't occur anyway)
+
+
+The SWI installation bootstraps the compiler and it turned out to be
+most convenient to mimick that process in SICStus, instead of porting
+only the final outcome.
+
+The .chr and .pl files come in 5 categories:
+
+1) same name as in SWI but rewritten completely
+
+chr_hashtable_store.pl
+chr_messages.pl
+hprolog.pl (in orig_files, there are two versions: hprolog3.pl and
+		hprolog4.pl - according to the SICStus release - comment
+		out a line in orig_files/copy_script)
+
+
+2) same name as in SWI, the same contents, no preprocessing needed
+
+binomialheap.pl
+chr_compiler_utility.pl
+chr_op2.pl
+chr_op.pl
+find.pl
+guard_entailment.chr
+listmap.pl
+pairlist.pl
+
+
+3) same name as in SWI, the same contents, preprocessing needed
+
+a_star.pl
+builtins.pl
+chr_compiler_options.pl
+chr_runtime.pl
+chr_swi_bootstrap.pl
+chr_swi.pl
+chr_translate_bootstrap1.chr
+chr_translate_bootstrap2.chr
+chr_translate_bootstrap.pl
+chr_translate.chr
+clean_code.pl
+
+4) new for SICStus
+
+b_globval.pl
+hpattvars.pl
+
+
+5) swi2sicstus.pl which does the preprocessing mentioned in 3 above
+
+
+Running the preprocessor on files that don't need it, is harmless.
+
+The preprocessing and bootstrapping use a SICStus Prolog system - in
+the script, it is reffered to simply as sicstus - adjust to your needs
+or define PATH or alias appropriately.
+
+
+Installing the files
+====================
+
+The files that need no preprocessing are simply copied to ..
+
+
+The other files are preprocessed and the result is copied to a file in
+.. with the same name, except chr_swi.pl which is copied to
+../../chr.pl.
+
+This is done care by copy_script which is fairly explicit.
+Just cd to orig_files and run the script
+
+	cd orig_files
+	. ./copy_script
+
+
+Doing the bootstrap
+===================
+
+The current directory contains a script named boot_script.
+It is fairly explicit and all you should need to do is
+
+	. ./boot_script
+
+The bootstrap could spit out some warnings, but as long as there are
+no errors, or warnings during the loading of the files due to missing
+files or conflicts in imported predicates, things are fine.
+However, if you get a few times "The module ... is being redefined."
+just answer n (I still have to figure out why this is so, but I will look
+into it).
+
+The boot process calls sicstus 8 times, most often a run is short -
+the total running time is about 160 seconds (on my 500MHz laptop).
+
+
+Log
+===
+
+The file installationlog contains a log of the session during which 
+all this was performed.
+
+
+About the files copyfromswi and dodif used during development
+=============================================================
+
+Apart from the files in category 1 and 4 above, you need only a
+current version of SWI to start from. The file copyfromswi copies the
+necessary files from the distribution: adapt the ORIGIN variable
+accordingly.
+
+I use dodif for checking whether I haven't introduced a difference
+between local files and the SWI distribution.

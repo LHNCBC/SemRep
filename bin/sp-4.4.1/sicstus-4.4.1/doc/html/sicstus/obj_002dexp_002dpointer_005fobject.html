@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-exp-pointer_object</title>
+
+<meta name="description" content="SICStus Prolog: obj-exp-pointer_object">
+<meta name="keywords" content="SICStus Prolog: obj-exp-pointer_object">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dexp.html#obj_002dexp" rel="up" title="obj-exp">
+<link href="obj_002dexp_002dstore_005fslot.html#obj_002dexp_002dstore_005fslot" rel="next" title="obj-exp-store_slot">
+<link href="obj_002dexp_002dnodebug_005fmessage.html#obj_002dexp_002dnodebug_005fmessage" rel="prev" title="obj-exp-nodebug_message">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dexp_002dpointer_005fobject"></a>
+<hr>
+<a name="pointer_005fobject_002f2"></a>
+<h4 class="subsubsection">10.23.6.22 <code>pointer_object/2</code></h4>
+
+
+
+
+
+<a name="index-pointer_005fobject_002f2-_0028objects_0029-1"></a>
+<a name="index-pointer_005fobject_002f2-_0028objects_0029"></a>
+
+
+
+
+
+<a name="Synopsis-21"></a>
+<h4 class="subheading">Synopsis</h4>
+<p><code>pointer_object(<var>+Addr</var>,<var>-Obj</var>)</code> 
+</p>
+<p><code>pointer_object(<var>-Addr</var>,<var>+Obj</var>)</code> 
+</p>
+<a name="Arguments-19"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Addr</var></dt>
+<dd><p><em>integer</em>
+</p>
+</dd>
+<dt><var>Obj</var></dt>
+<dd><p><em>object</em>
+</p>
+</dd>
+</dl>
+
+
+<a name="Description-21"></a>
+<h4 class="subheading">Description</h4>
+<p><var>Addr</var> is the address of object <var>Obj</var>. This can
+be used to get the address of an object or to get an object
+given its address.
+</p>
+<p><strong>Please note</strong>: This is a low level operation, passing an invalid address may crash the system.
+</p>
+<a name="Exceptions-12"></a>
+<h4 class="subheading">Exceptions</h4>
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd>
+<p>both <var>Obj</var> and <var>Addr</var> are unbound.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd>
+<p><var>Addr</var> is not an integer.
+</p></dd>
+</dl>
+
+
+
+
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dexp_002dstore_005fslot.html#obj_002dexp_002dstore_005fslot" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dexp_002dnodebug_005fmessage.html#obj_002dexp_002dnodebug_005fmessage" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dexp.html#obj_002dexp" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp_002dpointer_005fobject.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp_002dpointer_005fobject.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,12 @@
+var bool: X_INTRODUCED_0;
+var bool: X_INTRODUCED_1;
+var bool: X_INTRODUCED_2;
+var bool: X_INTRODUCED_3;
+var bool: y:: is_defined_var:: output_var;
+array [1..4] of var bool: x:: output_array([1..4]) = [X_INTRODUCED_0,X_INTRODUCED_1,X_INTRODUCED_2,X_INTRODUCED_3];
+constraint array_bool_or([X_INTRODUCED_2,y],true);
+constraint array_bool_or([X_INTRODUCED_3,y],true);
+constraint bool_clause([y],[X_INTRODUCED_0]);
+constraint bool_clause([y],[X_INTRODUCED_1]);
+constraint bool_clause([X_INTRODUCED_0,X_INTRODUCED_1],[X_INTRODUCED_2,X_INTRODUCED_3,y]);
+solve  satisfy;

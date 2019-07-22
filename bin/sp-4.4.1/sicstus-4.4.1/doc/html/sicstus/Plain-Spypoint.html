@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Plain Spypoint</title>
+
+<meta name="description" content="SICStus Prolog: Plain Spypoint">
+<meta name="keywords" content="SICStus Prolog: Plain Spypoint">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Debug-Intro.html#Debug-Intro" rel="up" title="Debug Intro">
+<link href="Debug-Format.html#Debug-Format" rel="next" title="Debug Format">
+<link href="Basic-Debug.html#Basic-Debug" rel="prev" title="Basic Debug">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Plain-Spypoint"></a>
+<hr>
+<a name="Plain-Spypoints"></a>
+<h3 class="section">5.3 Plain Spypoints</h3>
+<a name="index-plain-spypoint"></a>
+<a name="index-spypoint_002c-plain"></a>
+
+<p>For programs of any size, it is clearly impractical to creep
+through the entire program.  Spypoints make it possible to
+stop the program whenever it gets to a particular predicate
+of interest.  Once there, one can set further spypoints in order
+to catch the control flow a bit further on, or one can start
+creeping.
+</p>
+<p>In this section we discuss the simplest form of spypoints, the
+<em>plain spypoints</em>. The more advanced forms, the <em>conditional</em>
+and <em>generic spypoints</em> will be discussed later; see <a href="Advanced-Debugging.html#Advanced-Debugging">Advanced Debugging</a>.
+</p>
+<p>Setting a plain spypoint on a predicate indicates that you
+wish to see all control flow through the various ports of its
+invocation boxes, except during skips.  When control passes
+through any port of an invocation box with a spypoint
+set on it, a message is output and the user is asked to interact.  Note
+that the current mode of leashing does not affect plain
+spypoints: user interaction is requested on <em>every</em>
+port.
+</p>
+<p>Spypoints are set and removed by the following built-in
+predicates.  The first two are also standard operators:
+</p>
+<dl compact="compact">
+<dt><code>spy <var>:Spec</var> &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd>
+<a name="index-spy_002f_005b1_002c2_005d-_0028built_002din_0029-2"></a>
+<a name="index-spy_002f_005b1_002c2_005d-_0028built_002din_0029"></a>
+
+<p>Sets plain spypoints on all the predicates given by the
+generalized predicate spec <var>Spec</var>.
+</p>
+<p>Examples:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>spy [user:p, m:q/2, m:q/3].</kbd>
+| ?- <kbd>spy m:[p/1, q/1].</kbd>
+</pre></div>
+
+<p>If you set some spypoints when the debugger is switched off,
+then it will be automatically switched on, entering zip mode.
+See <a href="mpg_002dref_002dspy.html#mpg_002dref_002dspy">mpg-ref-spy</a>.
+</p>
+</dd>
+<dt><code>nospy <var>:Spec</var> &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd>
+<a name="index-nospy_002f1-_0028built_002din_0029-1"></a>
+<a name="index-nospy_002f1-_0028built_002din_0029"></a>
+
+<p>Similar to <code>spy <var>Spec</var></code> except that all the predicates
+given by <var>Spec</var> will have all previously set spypoints removed
+from them (including conditional spypoints; see <a href="Creating-Breakpoints.html#Creating-Breakpoints">Creating Breakpoints</a>).
+See <a href="mpg_002dref_002dnospy.html#mpg_002dref_002dnospy">mpg-ref-nospy</a>.
+</p>
+
+</dd>
+<dt><code>nospyall &nbsp;<!-- /@w --> <i>development</i></code></dt>
+<dd>
+<a name="index-nospyall_002f0-_0028built_002din_0029-1"></a>
+<a name="index-nospyall_002f0-_0028built_002din_0029"></a>
+
+<p>Removes all the spypoints that have been set, including the
+conditional and generic ones.
+See <a href="mpg_002dref_002dnospyall.html#mpg_002dref_002dnospyall">mpg-ref-nospyall</a>.
+</p></dd>
+</dl>
+
+<p>The commands available when you arrive at a spypoint are described
+later.  See <a href="Debug-Commands.html#Debug-Commands">Debug Commands</a>.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Debug-Format.html#Debug-Format" accesskey="n" rel="next">Next</a>
+<li><a href="Basic-Debug.html#Basic-Debug" accesskey="p" rel="prev">Previous</a>
+<li><a href="Debug-Intro.html#Debug-Intro" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Plain-Spypoint.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Plain-Spypoint.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

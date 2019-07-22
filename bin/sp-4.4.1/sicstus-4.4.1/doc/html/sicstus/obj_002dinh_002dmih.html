@@ -1,0 +1,312 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-inh-mih</title>
+
+<meta name="description" content="SICStus Prolog: obj-inh-mih">
+<meta name="keywords" content="SICStus Prolog: obj-inh-mih">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dinh.html#obj_002dinh" rel="up" title="obj-inh">
+<link href="obj_002dinh_002dask.html#obj_002dinh_002dask" rel="next" title="obj-inh-ask">
+<link href="obj_002dinh_002dsih.html#obj_002dinh_002dsih" rel="prev" title="obj-inh-sih">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dinh_002dmih"></a>
+<hr>
+<a name="Multiple-Inheritance"></a>
+<h4 class="subsubsection">10.23.3.2 Multiple Inheritance</h4>
+
+<p>It is possible for a class to be defined with more than one
+superclass. Because the class inherits properties from multiple
+superclasses, this is referred to as multiple inheritance.
+</p>
+<p>Multiple inheritance is a complex and controversial topic. What should
+be done about conflicting slot or method definitions? (This is
+sometimes called a &ldquo;name clash.&rdquo;) What should be done about slots that
+are inherited from two or more superclasses, but that originate with
+a common ancestor class? (This is sometimes called &ldquo;repeated
+inheritance&rdquo;.) Different systems take different approaches.
+</p>
+<p>SICStus Objects supports multiple inheritance in a limited but still
+useful way. It does not allow repeated inheritance, and it places all
+the responsibility for resolving name clashes on the programmer. This
+section describes the multiple inheritance features of SICStus
+Objects.
+</p>
+<a name="Class-Definitions-1"></a>
+<h4 class="subheading">Class Definitions</h4>
+
+
+<p>The definition of a class with multiple superclasses begins with a
+<code>class/1</code> directive of the form
+</p>
+<div class="example">
+<pre class="example">:- class <var>ClassName</var> = [<var>SlotDef</var>, <var>&hellip;</var>] + <var>SuperClass</var> + <var>&hellip;</var>.
+</pre></div>
+
+
+<p>The list of slot descriptions and the superclasses to the right of the
+&lsquo;<samp>=</samp>&rsquo; can appear in any order, without changing the class being
+defined. In fact, the slot descriptions can be partitioned into more
+than one list, without changing the class. However, it is best to
+adopt a fairly simple style of writing class definition
+and use it consistently.
+</p>
+<p>Just as the slot names in a list of slot descriptions must be distinct, superclass names should not 
+be repeated.
+</p>
+<a name="Slots-2"></a>
+<h4 class="subheading">Slots</h4>
+
+
+<p>In SICStus Objects, the programmer has no control over multiple
+inheritance of slots. All slots from all superclasses are
+inherited. And, the superclasses should have no slot names in common.
+</p>
+<p>As a consequence, in SICStus Objects no superclasses of a class should
+have a common ancestor. The only exception would be the unusual case
+where that common ancestor has no slots.
+</p>
+<a name="Methods-2"></a>
+<h4 class="subheading">Methods</h4>
+
+
+
+<p>By default, all methods are inherited from all superclasses. Any of
+the superclasses&rsquo; methods can be uninherited, as described earlier, by
+using the <code>uninherit/1</code> directive.
+</p>
+<p>If the same message is defined for more than one superclass, however,
+then you must choose at most one method to inherit for the message. You may
+choose none. You may do this by defining a new method for the message
+(shadowing the superclasses&rsquo; methods), or by using the <code>uninherit/1</code>
+directive, or by using the <code>inherit/1</code> directive.
+</p>
+<p>The following is considered a classic example of multiple inheritance.
+</p>
+<div class="example">
+<pre class="example">:- class toy.             % no slots in this class
+
+Self &gt;&gt; size(small).
+
+Self &gt;&gt; rolls(false).
+
+:- end_class toy.
+
+:- class truck.         % no slots in this class
+        
+Self &gt;&gt; size(large).
+
+Self &gt;&gt; rolls(true).
+
+:- end_class truck.
+</pre></div>
+
+
+<p>The idea expressed in these definitions is that most toys are small
+and do not roll.  On the other hand, most trucks are large, but they do
+roll. A toy truck shares one feature with each class, but we can
+hardly expect a compiler to choose the correct one.
+</p>
+<p>The definition of a new class, toy_truck, might begin with
+</p>
+<div class="example">
+<pre class="example">:- class toy_truck = toy + truck.
+</pre></div>
+
+
+<p>Rather than redefine the get methods for <code>size</code> and <code>rolls</code>, we can
+specify which to inherit in two ways. One way is positive, stating
+which to inherit, and the other way is negative, stating which not to
+inherit.
+</p>
+<p>The positive version would be
+</p>
+<div class="example">
+<pre class="example">:- inherit
+        toy &gt;&gt; (size/1), 
+        truck &gt;&gt; (rolls/1).
+</pre></div>
+
+
+<p>This is more convenient when a message is defined in several
+superclasses, because all but the chosen method are uninherited. And,
+it is probably easier to understand.
+</p>
+<p>The negative version would be
+</p>
+<div class="example">
+<pre class="example">:- uninherit 
+        toy &gt;&gt; (rolls/1), 
+        truck &gt;&gt; (size/1).
+</pre></div>
+
+
+<p>The <code>toy_truck</code> class would exhibit the same behavior with either
+definition.
+</p>
+<p>It is possible to define methods that access the shadowed or
+uninherited methods of the superclasses, by sending the message to
+the superclasses. In the case of multiple inheritance, however, it may
+be necessary to specify which superclass to send the message to.
+</p>
+<p>The <code>toy_truck</code> class, for example, might define these methods:
+</p>
+<div class="example">
+<pre class="example">Self &gt;&gt; uninherited_size(S) :- 
+        super(truck) &gt;&gt; size(S).
+
+Self &gt;&gt; uninherited_rolls(R) :-
+        super(toy) &gt;&gt; rolls(R).
+</pre></div>
+
+
+<p>They provide access to the unchosen methods from <code>toy_truck</code>&rsquo;s superclasses. 
+</p>
+<p>While these examples with the toy_truck class are clearly &ldquo;toy&rdquo;
+examples, the same techniques can be used in more realistic cases.
+</p>
+<a name="Abstract-and-Mixin-Classes"></a>
+<h4 class="subheading">Abstract and Mixin Classes</h4>
+
+
+<p>While SICStus Objects only supports a limited form of multiple
+inheritance, its facilities are sufficient for working with so-called
+<em>mixin classes</em>.
+</p>
+<p>The idea is to construct similar classes by first defining a class
+that contains the things the desired classes have in
+common. Typically, this will be an <em>abstract class</em>, which will have no
+instances itself. Then, provide the features that differentiate the
+desired classes with a set of mixin classes
+</p>
+<p>Mixin classes that have nothing in common can safely be mixed
+together, to build the desired classes. The mixin classes will usually
+be abstract classes, also, because they are too specialized for their
+instances to be useful on their own.
+</p>
+<p>The date_stamp class defined earlier would make a good mixin class. A
+similar <code>time_stamp</code> class might be (partially) defined as follows:
+</p>
+<div class="example">
+<pre class="example">:- class time_stamp = 
+        [hour:integer, 
+         minute:integer, 
+         second:integer].
+
+Self &lt;- create :-
+        time(time(Hour, Minute, Second)), 
+        store_slot(hour, Hour), 
+        store_slot(minute, Minute), 
+        store_slot(second, Second).
+</pre></div>
+
+
+<p>Another mixin class might be used to &ldquo;register&rdquo; objects in the Prolog
+database.
+</p>
+<div class="example">
+<pre class="example">:- class registry = [name:atom].
+
+Self &lt;- create(Name) :-
+        Self &lt;&lt; name(Name), 
+        assert(registered(Name, Self)).
+
+Self &lt;- destroy :-
+        Self &gt;&gt; name(Name), 
+        retract(registered(Name, Self)).
+</pre></div>
+
+
+<p>The <code>registry</code> mixin class could have been used with the <code>point</code>
+class to define the <code>named_point</code> class, which was an example from
+an earlier section.
+</p>
+<p>The ability to send a message to an object&rsquo;s superclass is useful when
+working with mixin classes. Suppose the definition of a new class
+begins with
+</p>
+<div class="example">
+<pre class="example">:- <var>NewClass</var> = <var>OldClass</var> + date + time + registry.
+</pre></div>
+
+
+<p>where <var>OldClass</var> is some previously defined class that lacks the
+features provided by the <code>date</code>, <code>time</code> and <code>registry</code>
+classes. (In fact, they should not have any slot names in common.)
+Then its create method can be defined by
+</p>
+<div class="example">
+<pre class="example">Self &lt;- create(Name) :-
+        super(OldClass) &lt;- create, 
+        super(date) &lt;- create, 
+        super(time) &lt;- create, 
+        super(registry) &lt;- create(Name).
+</pre></div>
+
+
+<p>This avoids the need to duplicate the code in the create methods of
+OldClass and all three mixin classes.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dinh_002dask.html#obj_002dinh_002dask" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dinh_002dsih.html#obj_002dinh_002dsih" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dinh.html#obj_002dinh" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dinh_002dmih.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dinh_002dmih.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

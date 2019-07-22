@@ -1,0 +1,67 @@
+#!/bin/perl -w
+
+use strict;
+
+# Generate a list of all imported Quintus Prolog predicates
+# (both QP library predicates and MetaMap predicates).
+# Call as follows: find . -name '*.pl' | xargs ./gen_imports | sort -u > imports
+
+# Output is of the form
+# Output looks like this:
+# keep_pred(control_value,                       3,  'glean_unique_aa.pl',  skr_lib(nls_system)).
+# keep_pred(parse_command_line,                  1,  'glean_unique_aa.pl',  skr_lib(nls_system)).
+# keep_pred(interpret_options,                   4,  'glean_unique_aa.pl',  skr_lib(nls_system)).
+# keep_pred(interpret_args,                      4,  'glean_unique_aa.pl',  skr_lib(nls_system)).
+# keep_pred(get_from_iargs,                      4,  'glean_unique_aa.pl',  skr_lib(nls_system)).
+# keep_pred(split_string,                        4,  'glean_unique_aa.pl',  skr_lib(nls_strings)).
+
+my $line;
+my $Module;
+my $Predicate;
+my $Arity;
+my $FileName;
+
+while (<>) {
+	chomp;
+	$line = $_;
+	# grab lines containing "use_module" and at least two following parens
+	if (  ( $line =~ /:-.*use_module\(.*\(/ )
+	   && ( $line !~ /library\(/ ) ) {
+	    # :- use_module(skr_db(db_access),[
+	    # Remove all characters except XXX in ":- use_module(XXX), ["
+	    ( $Module = $line ) =~ s/.*use_module\((.*),.*/$1/;
+	    # Remove all whitespace from $Module
+	    $Module =~ s/\s+//;
+	    $line = <>;
+	    chomp $line;
+	    # until the line "   ])."
+	    while ( $line !~ /\)/ ) {
+		# get rid of Prolog comments including any leading whitespace
+		$line =~ s/\s*%.*//;
+		# if there's any text left on the line
+		if ( $line ne "" ) {
+		    # in lines like "get_phrase_item_name/2,"
+		    # remove leading whitespace, an optional trailing comma, and everything else,
+		    # keeping the predicate name (\w+), the slash ("/"), and the arity (\d+).
+		    # printf "LINE:>%s<\n", $line;
+		    $line =~ s/^\s+(\w+\/\d+),?.*/$1/;
+		    # printf "LINE:>%s<\n", $line;
+		    ( $Predicate, $Arity ) = split/\//, $line;
+		    # printf "P/A: >%s</>%s<\n", $Predicate, $Arity;
+		    # $ARGV looks like "./mm_variants/mm_variants.pl"
+		    # remove chars up to and including the final "/"
+		    ( $FileName = $ARGV ) =~ s@.*/@@;
+		    printf "keep_pred(%s,%s %d, %s).\n",
+		    	     $Predicate, " "x(50-length($Predicate)), $Arity, $Module;
+		    # printf "keep_pred(%s,%s %d,  '%s',%s %s).\n",
+		    # 	   $Predicate, " "x(50-length($Predicate)), $Arity,
+		    # 	   $FileName,  " "x(30-length($FileName)),  $Module;
+		}
+		$line = <>;
+		chomp $line;
+	    }
+	
+	}
+
+}   
+

@@ -1,0 +1,340 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ODBC Predicates</title>
+
+<meta name="description" content="SICStus Prolog: ODBC Predicates">
+<meta name="keywords" content="SICStus Prolog: ODBC Predicates">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dodbc.html#lib_002dodbc" rel="up" title="lib-odbc">
+<link href="lib_002dordsets.html#lib_002dordsets" rel="next" title="lib-ordsets">
+<link href="ODBC-Exceptions.html#ODBC-Exceptions" rel="prev" title="ODBC Exceptions">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ODBC-Predicates"></a>
+<hr>
+<a name="Predicates-2"></a>
+<h4 class="subsection">10.24.5 Predicates</h4>
+<dl compact="compact">
+<dt><code>odbc_env_open(<var>-EnvHandle</var>)</code></dt>
+<dd>
+<a name="index-odbc_005fenv_005fopen_002f1-_0028odbc_0029-1"></a>
+<a name="index-odbc_005fenv_005fopen_002f1-_0028odbc_0029"></a>
+
+<p>Opens an ODBC environment.
+Throws an exception if the environment could not be opened.
+</p></dd>
+<dt><code>odbc_db_open(<var>+Dbname</var>,<var>+EnvHandle</var>,<var>-ConnectionHandle</var>)</code></dt>
+<dd>
+<a name="index-odbc_005fdb_005fopen_002f3-_0028odbc_0029-1"></a>
+<a name="index-odbc_005fdb_005fopen_002f3-_0028odbc_0029"></a>
+
+<p>Opens a database with the name <var>Dbname</var>. The database cannot require a
+username and a password.
+<var>ConnectionHandle</var> is an opaque handle for accessing the database.
+</p></dd>
+<dt><code>odbc_db_open(<var>+Dbname</var>,<var>+EnvHandle</var>,<var>+Options</var>,<var>-ConnectionHandle</var>)</code></dt>
+<dd>
+<a name="index-odbc_005fdb_005fopen_002f4-_0028odbc_0029-1"></a>
+<a name="index-odbc_005fdb_005fopen_002f4-_0028odbc_0029"></a>
+
+<p>Opens a database with the name <var>Dbname</var>.
+<var>Options</var> should be a list of zero or more of:
+</p><dl compact="compact">
+<dt><code>username(<var>+Username</var>)</code></dt>
+<dd><a name="index-username_002f1-_0028odbc_005fdb_005fopen_002f4-option_0029"></a>
+<p>The username for connecting to the database.
+The default is <code>''</code>.
+</p>
+</dd>
+<dt><code>password(<var>+Password</var>)</code></dt>
+<dd><a name="index-password_002f1-_0028odbc_005fdb_005fopen_002f4-option_0029"></a>
+<p>The password for connection to the database.
+The default is <code>''</code>.
+</p>
+</dd>
+<dt><code>login_timeout(<var>+Timeout</var>)</code></dt>
+<dd><a name="index-login_005ftimeout_002f1-_0028odbc_005fdb_005fopen_002f4-option_0029"></a>
+<p>The number of seconds to wait for a login request to complete.
+If 0 is used, the login attempt will wait indefinitely.
+The default is driver-dependent.
+</p>
+</dd>
+<dt><code>connection_timeout(<var>+Timeout</var>)</code></dt>
+<dd><a name="index-connection_005ftimeout_002f1-_0028odbc_005fdb_005fopen_002f4-option_0029"></a>
+<p>The number of seconds to wait for any request on the connection to
+complete.
+If the Timeout value is 0 (the default), there is no timeout.
+</p>
+</dd>
+<dt><code>raw(<var>+ConnectionOptions</var>)</code></dt>
+<dd><a name="index-raw_002f1-_0028odbc_005fdb_005fopen_002f4-option_0029"></a>
+<p><var>ConnectionOptions</var> should be a list of atoms. They are passed, terminated by <kbd>;</kbd>, as extra options when opening the database.
+</p></dd>
+</dl>
+<p><var>ConnectionHandle</var> is an opaque handle for accessing the database.
+</p></dd>
+<dt><code>odbc_db_open(<var>+Dbname</var>,<var>+EnvHandle</var>,<var>+Options</var>,<var>-ConnectionHandle</var>,<var>-ConnectionString</var>)</code></dt>
+<dd>
+<a name="index-odbc_005fdb_005fopen_002f5-_0028odbc_0029-1"></a>
+<a name="index-odbc_005fdb_005fopen_002f5-_0028odbc_0029"></a>
+
+<p>Like <code>odbc_db_open/4</code> but also returns the completed connection string
+returned by the ODBC driver.
+</p></dd>
+<dt><code>odbc_query_open(<var>+ConnectionHandle</var>, <var>-StatementHandle</var>)</code></dt>
+<dd><p>Creates a new database query. <var>ConnectionHandle</var> is a handle previously
+allocated with <code>odbc_db_open/[3,4,5]</code>.
+</p></dd>
+<dt><code>odbc_list_DSN(<var>+EnvHandle</var>,<var>-DSNs</var>)</code></dt>
+<dd>
+<a name="index-odbc_005flist_005fDSN_002f2-_0028odbc_0029-1"></a>
+<a name="index-odbc_005flist_005fDSN_002f2-_0028odbc_0029"></a>
+
+<p><var>EnvHandle</var> is an opaque database handle.
+<var>DSNs</var> is unified with a list of all DSNs (Data Source Names).
+The list elements are X-Y where X is the DSN and Y its description.
+</p></dd>
+<dt><code>odbc_list_data_types(<var>+StatementHandle</var>, <var>+TableDesc</var>, <var>-DataTypes</var>)</code></dt>
+<dd><p>Makes a list of the datatypes in a table.
+<var>StatementHandle</var> is a handle previously allocated with <code>odbc_query_open/2</code>.
+<var>TableDesc</var> is a description of the table and its columns of the form
+<code>tablename(columnname1, columnname2, ..., columnnameN)</code>, or of the form
+<code>[tablename, columnname1, columnname2, ..., columnnameN]</code> (the latter
+form is useful if the table has more than 255 columns).
+<var>DataTypes</var> is unified with a list of the corresponding datatypes, i.e.
+on the form <code>[datatype1, datatype2, ... datatypeN]</code>.
+</p></dd>
+<dt><code>odbc_current_table(+ConnectionHandle, ?TableName) &nbsp;<!-- /@w --> <i>since release 4.2</i></code></dt>
+<dd><p>Enumerate the <em>proper</em> tables in the database, i.e. tables
+with attribute <code>'TABLE_TYPE'(&quot;TABLE&quot;)</code>.
+</p>
+<p><var>ConnectionHandle</var> is a handle previously allocated with <code>odbc_db_open/[3,4,5]</code>.
+<var>TableName</var> is the name, as an atom, of the table.
+</p>
+<p>Note that <code>odbc_current_table/2</code> may exit nondeterminately
+even if all arguments are instantiated when it is called.
+</p></dd>
+<dt><code>odbc_current_table(+ConnectionHandle, ?TableName, ?Attribute) &nbsp;<!-- /@w --> <i>since release 4.2</i></code></dt>
+<dd><p>Enumerate database tables and their attributes.
+</p>
+<p><var>ConnectionHandle</var> is a handle previously allocated with <code>odbc_db_open/[3,4,5]</code>.
+<var>TableName</var> is the name, as an atom, of the table.
+<var>Attribute</var> is an attribute of the table.
+</p>
+<p>There are two kinds of attributes, <em>derived</em> attributes and
+<em>raw</em> attributes.
+</p>
+<p>The <em>derived</em> attributes are translations of raw attributes
+and other information and are in a format that is directly
+useful. There is currently only one derived attribute,
+</p><dl compact="compact">
+<dt><code>arity(<var>Value</var>)</code></dt>
+<dd><p>The number of columns in the table, as an integer.
+</p>
+<p>This attribute is always present.
+</p></dd>
+</dl>
+<p>the set of derived attributes may be extended in the future.
+</p>
+<p>The raw attributes correspond direcly to the (non-null) values
+returned from the ODBC function <code>SQLTables()</code> and are
+returned as is, wrapped in a functor with the same name as the
+attribute, e.g. <code>'TABLE_CAT'(&quot;foo&quot;)</code> would be returned for a
+table in the catalog &quot;foo&quot;. Note that the names of the raw
+attributes are in all uppercase so you need to surround them with
+single quotes to prevent their name from being parsed as a
+variable. Some of the raw attributes are,
+</p><dl compact="compact">
+<dt><code>'TABLE_CAT'(<var>Value</var>)</code></dt>
+<dd><p>Catalog name, as a code list. This attribute corresponds to the
+<code>TABLE_CAT</code> column, called <code>TABLE_QUALIFIER</code>
+in ODBC 2.0, as returned from the ODBC function <code>SQLTables()</code>.
+</p></dd>
+<dt><code>'TABLE_TYPE'(<var>Value</var>)</code></dt>
+<dd><p>Table type, as a code list. This attribute corresponds to the
+<code>TABLE_TYPE</code> column, as returned from the ODBC function
+<code>SQLTables()</code>. The standard table types are <code>&quot;TABLE&quot;</code>,
+<code>&quot;VIEW&quot;</code>, <code>&quot;SYSTEM TABLE&quot;</code>, <code>&quot;GLOBAL TEMPORARY&quot;</code>,
+<code>&quot;LOCAL TEMPORARY&quot;</code>, <code>&quot;ALIAS&quot;</code>, and <code>&quot;SYNONYM&quot;</code>, but
+there can be data-source-specific types as well.
+</p>
+<p>This attribute is always present.
+</p></dd>
+<dt><code>'REMARKS'(<var>Value</var>)</code></dt>
+<dd><p>Table descriptive text, as a code list. This attribute corresponds
+to the <code>REMARKS</code> column, as returned from the ODBC function
+<code>SQLTables()</code>.
+</p>
+</dd>
+</dl>
+<p>see the ODBC documentation for <code>SQLTables()</code> for the full
+list of raw attributes and their meaning.
+</p>
+<p>Note that <code>odbc_current_table/3</code> may exit nondeterminately
+even if one of more arguments are instantiated when it is called.
+</p></dd>
+<dt><code>odbc_table_column(+ConnectionHandle, ?TableName, ?ColumnName) &nbsp;<!-- /@w --> <i>since release 4.2</i></code></dt>
+<dd><p>Enumerate database table columns.
+</p>
+<p><var>ConnectionHandle</var> is a handle previously allocated with <code>odbc_db_open/[3,4,5]</code>.
+<var>TableName</var> is the name, as an atom, of the table.
+<var>ColumnName</var> is the name, as an atom, of the table.
+</p>
+</dd>
+<dt><code>odbc_table_column(+ConnectionHandle, ?TableName, ?ColumnName, ?Attribute) &nbsp;<!-- /@w --> <i>since release 4.2</i></code></dt>
+<dd><p>Enumerate database table columns and their attributes.
+</p>
+<p><var>ConnectionHandle</var> is a handle previously allocated with <code>odbc_db_open/[3,4,5]</code>.
+<var>TableName</var> is the name, as an atom, of the table.
+<var>ColumnName</var> is the name, as an atom, of the table.
+<var>Attribute</var> is an attribute of the table.
+</p>
+<p>There are two kinds of attributes, <em>derived</em> attributes and
+<em>raw</em> attributes.
+</p>
+<p>The <em>derived</em> attributes are translations of raw attributes
+and other information and are in a format that is directly
+useful. There is currently only one derived attribute,
+</p><dl compact="compact">
+<dt><code>nullable(<var>Value</var>)</code></dt>
+<dd><p><code>true</code> if the column is definitely nullable, or <code>false</code>
+if the column is definitely not nullable. The value is derived
+from the raw attributes <code>NULLABLE</code> and <code>IS_NULLABLE</code>,
+see the documentation for <code>SQLColumns()</code> for details.
+</p>
+<p>This attribute is not present if it can not be determined whether the column is nullable.
+</p></dd>
+</dl>
+<p>the set of derived attributes may be extended in the future.
+</p>
+<p>The raw attributes correspond direcly to the (non-null) values
+returned from the ODBC function <code>SQLColumns()</code> and are
+returned as is, wrapped in a functor with the same name as the
+attribute, e.g. <code>'TABLE_CAT'(&quot;foo&quot;)</code> would be returned for a
+column in a table in the catalog &quot;foo&quot;. Note that the names of the
+raw attributes are in all uppercase so you need to surround them
+with single quotes to prevent their name from being parsed as a
+variable. Some of the raw attributes are,
+</p><dl compact="compact">
+<dt><code>'REMARKS'(<var>Value</var>)</code></dt>
+<dd><p>Column descriptive text, as a code list. This attribute corresponds
+to the <code>REMARKS</code> column, as returned from the ODBC function
+<code>SQLColumns()</code>.
+</p>
+</dd>
+<dt><code>'ORDINAL_POSITION'(<var>Value</var>)</code></dt>
+<dd><p>The ordinal position of the column in the table, starting at 1. This attribute corresponds to the
+<code>ORDINAL_POSITION</code> column, as returned from the ODBC function <code>SQLColumns()</code>.
+</p>
+<p>This attribute is always present.
+</p>
+</dd>
+</dl>
+
+<p>See the ODBC documentation for <code>SQLColumns()</code> for the full
+list of raw attributes and their meaning.
+</p>
+<p>Note that <code>odbc_table_column/4</code> may exit nondeterminately
+even if one of more arguments are instantiated when it is called.
+</p></dd>
+<dt><code>odbc_query_execute_sql(<var>+StatementHandle</var>, <var>+SQLString</var>, <var>+ParamData</var>, <var>+ParamDataTypes</var>, <var>-ResultSet</var>)</code></dt>
+<dd><p>Executes an SQL query.
+<var>StatementHandle</var> is a handle previously allocated with <code>odbc_query_open/2</code>.
+<var>SQLString</var> is the SQL statement to be executed. The statement string may
+contain parameter markers.
+<var>ParamData</var> is a list of data to be bound to the parameter markers.
+<var>ParamDataTypes</var> is a list of data types corresponding to the
+<var>ParamData</var> list.
+<var>ResultSet</var> is bound to an opaque data structure describing the result
+of the query.
+</p></dd>
+<dt><code>odbc_query_execute_sql(<var>+StatementHandle</var>, <var>+SQLString</var>, <var>-ResultSet</var>)</code></dt>
+<dd><p><var>StatementHandle</var> is a handle previously allocated with <code>odbc_query_open/2</code>.
+<var>SQLString</var> is the SQL statement to be executed.
+<var>ResultSet</var> is bound to an opaque data structure describing the result
+of the query.
+</p></dd>
+<dt><code>odbc_sql_fetch(<var>+ResultSet</var>, <var>-Row</var>)</code></dt>
+<dd><p>Fetch the next row from the result set.
+<var>ResultSet</var> is the result set from <code>odbc_query_execute_sql/[3,5]</code>.
+<var>Row</var> is unified with a non-empty list of data constituting a row in the result set,
+or with <code>[]</code> when there are no more rows.
+The elements in the <var>Row</var> are in the same order as in the corresponding query.
+</p></dd>
+<dt><code>odbc_query_close(<var>+Query</var>)</code></dt>
+<dd><p>Closes the query represented by <var>Query</var>, which can be either a
+result set, e.g. as returned from <code>odbc_query_execute_sql/[3,5]</code>,
+or it can be a statement handle, as returned from
+<code>odbc_query_open/2</code>.
+</p>
+</dd>
+<dt><code>odbc_db_close(<var>+ConnectionHandle</var>)</code></dt>
+<dd><p>Closes the connection to the database.
+</p></dd>
+<dt><code>odbc_env_close(<var>+EnvHandle</var>)</code></dt>
+<dd><p>Frees the environment handle.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ODBC-Exceptions.html#ODBC-Exceptions" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dodbc.html#lib_002dodbc" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ODBC-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ODBC-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

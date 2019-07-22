@@ -1,0 +1,5 @@
+array[1 .. 4] of var 0 .. 2: a :: output_array([1..4]);
+
+constraint pairwise_relation_int_sicstus(a, 1);
+
+solve satisfy;

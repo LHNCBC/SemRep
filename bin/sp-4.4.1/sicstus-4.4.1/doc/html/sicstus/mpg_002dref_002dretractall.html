@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-retractall</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-retractall">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-retractall">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dsave_005ffiles.html#mpg_002dref_002dsave_005ffiles" rel="next" title="mpg-ref-save_files">
+<link href="mpg_002dref_002dretract.html#mpg_002dref_002dretract" rel="prev" title="mpg-ref-retract">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dretractall"></a>
+<hr>
+<a name="retractall_002f1---ISO"></a>
+<h4 class="subsection">11.3.194 <code>retractall/1</code> &nbsp;<!-- /@w --> <i>ISO</i></h4>
+<a name="index-retractall_002f1-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-retractall_002f1-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-219"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>retractall(<var>+Head</var>)</code>
+</p>
+<p>Removes every clause in module <var>M</var> whose head matches <var>Head</var>.
+</p>
+<a name="Arguments-201"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:Head</var></dt>
+<dd><p><em>callable</em>, must be nonvar
+</p>
+<p>Head of a Prolog clause.
+</p></dd>
+</dl>
+
+<a name="Description-155"></a>
+<h4 class="subheading">Description</h4>
+
+<p><var>Head</var> must be instantiated to a term that looks 
+like a call to a dynamic procedure.
+For example, to retract all the clauses of <code>foo/3</code>, you would write
+</p><div class="example">
+<pre class="example">| ?- <kbd>retractall(foo(_,_,_)).</kbd>
+</pre></div>
+
+<p><var>Head</var> may be preceded by a <var>M</var>: prefix, in which case the
+clauses are retracted from module <var>M</var> instead of the calling module.
+</p>
+<p><code>retractall/1</code> is useful for erasing all the clauses of a dynamic
+procedure without forgetting that it is dynamic; <code>abolish/1</code> will
+not only erase all the clauses, but will also forget absolutely
+everything about the procedure.  <code>retractall/1</code> only erases the
+clauses. This is important if the procedure is called later on.
+</p>
+<p>Since <code>retractall/1</code> erases <em>all</em> the dynamic clauses whose
+heads match <var>Head</var>, it has no choices to make, and is
+determinate.  If there are no such clauses, then it succeeds trivially.
+None of the variables in <var>Head</var> will be instantiated by this
+command.
+</p>
+<p>If the predicate did not previously exist, then
+it is created as a dynamic predicate and <code>retractall/1</code> succeeds.
+</p>
+<a name="Exceptions-210"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Head</var> or <var>Module</var> is uninstantiated.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Head</var> is not a callable.
+</p>
+</dd>
+<dt><code>permission_error</code></dt>
+<dd><p>the procedure corresponding to <var>Head</var> is not dynamic.
+</p></dd>
+</dl>
+
+<a name="See-Also-216"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>retract/1</code>, <a href="ref_002dmdb_002drcd.html#ref_002dmdb_002drcd">ref-mdb-rcd</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dsave_005ffiles.html#mpg_002dref_002dsave_005ffiles" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dretract.html#mpg_002dref_002dretract" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dretractall.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dretractall.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

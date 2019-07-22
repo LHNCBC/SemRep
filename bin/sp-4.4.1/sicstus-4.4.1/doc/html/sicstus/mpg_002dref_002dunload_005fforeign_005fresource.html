@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-unload_foreign_resource</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-unload_foreign_resource">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-unload_foreign_resource">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dupdate_005fmutable.html#mpg_002dref_002dupdate_005fmutable" rel="next" title="mpg-ref-update_mutable">
+<link href="mpg_002dref_002dunknown_005fpredicate_005fhandler.html#mpg_002dref_002dunknown_005fpredicate_005fhandler" rel="prev" title="mpg-ref-unknown_predicate_handler">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dunload_005fforeign_005fresource"></a>
+<hr>
+<a name="unload_005fforeign_005fresource_002f1---hookable"></a>
+<h4 class="subsection">11.3.245 <code>unload_foreign_resource/1</code> &nbsp;<!-- /@w --> <i>hookable</i></h4>
+<a name="index-unload_005fforeign_005fresource_002f1-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-unload_005fforeign_005fresource_002f1-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-270"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>unload_foreign_resource(<var>:Resource</var>)</code>
+</p>
+<p>Unload the foreign resource <var>Resource</var> from Prolog.  Relies on the
+hook predicates <code>foreign_resource/2</code> and <code>foreign/[2,3]</code>.
+</p>
+<a name="Arguments-247"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:Resource</var></dt>
+<dd><p><em>file_spec</em>, must be ground
+</p>
+<p>The foreign resource to be unloaded. The file extension can be omitted.
+</p></dd>
+</dl>
+
+<a name="Exceptions-261"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>Resource</var> not ground.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p><var>Resource</var> not an atom.
+</p>
+</dd>
+<dt><code>existence_error</code></dt>
+<dd><p><var>Resource</var> does not exist as a foreign resource.
+</p></dd>
+</dl>
+
+<a name="See-Also-267"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><code>load_foreign_resource/1</code>,
+<code>foreign_resource/2</code>,
+<code>foreign/[2,3]</code>,
+<a href="Foreign-Resources.html#Foreign-Resources">Foreign Resources</a>,
+<a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dupdate_005fmutable.html#mpg_002dref_002dupdate_005fmutable" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dunknown_005fpredicate_005fhandler.html#mpg_002dref_002dunknown_005fpredicate_005fhandler" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dunload_005fforeign_005fresource.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dunload_005fforeign_005fresource.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

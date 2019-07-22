@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_next_stream</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_next_stream">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_next_stream">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fopen_005fquery.html#cpg_002dref_002dSP_005fopen_005fquery" rel="next" title="cpg-ref-SP_open_query">
+<link href="cpg_002dref_002dSP_005fnext_005fsolution.html#cpg_002dref_002dSP_005fnext_005fsolution" rel="prev" title="cpg-ref-SP_next_solution">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fnext_005fstream"></a>
+<hr>
+<a name="SP_005fnext_005fstream_0028_0029"></a>
+<h4 class="subsection">12.3.60 <code>SP_next_stream()</code></h4>
+<a name="index-SP_005fnext_005fstream_0028_0029-_0028C-function_0029"></a>
+
+<a name="Synopsis-340"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+spio_t_error_code
+SP_next_stream(SP_stream *stream, SP_stream **pnext);
+</pre></div>
+
+<p>Iterate through all Prolog streams.
+</p>
+<a name="Arguments-310"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>stream</var></dt>
+<dd><p>If this is <code>NULL</code> then <code>*pnext</code> is set to the first stream in the list of streams. If this is non-<code>NULL</code> then the stream following <var>stream</var> in the list of streams is returned in <code>*pnext</code>.
+</p>
+</dd>
+<dt><var>pnext</var></dt>
+<dd><p>The returned stream is returned in <code>*pnext</code>.
+</p></dd>
+</dl>
+
+<a name="Return-Value-56"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, <code>*pnext</code> is assigned, and
+<code>SPIO_S_NOERR</code> or some other success code is returned. You should
+use the <code>SPIO_FAILED()</code> macro to determine if the return value
+signifies failure or success.
+</p>
+<p>When <code>stream</code> is the last stream <code>*pnext</code> is set to <code>NULL</code>.
+</p>
+<p>This function can be used to iterate over all Prolog streams. One way
+to use this is together with <code>SP_get_stream_user_data</code> to find
+all currently open user defined streams of a particular type.
+</p>
+<a name="See-Also-337"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="SICStus-Streams.html#SICStus-Streams">SICStus Streams</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fopen_005fquery.html#cpg_002dref_002dSP_005fopen_005fquery" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005fnext_005fsolution.html#cpg_002dref_002dSP_005fnext_005fsolution" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fnext_005fstream.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fnext_005fstream.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Mode Line</title>
+
+<meta name="description" content="SICStus Prolog: Mode Line">
+<meta name="keywords" content="SICStus Prolog: Mode Line">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Emacs-Interface.html#Emacs-Interface" rel="up" title="Emacs Interface">
+<link href="Configuration.html#Configuration" rel="next" title="Configuration">
+<link href="Usage.html#Usage" rel="prev" title="Usage">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Mode-Line"></a>
+<hr>
+<a name="Mode-Line-1"></a>
+<h4 class="subsection">3.12.4 Mode Line</h4>
+
+<p>If working with an application split into several modules, then it is
+often useful to let files begin with a &ldquo;mode line&rdquo;:
+</p>
+<div class="example">
+<pre class="example">%%% -*- Mode: Prolog; Module: ModuleName; -*-
+</pre></div>
+
+<p>The Emacs interface will look for the mode line and notify the SICStus
+Prolog module system that code fragments being incrementally
+reconsulted or recompiled should be imported into the module
+<var>ModuleName</var>. If the mode line is missing, then the code fragment will be
+imported into the type-in module.  An additional benefit of
+the mode line is that it tells Emacs that the file contains Prolog code,
+regardless of the setting of the Emacs variable <code>auto-mode-alist</code>.
+A mode line can be inserted by choosing <code>Insert/Module modeline</code> in
+the <code>Prolog</code> menu.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Configuration.html#Configuration" accesskey="n" rel="next">Next</a>
+<li><a href="Usage.html#Usage" accesskey="p" rel="prev">Previous</a>
+<li><a href="Emacs-Interface.html#Emacs-Interface" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Mode-Line.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Mode-Line.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

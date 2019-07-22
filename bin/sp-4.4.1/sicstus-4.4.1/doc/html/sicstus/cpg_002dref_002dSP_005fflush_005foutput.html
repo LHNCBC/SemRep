@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_flush_output</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_flush_output">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_flush_output">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005ffopen.html#cpg_002dref_002dSP_005ffopen" rel="next" title="cpg-ref-SP_fopen">
+<link href="cpg_002dref_002dSP_005ffclose.html#cpg_002dref_002dSP_005ffclose" rel="prev" title="cpg-ref-SP_fclose">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fflush_005foutput"></a>
+<hr>
+<a name="SP_005fflush_005foutput_0028_0029"></a>
+<h4 class="subsection">12.3.19 <code>SP_flush_output()</code></h4>
+<a name="index-SP_005fflush_005foutput_0028_0029-_0028C-function_0029-1"></a>
+
+<a name="Synopsis-299"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+spio_t_error_code
+SP_flush_output(
+  SP_stream *stream,
+  spio_t_bits flush_options);
+</pre></div>
+
+<p>Ensure that all buffered data reaches its destination.
+</p>
+<a name="Arguments-274"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>stream</var></dt>
+<dd><p>The stream to flush. This stream should be open for writing.
+</p>
+</dd>
+<dt><var>flush_options</var></dt>
+<dd><p>The following bits can be set:
+</p>
+<dl compact="compact">
+<dt><code>SP_FLUSH_OUTPUT_OPTION_NONBLOCKING</code></dt>
+<dd>
+<p>If this is set, the function should return <em>quickly</em> or with
+a <code>SPIO_E_WOULD_BLOCK</code> code.
+</p>
+<p>Can return <code>SPIO_E_NOT_SUPPORTED</code> if the stream cannot support
+non-blocking flush.
+</p>
+</dd>
+<dt><code>SP_FLUSH_OUTPUT_OPTION_AUTOFLUSH</code></dt>
+<dd><p>Only flush stream if it has AUTOFLUSH enabled.
+</p></dd>
+</dl>
+</dd>
+</dl>
+
+<a name="Return-Value-16"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, all buffered data should have been written and
+<code>SPIO_S_NOERR</code> or some other success code returned.
+</p>
+<p>On failure, returns a SPIO error code. Error codes with special meaning
+for <code>SP_flush_output()</code>:
+</p>
+<dl compact="compact">
+<dt><code>SPIO_E_END_OF_FILE</code></dt>
+<dd><p>Returned if it is not possible to write more data onto the stream,
+e.g. some underlying device has been closed.
+</p>
+</dd>
+<dt><code>SPIO_E_WOULD_BLOCK</code></dt>
+<dd><p><code>SP_FLUSH_OUTPUT_OPTION_NONBLOCKING</code> was set but the operation
+would block.
+</p>
+</dd>
+<dt><code>SPIO_E_NOT_SUPPORTED</code></dt>
+<dd><p>Some unsupported option, e.g.
+<code>SP_FLUSH_OUTPUT_OPTION_NONBLOCKING</code>,  was passed.
+</p></dd>
+</dl>
+
+<p>Other error codes may also be returned.
+</p>
+
+<a name="See-Also-296"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Prolog-Streams.html#Prolog-Streams">Prolog Streams</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005ffopen.html#cpg_002dref_002dSP_005ffopen" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005ffclose.html#cpg_002dref_002dSP_005ffclose" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fflush_005foutput.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fflush_005foutput.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

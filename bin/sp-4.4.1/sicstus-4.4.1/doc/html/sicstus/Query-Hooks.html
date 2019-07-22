@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Query Hooks</title>
+
+<meta name="description" content="SICStus Prolog: Query Hooks">
+<meta name="keywords" content="SICStus Prolog: Query Hooks">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Query-Processing.html#Query-Processing" rel="up" title="Query Processing">
+<link href="Default-Input-Methods.html#Default-Input-Methods" rel="next" title="Default Input Methods">
+<link href="Query-Phases.html#Query-Phases" rel="prev" title="Query Phases">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Query-Hooks"></a>
+<hr>
+<a name="Hooks-in-Query-Processing"></a>
+<h4 class="subsubsection">4.16.3.3 Hooks in Query Processing</h4>
+
+<p>As explained above, the major parts of query processing are implemented
+in the <code>'SU_messages'</code> module in the file
+<samp>library('SU_messages')</samp> through the following extendible
+predicates:
+</p><ul>
+<li> <code>'SU_messages':query_class(<var>+QueryClass</var>, <var>-Prompt</var>,
+<var>-InputMethod</var>, <var>-MapMethod</var>, <var>-FailureMode</var>)</code>
+
+</li><li> <code>'SU_messages':query_input(<var>+InputMethod</var>, <var>+Prompt</var>,
+<var>-RawInput</var>)</code>
+
+</li><li> <code>'SU_messages':query_map(<var>+MapMethod</var>, <var>+RawInput</var>,
+<var>-Result</var>, <var>-Answer</var>)</code>
+</li></ul>
+
+<p>This is to enable the user to change the language used, the processing
+done, etc., simply by changing or replacing the
+<samp>library('SU_messages')</samp> file.  
+</p>
+<p>To give more control to the user and to make the system more robust (for
+example if the <code>'SU_messages'</code> module is corrupt) the
+so-called <em>four step procedure</em> is used in the above three
+cases&mdash;obtaining the query class parameters, performing the query input
+and performing the mapping.  The four steps of this procedure, described
+below, are tried in the given order until the first one that succeeds.
+Note that if an exception is raised within the first three steps, then a
+warning is printed and the step is considered to have failed.
+</p>
+<ul>
+<li> First, a hook predicate is tried.  The name of the hook is derived
+from the name of the appropriate predicate by appending
+&lsquo;<samp>_hook</samp>&rsquo; to it, e.g. <code>user:query_class_hook/5</code> in case of the
+query class.  If this hook predicate exists and succeeds, then it
+is assumed to have done all necessary processing, and the following
+steps are skipped.
+
+</li><li> Second, the predicate in the <code>'SU_messages'</code> module is called
+(this is the default case, these are the predicates listed above).
+Normally this should succeed, unless the module is corrupt, or an
+unknown query-class/input-method/map-method is encountered.  These
+predicates are extendible, so new classes and methods can be added
+easily by the user.
+
+</li><li> Third, as a fall-back, a built-in minimal version of the predicates in the
+original <code>'SU_messages'</code> is called.  This is necessary because the
+<samp>library('SU_messages')</samp> file is modifiable by the user, therefore
+vital parts of the Prolog system (e.g. the toplevel query) could be
+damaged.
+
+</li><li> If all the above steps fail, then nothing more can be done, and
+an exception is raised.
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Default-Input-Methods.html#Default-Input-Methods" accesskey="n" rel="next">Next</a>
+<li><a href="Query-Phases.html#Query-Phases" accesskey="p" rel="prev">Previous</a>
+<li><a href="Query-Processing.html#Query-Processing" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Query-Hooks.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Query-Hooks.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

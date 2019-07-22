@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-rem</title>
+
+<meta name="description" content="SICStus Prolog: lib-rem">
+<meta name="keywords" content="SICStus Prolog: lib-rem">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dsamsort.html#lib_002dsamsort" rel="next" title="lib-samsort">
+<link href="lib_002drandom.html#lib_002drandom" rel="prev" title="lib-random">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002drem"></a>
+<hr>
+<a name="Rem_0027s-Algorithm_002d_002d_002dlibrary_0028rem_0029"></a>
+<h3 class="section">10.32 Rem&rsquo;s Algorithm&mdash;<code>library(rem)</code></h3>
+<p>This library module maintains equivalence classes using Rem&rsquo;s algorithm.
+Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>rem_create(<var>+Size</var>, <var>-REM</var>)</code></dt>
+<dd>
+<a name="index-rem_005fcreate_002f2-_0028rem_0029-1"></a>
+<a name="index-rem_005fcreate_002f2-_0028rem_0029"></a>
+
+<p>creates an equivalence representation function <var>REM</var>
+which maps each of the nodes <var>1..Size</var> to itself.
+</p></dd>
+<dt><code>rem_head(<var>?Node</var>, <var>+REM</var>, <var>-Head</var>)</code></dt>
+<dd>
+<a name="index-rem_005fhead_002f3-_0028random_0029-1"></a>
+<a name="index-rem_005fhead_002f3-_0028random_0029"></a>
+
+<p>is true when <var>Head</var> is the representative of the equivalence class
+that <var>Node</var> belongs to in the given <var>REM</var>.
+</p></dd>
+<dt><code>rem_equivalent(<var>?Node1</var>, <var>?Node2</var>, <var>+REM</var>)</code></dt>
+<dd>
+<a name="index-rem_005fequivalent_002f3-_0028rem_0029-1"></a>
+<a name="index-rem_005fequivalent_002f3-_0028rem_0029"></a>
+
+<p>is true when <var>Node1</var> and <var>Node2</var> belong to the same equivalence
+class in the given <var>REM</var>.
+</p></dd>
+<dt><code>rem_add_link(<var>?Node1</var>, <var>?Node2</var>, <var>+OldREM</var>, <var>-NewREM</var>)</code></dt>
+<dd>
+<a name="index-rem_005fadd_005flink_002f4-_0028rem_0029-1"></a>
+<a name="index-rem_005fadd_005flink_002f4-_0028rem_0029"></a>
+
+<p>is true when adding the equivalence <var>Node1===Node2</var> to the partition
+represented by <var>OldREM</var> yields a partition which is represented by
+<var>NewREM</var>.  If <var>Node1</var> or <var>Node2</var> is uninstantiated, it will backtrack
+over all the nodes.  It&rsquo;s not clear how useful this is.
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dsamsort.html#lib_002dsamsort" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002drandom.html#lib_002drandom" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002drem.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002drem.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

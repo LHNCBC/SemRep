@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Hooks Related to Breakpoints</title>
+
+<meta name="description" content="SICStus Prolog: Hooks Related to Breakpoints">
+<meta name="keywords" content="SICStus Prolog: Hooks Related to Breakpoints">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Advanced-Debugging.html#Advanced-Debugging" rel="up" title="Advanced Debugging">
+<link href="Programming-Breakpoints.html#Programming-Breakpoints" rel="next" title="Programming Breakpoints">
+<link href="Storing-User-Information-in-the-Backtrace.html#Storing-User-Information-in-the-Backtrace" rel="prev" title="Storing User Information  in the Backtrace">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Hooks-Related-to-Breakpoints"></a>
+<hr>
+<a name="Hooks-Related-to-Breakpoints-1"></a>
+<h4 class="subsection">5.6.10 Hooks Related to Breakpoints</h4>
+
+<p>There are two hooks related to breakpoints.
+</p>
+
+<a name="index-breakpoint_005fexpansion_002f2-_0028user_002c-hook_0029-2"></a>
+<a name="index-breakpoint_005fexpansion_002f2-_0028user_002c-hook_0029"></a>
+
+
+<a name="index-user_003abreakpoint_005fexpansion_002f2-_0028hook_0029-2"></a>
+<a name="index-user_003abreakpoint_005fexpansion_002f2-_0028hook_0029"></a>
+
+<p>The hook <code>breakpoint_expansion(<var>Macro</var>,<var>Body</var>)</code> makes
+it possible for the user to extend the set of allowed conditions. This
+hook is called, at breakpoint addition time, with each
+simple test or action within the breakpoint spec, as the
+<var>Macro</var> argument. If the hook succeeds, then the
+term returned in the <var>Body</var> argument is substituted for
+the original test or action.  Note that <var>Body</var> cannot span both the
+test and the action part, i.e. it cannot contain the <code>- /2</code>
+operator. The whole <var>Body</var> will be interpreted either as a
+test or as an action, depending on the context of the original
+condition.
+See <a href="mpg_002dref_002dbreakpoint_005fexpansion.html#mpg_002dref_002dbreakpoint_005fexpansion">mpg-ref-breakpoint_expansion</a>.
+</p>
+<p>We now give a few examples for breakpoint macros. The last example
+defines a condition making a predicate invisible, a reformulation
+of the last example of the previous subsection.
+</p>
+
+<div class="example">
+<pre class="example">:- multifile user:breakpoint_expansion/2.
+user:breakpoint_expansion(
+            skip, [inv(I),skip(I)]).
+
+user:breakpoint_expansion(
+            gpriv(Value),
+            [goal_private(GP),true(memberchk(Value,GP))]).
+
+user:breakpoint_expansion(
+            invisible, 
+            [silent,proceed,
+                (   call -&gt; get(mode(M)), gpriv(mymode(M)), skip
+                ;   exit -&gt; gpriv(mymode(MM)), mode(MM)
+                ;   true
+                )]).
+
+| ?- <kbd>spy(foo/2, -invisible).</kbd>
+</pre></div>
+
+<p>We first define the <code>skip</code> macro, instructing the debugger to skip
+the current invocation.  This macro is only meaningful in the action
+part.
+</p>
+<p>The second clause defines the <code>gpriv/2</code> macro, a
+generalization of the earlier <code>mode_memory/1</code> predicate. For
+example, <code>gpriv(mymode(M))</code> expands to
+<code>goal_private(GP),true(memberchk(mymode(M),GP))</code>. This embodies the
+convention of using open-ended lists for the goal private field.
+</p>
+<p>Finally, the last clause implements the action macro
+<code>invisible/0</code>, which makes the predicate in question
+disappear from the trace. The last line shows how this macro can be used
+to make <code>foo/2</code> invisible.
+</p>
+<p>Below is an alternative implementation of the same macro. Here we use a
+Prolog predicate that returns the list of action variable settings
+to be applied at the given port. Notice that a variable can
+be used as a breakpoint condition, as long as this variable
+gets instantiated to a (simple or composite) breakpoint
+condition by the time it is reached in the process of breakpoint
+evaluation.
+</p>
+<div class="example">
+<pre class="example">user:breakpoint_expansion(invisible, 
+                          [true(invisible(Settings)),Settings]).
+
+invisible([proceed,silent,NewMode]) :-
+        execution_state([mode(M),port(P),inv(Inv),goal_private(GP)]),
+        memberchk(mymode(MM), GP),
+        (   P == call -&gt; MM = M, NewMode = skip(Inv)
+        ;   P = exit(_) -&gt; NewMode = MM
+        ;   NewMode = M
+        ).
+</pre></div>
+
+
+<a name="index-debugger_005fcommand_005fhook_002f2-_0028user_002c-hook_0029-2"></a>
+<a name="index-debugger_005fcommand_005fhook_002f2-_0028user_002c-hook_0029"></a>
+
+
+<a name="index-user_003adebugger_005fcommand_005fhook_002f2-_0028hook_0029-2"></a>
+<a name="index-user_003adebugger_005fcommand_005fhook_002f2-_0028hook_0029"></a>
+
+<p>The second hook related to breakpoints is
+<code>debugger_command_hook(<var>DCommand</var>, <var>Actions</var>)</code>. This
+hook serves for customizing the behavior of the interactive
+debugger, i.e. for introducing new interactive debugger commands. The
+hook is called for each debugger command read in by the
+debugger. <var>DCommand</var> contains the abstract format of the debugger
+command read in, as returned by the query facility (see <a href="Query-Processing.html#Query-Processing">Query Processing</a>). If the hook succeeds, then it should return in
+<var>Actions</var> an action part to be evaluated as the result of the
+command.
+</p>
+<p>If you want to redefine an existing debugger command, then you should study
+<code>library('SU_messages')</code> to learn the abstract format of this
+command, as returned by the query facility. If you want to add a new
+command, then it suffices to know that unrecognized debugger commands are
+returned as <code>unknown(Line,Warning)</code>. Here, <code>Line</code> is the
+code-list typed in, with any leading whitespace removed, and
+<code>Warning</code> is a warning message.
+</p>
+<p>The following example defines the &lsquo;<samp>S</samp>&rsquo; interactive debugger command
+to behave as skip at Call and Redo ports, and as creep
+otherwise:
+</p>
+<div class="example">
+<pre class="example">:- multifile user:debugger_command_hook/2.
+user:debugger_command_hook(unknown([0'S|_],_), Actions) :-
+        execution_state([port(P),inv(I)]),
+        Actions = [Mode,proceed,silent],
+        (   P = call -&gt; Mode = skip(I)
+        ;   P = redo -&gt; Mode = skip(I)
+        ;   Mode = trace
+        ).
+</pre></div>
+
+<p>Note that the <code>silent</code> action is needed above; otherwise, the
+trace message will be printed a second time, before continuing the
+execution. 
+</p>
+<p>See <a href="mpg_002dref_002ddebugger_005fcommand_005fhook.html#mpg_002dref_002ddebugger_005fcommand_005fhook">mpg-ref-debugger_command_hook</a>.
+<code>library(debugger_examples)</code> contains some of the above
+hooks, as well as several others.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Programming-Breakpoints.html#Programming-Breakpoints" accesskey="n" rel="next">Next</a>
+<li><a href="Storing-User-Information-in-the-Backtrace.html#Storing-User-Information-in-the-Backtrace" accesskey="p" rel="prev">Previous</a>
+<li><a href="Advanced-Debugging.html#Advanced-Debugging" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Hooks-Related-to-Breakpoints.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Hooks-Related-to-Breakpoints.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-exp-inherit</title>
+
+<meta name="description" content="SICStus Prolog: obj-exp-inherit">
+<meta name="keywords" content="SICStus Prolog: obj-exp-inherit">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dexp.html#obj_002dexp" rel="up" title="obj-exp">
+<link href="obj_002dexp_002dinstance_005fmethod.html#obj_002dexp_002dinstance_005fmethod" rel="next" title="obj-exp-instance_method">
+<link href="obj_002dexp_002dfetch_005fslot.html#obj_002dexp_002dfetch_005fslot" rel="prev" title="obj-exp-fetch_slot">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dexp_002dinherit"></a>
+<hr>
+<a name="inherit_002f1--declaration"></a>
+<h4 class="subsubsection">10.23.6.18 <code>inherit/1</code>&nbsp;<!-- /@w --> <i>declaration</i></h4>
+
+
+
+
+
+<a name="index-inherit_002f1-_0028objects_0029-1"></a>
+<a name="index-inherit_002f1-_0028objects_0029"></a>
+
+
+
+
+
+
+<a name="Synopsis-17"></a>
+<h4 class="subheading">Synopsis</h4>
+<p><code>:- inherit <var>+ClassName</var> <var>+Op</var> <var>+Name</var>/<var>+Arity</var>, <var>&hellip;</var>.</code>
+</p>
+<a name="Arguments-16"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>ClassName</var></dt>
+<dd><p><em>atom</em>
+</p>
+</dd>
+<dt><var>Op</var></dt>
+<dd><p><em>message_operator</em>
+</p>
+</dd>
+<dt><var>Name</var></dt>
+<dd><p><em>atom</em>
+</p>
+</dd>
+<dt><var>Arity</var></dt>
+<dd><p><em>integer</em>
+</p>
+</dd>
+</dl>
+
+
+<a name="Description-17"></a>
+<h4 class="subheading">Description</h4>
+<p><var>ClassName</var> names the class from which the
+message should be inherited, <var>Op</var> indicates which kind of message it is,
+and <var>Name</var> and <var>Arity</var> indicate the name and arity of the message to be
+inherited. You may include several inheritance specifications in one
+directive.
+</p>
+<a name="Caveat-6"></a>
+<h4 class="subheading">Caveat</h4>
+<p>Be careful of the precedences of the message
+operator and the <code>/</code> operator. You may need to use parentheses.
+</p>
+<a name="Examples-8"></a>
+<h4 class="subheading">Examples</h4>
+<p>Suppose classes <code>toy</code> and <code>truck</code> are defined as follows:
+</p>
+<div class="example">
+<pre class="example">:-class toy. 
+Self &lt;- create. 
+Self &gt;&gt; size(small).
+Self &gt;&gt; rolls(false). 
+:- end_class toy.
+
+:- class truck. 
+Self &lt;- create. 
+Self &gt;&gt; size(small).
+Self &gt;&gt; rolls(true). 
+:- end_class truck.
+</pre></div>
+
+
+<p>Then <code>toy_truck</code> inherits its size from <code>toy</code> and the fact that it rolls from <code>truck</code>:
+</p>
+<div class="example">
+<pre class="example">:- class toy_truck = toy + truck. 
+:- inherit      
+        toy &lt;- (create/O), 
+        toy &lt;- (size/1), 
+        truck &lt;- (rolls/1).
+:- end_class toy_truck.
+</pre></div>
+
+
+<p>Note that this is just a toy example.
+</p>
+
+<a name="See-Also-16"></a>
+<h4 class="subheading">See Also</h4>
+<p><code>uninherit/1</code>
+</p>
+
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dexp_002dinstance_005fmethod.html#obj_002dexp_002dinstance_005fmethod" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dexp_002dfetch_005fslot.html#obj_002dexp_002dfetch_005fslot" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dexp.html#obj_002dexp" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dexp_002dinherit.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dexp_002dinherit.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

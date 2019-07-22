@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-tcl-stcl</title>
+
+<meta name="description" content="SICStus Prolog: obj-tcl-stcl">
+<meta name="keywords" content="SICStus Prolog: obj-tcl-stcl">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dtcl.html#obj_002dtcl" rel="up" title="obj-tcl">
+<link href="obj_002dtcl_002drtrm.html#obj_002dtcl_002drtrm" rel="next" title="obj-tcl-rtrm">
+<link href="obj_002dtcl.html#obj_002dtcl" rel="prev" title="obj-tcl">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dtcl_002dstcl"></a>
+<hr>
+<a name="Simple-Term-Classes"></a>
+<h4 class="subsubsection">10.23.4.1 Simple Term Classes</h4>
+
+
+<p>The simplest sort of term class declaration has the following form:
+</p><div class="example">
+<pre class="example">:- class <var>ClassName</var> = term(<var>Term</var>).
+</pre></div>
+
+<p>This declares that any term that unifies with <var>Term</var> is an instance 
+of class <var>ClassName</var>.  For example, you might declare:
+</p><div class="example">
+<pre class="example">:- class rgb_color = term(color(_Red,_Green,_Blue)).
+
+color(R,_G,_B) &gt;&gt; red(R).
+color(_R,G,_B) &gt;&gt; green(G).
+color(_R,_G,B) &gt;&gt; blue(B).
+
+:- end_class rgb_color.
+</pre></div>
+
+<p>This would declare any term whose principal functor is <code>color</code> and
+arity is three to be an object of class <code>rgb_color</code>.  Given this
+declaration, entering the goal
+</p><div class="example">
+<pre class="example">color(0.5, 0.1, 0.6) &gt;&gt; blue(B)
+</pre></div>
+
+<p>would bind <code>B</code> to 0.6.
+</p>
+<p>Note that you cannot use <code>create/2</code> to create a term class
+instance.  Since they are just ordinary terms, you can create them the
+same way you would create any ordinary Prolog term.  Similarly, you cannot
+modify an existing term class instance.
+</p>
+<p>You may specify a term class as the type of a slot of an ordinary
+class.  This is effectively the same as specifing the type to be
+<code>term</code>.  In particular, fetching and storing term class slots is not
+very efficient.  Also, the default value for slots of term class type
+is <code>''</code>; this is because not enough is known about a simple term
+class to determine a better default.  
+For an explanation of how to avoid these pitfalls, see <a href="obj_002dtcl_002dtce.html#obj_002dtcl_002dtce">obj-tcl-tce</a>.
+</p>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dtcl_002drtrm.html#obj_002dtcl_002drtrm" accesskey="n" rel="next">Next</a>
+<li><a href="obj_002dtcl.html#obj_002dtcl" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dtcl_002dstcl.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dtcl_002dstcl.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

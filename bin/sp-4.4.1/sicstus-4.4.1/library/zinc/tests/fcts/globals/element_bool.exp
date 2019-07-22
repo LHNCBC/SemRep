@@ -1,0 +1,41 @@
+a = array1d(1..4, [false, true, false, true]);
+x = 2;
+y = 3;
+z = 4;
+----------
+a = array1d(1..4, [true, false, false, true]);
+x = 1;
+y = 2;
+z = 4;
+----------
+a = array1d(1..4, [true, false, false, true]);
+x = 1;
+y = 3;
+z = 4;
+----------
+a = array1d(1..4, [true, false, true, false]);
+x = 1;
+y = 2;
+z = 3;
+----------
+a = array1d(1..4, [true, false, true, true]);
+x = 1;
+y = 2;
+z = 3;
+----------
+a = array1d(1..4, [true, false, true, true]);
+x = 1;
+y = 2;
+z = 4;
+----------
+a = array1d(1..4, [true, true, false, true]);
+x = 1;
+y = 3;
+z = 4;
+----------
+a = array1d(1..4, [true, true, false, true]);
+x = 2;
+y = 3;
+z = 4;
+----------
+==========

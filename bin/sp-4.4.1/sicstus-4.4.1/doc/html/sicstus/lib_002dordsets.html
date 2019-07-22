@@ -1,0 +1,277 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: lib-ordsets</title>
+
+<meta name="description" content="SICStus Prolog: lib-ordsets">
+<meta name="keywords" content="SICStus Prolog: lib-ordsets">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Prolog-Library.html#The-Prolog-Library" rel="up" title="The Prolog Library">
+<link href="lib_002dpillow.html#lib_002dpillow" rel="next" title="lib-pillow">
+<link href="ODBC-Predicates.html#ODBC-Predicates" rel="prev" title="ODBC Predicates">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="lib_002dordsets"></a>
+<hr>
+<a name="Ordered-Set-Operations_002d_002d_002dlibrary_0028ordsets_0029"></a>
+<h3 class="section">10.25 Ordered Set Operations&mdash;<code>library(ordsets)</code></h3>
+<p>This library module provides operations on sets represented as ordered lists with no
+duplicates.  Thus <code>{c,r,a,f,t}</code> would be <code>[a,c,f,r,t]</code>.  The ordering
+is defined by the <code>@&lt;</code> family of term comparison predicates, which
+is the ordering used by <code>sort/2</code> and <code>setof/3</code>.
+</p>
+<p>The benefit of the ordered representation is that the elementary
+set operations can be done in time proportional to the sum of the
+argument sizes rather than their product.  You should use the
+operations defined here in preference to those in <code>library(sets)</code>
+unless there is a compelling reason why you can&rsquo;t.  Some of the
+unordered set routines, such as <code>member/2</code>, <code>length/2</code> and <code>select/3</code> can
+be used unchanged on ordered sets; feel free so to use them.
+</p>
+<p>There is no <code>ordset_to_list/2</code>, as an ordered set is a list already.
+Exported predicates:
+</p>
+<dl compact="compact">
+<dt><code>is_ordset(<var>+List</var>)</code></dt>
+<dd>
+<a name="index-is_005fordset_002f1-_0028ordsets_0029-1"></a>
+<a name="index-is_005fordset_002f1-_0028ordsets_0029"></a>
+
+<p>is true when <var>List</var> is a list of terms <var>[T1,T2,...,Tn]</var> and the
+terms are strictly increasing: <var>T1 @&lt; T2 @&lt; ... @&lt; Tn</var>.  The
+output of <code>sort/2</code> always satisfies this test.  Anything which
+satisfies this test can be given to the predicates in this
+file, regardless of where you got it.
+</p></dd>
+<dt><code>list_to_ord_set(<var>+List</var>, <var>-Set</var>)</code></dt>
+<dd>
+<a name="index-list_005fto_005ford_005fset_002f2-_0028ordsets_0029-1"></a>
+<a name="index-list_005fto_005ford_005fset_002f2-_0028ordsets_0029"></a>
+
+<p>is true when <var>Set</var> is the ordered representation of the set represented
+by the unordered representation List.  The only reason for giving it
+a name at all is that you may not have realised that <code>sort/2</code> could be
+used this way.
+</p></dd>
+<dt><code>ord_add_element(<var>+Set1</var>, <var>+Element</var>, <var>-Set2</var>)</code></dt>
+<dd>
+<a name="index-ord_005fadd_005felement_002f3-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fadd_005felement_002f3-_0028ordsets_0029"></a>
+
+<p>Equivalent to <code>ord_union(<var>Set1</var>, [<var>Element</var>], <var>Set2</var>)</code>, but a bit
+faster.
+</p></dd>
+<dt><code>ord_del_element(<var>+Set1</var>, <var>+Element</var>, <var>-Set2</var>)</code></dt>
+<dd>
+<a name="index-ord_005fdel_005felement_002f3-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fdel_005felement_002f3-_0028ordsets_0029"></a>
+
+<p>Equivalent to <code>ord_subtract(<var>Set1</var>, [<var>Element</var>], <var>Set2</var>)</code>, but a bit
+faster.
+</p></dd>
+<dt><code>ord_disjoint(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-ord_005fdisjoint_002f2-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fdisjoint_002f2-_0028ordsets_0029"></a>
+
+<p>is true when the two ordered sets have no element in common.
+</p></dd>
+<dt><code>ord_intersect(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-ord_005fintersect_002f2-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fintersect_002f2-_0028ordsets_0029"></a>
+
+<p>is true when the two ordered sets have at least one element in common.
+</p></dd>
+<dt><code>ord_intersection(<var>+Set1</var>, <var>+Set2</var>, <var>-Intersection</var>)</code></dt>
+<dd>
+<a name="index-ord_005fintersection_002f_005b2_002c3_002c4_005d-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fintersection_002f_005b2_002c3_002c4_005d-_0028ordsets_0029"></a>
+
+<p>is true when <var>Intersection</var> is the ordered representation of <var>Set1</var>
+and <var>Set2</var>, provided that <var>Set1</var> and <var>Set2</var> are ordered sets.
+</p></dd>
+<dt><code>ord_intersection(<var>+Set1</var>, <var>+Set2</var>, <var>?Intersection</var>, <var>?Difference</var>)</code></dt>
+<dd><p>is true when <var>Intersection</var> is the intersection of <var>Set1</var> and <var>Set2</var>, 
+and <var>Difference</var> is <var>Set2 \ Set1</var> (like in ord_union/4),
+provided that <var>Set1</var> and <var>Set2</var> are ordered sets.
+</p></dd>
+<dt><code>ord_intersection(<var>+ListOfSets</var>, <var>-Intersection</var>)</code></dt>
+<dd><p>is true when <var>ListOfSets</var> is a nonempty proper list of ordered sets
+and <var>Intersection</var> is their intersection.  
+</p></dd>
+<dt><code>ord_member(<var>+Elt</var>, <var>+Set</var>)</code></dt>
+<dd>
+<a name="index-ord_005fmember_002f2-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fmember_002f2-_0028ordsets_0029"></a>
+
+<p>is true when <var>Elt</var> is a member of <var>Set</var>.  Suggested by Mark Johnson.
+</p></dd>
+<dt><code>ord_nonmember(<var>+Item</var>, <var>+Set</var>)</code></dt>
+<dd>
+<a name="index-ord_005fnonmember_002f2-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fnonmember_002f2-_0028ordsets_0029"></a>
+
+<p>is true when the given <var>Item</var> is <em>not</em> an element of the given <var>Set</var>.
+</p></dd>
+<dt><code>ord_seteq(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-ord_005fseteq_002f2-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fseteq_002f2-_0028ordsets_0029"></a>
+
+<p>is true when the two arguments represent the same set.  Since they
+are assumed to be ordered representations, they must be identical.
+</p></dd>
+<dt><code>ord_setproduct(<var>+Set1</var>, <var>+Set2</var>, <var>-Product</var>)</code></dt>
+<dd>
+<a name="index-ord_005fsetproduct_002f3-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fsetproduct_002f3-_0028ordsets_0029"></a>
+
+<p>If <var>Set1</var> and <var>Set2</var> are ordered sets, <var>Product</var> will be an ordered
+set of <var>x1-x2</var> pairs.  Note that we cannot solve for <var>Set1</var> and
+<var>Set2</var>, because there are infinitely many solutions when
+<var>Product</var> is empty, and may be a large number in other cases.
+Could be defined as:
+</p>
+<div class="example">
+<pre class="example">ord_setproduct(Set1, Set2, Product) :-
+	(   foreach(H1,Set1),
+	    param(Set2),
+	    fromto(Product,P1,P3,[])
+	do  (   foreach(H2,Set2),
+		param(H1),
+		fromto(P1,[H1-H2|P2],P2,P3)
+	    do  true
+	    )
+	).
+</pre></div>
+</dd>
+<dt><code>ord_subset(<var>+Set1</var>, <var>+Set2</var>)</code></dt>
+<dd>
+<a name="index-ord_005fsubset_002f2-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fsubset_002f2-_0028ordsets_0029"></a>
+
+<p>is true when every element of the ordered set <var>Set1</var> appears in the
+ordered set <var>Set2</var>.
+</p></dd>
+<dt><code>ord_subtract(<var>+Set1</var>, <var>+Set2</var>, <var>-Difference</var>)</code></dt>
+<dd>
+<a name="index-ord_005fsubtract_002f3-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fsubtract_002f3-_0028ordsets_0029"></a>
+
+<p>is true when <var>Difference</var> contains all and only the elements of <var>Set1</var>
+which are not also in <var>Set2</var>.
+</p></dd>
+<dt><code>ord_symdiff(<var>+Set1</var>, <var>+Set2</var>, <var>-Difference</var>)</code></dt>
+<dd>
+<a name="index-ord_005fsymdiff_002f3-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fsymdiff_002f3-_0028ordsets_0029"></a>
+
+<p>is true when <var>Difference</var> is the symmetric difference of <var>Set1</var> and <var>Set2</var>.
+</p></dd>
+<dt><code>ord_disjoint_union(<var>+Set1</var>, <var>+Set2</var>, <var>-Union</var>)</code></dt>
+<dd>
+<a name="index-ord_005fdisjoint_005funion_002f3-_0028ordsets_0029-1"></a>
+<a name="index-ord_005fdisjoint_005funion_002f3-_0028ordsets_0029"></a>
+
+<p>is true when <var>Set1</var> and <var>Set2</var> (given to be ordered sets) have no element
+in common, and <var>Union</var> is their union.  The meaning is the same as
+</p><div class="example">
+<pre class="example">    ord_disjoint(Set1, Set2),
+    ord_union(Set1, Set2, Union)
+</pre></div>
+<p>but it is more efficient.
+</p></dd>
+<dt><code>ord_union(<var>+Set1</var>, <var>+Set2</var>, <var>-Union</var>)</code></dt>
+<dd>
+<a name="index-ord_005funion_002f_005b2_002c3_002c4_005d-_0028ordsets_0029-1"></a>
+<a name="index-ord_005funion_002f_005b2_002c3_002c4_005d-_0028ordsets_0029"></a>
+
+<p>is true when <var>Union</var> is the union of <var>Set1</var> and <var>Set2</var>.  Note that when
+something occurs in both sets, we want to retain only one copy.
+</p></dd>
+<dt><code>ord_union(<var>+OldSet</var>, <var>+NewSet</var>, <var>-Union</var>, <var>-ReallyNew</var>)</code></dt>
+<dd><p>is true when <var>Union</var> is <var>NewSet U OldSet</var> and <var>ReallyNew</var> is <var>NewSet \ OldSet</var>.
+This is useful when you have an iterative problem, and you&rsquo;re adding
+some possibly new elements (<var>NewSet</var>) to a set (<var>OldSet</var>), and as well as
+getting the updated set (<var>Union</var>) you would like to know which if any of
+the &quot;new&quot; elements didn&rsquo;t already occur in the set (<var>ReallyNew</var>).
+</p></dd>
+<dt><code>ord_union(<var>+ListOfSets</var>, <var>-Union</var>)</code></dt>
+<dd><p>is true when <var>ListOfSets</var> is given as a proper list of ordered sets
+and <var>Union</var> is their union.  Letting <var>K</var> be the length of <var>ListOfSets</var>,
+and <var>N</var> the sum of the sizes of its elements, the cost is
+<var>O(N lg K)</var>.  
+</p></dd>
+<dt><code>ordset_order(<var>+Xs</var>, <var>+Ys</var>, <var>-R</var>)</code></dt>
+<dd>
+<a name="index-ordset_005forder_002f3-_0028ordsets_0029-1"></a>
+<a name="index-ordset_005forder_002f3-_0028ordsets_0029"></a>
+
+<p>is true when <var>R</var> is <code>&lt;</code>, <code>=</code>, or <code>&gt;</code> according as <var>Xs</var> is a subset of <var>Ys</var>,
+equal to <var>Ys</var>, or a superset of <var>Ys</var>.  <var>Xs</var> and <var>Ys</var> are ordered sets.
+</p></dd>
+</dl>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="lib_002dpillow.html#lib_002dpillow" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dodbc.html#lib_002dodbc" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Prolog-Library.html#The-Prolog-Library" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/lib_002dordsets.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/lib_002dordsets.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

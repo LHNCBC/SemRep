@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CLPQR Isolation Axioms</title>
+
+<meta name="description" content="SICStus Prolog: CLPQR Isolation Axioms">
+<meta name="keywords" content="SICStus Prolog: CLPQR Isolation Axioms">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CLPQR-Linearity.html#CLPQR-Linearity" rel="up" title="CLPQR Linearity">
+<link href="CLPQR-Numerical-Precision.html#CLPQR-Numerical-Precision" rel="next" title="CLPQR Numerical Precision">
+<link href="CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear.html#CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear" rel="prev" title="CLPQR How Nonlinear Residues Are Made to Disappear">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CLPQR-Isolation-Axioms"></a>
+<hr>
+<a name="Isolation-Axioms"></a>
+<h4 class="subsubsection">10.11.3.2 Isolation Axioms</h4>
+<p>These axioms are used to rewrite equations such that the variable
+to be solved for is moved to the left hand side and the result of the
+evaluation of the right hand side can be assigned to the
+variable. This allows, for example, to use the exponentiation
+operator for the computation of roots and logarithms; see below.
+</p><dl compact="compact">
+<dt><code>A = B * C</code></dt>
+<dd><p>Residuates unless <var>B</var> or <var>C</var> is ground or <var>A</var> and <var>B</var> or <var>C</var>
+are ground.
+</p>
+</dd>
+<dt><code>A = B / C</code></dt>
+<dd><p>Residuates unless <var>C</var> is ground or <var>A</var> and <var>B</var> are
+ground.
+</p>
+</dd>
+<dt><code>X = min(Y,Z)</code></dt>
+<dd><p>Residuates unless <var>Y</var> and <var>Z</var> are ground.
+</p>
+</dd>
+<dt><code>X = max(Y,Z)</code></dt>
+<dd><p>Residuates unless <var>Y</var> and <var>Z</var> are ground.
+</p>
+</dd>
+<dt><code>X = abs(Y)</code></dt>
+<dd><p>Residuates unless <var>Y</var> is ground.
+</p>
+</dd>
+<dt><code>X = pow(Y,Z), X = exp(Y,Z)</code></dt>
+<dd><p>Residuates unless any pair of two of the three variables is
+ground.  Example:
+</p><div class="example">
+<pre class="example">
+clp(r) ?- <kbd>{ 12=pow(2,X) }.</kbd>
+
+X = 3.5849625007211565
+
+clp(r) ?- <kbd>{ 12=pow(X,3.585) }.</kbd>
+
+X = 1.9999854993443926
+
+clp(r) ?- <kbd>{ X=pow(2,3.585) }.</kbd>
+
+X = 12.000311914286545 
+</pre></div>
+
+</dd>
+<dt><code>X = sin(Y)</code></dt>
+<dd><p>Residuates unless <var>X</var> or <var>Y</var> is ground. Example:
+</p><div class="example">
+<pre class="example">
+clp(r) ?- <kbd>{ 1/2 = sin(X) }.</kbd>
+
+X = 0.5235987755982989 
+</pre></div>
+
+</dd>
+<dt><code>X = cos(Y)</code></dt>
+<dd><p>Residuates unless <var>X</var> or <var>Y</var> is ground.
+</p>
+</dd>
+<dt><code>X = tan(Y)</code></dt>
+<dd><p>Residuates unless <var>X</var> or <var>Y</var> is ground.
+</p></dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear.html#CLPQR-How-Nonlinear-Residues-Are-Made-to-Disappear" accesskey="p" rel="prev">Previous</a>
+<li><a href="CLPQR-Linearity.html#CLPQR-Linearity" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CLPQR-Isolation-Axioms.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CLPQR-Isolation-Axioms.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

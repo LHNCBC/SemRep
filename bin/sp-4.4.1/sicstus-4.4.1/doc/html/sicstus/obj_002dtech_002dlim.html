@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: obj-tech-lim</title>
+
+<meta name="description" content="SICStus Prolog: obj-tech-lim">
+<meta name="keywords" content="SICStus Prolog: obj-tech-lim">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="obj_002dtech.html#obj_002dtech" rel="up" title="obj-tech">
+<link href="obj_002dexp.html#obj_002dexp" rel="next" title="obj-exp">
+<link href="obj_002dtech_002dsyn.html#obj_002dtech_002dsyn" rel="prev" title="obj-tech-syn">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="obj_002dtech_002dlim"></a>
+<hr>
+<a name="Limitations"></a>
+<h4 class="subsubsection">10.23.5.2 Limitations</h4>
+
+<p>This section summarizes the current limitations of SICStus Objects.
+</p>
+<a name="Debugging-4"></a>
+<h4 class="subheading">Debugging</h4>
+
+
+<p>When you debug SICStus Objects programs that were compiled using the
+<code>obj_decl</code> module, you are tracing the translated version of your
+code. This includes all method clauses and (some) message sending
+commands.
+</p>
+<p>The source-linked debugger cannot connect compiled SICStus Objects
+code with the source code. 
+</p>
+<a name="Garbage-Collection"></a>
+<h4 class="subheading">Garbage Collection</h4>
+
+
+
+<p>There is no garbage collection of objects. It is the responsibility of
+the programmer to keep track of unused objects. In particular, avoid
+doing the following:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>create(<var>Class</var>, <var>Object</var>).</kbd>
+</pre></div>
+
+
+<p>Unless the create message for <var>Class</var> made some provision for finding
+the new object again, it is now lost. It cannot be used, and it cannot
+be destroyed.
+</p>
+<a name="Multiple-Inheritance-1"></a>
+<h4 class="subheading">Multiple Inheritance</h4>
+
+
+<p>The provisions for multiple inheritance in this version of SICStus
+Objects are limited. In particular, there is no control over the
+inheritance of slots, which makes repeated inheritance
+impossible. However, it does support the mixin style of multiple
+inheritance.
+</p>
+<a name="Persistence"></a>
+<h4 class="subheading">Persistence</h4>
+
+
+<p>While objects are more persistent than Prolog variables, there is no
+automatic way to save objects from one execution of your program to
+the next. Hence they are less persistent than the clauses in the
+Prolog database.
+</p>
+<p>If you need to save a set of objects from one Prolog session to
+another, then copy the objects to the Prolog database as terms, and save
+them to a QOF file. Then, after you reload the QOF file, rebuild the
+objects. Keep in mind that addresses are not valid from one session to
+another.
+</p>
+<p>In short, there is no way to avoid initializing objects at run time.
+</p>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="obj_002dtech_002dsyn.html#obj_002dtech_002dsyn" accesskey="p" rel="prev">Previous</a>
+<li><a href="obj_002dtech.html#obj_002dtech" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/obj_002dtech_002dlim.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/obj_002dtech_002dlim.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

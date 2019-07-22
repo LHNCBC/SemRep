@@ -1,0 +1,607 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-bpr</title>
+
+<meta name="description" content="SICStus Prolog: mpg-bpr">
+<meta name="keywords" content="SICStus Prolog: mpg-bpr">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Prolog-Reference-Pages.html#Prolog-Reference-Pages" rel="up" title="Prolog Reference Pages">
+<link href="mpg_002dref_002dabolish.html#mpg_002dref_002dabolish" rel="next" title="mpg-ref-abolish">
+<link href="mpg_002dtop_002dtyp.html#mpg_002dtop_002dtyp" rel="prev" title="mpg-top-typ">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dbpr"></a>
+<hr>
+<a name="Built_002dIn-Predicates"></a>
+<h3 class="section">11.3 Built-In Predicates</h3>
+
+<p>The following reference pages, alphabetically arranged, describe the
+SICStus Prolog built-in predicates.  
+</p>
+<p>For a functional grouping of these predicates including brief
+descriptions, see <a href="mpg_002dtop.html#mpg_002dtop">mpg-top</a>.
+</p>
+<p>In many cases, the heading of a reference page, as well as an entry in
+a list of built-in predicates, will be annotated with
+keywords. These annotations are defined in <a href="mpg_002dref_002dcat.html#mpg_002dref_002dcat">mpg-ref-cat</a>.
+</p>
+<p>Further information about categories of predicates and arguments, mode
+annotations, and the conventions observed in the reference pages is
+found in <a href="mpg_002dref.html#mpg_002dref">mpg-ref</a>.
+</p>
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcut.html#mpg_002dref_002dcut" accesskey="1">mpg-ref-cut</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">!/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dand.html#mpg_002dref_002dand" accesskey="2">mpg-ref-and</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">,/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dif_005fthen.html#mpg_002dref_002dif_005fthen" accesskey="3">mpg-ref-if_then</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">-&gt;/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dor.html#mpg_002dref_002dor" accesskey="4">mpg-ref-or</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">;/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dless_005fthan.html#mpg_002dref_002dless_005fthan" accesskey="5">mpg-ref-less_than</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">&lt;/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002duniv.html#mpg_002dref_002duniv" accesskey="6">mpg-ref-univ</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">=../2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dunify.html#mpg_002dref_002dunify" accesskey="7">mpg-ref-unify</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">=/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dequal_005fto.html#mpg_002dref_002dequal_005fto" accesskey="8">mpg-ref-equal_to</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">=:=/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnot_005fgreater_005fthan.html#mpg_002dref_002dnot_005fgreater_005fthan" accesskey="9">mpg-ref-not_greater_than</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">=&lt;/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dterm_005fequal_005fto.html#mpg_002dref_002dterm_005fequal_005fto">mpg-ref-term_equal_to</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">==/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnot_005fequal_005fto.html#mpg_002dref_002dnot_005fequal_005fto">mpg-ref-not_equal_to</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">=\=/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dgreater_005fthan.html#mpg_002dref_002dgreater_005fthan">mpg-ref-greater_than</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">&gt;/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnot_005fless_005fthan.html#mpg_002dref_002dnot_005fless_005fthan">mpg-ref-not_less_than</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">&gt;=/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dterm_005funify_005fdecided.html#mpg_002dref_002dterm_005funify_005fdecided">mpg-ref-term_unify_decided</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">?=/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dterm_005fless_005fthan.html#mpg_002dref_002dterm_005fless_005fthan">mpg-ref-term_less_than</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">@&lt;/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dterm_005fnot_005fgreater_005fthan.html#mpg_002dref_002dterm_005fnot_005fgreater_005fthan">mpg-ref-term_not_greater_than</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">@=&lt;/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dterm_005fgreater_005fthan.html#mpg_002dref_002dterm_005fgreater_005fthan">mpg-ref-term_greater_than</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">@&gt;/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dterm_005fnot_005fless_005fthan.html#mpg_002dref_002dterm_005fnot_005fless_005fthan">mpg-ref-term_not_less_than</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">@&gt;=/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnot_005fprovable.html#mpg_002dref_002dnot_005fprovable">mpg-ref-not_provable</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">\+/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnot_005funifiable.html#mpg_002dref_002dnot_005funifiable">mpg-ref-not_unifiable</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">\=/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dterm_005fnot_005fequal_005fto.html#mpg_002dref_002dterm_005fnot_005fequal_005fto">mpg-ref-term_not_equal_to</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">\==/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dexists.html#mpg_002dref_002dexists">mpg-ref-exists</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">^/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dabolish.html#mpg_002dref_002dabolish">mpg-ref-abolish</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">abolish/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dabort.html#mpg_002dref_002dabort">mpg-ref-abort</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">abort/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dabsolute_005ffile_005fname.html#mpg_002dref_002dabsolute_005ffile_005fname">mpg-ref-absolute_file_name</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">absolute_file_name/[2,3]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dacyclic_005fterm.html#mpg_002dref_002dacyclic_005fterm">mpg-ref-acyclic_term</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">acyclic_term/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dadd_005fbreakpoint.html#mpg_002dref_002dadd_005fbreakpoint">mpg-ref-add_breakpoint</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">add_breakpoint/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dappend.html#mpg_002dref_002dappend">mpg-ref-append</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">append/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002darg.html#mpg_002dref_002darg">mpg-ref-arg</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">arg/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dask_005fquery.html#mpg_002dref_002dask_005fquery">mpg-ref-ask_query</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">ask_query/4
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dassert.html#mpg_002dref_002dassert">mpg-ref-assert</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">assert/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dasserta.html#mpg_002dref_002dasserta">mpg-ref-asserta</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">asserta/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dassertz.html#mpg_002dref_002dassertz">mpg-ref-assertz</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">assertz/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dat_005fend_005fof_005fline.html#mpg_002dref_002dat_005fend_005fof_005fline">mpg-ref-at_end_of_line</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">at_end_of_line/[0,1]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dat_005fend_005fof_005fstream.html#mpg_002dref_002dat_005fend_005fof_005fstream">mpg-ref-at_end_of_stream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">at_end_of_stream/[0,1]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002datom.html#mpg_002dref_002datom">mpg-ref-atom</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">atom/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002datom_005fchars.html#mpg_002dref_002datom_005fchars">mpg-ref-atom_chars</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">atom_chars/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002datom_005fcodes.html#mpg_002dref_002datom_005fcodes">mpg-ref-atom_codes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">atom_codes/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002datom_005fconcat.html#mpg_002dref_002datom_005fconcat">mpg-ref-atom_concat</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">atom_concat/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002datom_005flength.html#mpg_002dref_002datom_005flength">mpg-ref-atom_length</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">atom_length/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002datomic.html#mpg_002dref_002datomic">mpg-ref-atomic</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">atomic/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dbagof.html#mpg_002dref_002dbagof">mpg-ref-bagof</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">bagof/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dbb_005fdelete.html#mpg_002dref_002dbb_005fdelete">mpg-ref-bb_delete</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">bb_delete/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dbb_005fget.html#mpg_002dref_002dbb_005fget">mpg-ref-bb_get</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">bb_get/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dbb_005fput.html#mpg_002dref_002dbb_005fput">mpg-ref-bb_put</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">bb_put/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dbb_005fupdate.html#mpg_002dref_002dbb_005fupdate">mpg-ref-bb_update</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">bb_update/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dblock.html#mpg_002dref_002dblock">mpg-ref-block</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">block/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dbreak.html#mpg_002dref_002dbreak">mpg-ref-break</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">break/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dbreakpoint_005fexpansion.html#mpg_002dref_002dbreakpoint_005fexpansion">mpg-ref-breakpoint_expansion</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">breakpoint_expansion/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dbyte_005fcount.html#mpg_002dref_002dbyte_005fcount">mpg-ref-byte_count</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">byte_count/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcall.html#mpg_002dref_002dcall">mpg-ref-call</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">call/[1,2,...,255]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcall_005fcleanup.html#mpg_002dref_002dcall_005fcleanup">mpg-ref-call_cleanup</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">call_cleanup/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcall_005fresidue_005fvars.html#mpg_002dref_002dcall_005fresidue_005fvars">mpg-ref-call_residue_vars</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">call_residue_vars/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcallable.html#mpg_002dref_002dcallable">mpg-ref-callable</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">callable/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcatch.html#mpg_002dref_002dcatch">mpg-ref-catch</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">catch/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dchar_005fcode.html#mpg_002dref_002dchar_005fcode">mpg-ref-char_code</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">char_code/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dchar_005fconversion.html#mpg_002dref_002dchar_005fconversion">mpg-ref-char_conversion</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">char_conversion/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcharacter_005fcount.html#mpg_002dref_002dcharacter_005fcount">mpg-ref-character_count</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">character_count/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dclause.html#mpg_002dref_002dclause">mpg-ref-clause</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">clause/[2,3]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dclose.html#mpg_002dref_002dclose">mpg-ref-close</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">close/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcompare.html#mpg_002dref_002dcompare">mpg-ref-compare</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">compare/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcompile.html#mpg_002dref_002dcompile">mpg-ref-compile</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">compile/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcompound.html#mpg_002dref_002dcompound">mpg-ref-compound</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">compound/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dconsult.html#mpg_002dref_002dconsult">mpg-ref-consult</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">consult/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcopy_005fterm.html#mpg_002dref_002dcopy_005fterm">mpg-ref-copy_term</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">copy_term/[2,3]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcoverage_005fdata.html#mpg_002dref_002dcoverage_005fdata">mpg-ref-coverage_data</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">coverage_data/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcreate_005fmutable.html#mpg_002dref_002dcreate_005fmutable">mpg-ref-create_mutable</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">create_mutable/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcurrent_005fatom.html#mpg_002dref_002dcurrent_005fatom">mpg-ref-current_atom</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">current_atom/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcurrent_005fbreakpoint.html#mpg_002dref_002dcurrent_005fbreakpoint">mpg-ref-current_breakpoint</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">current_breakpoint/5
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcurrent_005fchar_005fconversion.html#mpg_002dref_002dcurrent_005fchar_005fconversion">mpg-ref-current_char_conversion</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">current_char_conversion/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcurrent_005finput.html#mpg_002dref_002dcurrent_005finput">mpg-ref-current_input</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">current_input/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcurrent_005fkey.html#mpg_002dref_002dcurrent_005fkey">mpg-ref-current_key</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">current_key/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcurrent_005fmodule.html#mpg_002dref_002dcurrent_005fmodule">mpg-ref-current_module</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">current_module/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcurrent_005fop.html#mpg_002dref_002dcurrent_005fop">mpg-ref-current_op</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">current_op/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcurrent_005foutput.html#mpg_002dref_002dcurrent_005foutput">mpg-ref-current_output</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">current_output/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcurrent_005fpredicate.html#mpg_002dref_002dcurrent_005fpredicate">mpg-ref-current_predicate</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">current_predicate/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcurrent_005fprolog_005fflag.html#mpg_002dref_002dcurrent_005fprolog_005fflag">mpg-ref-current_prolog_flag</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">current_prolog_flag/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dcurrent_005fstream.html#mpg_002dref_002dcurrent_005fstream">mpg-ref-current_stream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">current_stream/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002ddb_005freference.html#mpg_002dref_002ddb_005freference">mpg-ref-db_reference</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">db_reference/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002ddebug.html#mpg_002dref_002ddebug">mpg-ref-debug</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">debug/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002ddebugger_005fcommand_005fhook.html#mpg_002dref_002ddebugger_005fcommand_005fhook">mpg-ref-debugger_command_hook</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">debugger_command_hook/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002ddebugging.html#mpg_002dref_002ddebugging">mpg-ref-debugging</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">debugging/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002ddif.html#mpg_002dref_002ddif">mpg-ref-dif</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">dif/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002ddisable_005fbreakpoints.html#mpg_002dref_002ddisable_005fbreakpoints">mpg-ref-disable_breakpoints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">disable_breakpoints/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002ddiscontiguous.html#mpg_002dref_002ddiscontiguous">mpg-ref-discontiguous</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">discontiguous/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002ddisplay.html#mpg_002dref_002ddisplay">mpg-ref-display</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">display/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002ddo.html#mpg_002dref_002ddo">mpg-ref-do</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">do/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002ddynamic.html#mpg_002dref_002ddynamic">mpg-ref-dynamic</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">dynamic/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002denable_005fbreakpoints.html#mpg_002dref_002denable_005fbreakpoints">mpg-ref-enable_breakpoints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">enable_breakpoints/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002densure_005floaded.html#mpg_002dref_002densure_005floaded">mpg-ref-ensure_loaded</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">ensure_loaded/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002derase.html#mpg_002dref_002derase">mpg-ref-erase</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">erase/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002derror_005fexception.html#mpg_002dref_002derror_005fexception">mpg-ref-error_exception</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">error_exception/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dexecution_005fstate.html#mpg_002dref_002dexecution_005fstate">mpg-ref-execution_state</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">execution_state/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dexpand_005fterm.html#mpg_002dref_002dexpand_005fterm">mpg-ref-expand_term</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">expand_term/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dfail.html#mpg_002dref_002dfail">mpg-ref-fail</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">fail/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dfalse.html#mpg_002dref_002dfalse">mpg-ref-false</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">false/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dfile_005fsearch_005fpath.html#mpg_002dref_002dfile_005fsearch_005fpath">mpg-ref-file_search_path</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">file_search_path/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dfindall.html#mpg_002dref_002dfindall">mpg-ref-findall</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">findall/[3,4]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dfloat.html#mpg_002dref_002dfloat">mpg-ref-float</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">float/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dflush_005foutput.html#mpg_002dref_002dflush_005foutput">mpg-ref-flush_output</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">flush_output/[0,1]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dforeign.html#mpg_002dref_002dforeign">mpg-ref-foreign</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">foreign/[2,3]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dforeign_005fresource.html#mpg_002dref_002dforeign_005fresource">mpg-ref-foreign_resource</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">foreign_resource/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dformat.html#mpg_002dref_002dformat">mpg-ref-format</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">format/[2,3]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dfreeze.html#mpg_002dref_002dfreeze">mpg-ref-freeze</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">freeze/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dfrozen.html#mpg_002dref_002dfrozen">mpg-ref-frozen</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">frozen/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dfunctor.html#mpg_002dref_002dfunctor">mpg-ref-functor</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">functor/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dgarbage_005fcollect.html#mpg_002dref_002dgarbage_005fcollect">mpg-ref-garbage_collect</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">garbage_collect/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dgarbage_005fcollect_005fatoms.html#mpg_002dref_002dgarbage_005fcollect_005fatoms">mpg-ref-garbage_collect_atoms</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">garbage_collect_atoms/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dgenerate_005fmessage.html#mpg_002dref_002dgenerate_005fmessage">mpg-ref-generate_message</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">generate_message/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dgenerate_005fmessage_005fhook.html#mpg_002dref_002dgenerate_005fmessage_005fhook">mpg-ref-generate_message_hook</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">generate_message_hook/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dget_005fbyte.html#mpg_002dref_002dget_005fbyte">mpg-ref-get_byte</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">get_byte/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dget_005fchar.html#mpg_002dref_002dget_005fchar">mpg-ref-get_char</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">get_char/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dget_005fcode.html#mpg_002dref_002dget_005fcode">mpg-ref-get_code</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">get_code/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dget_005fmutable.html#mpg_002dref_002dget_005fmutable">mpg-ref-get_mutable</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">get_mutable/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dgoal_005fexpansion.html#mpg_002dref_002dgoal_005fexpansion">mpg-ref-goal_expansion</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">goal_expansion/5
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dgoal_005fsource_005finfo.html#mpg_002dref_002dgoal_005fsource_005finfo">mpg-ref-goal_source_info</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">goal_source_info/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dground.html#mpg_002dref_002dground">mpg-ref-ground</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">ground/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dhalt.html#mpg_002dref_002dhalt">mpg-ref-halt</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">halt/[0,1]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dif.html#mpg_002dref_002dif">mpg-ref-if</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">if/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dinclude.html#mpg_002dref_002dinclude">mpg-ref-include</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">include/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dinitialization.html#mpg_002dref_002dinitialization">mpg-ref-initialization</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">initialization/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dinstance.html#mpg_002dref_002dinstance">mpg-ref-instance</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">instance/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dinteger.html#mpg_002dref_002dinteger">mpg-ref-integer</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">integer/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dis.html#mpg_002dref_002dis">mpg-ref-is</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">is/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dkeysort.html#mpg_002dref_002dkeysort">mpg-ref-keysort</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">keysort/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dleash.html#mpg_002dref_002dleash">mpg-ref-leash</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">leash/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dlength.html#mpg_002dref_002dlength">mpg-ref-length</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">length/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dlibrary_005fdirectory.html#mpg_002dref_002dlibrary_005fdirectory">mpg-ref-library_directory</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">library_directory/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dline_005fcount.html#mpg_002dref_002dline_005fcount">mpg-ref-line_count</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">line_count/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dline_005fposition.html#mpg_002dref_002dline_005fposition">mpg-ref-line_position</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">line_position/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dlisting.html#mpg_002dref_002dlisting">mpg-ref-listing</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">listing/[0,1]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dload_005ffiles.html#mpg_002dref_002dload_005ffiles">mpg-ref-load_files</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">load_files/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dload_005fforeign_005fresource.html#mpg_002dref_002dload_005fforeign_005fresource">mpg-ref-load_foreign_resource</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">load_foreign_resource/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dmember.html#mpg_002dref_002dmember">mpg-ref-member</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">member/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dmemberchk.html#mpg_002dref_002dmemberchk">mpg-ref-memberchk</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">memberchk/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dmessage_005fhook.html#mpg_002dref_002dmessage_005fhook">mpg-ref-message_hook</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">message_hook/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dmeta_005fpredicate.html#mpg_002dref_002dmeta_005fpredicate">mpg-ref-meta_predicate</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">meta_predicate/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dmode.html#mpg_002dref_002dmode">mpg-ref-mode</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">mode/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dmodule.html#mpg_002dref_002dmodule">mpg-ref-module</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">module/[2,3]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dmultifile.html#mpg_002dref_002dmultifile">mpg-ref-multifile</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">multifile/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dmutable.html#mpg_002dref_002dmutable">mpg-ref-mutable</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">mutable/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dname.html#mpg_002dref_002dname">mpg-ref-name</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">name/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnl.html#mpg_002dref_002dnl">mpg-ref-nl</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">nl/[0,1]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnodebug.html#mpg_002dref_002dnodebug">mpg-ref-nodebug</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">nodebug/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnonmember.html#mpg_002dref_002dnonmember">mpg-ref-nonmember</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">nonmember/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnonvar.html#mpg_002dref_002dnonvar">mpg-ref-nonvar</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">nonvar/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnospy.html#mpg_002dref_002dnospy">mpg-ref-nospy</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">nospy/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnospyall.html#mpg_002dref_002dnospyall">mpg-ref-nospyall</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">nospyall/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnotrace.html#mpg_002dref_002dnotrace">mpg-ref-notrace</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">notrace/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnozip.html#mpg_002dref_002dnozip">mpg-ref-nozip</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">nozip/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnumber.html#mpg_002dref_002dnumber">mpg-ref-number</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">number/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnumber_005fchars.html#mpg_002dref_002dnumber_005fchars">mpg-ref-number_chars</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">number_chars/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnumber_005fcodes.html#mpg_002dref_002dnumber_005fcodes">mpg-ref-number_codes</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">number_codes/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dnumbervars.html#mpg_002dref_002dnumbervars">mpg-ref-numbervars</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">numbervars/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002don_005fexception.html#mpg_002dref_002don_005fexception">mpg-ref-on_exception</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">on_exception/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002donce.html#mpg_002dref_002donce">mpg-ref-once</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">once/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dop.html#mpg_002dref_002dop">mpg-ref-op</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">op/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dopen.html#mpg_002dref_002dopen">mpg-ref-open</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">open/[3,4]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dopen_005fnull_005fstream.html#mpg_002dref_002dopen_005fnull_005fstream">mpg-ref-open_null_stream</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">open_null_stream/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dotherwise.html#mpg_002dref_002dotherwise">mpg-ref-otherwise</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">otherwise/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dpeek_005fbyte.html#mpg_002dref_002dpeek_005fbyte">mpg-ref-peek_byte</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">peek_byte/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dpeek_005fchar.html#mpg_002dref_002dpeek_005fchar">mpg-ref-peek_char</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">peek_char/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dpeek_005fcode.html#mpg_002dref_002dpeek_005fcode">mpg-ref-peek_code</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">peek_code/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dphrase.html#mpg_002dref_002dphrase">mpg-ref-phrase</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">phrase/[2,3]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dportray.html#mpg_002dref_002dportray">mpg-ref-portray</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">portray/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dportray_005fclause.html#mpg_002dref_002dportray_005fclause">mpg-ref-portray_clause</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">portray_clause/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dportray_005fmessage.html#mpg_002dref_002dportray_005fmessage">mpg-ref-portray_message</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">portray_message/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dpredicate_005fproperty.html#mpg_002dref_002dpredicate_005fproperty">mpg-ref-predicate_property</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">predicate_property/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dprint.html#mpg_002dref_002dprint">mpg-ref-print</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">print/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dprint_005fcoverage.html#mpg_002dref_002dprint_005fcoverage">mpg-ref-print_coverage</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">print_coverage/[0,1]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dprint_005fmessage.html#mpg_002dref_002dprint_005fmessage">mpg-ref-print_message</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">print_message/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dprint_005fmessage_005flines.html#mpg_002dref_002dprint_005fmessage_005flines">mpg-ref-print_message_lines</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">print_message_lines/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dprint_005fprofile.html#mpg_002dref_002dprint_005fprofile">mpg-ref-print_profile</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">print_profile/[0,1]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dprofile_005fdata.html#mpg_002dref_002dprofile_005fdata">mpg-ref-profile_data</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">profile_data/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dprofile_005freset.html#mpg_002dref_002dprofile_005freset">mpg-ref-profile_reset</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">profile_reset/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dprolog_005fflag.html#mpg_002dref_002dprolog_005fflag">mpg-ref-prolog_flag</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">prolog_flag/[2,3]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dprolog_005fload_005fcontext.html#mpg_002dref_002dprolog_005fload_005fcontext">mpg-ref-prolog_load_context</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">prolog_load_context/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dprompt.html#mpg_002dref_002dprompt">mpg-ref-prompt</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">prompt/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dpublic.html#mpg_002dref_002dpublic">mpg-ref-public</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">public/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dput_005fbyte.html#mpg_002dref_002dput_005fbyte">mpg-ref-put_byte</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">put_byte/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dput_005fchar.html#mpg_002dref_002dput_005fchar">mpg-ref-put_char</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">put_char/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dput_005fcode.html#mpg_002dref_002dput_005fcode">mpg-ref-put_code</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">put_code/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dquery_005fabbreviation.html#mpg_002dref_002dquery_005fabbreviation">mpg-ref-query_abbreviation</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">query_abbreviation/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dquery_005fclass.html#mpg_002dref_002dquery_005fclass">mpg-ref-query_class</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">query_class/5
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dquery_005fclass_005fhook.html#mpg_002dref_002dquery_005fclass_005fhook">mpg-ref-query_class_hook</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">query_class_hook/5
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dquery_005fhook.html#mpg_002dref_002dquery_005fhook">mpg-ref-query_hook</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">query_hook/6
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dquery_005finput.html#mpg_002dref_002dquery_005finput">mpg-ref-query_input</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">query_input/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dquery_005finput_005fhook.html#mpg_002dref_002dquery_005finput_005fhook">mpg-ref-query_input_hook</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">query_input_hook/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dquery_005fmap.html#mpg_002dref_002dquery_005fmap">mpg-ref-query_map</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">query_map/4
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dquery_005fmap_005fhook.html#mpg_002dref_002dquery_005fmap_005fhook">mpg-ref-query_map_hook</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">query_map_hook/4
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002draise_005fexception.html#mpg_002dref_002draise_005fexception">mpg-ref-raise_exception</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">raise_exception/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dread.html#mpg_002dref_002dread">mpg-ref-read</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">read/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dread_005fline.html#mpg_002dref_002dread_005fline">mpg-ref-read_line</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">read_line/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dread_005fterm.html#mpg_002dref_002dread_005fterm">mpg-ref-read_term</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">read_term/[2,3]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dreconsult.html#mpg_002dref_002dreconsult">mpg-ref-reconsult</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">reconsult/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002drecorda.html#mpg_002dref_002drecorda">mpg-ref-recorda</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">recorda/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002drecorded.html#mpg_002dref_002drecorded">mpg-ref-recorded</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">recorded/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002drecordz.html#mpg_002dref_002drecordz">mpg-ref-recordz</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">recordz/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dremove_005fbreakpoints.html#mpg_002dref_002dremove_005fbreakpoints">mpg-ref-remove_breakpoints</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">remove_breakpoints/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002drepeat.html#mpg_002dref_002drepeat">mpg-ref-repeat</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">repeat/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002drestore.html#mpg_002dref_002drestore">mpg-ref-restore</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">restore/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dretract.html#mpg_002dref_002dretract">mpg-ref-retract</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">retract/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dretractall.html#mpg_002dref_002dretractall">mpg-ref-retractall</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">retractall/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dsave_005ffiles.html#mpg_002dref_002dsave_005ffiles">mpg-ref-save_files</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">save_files/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dsave_005fmodules.html#mpg_002dref_002dsave_005fmodules">mpg-ref-save_modules</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">save_modules/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dsave_005fpredicates.html#mpg_002dref_002dsave_005fpredicates">mpg-ref-save_predicates</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">save_predicates/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dsave_005fprogram.html#mpg_002dref_002dsave_005fprogram">mpg-ref-save_program</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">save_program/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dsee.html#mpg_002dref_002dsee">mpg-ref-see</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">see/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dseeing.html#mpg_002dref_002dseeing">mpg-ref-seeing</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">seeing/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dseek.html#mpg_002dref_002dseek">mpg-ref-seek</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">seek/4
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dseen.html#mpg_002dref_002dseen">mpg-ref-seen</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">seen/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dset_005finput.html#mpg_002dref_002dset_005finput">mpg-ref-set_input</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">set_input/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dset_005fmodule.html#mpg_002dref_002dset_005fmodule">mpg-ref-set_module</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">set_module/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dset_005foutput.html#mpg_002dref_002dset_005foutput">mpg-ref-set_output</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">set_output/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dset_005fprolog_005fflag.html#mpg_002dref_002dset_005fprolog_005fflag">mpg-ref-set_prolog_flag</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">set_prolog_flag/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dset_005fstream_005fposition.html#mpg_002dref_002dset_005fstream_005fposition">mpg-ref-set_stream_position</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">set_stream_position/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dsetof.html#mpg_002dref_002dsetof">mpg-ref-setof</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">setof/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dsimple.html#mpg_002dref_002dsimple">mpg-ref-simple</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">simple/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dskip_005fbyte.html#mpg_002dref_002dskip_005fbyte">mpg-ref-skip_byte</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">skip_byte/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dskip_005fchar.html#mpg_002dref_002dskip_005fchar">mpg-ref-skip_char</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">skip_char/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dskip_005fcode.html#mpg_002dref_002dskip_005fcode">mpg-ref-skip_code</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">skip_code/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dskip_005fline.html#mpg_002dref_002dskip_005fline">mpg-ref-skip_line</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">skip_line/[0,1]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dsort.html#mpg_002dref_002dsort">mpg-ref-sort</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">sort/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dsource_005ffile.html#mpg_002dref_002dsource_005ffile">mpg-ref-source_file</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">source_file/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dspy.html#mpg_002dref_002dspy">mpg-ref-spy</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">spy/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dstatistics.html#mpg_002dref_002dstatistics">mpg-ref-statistics</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">statistics/[0,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dstream_005fcode.html#mpg_002dref_002dstream_005fcode">mpg-ref-stream_code</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">stream_code/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dstream_005fposition.html#mpg_002dref_002dstream_005fposition">mpg-ref-stream_position</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">stream_position/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dstream_005fposition_005fdata.html#mpg_002dref_002dstream_005fposition_005fdata">mpg-ref-stream_position_data</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">stream_position_data/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dstream_005fproperty.html#mpg_002dref_002dstream_005fproperty">mpg-ref-stream_property</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">stream_property/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dsub_005fatom.html#mpg_002dref_002dsub_005fatom">mpg-ref-sub_atom</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">sub_atom/5
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dsubsumes_005fterm.html#mpg_002dref_002dsubsumes_005fterm">mpg-ref-subsumes_term</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">subsumes_term/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dtell.html#mpg_002dref_002dtell">mpg-ref-tell</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">tell/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dtelling.html#mpg_002dref_002dtelling">mpg-ref-telling</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">telling/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dterm_005fexpansion.html#mpg_002dref_002dterm_005fexpansion">mpg-ref-term_expansion</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">term_expansion/6
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dterm_005fvariables.html#mpg_002dref_002dterm_005fvariables">mpg-ref-term_variables</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">term_variables/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dthrow.html#mpg_002dref_002dthrow">mpg-ref-throw</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">throw/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dtold.html#mpg_002dref_002dtold">mpg-ref-told</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">told/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dtrace.html#mpg_002dref_002dtrace">mpg-ref-trace</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">trace/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dtrimcore.html#mpg_002dref_002dtrimcore">mpg-ref-trimcore</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">trimcore/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dtrue.html#mpg_002dref_002dtrue">mpg-ref-true</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">true/0
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dunify_005fwith_005foccurs_005fcheck.html#mpg_002dref_002dunify_005fwith_005foccurs_005fcheck">mpg-ref-unify_with_occurs_check</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">unify_with_occurs_check/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dunknown.html#mpg_002dref_002dunknown">mpg-ref-unknown</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">unknown/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dunknown_005fpredicate_005fhandler.html#mpg_002dref_002dunknown_005fpredicate_005fhandler">mpg-ref-unknown_predicate_handler</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">unknown_predicate_handler/3
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dunload_005fforeign_005fresource.html#mpg_002dref_002dunload_005fforeign_005fresource">mpg-ref-unload_foreign_resource</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">unload_foreign_resource/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dupdate_005fmutable.html#mpg_002dref_002dupdate_005fmutable">mpg-ref-update_mutable</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">update_mutable/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002duse_005fmodule.html#mpg_002dref_002duse_005fmodule">mpg-ref-use_module</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">use_module/[1,2,3]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dvar.html#mpg_002dref_002dvar">mpg-ref-var</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">var/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dvolatile.html#mpg_002dref_002dvolatile">mpg-ref-volatile</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">volatile/1
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dwhen.html#mpg_002dref_002dwhen">mpg-ref-when</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">when/2
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dwrite.html#mpg_002dref_002dwrite">mpg-ref-write</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">write/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dwrite_005fcanonical.html#mpg_002dref_002dwrite_005fcanonical">mpg-ref-write_canonical</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">write_canonical/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dwrite_005fterm.html#mpg_002dref_002dwrite_005fterm">mpg-ref-write_term</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">write_term/[2,3]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dwriteq.html#mpg_002dref_002dwriteq">mpg-ref-writeq</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">writeq/[1,2]
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="mpg_002dref_002dzip.html#mpg_002dref_002dzip">mpg-ref-zip</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">zip/0
+</td></tr>
+</table>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dtop.html#mpg_002dtop" accesskey="p" rel="prev">Previous</a>
+<li><a href="Prolog-Reference-Pages.html#Prolog-Reference-Pages" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dbpr.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dbpr.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

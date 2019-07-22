@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.1.0 New Features</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.1.0 New Features">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.1.0 New Features">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e1_002e0-Changes.html#g_t4_002e1_002e0-Changes" rel="up" title="4.1.0 Changes">
+<link href="4_002e1_002e0-Bugs-Fixed.html#g_t4_002e1_002e0-Bugs-Fixed" rel="next" title="4.1.0 Bugs Fixed">
+<link href="4_002e1_002e0-Changes.html#g_t4_002e1_002e0-Changes" rel="prev" title="4.1.0 Changes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e1_002e0-New-Features"></a>
+<hr>
+<a name="New-Features-7"></a>
+<h4 class="subsection">14.12.1 New Features</h4>
+
+<ul>
+<li> SPIDER, the SICStus Prolog IDE, is a new Eclipse-based development
+environment for SICStus with many powerful features. See <a href="../sicstus/SPIDER.html#SPIDER">SICStus
+Prolog IDE</a> in <cite>the SICStus Prolog Manual</cite> for more information.
+
+</li><li> Do-loops, a new control structure and built-in predicate <code>do/2</code>
+for performing simple iterations.
+See <a href="../sicstus/ref_002dsem_002dctr_002ddol.html#ref_002dsem_002dctr_002ddol">Do-Loops</a> in <cite>the SICStus Prolog
+Manual</cite>.
+
+</li><li> Conditional compilation, a preprocessing step that selectively
+discards parts of a file at compile time. This is especially useful
+for writing code that needs to be compatible with more than one Prolog
+implementation.  See <a href="../sicstus/ref_002dlod_002dcnd.html#ref_002dlod_002dcnd">Conditional Compilation</a> in <cite>the SICStus Prolog Manual</cite> for more
+information.
+
+</li><li> New Prolog flags:
+<dl compact="compact">
+<dt><code>dialect</code></dt>
+<dt><code>version_data</code></dt>
+<dd><p>make it easier
+to determine which version of SICStus is running. Especially useful with
+conditional compilation.
+</p>
+</dd>
+<dt><code>platform_data</code></dt>
+<dt><code>os_data</code></dt>
+<dd><p>make it easier
+to determine on which operating system SICStus is running.
+</p>
+</dd>
+<dt><code>min_tagged_integer</code></dt>
+<dt><code>max_tagged_integer</code></dt>
+<dd>
+<p>The range of small integers.
+</p>
+</dd>
+<dt><code>argv</code></dt>
+<dd><p>Not a new flag but is no longer read-only. Setting it can be useful,
+e.g. in test cases.
+</p></dd>
+</dl>
+
+</li><li> Added stream property <code>interactive</code> for interactive streams, like
+the standard input and output streams when invoking SICStus on a
+terminal or with the <samp>-i</samp> command line option.
+
+</li><li> Meta-predicate declarations now allow an integer instead of <code>:</code>
+(colon) in order to help analysis tools follow code references. All
+documentation and libraries have been updated to reflect this. (This was
+always allowed in SICStus as a substitute for <code>:</code> (colon) but was
+never documented).
+
+</li><li> Compound terms denoting references to dynamic clauses are
+recognized by the new built-in predicate <code>db_reference/1</code>.
+
+</li><li> The previously reserved argument to <code>SP_initialize()</code> can now be
+used to pass initialization options.
+
+</li><li> Saved-states and &lsquo;<samp>.po</samp>&rsquo; files are portable across architectures
+that have the same word size.  Pre-4.1 &lsquo;<samp>.sav</samp>&rsquo; and &lsquo;<samp>.po</samp>&rsquo; files
+are not compatible with this and future releases.
+
+</li><li> Several new statistics keywords are available.  Also, <code>statistics/0</code>
+now resets the &ldquo;time spent since the latest call&rdquo; counters.
+
+</li><li> <code>library(odbc)</code> is
+a new ODBC library for interfacing with databases. ODBC (Open Database
+Connectivity) is a standard API for using a DBMS (DataBase Management
+System). By using ODBC you can access data from a multitude of DBMSs
+without having to know the details of each DBMS.
+
+</li><li> It is now possible to pass environment variables to the sub-process
+using the new <code>environment/1</code> option to
+<code>process:process_create/3</code>.
+
+</li><li> <code>random:setrand/1</code> can now be passed an arbitrary integer for
+initializing the state of the random number generators.  This is easier
+than constructing a valid random state like those returned by
+<code>getrand/1</code>.
+
+
+</li><li> <code>library(clpfd)</code>: 
+<ul class="no-bullet">
+<li>- <code>geost/[2,3,4]</code> is a new powerful constraint that constrains the
+location in space of non-overlapping multi-dimensional objects.
+</li><li>- <code>table/[2,3]</code> is more scalable and has
+several new options for controlling its DAG construction.
+</li><li>- <code>automaton/3</code> is a shorthand for the most common use of <code>automaton/8</code>, and
+<code>automaton/9</code> extends <code>automaton/8</code> with options.
+</li><li>- Unary minus (<code>-</code>) is allowed in arithmetic expressions.
+</li><li>- Several new demo examples.
+</li></ul>
+
+</li><li> <code>library(zinc)</code>: upgraded to FlatZinc version 1.0.
+
+</li><li> <code>library(system)</code>: a new predicate, <code>environ/3</code>, for reading system properties,
+environment variables or a merged view of both. See below for the new concept
+&ldquo;System Properties&rdquo; that has replaced most uses of environment
+variables.
+
+</li><li> <code>library(sockets)</code>: The predicates that create socket streams now
+take options <code>encoding/1</code> and <code>eol/1</code> with the same meaning as
+for <code>open/4</code>.
+</li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e1_002e0-Bugs-Fixed.html#g_t4_002e1_002e0-Bugs-Fixed" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e1_002e0-Changes.html#g_t4_002e1_002e0-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e1_002e0-New-Features.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e1_002e0-New-Features.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

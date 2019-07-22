@@ -1,0 +1,54 @@
+Guide to Gauge
+==============
+
+Buttons:
+
+CALCULATE
+Push the Calculate button to calculate the values according to the
+current settings. The values are displayed in a histogram.
+
+RESET COUNTERS
+The execution counters of the displayed predicates and clauses may be
+reset by pushing the "Reset Count" button.
+
+PRINT
+Open the printing dialog window. This allows printing the histogram
+on any postscript printer, or to file. To print on non-postscript
+printers, it is recommended to save to file and then print the
+resulting postscript file, using for example Ghostscript.
+
+HELP
+Show this text.
+
+QUIT
+The Quit button quits Gauge and closes the gauge windows.
+
+
+Settings:
+
+SPECIFICATION
+Calls - Number of times a predicate was called.
+Instructions - Number of abstract instructions
+               plus two times number of choice point accesses.
+Choice Points - Number of choice points saved or restored.
+
+SORT ORDER
+Alphabetic - Sort the bars in alphabetic order.
+Descending values - Sort the bars by descending values.
+Ascending values - Sort the bars by ascending values.
+Top 40 - Show just the 40 highest values in descending order.
+
+SCALE
+Linear - Display values with a linear scale.
+Logarithmic - Display values with a logarithmic scale.
+
+SHOW
+All - Show all values in the histogram.
+No zero values - Show only non-zero values.
+
+FONT
+The font used in the histogram chart.
+
+VALUE INFO
+By clicking on the bars of the histogram, the figures are displayed in
+the "Value Info" window.

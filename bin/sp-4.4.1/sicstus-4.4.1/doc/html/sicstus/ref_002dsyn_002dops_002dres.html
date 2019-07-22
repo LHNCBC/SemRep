@@ -1,0 +1,164 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-syn-ops-res</title>
+
+<meta name="description" content="SICStus Prolog: ref-syn-ops-res">
+<meta name="keywords" content="SICStus Prolog: ref-syn-ops-res">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dsyn_002dops.html#ref_002dsyn_002dops" rel="up" title="ref-syn-ops">
+<link href="ref_002dsyn_002dops_002dbop.html#ref_002dsyn_002dops_002dbop" rel="next" title="ref-syn-ops-bop">
+<link href="ref_002dsyn_002dops_002dops.html#ref_002dsyn_002dops_002dops" rel="prev" title="ref-syn-ops-ops">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dsyn_002dops_002dres"></a>
+<hr>
+<a name="Syntax-Restrictions"></a>
+<h4 class="subsubsection">4.1.5.3 Syntax Restrictions</h4>
+
+<a name="index-operators_002c-syntax-restrictions-on"></a>
+
+<a name="index-syntax-restrictions-on-operators"></a>
+
+<a name="index-restrictions_002c-operator-syntax"></a>
+
+
+<p>Note carefully the following syntax restrictions, which serve  to
+remove potential ambiguities associated with prefix operators.
+</p>
+<ol>
+<li> The  arguments  of  a  compound  term  written  in
+standard  syntax must be expressions of precedence <em>less than</em> 1000.
+Thus it is necessary to write the expression <code>P:-Q</code> in parentheses
+<div class="example">
+<pre class="example">assert((P:-Q))
+</pre></div>
+
+<p>because the precedence of the infix operator &lsquo;<samp>:-</samp>&rsquo;, and hence of the 
+expression 
+<code>P:-Q</code>, is 1200.  Enclosing the expression in parentheses reduces its
+precedence to 0.
+</p></li><li> Similarly, the  elements of a list written in
+standard  syntax must be expressions of precedence <em>less than</em> 1000.
+Thus it is necessary to write the expression <code>P-&gt;Q</code> in parentheses
+<div class="example">
+<pre class="example">[(P-&gt;Q)]
+</pre></div>
+
+<p>because the precedence of the infix operator &lsquo;<samp>-&gt;</samp>&rsquo;, and hence of the 
+expression 
+<code>P-&gt;Q</code>, is 1050.  Enclosing the expression in parentheses reduces its
+precedence to 0.
+</p></li><li> In a term written in standard syntax, the  principal  functor  and
+its  following  &lsquo;<samp>(</samp>&rsquo;  must  <em>not</em> be separated by any intervening 
+spaces, newlines, or other characters.  Thus
+<div class="example">
+<pre class="example">point (X,Y,Z)
+</pre></div>
+
+<p>is invalid syntax.
+</p></li><li> If the argument of a prefix operator starts with a &lsquo;<samp>(</samp>&rsquo;,  then this  &lsquo;<samp>(</samp>&rsquo;
+must  be  separated  from  the operator by at least one space or other
+whitespace character.  Thus
+<div class="example">
+<pre class="example">:-(p;q),r.
+</pre></div>
+
+<p>(where &lsquo;<samp>:-</samp>&rsquo; is the prefix operator) is invalid syntax.
+The system would try to interpret it as the structure:
+</p><div class="example">
+<pre class="example">            ,
+           / \
+         :-    r
+          |
+          ;
+         / \
+        p   q
+</pre></div>
+
+<p>That is, it would take &lsquo;<samp>:-</samp>&rsquo; to be a functor of arity 1.
+However, since the arguments of a functor are required to be expressions of
+precedence less than 1000, this interpretation would fail as soon 
+as the &lsquo;<samp>;</samp>&rsquo; (precedence 1100) were encountered.
+</p>
+<p>In contrast, the term:
+</p><div class="example">
+<pre class="example">:- (p;q),r.
+</pre></div>
+
+<p>is valid syntax and represents the following structure:
+</p><div class="example">
+<pre class="example">            :-
+             |
+             ,
+            / \
+           ;   r
+          / \
+         p   q
+</pre></div>
+</li></ol>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dsyn_002dops_002dbop.html#ref_002dsyn_002dops_002dbop" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dsyn_002dops_002dops.html#ref_002dsyn_002dops_002dops" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dsyn_002dops.html#ref_002dsyn_002dops" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dsyn_002dops_002dres.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dsyn_002dops_002dres.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

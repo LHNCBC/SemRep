@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: CPL Notes</title>
+
+<meta name="description" content="SICStus Prolog: CPL Notes">
+<meta name="keywords" content="SICStus Prolog: CPL Notes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" rel="up" title="Mixing C and Prolog">
+<link href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" rel="next" title="Calling C from Prolog">
+<link href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" rel="prev" title="Mixing C and Prolog">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="CPL-Notes"></a>
+<hr>
+<a name="Notes-1"></a>
+<h3 class="section">6.1 Notes</h3>
+
+<dl compact="compact">
+<dt><em>The SP_PATH variable</em></dt>
+<dd><a name="index-SP_005fPATH-_0028system-property_0029-1"></a>
+<p>It is normally not necessary, nor desirable, to set this system property
+(or environment variable), but its value will be used, as a fall-back,
+at runtime if it cannot be determined automatically during initialization of a
+runtime or development system.  In this chapter, <code>SP_PATH</code> is used
+as a shorthand, as follows.
+</p>
+<p>On Windows, <code>SP_PATH</code> is a shorthand for the SICStus Prolog
+installation directory, whose default location for SICStus 4.4.1 is
+<samp>C:\Program&nbsp;Files\SICStus&nbsp;Prolog&nbsp;4.4.1\<!-- /@w --></samp>.
+</p>
+<p>On UNIX, the default installation directory for SICStus 4.4.1
+is <samp>/usr/local/sicstus4.4.1/<!-- /@w --></samp> and <code>SP_PATH</code> is a shorthand
+for the subdirectory <samp>lib/sicstus-4.4.1/</samp> of the installation
+directory, e.g.: <samp><span class="nolinebreak">/usr/local/sicstus4.4.1/lib/sicstus-4.4.1/</span><!-- /@w --></samp>.
+</p>
+<p>See <a href="System-Properties-and-Environment-Variables.html#System-Properties-and-Environment-Variables">System Properties and Environment Variables</a> for more information.
+</p>
+
+</dd>
+<dt><em>Definitions and declarations</em></dt>
+<dd><p>Type definitions and function declarations for the interface
+are found in the header file <samp>&lt;sicstus/sicstus.h&gt;</samp>.
+</p>
+</dd>
+<dt><em>Error Codes</em></dt>
+<dd><a name="index-SP_005fSUCCESS-_0028C-macro_0029"></a>
+<a name="index-SP_005fFAILURE-_0028C-macro_0029"></a>
+<a name="index-SP_005fERROR-_0028C-macro_0029"></a>
+
+
+<p>The value of many support functions is a return code, namely:
+<code>SP_SUCCESS</code> for success, <code>SP_FAILURE</code> for failure,
+<code>SP_ERROR</code> if an error condition occurred, or if an uncaught
+exception was raised during a call from C to Prolog.
+If the value is <code>SP_ERROR</code>, then the macro <code>SP_errno</code> will return a
+value describing the error condition:
+</p>
+<a name="index-SP_005ferrno-_0028C-macro_0029"></a>
+<a name="index-SP_005ferror_005fmessage_0028_0029-_0028C-function_0029"></a>
+
+<div class="example">
+<pre class="example">int SP_errno
+</pre></div>
+
+<p>The function <code>SP_error_message()</code> returns a pointer to the diagnostic
+message corresponding to a specified error number.
+</p>
+</dd>
+<dt><em>Wide Characters</em></dt>
+<dd><a name="index-encoded-string"></a>
+<a name="index-string_002c-encoded"></a>
+<a name="index-UTF_002d8-encoding"></a>
+<a name="index-encoding_002c-UTF_002d8"></a>
+<p>The foreign interface supports wide characters. Whenever a sequence of
+possibly wide character codes is to be passed to or from a C
+function it is encoded as a sequence of bytes, using the UTF-8 encoding.
+Unless noted otherwise the encoded form is
+terminated by a NUL byte. This sequence of bytes will be called an
+<em>encoded string</em>, representing the given sequence of character
+codes.  Note that it is a property of the UTF-8 encoding that it does
+not change ASCII character code sequences.
+</p>
+<p>If a foreign function is specified to return an encoded string, then an
+exception will be raised if, on return to Prolog, the actual string is
+malformed (is not a valid sequence of UTF-8 encoded characters). The
+exception raised is
+<code>error(representation_error(mis_encoded_string),representation_error(&hellip;,&hellip;,mis_encoded_string))</code>.
+</p>
+</dd>
+</dl>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog" accesskey="n" rel="next">Next</a>
+<li><a href="Mixing-C-and-Prolog.html#Mixing-C-and-Prolog" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/CPL-Notes.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/CPL-Notes.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

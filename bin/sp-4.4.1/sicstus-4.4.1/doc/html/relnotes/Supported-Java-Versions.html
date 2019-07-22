@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: Supported Java Versions</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: Supported Java Versions">
+<meta name="keywords" content="SICStus Prolog Release Notes: Supported Java Versions">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Jasper-Notes.html#Jasper-Notes" rel="up" title="Jasper Notes">
+<link href="Getting-Started.html#Getting-Started" rel="next" title="Getting Started">
+<link href="Jasper-Notes.html#Jasper-Notes" rel="prev" title="Jasper Notes">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Supported-Java-Versions"></a>
+<hr>
+<a name="Supported-Java-Versions-1"></a>
+<h3 class="section">8.1 Supported Java Versions</h3>
+
+<p>Jasper should work with all current versions of Java. Except under
+Windows the full development kit, not just the JRE, is needed.  Unless
+indicated otherwise, you can download the JDK from
+<a href="https://java.sun.com/">https://java.sun.com/</a>.
+</p>
+<p>Jasper is built using a particular version of Java, as appropriate for
+each platform, but it is possible to recompile it to work with older
+versions as well. The version differs between platform, see
+<a href="https://sicstus.sics.se/">https://sicstus.sics.se/</a> for details.
+</p>
+<p>For some platforms, Jasper is <em>only</em> supported under the following
+conditions: 
+</p>
+<dl compact="compact">
+<dt><strong>Mac OS X</strong></dt>
+<dd><p>Using Jasper from Java may require that <code>DYLD_LIBRARY_PATH</code> be
+set up so that Java can find the SICStus runtime library. That is, you
+may need to set <code>DYLD_LIBRARY_PATH</code> to the location of the SICStus
+runtime <code>libsprt4-4-1.dylib</code>.
+</p>
+
+
+<p>On OS X, embedding Java 7 or later in SICStus, e.g. by using
+<code>library(jasper)</code>, may fail, possibly with a dialog about the
+need for a Java SE 6 runtime. This seems to be caused by missing
+information in the section &lsquo;<samp>JVMCapabilities</samp>&rsquo; of the file
+<samp>Info.plist</samp> in the Java installation. As of December 2017 there
+was no official information from Oracle about this but several
+suggested workaround can be found on the net.
+</p>
+</dd>
+</dl>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Getting-Started.html#Getting-Started" accesskey="n" rel="next">Next</a>
+<li><a href="Jasper-Notes.html#Jasper-Notes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/Supported-Java-Versions.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/Supported-Java-Versions.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

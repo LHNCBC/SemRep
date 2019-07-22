@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-user_close</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-user_close">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-user_close">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002duser_005fflush_005foutput.html#cpg_002dref_002duser_005fflush_005foutput" rel="next" title="cpg-ref-user_flush_output">
+<link href="cpg_002dref_002dSU_005finitialize.html#cpg_002dref_002dSU_005finitialize" rel="prev" title="cpg-ref-SU_initialize">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002duser_005fclose"></a>
+<hr>
+<a name="user_005fclose_0028_0029"></a>
+<h4 class="subsection">12.3.105 <code>user_close()</code></h4>
+<a name="index-user_005fclose_0028_0029-_0028C-function_0029"></a>
+
+<a name="Synopsis-385"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">spio_t_error_code
+user_close(
+  void **puser_data,
+  spio_t_bits close_options
+  );
+</pre></div>
+
+<p>This is the prototype for one of the <em>methods</em> of user defined
+streams. It is used when SICStus wants to close one or both directions
+of a user defined stream.
+</p>
+<a name="Arguments-354"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>puser_data</var></dt>
+<dd><p>A pointer to the same value as was passed to <code>SP_create_stream()</code>.
+On successful return, if the stream has been closed and any resources
+freed, then <code>*puser_data</code> should be set to <code>NULL</code>.
+</p>
+<p>If <code>user_close</code> fails, it can still set <code>*puser_data</code> to
+<code>NULL</code> to signify that the stream is no longer usable.
+</p>
+</dd>
+<dt><var>close_options</var></dt>
+<dd><p>The following bits can be set:
+</p>
+<dl compact="compact">
+<dt><code>SPIO_DEVICE_CLOSE_OPTION_READ</code></dt>
+<dd>
+<p>The read direction should be closed. Only set if the device was
+created as an input or bidirectional device.
+</p>
+</dd>
+<dt><code>SPIO_DEVICE_CLOSE_OPTION_WRITE</code></dt>
+<dd><p>The write direction should be closed. Only set if the device was
+created as an output or bidirectional device.
+</p>
+</dd>
+<dt><code>SPIO_DEVICE_CLOSE_OPTION_FORCE</code></dt>
+<dd><p>The specified directions should be closed without attempting to flush
+any data. Among other things this option may be passed if a previous
+call to <code>user_close</code> returned an error.
+</p></dd>
+</dl>
+
+<p>Note that a bidirectional stream should only close the directions
+specified by the <code>close_options</code>. Also note that
+<code>user_close</code> for a bidirectional stream may be called several
+times and that the same direction flag, e.g.
+<code>SPIO_DEVICE_CLOSE_OPTION_READ</code> may be specified more than once,
+even if that direction has already been closed successfully.
+</p>
+<p>Once a call to <code>user_close</code> has set <code>*puser_data</code> to
+<code>NULL</code>, none of the device <em>methods</em> will be called
+again.  Note that a <code>*puser_data</code> may be set to <code>NULL</code> even
+when a failure code is returned.  This is useful if the failure is
+unrecoverable.
+</p>
+<p>There is no option to specify non-blocking close, it is expected that
+<code>user_close</code> will finish <em>quickly</em>. To make this more likely,
+<code>user_flush_output</code> is called before non-forcibly closing an
+output stream.
+</p></dd>
+</dl>
+
+<a name="Return-Value-97"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, return <code>SPIO_S_NOERR</code> or some other success code and
+set <code>*puser_data</code> if and only if the user data and any other
+resources have been freed.
+</p>
+<p>On failure, return a SPIO error code. Error codes with special meaning
+for <code>user_close</code>:
+</p>
+<dl compact="compact">
+<dt><code>SPIO_E_END_OF_FILE</code></dt>
+<dd><p>Returned if there were buffered data and it is not possible to write
+more data onto the stream, e.g. some underlying device has been
+closed.
+</p></dd>
+</dl>
+
+<p>Other error codes may also be returned.
+</p>
+<a name="Description-223"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Should close one or all directions depending on the
+<code>close_options</code>.  If all directions have been closed, the user
+data should be deallocated and <code>*puser_data</code> set to
+<code>NULL</code>.
+</p>
+<a name="See-Also-382"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="cpg_002dref_002dSP_005fcreate_005fstream.html#cpg_002dref_002dSP_005fcreate_005fstream">cpg-ref-SP_create_stream</a>.
+<a href="Defining-a-New-Stream.html#Defining-a-New-Stream">Defining a New Stream</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002duser_005fflush_005foutput.html#cpg_002dref_002duser_005fflush_005foutput" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSU_005finitialize.html#cpg_002dref_002dSU_005finitialize" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002duser_005fclose.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002duser_005fclose.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

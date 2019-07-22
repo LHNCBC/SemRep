@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-query_map_hook</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-query_map_hook">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-query_map_hook">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002draise_005fexception.html#mpg_002dref_002draise_005fexception" rel="next" title="mpg-ref-raise_exception">
+<link href="mpg_002dref_002dquery_005fmap.html#mpg_002dref_002dquery_005fmap" rel="prev" title="mpg-ref-query_map">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dquery_005fmap_005fhook"></a>
+<hr>
+<a name="query_005fmap_005fhook_002f4---hook"></a>
+<h4 class="subsection">11.3.181 <code>query_map_hook/4</code> &nbsp;<!-- /@w --> <i>hook</i></h4>
+<a name="index-query_005fmap_005fhook_002f4-_0028hook_002c-ref-page_0029-1"></a>
+<a name="index-query_005fmap_005fhook_002f4-_0028hook_002c-ref-page_0029"></a>
+
+<a name="Synopsis-206"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile user:query_map_hook/4.</code>
+</p>
+<p><code>user:query_map_hook(<var>+MapMethod</var>, <var>+RawInput</var>, <var>-Result</var>, <var>-Answer</var>)</code>
+</p>
+<p>Provides the user with a method of overriding the call to
+<code>'SU_messages':query_map/4</code> in the map phase of query
+processing.  This way the implementation of the default map methods
+can be changed.
+</p>
+<a name="Arguments-189"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>MapMethod</var></dt>
+<dd><p><em>term</em>
+</p>
+<p>The map method to use.
+</p>
+</dd>
+<dt><var>RawInput</var></dt>
+<dd><p><em>atom</em>
+</p>
+<p>As received from <code>query_input/3</code>.
+</p>
+</dd>
+<dt><var>Result</var></dt>
+<dd><p><em>one of <code>[success,failure,failure(<var>Warning</var>)]</code></em>
+</p>
+<p>Result of conversion.
+</p>
+</dd>
+<dt><var>Answer</var></dt>
+<dd><p><em>one of <code>[success,failure,failure(<var>Warning</var>)]</code></em>
+</p>
+<p>Abstract answer term.
+</p></dd>
+</dl>
+
+<a name="Exceptions-197"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>All error handling is done by the predicates extended by this hook.
+</p>
+<a name="See-Also-203"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Query-Processing.html#Query-Processing">Query Processing</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002draise_005fexception.html#mpg_002dref_002draise_005fexception" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dquery_005fmap.html#mpg_002dref_002dquery_005fmap" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dquery_005fmap_005fhook.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dquery_005fmap_005fhook.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

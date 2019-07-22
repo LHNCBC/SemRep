@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-use_module</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-use_module">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-use_module">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dvar.html#mpg_002dref_002dvar" rel="next" title="mpg-ref-var">
+<link href="mpg_002dref_002dupdate_005fmutable.html#mpg_002dref_002dupdate_005fmutable" rel="prev" title="mpg-ref-update_mutable">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002duse_005fmodule"></a>
+<hr>
+<a name="use_005fmodule_002f_005b1_002c2_002c3_005d"></a>
+<h4 class="subsection">11.3.247 <code>use_module/[1,2,3]</code></h4>
+<a name="index-use_005fmodule_002f_005b1_002c2_002c3_005d-_0028built_002din_002c-ref-page_0029-1"></a>
+<a name="index-use_005fmodule_002f_005b1_002c2_002c3_005d-_0028built_002din_002c-ref-page_0029"></a>
+
+<a name="Synopsis-272"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>use_module(<var>+File</var>)</code>
+</p>
+<p>Loads the module-file(s) <var>File</var>, if not already
+loaded and up-to-date imports all exported predicates.
+</p>
+<p><code>use_module(<var>+File</var>, <var>+Imports</var>)</code>
+</p>
+<p>Loads module-file <var>File</var>, if not already
+loaded and up-to-date imports according to <var>Imports</var>.
+</p>
+<p><code>use_module(<var>+Module</var>, <var>-File</var>, <var>+Imports</var>)</code>
+</p>
+<p><var>Module</var> is already loaded and up-to-date. Imports according to
+<var>Imports</var>.
+</p>
+<p><code>use_module(<var>-Module</var>, <var>+File</var>, <var>+Imports</var>)</code>
+</p>
+<p><var>Module</var> has not been loaded, or is out-of-date. Loads <var>Module</var>
+from <var>File</var> and imports according to <var>Imports</var>.
+</p>
+<a name="Arguments-249"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>:File</var></dt>
+<dd><p><em>file_spec</em> or <em>list of file_spec</em>, must be ground
+Any legal file specification.  Only <code>use_module/1</code> accepts a list
+of file specifications, file extensions optional.
+</p>
+</dd>
+<dt><var>Imports</var></dt>
+<dd><p><em>list of simple_pred_spec</em> or <em>one of <code>[all]</code></em>, must be ground
+Either a list of predicate specifications in the <var>Name/Arity</var> form
+to import into the calling module, or the atom <code>all</code>, meaning all
+predicates exported by the module are to be imported.
+</p>
+</dd>
+<dt><var>Module</var></dt>
+<dd><p><em>atom</em>
+The module name in <var>File</var>, or a
+variable, in which case the module name is returned.
+</p></dd>
+</dl>
+
+<a name="Description-185"></a>
+<h4 class="subheading">Description</h4>
+
+<p>Loads each specified file except the previously loaded files that have
+not been changed since last loaded.  All files should be module-files;
+if they are not, then warnings are issued.  All the exported predicates
+of the modules are imported into the calling module (or module <var>M</var>
+if specified).
+</p>
+<p><code>use_module/2</code> imports only the predicates in <var>Imports</var> when
+loading <var>File</var>.  If an attempt is made to import a predicate that
+is not public, then a warning is issued.  If <var>File</var> is not a module-file, then 
+nothing is imported.
+</p>
+<p><code>use_module/3</code> allows <var>Module</var> to be
+imported into another module without requiring that its source file
+(<var>File</var>) be known, as long as the <var>Module</var> already
+exists in the system.  
+</p>
+<p>Generally, <code>use_module/3</code> is similar to <code>use_module/[1,2]</code>,
+except that if <var>Module</var> is already in the system, then <var>Module</var>, or
+predicates from <var>Module</var>, are simply imported into the calling
+module, and <var>File</var> is not loaded again.  If <var>Module</var> does not
+already exist in the system, then <var>File</var> is loaded, and
+<code>use_module/3</code> behaves like <code>use_module/2</code>, except that
+<var>Module</var> is unified, after the file has been loaded, with the actual
+name of the module in
+<var>File</var>.  If <var>Module</var> is a variable, then <var>File</var> must exist,
+and the module name in <var>File</var> is returned.
+</p>
+<p><code>use_module/1</code> is similar to <code>ensure_loaded/1</code> except that
+all files should be module-files; if they are not, then warnings are issued.
+</p>
+<p>An attempt to import a predicate may fail or require intervention by the
+user because a predicate with the same name and arity has already been
+defined in, or imported into, the loading module (or module <var>M</var> if
+specified).  Details of what happens
+in the event of such a <em>name clash</em> are given in <a href="ref_002dmod_002dbas.html#ref_002dmod_002dbas">ref-mod-bas</a>.
+</p>
+<p>After loading the module-file, the source module will attempt to
+import all the predicates in <var>Imports</var>.  <var>Imports</var> must be a
+list of predicate specifications in <var>Name/Arity</var> form.  If the
+file is not a module-file, then nothing is imported.  If any of the
+predicates in <var>Imports</var> are not public predicates, then a warning is
+issued, but the predicates are imported nonetheless.  This lack of
+strictness is for convenience; if you forget to declare a predicate to
+be public, then you can supply the necessary declaration and reload its
+module, without having to reload the module that has imported the
+predicate.
+</p>
+<p>While <code>use_module/1</code> may be more convenient at the top level,
+<code>use_module/2</code> is recommended in files because it helps document
+the interface between modules by making the list of imported
+predicates explicit.
+</p>
+<p>For consistency, <code>use_module/2</code> has also been extended so that the
+<var>Imports</var> may be specified as the term <code>all</code>, in which case it behaves
+the same as <code>use_module/1</code>, importing the entire module into the caller.
+</p>
+<a name="Exceptions-263"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>See also <code>load_files/[2,3]</code>.
+</p>
+<dl compact="compact">
+<dt><code>instantiation_error</code></dt>
+<dd><p><var>File</var> or <var>Imports</var> is not ground.
+</p>
+</dd>
+<dt><code>type_error</code></dt>
+<dd><p>In <var>File</var> or <var>Imports</var>.
+</p></dd>
+</dl>
+
+<a name="Examples-96"></a>
+<h4 class="subheading">Examples</h4>
+
+<p><code>use_module/[1,2]</code> could be defined as:
+</p>
+<div class="example">
+<pre class="example">use_module(Files) :-
+    load_files(Files, [if(changed)]).
+
+use_module(File, Imports) :-
+    load_files([File], [if(changed),imports(Imports)]).
+</pre></div>
+
+<p><code>use_module/3</code> can be used to access the (primary) module name of a module-file:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>use_module(Module, library(clpfd), all).</kbd>
+% loading /src/sicstus/matsc/sicstus4/Utils/x86-linux-glibc2.3/bin/sp-4.1.0/sicstus-4.1.0/library/clpfd.po...
+[...]
+% loaded /src/sicstus/matsc/sicstus4/Utils/x86-linux-glibc2.3/bin/sp-4.1.0/sicstus-4.1.0/library/clpfd.po in module clpfd, 830 msec 496796 bytes
+Module = clpfd ? 
+yes
+</pre></div>
+
+<a name="See-Also-269"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="ref_002dlod_002dlod.html#ref_002dlod_002dlod">ref-lod-lod</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dvar.html#mpg_002dref_002dvar" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dupdate_005fmutable.html#mpg_002dref_002dupdate_005fmutable" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002duse_005fmodule.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002duse_005fmodule.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

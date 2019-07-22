@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Det Example</title>
+
+<meta name="description" content="SICStus Prolog: Det Example">
+<meta name="keywords" content="SICStus Prolog: Det Example">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="The-Determinacy-Checker.html#The-Determinacy-Checker" rel="up" title="The Determinacy Checker">
+<link href="Det-Options.html#Det-Options" rel="next" title="Det Options">
+<link href="Checker-Output.html#Checker-Output" rel="prev" title="Checker Output">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Det-Example"></a>
+<hr>
+<a name="Example"></a>
+<h4 class="subsection">9.7.4 Example</h4>
+
+<p>Here is an example file:
+</p><div class="example">
+<pre class="example">:- load_files(library(detcheck),
+              [when(compile_time), if(changed)]).
+
+parent(abe, rob).
+parent(abe, sam).
+parent(betty, rob).
+parent(betty, sam).
+
+is_parent(Parent) :- parent(Parent, _).
+</pre></div>
+
+<p>The determinacy checker notices that the first arguments of
+clauses 1 and 2 have the same principal functor, and
+similarly for clauses 3 and 4.  It reports:
+</p><div class="example">
+<pre class="example">* Non-determinate: user:parent/2 (clause 1)
+*     Indexing cannot distinguish this from clause 2.
+* Non-determinate: user:parent/2 (clause 3)
+*     Indexing cannot distinguish this from clause 4.
+</pre></div>
+
+<p>In fact, <code>parent/2</code> should be nondeterminate, so we should
+add the declaration
+</p><div class="example">
+<pre class="example">:- parent/2 is nondet.
+</pre></div>
+<p>before the clauses for <code>parent/2</code>.  If run again after modifying file, then
+the determinacy checker prints:
+</p><div class="example">
+<pre class="example">* Non-determinate: user:is_parent/1 (clause 1)
+*     This clause calls user:parent/2, which may be nondeterminate.
+</pre></div>
+
+<p>It no longer complains about <code>parent/2</code> being nondeterminate,
+since this is declared.  But now it notices that because <code>parent/2</code>
+is nondeterminate, then so is <code>is_parent/1</code>.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Det-Options.html#Det-Options" accesskey="n" rel="next">Next</a>
+<li><a href="Checker-Output.html#Checker-Output" accesskey="p" rel="prev">Previous</a>
+<li><a href="The-Determinacy-Checker.html#The-Determinacy-Checker" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Det-Example.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Det-Example.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

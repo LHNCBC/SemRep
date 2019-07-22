@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: 4.3.0 Standard Conformance Changes</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: 4.3.0 Standard Conformance Changes">
+<meta name="keywords" content="SICStus Prolog Release Notes: 4.3.0 Standard Conformance Changes">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="4_002e3_002e0-Changes.html#g_t4_002e3_002e0-Changes" rel="up" title="4.3.0 Changes">
+<link href="4_002e3_002e0-Other-Changes.html#g_t4_002e3_002e0-Other-Changes" rel="next" title="4.3.0 Other Changes">
+<link href="4_002e3_002e0-Bugs-Fixed.html#g_t4_002e3_002e0-Bugs-Fixed" rel="prev" title="4.3.0 Bugs Fixed">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="g_t4_002e3_002e0-Standard-Conformance-Changes"></a>
+<hr>
+<a name="Changes-Related-to-Standard-Conformance"></a>
+<h4 class="subsection">14.20.3 Changes Related to Standard Conformance</h4>
+
+<p>SICStus Prolog now complies with Technical Corrigenda 1 and 2 to the
+International Standard ISO/IEC 13211-1 (PROLOG: Part 1&mdash;General Core).
+</p>
+<ul>
+<li> <code>throw/1</code> now throws its argument as is. <code>raise_exception/1</code>
+however transforms SICStus error terms into ISO (<code>error/2</code>)
+exceptions.  Unless a forged SICStus error term is thrown by <code>throw/1</code>,
+the net behavior is unchanged.
+</li><li> In cases where the ISO and SICStus error term previously had different
+principal functors, the SICStus error term has been changed to correspond
+to the ISO one.
+</li><li> <code>subsumes_term/2</code> is a new standard built-in predicate, aliased by
+<code>terms:subsumeschk/2</code>, and is now correct in case the arguments
+share variables.
+</li><li> <code>term_variables/2</code> is a new standard built-in predicate, aliased by
+<code>terms:term_variables_bag/2</code>, and performs conformant error
+handling.  <code>terms:term_variables/2</code> has been renamed to
+<code>terms:term_variables_set/2</code>.
+</li><li> <code>acyclic_term/2</code>, previously in <code>library(terms)</code>, is now a
+standard built-in predicate.
+</li><li> The built-in predicates <code>callable/1</code>, <code>ground/1</code>,
+<code>retractall/1</code>, <code>call/n</code>, <code>false/0</code> are now standard.
+</li><li> The built-in predicates <code>number_codes/2</code>, <code>number_chars/2</code>,
+<code>atom_codes/2</code>, and <code>atom_chars/2</code> now perform conformant
+error handling.  The syntax for numbers has changed
+(plus sign is no longer allowed<a name="DOCF1" href="#FOOT1"><sup>1</sup></a>). Full ISO syntax allowed in
+Codes/Chars, including layout and comments.
+</li><li> The built-in predicates <code>length/2</code>, <code>keysort/2</code>, <code>sort/2</code>, 
+<code>compare/3</code>, and <code>open/[3,4]</code> now perform conformant error handling.
+</li><li> The built-in predicates <code>call/1</code>, <code>assert/1</code> and similar
+predicates now perform conformant error handling when encountering an
+invalid goal.
+</li><li> <code><var>X</var> div <var>Y</var></code> is a new standard arithmetic expression,
+whose value is the <em>integer</em> quotient of <var>X</var> and <var>Y</var>,
+rounded downwards to the nearest integer.
+
+</li><li> <code>xor(<var>X</var>,<var>Y</var>)</code> is the standard syntax for <code><var>X</var> \ <var>Y</var></code>.
+</li><li> <code><var>X</var> ^ <var>Y</var></code> is a new standard arithmetic expression,
+whose value is <var>X</var> raised to the power of <var>Y</var>, represented as a float
+if any of <var>X</var> and <var>Y</var> is a float; otherwise, as an integer.
+</li><li> <code>pi</code> is a new standard arithmetic expression,
+whose value is approximately 3.14159.
+</li><li> <code>+</code> is a new standard prefix operator declared as <code>:-op(200,
+fy, [+])</code>.
+</li><li> &lsquo;<samp>|</samp>&rsquo; can now be declared as an operator. The default, when it has
+not been declared as an operator, is to treat it like before, i.e. as a
+synonym for the standard infix &lsquo;<samp>;</samp>&rsquo; when used as an operator.
+If &lsquo;<samp>|</samp>&rsquo; is declared as an operator, then you can no longer use &lsquo;<samp>|</samp>&rsquo;
+to denote disjunction in clause bodies and grammar rules. So,
+declaring &lsquo;<samp>|</samp>&rsquo; as an operator is not recommended.
+<strong>Please note:</strong> A future version of the ISO Prolog standard is
+likely to define &lsquo;<samp>|</samp>&rsquo; as an operator.
+</li><li> Arithmetic error handling is now conformant.  Previously, in many cases
+a domain error would be thrown where an evaluation error was required.
+</li><li> Quoted atoms are no longer written with the non-conformant escape
+sequences &lsquo;<samp>\e</samp>&rsquo; and &lsquo;<samp>\d</samp>&rsquo;. They are still allowed when reading,
+though.
+</li><li> Operators as immediate argument of an operator are now
+bracketed when written, as required by the
+standard. E.g. <code>writeq(^(*,\+))</code> outputs &lsquo;<samp>(*)^(\+)</samp>&rsquo;.
+</li><li> <code>clause/[2,3]</code> and <code>retract/1</code> return a close equivalent to
+the asserted clause, as required by the standard. This also affects
+<code>listing/[0,1]</code>.
+</li><li> The <code>read_term/[2,3]</code> option <code>singletons/1</code> is now
+conformant. It now includes
+all named variables that occur only once in the read term, as required
+by the standard.
+It used to exclude some variables for which singleton
+warnings should not be emitted, e.g. &lsquo;<samp>_A</samp>&rsquo;. Any such filtering
+must now be performed by the caller instead.
+</li><li> The <code>read_term/[2,3]</code> options <code>variable_names/1</code> and
+<code>singletons/1</code> now order their entries by the order the variable
+occurred in the input term, i.e. in the same order as the
+<code>variables/1</code> option. In previous releases the order was
+undefined, and unpredictable. The new ordering is permitted, but not
+(yet) required, by the standard.
+</li><li> The Prolog parser, <code>read_term/[2,3]</code>, now correctly
+parses some valid input that used to give syntax error.
+</li><li> Back-quote, &lsquo;<samp>`</samp>&rsquo;, can no longer be used for quoting atoms. Use the
+standard conformant single-quote &lsquo;<samp>'</samp>&rsquo; instead.
+</li><li> The <code>write_term/[2,3]</code> option <code>numbervars(true)</code> (also used
+by <code>writeq/[1,2]</code> and others), is now standard compliant and only
+affects terms <code>$VAR(<var>N</var>)</code> when <var>N</var> is a non-negative
+integer. In particular it no longer does special processing when
+<var>N</var> is an atom.
+
+<p>To supply names for variables when writing a term you can use the new
+option <code>variable_names/1</code> that takes a list of
+<code><var>Name</var>=<var>Variable</var></code> pairs, exactly like the list produced
+by the <code>read_term/[2,3]</code> option <code>variable_names/1</code>.
+</p>
+<p>To get the legacy behavior, where <code>'$VAR'(<var>Name</var>)</code> is written
+as <var>Name</var> when <var>Name</var> is an atom, you can use the new option
+<code>legacy_numbervars(true)</code> which behaves like
+<code>numbervars(true)</code> did in earlier releases.
+</p></li><li> A negative zero floating point value is now written as &lsquo;<samp>0.0</samp>&rsquo;,
+rather than &lsquo;<samp>-0.0</samp>&rsquo;. There is no difference in behavior between
+these two zero values so the distinction should no longer be
+detectable by Prolog code.
+</li></ul>
+
+<div class="footnote">
+<hr>
+<h4 class="footnotes-heading">Footnotes</h4>
+
+<h3><a name="FOOT1" href="#DOCF1">(1)</a></h3>
+<p>A term written by a previous
+release will still be read correctly by this release. A term written
+by this release will be read correctly by releases prior to 4.3,
+except if the written term contains a prefix <code>+</code> operator with a
+non-negative number as argument.</p>
+</div>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="4_002e3_002e0-Other-Changes.html#g_t4_002e3_002e0-Other-Changes" accesskey="n" rel="next">Next</a>
+<li><a href="4_002e3_002e0-Bugs-Fixed.html#g_t4_002e3_002e0-Bugs-Fixed" accesskey="p" rel="prev">Previous</a>
+<li><a href="4_002e3_002e0-Changes.html#g_t4_002e3_002e0-Changes" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/4_002e3_002e0-Standard-Conformance-Changes.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/4_002e3_002e0-Standard-Conformance-Changes.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

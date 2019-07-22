@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_define_c_predicate</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_define_c_predicate">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_define_c_predicate">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fdeinitialize.html#cpg_002dref_002dSP_005fdeinitialize" rel="next" title="cpg-ref-SP_deinitialize">
+<link href="cpg_002dref_002dSP_005fcut_005fquery.html#cpg_002dref_002dSP_005fcut_005fquery" rel="prev" title="cpg-ref-SP_cut_query">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005fdefine_005fc_005fpredicate"></a>
+<hr>
+<a name="SP_005fdefine_005fc_005fpredicate_0028_0029"></a>
+<h4 class="subsection">12.3.11 <code>SP_define_c_predicate()</code></h4>
+<a name="index-SP_005fdefine_005fc_005fpredicate_0028_0029-_0028C-function_0029"></a>
+
+<a name="Synopsis-291"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+typedef int 
+SP_CPredFun(SP_term_ref goal,
+            void *stash);
+
+int 
+SP_define_c_predicate(char *name, 
+                      int arity, 
+                      char *module,
+                      SP_CPredFun *proc, 
+                      void *stash);
+</pre></div>
+
+<p>Defines a Prolog predicate such
+that when the Prolog predicate is called it will call a C function
+with a term corresponding to the Prolog goal. 
+</p>
+<a name="Arguments-267"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>name</var></dt>
+<dd><p>The predicate name.
+</p>
+</dd>
+<dt><var>arity</var></dt>
+<dd><p>The predicate arity.
+</p>
+</dd>
+<dt><var>module</var></dt>
+<dd><p>The predicate module name.
+</p>
+</dd>
+<dt><var>proc</var></dt>
+<dd><p>The function.
+</p>
+</dd>
+<dt><var>stash</var></dt>
+<dd><p>See below.
+</p></dd>
+</dl>
+
+<a name="Return-Value-10"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>Nonzero on success, and 0 otherwise.
+</p>
+<a name="Description-194"></a>
+<h4 class="subheading">Description</h4>
+
+<p>The Prolog predicate <var>module</var>:<var>name</var>/<var>arity</var> will be
+defined (the module <var>module</var> must already exist). The
+<code>stash</code> argument can be anything and is simply passed as the
+second argument to the C function <var>proc</var>.
+</p>
+<p>The C function should return <code>SP_SUCCESS</code> for success and
+<code>SP_FAILURE</code> for failure. The C function may also call
+<code>SP_fail()</code> or <code>SP_raise_exception()</code> in which case the return
+value will be ignored.
+</p>
+<a name="Examples-101"></a>
+<h4 class="subheading">Examples</h4>
+
+<p>Here is an end-to-end example of the above:
+</p>
+<div class="example">
+<pre class="example"><em>% square.pl</em>
+</pre><pre class="example">foreign_resource(square, [init(square_init)]).
+                        
+:- load_foreign_resource(square).
+</pre><pre class="example"><em>// square.c</em>
+</pre><pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+static int square_it(SP_term_ref goal, void *stash)
+{
+  SP_integer arg1;
+  SP_term_ref tmp = SP_new_term_ref();
+  SP_term_ref square_term = SP_new_term_ref();
+
+  // goal will be a term like square(42,X)
+  SP_get_arg(1,goal,tmp); // extract first arg
+  if (!SP_get_integer(tmp,&amp;arg1))
+    return SP_FAILURE;   // type check first arg
+
+  SP_put_integer(square_term, arg1*arg1);
+  SP_get_arg(2,goal,tmp); // extract second arg
+
+  // Unify output argument.  
+  // SP_put_integer(tmp,&hellip;) would *not* work!
+  return (SP_unify(tmp, square_term) ? SP_SUCCESS : SP_FAILURE);
+}
+
+void square_init(int when)
+{
+  (void)when;                   // unused
+  // Install square_it as user:square/2
+  SP_define_c_predicate(&quot;square&quot;, 2, &quot;user&quot;, square_it, NULL);
+}
+</pre><pre class="example"><em># terminal</em>
+</pre><pre class="example">% <kbd>splfr square.pl square.c</kbd>
+% <kbd>sicstus -f -l square</kbd>
+% compiling /home/matsc/tmp/square.pl...
+%  loading foreign resource /home/matsc/tmp/square.so in module user
+% compiled /home/matsc/tmp/square.pl in module user, 0 msec 816 bytes
+SICStus 4.4.1 &hellip;
+Licensed to SICS
+| ?- <kbd>square(4711, X).</kbd>
+X = 22193521 ?
+yes
+| ?- <kbd>square(not_an_int, X).</kbd>
+no
+</pre></div>
+
+<a name="See-Also-288"></a>
+<h4 class="subheading">See Also</h4>
+
+<p>See <a href="Calling-C-from-Prolog.html#Calling-C-from-Prolog">Calling C from Prolog</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fdeinitialize.html#cpg_002dref_002dSP_005fdeinitialize" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005fcut_005fquery.html#cpg_002dref_002dSP_005fcut_005fquery" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005fdefine_005fc_005fpredicate.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005fdefine_005fc_005fpredicate.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

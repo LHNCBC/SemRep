@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ODBC Overview</title>
+
+<meta name="description" content="SICStus Prolog: ODBC Overview">
+<meta name="keywords" content="SICStus Prolog: ODBC Overview">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dodbc.html#lib_002dodbc" rel="up" title="lib-odbc">
+<link href="ODBC-Examples.html#ODBC-Examples" rel="next" title="ODBC Examples">
+<link href="lib_002dodbc.html#lib_002dodbc" rel="prev" title="lib-odbc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ODBC-Overview"></a>
+<hr>
+<a name="Overview-14"></a>
+<h4 class="subsection">10.24.1 Overview</h4>
+
+<p>ODBC (Open Database Connectivity) is a standard API for using a
+DBMS (DataBase Management System). By using ODBC you can access data
+from a multitude of DBMSs without having to know the details of
+each DBMS.
+</p>
+<p><code>library(odbc)</code> is a layer on top of ODBC. It has predicates for
+opening the database, starting and executing a query, and
+retrieving the results of a query.
+The ODBC client application, i.e. this library, accesses all
+ODBC functionality via a service provided by the operating system,
+the ODBC Driver Manager (DM).
+</p>
+<p>Some operating systems (e.g. Mac OS X and MS Windows) usually come
+with an ODBC Driver Manager preinstalled. For other, UNIX and
+UNIX-like, operating systems, unixODBC
+(<a href="http://www.unixodbc.org">http://www.unixodbc.org</a>) is the most common but Mac OS X
+use iODBC (<a href="http://www.iodbc.org">http://www.iodbc.org</a>).
+</p>
+<p>The ODBC Driver Manager does not, in itself, provide any database
+functionality. Instead the DM loads a ODBC driver specific to the
+particular Database Management System (DBMS) (when
+<code>odbc_db_open/[3,4,5]</code> is called).
+</p>
+<p>How to install and configure an ODBC driver is beyond the scope of
+this document. Please consult the documentation for the particular
+DBMS you intend to use. Some popular DBMSs are MySQL and
+PostgreSQL which both provide ODBC drivers for many platforms.
+</p>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ODBC-Examples.html#ODBC-Examples" accesskey="n" rel="next">Next</a>
+<li><a href="lib_002dodbc.html#lib_002dodbc" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ODBC-Overview.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ODBC-Overview.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: PlUnit A Unit Test Box</title>
+
+<meta name="description" content="SICStus Prolog: PlUnit A Unit Test Box">
+<meta name="keywords" content="SICStus Prolog: PlUnit A Unit Test Box">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="lib_002dplunit.html#lib_002dplunit" rel="up" title="lib-plunit">
+<link href="PlUnit-Determinate-Tests.html#PlUnit-Determinate-Tests" rel="next" title="PlUnit Determinate Tests">
+<link href="PlUnit-Introduction.html#PlUnit-Introduction" rel="prev" title="PlUnit Introduction">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="PlUnit-A-Unit-Test-Box"></a>
+<hr>
+<a name="A-Unit-Test-Box"></a>
+<h4 class="subsection">10.27.2 A Unit Test Box</h4>
+
+<p>Tests are written in normal Prolog.
+A unit test is a named collection of individual tests, enclosed within the directives:
+</p><div class="display">
+<pre class="display"><code>:- begin_tests(<var>Unit</var>[,<var>Options</var>]).</code>
+</pre></div>
+
+<a name="index-begin_005ftests_002f_005b1_002c2_005d-_0028plunit-declaration_0029-1"></a>
+<a name="index-begin_005ftests_002f_005b1_002c2_005d-_0028plunit-declaration_0029"></a>
+
+
+<p>and:
+</p><div class="display">
+<pre class="display"><code>:- end_tests(<var>Unit</var>).</code>
+</pre></div>
+
+<a name="index-end_005ftests_002f1-_0028plunit-declaration_0029-1"></a>
+<a name="index-end_005ftests_002f1-_0028plunit-declaration_0029"></a>
+
+
+<p>They can be embedded inside a normal source module, or be placed in a
+separate test-file that loads the files to be tested. The individual
+tests are defined by rules of the form:
+</p><div class="display">
+<pre class="display"><code>test(<var>Name</var>[,<var>Options</var>]) :- <var>test-body</var>.</code>
+</pre></div>
+
+<a name="index-test_002f_005b1_002c2_005d-_0028plunit-declaration_0029-1"></a>
+<a name="index-test_002f_005b1_002c2_005d-_0028plunit-declaration_0029"></a>
+
+
+<p>where <var>Name</var> is a ground term and <var>Options</var> is a list describing
+additional properties of the test.  Here is a very simple example:
+</p>
+<div class="example">
+<pre class="example">:- begin_tests(lists).
+:- use_module(library(lists)).
+
+test(reverse) :-
+        reverse([a,b], [b,a]).
+
+:- end_tests(lists).
+</pre></div>
+
+<p>The optional second argument of the unit test declaration as well as of
+the individual test-heads defines additional processing
+options.  The following options are available:
+</p>
+<dl compact="compact">
+<dt><code>blocked(<var>Reason</var>)</code></dt>
+<dd>
+<a name="index-blocked_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-blocked_002f1-_0028plunit-option_0029"></a>
+
+<p>The test is currently disabled.   Tests are flagged as blocked if they
+cannot be run for some reason.  E.g. they crash Prolog, they rely on
+some service that is not available, they take too much resources, etc.
+Tests that fail but do not crash, etc. should be flagged using
+<code>fixme(<var>Fixme</var>)</code>.  <var>Reason</var> should be an atom.
+</p>
+</dd>
+<dt><code>fixme(<var>Reason</var>)</code></dt>
+<dd>
+<a name="index-fixme_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-fixme_002f1-_0028plunit-option_0029"></a>
+
+<p>Similar to <code>blocked(<var>Fixme</var>)</code>, but the test is executed anyway.
+A summary is printed at the end of the test run.
+<var>Reason</var> should be an atom.
+</p>
+</dd>
+<dt><code>condition(<var>Goal</var>)</code></dt>
+<dd>
+<a name="index-condition_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-condition_002f1-_0028plunit-option_0029"></a>
+
+<p>Precondition for running the test.  If the condition fails, then
+the test is skipped.  The condition can be used as an alternative
+to the <code>setup</code> option.  The only difference is that failure
+of a condition skips the test and is considered an error when using
+the <code>setup</code> option.
+<var>Goal</var> should be a callable.
+</p>
+</dd>
+<dt><code>nondet</code></dt>
+<dd>
+<a name="index-nondet_002f0-_0028plunit-option_0029-1"></a>
+<a name="index-nondet_002f0-_0028plunit-option_0029"></a>
+
+<p>Available for individual test rules only.
+Unless this keyword appears in the option list, nondeterminate success
+of the test-body is considered an error.
+</p>
+</dd>
+<dt><code>forall(<var>Generator</var>)</code></dt>
+<dd>
+<a name="index-forall_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-forall_002f1-_0028plunit-option_0029"></a>
+
+<p>Available for individual test rules only.
+Runs the same test for each solution of <var>Generator</var>. Each run invokes
+the <code>setup</code> and <code>cleanup</code> handlers. This can be used to run
+the same test with different inputs.  If an error occurs, then the test is
+reported as &lsquo;<samp>name (forall bindings = <var>vars</var>)</samp>&rsquo;, where <var>vars</var>
+indicates the bindings of variables in <var>Generator</var>, which should be
+a callable.
+</p>
+</dd>
+<dt><code>setup(<var>Goal</var>)</code></dt>
+<dd>
+<a name="index-setup_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-setup_002f1-_0028plunit-option_0029"></a>
+
+<p><var>Goal</var> is run before the test-body.  Typically used together with
+the <code>cleanup</code> option to create and destroy the required execution
+environment.
+<var>Goal</var> should be a callable.
+</p>
+</dd>
+<dt><code>cleanup(<var>Goal</var>)</code></dt>
+<dd>
+<a name="index-cleanup_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-cleanup_002f1-_0028plunit-option_0029"></a>
+
+<p><var>Goal</var> is always called after completion of the test-body,
+regardless of whether it fails, succeeds or raises an exception.  This
+option or <code>call_cleanup/2</code> must be used by tests that require
+side-effects that must be reverted after the test completes.  <var>Goal</var>
+may share variables with a setup option and should be a callable:
+</p></dd>
+</dl>
+
+<div class="example">
+<pre class="example">:- use_module(library(file_systems)).
+
+create_file(Tmp) :-
+        open(temp(plunit), write, Out, [if_exists(generate_unique_name)]),
+        current_stream(Tmp, write, Out),
+        portray_clause(Out, hello(_World)),
+        close(Out).
+
+test(read, [setup(create_file(Tmp)), cleanup(delete_file(Tmp))]) :-
+        see(Tmp),
+        read(Term),
+        seen,
+        Term = hello(_).
+</pre></div>
+
+<blockquote>
+<p><strong>Please note</strong>: Do not place directives that load source code
+between <code>:- begin_tests(<var>Unit</var>[,<var>Options</var>])</code> and <code>:- end_tests(<var>Unit</var>)</code>.
+Loading source files in this context can cause spurious error messages.
+</p></blockquote>
+
+<p>The following options specify how to verify the result of the test-body,
+and are only available for individual test rules. It is not meaningful
+to specify more than one of them:
+</p>
+<dl compact="compact">
+<dt><code>true</code></dt>
+<dt><code>true(<var>Test</var>)</code></dt>
+<dd>
+<a name="index-true_002f0-_0028plunit-option_0029-1"></a>
+<a name="index-true_002f0-_0028plunit-option_0029"></a>
+
+
+<a name="index-true_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-true_002f1-_0028plunit-option_0029"></a>
+
+<p>The test-body as well as the goal <var>Test</var> must succeed.  <var>Test</var>
+defaults to <code>true</code> and should be a callable that typically shares
+variables with the test-body. This is the same as inserting the test at
+the end of the conjunction, but makes the test harness print a &ldquo;wrong
+answer&rdquo; message as opposed to a general failure message:
+</p>
+<div class="example">
+<pre class="example">test(badadd, [true(A =:= 4)]) :-
+        A is 1 + 2.
+</pre></div>
+
+<p>will yield the error message:
+</p>
+<div class="example">
+<pre class="example">! /home/matsc/sicstus4/doc/foo.pl:11:
+!       test badadd: wrong answer (compared using =:=)
+!     Expected: 4
+!     Got:      3
+</pre></div>
+
+</dd>
+<dt><code>all(<var>AnswerTerm</var> <var>Cmp</var> <var>Instances</var>)</code></dt>
+<dd>
+<a name="index-all_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-all_002f1-_0028plunit-option_0029"></a>
+
+<p>Similar to <code>true(<var>AnswerTerm</var> <var>Cmp</var> <var>Instances</var>)</code>, but
+used if you want to collect all solutions to a nondeterminate test.
+<var>AnswerTerm</var> should share variables with the test-body.  Let
+<var>All</var> be the list of instances of <var>AnswerTerm</var> for each
+solution.  Then the goal <code><var>Cmp</var>(<var>All</var>,<var>Instances</var>)</code>
+must succeed.  The tests in the example below are equivalent:
+</p>
+<div class="example">
+<pre class="example">test(all1, all(X == [1,2])) :-
+        (X = 1 ; X = 2).
+
+test(all2, true(Xs == [1,2])) :-
+        findall(X, (X = 1 ; X = 2), Xs).
+</pre></div>
+
+</dd>
+<dt><code>set(<var>AnswerTerm</var> <var>Cmp</var> <var>Instances</var>)</code></dt>
+<dd>
+<a name="index-set_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-set_002f1-_0028plunit-option_0029"></a>
+
+<p>Similar to <code>all(<var>AnswerTerm</var> <var>Cmp</var> <var>Instances</var>)</code>, but
+sorts the <var>AnswerTerm</var> instances before the comparison.  The tests
+in the example below are equivalent:
+</p>
+<div class="example">
+<pre class="example">test(set1, set(X == [1,2])) :-
+        (X = 2 ; X = 1 ; X = 1).
+
+test(set2, true(Ys == [1,2])) :-
+        findall(X, (X = 2 ; X = 1 ; X = 1), Xs),
+        sort(Xs, Ys).
+</pre></div>
+
+</dd>
+<dt><code>fail</code></dt>
+<dd>
+<a name="index-fail_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-fail_002f1-_0028plunit-option_0029"></a>
+
+<p>The test-body must fail.
+</p>
+</dd>
+<dt><code>exception(<var>Expected</var>)</code></dt>
+<dt><code>throws(<var>Expected</var>)</code></dt>
+<dd>
+<a name="index-exception_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-exception_002f1-_0028plunit-option_0029"></a>
+
+
+<a name="index-throws_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-throws_002f1-_0028plunit-option_0029"></a>
+
+<p>The test-body must raise an exception <var>Raised</var> that is checked
+wrt. <var>Expected</var> using <code>terms:subsumeschk(<var>Expected</var>,
+<var>Raised</var>)</code>.  I.e. the raised exception must be more specific than
+the specified <var>Expected</var>.
+</p>
+</dd>
+<dt><code>error(<var>ISO</var>)</code></dt>
+<dt><code>error(<var>ISO</var>,<var>Info</var>)</code></dt>
+<dd>
+<a name="index-error_002f1-_0028plunit-option_0029-1"></a>
+<a name="index-error_002f1-_0028plunit-option_0029"></a>
+
+
+<a name="index-error_002f2-_0028plunit-option_0029-1"></a>
+<a name="index-error_002f2-_0028plunit-option_0029"></a>
+
+<p>A shorthand for <code>exception(error(<var>ISO</var>,<var>Info</var>))</code>.
+<var>Info</var> defaults to an anonymous variable.
+</p></dd>
+</dl>
+
+<a name="Writing-the-Test_002dBody"></a>
+<h4 class="subsection">10.27.3 Writing the Test-Body</h4>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="PlUnit-Determinate-Tests.html#PlUnit-Determinate-Tests" accesskey="1">PlUnit Determinate Tests</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Determinate Tests
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="PlUnit-Nondeterminate-Tests.html#PlUnit-Nondeterminate-Tests" accesskey="2">PlUnit Nondeterminate Tests</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Nondeterminate Tests
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="PlUnit-Tests-Expected-to-Fail.html#PlUnit-Tests-Expected-to-Fail" accesskey="3">PlUnit Tests Expected to Fail</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tests Expected to Fail
+</td></tr>
+<tr><td align="left" valign="top">&bull; <a href="PlUnit-Tests-Expected-to-Raise-Exceptions.html#PlUnit-Tests-Expected-to-Raise-Exceptions" accesskey="4">PlUnit Tests Expected to Raise Exceptions</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Tests Expected to Raise Exceptions
+</td></tr>
+</table>
+
+<p>The test-body is ordinary Prolog code. Without any options, the test-body
+must be designed to succeed <em>determinately</em>. Any other result is
+considered a failure. One of the options <code>fail</code>, <code>true</code>,
+<code>exception</code> or <code>error</code> can be used to specify a different
+expected result. In this subsection we illustrate typical test-scenarios
+by testing built-in and library predicates.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="PlUnit-Running-the-Test_002dSuite.html#PlUnit-Running-the-Test_002dSuite" accesskey="n" rel="next">Next</a>
+<li><a href="PlUnit-Introduction.html#PlUnit-Introduction" accesskey="p" rel="prev">Previous</a>
+<li><a href="lib_002dplunit.html#lib_002dplunit" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/PlUnit-A-Unit-Test-Box.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/PlUnit-A-Unit-Test-Box.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

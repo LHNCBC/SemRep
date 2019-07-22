@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-lte-met-usu</title>
+
+<meta name="description" content="SICStus Prolog: ref-lte-met-usu">
+<meta name="keywords" content="SICStus Prolog: ref-lte-met-usu">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dlte_002dmet.html#ref_002dlte_002dmet" rel="up" title="ref-lte-met">
+<link href="ref_002dlte_002dact.html#ref_002dlte_002dact" rel="next" title="ref-lte-act">
+<link href="ref_002dlte_002dmet_002dtyp.html#ref_002dlte_002dmet_002dtyp" rel="prev" title="ref-lte-met-typ">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dlte_002dmet_002dusu"></a>
+<hr>
+<a name="Unification"></a>
+<h4 class="subsubsection">4.8.1.2 Unification</h4>
+
+<p>The following predicates are related to unification. Unless mentioned
+otherwise, unification is performed without occurs-check
+(see <a href="ref_002dsem_002docc.html#ref_002dsem_002docc">ref-sem-occ</a>).
+</p>
+
+<a name="index-_003d_002f2-_0028built_002din_0029-1"></a>
+<a name="index-_003d_002f2-_0028built_002din_0029"></a>
+
+<a name="index-unification_002c-explicit"></a>
+<a name="index-equality_002c-unification"></a>
+<a name="index-explicit-unification"></a>
+<p>To unify two terms, simply use:
+</p>
+<div class="example">
+<pre class="example">?- <kbd>X = Y</kbd>.
+</pre></div>
+
+<blockquote>
+<p><strong>Please note:</strong> 
+</p><ul>
+<li> Do Not confuse this predicate with <code>=:=/2</code> (arithmetic
+comparison) or <code>==/2</code> (term identity). 
+</li><li> <code>=/2</code> binds free variables in <var>X</var> and <var>Y</var> in order to
+make them identical.
+</li></ul>
+</blockquote>
+
+
+<a name="index-unify_005fwith_005foccurs_005fcheck_002f2-_0028built_002din_0029-1"></a>
+<a name="index-unify_005fwith_005foccurs_005fcheck_002f2-_0028built_002din_0029"></a>
+
+<p>To unify two terms with occurs-check, use:
+</p>
+<div class="example">
+<pre class="example">?- <kbd>unify_with_occurs_check(X,Y).</kbd>
+</pre></div>
+
+<a name="index-_005c_003d-_002f2-_0028built_002din_0029-1"></a>
+<a name="index-_005c_003d-_002f2-_0028built_002din_0029"></a>
+
+
+<p>To check whether two terms do not unify, use the following, which is
+equivalent to <code>\+ (X=Y)</code>:
+</p>
+<div class="example">
+<pre class="example">?- <kbd>X \= Y.</kbd>
+</pre></div>
+
+
+<a name="index-_003f_003d_002f2-_0028built_002din_0029-1"></a>
+<a name="index-_003f_003d_002f2-_0028built_002din_0029"></a>
+
+<p>To check whether two terms are either strictly identical or do not
+unify, use the following. This construct is useful in the context of
+<code>when/2</code>:
+</p>
+<div class="example">
+<pre class="example">?- <kbd>?=(X,Y).</kbd>
+</pre></div>
+
+
+<a name="index-dif_002f2-_0028built_002din_0029-1"></a>
+<a name="index-dif_002f2-_0028built_002din_0029"></a>
+
+<p>To constrain two terms to not unify, use the following. It blocks
+until <code>?=(<var>X</var>,<var>Y</var>)</code> holds:
+</p>
+<div class="example">
+<pre class="example">?- <kbd>dif(X,Y).</kbd>
+</pre></div>
+
+
+<a name="index-subsumes_005fterm_002f2-_0028built_002din_0029-1"></a>
+<a name="index-subsumes_005fterm_002f2-_0028built_002din_0029"></a>
+
+
+<p>The goal:
+</p>
+<div class="example">
+<pre class="example">?- <kbd>subsumes_term(General,Specific).</kbd>
+</pre></div>
+
+<p>is true when <var>Specific</var> is an instance of <var>General</var>.  It
+does not bind any variables.
+</p>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dlte_002dmet_002dtyp.html#ref_002dlte_002dmet_002dtyp" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dlte_002dmet.html#ref_002dlte_002dmet" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dlte_002dmet_002dusu.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dlte_002dmet_002dusu.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

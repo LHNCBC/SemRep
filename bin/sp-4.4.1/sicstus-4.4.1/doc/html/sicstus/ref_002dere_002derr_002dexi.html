@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-ere-err-exi</title>
+
+<meta name="description" content="SICStus Prolog: ref-ere-err-exi">
+<meta name="keywords" content="SICStus Prolog: ref-ere-err-exi">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dere_002derr.html#ref_002dere_002derr" rel="up" title="ref-ere-err">
+<link href="ref_002dere_002derr_002dper.html#ref_002dere_002derr_002dper" rel="next" title="ref-ere-err-per">
+<link href="ref_002dere_002derr_002drep.html#ref_002dere_002derr_002drep" rel="prev" title="ref-ere-err-rep">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dere_002derr_002dexi"></a>
+<hr>
+<a name="Existence-Errors"></a>
+<h4 class="subsubsection">4.15.4.7 Existence Errors</h4>
+
+<a name="index-existence-errors"></a>
+
+<a name="index-errors_002c-existence"></a>
+
+
+<p>An existence error occurs when a predicate attempts to access something that
+does not exist.  For example, trying to compile a file that
+does not exist, erasing a database reference that has already been erased.
+</p>
+<p>The <var>SICStus_Error</var> term associated with an existence error is
+</p><div class="example">
+<pre class="example">existence_error(<var>Goal, ArgNo, ObjectType, Culprit, Message</var>)
+</pre></div>
+
+<dl compact="compact">
+<dt><var>ArgNo</var></dt>
+<dd><p>index of argument of <var>Goal</var> where <var>Culprit</var> appears
+</p>
+</dd>
+<dt><var>ObjectType</var></dt>
+<dd><p>expected type of non-existent object
+</p>
+</dd>
+<dt><var>Culprit</var></dt>
+<dd><p>name for the non-existent object
+</p>
+</dd>
+<dt><var>Message</var></dt>
+<dd><p>the constant <code>0</code> or <code>''</code>, or
+some additional information provided by the operating system or other
+support system indicating why <var>Culprit</var> is thought not to exist.
+</p></dd>
+</dl>
+
+
+<p>For example, &lsquo;<samp>see('../brother/niece')</samp>&rsquo; might throw the exception
+</p><div class="example">
+<pre class="example">error(existence_error(source_sink,'../brother/niece'),
+      existence_error(see('../brother/niece'),1,file,'../brother/niece',0))
+</pre></div>
+
+<a name="index-fileerrors-_0028prolog-flag_0029-3"></a>
+<a name="index-fileerrors_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<a name="index-file_005ferrors_002f1-_0028read_005fterm_002f_005b2_002c3_005d-option_0029"></a>
+<p>An existence error does not necessarily cause an exception to be thrown.
+For I/O predicates,
+the behavior can be controlled with the <code>fileerrors</code> Prolog flag
+(see <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>) or with the <code>fileerrors/1</code> alias
+<code>file_errors/1</code> option to <code>absolute_file_name/3</code>.  The
+following values are possible:
+</p>
+<dl compact="compact">
+<dt><code>on <span class="roman">(fileerrors flag value)</span></code></dt>
+<dt><code>error <span class="roman">(absolute_file_name/3 fileerrors value)</span></code></dt>
+<dd><a name="index-on-_0028fileerrors-flag-value_0029"></a>
+<a name="index-error-_0028absolute_005ffile_005fname_002f3-fileerrors-value_0029"></a>
+<p>Throw an exception if a given file cannot be opened.  The default.
+</p>
+</dd>
+<dt><code>off <span class="roman">(fileerrors flag value)</span></code></dt>
+<dt><code>fail <span class="roman">(absolute_file_name/3 fileerrors value)</span></code></dt>
+<dd><a name="index-off-_0028fileerrors-flag-value_0029"></a>
+<a name="index-fail-_0028absolute_005ffile_005fname_002f3-fileerrors-value_0029"></a>
+<p>Merely fail if a given file cannot be opened.  
+</p></dd>
+</dl>
+
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dere_002derr_002dper.html#ref_002dere_002derr_002dper" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dere_002derr_002drep.html#ref_002dere_002derr_002drep" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dere_002derr.html#ref_002dere_002derr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dere_002derr_002dexi.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dere_002derr_002dexi.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

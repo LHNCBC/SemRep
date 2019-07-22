@@ -1,0 +1,99 @@
+<!ELEMENT SemRepAnnotation (Document+)>
+<!ELEMENT Document (Utterance+)>
+<!ATTLIST Document id CDATA #REQUIRED>
+<!ATTLIST Document text CDATA #REQUIRED>
+
+<!ELEMENT Utterance (Entity*,(Scale|Coreference|Predication)*)>
+<!ATTLIST Utterance 
+	  id ID #REQUIRED
+	  section (ab|ti|tx) #REQUIRED
+          number CDATA #REQUIRED
+	  begin CDATA #REQUIRED
+	  end CDATA #REQUIRED
+          type CDATA ""
+          text CDATA #REQUIRED
+>
+
+<!ELEMENT Entity EMPTY>
+<!ATTLIST Entity 
+	  id ID #REQUIRED
+	  cui CDATA ""
+	  name CDATA ""
+	  semtypes CDATA #REQUIRED
+	  entrezID CDATA "" 
+	  entrezName CDATA ""
+	  text CDATA #REQUIRED
+	  score CDATA #REQUIRED
+	  negated (true | false) "false"
+	  begin CDATA #REQUIRED
+	  end CDATA #REQUIRED
+> 
+
+<!ELEMENT Scale EMPTY>
+<!ATTLIST Scale 
+	  id ID #REQUIRED
+	  name CDATA #REQUIRED
+	  text CDATA #REQUIRED
+	  begin CDATA #REQUIRED
+	  end CDATA #REQUIRED
+>
+
+<!ELEMENT Predication (Subject,Predicate,Object)>
+<!ELEMENT Coreference (Anaphor,Antecedent)>
+<!ELEMENT Predicate EMPTY>
+<!ELEMENT Subject EMPTY>
+<!ELEMENT Object EMPTY>
+<!ELEMENT Anaphor EMPTY>
+<!ELEMENT Antecedent EMPTY>
+
+<!ATTLIST Predication 
+          id ID #REQUIRED
+	  negated (true | false) "false"
+	  inferred (true | false) "false"
+>
+
+<!ATTLIST Coreference 
+          id ID #REQUIRED
+>
+<!-- <!ATTLIST Predicate 
+	  type ( ADMINISTERED_TO | AFFECTS | ASSOCIATED_WITH |
+	          AUGMENTS | CAUSES | COEXISTS_WITH | CONVERTS_TO |
+	          COMPLICATES | DIAGNOSES | DISRUPTS | INHIBITS |
+	          INTERACTS_WITH | ISA | LOCATION_OF | MANIFESTATION_OF | 
+	          METHOD_OF | OCCURS_IN | PART_OF | PRECEDES|
+	          PREDISPOSES | PREVENTS | PROCESS_OF | PRODUCES | 
+	          STIMULATES | TREATS | USES | 
+	          compared_with | higher_than | lower_than | same_as
+	  ) #REQUIRED -->
+<!ATTLIST Predicate 
+	  type CDATA #REQUIRED
+	  indicatorType ( VERB | NOM |  ADJ | MOD_HEAD | PREP | 
+	                          AUX | PART | SPEC | INFER | COMPLEX | COREF
+	  ) #REQUIRED
+	  scale IDREF #IMPLIED
+	  begin CDATA #REQUIRED
+	  end CDATA #REQUIRED
+>
+<!ATTLIST Subject 
+	  maxDist CDATA #REQUIRED
+	  dist CDATA #REQUIRED
+	  entityID IDREF #REQUIRED
+	  relSemType CDATA #REQUIRED
+>
+
+<!ATTLIST Object 
+	  maxDist CDATA #REQUIRED
+	  dist CDATA #REQUIRED
+	  entityID IDREF #REQUIRED
+	  relSemType CDATA #REQUIRED
+>
+
+<!ATTLIST Anaphor 
+	  entityID IDREF #REQUIRED
+>
+
+<!ATTLIST Antecedent 
+	  entityID IDREF #REQUIRED
+>
+
+

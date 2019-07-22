@@ -1,0 +1,492 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: MiniZinc Exported Predicates</title>
+
+<meta name="description" content="SICStus Prolog: MiniZinc Exported Predicates">
+<meta name="keywords" content="SICStus Prolog: MiniZinc Exported Predicates">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="MiniZinc.html#MiniZinc" rel="up" title="MiniZinc">
+<link href="Zinc-Errors.html#Zinc-Errors" rel="next" title="Zinc Errors">
+<link href="MiniZinc-Prerequisites.html#MiniZinc-Prerequisites" rel="prev" title="MiniZinc Prerequisites">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="MiniZinc-Exported-Predicates"></a>
+<hr>
+<a name="Exported-Predicates-2"></a>
+<h4 class="subsubsection">10.48.3.2 Exported Predicates</h4>
+
+<p>The following predicates all take as (optional) argument a list
+<var>Options</var>, which can be used to change the default behavior of the
+execution. This list may contain zero or more of the following:
+</p>
+<dl compact="compact">
+<dt><code>data_file(<var>MznDatFile</var>)</code></dt>
+<dd><a name="index-data_005ffile_002f1-_0028zinc-option_0029"></a>
+<p>where <var>MznDatFile</var> must be a MiniZinc<!-- /@w --> data file. Means that
+<var>MznDatFile</var> is passed to <code>mzn2fzn</code> through the
+<samp>--data</samp> option.
+</p>
+</dd>
+<dt><code>parameters(<var>ListOfParDef</var>)</code></dt>
+<dd><a name="index-parameters_002f1-_0028zinc-option_0029"></a>
+<p>where <var>ListOfParDef</var> is a list of elements of the form
+<var>Id</var>=<var>Value</var> where <var>Id</var> is a MiniZinc<!-- /@w --> identifier and
+<var>Value</var> is a MiniZinc<!-- /@w --> value. Means that all elements are written
+to a temporary file, which is passed to <code>mzn2fzn</code> through the
+<samp>--data</samp> option.
+</p>
+</dd>
+<dt><code>post(<var>Boolean</var>)</code></dt>
+<dd><a name="index-post_002f1-_0028zinc-option_0029"></a>
+<p>where <var>Boolean</var> must be <code>true</code> or <code>false</code>. If <code>true</code>
+(the default), then the constraints of the MiniZinc<!-- /@w --> program are posted
+directly and a separate call to <code>fzn_post/1</code> (see <a href="FlatZinc-Exported-Predicates.html#FlatZinc-Exported-Predicates">FlatZinc Exported Predicates</a>) is not necessary. (Only usable with
+<code>mzn_load_file/3</code> and <code>mzn_load_model/3</code>.)
+</p>
+</dd>
+<dt><code>search(<var>Method</var>) &nbsp;<!-- /@w --> <i>since release 4.3</i></code></dt>
+<dd><a name="index-search_002f1-_0028zinc-option_0029-1"></a>
+<p>where <var>Method</var> must be one of the atoms <code>bab</code> and
+<code>restart</code>. Tells the solver which optimization algorithm to use:
+branch-and-bound (the default), or to restart the search each time a new
+solution is found.  (Only usable with <code>mzn_run_file/2</code> and
+<code>mzn_run_model/2</code>.)
+</p>
+</dd>
+<dt><code>solutions(<var>NumberOfSolutions</var>)</code></dt>
+<dd><a name="index-solutions_002f1-_0028zinc-option_0029-1"></a>
+<p>where <var>NumberOfSolutions</var> must be an integer greater than zero or
+the atom <code>all</code>. Describes the number of solutions to search for,
+default is 1. (Only usable with <code>mzn_run_file/2</code> and
+<code>mzn_run_model/2</code>.)
+</p>
+</dd>
+<dt><code>output(<var>File</var>)</code></dt>
+<dd><a name="index-output_002f1-_0028zinc-option_0029-1"></a>
+<p>where <var>File</var> must be the name of a writable file. Causes any output
+written on the current output stream to be directed to <var>File</var>. (Only
+usable with <code>mzn_run_file/2</code> and <code>mzn_run_model/2</code>.)
+</p>
+</dd>
+<dt><code>fzn_file(<var>File</var>) &nbsp;<!-- /@w --> <i>since release 4.2.3</i></code></dt>
+<dd><a name="index-fzn_005ffile_002f1-_0028zinc-option_0029"></a>
+<p>where <var>File</var> must be the name of a writable file. 
+The translated FlatZinc<!-- /@w --> program will be written to the given file.
+Otherwise, a temporary file will be used and erased afterwards.
+</p>
+</dd>
+<dt><code>ozn_file(<var>File</var>) &nbsp;<!-- /@w --> <i>since release 4.2.3</i></code></dt>
+<dd><a name="index-ozn_005ffile_002f1-_0028zinc-option_0029-1"></a>
+<p>where <var>File</var> must be the name of a writable file.  The MiniZinc<!-- /@w -->
+output commands will be written to the given file.  Otherwise, a
+temporary file will be used and erased afterwards.
+</p>
+</dd>
+<dt><code>optimise(<var>Boolean</var>) &nbsp;<!-- /@w --> <i>since release 4.2.3</i></code></dt>
+<dt><code>optimize(<var>Boolean</var>) &nbsp;<!-- /@w --> <i>since release 4.2.3</i></code></dt>
+<dd><a name="index-optimise_002f1-_0028zinc-option_0029"></a>
+<a name="index-optimize_002f1-_0028zinc-option_0029"></a>
+<p>where <var>Boolean</var> must be <code>true</code> (the default) or <code>false</code>. If
+<code>false</code>, then <samp>--no-optimise</samp> is passed to <code>mzn2fzn</code>.
+</p>
+</dd>
+<dt><code>statistics(<var>Boolean</var>)</code></dt>
+<dd><a name="index-statistics_002f1-_0028zinc-option_0029-1"></a>
+<p>where <var>Boolean</var> must be <code>true</code> or <code>false</code> (default). If
+<code>true</code>, then the following statistics are written on the current output
+stream (see the built-in <code>statistics/[0,2]</code> and
+<code>fd_statistics/[0,2]</code> of <code>library(clpfd)</code> for more detailed
+information on their meaning):
+</p><dl compact="compact">
+<dt><code>runtime</code></dt>
+<dd><a name="index-runtime-_0028zinc-option-value_0029-1"></a>
+<p>Total running time (milliseconds), including parsing the FlatZinc<!-- /@w -->
+program.
+</p>
+</dd>
+<dt><code>solvetime</code></dt>
+<dd><a name="index-solvetime-_0028zinc-option-value_0029-1"></a>
+<p>Running time (milliseconds) for posting the constraints and performing
+the search.
+</p>
+</dd>
+<dt><code>solutions</code></dt>
+<dd><a name="index-solutions-_0028zinc-option-value_0029-1"></a>
+<p>The number of solutions found.
+</p>
+</dd>
+<dt><code>constraints</code></dt>
+<dd><a name="index-constraints-_0028zinc-option-value_0029"></a>
+<p>The number of constraints created.
+</p>
+</dd>
+<dt><code>backtracks</code></dt>
+<dd><a name="index-backtracks-_0028zinc-option-value_0029-1"></a>
+<p>The number of times a contradiction was found by a domain being wiped
+out, or by a global constraint signalling failure.
+</p>
+</dd>
+<dt><code>prunings</code></dt>
+<dd><a name="index-prunings-_0028zinc-option-value_0029-1"></a>
+<p>The number of times a domain was pruned.
+</p></dd>
+</dl>
+<p>(Only usable with <code>mzn_run_file/2</code> and <code>mzn_run_model/2</code>.)
+</p>
+</dd>
+<dt><code>timeout(<var>Time</var>)</code></dt>
+<dd><a name="index-timeout_002f1-_0028zinc-option_0029-1"></a>
+<p>where <var>Time</var> should be an integer greater than zero.  Stops the
+computation if it has not finished before <var>Time</var> milliseconds has
+elapsed. In any event, the best solution found so far is reported.
+Measuring starts after the call to <code>mzn2fzn</code> has
+finished. (Only usable with <code>mzn_run_file/2</code> and
+<code>mzn_run_model/2</code>.)
+</p>
+</dd>
+<dt><code>variables(<var>ListOfVarDef</var>)</code></dt>
+<dd><a name="index-variables_002f1-_0028zinc-option_0029-1"></a>
+<p>where <var>ListOfVarDef</var> is a list of elements of the form
+<var>Id</var>=<var>Var</var> where <var>Id</var> is a MiniZinc<!-- /@w --> identifier and <var>Var</var>
+is a Prolog variable. Means that <var>Var</var> is unified with the value of
+<var>Id</var> after the MiniZinc<!-- /@w --> program is loaded. (Only usable with
+<code>mzn_load_file/3</code> and <code>mzn_load_model/3</code>).
+</p>
+</dd>
+</dl>
+
+
+<p>The first two predicates can be used to run a MiniZinc<!-- /@w --> program in one
+go. 
+</p>
+<dl compact="compact">
+<dt><code>mzn_run_file(<var>+MznFile</var>)</code></dt>
+<dt><code>mzn_run_file(<var>+MznFile</var>, <var>+Options</var>)</code></dt>
+<dd>
+<a name="index-mzn_005frun_005ffile_002f_005b1_002c2_005d-_0028zinc_0029-1"></a>
+<a name="index-mzn_005frun_005ffile_002f_005b1_002c2_005d-_0028zinc_0029"></a>
+
+<p><var>MznFile</var> is a MiniZinc<!-- /@w --> program file and <var>Options</var> is a list
+of options as described above.  Runs the MiniZinc<!-- /@w --> program on
+<var>MznFile</var>, and writes the result onto the file given in the
+<code>option/1</code> option if given, or onto the current output stream
+otherwise. This is done by first calling <code>mzn2fzn</code>, and then
+interpreting its output with <code>fzn_run_stream/[1,2]</code>
+(see <a href="FlatZinc-Exported-Predicates.html#FlatZinc-Exported-Predicates">FlatZinc Exported Predicates</a>). Fails if the constraints of the
+MiniZinc<!-- /@w --> program are inconsistent.
+</p>
+
+<p><em>Exceptions:</em>
+</p><ul>
+<li> Exceptions related to the opening of <var>MznFile</var> for reading.
+
+</li><li> A <em>system error</em> if <code>mzn2fzn</code> is unsuccessful. This error
+will include any information produced by <code>mzn2fzn</code> on its
+standard error stream.
+
+</li><li> A <em>type error</em> if the number of solutions to search for is not
+greater than zero nor the atom <code>all</code>.
+
+</li><li> Exceptions regarding errors in <var>MznFile</var> (see <a href="Zinc-Errors.html#Zinc-Errors">Zinc Errors</a>)
+although these are most probably already handled by <code>mzn2fzn</code>.
+
+</li></ul>
+
+</dd>
+<dt><code>mzn_run_model(<var>+MznModel</var>)</code></dt>
+<dt><code>mzn_run_model(<var>+MznModel</var>, <var>+Options</var>)</code></dt>
+<dd>
+<a name="index-mzn_005frun_005fmodel_002f_005b1_002c2_005d-_0028zinc_0029-1"></a>
+<a name="index-mzn_005frun_005fmodel_002f_005b1_002c2_005d-_0028zinc_0029"></a>
+
+<p><var>MznModel</var> is a MiniZinc<!-- /@w --> program specified by a list of strings
+as explained below and <var>Options</var> is a list of options as described
+above.  Runs the MiniZinc<!-- /@w --> program <var>MznModel</var>, and writes the
+result onto the file given in the <code>option/1</code> option if given, or
+onto the current output stream otherwise.  This is done by first calling
+<code>mzn2fzn</code> and interpreting its output with
+<code>fzn_run_stream/[1,2]</code> (see <a href="FlatZinc-Exported-Predicates.html#FlatZinc-Exported-Predicates">FlatZinc Exported Predicates</a>).  The
+MiniZinc<!-- /@w --> program specification <var>MznModel</var> must be a list of
+strings (list of character codes) where each element must specify one
+line of the MiniZinc<!-- /@w --> program. For example, a MiniZinc<!-- /@w --> program for
+the N Queens problem can be specified as follows:
+</p><div class="example">
+<pre class="example">NQueens = [&quot;int: n;&quot;,
+           &quot;array [1..n] of var 1..n: q;&quot;,
+           &quot;constraint forall (i in 1..n, j in i+1..n)&quot;,
+               &quot;(q[i] != q[j] /\\&quot;,
+                &quot;q[i] + i != q[j] + j /\\&quot;,
+                &quot;q[i] - i != q[j] - j);&quot;,
+           &quot;solve satisfy;&quot;,
+           &quot;output [\&quot;A solution to the \&quot;, show(n),&quot;,
+           &quot;\&quot; Queens problem: \&quot;, show(q), \&quot;\\n\&quot;];&quot;]
+</pre></div>
+<p><strong>Note that</strong> backslashes and double quotes must be escaped with an
+additional backslash.
+</p>
+<p><em>Exceptions:</em>
+</p><ul>
+<li> A <em>system error</em> if <code>mzn2fzn</code> is unsuccessful. This error
+will include any information produced by <code>mzn2fzn</code> on its
+standard error stream.
+
+</li><li> A <em>type error</em> if the number of solutions to search for is not
+greater than zero nor the atom <code>all</code>.
+
+</li><li> Exceptions regarding errors in <var>MznModel</var> (see <a href="Zinc-Errors.html#Zinc-Errors">Zinc Errors</a>)
+although these are most probably already handled by <code>mzn2fzn</code>.
+
+</li></ul>
+
+</dd>
+</dl>
+
+<p>Consider the following MiniZinc<!-- /@w --> program for solving the N Queens problem
+located in <code>library('zinc/examples/queen.mzn')</code>:
+</p><div class="example">
+<pre class="example"><em>queen.mzn</em>
+</pre><pre class="example">int: n;
+
+array [1..n] of var 1..n: q;
+
+constraint
+    forall (i in 1..n, j in i+1..n) (
+        q[i] != q[j] /\
+        q[i] + i != q[j] + j /\
+        q[i] - i != q[j] - j
+    );
+
+solve satisfy;
+
+output [&quot;A solution to the &quot;, show(n), &quot; Queens problem: &quot;, show(q), &quot;\n&quot;];
+</pre></div>
+
+<p>Consider now the following goal at the Prolog top level:
+</p>
+<div class="example">
+<pre class="example">| ?- <kbd>mzn_run_file(library('zinc/examples/queen'),</kbd> 
+                  <kbd>[data_file(library('zinc/examples/queen4.dat'))]).</kbd>
+</pre></div>
+
+<p>Since <code>library('zinc/examples/queen4.dat')</code> contains the single
+line
+</p><div class="example">
+<pre class="example">n = 4;
+</pre></div>
+<p>the following is written on the current output stream:
+</p><div class="example">
+<pre class="example">A solution to the 4 Queens problem: [2, 4, 1, 3]
+----------
+</pre></div>
+
+<p>The initialization <code>n = 4</code> can also be passed using the
+<code>parameter/1</code> option. So the following goal is equivalent to the
+one above:
+</p><div class="example">
+<pre class="example">| ?- <kbd>mzn_run_file(library('zinc/examples/queen'), [parameters([n=4])]).</kbd>
+</pre></div>
+
+<p>Finally, the following goal finds all solutions to the 4 Queens problem:
+</p><div class="example">
+<pre class="example">| ?- <kbd>mzn_run_file(library('zinc/examples/queen'),</kbd> 
+                  <kbd>[parameters([n=4]), solutions(all)]).</kbd>
+</pre></div>
+<p>Given this goal, the following is written on the current output stream:
+</p><div class="example">
+<pre class="example">A solution to the 4 Queens problem: [2, 4, 1, 3]
+----------
+A solution to the 4 Queens problem: [3, 1, 4, 2]
+----------
+==========
+</pre></div>
+
+<p>The next two predicates can be used to construct a FlatZinc<!-- /@w --> state
+(see <a href="FlatZinc-Exported-Predicates.html#FlatZinc-Exported-Predicates">FlatZinc Exported Predicates</a>).
+</p>
+<dl compact="compact">
+<dt><code>mzn_load_file(<var>+MznFile</var>, <var>-FznState</var>)</code></dt>
+<dt><code>mzn_load_file(<var>+MznFile</var>, <var>+Options</var>, <var>-FznState</var>)</code></dt>
+<dd>
+<a name="index-mzn_005fload_005ffile_002f_005b2_002c3_005d-_0028zinc_0029-2"></a>
+<a name="index-mzn_005fload_005ffile_002f_005b2_002c3_005d-_0028zinc_0029"></a>
+
+<p><var>MznFile</var> is a MiniZinc<!-- /@w --> program file and <var>Options</var> is a list
+of options as described above. Initializes a FlatZinc<!-- /@w --> state
+<var>FznState</var> with respect to <var>MznFile</var>. May fail if
+<code>post(true)</code> and the constraints are inconsistent.
+</p>
+<p><em>Exceptions:</em>
+</p><ul>
+<li> Exceptions related to the opening of <var>MznFile</var> for reading.
+
+</li><li> A <em>system error</em> if <code>mzn2fzn</code> is unsuccessful. This error
+will include any information produced by <code>mzn2fzn</code> on its
+standard error stream.
+
+</li><li> An <em>existence error</em> if an <var>Id</var> of the <code>variables/1</code>
+option is not an identifier of <var>FznState</var>.
+
+</li><li> Exceptions regarding errors in <var>MznFile</var> (see <a href="Zinc-Errors.html#Zinc-Errors">Zinc Errors</a>)
+although these are most probably already handled by <code>mzn2fzn</code>.
+
+</li></ul>
+
+</dd>
+<dt><code>mzn_load_model(<var>+MznModel</var>, <var>-FznState</var>)</code></dt>
+<dt><code>mzn_load_model(<var>+MznModel</var>, <var>+Options</var>, <var>-FznState</var>)</code></dt>
+<dd>
+<a name="index-mzn_005fload_005ffile_002f_005b2_002c3_005d-_0028zinc_0029-3"></a>
+<a name="index-mzn_005fload_005ffile_002f_005b2_002c3_005d-_0028zinc_0029-1"></a>
+
+<p><var>MznModel</var> is a MiniZinc<!-- /@w --> program specified by a list of strings
+as explained for <code>mzn_run_model/[1,2]</code> above and <var>Options</var> is a
+list of options as described above.  Initializes a FlatZinc<!-- /@w --> state
+<var>FznState</var> with respect to <var>MznModel</var>. May fail if
+<code>post(true)</code> and the constraints are inconsistent.
+</p>
+<p><em>Exceptions:</em>
+</p><ul>
+<li> A <em>system error</em> if <code>mzn2fzn</code> is unsuccessful. This error
+will include any information produced by <code>mzn2fzn</code> on its
+standard error stream.
+
+</li><li> An <em>existence error</em> if an <var>Id</var> of the <code>variables/1</code>
+option is not an identifier of <var>FznState</var>.
+
+</li><li> Exceptions regarding errors in <var>MznModel</var> (see <a href="Zinc-Errors.html#Zinc-Errors">Zinc Errors</a>)
+although these are most probably already handled by <code>mzn2fzn</code>.
+
+</li></ul>
+
+</dd>
+</dl>
+
+<p>The following Prolog goal constructs a FlatZinc<!-- /@w --> state representing the 4
+Queens problem:
+</p><div class="example">
+<pre class="example">| ?- <kbd>mzn_load_file(library('zinc/examples/queen'),</kbd> 
+                   <kbd>[parameters([n=4])], Queen4State).</kbd>
+</pre></div>
+
+<p>See <a href="FlatZinc-Exported-Predicates.html#FlatZinc-Exported-Predicates">FlatZinc Exported Predicates</a> for more information on FlatZinc<!-- /@w -->
+states and how they can be queried. A very useful option to
+<code>mzn_load_file/3</code> and <code>mzn_load_model/3</code> is the
+<code>variables/1</code> option, which can be used to unify values of MiniZinc<!-- /@w -->
+identifiers with Prolog variables (this option can be used in place of
+several calls to <code>fzn_identifier/3</code>). For example, the following
+goal posts an additional symmetry breaking constraint and labels the
+variables using a Prolog goal that finds all remaining solutions to the
+4 Queens problem:
+</p><div class="example">
+<pre class="example">| ?- <kbd>mzn_load_file(library('zinc/examples/queen'),</kbd> 
+                   <kbd>[parameters([n=4]), variables([q=Q])],</kbd>
+                   <kbd>Queen4State),</kbd>
+     <kbd>Q = [Q1, Q2|_], Q1 #&lt; Q2,</kbd>
+     <kbd>findall(_, (labeling([], Q), fzn_output(Queen4State)), _).</kbd>
+</pre></div>
+<p>Given this goal, the following is written on the current output stream:
+</p><div class="example">
+<pre class="example">q = array1d(1..4, [2, 4, 1, 3]);
+----------
+</pre></div>
+
+<p>The final predicate can be used to translate a MiniZinc<!-- /@w --> file to a
+FlatZinc<!-- /@w --> by a direct call to <code>mzn2fzn</code>.
+</p>
+<dl compact="compact">
+<dt><code>mzn_to_fzn(<var>+MznFile</var>, <var>+FznFile</var>)</code></dt>
+<dt><code>mzn_to_fzn(<var>+MznFile</var>, <var>+Options</var>, <var>+FznFile</var>)</code></dt>
+<dd>
+<a name="index-mzn_005fto_005ffzn_002f_005b2_002c3_005d-_0028zinc_0029-1"></a>
+<a name="index-mzn_005fto_005ffzn_002f_005b2_002c3_005d-_0028zinc_0029"></a>
+
+<p><var>MznFile</var> is a MiniZinc<!-- /@w --> program file and <var>Options</var> is a list
+of options as described above. Calls <code>mzn2fzn</code>, whose result is
+written to <var>FznFile</var>.
+</p>
+<p><em>Exceptions:</em>
+</p><ul>
+<li> Exceptions related to the opening of <var>MznFile</var> for reading as well
+as the opening of <var>FznFile</var> for writing.
+
+</li><li> A <em>system error</em> if <code>mzn2fzn</code> is unsuccessful. This error
+will include any information produced by <code>mzn2fzn</code> on its
+standard error stream.
+
+</li><li> Exceptions regarding errors in <var>MznFile</var> (see <a href="Zinc-Errors.html#Zinc-Errors">Zinc Errors</a>)
+although these are most probably already handled by <code>mzn2fzn</code>.
+
+</li></ul>
+
+</dd>
+</dl>
+
+<a name="Menu"></a>
+<table class="menu" border="0" cellspacing="0">
+<tr><td align="left" valign="top">&bull; <a href="Zinc-Errors.html#Zinc-Errors" accesskey="1">Zinc Errors</a>:</td><td>&nbsp;&nbsp;</td><td align="left" valign="top">Zinc Errors
+</td></tr>
+</table>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="MiniZinc-Prerequisites.html#MiniZinc-Prerequisites" accesskey="p" rel="prev">Previous</a>
+<li><a href="MiniZinc.html#MiniZinc" accesskey="u" rel="up">Up</a>
+<li><a href="#Menu">Node Menu</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/MiniZinc-Exported-Predicates.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/MiniZinc-Exported-Predicates.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

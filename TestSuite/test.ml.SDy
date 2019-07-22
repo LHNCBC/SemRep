@@ -1,0 +1,111 @@
+----- Citation 15996060 -----
+15996060.ti.1 Sex hormone concentrations in patients with rheumatoid arthritis are not       normalized during 12 weeks of anti-tumor necrosis factor therapy.
+
+15996060.ti.1|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0030705|Patients|podg,humn|humn||
+15996060.ti.1|relation|C0036884|Gonadal Steroid Hormones|horm|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+15996060.ti.1|relation|C0036884|Gonadal Steroid Hormones|horm|horm|||TREATS(INFER)|C0003873|Rheumatoid Arthritis|dsyn|dsyn||
+
+15996060.ab.1 OBJECTIVE: Androgens such as dehydroepiandrosterone sulfate (DHEAS) and       testosterone are markedly lower in postmenopausal women with rheumatoid       arthritis (RA) than in controls.
+
+15996060.ab.1|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0043210|Woman|popg,humn|humn||
+15996060.ab.1|relation|C0039601|Testosterone|horm,phsu,strd|horm|||ISA|C0002844|Androgens|horm,phsu|horm||
+15996060.ab.1|relation|C0039601|Testosterone|horm,phsu,strd|phsu|||TREATS|C0043210|Woman|popg,humn|popg||
+15996060.ab.1|relation|C0039601|Testosterone|horm,phsu,strd|phsu|||TREATS(INFER)|C0003873|Rheumatoid Arthritis|dsyn|dsyn||
+15996060.ab.1|relation|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|bacs|||ISA|C0002844|Androgens|horm,phsu|horm||
+15996060.ab.1|relation|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|phsu|||TREATS|C0043210|Woman|popg,humn|popg||
+15996060.ab.1|relation|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|phsu|||TREATS(INFER)|C0003873|Rheumatoid Arthritis|dsyn|dsyn||
+
+15996060.ab.2 In contrast, compared to controls, serum       levels of estrogens are normal or elevated in women with RA.
+
+15996060.ab.2|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0043210|Woman|popg,humn|humn||
+15996060.ab.2|relation|C0014939|Estrogens|horm,phsu,strd|phsu|||TREATS|C0043210|Woman|popg,humn|popg||
+15996060.ab.2|relation|C0014939|Estrogens|horm,phsu,strd|phsu|||TREATS(INFER)|C0003873|Rheumatoid Arthritis|dsyn|dsyn||
+
+15996060.ab.3 Since tumor       necrosis factor (TNF) alters production of these hormones, we investigated       changes of these hormones during anti-TNF antibody (anti-TNF) therapy with       adalimumab in longstanding RA.
+
+15996060.ab.3|relation|C0019932|Hormones|horm|horm|||COEXISTS_WITH|C0003242|Antibodies, Anti-Idiotypic|aapp,gngm,imft|aapp||
+15996060.ab.3|relation|C0041368|Tumor Necrosis Factors|aapp,gngm,imft|aapp|7124|TNF|INTERACTS_WITH|C0019932|Hormones|horm|horm||
+15996060.ab.3|relation|C0087111|Therapeutic procedure|topp|topp|||USES|C1122087|adalimumab|aapp,gngm,imft,phsu|aapp||
+
+15996060.ab.4 METHODS: In this longitudinal anti-TNF       therapy study in 13 patients with long-standing RA without prior       prednisolone (7 infusions of anti-TNF: Week 0, 2, 4, 6, 8, 10, and 12), we       measured serum concentrations of interleukin 6 (IL-6), androstenedione,       DHEA, DHEAS, free testosterone, estrone, and 17ss-estradiol.
+
+15996060.ab.4|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0030705|Patients|podg,humn|humn||
+15996060.ab.4|relation|C0023981|Longitudinal Studies|qnco,resa|resa|||MEASURES|C0683149|serum drug concentration|qnco|qnco||
+15996060.ab.4|relation|C0023981|Longitudinal Studies|qnco,resa|resa|||USES|C0281481|anti-tumor necrosis factor therapy|topp|topp||
+
+15996060.ab.5 Levels of       these hormones in patients were compared to serum levels of 31 age and sex       matched healthy controls.
+
+15996060.ab.5|relation|C0019932|Hormones|horm|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+
+15996060.ab.6 RESULTS: Upon treatment with anti-TNF, there was       an impressive decrease of clinical markers of inflammation, erythrocyte       sedimentation rate, and serum levels of IL-6.
+
+15996060.ab.6|relation|C0087111|Therapeutic procedure|topp|topp|||USES|C0041368|Tumor Necrosis Factors|aapp,gngm,imft|aapp|7124|TNF
+
+15996060.ab.7 Serum levels of DHEAS and       free testosterone were markedly lower at baseline in patients compared to       controls, but this did not change during anti-TNF therapy.
+
+15996060.ab.7|relation|C0057277|Dehydroepiandrosterone Sulfate|bacs,phsu,strd|strd|||TREATS|C0030705|Patients|podg,humn|podg||
+15996060.ab.7|relation|C0443483|Free testosterone|horm,strd|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+
+15996060.ab.8 Serum levels of       DHEA and 17ss-estradiol were significantly elevated in patients compared       to controls, but similarly, anti-TNF therapy did not change initially       increased levels.
+
+15996060.ab.8|relation|C0011185|dehydroepiandrosterone|horm,phsu,strd|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+15996060.ab.8|relation|C0014912|Estradiol|horm,phsu,strd|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+
+15996060.ab.9 Molar ratios of hormones, which reflect hormone shifts       via converting enzymes, showed typical alterations at baseline, but did       not change markedly during anti-TNF therapy.
+
+
+15996060.ab.10 CONCLUSION: Longterm therapy       with anti-TNF did not change altered serum levels of typical sex hormones       in patients with RA, although baseline values were largely different.
+
+15996060.ab.10|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0030705|Patients|podg,humn|humn||
+15996060.ab.10|relation|C0036884|Gonadal Steroid Hormones|horm|horm|||TREATS|C0030705|Patients|podg,humn|podg||
+15996060.ab.10|relation|C0036884|Gonadal Steroid Hormones|horm|horm|||TREATS(INFER)|C0003873|Rheumatoid Arthritis|dsyn|dsyn||
+15996060.ab.10|relation|C0087111|Therapeutic procedure|topp|topp|||USES|C0041368|Tumor Necrosis Factors|aapp,gngm,imft|aapp|7124|TNF
+
+15996060.ab.11 In       patients with RA, this indicates that alterations of sex hormones and       altered activity of respective converting enzymes are imprinted for a       long-lasting period over at least 12 weeks.
+
+15996060.ab.11|relation|C0003873|Rheumatoid Arthritis|dsyn|dsyn|||PROCESS_OF|C0030705|Patients|podg,humn|humn||
+
+----- Citation 167592 -----
+167592.ti.1 Control of hepatic glycogen metabolism in the rhesus monkey: effect of glucose,       insulin, and glucagon administration.
+
+167592.ti.1|relation|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG|AFFECTS|C1373178|Hepatic Metabolism|ortf|ortf||
+167592.ti.1|relation|C0017725|Glucose|bacs,carb,phsu|phsu|||AFFECTS|C1373178|Hepatic Metabolism|ortf|ortf||
+167592.ti.1|relation|C0021641|Insulin|aapp,gngm,horm,phsu|aapp|||AFFECTS|C1373178|Hepatic Metabolism|ortf|ortf||
+167592.ti.1|relation|C1373178|Hepatic Metabolism|ortf|ortf|||PROCESS_OF|C0024400|Macaca mulatta|mamm|mamm||
+
+167592.ab.1 The effects of intravenous glucose, insulin and glucagon admininistration on the        hepatic glycogen synthase and glycogen phosphorylase systems were assessed in the       anesthetized rhesus monkey.
+
+167592.ab.1|relation|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG|TREATS|C0024400|Macaca mulatta|mamm|mamm||
+167592.ab.1|relation|C0017932|Glycogen (Starch) Synthase|aapp,gngm,enzy|gngm|||PART_OF|C0205054|Hepatic|blor|blor||
+167592.ab.1|relation|C0021641|Insulin|aapp,gngm,horm,phsu|horm|||TREATS|C0024400|Macaca mulatta|mamm|mamm||
+167592.ab.1|relation|C0357164|Parenteral form glucose|carb,phsu|phsu|||TREATS|C0024400|Macaca mulatta|mamm|mamm||
+
+167592.ab.2 Results were correlated with measurements of hepatic        cyclic AMP (cAMP) concentrations and plasma glucose, insulin, and glucagon       concentrations.
+
+167592.ab.2|relation|C0032105|Plasma|bdsu|bdsu|||LOCATION_OF|C0017725|Glucose|bacs,carb,phsu|bacs||
+
+167592.ab.3 Both glucose and insulin administration promoted significant       inactivation of phosphorylase by 1 min, which was followed by more gradual       activation of synthase.
+
+167592.ab.3|relation|C0017725|Glucose|bacs,carb,phsu|bacs|||PREDISPOSES|C0544461|Inactivation|comd|comd||
+167592.ab.3|relation|C0021641|Insulin|aapp,gngm,horm,phsu|phsu|||PREDISPOSES|C0544461|Inactivation|comd|comd||
+
+167592.ab.4 Neither glucose nor insulin caused significant changes in       hepatic cAMP.
+
+167592.ab.4|relation|C0017725|Glucose|bacs,carb,phsu|phsu|||NEG_COEXISTS_WITH|C0001455|Cyclic AMP|bacs,nnon|bacs||
+167592.ab.4|relation|C0021641|Insulin|aapp,gngm,horm,phsu|aapp|||NEG_COEXISTS_WITH|C0001455|Cyclic AMP|bacs,nnon|bacs||
+
+167592.ab.5 Marked hyperglucagonemia resulting from insulin-induced       hypoglycemia did not cause increases IN in hepatic cAMP, suggesting that the       elevated insulin levels possibly inhibited glucagon action on the hepatic       adenylate cyclase-cAMP system.
+
+167592.ab.5|relation|C0001455|Cyclic AMP|bacs,nnon|bacs|||INTERACTS_WITH|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG
+167592.ab.5|relation|C0858734|Insulin hypoglycemia|dsyn|dsyn|||CAUSES|C0342218|Excessive glucagon secretion|patf|patf||
+
+167592.ab.6 Glucagon administration caused large increases in        hepatic cAMP and activation of phosphorylase within 1 min, followed by more       gradual inactivation of synthase when it had been previously activated by       glucose.
+
+167592.ab.6|relation|C0017725|Glucose|bacs,carb,phsu|bacs|||STIMULATES|C0917783|Glycogen Phosphorylase, Muscle Form|aapp,gngm,enzy|gngm||
+
+167592.ab.7 Concomitant glucose infusion, with resulting increased plasma insulin       concentrations, markedly diminished the duration of hepatic cAMP elevations       following glucagon adminstration, again suggesting an insulin inhibition of       glucagon action on the hepatic adenylate-cAMP system.
+
+167592.ab.7|relation|C0017725|Glucose|bacs,carb,phsu|bacs|||INHIBITS|C0021641|Insulin|aapp,gngm,horm,phsu|gngm||
+167592.ab.7|relation|C0017725|Glucose|bacs,carb,phsu|bacs|||INTERACTS_WITH|C0017687|Glucagon|aapp,gngm,horm,nsba,phsu|aapp|2641|GCG
+167592.ab.7|relation|C0017725|Glucose|bacs,carb,phsu|bacs|||STIMULATES|C0001455|Cyclic AMP|bacs,nnon|bacs||
+

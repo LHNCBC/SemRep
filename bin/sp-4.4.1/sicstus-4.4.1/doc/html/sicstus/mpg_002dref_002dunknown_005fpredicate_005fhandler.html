@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-ref-unknown_predicate_handler</title>
+
+<meta name="description" content="SICStus Prolog: mpg-ref-unknown_predicate_handler">
+<meta name="keywords" content="SICStus Prolog: mpg-ref-unknown_predicate_handler">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dbpr.html#mpg_002dbpr" rel="up" title="mpg-bpr">
+<link href="mpg_002dref_002dunload_005fforeign_005fresource.html#mpg_002dref_002dunload_005fforeign_005fresource" rel="next" title="mpg-ref-unload_foreign_resource">
+<link href="mpg_002dref_002dunknown.html#mpg_002dref_002dunknown" rel="prev" title="mpg-ref-unknown">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dref_002dunknown_005fpredicate_005fhandler"></a>
+<hr>
+<a name="unknown_005fpredicate_005fhandler_002f3---hook"></a>
+<h4 class="subsection">11.3.244 <code>unknown_predicate_handler/3</code> &nbsp;<!-- /@w --> <i>hook</i></h4>
+<a name="index-unknown_005fpredicate_005fhandler_002f3-_0028hook_002c-ref-page_0029-1"></a>
+<a name="index-unknown_005fpredicate_005fhandler_002f3-_0028hook_002c-ref-page_0029"></a>
+
+<a name="Synopsis-269"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<p><code>:- multifile user:unknown_predicate_handler/3.</code>
+</p>
+<p><code>user:unknown_predicate_handler(<var>+Goal</var>, <var>+Module</var>, <var>-NewGoal</var>)</code>
+</p>
+<p>User definable hook to trap calls to unknown predicates.
+</p>
+<a name="index-undefined-predicate-2"></a>
+<a name="index-predicate_002c-undefined-2"></a>
+
+<a name="Arguments-246"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>Goal</var></dt>
+<dd><p><em>callable</em>
+</p>
+<p>The goal to trap.
+</p>
+</dd>
+<dt><var>Module</var></dt>
+<dd><p><em>atom</em>
+</p>
+<p>Any atom that is a current module
+</p>
+</dd>
+<dt><var>NewGoal</var></dt>
+<dd><p><em>callable</em>
+</p>
+<p>The goal to call instead.
+</p></dd>
+</dl>
+
+<a name="Description-184"></a>
+<h4 class="subheading">Description</h4>
+
+<p>When Prolog comes across a call to an unknown predicate, Prolog makes
+a call to <code>user:unknown_predicate_handler/3</code> with the first two
+arguments bound. <var>Goal</var> is bound to the call to the undefined
+predicate and <var>Module</var> is the module in which that predicate is
+supposed to be defined. If the call to
+<code>user:unknown_predicate_handler/3</code> succeeds, then Prolog replaces
+the call to the undefined predicate with the call to
+<var>Module:NewGoal</var>. Otherwise, the action taken is governed by the
+<code>unknown</code> Prolog flag.
+<a name="index-unknown-_0028prolog-flag_0029-4"></a>
+</p>
+<a name="Exceptions-260"></a>
+<h4 class="subheading">Exceptions</h4>
+
+<p>Exceptions are treated as failures, except an error message is printed.
+</p>
+<a name="Examples-95"></a>
+<h4 class="subheading">Examples</h4>
+
+<p>The following clause gives the
+same behavior as setting <code>unknown(_,fail)</code>:
+</p>
+<div class="example">
+<pre class="example">unknown_predicate_handler(_, _, fail).
+</pre></div>
+
+
+<p>The following clause causes calls to undefined predicates whose names
+begin with &lsquo;<samp>xyz_</samp>&rsquo; in module <code>m</code> to be trapped to
+<code>my_handler/1</code> in module <code>n</code>.  Predicates with names not
+beginning with this character sequence are not affected.
+</p>
+<div class="example">
+<pre class="example">unknown_predicate_handler(G, m, n:my_handler(G)) :-
+    functor(G,N,_),
+    atom_concat(xyz_, _, N).
+</pre></div>
+
+<a name="See-Also-266"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Undefined-Predicates.html#Undefined-Predicates">Undefined Predicates</a>, <a href="ref_002dere.html#ref_002dere">ref-ere</a>, <a href="ref_002dlps_002dflg.html#ref_002dlps_002dflg">ref-lps-flg</a>.
+</p>
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dref_002dunload_005fforeign_005fresource.html#mpg_002dref_002dunload_005fforeign_005fresource" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dref_002dunknown.html#mpg_002dref_002dunknown" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dbpr.html#mpg_002dbpr" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dref_002dunknown_005fpredicate_005fhandler.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dref_002dunknown_005fpredicate_005fhandler.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

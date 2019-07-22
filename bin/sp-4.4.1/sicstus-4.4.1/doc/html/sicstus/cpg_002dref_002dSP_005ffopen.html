@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: cpg-ref-SP_fopen</title>
+
+<meta name="description" content="SICStus Prolog: cpg-ref-SP_fopen">
+<meta name="keywords" content="SICStus Prolog: cpg-ref-SP_fopen">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="cpg_002dbif.html#cpg_002dbif" rel="up" title="cpg-bif">
+<link href="cpg_002dref_002dSP_005fforeign_005fstash.html#cpg_002dref_002dSP_005fforeign_005fstash" rel="next" title="cpg-ref-SP_foreign_stash">
+<link href="cpg_002dref_002dSP_005fflush_005foutput.html#cpg_002dref_002dSP_005fflush_005foutput" rel="prev" title="cpg-ref-SP_flush_output">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="cpg_002dref_002dSP_005ffopen"></a>
+<hr>
+<a name="SP_005ffopen_0028_0029"></a>
+<h4 class="subsection">12.3.20 <code>SP_fopen()</code></h4>
+<a name="index-SP_005ffopen_0028_0029-_0028C-function_0029"></a>
+
+<a name="Synopsis-300"></a>
+<h4 class="subheading">Synopsis</h4>
+
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+spio_t_error_code
+SP_fopen(
+  char const *pathname,
+  void *reserved,
+  spio_t_bits options,
+  SP_stream **pstream);
+</pre></div>
+
+<p>Opens a file and creates a SICStus stream reading and/or writing to it.
+</p>
+<a name="Arguments-275"></a>
+<h4 class="subheading">Arguments</h4>
+<dl compact="compact">
+<dt><var>pathname</var></dt>
+<dd><p>The path to the file as an encoded string.
+It is expanded by <code>SP_expand_file_name()</code> unless the option
+<code>SP_FOPEN_OPTION_NOEXPAND</code> is specified, in which case the
+path must already have been expanded by <code>SP_expand_file_name()</code>.
+</p>
+</dd>
+<dt><var>reserved</var></dt>
+<dd><p>Reserved, should be <code>NULL</code>.
+</p>
+</dd>
+<dt><var>read_options</var></dt>
+<dd><p>The following bits can be set:
+</p>
+<dl compact="compact">
+<dt><code>SP_FOPEN_OPTION_READ</code></dt>
+<dd><p>Open the file for reading. The file must exist.
+</p>
+</dd>
+<dt><code>SP_FOPEN_OPTION_WRITE</code></dt>
+<dd><p>Open the file for writing. The file is overwritten if it exists. The
+file is created if it does not exist.
+</p>
+</dd>
+<dt><code>SP_FOPEN_OPTION_APPEND</code></dt>
+<dd><p>Open the file for writing but start writing at the end of the file if
+it exists. The file is created if it does not exist.
+</p>
+</dd>
+<dt><code>SP_FOPEN_OPTION_BINARY</code></dt>
+<dd><p>Open the file as a binary (byte) stream.
+</p>
+</dd>
+<dt><code>SP_FOPEN_OPTION_TEXT</code></dt>
+<dd><p>Open the file as a text stream. The default character encoding
+is <em>Latin 1</em> (i.e. the 8 bit subset of Unicode). The default
+end of line convention is OS specific.
+</p>
+</dd>
+<dt><code>SP_FOPEN_OPTION_AUTOFLUSH</code></dt>
+<dd><p>After writing to this stream, Prolog predicates will do a
+<code>flush_output/1</code>. In essence this ensures that the stream behaves
+as if it were unbuffered.
+</p>
+</dd>
+<dt><code>SP_FOPEN_OPTION_INTERACTIVE</code></dt>
+<dd><p>Treat this stream as an interactive stream. Implies
+SP_CREATE_STREAM_OPTION_AUTOFLUSH.
+</p>
+
+</dd>
+<dt><code>SP_FOPEN_OPTION_NOEXPAND</code></dt>
+<dd><p>The <code>pathname</code> has already been expanded with
+<code>SP_expand_file_name()</code> or something similar. This implies that
+<code>pathname</code> is an absolute path. If this option is not
+specified, <code>pathname</code> is expanded with
+<code>SP_expand_file_name()</code> before use.
+</p></dd>
+</dl>
+
+</dd>
+<dt><var>pstream</var></dt>
+<dd><p>On successful return, <code>*pstream</code> will be set to the created
+stream.
+</p></dd>
+</dl>
+
+<a name="Return-Value-17"></a>
+<h4 class="subheading">Return Value</h4>
+
+<p>On success, <code>*pstream</code> will be set to the created stream and
+<code>SPIO_S_NOERR</code> or some other success code returned.
+</p>
+<p>On failure, some SPIO failure code will be returned. Error codes with
+special meaning for <code>SP_fopen()</code>:
+</p>
+<dl compact="compact">
+<dt><code>SPIO_E_FILE_NOT_FOUND</code></dt>
+<dd><p>The file does not exist.
+</p>
+</dd>
+<dt><code>SPIO_E_FILE_ACCESS</code></dt>
+<dd><p>Insufficient permissions to open or create the file.
+</p>
+</dd>
+<dt><code>SPIO_E_OPEN_ERROR</code></dt>
+<dd><p>Generic error during open.
+</p></dd>
+</dl>
+
+<p>Other error codes may also be returned.
+</p>
+
+<a name="See-Also-297"></a>
+<h4 class="subheading">See Also</h4>
+
+<p><a href="Prolog-Streams.html#Prolog-Streams">Prolog Streams</a>.
+</p><hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="cpg_002dref_002dSP_005fforeign_005fstash.html#cpg_002dref_002dSP_005fforeign_005fstash" accesskey="n" rel="next">Next</a>
+<li><a href="cpg_002dref_002dSP_005fflush_005foutput.html#cpg_002dref_002dSP_005fflush_005foutput" accesskey="p" rel="prev">Previous</a>
+<li><a href="cpg_002dbif.html#cpg_002dbif" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/cpg_002dref_002dSP_005ffopen.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/cpg_002dref_002dSP_005ffopen.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

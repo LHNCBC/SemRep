@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog Release Notes: REX</title>
+
+<meta name="description" content="SICStus Prolog Release Notes: REX">
+<meta name="keywords" content="SICStus Prolog Release Notes: REX">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="index.html#Top" rel="up" title="Top">
+<link href="Tcl_002fTk-Notes.html#Tcl_002fTk-Notes" rel="next" title="Tcl/Tk Notes">
+<link href="Beta-Releases.html#Beta-Releases" rel="prev" title="Beta Releases">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="REX"></a>
+<hr>
+<a name="Managing-Extended-Runtime-License-Information"></a>
+<h2 class="chapter">6 Managing Extended Runtime License Information</h2>
+
+<p>Extended runtime systems need to have a license available at runtime.
+This license can be embedded in the extended runtime executable or
+located in a separate file.  The following describes the steps needed in
+order to enter the license information.  The example assumes that you
+are familiar with the procedure for building runtime systems.
+See <a href="../sicstus/The-Application-Builder.html#The-Application-Builder">The Application Builder</a> in <cite>the
+SICStus Prolog Manual</cite> for details.
+</p>
+<p>Suppose that you have been provided with the following
+license information:
+</p>
+<div class="example">
+<pre class="example">Dear SICStus Prolog customer,
+
+Your extended runtime license information for platform '<var>PLATFORM</var>'<!-- /@w --> is as follows:
+
+Site name:          MySite
+License code:       a111-b222-c333-d444-e444
+Expiration date:    permanent
+
+Corresponding to a file 'extended_license.pl' with the following contents:
+%% LICENSE BEGIN
+site('MySite').
+product('extended_runtime_sicstus<var>MAJOR</var>.<var>MINOR</var>_<var>PLATFORM</var>',
+       'permanent',
+       'a111-b222-c333-d444-e444').
+%% LICENSE END
+</pre></div>
+
+<p><strong>Please note</strong>: The license information differs between SICStus
+versions and platforms. The <var>PLATORM</var> is one of <code>win32</code> (for
+Microsoft Windows), <code>linux</code>, <code>darwin</code> (for Apple
+macOS), or <code>solaris</code>. The <var>MAJOR</var><code>.</code><var>MINOR</var> is the major and minor
+version of SICStus, currently
+<code>4.4</code>.
+</p>
+<p>Following is a list of common tasks.
+</p>
+<ul>
+<li> <b>Making the license available to the development system.</b>
+
+<p>Create a file <samp>extended_license.pl</samp> with the contents specified in the email, that is:
+</p>
+<div class="example">
+<pre class="example">%% LICENSE BEGIN
+site('MySite').
+product('extended_runtime_sicstus<var>MAJOR</var>.<var>MINOR</var>_<var>PLATFORM</var>',
+       'permanent',
+       'a111-b222-c333-d444-e444').
+%% LICENSE END
+</pre></div>
+
+<p>This file can be located anywhere, e.g. in the folder containing your
+source code.
+</p>
+</li><li> <b>Building an Extended Runtime System using <code>spld</code> which embeds
+license information from the above file:</b>
+
+<div class="example">
+<pre class="example">% <kbd>spld -E --license-file ./extended_license.pl [&hellip;]</kbd>
+</pre></div>
+
+<p>This will read the license information and embed the information in
+the created executable. No separate license file will be needed at
+runtime. This is the preferred method.
+This method can be used also to create an all-in-one executable;
+see <a href="../sicstus/All_002din_002done-Executables.html#All_002din_002done-Executables">All-in-one Executables</a> in <cite>the SICStus Prolog Manual</cite>.
+</p>
+<p>On UNIX platforms, it is possible to install the license information
+using the <code>splm</code> tool so that you do not need create the file
+<samp>extended_license.pl</samp> and pass it to <code>spld</code>. However, a
+separate license file may be needed anyway if the license cannot be
+embedded; see below.
+</p>
+</li><li> <b>Building an Extended Runtime System which does not embed license information.</b>
+
+<p>The resulting runtime system will need a way to find the
+license file at runtime. This variant is useful when the executable is
+not built with <code>spld</code>, e.g. when builing a DLL (Windows) or DSO (UNIX):
+</p>
+<div class="example">
+<pre class="example">% <kbd>spld -E --no-embed-license [&hellip;]</kbd>
+</pre></div>
+
+<p>The resulting executable will produce output similar to the following
+if it cannot find the license file:
+</p>
+<div class="example">
+<pre class="example">License error:
+License file not found! [&hellip;]
+</pre></div>
+
+</li><li> <b>Ensuring that the license information is available at runtime.</b>
+
+<p>If the license information has been embedded, then no special steps are needed.
+Otherwise, you need to distribute the license file along with the runtime
+system.
+To make the license file available it should be located in the <samp>library</samp>
+folder and named <samp>license.pl</samp>. That is, copy <samp>extended_license.pl</samp>
+as created above into the file <samp>library/license.pl</samp> in the folder tree
+available at runtime. 
+See <a href="../sicstus/Runtime-Systems-on-Target-Machines.html#Runtime-Systems-on-Target-Machines">Runtime Systems on Target Machines</a> in <cite>the SICStus Prolog Manual</cite> for details. Also see <a href="../sicstus/Locating-the-License-Information.html#Locating-the-License-Information">Locating the License Information</a> in <cite>the SICStus Prolog Manual</cite> for additional ways of making the
+license information available.
+</p>
+</li><li> <b>Understanding steps performed by <code>spld</code>.</b>
+As usual, you can use:
+
+<div class="example">
+<pre class="example">% <kbd>spld --verbose --keep [&hellip;]</kbd>
+</pre></div>
+
+<p>in order to see exactly what steps are performed by <code>spld</code>.  This is
+useful if you want to embed the license but need to build the
+executable manually, instead of using <code>spld</code>.
+</p></li></ul>
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">Release Notes</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Tcl_002fTk-Notes.html#Tcl_002fTk-Notes" accesskey="n" rel="next">Next</a>
+<li><a href="Special-Releases.html#Special-Releases" accesskey="p" rel="prev">Previous</a>
+<li><a href="index.html#Top" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/relnotes/REX.html&amp;body=Feedback%20on%20documentation%20node%20html/relnotes/REX.html%20in%20Release%20Notes.">Send feedback on this subject.</a>
+</body>
+</html>

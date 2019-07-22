@@ -1,0 +1,565 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Geometry Managers</title>
+
+<meta name="description" content="SICStus Prolog: Geometry Managers">
+<meta name="keywords" content="SICStus Prolog: Geometry Managers">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="Tk.html#Tk" rel="up" title="Tk">
+<link href="Event-Handling.html#Event-Handling" rel="next" title="Event Handling">
+<link href="Widget-Creation.html#Widget-Creation" rel="prev" title="Widget Creation">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Geometry-Managers"></a>
+<hr>
+<a name="Geometry-Managers-1"></a>
+<h4 class="subsubsection">10.39.3.5 Geometry Managers</h4>
+
+<p>So far we have described each of the Tk widgets but
+have not mentioned how they are arranged to be displayed.
+Tk separates the creating of widgets from the way they are arranged for
+display. The &ldquo;geometry&rdquo; of the display is handled by a &ldquo;geometry manager&rdquo;.
+A geometry manager is handed the set of widgets to display
+with instructions on their layout.
+The layout instructions are particular to each geometry manager.
+</p>
+<p>Tk comes with three distinct geometry managers: <code>grid</code>,
+<code>place</code>, and <code>pack</code>.  As might be expected the <code>grid</code>
+geometry manager is useful for creating tables of widgets, for example,
+a table of buttons.
+</p>
+<p>The <code>place</code> geometry manager simply gives each widget an X and Y
+coordinate and places them at that coordinate in their particular parent
+window.
+</p>
+<p>The <code>pack</code> geometry manager places widgets according to
+constraints, like &ldquo;these three button widgets should be packed together
+from the left in their parent widget, and should resize with the
+parent&rdquo;.
+</p>
+<p>(In practice the <code>grid</code> and <code>pack</code> geometry managers are the
+most useful because they can easily handle events such as resizing of
+the toplevel window, automatically adjusting the display in a sensible
+manner.  <code>place</code> is not so useful for this.)
+</p>
+<p>Each container widget (the master) has a geometry manager associated
+with it, which tells the container how to display its sub-widgets (slaves)
+inside it. A single master has one and only one kind of geometry manager
+associated with it, but each master can have a different kind.
+For example, a frame widget can use the packer to pack other frames
+inside it. One of the slave frames could use the grid manager
+to display buttons inside it itself, while another slave frame 
+could use the packer to pack labels inside it itself.
+</p>
+<p>The problem is how to display widgets. For example, there is an empty
+frame widget inside which a bunch of other widgets will be displayed.
+The <code>pack</code> geometry manager&rsquo;s solution to this problem is to
+successively pack widgets into the empty space left in the container
+widget.  The container widget is the master widget, and the widgets
+packed into it are its slaves.  The slaves are packed in a sequence: the
+packing order.
+</p>
+<p>What the packer does is to take the next slave to be packed.
+It allocates an area for the slave to be packed into from the remaining
+space in the master. Which part of the space is allocated depends
+on instructions to the packer. When the size of the space has been
+determined, this is sliced off the free space, and allocated to the widget
+that is displayed in it.
+Then the remaining space is available to subsequent slaves.
+</p>
+<p>At any one time the space left for packing is a rectangle.
+If the widget is too small to use up a whole slice from the length or
+breadth of the free rectangle, then still a whole slice is allocated
+so that the free space is always rectangular.
+</p>
+<p>It can be tricky to get the packing instructions right to get the
+desired finished effect, but a large number of arrangements of widgets
+is possible using the packer.
+</p>
+<p>Let us take a simple example: three buttons packed into the root window.
+First we create the buttons; see also <code>library('tcltk/examples/ex3.tcl')</code>:
+</p>
+<div class="example">
+<pre class="example">button .b1 -text b1
+button .b2 -text b2
+button .b3 -text b3
+</pre></div>
+
+<p>then we can pack them thus:
+</p>
+<div class="example">
+<pre class="example">pack .b1 .b2 .b3
+</pre></div>
+
+
+<p>which produces a display of the three buttons, one on top of the other,
+button <code>.b1</code> on the top, and button <code>.b3</code> on the bottom.
+</p>
+<br>
+<img src="images/tcltkex3.png" alt="images/tcltkex3">
+<div align="center">Three Plain Buttons
+</div>
+<p>If we change the size of the text in button <code>.b2</code> through the command:
+</p>
+<div class="example">
+<pre class="example">.b2 config -text &quot;hello world&quot;
+</pre></div>
+
+
+<p>then we see that the window grows to fit the middle button, but the
+other two buttons stay their original size.
+</p>
+<br>
+<img src="images/tcltkex4.png" alt="images/tcltkex4">
+<div align="center">Middle Button Widens
+</div>
+
+<p>The packer defaults to packing widgets in from the top of the master.
+Other directions can be specified.  For example, the command:
+</p>
+<div class="example">
+<pre class="example">pack .b1 .b2 .b3 -side left
+</pre></div>
+
+
+<p>will pack starting at the left hand side of the window.
+The result of this is that the buttons are formed in a horizontal row
+with the wider button, <code>.b2</code>, in the middle.
+</p>
+<br>
+<img src="images/tcltkex5.png" alt="images/tcltkex5">
+<div align="center">Packing From The Left
+</div>
+
+<p>It is possible to leave space between widgets through the <em>padding</em>
+options to the packer: <samp>-padx</samp> and <samp>-pady</samp>.
+What these do is to allocate space to the slave that is padded
+with the padding distances.
+An example would be:
+</p>
+<div class="example">
+<pre class="example">pack .b1 .b2 .b3 -side left -padx 10
+</pre></div>
+
+
+<br>
+<img src="images/tcltkex6.png" alt="images/tcltkex6">
+<div align="center">External Padding
+</div>
+<p>which adds 10 pixels of space to either side of the button widgets.
+This has the effect of leaving 10 pixels at the left side of button
+<code>.b1</code>, 20 pixels between buttons <code>.b1</code> and <code>.b2</code>, 20
+pixels between buttons <code>.b2</code> and <code>.b3</code>, and finally 10 pixels
+on the right side of button <code>.b3</code>.
+</p>
+<p>That was external padding for spacing widgets.
+There is also internal padding for increasing the size of widgets
+in the X and Y directions by a certain amount, through 
+<samp>-ipadx</samp> and <samp>-ipady</samp> options; i.e. internal padding.
+For example:
+</p>
+<div class="example">
+<pre class="example">pack .b1 .b2 .b3 -side left -ipadx 10 -ipady 10
+</pre></div>
+
+<br>
+<img src="images/tcltkex7.png" alt="images/tcltkex7">
+<div align="center">Internal Padding
+</div>
+<p>instead of spacing out the widgets, will increase their dimensions
+by 10 pixels in each direction.
+</p>
+
+<p>Remember that space is allocated to a widget from the currently
+available space left in the master widget by cutting off a complete
+slice from that space. It is often the case that the slice is bigger
+that the widget to be displayed in it. 
+</p>
+<p>There are further options for allowing a widget to fill the whole slice
+allocated to it.  This is done through the <samp>-fill</samp> option, which
+can have one of four values: <code>none</code> for no filling (default),
+<code>x</code> to fill horizontally only, <code>y</code> to fill vertically only,
+and <code>both</code> to fill both horizontally and vertically at the same
+time.
+</p>
+<p>Filling is useful, for example, for creating buttons that are
+the same size even though they display texts of differing lengths.
+To take our button example again, the following code produces
+three buttons, one on top of each other, but of the same size:
+</p>
+<div class="example">
+<pre class="example">button .b1 -text b1
+button .b2 -text &quot;hello world&quot;
+button .b3 -text b3
+pack .b1 .b2 .b3 -fill x
+</pre></div>
+
+<br>
+<img src="images/tcltkex8.png" alt="images/tcltkex8">
+<div align="center">Using <code>fill</code> For Evenly Sized Widgets
+</div>
+<p>How does this work? The width of the toplevel windows is dictated by
+button <code>.b2</code> because it has the widest text. Because the three
+buttons are packed from top to bottom, the slices of space
+allocated to them are cut progressively straight along the top of the
+remaining space. i.e. each widget gets a horizontal slice of space the
+same width cut from the top-level widget.  Only the wide button
+<code>.b2</code> would normally fit the whole width of its slice.  But by
+allowing the other two widgets to fill horizontally, they will also
+take up the whole width of their slices.  The result: 3 buttons stacked
+on top of each other, each with the same width, although the texts they
+display are not the same length.
+</p>
+<p>A further common example is adding a scrollbar to a listbox.
+The trick is to get the scrollbar to size itself to the listbox;
+see also <code>library('tcltk/examples/ex9a.tcl')</code>:
+</p>
+<div class="example">
+<pre class="example">listbox .l 
+scrollbar .s
+pack .l .s -side left
+</pre></div>
+
+<br>
+<img src="images/tcltkex9a.png" alt="images/tcltkex9a">
+<div align="center">Scrollbar With Listbox, First Try
+</div>
+<p>So far we have a listbox on the left and a tiny scrollbar on the right.
+To get the scrollbar to fill up the vertical space around it add the
+following command:
+</p>
+<div class="example">
+<pre class="example">pack .s -fill y
+</pre></div>
+
+
+<p>Now the display looks like a normal listbox with a scrollbar.
+</p>
+<br>
+<img src="images/tcltkex9b.png" alt="images/tcltkex9b">
+<div align="center">Scrollbar With Listbox, Second Try
+</div>
+<p>Why does this work? They are packed from the left, so first a large
+vertical slice of the master is given to the listbox, then a thin
+vertical slice is given to the scrollbar. The scrollbar has a small
+default width and height and so it does not fill the vertical space of
+its slice. But filling in the vertical direction (through the 
+<code>pack .s -fill y</code> command) allows it to fill its space, and so 
+it adjusts to the height of the listbox.
+</p>
+
+<p>The <code>fill</code> packing option specifies whether the widget should fill
+space left over in its slice of space.  A further option to take into
+account is what happens when the space allocated to the master widget is
+much greater than the that used by its slaves.  This is not usually a
+problem initially because the master container widget is sized to
+shrink-wrap around the space used by its slaves.  If the container is
+subsequently resized, however, to a much larger size, then there is a question
+as to what should happen to the slave widgets.  A common example of
+resizing a container widget is the resizing of a top-level window
+widget.
+</p>
+<p>The default behavior of the packer is not to change the size or
+arrangement of the slave widgets. There is an option though through the
+<code>expand</code> option to cause the slices of space allocated to slaves to
+expand to fill the newly available space in the master.  <code>expand</code> can
+have one of two values: <code>0</code> for no expansion, and <code>1</code> for expansion.
+</p>
+<p>Take the listbox-scrollbar example; see also <code>library('tcltk/examples/ex10.tcl')</code>:
+</p>
+<div class="example">
+<pre class="example">listbox .l
+scrollbar .s
+pack .l -side left
+pack .s -side left -fill y
+</pre></div>
+
+<p>Initially this looks good, but now resize the window to a much bigger
+size.  You will find that the listbox stays the same size and that empty
+space appears at the top and bottom of it, and that the scrollbar
+resizes in the vertical. It is now not so nice.
+</p>
+<br>
+<img src="images/tcltkex10.png" alt="images/tcltkex10">
+<div align="center">Scrollbar And Listbox, Problems With Resizing
+</div>
+<p>We can fix part of the problem by having the listbox expand to fill the
+extra space generated by resizing the window.
+</p>
+<div class="example">
+<pre class="example">pack .l -side left -expand 1
+</pre></div>
+
+<br>
+<img src="images/tcltkex10a.png" alt="images/tcltkex10a">
+<div align="center">Scrollbar And Listbox, Almost There
+</div>
+<p>The problem now is that <code>expand</code> just expands the space allocated
+to the listbox, it does not stretch the listbox itself. To achieve that
+we need to apply the <code>fill</code> option to the listbox too.
+</p>
+<div class="example">
+<pre class="example">pack .l -side left -expand 1 -fill both
+</pre></div>
+
+<br>
+<img src="images/tcltkex10b.png" alt="images/tcltkex10b">
+<div align="center">Scrollbar And Listbox, Problem Solved Using <code>fill</code>
+</div>
+<p>Now whichever way the top-level window is resized, the listbox-scrollbar
+combination should look good.
+</p>
+<p>If more than one widget has the expansion bit set, then the space is
+allocated equally to those widgets. This can be used, for example, to
+make a row of buttons of equal size that resize to fill the widget of their
+container.
+Try the following code; see also <code>library('tcltk/examples/ex11.tcl')</code>:
+</p>
+<div class="example">
+<pre class="example">button .b1 -text &quot;one&quot;
+button .b2 -text &quot;two&quot;
+button .b3 -text &quot;three&quot;
+pack .b1 .b2 .b3 -side left -fill x -expand 1
+</pre></div>
+
+<br>
+<img src="images/tcltkex11.png" alt="images/tcltkex11">
+<div align="center">Resizing Evenly Sized Widgets
+</div>
+<p>Now resize the window. You will see that the buttons resize to fill the
+width of the window, each taking an equal third of the width.
+</p>
+<blockquote>
+<p><strong>Please note</strong>: the best way to get the hang of the packer is to play with
+it. Often the results are not what you expect, especially when it comes
+to fill and expand options. When you have created a display that looks
+pleasing, always try resizing the window to see if it still looks
+pleasing, or whether some of your fill and expand options need
+revising.
+</p></blockquote>
+
+
+<p>There is an option to change how a slave is displayed if its allocated
+space is larger than itself. Normally it will be displayed
+centered. That can be changed by anchoring it with the <samp>-anchor</samp>
+option. The option takes a compass direction as its argument:
+<code>n</code>, <code>s</code>, <code>e</code>, <code>w</code>, <code>nw</code>, <code>ne</code>, <code>sw</code>,
+<code>se</code>, or <code>c</code> (for center).
+</p>
+<p>For example, the previous example with the resizing buttons displays
+the buttons in the center of the window, the default anchoring point.
+If we wanted the buttons to be displayed at the top of the window, then 
+we would anchor them there thus; see also <code>library('tcltk/examples/ex12.tcl')</code>:
+</p>
+<div class="example">
+<pre class="example">button .b1 -text &quot;one&quot;
+button .b2 -text &quot;two&quot;
+button .b3 -text &quot;three&quot;
+pack .b1 .b2 .b3 -side left -fill x -expand 1 -anchor n
+</pre></div>
+
+<br>
+<img src="images/tcltkex12.png" alt="images/tcltkex12">
+<div align="center">Anchoring Widgets
+</div>
+<p>Each button is anchored at the top of its slice and so in this case
+is displayed at the top of the window.
+</p>
+<p>The packing order of widget can also be changed. For example,
+</p>
+<div class="example">
+<pre class="example">pack .b3 -before .b2
+</pre></div>
+
+
+<p>will change the positions of <code>.b2</code> and <code>.b3</code> in our examples.
+</p>
+<br>
+<img src="images/tcltkex13.png" alt="images/tcltkex13">
+<div align="center">Changing The Packing Order Of Widgets
+</div>
+<p>The <em>grid geometry manager</em> is useful for arranging widgets in grids or
+tables.  A grid has a number of rows and columns and a widget can occupy
+one of more adjacent rows and columns.
+</p>
+<p>A simple example of arranging three buttons; see also <code>library('tcltk/examples/ex14.tcl')</code>:
+</p>
+<div class="example">
+<pre class="example">button .b1 -text b1
+button .b2 -text b2
+button .b3 -text b3
+grid .b1 -row 0 -column 0
+grid .b2 -row 1 -column 0
+grid .b3 -row 0 -column 1 -rowspan 2
+</pre></div>
+
+
+<p>this will display button <code>.b1</code> above button <code>.b2</code>. Button
+<code>.b3</code> will be displayed in the next column and it will take up two
+rows.
+</p>
+<br>
+<img src="images/tcltkex14.png" alt="images/tcltkex14">
+<div align="center">Using the <code>grid</code> Geometry Manager
+</div>
+
+<p>However, <code>.b3</code> will be displayed in the center of the space
+allocated to it. It is possible to get it to expand to fill the two rows
+it has using the <samp>-sticky</samp> option. The <samp>-sticky</samp> option says
+to which edges of its cells a widget &ldquo;sticks&rdquo; to, i.e. expands to reach.
+(This is like the fill and expand options in the pack manager.)  So to
+get <code>.b3</code> to expand to fill its space we could use the following:
+</p>
+<div class="example">
+<pre class="example">grid .b3 -sticky ns
+</pre></div>
+
+
+<p>which says stick in the north and south directions (top and bottom).
+This results in <code>.b3</code> taking up two rows and filling them.
+</p>
+<br>
+<img src="images/tcltkex15.png" alt="images/tcltkex15">
+<div align="center"><code>grid</code> Geometry Manager, Cells With Sticky Edges
+</div>
+<p>There are plenty of other options to the grid geometry manager.
+For example, it is possible to give some rows/columns more &ldquo;weight&rdquo;
+than others, which gives them more space in the master.
+For example, if in the above example you wanted to allocate 1/3 of
+the width of the master to column 0 and 2/3 of the width to column 1, then 
+the following commands would achieve that:
+</p>
+<div class="example">
+<pre class="example">grid columnconfigure . 0 -weight 1
+grid columnconfigure . 1 -weight 2
+</pre></div>
+
+<p>which says that the weight of column 0 for master <code>.</code> (the root window)
+is 1 and the weight of column 1 is 2. Since column 1 has more weight than
+column 0 it gets proportionately more space in the master.
+</p>
+<p>It may not be apparent that this works until you resize the window.
+You can see even more easily how much space is allocated to each button
+by making expanding them to fill their space through the sticky option.
+The whole example looks like this; see also <code>library('tcltk/examples/ex16.tcl')</code>:
+</p>
+<div class="example">
+<pre class="example">button .b1 -text b1
+button .b2 -text b2
+button .b3 -text b3
+grid .b1 -row 0 -column 0 -sticky nsew
+grid .b2 -row 1 -column 0 -sticky nsew
+grid .b3 -row 0 -column 1 -rowspan 2 -sticky nsew
+grid columnconfigure . 0 -weight 1
+grid columnconfigure . 1 -weight 2
+</pre></div>
+
+
+<p>Now resize the window to various sizes and we will see that button
+<code>.b3</code> has twice the width of buttons <code>.b1</code> and <code>.b2</code>.
+</p>
+<br>
+<img src="images/tcltkex16.png" alt="images/tcltkex16">
+<div align="center">Changing Row/Column Ratios
+</div>
+<p>The same kind of thing can be specified for each row too via the 
+<code>grid rowconfigure</code> command.
+</p>
+<p>For other options and a full explanation of the grid manager see the manual.
+</p>
+<p><code>place</code> simply places the slave widgets in the master at the given
+x and y coordinates. It displays the widgets with the given width and
+height. For example (see also <code>library('tcltk/examples/ex17.tcl')</code>):
+</p>
+<div class="example">
+<pre class="example">button .b1 -text b1
+button .b2 -text b2
+button .b3 -text b3
+place .b1 -x 0 -y 0
+place .b2 -x 100 -y 100
+place .b3 -x 200 -y 200
+</pre></div>
+
+<br>
+<img src="images/tcltkex17.png" alt="images/tcltkex17">
+<div align="center">Using The <code>place</code> Geometry Manager
+</div>
+<p>will place the buttons <code>.b1</code>, <code>.b2</code>, and <code>.b3</code> along a
+diagonal 100 pixels apart in both the x and y directions.  Heights and
+widths can be given in absolute sizes, or relative to the size of the
+master in which case they are specified as a floating point proportion
+of the master; 0.0 being no size and 1.0 being the size of the master.
+x and y coordinates can also be specified in a relative way, also as a
+floating point number. For example, a relative y coordinate of 0.0
+refers to the top edge of the master, while 1.0 refers to the bottom
+edge.  If both relative and absolute x and y values are specified, then 
+they are summed.
+</p>
+<p>Through this system the placer allows widgets to be placed on a kind
+of rubber sheet. If all the coordinates are specified in relative
+terms, as the master is resized, then so will the slaves move
+to their new relative positions.
+</p>
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="Event-Handling.html#Event-Handling" accesskey="n" rel="next">Next</a>
+<li><a href="Widget-Creation.html#Widget-Creation" accesskey="p" rel="prev">Previous</a>
+<li><a href="Tk.html#Tk" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Geometry-Managers.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Geometry-Managers.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

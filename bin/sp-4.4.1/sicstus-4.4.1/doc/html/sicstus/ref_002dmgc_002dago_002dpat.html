@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: ref-mgc-ago-pat</title>
+
+<meta name="description" content="SICStus Prolog: ref-mgc-ago-pat">
+<meta name="keywords" content="SICStus Prolog: ref-mgc-ago-pat">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="ref_002dmgc_002dago.html#ref_002dmgc_002dago" rel="up" title="ref-mgc-ago">
+<link href="ref_002dmgc_002dago_002dprm.html#ref_002dmgc_002dago_002dprm" rel="next" title="ref-mgc-ago-prm">
+<link href="ref_002dmgc_002dago_002dagc.html#ref_002dmgc_002dago_002dagc" rel="prev" title="ref-mgc-ago-agc">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="ref_002dmgc_002dago_002dpat"></a>
+<hr>
+<a name="Protecting-Atoms-in-Foreign-Memory"></a>
+<h4 class="subsubsection">4.10.7.2 Protecting Atoms in Foreign Memory</h4>
+
+
+<p>SICStus Prolog&rsquo;s foreign language interface allows atoms to be passed to foreign
+functions.  When calling foreign functions from Prolog, atoms are passed
+via the <code>+atom</code> argument type in the predicate specifications of
+<code>foreign/[2,3]</code> facts.  The strings of atoms can be
+passed to foreign functions via the <code>+string</code> argument type.  In the
+latter case a pointer to the Prolog symbol table&rsquo;s copy of the string for
+an atom is what is passed.  When calling Prolog from C, atoms are passed
+back from C to Prolog using the <code>-atom</code> and <code>-string</code> argument
+types in <code>extern/1</code> declarations.  Atoms can also be created in foreign
+code via functions like <code>SP_atom_from_string()</code>.
+</p>
+<p>Prolog does not keep track of atoms (or strings of
+atoms) stored in foreign memory.
+As such, it cannot
+guarantee that those atoms will be retained by atom garbage collection.
+Therefore SICStus Prolog provides functions to <em>register</em>
+atoms (or their strings) with the atom garbage collector.  Registered atoms
+will not be reclaimed by the atom garbage collector.  Atoms can be
+registered while it is undesirable for them to be reclaimed, and then
+unregistered when they are no longer needed.
+</p>
+<p>Of course, the majority of atoms passed as atoms or strings to foreign
+functions do not need to be registered.  Only those that will be stored
+across foreign function calls (in global variables)
+or across nested calls to Prolog are at risk.  An extra margin of
+control is given by the fact the programmer always invokes atom garbage
+collection explicitly, and can ensure that this is only done in contexts
+that are &ldquo;safe&rdquo; for the individual application.
+</p>
+<p>To register or unregister an atom, one of the following functions is used:
+</p>
+<div class="example">
+<pre class="example">int SP_register_atom(atom)
+SP_atom atom;
+
+int SP_unregister_atom(atom)
+SP_atom atom;
+</pre></div>
+
+
+<p>These functions return either <code>SP_ERROR</code> or a non-negative integer.  The
+return values are discussed further in <a href="ref_002dmgc_002dago_002dare.html#ref_002dmgc_002dago_002dare">ref-mgc-ago-are</a>.
+</p>
+<p>As noted above, when an atom is passed as a string (<code>+string</code>) to a foreign
+function, the string the foreign function receives is the one in Prolog&rsquo;s
+symbol table.  When atom garbage collection reclaims the atom for that
+string, the space for the string will also be reclaimed.
+</p>
+<p>Thus, if the string is to be stored across foreign calls, then either
+a copy of the string or else the atom (<code>+atom</code>) should be passed into the
+foreign function so that it can be registered and
+<code>SP_string_from_atom()</code> can be used to access the string from the atom.
+</p>
+<p>Keep in mind that the registration of atoms only pertains to those
+passed to foreign functions or created in foreign code.  Atoms in Prolog&rsquo;s
+data areas are maintained automatically.  Note also that even
+though an atom may be unregistered in foreign code, atom garbage
+collection still may not reclaim it as it may be referenced from Prolog&rsquo;s
+data areas.  But if an atom is registered in foreign code, then it will be 
+preserved regardless of its presence in Prolog&rsquo;s data areas.
+</p>
+<p>The following example illustrates the use of these functions. In this
+example the current value of an object (which is an atom) is being stored
+in a C global variable. There are two C functions that can be called from
+Prolog, one to update the current value and one to access the value.
+</p>
+<div class="example">
+<pre class="example">#include &lt;sicstus/sicstus.h&gt;
+
+SP_atom current_object = NULL;
+
+update_object(newvalue)
+SP_atom newvalue;
+{
+        /* if current_object contains an atom, unregister it */
+        if (current_object)
+                (void) SP_unregister_atom(current_object);
+
+        /* register new value */
+        (void) SP_register_atom(newvalue);
+        current_object = newvalue;
+}
+
+SP_atom get_object()
+{
+        return current_object;
+}
+</pre></div>
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="ref_002dmgc_002dago_002dprm.html#ref_002dmgc_002dago_002dprm" accesskey="n" rel="next">Next</a>
+<li><a href="ref_002dmgc_002dago_002dagc.html#ref_002dmgc_002dago_002dagc" accesskey="p" rel="prev">Previous</a>
+<li><a href="ref_002dmgc_002dago.html#ref_002dmgc_002dago" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/ref_002dmgc_002dago_002dpat.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/ref_002dmgc_002dago_002dpat.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

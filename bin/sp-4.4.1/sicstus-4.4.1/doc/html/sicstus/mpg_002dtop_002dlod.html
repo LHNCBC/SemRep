@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: mpg-top-lod</title>
+
+<meta name="description" content="SICStus Prolog: mpg-top-lod">
+<meta name="keywords" content="SICStus Prolog: mpg-top-lod">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="mpg_002dtop.html#mpg_002dtop" rel="up" title="mpg-top">
+<link href="mpg_002dtop_002dmem.html#mpg_002dtop_002dmem" rel="next" title="mpg-top-mem">
+<link href="mpg_002dtop_002dlis.html#mpg_002dtop_002dlis" rel="prev" title="mpg-top-lis">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="mpg_002dtop_002dlod"></a>
+<hr>
+<a name="Loading-Programs-1"></a>
+<h4 class="subsection">11.2.14 Loading Programs</h4>
+
+<a name="index-loading-programs_002c-predicates-for-1"></a>
+<a name="index-predicates-for-loading-programs-1"></a>
+
+<dl compact="compact">
+<dt><code>[]</code></dt>
+<dt><code>[<var>:F</var>|<var>+Fs</var>]</code></dt>
+<dd><p>same as <code>load_files([<var>F</var>|<var>Fs</var>])</code>
+</p>
+</dd>
+<dt><code>block <var>:P</var> &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>predicates specified by <var>P</var> should
+block until sufficiently instantiated
+</p>
+</dd>
+<dt><code>compile(<var>:F</var>)</code></dt>
+<dd><p>load compiled clauses from files <var>F</var>
+</p>
+</dd>
+<dt><code>consult(<var>:F</var>)</code></dt>
+<dt><code>reconsult(<var>:F</var>)</code></dt>
+<dd><p>load interpreted clauses from files <var>F</var>
+</p>
+</dd>
+<dt><code>expand_term(<var>+T</var>,<var>-X</var>) &nbsp;<!-- /@w --> <i>hookable</i></code></dt>
+<dd><p>term <var>T</var> expands to term <var>X</var> using <code>user:term_expansion/6</code>
+or grammar rule expansion
+</p>
+</dd>
+<dt><code>goal_expansion(<var>+Term1</var>, <var>+Layout1</var>, <var>+Module</var>, <var>-Term2</var>, <var>-Layout2</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>Defines transformations on goals while clauses are being compiled or asserted,
+and during meta-calls.
+</p>
+</dd>
+<dt><code>discontiguous <var>:P</var> &nbsp;<!-- /@w --> <i>declaration</i>, <i>ISO</i></code></dt>
+<dd><p>clauses of predicates <var>P</var> do not have to appear contiguously
+</p>
+</dd>
+<dt><code>dynamic <var>:P</var> &nbsp;<!-- /@w --> <i>declaration</i>, <i>ISO</i></code></dt>
+<dd><p>predicates specified by <var>P</var> are dynamic
+</p>
+</dd>
+<dt><code>elif(<var>:Goal</var>) &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>Provides an alternative branch in a sequence of conditional compilation directives.
+</p>
+</dd>
+<dt><code>else &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>Provides an alternative branch in a sequence of conditional compilation directives.
+</p>
+</dd>
+<dt><code>endif &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>Terminates a sequence of conditional compilation directives.
+</p>
+</dd>
+<dt><code>ensure_loaded(<var>:F</var>) &nbsp;<!-- /@w --> <i>ISO</i></code></dt>
+<dd><p>load <var>F</var> if not already loaded
+</p>
+</dd>
+<dt><code>if(<var>:Goal</var>) &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>Starts a sequence of conditional compilation directives for
+conditionally including parts of a source file.
+</p>
+</dd>
+<dt><code>include(<var>+F</var>) &nbsp;<!-- /@w --> <i>declaration</i>, <i>ISO</i></code></dt>
+<dd><p>include the source file(s) <var>F</var> verbatim
+</p>
+</dd>
+<dt><code>initialization <var>:G</var> &nbsp;<!-- /@w --> <i>declaration</i>, <i>ISO</i></code></dt>
+<dd><p>declares <var>G</var> to be run when program is started
+</p>
+</dd>
+<dt><code>load_files(<var>:F</var>)</code></dt>
+<dt><code>load_files(<var>:F</var>,<var>+O</var>)</code></dt>
+<dd><p>load files according to options <var>O</var>
+</p>
+</dd>
+<dt><code>meta_predicate <var>:P</var> &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>declares predicates <var>P</var> that are dependent on
+the module from which they are called
+</p>
+</dd>
+<dt><code>mode <var>:P</var> &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>NO-OP: document calling modes for predicates specified by <var>P</var>
+</p>
+</dd>
+<dt><code>module(<var>+M</var>,<var>+L</var>) &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dt><code>module(<var>+M</var>,<var>+L</var>,<var>+O</var>) &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>module <var>M</var> exports predicates in <var>L</var>, options <var>O</var>
+</p>
+</dd>
+<dt><code>multifile <var>:P</var> &nbsp;<!-- /@w --> <i>declaration</i>, <i>ISO</i></code></dt>
+<dd><p>the clauses for <var>P</var> are in more than one file
+</p>
+</dd>
+<dt><code>public <var>:P</var> &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>NO-OP: declare predicates specified by <var>P</var> public
+</p>
+</dd>
+<dt><code>restore(<var>+F</var>)</code></dt>
+<dd><p>restore the state saved in file <var>F</var>
+</p>
+</dd>
+<dt><code>user:term_expansion(<var>+Term1</var>, <var>+Layout1</var>, <var>+Tokens1</var>, <var>-Term2</var>, <var>-Layout2</var>, <var>-Tokens2</var>) &nbsp;<!-- /@w --> <i>hook</i></code></dt>
+<dd><p>Overrides or complements the standard transformations to be done by
+<code>expand_term/2</code>.
+</p>
+</dd>
+<dt><code>use_module(<var>:F</var>)</code></dt>
+<dt><code>use_module(<var>:F</var>,<var>+I</var>)</code></dt>
+<dd><p>import the procedure(s) <var>I</var> from the module-file <var>F</var>
+</p>
+</dd>
+<dt><code>use_module(<var>?M</var>,<var>:F</var>,<var>+I</var>)</code></dt>
+<dd><p>import <var>I</var> from module <var>M</var>, loading
+module-file <var>F</var> if necessary
+</p>
+</dd>
+<dt><code>volatile <var>:P</var> &nbsp;<!-- /@w --> <i>declaration</i></code></dt>
+<dd><p>predicates specified by <var>P</var> are not to be included in saves
+</p></dd>
+</dl>
+
+
+
+<hr>
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="mpg_002dtop_002dmem.html#mpg_002dtop_002dmem" accesskey="n" rel="next">Next</a>
+<li><a href="mpg_002dtop_002dlis.html#mpg_002dtop_002dlis" accesskey="p" rel="prev">Previous</a>
+<li><a href="mpg_002dtop.html#mpg_002dtop" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/mpg_002dtop_002dlod.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/mpg_002dtop_002dlod.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

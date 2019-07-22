@@ -1,0 +1,90 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<!-- Created by GNU Texinfo 5.2, http://www.gnu.org/software/texinfo/ -->
+<head>
+<title>SICStus Prolog: Send More Money</title>
+
+<meta name="description" content="SICStus Prolog: Send More Money">
+<meta name="keywords" content="SICStus Prolog: Send More Money">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link href="index.html#Top" rel="start" title="Top">
+<link href="Predicate-Index.html#Predicate-Index" rel="index" title="Predicate Index">
+<link href="index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="CLPFD-Example-Programs.html#CLPFD-Example-Programs" rel="up" title="CLPFD Example Programs">
+<link href="N-Queens.html#N-Queens" rel="next" title="N Queens">
+<link href="CLPFD-Example-Programs.html#CLPFD-Example-Programs" rel="prev" title="CLPFD Example Programs">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.indentedblock {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smallindentedblock {margin-left: 3.2em; font-size: smaller}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style:oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nocodebreak {white-space:nowrap}
+span.nolinebreak {white-space:nowrap}
+span.roman {font-family:serif; font-weight:normal}
+span.sansserif {font-family:sans-serif; font-weight:normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+<link href="texinfo.css" rel="stylesheet" type="text/css">
+</head>
+
+<body lang="en" bgcolor="#FFFFFF" text="#000000" link="#0000FF" vlink="#800080" alink="#FF0000">
+<a name="Send-More-Money"></a>
+<hr>
+<a name="Send-More-Money-1"></a>
+<h4 class="subsubsection">10.10.12.1 Send More Money</h4>
+
+<p>Let us return briefly to the Send More Money problem (see <a href="A-Constraint-Satisfaction-Problem.html#A-Constraint-Satisfaction-Problem">A Constraint Satisfaction Problem</a>).  Its <code>sum/8</code> predicate will
+expand to a <code>scalar_product/4</code> constraint.  An indexical version is
+defined simply by changing the neck symbol of <code>sum/8</code> from
+&lsquo;<samp>:-</samp>&rsquo; to &lsquo;<samp>+:</samp>&rsquo;, thus turning it into an FD predicate:
+</p>
+<div class="example">
+<pre class="example">sum(S, E, N, D, M, O, R, Y) +:
+                  1000*S + 100*E + 10*N + D 
+     +            1000*M + 100*O + 10*R + E
+     #= 10000*M + 1000*O + 100*N + 10*E + Y.
+</pre></div>
+
+
+
+
+<div class="logo">
+<a href="http://sicstus.sics.se/">
+<table><tr><td>&nbsp;</td></tr></table>
+</a>
+</div>
+<div class="node">
+<ul class="node">
+<li><a href="index.html#Top">User's Manual</a>
+<hr>
+<li><a href="index.html#TOC">Table of Contents</a>
+<li><a href="N-Queens.html#N-Queens" accesskey="n" rel="next">Next</a>
+<li><a href="CLPFD-Example-Programs.html#CLPFD-Example-Programs" accesskey="u" rel="up">Up</a>
+</ul>
+</div>
+<hr>
+<a HREF="mailto:sicstus-support@sics.se?subject=Documentation%20feedback%20on%20html/sicstus/Send-More-Money.html&amp;body=Feedback%20on%20documentation%20node%20html/sicstus/Send-More-Money.html%20in%20User's%20Manual.">Send feedback on this subject.</a>
+</body>
+</html>

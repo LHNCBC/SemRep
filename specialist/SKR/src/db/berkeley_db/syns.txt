@@ -1,0 +1,5064 @@
+1,2-ethanedisulfonate|noun|edisylate|noun
+2-hydroxyethanesulfonate|noun|isethionate|noun
+2-naphthalenesulfonate|noun|napsylate|noun
+2-pam|noun|pralidoxime|noun
+3-phenylpropionate|noun|phenpropionate|noun
+4,4-methylenebis[3-hydroxy-2-naphthoate]|noun|pamoate|noun
+4-methylbicyclo-[2.2.2]oct-2-ene-1-carboxylate|noun|cyclotate|noun
+5-hydroxytryptamine|noun|serotonin|noun
+8-methoxypsoralen|noun|methoxsalen|noun
+a propylhexedrine inhaler|noun|benzedrex|noun
+a.p.l.|noun|human chorionic gonadotropin|noun
+a.s.a.|noun|aspirin|noun
+aarane|noun|cromolyn sodium|noun
+abbocillin-dc|noun|penicillin g procaine|noun
+abdomen|noun|celiac|adj
+ablate|verb|extirpate|verb
+ablate|verb|remove|verb
+abortion|noun|ectrotic|adj
+abut|verb|adjoin|verb
+abut|verb|to touch|verb
+acenocoumarol|noun|sintrom|noun
+acetaminophen|noun|amadil|noun
+acetaminophen|noun|apamide|noun
+acetaminophen|noun|liquiprin|noun
+acetaminophen|noun|nebs|noun
+acetaminophen|noun|tempra|noun
+acetaminophen|noun|tylenol|noun
+acetaminophen|noun|valadol|noun
+acetarsone|noun|devegan|noun
+acetazolamide|noun|diamox|noun
+acetic|adj|vinegar|noun
+acetohexamide|noun|dymelor|noun
+acetophenazine maleate|noun|tindal|noun
+aceturate|noun|n-acetylglycinate|noun
+acetylcholine chloride|noun|miochol|noun
+acetylcysteine|noun|mucomyst|noun
+acetyldigitoxin|noun|acylanid|noun
+achromycin|noun|tetracycline|noun
+acidol|noun|betaine hydrochloride|noun
+acidulin|noun|glutamic acid hydrochloride|noun
+acon|noun|vitamin a|noun
+acoustic|adj|sound|noun
+acquire|verb|gain|verb
+acral|adj|apex|noun
+acral|adj|extremity|noun
+acrisorcin|noun|akrinol|noun
+acthar|noun|corticotropin|noun
+actidil|noun|triprolidine hydrochloride|noun
+actidione|noun|cycloheximide|noun
+acylanid|noun|acetyldigitoxin|noun
+adenic|adj|gland|noun
+adenous|adj|gland|noun
+adiphenine hydrochloride|noun|trasentine|noun
+adjoin|verb|abut|verb
+adrenal gland|noun|paranephric|adj
+adrenalin|noun|epinephrine|noun
+adrenosem|noun|carbazochrome salicylate|noun
+adriamycin|noun|doxorubicin hydrochloride|noun
+adroyd|noun|oxymetholone|noun
+aerial|adj|air|noun
+aeroplast|noun|vibesate|noun
+aerosporin|noun|polymyxin b sulfate|noun
+aesthetic|adj|beauty|noun
+afrin|noun|oxymetazoline hydrochloride|noun
+air|noun|aerial|adj
+akineton|noun|biperiden|noun
+akrinol|noun|acrisorcin|noun
+alar|adj|wing|noun
+alastrimic|adj|variola minor|noun
+albalon|noun|naphazoline hydrochloride|noun
+albamycin|noun|novobiocin|noun
+alcaine|noun|proparacaine hydrochloride|noun
+aldactone|noun|spironolactone|noun
+aldinamide|noun|pyrazinamide|noun
+aldomet|noun|methyldopa|noun
+alflorone|noun|fludrocortisone|noun
+alimentary|adj|food|noun
+alkavervir|noun|veriloid|noun
+alkeran|noun|melphalan|noun
+allobarbital|noun|diadol|noun
+allobarbital|noun|dial|noun
+allopurinol|noun|zyloprim|noun
+almeida's disease|noun|paracoccidioidomycosis|noun
+alpha chymar|noun|chymotrypsin|noun
+alphadrol|noun|fluprednisolone|noun
+alphaprodine|noun|nisentil|noun
+alseroxylon|noun|rauwiloid|noun
+alter|verb|castrate|verb
+alu-cap|noun|dried aluminum hydroxide gel|noun
+aludrine|noun|isoproterenol|noun
+alumina and magnesia|noun|kolantyl|noun
+aluminum hydroxide gel|noun|amphojel|noun
+aluminum hydroxide gel|noun|creamalin|noun
+aluminum hydroxide gel|noun|vanogel|noun
+aluminum nicotinate|noun|nicalex|noun
+aluminum subacetate|noun|domeboro|noun
+alupent|noun|metaproterenol sulfate|noun
+alurate|noun|aprobarbital|noun
+alvodine|noun|piminodine esylate|noun
+amadil|noun|acetaminophen|noun
+amantadine hydrochloride|noun|symmetrel|noun
+ambenonium chloride|noun|mytelase|noun
+amber|noun|succinous|adj
+ambodryl|noun|bromodiphenhydramine hydrochloride|noun
+americaine|noun|benzocaine|noun
+amicar|noun|aminocaproic acid|noun
+amikacin sulfate|noun|amikin|noun
+amikin|noun|amikacin sulfate|noun
+aminobenzoic acid|noun|pabanol|noun
+aminocaproic acid|noun|amicar|noun
+aminoglutethimide|noun|elipten|noun
+aminometradine|noun|mincard|noun
+aminophylline|noun|lixaminol|noun
+aminophylline|noun|mini-lix|noun
+aminopyrine|noun|pyramidon|noun
+aminosalicylic acid|noun|pamisyl|noun
+aminosalicylic acid|noun|parasal|noun
+amipaque|noun|metrizamide|noun
+amitriptyline hydrochloride|noun|elavil|noun
+amnestrogen|noun|esterified estrogens|noun
+amobarbital|noun|amytal|noun
+amodiaquine hydrochloride|noun|camoquin|noun
+amoxicillin|noun|amoxil|noun
+amoxicillin|noun|larotid|noun
+amoxicillin|noun|polymox|noun
+amoxil|noun|amoxicillin|noun
+amphedroxyn|noun|methamphetamine|noun
+amphetamine sulfate|noun|benzedrine|noun
+amphojel|noun|aluminum hydroxide gel|noun
+amphotericin b|noun|fungizone|noun
+ampicillin|noun|omnipen|noun
+ampicillin|noun|penbritin|noun
+ampicillin|noun|polycillin|noun
+ampicillin|noun|principen|noun
+ampicillin|noun|totacillin|noun
+amprotropine phosphate|noun|syntropan|noun
+amsustain|noun|dextroamphetamine|noun
+amydricaine|noun|benzopropyl|noun
+amygdaline|adj|tonsil|noun
+amylcaine hydrochloride|noun|naepaine|noun
+amylsine hydrochloride|noun|naepaine|noun
+amytal|noun|amobarbital|noun
+an elastic bandage|noun|elastoplast|noun
+anadrol|noun|oxymetholone|noun
+analgesine|noun|antipyrine|noun
+ananase|noun|bromelains|noun
+ancobon|noun|flucytosine|noun
+anconeal|adj|elbow|noun
+androecium|noun|stamen|noun
+androgynoid|adj|female pseudohermaphroditism|noun
+androgynous|adj|female pseudohermaphroditism|noun
+android|adj|androidal|adj
+androidal|adj|android|adj
+androphile|adj|anthropophilic|adj
+androphilous|adj|anthropophilic|adj
+anectine|noun|succinylcholine chloride|noun
+anesthesin|noun|benzocaine|noun
+angio-conray|noun|sodium iothalamate|noun
+angioendothelioma|noun|hemangioendothelioma|noun
+angiofibroma|noun|telangiectatic fibroma|noun
+angioleucitis|noun|lymphangitis|noun
+angioleukitis|noun|lymphangitis|noun
+angiolymphitis|noun|lymphangitis|noun
+angiotensin amide|noun|hypertensin|noun
+angiotensinogen|noun|hypertensinogen|noun
+angiotrophic|adj|vascular nutrition|noun
+anhydrohydroxyprogesterone|noun|ethisterone|noun
+anhydron|noun|cyclothiazide|noun
+anileridine|noun|leritine|noun
+animal life|noun|zoic|adj
+animal physiology|noun|zoodynamic|adj
+anisindione|noun|miradon|noun
+anisotropine methylbromide|noun|valpin|noun
+anlage|noun|primordium|noun
+anociassociation|noun|anocithesia|noun
+anocithesia|noun|anociassociation|noun
+anophthalmia|noun|anophthalmos|noun
+anophthalmos|noun|anophthalmia|noun
+ansolysen|noun|pentolinium tartrate|noun
+anspor|noun|cephradine|noun
+antabuse|noun|disulfiram|noun
+antaphrodisiac|adj|anterotic|adj
+antazoline|noun|antistine|noun
+antazoline|noun|imidamine|noun
+antepartal|adj|antepartum|adj
+antepartum|adj|antepartal|adj
+antergan|noun|phenbenzamine|noun
+anterotic|adj|antaphrodisiac|adj
+anthelmintic|adj|helminthagogue|adj
+anthiomaline|noun|antimony lithium thiomalate|noun
+anthra-derm|noun|anthralin|noun
+anthralin|noun|anthra-derm|noun
+anthralin|noun|dithranol|noun
+anthrax|noun|rag-sorter's disease|noun
+anthropophilic|adj|androphile|adj
+anthropophilic|adj|androphilous|adj
+anticariogenic|adj|anticarious|adj
+anticarious|adj|anticariogenic|adj
+antidotal|adj|antidotic|adj
+antidotic|adj|antidotal|adj
+antiedematous|adj|antiedemic|adj
+antiedemic|adj|antiedematous|adj
+antifebrile|adj|antipyretic|adj
+antifebrile|adj|antipyretic|noun
+antiketogenic|adj|antiketoplastic|adj
+antiketoplastic|adj|antiketogenic|adj
+antilirium|noun|physostigmine salicylate|noun
+antiluetic|adj|antisyphilitic|adj
+antiminth|noun|pyrantel pamoate|noun
+antimony lithium thiomalate|noun|anthiomaline|noun
+antipellagra factor|noun|niacin|noun
+antipsychotic|adj|neuroleptic|adj
+antipyretic|adj|antifebrile|adj
+antipyretic|adj|antithermic|adj
+antipyretic|noun|antifebrile|adj
+antipyrine|noun|analgesine|noun
+antipyrine|noun|phenazone|noun
+antiscabietic|adj|antiscabious|adj
+antiscabious|adj|antiscabietic|adj
+antistine|noun|antazoline|noun
+antisyphilitic|adj|antiluetic|adj
+antithermic|adj|antipyretic|adj
+antrenyl|noun|oxyphenonium|noun
+antrypol|noun|suramin sodium|noun
+anturane|noun|sulfinpyrazone|noun
+anucleated|adj|denucleated|adj
+apamide|noun|acetaminophen|noun
+apazone|noun|azapropazone|noun
+apex|noun|acral|adj
+apolegamic|adj|selection|noun
+appendicitis|noun|ecphyaditis|noun
+apposition|noun|juxtaposition|noun
+approximate|verb|coapt|verb
+apresoline|noun|hydralazine|noun
+aprobarbital|noun|alurate|noun
+aquacare|noun|urea|noun
+aquamephyton|noun|phytonadione|noun
+aquatag|noun|benzthiazide|noun
+aquatensen|noun|methyclothiazide|noun
+aqueous humor|noun|hydatoid|adj
+aquex|noun|clopamide|noun
+arabinosylcytosine|noun|cytarabine|noun
+arachnitis|noun|arachnoiditis|noun
+arachnoiditis|noun|arachnitis|noun
+aralen|noun|chloroquine|noun
+aramine|noun|metaraminol|noun
+arboreal|adj|tree|noun
+archenteron|noun|coelenteron|noun
+archenteron|noun|primitive gut|noun
+areometric|adj|hydrometry|noun
+arfonad|noun|trimethaphan camsylate|noun
+argyria|noun|argyrosis|noun
+argyric|adj|silver|noun
+argyrosis|noun|argyria|noun
+aristogel|noun|triamcinolone acetonide|noun
+aristospan|noun|triamcinolone hexacetonide|noun
+arlidin|noun|nylidrin hydrochloride|noun
+arm|noun|brachial|adj
+arrest|verb|inhibit|verb
+arsenic|noun|arsenum|noun
+arsenum|noun|arsenic|noun
+artane|noun|trihexyphenidyl|noun
+arteriolar sclerosis|noun|arteriolosclerosis|noun
+arteriolosclerosis|noun|arteriolar sclerosis|noun
+arteriosclerosis|noun|vascular sclerosis|noun
+arthral|adj|joint|noun
+arthritic|adj|gout|noun
+arthrodesis|noun|artificial ankylosis|noun
+arthromeningitis|noun|synovitis|noun
+arthropan|noun|choline salicylate|noun
+articular|adj|joint|noun
+articulatory|adj|utterance|noun
+artificial ankylosis|noun|arthrodesis|noun
+ascariasis|noun|ascaridiasis|noun
+ascaridiasis|noun|ascariasis|noun
+ascorbic acid|noun|cecon|noun
+ascorbic acid|noun|cenolate|noun
+ascorbic acid|noun|cevalin|noun
+ascorbic acid|noun|cevex|noun
+asphyxiation|noun|suffocation|noun
+aspirin|noun|a.s.a.|noun
+aspirin|noun|ecotrin|noun
+asterol|noun|diamthazole dihydrochloride|noun
+asthmatic|adj|phthisicky|adj
+astrafer|noun|dextriferron|noun
+astrocytic glioma|noun|astrocytoma|noun
+astrocytoma|noun|astrocytic glioma|noun
+atabrine|noun|quinacrine hydrochloride|noun
+atarax|noun|hydroxyzine hydrochloride|noun
+ataxaphasia|noun|ataxiaphasia|noun
+ataxiaphasia|noun|ataxaphasia|noun
+atopic disease|noun|atopy|noun
+atopy|noun|atopic disease|noun
+atromid-s|noun|clofibrate|noun
+atropine sulfate|noun|atropisol|noun
+atropisol|noun|atropine sulfate|noun
+audile|adj|hearing|noun
+auditory area|noun|auditory center|noun
+auditory area|noun|auditory cortex|noun
+auditory center|noun|auditory area|noun
+auditory cortex|noun|auditory area|noun
+aural|adj|ear|noun
+aureomycin|noun|crystalline chlortetracycline hydrochloride|noun
+auricularis|adj|ear|noun
+aurothioglucose|noun|solganal|noun
+autism|noun|autistic thinking|noun
+autistic thinking|noun|autism|noun
+autograft|noun|autotransplant|verb
+autoploid|adj|autopolyploid|adj
+autopolyploid|adj|autoploid|adj
+autopsychic|adj|self-consciousness|noun
+autoradiography|noun|radioautography|noun
+autotransplant|verb|autograft|noun
+aventyl|noun|nortriptyline hydrochloride|noun
+avertin|noun|tribromoethanol|noun
+avlosulfon|noun|dapsone|noun
+axis-cylinder process|noun|axon|noun
+axon|noun|axis-cylinder process|noun
+axon|noun|band of remak|noun
+azapetine phosphate|noun|ilidar|noun
+azapropazone|noun|apazone|noun
+azathioprine|noun|imuran|noun
+azolid|noun|phenylbutazone|noun
+azul|noun|pinta|noun
+azulfidine|noun|sulfasalazine|noun
+baciguent|noun|bacitracin|noun
+bacillary necrosis|noun|necrobacillosis|noun
+bacitracin|noun|baciguent|noun
+back|noun|dorsal|adj
+back|noun|tergal|adj
+baclofen|noun|lioresal|noun
+bacteriophage|noun|phage|noun
+bactocill|noun|oxacillin sodium|noun
+baculovirus|noun|granulosis virus|noun
+ballistic|adj|projectile|noun
+band of remak|noun|axon|noun
+banthine|noun|methantheline bromide|noun
+bark|noun|cascara|noun
+bark|noun|cortical|adj
+basaljel|noun|basic aluminum carbonate gel|noun
+base|noun|fundamental|adj
+basiarachnitis|noun|basiarachnoiditis|noun
+basiarachnoiditis|noun|basiarachnitis|noun
+basic aluminum carbonate gel|noun|basaljel|noun
+beauty|noun|aesthetic|adj
+beauty|noun|esthetic|adj
+bechic|adj|cough|noun
+belly|noun|ventral|adj
+bemegride|noun|megimide|noun
+bemegride|noun|mikedimide|noun
+benadryl|noun|diphenhydramine hydrochloride|noun
+bendrofluazide|noun|bendroflumethiazide|noun
+bendroflumethiazide|noun|bendrofluazide|noun
+bendroflumethiazide|noun|naturetin|noun
+bendylate|noun|diphenhydramine hydrochloride|noun
+benemid|noun|probenecid|noun
+benign|adj|benignant|adj
+benignant|adj|benign|adj
+benisone|noun|betamethasone benzoate|noun
+benoquin|noun|monobenzone|noun
+benoxinate hydrochloride|noun|dorsacaine|noun
+benoxyl|noun|benzoyl peroxide|noun
+bentyl|noun|dicyclomine hydrochloride|noun
+benzalkonium|noun|zephiran|noun
+benzedrex|noun|a propylhexedrine inhaler|noun
+benzedrine|noun|amphetamine sulfate|noun
+benzene|noun|benzol|noun
+benzenesulfonate|noun|besylate|noun
+benzethonium|noun|phemerol|noun
+benzocaine|noun|americaine|noun
+benzocaine|noun|anesthesin|noun
+benzol|noun|benzene|noun
+benzonatate|noun|tessalon|noun
+benzopropyl|noun|amydricaine|noun
+benzothiadiazine|noun|thiazide|noun
+benzoyl peroxide|noun|benoxyl|noun
+benzphetamine hydrochloride|noun|didrex|noun
+benzthiazide|noun|aquatag|noun
+benzthiazide|noun|exna|noun
+benztropine mesylate|noun|cogentin|noun
+beriberi|noun|dietetic neuritis|noun
+beriberi|noun|endemic neuritis|noun
+beriberi|noun|rice disease|noun
+berubigen|noun|cyanocobalamin|noun
+besylate|noun|benzenesulfonate|noun
+beta-chlor|noun|chloral betaine|noun
+beta-hypophamine|noun|vasopressin|noun
+betadine|noun|povidone-iodine|noun
+betaine|noun|lycine|noun
+betaine|noun|oxyneurine|noun
+betaine hydrochloride|noun|acidol|noun
+betamethasone|noun|celestone|noun
+betamethasone benzoate|noun|benisone|noun
+betamethasone benzoate|noun|flurobate|noun
+betamethasone dipropionate|noun|diprosone|noun
+betamethasone valerate|noun|valisone|noun
+betapar|noun|meprednisone|noun
+betapen-vk|noun|penicillin v potassium|noun
+betaprone|noun|propiolactone|noun
+betaxin|noun|thiamine hydrochloride|noun
+betazole|noun|histalog|noun
+bethanechol chloride|noun|urecholine|noun
+bevidox|noun|vitamin b12|noun
+bicillin|noun|penicillin g benzathine|noun
+bile|noun|choleic|adj
+bilharzial|adj|schistosoma|noun
+bilharziasis|noun|schistosomiasis|noun
+bilopaque|noun|tyropanoate sodium|noun
+binuclear|adj|binucleate|adj
+binucleate|adj|binuclear|adj
+bio-des|noun|diethylstilbestrol|noun
+bioassay|noun|biological assay|noun
+biochemical|adj|chemicobiological|adj
+biological assay|noun|bioassay|noun
+biotic|adj|life|noun
+biotin|noun|factor s|noun
+biotin|noun|vitamin h|noun
+biperiden|noun|akineton|noun
+birth|noun|genetic|adj
+birth|noun|natal|adj
+bisacodyl tannex|noun|clysodrast|noun
+bishydroxycoumarin|noun|dicumarol|noun
+bladder|noun|vesical|adj
+blandlube|noun|mineral oil|noun
+bleach|verb|decolorize|verb
+bleed|verb|phlebotomize|verb
+blenoxane|noun|bleomycin sulfate|noun
+bleomycin sulfate|noun|blenoxane|noun
+bleph|noun|sulfacetamide sodium|noun
+blepharadenitis|noun|blepharoadenitis|noun
+blepharal|adj|eyelid|noun
+blepharitis|noun|palpebritis|noun
+blepharoadenitis|noun|blepharadenitis|noun
+blind headache|noun|migraine|noun
+blockain|noun|propoxycaine hydrochloride|noun
+blood|noun|hemal|adj
+blood|noun|hematal|adj
+blood|noun|hematic|adj
+blood|noun|hemic|adj
+blood|noun|sanguineous|adj
+blood platelet|noun|platelet|noun
+blood vessel|noun|hemal|adj
+blood vessel|noun|hematal|adj
+blood vessel|noun|vascular|adj
+bloodless|adj|exsanguine|adj
+blutene|noun|tolonium|noun
+body|noun|corporeal|adj
+boil|noun|fununcular|adj
+boil|noun|furuncle|noun
+bonine|noun|meclizine hydrochloride|noun
+botanic|adj|plant|noun
+bovine|adj|cattle|noun
+brachial|adj|arm|noun
+brachymorphic|adj|brachytypical|adj
+brachymorphic|adj|brevilineal|adj
+brachytypical|adj|brachymorphic|adj
+bradycardiac|adj|bradycardic|adj
+bradycardic|adj|bradycardiac|adj
+branch|noun|ramal|adj
+brash|adj|heartburn|noun
+breast|noun|mammary|adj
+breast|noun|pectoral|adj
+brethine|noun|terbutaline sulfate|noun
+brevilineal|adj|brachymorphic|adj
+brevital|noun|methohexital sodium|noun
+bricanyl|noun|terbutaline sulfate|noun
+bristacycline|noun|tetracycline hydrochloride|noun
+bristamin|noun|phenyltoloxamine|noun
+bromelains|noun|ananase|noun
+bromisovalum|noun|bromural|noun
+bromodiphenhydramine hydrochloride|noun|ambodryl|noun
+brompheniramine maleate|noun|dimetane|noun
+bromsulphalein|noun|bsp|noun
+bromsulphalein|noun|sulfobromophthalein sodium|noun
+bromural|noun|bromisovalum|noun
+bronchadenitis|noun|bronchoadenitis|noun
+bronchial pneumonia|noun|bronchopneumonia|noun
+bronchiolitis|noun|bronchopneumonia|noun
+bronchoadenitis|noun|bronchadenitis|noun
+bronchoalveolitis|noun|bronchopneumonia|noun
+bronchopneumonia|noun|bronchial pneumonia|noun
+bronchopneumonia|noun|bronchiolitis|noun
+bronchopneumonia|noun|bronchoalveolitis|noun
+bronchopneumonia|noun|bronchopneumonitis|noun
+bronchopneumonia|noun|capillary bronchitis|noun
+bronchopneumonia|noun|catarrhal pneumonia|noun
+bronchopneumonia|noun|lobular pneumonia|noun
+bronchopneumonia|noun|vesicular bronchiolitis|noun
+bronchopneumonitis|noun|bronchopneumonia|noun
+broxolin|noun|glycobiarsol|noun
+brucellosis|noun|undulant fever|noun
+bruise|verb|contund|verb
+bruise|verb|contuse|verb
+bsp|noun|bromsulphalein|noun
+buccal|adj|cheek|noun
+buccoaxiocervical|adj|buccoaxiogingival|adj
+buccoaxiogingival|adj|buccoaxiocervical|adj
+buccocervical|adj|cervicobuccal|adj
+bulbar|adj|medulla oblongata|noun
+bulbourethral|adj|bulbus penis|noun
+bulbus penis|noun|bulbourethral|adj
+bunamiodyl|noun|orabilex|noun
+bupivacaine hydrochloride|noun|marcaine|noun
+bursal synovitis|noun|bursitis|noun
+bursitis|noun|bursal synovitis|noun
+busulfan|noun|myleran|noun
+butacaine sulfate|noun|butyn|noun
+butaperazine|noun|repoise|noun
+butazolidin|noun|phenylbutazone|noun
+butesin|noun|butyl aminobenzoate|noun
+butisol sodium|noun|sodium butabarbital|noun
+buttock|noun|cluneal|adj
+buttock|noun|gluteal|adj
+buttock|noun|pygal|adj
+buttocks|noun|cluneal|adj
+buttocks|noun|gluteal|adj
+buttocks|noun|pygal|adj
+butyl aminobenzoate|noun|butesin|noun
+butyn|noun|butacaine sulfate|noun
+byssinosis|noun|cotton-dust asthma|noun
+calcemia|noun|hypercalcemia|noun
+calcic|adj|lime|noun
+calcimar|noun|salmon calcitonin|noun
+calcinosis|noun|calcium thesaurismosis|noun
+calcinosis|noun|exudative calcifying fasciitis|noun
+calcitonin|noun|thyrocalcitonin|noun
+calcium disodium versenate|noun|edetate calcium disodium|noun
+calcium glubionate|noun|neo-calglucon|noun
+calcium pantothenate|noun|pantholin|noun
+calcium thesaurismosis|noun|calcinosis|noun
+calculosis|noun|lithiasis|noun
+calculus|noun|lithous|adj
+calf|noun|sural|adj
+calomel|noun|mercurous chloride|noun
+caloritropic|adj|thermotropic|adj
+calurin|noun|carbaspirin calcium|noun
+cambogia|noun|gamboge|noun
+cambogia|noun|gutti|noun
+camoquin|noun|amodiaquine hydrochloride|noun
+camphorsulfonate|noun|camsylate|noun
+camsylate|noun|camphorsulfonate|noun
+cancer|noun|carcinomatous|adj
+candeptin|noun|candicidin|noun
+candicidin|noun|candeptin|noun
+candidiasis|noun|candidosis|noun
+candidiasis|noun|mycodermatitis|noun
+candidosis|noun|candidiasis|noun
+cannulation|noun|cannulization|noun
+cannulization|noun|cannulation|noun
+cantil|noun|mepenzolate bromide|noun
+capastat|noun|capreomycin sulfate|noun
+capillary bronchitis|noun|bronchopneumonia|noun
+capitrol|noun|chloroxine|noun
+capla|noun|mebutamate|noun
+capnophilic|adj|carbophilic|adj
+caponize|verb|castrate|verb
+capreomycin sulfate|noun|capastat|noun
+capsicum|noun|cayenne pepper|noun
+caramiphen hydrochloride|noun|parpanit|noun
+carate|noun|pinta|noun
+carbachol|noun|carbocholine|noun
+carbamazepine|noun|tegretol|noun
+carbaspirin calcium|noun|calurin|noun
+carbazochrome salicylate|noun|adrenosem|noun
+carbenicillin disodium|noun|geopen|noun
+carbenicillin disodium|noun|pyopen|noun
+carbetapentane citrate|noun|toclase|noun
+carbinoxamine maleate|noun|clistin|noun
+carbo|noun|charcoal|noun
+carbocaine|noun|mepivacaine hydrochloride|noun
+carbocholine|noun|carbachol|noun
+carbon dioxide snow|noun|dry ice|noun
+carbophilic|adj|capnophilic|adj
+carcinomatous|adj|cancer|noun
+cardilate|noun|erythrityl tetranitrate|noun
+cardio-green|noun|indocyanine green|noun
+cardiografin|noun|meglumine diatrizoate injection|noun
+cardioquin|noun|quinidine polygalacturonate|noun
+cardrase|noun|ethoxzolamide|noun
+carious osteitis|noun|osteomyelitis|noun
+carisoprodol|noun|soma|noun
+carota|noun|carrot|noun
+carotic|adj|stupor|noun
+carpal|adj|wrist|noun
+carphenazine maleate|noun|proketazine|noun
+carrot|noun|carota|noun
+cartilage|noun|chondral|adj
+cartilage|noun|chondroitic|adj
+cartilage|noun|chondromatous|adj
+cascara|noun|bark|noun
+castor oil|noun|neoloid|noun
+castrate|verb|alter|verb
+castrate|verb|caponize|verb
+castrate|verb|desexualize|verb
+cat|noun|feline|adj
+catamenial|adj|menses|noun
+catamenial|adj|menstruation|noun
+catapres|noun|clonidine hydrochloride|noun
+cataract|noun|cataracta|noun
+cataracta|noun|cataract|noun
+catarrhal pneumonia|noun|bronchopneumonia|noun
+catechin|noun|catechuic acid|noun
+catechuic acid|noun|catechin|noun
+cathartic|noun|copragogue|noun
+cathomycin|noun|novobiocin|noun
+cattle|noun|bovine|adj
+caudalis|adj|tail|noun
+causative|adj|etiogenic|adj
+cavernitis|noun|cavernositis|noun
+cavernitis|noun|serangitis|noun
+cavernositis|noun|cavernitis|noun
+cavitary myelitis|noun|syringomyelitis|noun
+cayenne pepper|noun|capsicum|noun
+caytine|noun|protokylol hydrochloride|noun
+cecitis|noun|typhlenteritis|noun
+cecitis|noun|typhloenteritis|noun
+cecitis|noun|typhloteritis|noun
+cecocentral|adj|centrocecal|adj
+cecon|noun|ascorbic acid|noun
+cecoptosis|noun|typhloptosis|noun
+cedilanid|noun|lanatoside c|noun
+cedilanid-d|noun|deslanoside|noun
+cefadyl|noun|cephapirin sodium|noun
+cefazolin sodium|noun|kefzol|noun
+celbenin|noun|sodium methicillin|noun
+celestone|noun|betamethasone|noun
+celiac|adj|abdomen|noun
+cellase 1000|noun|cellulase|noun
+cellifugal|adj|cellulifugal|adj
+cellipetal|adj|cellulipetal|adj
+cellulase|noun|cellase 1000|noun
+cellulifugal|adj|cellifugal|adj
+cellulipetal|adj|cellipetal|adj
+celontin|noun|methsuximide|noun
+cementoperiostitis|noun|periodontitis|noun
+cementum hyperplasia|noun|hypercementosis|noun
+cenolate|noun|ascorbic acid|noun
+central osteitis|noun|endosteitis|noun
+centrifugalization|noun|centrifugation|noun
+centrifugation|noun|centrifugalization|noun
+centro-osteosclerosis|noun|centrosclerosis|noun
+centrocecal|adj|cecocentral|adj
+centrosclerosis|noun|centro-osteosclerosis|noun
+cephalalgia|noun|cephalgia|noun
+cephalexin|noun|keflex|noun
+cephalgia|noun|cephalalgia|noun
+cephalhematoma|noun|cephalohematoma|noun
+cephalic|adj|head|noun
+cephalitis|noun|encephalitis|noun
+cephaloglycin|noun|kafocin|noun
+cephalohematoma|noun|cephalhematoma|noun
+cephalometrics|noun|cephalometry|noun
+cephalometry|noun|cephalometrics|noun
+cephaloridine|noun|loridine|noun
+cephalothin sodium|noun|keflin|noun
+cephapirin sodium|noun|cefadyl|noun
+cephradine|noun|anspor|noun
+cephradine|noun|velosef|noun
+cerebellifugal|adj|cerebellofugal|adj
+cerebellofugal|adj|cerebellifugal|adj
+cerebromeningitis|noun|meningoencephalitis|noun
+cervical|adj|neck|noun
+cervicitis|noun|trachelitis|noun
+cervicobuccal|adj|buccocervical|adj
+cervicolabial|adj|labiocervical|adj
+cervicolingual|adj|linguocervical|adj
+cervilaxin|noun|relaxin|noun
+cevalin|noun|ascorbic acid|noun
+cevalin|noun|vitamin c|noun
+cevex|noun|ascorbic acid|noun
+cevex|noun|vitamin c|noun
+cg|noun|indocyanine green|noun
+ch3nhc6h4oh.h2so4|noun|metol|noun
+chafing|noun|paratriptic|adj
+chance|noun|fortuitous|adj
+chancroid|noun|soft chancre|noun
+charcoal|noun|carbo|noun
+chartaceous|adj|papyraceous|adj
+cheek|noun|buccal|adj
+cheek|noun|genal|adj
+cheek|noun|jugal|adj
+cheek|noun|malar|adj
+cheek bone|noun|malar|adj
+cheirobrachialgia|noun|chirobrachialgia|noun
+cheiropodalgia|noun|chiropodalgia|noun
+chel-iron|noun|ferrocholinate|noun
+chemicobiological|adj|biochemical|adj
+chemodectoma|noun|nonchromaffin paraganglioma|noun
+chest|noun|pectoral|adj
+chest|noun|thoracic|adj
+chiasmal|adj|chiasmatic|adj
+chiasmatic|adj|chiasmal|adj
+chickenpox|noun|varicella|noun
+childbirth|noun|parturient|adj
+childhood|noun|puerile|adj
+chin|noun|genial|adj
+chin|noun|genian|adj
+chirobrachialgia|noun|cheirobrachialgia|noun
+chiropodalgia|noun|cheiropodalgia|noun
+chiropodist|noun|podiatrist|noun
+chiropody|noun|podiatry|noun
+chiropractic|noun|chiropraxis|noun
+chiropraxis|noun|chiropractic|noun
+chloasma|noun|melasma|noun
+chlophedianol hydrochloride|noun|ulo|noun
+chlor-trimeton|noun|chlorpheniramine maleate|noun
+chloral betaine|noun|beta-chlor|noun
+chloral hydrate|noun|felsules|noun
+chloral hydrate|noun|noctec|noun
+chloral hydrate|noun|rectules|noun
+chloral hydrate|noun|somnos|noun
+chlorambucil|noun|leukeran|noun
+chloramphenicol|noun|chloromycetin|noun
+chloramphenicol|noun|chloroptic|noun
+chloramphenicol|noun|ophthochlor|noun
+chlorbutol|noun|chlorobutanol|noun
+chlorcyclizine hydrochloride|noun|perazil|noun
+chlordan|noun|chlordane|noun
+chlordane|noun|chlordan|noun
+chlordiazepoxide hydrochloride|noun|librium|noun
+chloretone|noun|chlorobutanol|noun
+chlormethazanone|noun|chlormezanone|noun
+chlormezanone|noun|chlormethazanone|noun
+chlormezanone|noun|trancopal|noun
+chlorobutanol|noun|chlorbutol|noun
+chlorobutanol|noun|chloretone|noun
+chloroma|noun|chloromatous sarcoma|noun
+chloroma|noun|granulocytic sarcoma|noun
+chloromatous sarcoma|noun|chloroma|noun
+chloromycetin|noun|chloramphenicol|noun
+chloroprocaine hydrochloride|noun|nesacaine|noun
+chloroptic|noun|chloramphenicol|noun
+chloroquine|noun|aralen|noun
+chlorosis|noun|chlorotic anemia|noun
+chlorothiazide|noun|diuril|noun
+chlorotic anemia|noun|chlorosis|noun
+chlorotrianisene|noun|tace|noun
+chloroxine|noun|capitrol|noun
+chlorphenesin carbamate|noun|maolate|noun
+chlorpheniramine|noun|chlorprophenpyridamine|noun
+chlorpheniramine maleate|noun|chlor-trimeton|noun
+chlorpheniramine maleate|noun|histaspan|noun
+chlorpheniramine maleate|noun|teldrin|noun
+chlorphenoxamine hydrochloride|noun|phenoxene|noun
+chlorpromazine hydrochloride|noun|thorazine|noun
+chlorpropamide|noun|diabinese|noun
+chlorprophenpyridamine|noun|chlorpheniramine|noun
+chlorprothixene|noun|taractan|noun
+chlorthalidone|noun|hygroton|noun
+chlorzoxazone|noun|paraflex|noun
+choke|verb|strangle|verb
+cholan-dh|noun|dehydrocholic acid|noun
+cholebrine|noun|iocetamic acid|noun
+cholecystagogic|adj|cholecystokinetic|adj
+cholecystenteric|adj|cholecystointestinal|adj
+cholecystogogic|adj|cholecystokinetic|adj
+cholecystointestinal|adj|cholecystenteric|adj
+cholecystokinetic|adj|cholecystagogic|adj
+cholecystokinetic|adj|cholecystogogic|adj
+choledyl|noun|oxtriphylline|noun
+choleic|adj|bile|noun
+choleriform|adj|choleroid|adj
+choleroid|adj|choleriform|adj
+cholestanol|noun|dihydrocholesterol|noun
+cholestyramine resin|noun|questran|noun
+choline magnesium trisalicylate|noun|trilisate|noun
+choline salicylate|noun|arthropan|noun
+cholinesterase|noun|pseudocholinesterase|noun
+cholografin|noun|iodipamide|noun
+cholohemothorax|noun|cholothorax|noun
+cholothorax|noun|cholohemothorax|noun
+choloxin|noun|dextrothyroxine sodium|noun
+chondral|adj|cartilage|noun
+chondrodysplasia|noun|enchondromatosis|noun
+chondroitic|adj|cartilage|noun
+chondromatous|adj|cartilage|noun
+chondrosteoma|noun|osteochondroma|noun
+chordocarcinoma|noun|chordoma|noun
+chordoma|noun|chordocarcinoma|noun
+choriocarcinoma|noun|chorioepithelioma|noun
+choriocarcinoma|noun|chorionepithelioma|noun
+choriocarcinoma|noun|deciduocellular sarcoma|noun
+chorioepithelioma|noun|choriocarcinoma|noun
+chorionepithelioma|noun|choriocarcinoma|noun
+chorionic gonadotropin|noun|follutein|noun
+chromatic|adj|color|noun
+chromatographic analysis|noun|chromatography|noun
+chromatography|noun|chromatographic analysis|noun
+chromoblastomycosis|noun|chromomycosis|noun
+chromomycosis|noun|chromoblastomycosis|noun
+chromophilic|adj|chromophilous|adj
+chromophilous|adj|chromophilic|adj
+chromophore|noun|color radical|noun
+chymar|noun|chymotrypsin|noun
+chymosin|noun|rennin|noun
+chymotrypsin|noun|alpha chymar|noun
+chymotrypsin|noun|chymar|noun
+cibarian|adj|food|noun
+cicatrization|noun|epulotic|adj
+cidex|noun|glutaraldehyde|noun
+ciliary|adj|eyelash|noun
+ciliary|adj|eyelashes|noun
+cimetidine|noun|tagamet|noun
+cinefluorography|noun|cineradiography|noun
+cinematography|noun|cineradiography|noun
+cineradiography|noun|cinefluorography|noun
+cineradiography|noun|cinematography|noun
+cinoxate|noun|sundare|noun
+circling disease|noun|listeriosis|noun
+cisplatin|noun|platinum diamminodichloride|noun
+citanest|noun|prilocaine hydrochloride|noun
+clap|noun|gonorrhea|noun
+clavacin|noun|patulin|noun
+clavicle|noun|cleidal|adj
+cleanse|verb|depurate|verb
+cleidal|adj|clavicle|noun
+clemizole hydrochloride|noun|reactrol|noun
+cleocin|noun|clindamycin|noun
+clidinium bromide|noun|quarzan|noun
+clindamycin|noun|cleocin|noun
+clistin|noun|carbinoxamine maleate|noun
+clitoriditis|noun|clitoritis|noun
+clitoritis|noun|clitoriditis|noun
+clofibrate|noun|atromid-s|noun
+clomid|noun|clomiphene citrate|noun
+clomiphene citrate|noun|clomid|noun
+clonazepam|noun|clonopin|noun
+clonidine hydrochloride|noun|catapres|noun
+clonopin|noun|clonazepam|noun
+clopamide|noun|aquex|noun
+clopane|noun|cyclopentamine hydrochloride|noun
+clorazepate dipotassium|noun|tranxene|noun
+clorpactin xcb|noun|oxychlorosene|noun
+clortermine hydrochloride|noun|voranil|noun
+closure|noun|occlusal|adj
+closylate|noun|p-chlorobenzesulfonate|noun
+clotrimazole|noun|lotrimin|noun
+cloxacillin sodium|noun|tegopen|noun
+clubfooted|adj|talipedic|adj
+cluneal|adj|buttock|noun
+cluneal|adj|buttocks|noun
+clysodrast|noun|bisacodyl tannex|noun
+cnemial|adj|shin|noun
+coal-tar disinfectant|noun|creosote|noun
+coapt|verb|approximate|verb
+coccidioidal granuloma|noun|coccidioidomycosis|noun
+coccidioidomycosis|noun|coccidioidal granuloma|noun
+coccyalgia|noun|coccygodynia|noun
+coccygalgia|noun|coccygodynia|noun
+coccygodynia|noun|coccyalgia|noun
+coccygodynia|noun|coccygalgia|noun
+coctostabile|adj|coctostable|adj
+coctostable|adj|coctostabile|adj
+coelenteron|noun|archenteron|noun
+cogentin|noun|benztropine mesylate|noun
+cognition|noun|noetic|adj
+coition|noun|coitus|noun
+coitus|noun|coition|noun
+coitus|noun|sexual intercourse|noun
+colace|noun|docusate sodium|noun
+colic|adj|colica|noun
+colic|noun|trominal|adj
+colica|noun|colic|adj
+colistimethate sodium|noun|coly-mycin m|noun
+colistin sulfate|noun|coly-mycin s|noun
+colitis|noun|colonitis|noun
+collodion cotton|noun|pyroxylin|noun
+coloenteritis|noun|enterocolitis|noun
+cologel|noun|methylcellulose|noun
+coloileal|adj|ileocolic|adj
+colonitis|noun|colitis|noun
+colonization|noun|innidiation|noun
+colonoscopy|noun|coloscopy|noun
+coloproctitis|noun|colorectitis|noun
+coloproctitis|noun|proctocolitis|noun
+coloproctitis|noun|rectocolitis|noun
+color|noun|chromatic|adj
+color radical|noun|chromophore|noun
+colorectitis|noun|coloproctitis|noun
+coloscopy|noun|colonoscopy|noun
+coly-mycin m|noun|colistimethate sodium|noun
+coly-mycin s|noun|colistin sulfate|noun
+compazine|noun|prochlorperazine maleate|noun
+complemental|adj|complementary|adj
+complementary|adj|complemental|adj
+compocillin-vk|noun|penicillin v potassium|noun
+compound b|noun|corticosterone|noun
+compound e|noun|cortisone|noun
+compound f|noun|cortisol|noun
+condition|verb|train|verb
+conestron|noun|conjugated estrogen|noun
+congenital myxedema|noun|cretinism|noun
+conic|adj|conical|adj
+conical|adj|conic|adj
+conjugated estrogen|noun|conestron|noun
+conjugated estrogen|noun|premarin|noun
+conjugated estrogens|noun|premarin|noun
+conjunctivitis|noun|synaphymenitis|noun
+conray|noun|iothalamate meglumine|noun
+contund|verb|bruise|verb
+contuse|verb|bruise|verb
+convergent strabismus|noun|esotropia|noun
+convulsant|adj|convulsivant|adj
+convulsant|noun|convulsivant|noun
+convulsivant|adj|convulsant|adj
+convulsivant|noun|convulsant|noun
+copragogue|noun|cathartic|noun
+coramine|noun|nikethamide|noun
+cordran|noun|flurandrenolide|noun
+cornea|noun|keratic|adj
+corporal|adj|corporeal|adj
+corporeal|adj|body|noun
+corporeal|adj|corporal|adj
+corpus luteum hormone|noun|progesterone|noun
+cort-dome|noun|hydrocortisone|noun
+cortate|noun|desoxycorticosterone acetate|noun
+cortef|noun|hydrocortisone|noun
+cortenema|noun|hydrocortisone|noun
+cortexone|noun|desoxycorticosterone|noun
+cortical|adj|bark|noun
+cortical osteitis|noun|periostitis|noun
+corticospinal|adj|spinocortical|adj
+corticosterone|noun|compound b|noun
+corticotropin|noun|acthar|noun
+corticotropin|noun|cortrophin|noun
+cortisol|noun|compound f|noun
+cortisone|noun|compound e|noun
+cortisone acetate|noun|cortone|noun
+cortone|noun|cortisone acetate|noun
+cortril|noun|hydrocortisone|noun
+cortrophin|noun|corticotropin|noun
+cortrosyn|noun|cosyntropin|noun
+coryza virus|noun|rhinovirus|noun
+cosmegen|noun|dactinomycin|noun
+cosmic|adj|universe|noun
+costal|adj|rib|noun
+costotransverse|adj|transversocostal|adj
+cosyntropin|noun|cortrosyn|noun
+cotazym|noun|pancrelipase|noun
+cotton-dust asthma|noun|byssinosis|noun
+cough|noun|bechic|adj
+cough|noun|tussal|adj
+cough|noun|tussive|adj
+coumadin|noun|sodium warfarin|noun
+counterimmunoelectrophoresis|noun|immunoelectrophoresis|noun
+covering disease|noun|dourine|noun
+cowpox|noun|vaccinial|adj
+craniopharyngioma|noun|suprasellar cyst|noun
+craniotympanic|adj|osteotympanic|adj
+creamalin|noun|aluminum hydroxide gel|noun
+creatine phosphate|noun|phosphocreatine|noun
+creosote|noun|coal-tar disinfectant|noun
+crest|noun|cristal|adj
+cretinism|noun|congenital myxedema|noun
+cristal|adj|crest|noun
+cromolyn sodium|noun|aarane|noun
+cromolyn sodium|noun|intal|noun
+cross|noun|crux|noun
+cross-eye|noun|esotropia|noun
+crotamiton|noun|eurax|noun
+crural|adj|leg|noun
+crux|noun|cross|noun
+cry|verb|weep|verb
+crymophilic|adj|psychrophilic|adj
+cryophilic|adj|psychrophilic|adj
+cryptococcosis|noun|torulosis|noun
+crystalline chlortetracycline hydrochloride|noun|aureomycin|noun
+crystalline digitoxin|noun|purodigin|noun
+crystalline lens|noun|lenticular|adj
+crystallitis|noun|phakitis|noun
+crystalloiditis|noun|phakitis|noun
+crysticillin|noun|penicillin g procaine|noun
+crystodigin|noun|digitoxin|noun
+cubital|adj|elbow|noun
+cubital|adj|forearm|noun
+cubital|adj|ulna|noun
+cuprimine|noun|penicillamine|noun
+cutaneous|adj|skin|noun
+cyanocobalamin|noun|berubigen|noun
+cyanocobalamin|noun|sytobex|noun
+cyantin|noun|nitrofurantoin|noun
+cyclaine|noun|hexylcaine hydrochloride|noun
+cyclamycin|noun|troleandomycin|noun
+cyclandelate|noun|cyclospasmol|noun
+cyclizine hydrochloride|noun|marezine|noun
+cyclobarbital|noun|phanodorn|noun
+cycloceratitis|noun|cyclokeratitis|noun
+cyclogyl|noun|cyclopentolate hydrochloride|noun
+cycloheximide|noun|actidione|noun
+cyclokeratitis|noun|cycloceratitis|noun
+cyclomethycaine|noun|surfacaine|noun
+cyclopentamine hydrochloride|noun|clopane|noun
+cyclopentanepropionate|noun|cypionate|noun
+cyclopentolate hydrochloride|noun|cyclogyl|noun
+cyclophosphamide|noun|cytoxan|noun
+cyclophosphamide|noun|endoxan|noun
+cycloserine|noun|seromycin|noun
+cyclospasmol|noun|cyclandelate|noun
+cyclotate|noun|4-methylbicyclo-[2.2.2]oct-2-ene-1-carboxylate|noun
+cyclothiazide|noun|anhydron|noun
+cycrimine hydrochloride|noun|pagitane|noun
+cylindrical|adj|cylindriform|adj
+cylindriform|adj|cylindrical|adj
+cymbocephalic|adj|scaphocephalic|adj
+cymbocephalous|adj|scaphocephalic|adj
+cyophoric|adj|pregnancy|noun
+cypionate|noun|cyclopentanepropionate|noun
+cyproheptadine hydrochloride|noun|periactin|noun
+cystadenoma|noun|cystoadenoma|noun
+cystic hernia|noun|cystocele|noun
+cysto-conray|noun|iothalamate meglumine|noun
+cystoadenoma|noun|cystadenoma|noun
+cystocele|noun|cystic hernia|noun
+cystografin|noun|diatrizoate meglumine|noun
+cystospaz|noun|hyoscyamine|noun
+cytarabine|noun|arabinosylcytosine|noun
+cytarabine|noun|cytosar|noun
+cytarabine|noun|cytosine arabinoside|noun
+cytellin|noun|sitosterol|noun
+cytomegalovirus|noun|salivary gland virus|noun
+cytomel|noun|liothyronine sodium|noun
+cytophotometry|noun|microfluorometry|noun
+cytosar|noun|cytarabine|noun
+cytosine arabinoside|noun|cytarabine|noun
+cytoxan|noun|cyclophosphamide|noun
+d.h.e.45|noun|dihydroergotamine|noun
+dacarbazine|noun|dtic-dome|noun
+dactil|noun|piperiodolate hydrochloride|noun
+dactinomycin|noun|cosmegen|noun
+dagenan|noun|sulfapyridine|noun
+dalmane|noun|flurazepam hydrochloride|noun
+danilone|noun|phenindione|noun
+danthron|noun|dorbane|noun
+dapsone|noun|avlosulfon|noun
+dapsone|noun|diaminodiphenylsulfone|noun
+daranide|noun|dichlorphenamide|noun
+daraprim|noun|pyrimethamine|noun
+darbid|noun|isopropamide iodide|noun
+daricon|noun|oxyphencyclimine hydrochloride|noun
+dartal|noun|thiopropazate dihydrochloride|noun
+darvon|noun|propoxyphene hydrochloride|noun
+daze|verb|stun|verb
+dbi|noun|phenformin hydrochloride|noun
+deamidation|noun|deamidization|noun
+deamidization|noun|deamidation|noun
+deaner|noun|deanol acetamidobenzoate|noun
+deanol acetamidobenzoate|noun|deaner|noun
+debrisan|noun|dextranomer|noun
+deca-durabolin|noun|nandrolone decanoate|noun
+decaderm|noun|dexamethasone|noun
+decadron|noun|dexamethasone|noun
+decamethonium bromide|noun|syncurine|noun
+decapryn|noun|doxylamine succinate|noun
+decholin|noun|dehydrocholic acid|noun
+deciduocellular sarcoma|noun|choriocarcinoma|noun
+decigram|noun|dg|noun
+declomycin|noun|demeclocycline|noun
+decolorize|verb|bleach|verb
+deer fly disease|noun|tularemia|noun
+deferoxamine|noun|desferrioxamine|noun
+deferoxamine mesylate|noun|desferal|noun
+definate|noun|docusate sodium|noun
+degenerative arthritis|noun|osteoarthritis|noun
+degenerative joint disease|noun|osteoarthritis|noun
+degenerative nephritis|noun|nephrosis|noun
+dehydrocholic acid|noun|cholan-dh|noun
+dehydrocholic acid|noun|decholin|noun
+dehydroepiandrosterone|noun|dehydroisoandrosterone|noun
+dehydroisoandrosterone|noun|dehydroepiandrosterone|noun
+delalutin|noun|hydroxyprogesterone caproate|noun
+delatestryl|noun|testosterone enanthate|noun
+delestrogen|noun|estradiol valerate|noun
+delomorphic|adj|delomorphous|adj
+delomorphous|adj|delomorphic|adj
+delta-cortef|noun|prednisolone|noun
+deltalin|noun|synthetic vitamin d2|noun
+deltasone|noun|prednisone|noun
+deltra|noun|prednisone|noun
+delvinal|noun|vinbarbital|noun
+demecarium bromide|noun|humorsol|noun
+demeclocycline|noun|declomycin|noun
+demeclocycline|noun|demethylchlortetracycline|noun
+demerol|noun|meperidine hydrochloride|noun
+demethylchlortetracycline|noun|demeclocycline|noun
+dendrid|noun|idoxuridine|noun
+dengue|noun|dengue fever|noun
+dengue fever|noun|dengue|noun
+dental|adj|tooth|noun
+dentalgia|noun|odontalgia|noun
+denucleated|adj|anucleated|adj
+deoxycorticosterone|noun|desoxycorticosterone|noun
+depilation|noun|epilation|noun
+deplete|verb|empty|verb
+deplete|verb|unload|verb
+depo-provera|noun|medroxyprogesterone acetate|noun
+depo-testosterone|noun|testosterone|noun
+depurate|verb|cleanse|verb
+depurate|verb|purify|verb
+depurate|verb|refine|verb
+depurative|adj|pellant|adj
+derivant|adj|derivative|adj
+derivative|adj|derivant|adj
+dermal|adj|skin|noun
+dermatosclerosis|noun|scleroderma|noun
+deronil|noun|dexamethasone|noun
+deserpidine|noun|harmonyl|noun
+desexualize|verb|castrate|verb
+desferal|noun|deferoxamine mesylate|noun
+desferrioxamine|noun|deferoxamine|noun
+desiccant|adj|exsiccant|adj
+desiccant|noun|exsiccant|noun
+desipramine hydrochloride|noun|norpramin|noun
+desipramine hydrochloride|noun|pertofrane|noun
+deslanoside|noun|cedilanid-d|noun
+desonide|noun|tridesilon|noun
+desoximetasone|noun|topicort|noun
+desoxycorticosterone|noun|cortexone|noun
+desoxycorticosterone|noun|deoxycorticosterone|noun
+desoxycorticosterone|noun|desoxycortone|noun
+desoxycorticosterone|noun|percorten|noun
+desoxycorticosterone acetate|noun|cortate|noun
+desoxycorticosterone acetate|noun|doca|noun
+desoxycortone|noun|desoxycorticosterone|noun
+desoxyephedrine|noun|methamphetamine|noun
+desoxyn|noun|methamphetamine hydrochloride|noun
+desoxyphenobarbital|noun|primidone|noun
+devegan|noun|acetarsone|noun
+dexamethasone|noun|decaderm|noun
+dexamethasone|noun|decadron|noun
+dexamethasone|noun|deronil|noun
+dexamethasone|noun|gammacorten|noun
+dexamethasone|noun|hexadrol|noun
+dexbrompheniramine maleate|noun|disomer|noun
+dexchlorpheniramine maleate|noun|polaramine|noun
+dexedrine|noun|dextroamphetamine sulfate|noun
+dexoval|noun|methamphetamine hydrochloride|noun
+dexpanthenol|noun|ilopan|noun
+dextran 40|noun|rheomacrodex|noun
+dextran 70|noun|gentran|noun
+dextranomer|noun|debrisan|noun
+dextriferron|noun|astrafer|noun
+dextroamphetamine|noun|amsustain|noun
+dextroamphetamine sulfate|noun|dexedrine|noun
+dextroamphetamine sulfate|noun|diphylets|noun
+dextrogyral|adj|dextrorotatory|adj
+dextromethorphan hydrobromide|noun|romilar|noun
+dextrorotatory|adj|dextrogyral|adj
+dextrothyroxine sodium|noun|choloxin|noun
+dg|noun|decigram|noun
+diabinese|noun|chlorpropamide|noun
+diacetylmorphine|noun|diamorphine|noun
+diacetylmorphine|noun|heroin|noun
+diadol|noun|allobarbital|noun
+diafen|noun|diphenylpyraline hydrochloride|noun
+dial|noun|allobarbital|noun
+diaminodiphenylsulfone|noun|dapsone|noun
+diamorphine|noun|diacetylmorphine|noun
+diamox|noun|acetazolamide|noun
+diamthazole dihydrochloride|noun|asterol|noun
+dianabol|noun|methandrostenolone|noun
+diaparene|noun|methylbenzethonium chloride|noun
+diaphragm|noun|diaphragmatic muscle|noun
+diaphragm|noun|phrenic|adj
+diaphragmatic muscle|noun|diaphragm|noun
+diaphragmatitis|noun|diaphragmitis|noun
+diaphragmitis|noun|diaphragmatitis|noun
+diaphyseal aclasis|noun|enchondromatosis|noun
+diapid|noun|lypressin|noun
+diarthric|adj|diarticular|adj
+diarticular|adj|diarthric|adj
+diasone|noun|sulfoxone sodium|noun
+diasostic|adj|hygienic|adj
+diastase vera|noun|pancreatin|noun
+diatrizoate meglumine|noun|cystografin|noun
+diazepam|noun|valium|noun
+diazoxide|noun|hyperstat|noun
+dibenamine|noun|dibenzylchlorethamine|noun
+dibenzylchlorethamine|noun|dibenamine|noun
+dibenzyline|noun|phenoxybenzamine hydrochloride|noun
+dibucaine|noun|nupercainal|noun
+dibucaine|noun|nupercaine|noun
+dibuline|noun|dibutoline sulfate|noun
+dibutoline sulfate|noun|dibuline|noun
+dichlorphenamide|noun|daranide|noun
+dichorial|adj|dichorionic|adj
+dichorionic|adj|dichorial|adj
+dichotomization|noun|dichotomy|noun
+dichotomy|noun|dichotomization|noun
+dicloxacillin sodium|noun|dynapen|noun
+dicloxacillin sodium|noun|pathocil|noun
+dicloxacillin sodium|noun|veracillin|noun
+dicodid|noun|hydrocodone bitartrate|noun
+dicumarol|noun|bishydroxycoumarin|noun
+dicurin|noun|merethoxylline|noun
+dicyclomine hydrochloride|noun|bentyl|noun
+didrex|noun|benzphetamine hydrochloride|noun
+didymalgia|noun|orchialgia|noun
+didymitis|noun|orchitis|noun
+die|verb|expire|verb
+dietetic neuritis|noun|beriberi|noun
+diethanolamine|noun|diolamine|noun
+diethylcarbamazine citrate|noun|hetrazan|noun
+diethylpropion hydrochloride|noun|tenuate|noun
+diethylpropion hydrochloride|noun|tepanil|noun
+diethylstilbestrol|noun|bio-des|noun
+diethylstilbestrol|noun|stilbestrol|noun
+diethylstilbestrol diphosphate|noun|stilphostrol|noun
+digestion|noun|peptic|adj
+digital|adj|finger|noun
+digitaline nativelle|noun|digitoxin|noun
+digitoxin|noun|crystodigin|noun
+digitoxin|noun|digitaline nativelle|noun
+digoxin|noun|lanoxin|noun
+dihydrocholesterol|noun|cholestanol|noun
+dihydroergotamine|noun|d.h.e.45|noun
+dihydrotachysterol|noun|hytakerol|noun
+dihydroxyaluminum aminoacetate|noun|robalate|noun
+diiodohydroxyquin|noun|iodoquinol|noun
+dilantin|noun|phenytoin|noun
+dilaudid|noun|hydromorphone hydrochloride|noun
+dimenhydrinate|noun|dramamine|noun
+dimenhydrinate|noun|eldodram|noun
+dimetane|noun|brompheniramine maleate|noun
+dimethicone|noun|silicote|noun
+dimethindene maleate|noun|forhistal|noun
+dimethisoquin hydrochloride|noun|quotane|noun
+dimethylane|noun|promoxolane|noun
+diminish|verb|minify|verb
+dimocillin|noun|sodium methicillin|noun
+dimorphic|adj|dimorphous|adj
+dimorphous|adj|dimorphic|adj
+dinical|adj|dizziness|noun
+dinoprost tromethamine|noun|prostin f2 alpha|noun
+dinoprostone|noun|prostaglandin e2|noun
+dinoprostone|noun|prostin e2|noun
+dioctyl sulfosuccinate sodium|noun|doxinate|noun
+diodoquin|noun|iodoquinol|noun
+diodrast|noun|iodopyracet|noun
+diolamine|noun|diethanolamine|noun
+dioloxol|noun|mephenesin|noun
+diomostanolone propionate|noun|masterone|noun
+dionosil|noun|propyliodone|noun
+dioxyline|noun|paveril|noun
+dipaxin|noun|diphenadione|noun
+diphemanil methylsulfate|noun|prantal|noun
+diphenadione|noun|dipaxin|noun
+diphenhydramine hydrochloride|noun|benadryl|noun
+diphenhydramine hydrochloride|noun|bendylate|noun
+diphenhydramine hydrochloride|noun|eldadryl|noun
+diphenidol|noun|vontrol|noun
+diphenylhydantoin|noun|phenytoin|noun
+diphenylpyraline hydrochloride|noun|diafen|noun
+diphenylpyraline hydrochloride|noun|hispril|noun
+diphtheria|noun|diphtheritis|noun
+diphtheritis|noun|diphtheria|noun
+diphylets|noun|dextroamphetamine sulfate|noun
+diplobacillus|noun|diplobacterium|noun
+diplobacterium|noun|diplobacillus|noun
+diplopia|noun|double vision|noun
+diprosone|noun|betamethasone dipropionate|noun
+dipyridamole|noun|persantine|noun
+dipyrone|noun|narone|noun
+dipyrone|noun|novaldin|noun
+direct immunofluorescence|noun|immunofluorescence|noun
+disarticulate|verb|disjoint|verb
+discoloration|noun|livor|noun
+disease|noun|mal|noun
+disipal|noun|orphenadrine hydrochloride|noun
+disjoint|verb|disarticulate|verb
+disomer|noun|dexbrompheniramine maleate|noun
+disopyramide phosphate|noun|norpace|noun
+disseminated neuritis|noun|polyneuritis|noun
+disulfiram|noun|antabuse|noun
+disulfiram|noun|tetraethylthiuram disulfide|noun
+dithranol|noun|anthralin|noun
+ditropan|noun|oxybutynin hydrochloride|noun
+diuretic|adj|urinative|adj
+diuril|noun|chlorothiazide|noun
+divergent strabismus|noun|exotropia|noun
+dizziness|noun|dinical|adj
+dizziness|noun|giddiness|noun
+doca|noun|desoxycorticosterone acetate|noun
+docibin|noun|vitamin b12|noun
+docimastic|adj|test|noun
+docusate calcium|noun|surfak|noun
+docusate sodium|noun|colace|noun
+docusate sodium|noun|definate|noun
+dodecadactylitis|noun|duodenitis|noun
+dolabrate|adj|dolabriform|adj
+dolabriform|adj|dolabrate|adj
+dolichocephalic|adj|mecocephalic|adj
+dolichomorphic|adj|microscler|adj
+dolophine|noun|methadone hydrochloride|noun
+dolorific|adj|dolorogenic|adj
+dolorogenic|adj|dolorific|adj
+domeboro|noun|aluminum subacetate|noun
+dopamine hydrochloride|noun|intropin|noun
+dopar|noun|levodopa|noun
+dopram|noun|doxapram hydrochloride|noun
+dorbane|noun|danthron|noun
+doriden|noun|glutethimide|noun
+dornavac|noun|pancreatic dornase|noun
+dorsacaine|noun|benoxinate hydrochloride|noun
+dorsal|adj|back|noun
+dose|noun|dosis|noun
+dose|noun|posologic|adj
+dosis|noun|dose|noun
+double vision|noun|diplopia|noun
+dourine|noun|covering disease|noun
+dowel|noun|post|noun
+down|noun|lanugo|noun
+doxapram hydrochloride|noun|dopram|noun
+doxepin hydrochloride|noun|sinequan|noun
+doxinate|noun|dioctyl sulfosuccinate sodium|noun
+doxorubicin hydrochloride|noun|adriamycin|noun
+doxy-ii|noun|doxycycline|noun
+doxycycline|noun|doxy-ii|noun
+doxycycline|noun|vibramycin|noun
+doxylamine succinate|noun|decapryn|noun
+dracontiasis|noun|dracunculiasis|noun
+dracunculiasis|noun|dracontiasis|noun
+dracunculiasis|noun|dracunculosis|noun
+dracunculiasis|noun|guinea worm disease|noun
+dracunculosis|noun|dracunculiasis|noun
+draft|noun|draught|noun
+dramamine|noun|dimenhydrinate|noun
+draught|noun|draft|noun
+drepanocytic|adj|sickle cell|noun
+dried aluminum hydroxide gel|noun|alu-cap|noun
+drinalfa|noun|methamphetamine hydrochloride|noun
+drisdol|noun|ergocalciferol|noun
+drolban|noun|dromostanolone propionate|noun
+dromostanolone propionate|noun|drolban|noun
+droperidol|noun|inapsine|noun
+drug|noun|medicamentous|adj
+drug|noun|pharmaceutical|adj
+drug|noun|pharmatceutic|adj
+dry ice|noun|carbon dioxide snow|noun
+dryvax|noun|smallpox vaccine|noun
+dtic-dome|noun|dacarbazine|noun
+ducobee|noun|vitamin b12|noun
+dulcitol|noun|galactitol|noun
+dummy tooth|noun|pontic|noun
+duodenitis|noun|dodecadactylitis|noun
+duphalac|noun|lactulose|noun
+duphaston|noun|dydrogesterone|noun
+durabolin|noun|nandrolone phenpropionate|noun
+duracillin|noun|penicillin g procaine|noun
+duranest|noun|etidocaine hydrochloride|noun
+dyclone|noun|dyclonine hydrochloride|noun
+dyclonine hydrochloride|noun|dyclone|noun
+dydrogesterone|noun|duphaston|noun
+dydrogesterone|noun|gynorest|noun
+dydrogesterone|noun|isopregnenone|noun
+dyeing|noun|tinctorial|adj
+dymelor|noun|acetohexamide|noun
+dynamic|adj|force|noun
+dynapen|noun|dicloxacillin sodium|noun
+dyphylline|noun|hyphylline|noun
+dyphylline|noun|neothylline|noun
+dyrenium|noun|triamterene|noun
+dyschondroplasia|noun|enchondromatosis|noun
+dysembryoma|noun|teratoma|noun
+dysfunction|noun|malfunction|noun
+dysmenorrhea|noun|menorrhalgia|noun
+e-mycin|noun|erythromycin|noun
+ear|noun|aural|adj
+ear|noun|auricularis|adj
+ear|noun|otic|adj
+ear|noun|otor|adj
+earache|noun|otalgic|adj
+earth|noun|telluric|adj
+echothiophate iodide|noun|phospholine|noun
+eclabron|noun|guaithylline|noun
+ecotrin|noun|aspirin|noun
+ecphyaditis|noun|appendicitis|noun
+ectocervix|noun|exocervix|noun
+ectogenic|adj|ectogenous|adj
+ectogenous|adj|ectogenic|adj
+ectrotic|adj|abortion|noun
+ectylurea|noun|nostyn|noun
+eczema|noun|weeping dermatitis|noun
+edecrin|noun|ethacrynic acid|noun
+edema|noun|water thesaurismosis|noun
+edetate calcium disodium|noun|calcium disodium versenate|noun
+edetate disodium|noun|endrate|noun
+edisylate|noun|1,2-ethanedisulfonate|noun
+edrophonium chloride|noun|tensilon|noun
+edulcorate|verb|sweeten|verb
+efferent|adj|efferential|adj
+efferential|adj|efferent|adj
+efudex|noun|fluorouracil|noun
+egocentric|adj|egotropic|adj
+egotropic|adj|egocentric|adj
+elastoplast|noun|an elastic bandage|noun
+elavil|noun|amitriptyline hydrochloride|noun
+elbow|noun|anconeal|adj
+elbow|noun|cubital|adj
+eldadryl|noun|diphenhydramine hydrochloride|noun
+eldecort|noun|hydrocortisone|noun
+eldodram|noun|dimenhydrinate|noun
+eldopaque|noun|hydroquinone|noun
+eldoquin|noun|hydroquinone|noun
+electric coagulation|noun|electrocoagulation|noun
+electrocoagulation|noun|electric coagulation|noun
+elipten|noun|aminoglutethimide|noun
+elixophyllin|noun|theophylline|noun
+elkosin|noun|sulfisomidine|noun
+elorine|noun|tricyclamol chloride|noun
+embarrass|verb|obstruct|verb
+emetic|adj|vomitive|adj
+emetic|noun|vomitive|noun
+empty|verb|deplete|verb
+emylcamate|noun|striatran|noun
+enanthate|noun|heptanoate|noun
+enanthem|noun|enanthema|noun
+enanthema|noun|enanthem|noun
+encarditis|noun|endocarditis|noun
+enceliitis|noun|encelitis|noun
+encelitis|noun|enceliitis|noun
+encephalitis|noun|cephalitis|noun
+encephalomeningitis|noun|meningoencephalitis|noun
+enchondral|adj|endochondral|adj
+enchondromatosis|noun|chondrodysplasia|noun
+enchondromatosis|noun|diaphyseal aclasis|noun
+enchondromatosis|noun|dyschondroplasia|noun
+enchondromatosis|noun|hereditary deforming chondrodysplasia|noun
+end|noun|terminal|adj
+endangiitis|noun|endoangiitis|noun
+endangiitis|noun|endovasculitis|noun
+endaortitis|noun|endoaortitis|noun
+endchondral|adj|endochondral|adj
+endeictic|adj|symptomatic|adj
+endemial|adj|endemic|adj
+endemic|adj|endemial|adj
+endemic neuritis|noun|beriberi|noun
+endoangiitis|noun|endangiitis|noun
+endoaortitis|noun|endaortitis|noun
+endoblastic|adj|entodermic|adj
+endocarditis|noun|encarditis|noun
+endocervicitis|noun|endotrachelitis|noun
+endochondral|adj|enchondral|adj
+endochondral|adj|endchondral|adj
+endochondral|adj|intrachondral|adj
+endochondral|adj|intrachondrial|adj
+endocranial|adj|entocranial|adj
+endocrine|adj|endocritic|adj
+endocritic|adj|endocrine|adj
+endodermal|adj|entodermal|adj
+endodontitis|noun|pulpitis|noun
+endoenteritis|noun|enteromycodermitis|noun
+endogenetic|adj|endogenous|adj
+endogenic|adj|endogenous|adj
+endogenous|adj|endogenetic|adj
+endogenous|adj|endogenic|adj
+endoneurium|noun|epilemmal|adj
+endophlebitis|noun|endovenitis|noun
+endosteitis|noun|central osteitis|noun
+endothelial tissue|noun|endothelium|noun
+endothelium|noun|endothelial tissue|noun
+endothoracic|adj|intrathoracic|adj
+endotracheal|adj|intratracheal|adj
+endotrachelitis|noun|endocervicitis|noun
+endovasculitis|noun|endangiitis|noun
+endovenitis|noun|endophlebitis|noun
+endoxan|noun|cyclophosphamide|noun
+endrate|noun|edetate disodium|noun
+enduron|noun|methyclothiazide|noun
+enflurane|noun|ethrane|noun
+enhexymal|noun|hexobarbital|noun
+enteral|adj|small intestine|noun
+enteric virus|noun|enterovirus|noun
+entero-vioform|noun|iodochlorhydroxyquin|noun
+enterocinetic|adj|peristalsis|noun
+enterocolitis|noun|coloenteritis|noun
+enterokinase|noun|enteropeptidase|noun
+enterolith|noun|intestinal calculus|noun
+enteromycodermitis|noun|endoenteritis|noun
+enteropeptidase|noun|enterokinase|noun
+enterovirus|noun|enteric virus|noun
+entocranial|adj|endocranial|adj
+entodermal|adj|endodermal|adj
+entodermic|adj|endoblastic|adj
+entodermic|adj|hypoblastic|adj
+enzactin|noun|triacetin|noun
+enzopride|noun|nadide|noun
+enzyme|noun|fermental|adj
+eosin|noun|tetrabromofluorescein|noun
+epencephal|noun|epencephalon|noun
+epencephalon|noun|epencephal|noun
+ephebic|adj|youth|noun
+ephynal|noun|vitamin e|noun
+epicondyle|noun|epicondylian, epicondylic|adj
+epicondylian, epicondylic|adj|epicondyle|noun
+epidemic bronchitis|noun|influenza|noun
+epidemic parotitis|noun|mumps|noun
+epilation|noun|depilation|noun
+epilemmal|adj|endoneurium|noun
+epilepsy|noun|mal comitial|noun
+epinal|noun|epinephryl borate|noun
+epinephrine|noun|adrenalin|noun
+epinephrine|noun|suprarenin|noun
+epinephrine|noun|sus-phrine|noun
+epinephrine bitartrate|noun|epitrate|noun
+epinephryl borate|noun|epinal|noun
+epinephryl borate|noun|eppy|noun
+epipharyngeal|adj|nasopharyngeal|adj
+epipharyngitis|noun|nasopharyngitis|noun
+epipharynx|noun|nasopharynx|noun
+epiploitis|noun|omentitis|noun
+epithelial tissue|noun|epithelium|noun
+epithelium|noun|epithelial tissue|noun
+epitrate|noun|epinephrine bitartrate|noun
+eppy|noun|epinephryl borate|noun
+epulotic|adj|cicatrization|noun
+equanil|noun|meprobamate|noun
+equicaloric|adj|isocaloric|adj
+equine|adj|horse|noun
+equipment|noun|gear|noun
+ergocalciferol|noun|drisdol|noun
+ergocalciferol|noun|ertron|noun
+ergocalciferol|noun|geltabs|noun
+ergomar|noun|ergotamine tartrate|noun
+ergometrine|noun|ergonovine|noun
+ergonovine|noun|ergometrine|noun
+ergonovine maleate|noun|ergotrate|noun
+ergotamine tartrate|noun|ergomar|noun
+ergotamine tartrate|noun|gynergen|noun
+ergothioneine|noun|thioneine|noun
+ergotrate|noun|ergonovine maleate|noun
+eroticism|noun|erotism|noun
+eroticize|verb|erotize|verb
+erotism|noun|eroticism|noun
+erotize|verb|eroticize|verb
+ertron|noun|ergocalciferol|noun
+ertron|noun|vitamin d2|noun
+erythermalgia|noun|erythromelalgia|noun
+erythralgia|noun|erythromelalgia|noun
+erythremomelalgia|noun|erythromelalgia|noun
+erythrityl tetranitrate|noun|cardilate|noun
+erythrocin|noun|erythromycin|noun
+erythromelalgia|noun|erythermalgia|noun
+erythromelalgia|noun|erythralgia|noun
+erythromelalgia|noun|erythremomelalgia|noun
+erythromelalgia|noun|red neuralgia|noun
+erythromycin|noun|e-mycin|noun
+erythromycin|noun|erythrocin|noun
+erythromycin|noun|ilotycin|noun
+erythromycin estolate|noun|ilosone|noun
+erythromycin ethylsuccinate|noun|pediamycin|noun
+erythromycin stearate|noun|ethril|noun
+esidrix|noun|hydrochlorothiazide|noun
+eskabarb|noun|phenobarbital|noun
+eskadiazine|noun|sulfadiazine|noun
+eskalith|noun|lithium carbonate|noun
+esotropia|noun|convergent strabismus|noun
+esotropia|noun|cross-eye|noun
+esterified estrogens|noun|amnestrogen|noun
+esterified estrogens|noun|evex|noun
+esterified estrogens|noun|femogen|noun
+esterified estrogens|noun|menest|noun
+esthetic|adj|beauty|noun
+esthetic|adj|sensation|noun
+estinyl|noun|ethinyl estradiol|noun
+estival|adj|summer|noun
+estolate|noun|propionate lauryl sulfate|noun
+estrace|noun|estradiol|noun
+estradiol|noun|estrace|noun
+estradiol|noun|progynon|noun
+estradiol valerate|noun|delestrogen|noun
+estradiol valerate|noun|estraval|noun
+estraval|noun|estradiol valerate|noun
+estrone|noun|estrugenone|noun
+estrone|noun|folliculin|noun
+estrone|noun|menagen|noun
+estrone|noun|menformon|noun
+estrone|noun|theelin|noun
+estrous|adj|oestrous|adj
+estrugenone|noun|estrone|noun
+esylate|noun|ethanesulfonate|noun
+etamon|noun|tetraethylammonium chloride|noun
+ethacrynic acid|noun|edecrin|noun
+ethambutol hydrochloride|noun|myambutol|noun
+ethamide|noun|ethoxzolamide|noun
+ethanedial|noun|glyoxal|noun
+ethanesulfonate|noun|esylate|noun
+ethanolamine|noun|olamine|noun
+ethchlorvynol|noun|placidyl|noun
+etherism|noun|etheromania|noun
+etheromania|noun|etherism|noun
+ethinamate|noun|valmid|noun
+ethinyl estradiol|noun|estinyl|noun
+ethinyl estradiol|noun|feminone|noun
+ethinyl estradiol|noun|lynoral|noun
+ethinyl trichloride|noun|trichloroethylene|noun
+ethiodized oil|noun|ethiodol|noun
+ethiodol|noun|ethiodized oil|noun
+ethisterone|noun|anhydrohydroxyprogesterone|noun
+ethisterone|noun|pregneninolone|noun
+ethoheptazine citrate|noun|zactane|noun
+ethopropazine hydrochloride|noun|parsidol|noun
+ethosuximide|noun|zarontin|noun
+ethotoin|noun|peganone|noun
+ethoxazene hydrochloride|noun|serenium|noun
+ethoxzolamide|noun|cardrase|noun
+ethoxzolamide|noun|ethamide|noun
+ethrane|noun|enflurane|noun
+ethril|noun|erythromycin stearate|noun
+ethyl carbamate|noun|urethan|noun
+ethyl chloride|noun|kelene|noun
+ethylene|noun|olefiant gas|noun
+ethylestrenol|noun|maxibolin|noun
+etidocaine hydrochloride|noun|duranest|noun
+etiogenic|adj|causative|adj
+euphoretic|adj|euphoriant|adj
+euphoriant|adj|euphoretic|adj
+eurax|noun|crotamiton|noun
+euresol|noun|resorcinol monoacetate|noun
+eurycephalic|adj|eurycranial|adj
+eurycranial|adj|eurycephalic|adj
+euthroid|noun|liothrix|noun
+eutonyl|noun|pargyline hydrochloride|noun
+evening|noun|vesperal|adj
+evex|noun|esterified estrogens|noun
+evipal|noun|hexobarbital|noun
+exanthem|noun|exanthema|noun
+exanthema|noun|exanthem|noun
+excise|verb|exsect|verb
+excision|noun|exsection|noun
+excrement|noun|ordure|noun
+exna|noun|benzthiazide|noun
+exocervix|noun|ectocervix|noun
+exogenetic|adj|exogenous|adj
+exogenic|adj|exogenous|adj
+exogenous|adj|exogenetic|adj
+exogenous|adj|exogenic|adj
+exophthalmos|noun|ophthalmoptosis|noun
+exotropia|noun|divergent strabismus|noun
+expander|noun|extender|adj
+expire|verb|die|verb
+expire|verb|terminate|verb
+exsanguine|adj|bloodless|adj
+exsect|verb|excise|verb
+exsection|noun|excision|noun
+exsiccant|adj|desiccant|adj
+exsiccant|noun|desiccant|noun
+extender|adj|expander|noun
+extirpate|verb|ablate|verb
+extracorporal|adj|extracorporeal|adj
+extracorporeal|adj|extracorporal|adj
+extraprostatitis|noun|paraprostatitis|noun
+extrasystole|noun|premature beat|noun
+extremity|noun|acral|adj
+exudative calcifying fasciitis|noun|calcinosis|noun
+eye|noun|ocular|adj
+eye|noun|ophthalmic|adj
+eye|noun|optic|adj
+eyebrow|noun|superciliary|adj
+eyelash|noun|ciliary|adj
+eyelashes|noun|ciliary|adj
+eyelid|noun|blepharal|adj
+eyelid|noun|palpebral|adj
+eyelid|noun|palpebralis|adj
+facial paralysis|noun|prosopoplegic|adj
+factor s|noun|biotin|noun
+faint|noun|syncope|noun
+falcate|adj|falciform|adj
+falciform|adj|falcate|adj
+false paralysis|noun|pseudoparalysis|noun
+farsighted|adj|hyperopic|adj
+farsightedness|noun|hyperopia|noun
+fatty tumor|noun|lipoma|noun
+faveolus|noun|foveola|noun
+febrile|adj|fever|noun
+feces|noun|scatologic|adj
+feel|verb|palpate|verb
+feline|adj|cat|noun
+felon|noun|finger cellulitis|noun
+felsules|noun|chloral hydrate|noun
+female pseudohermaphroditism|noun|androgynoid|adj
+female pseudohermaphroditism|noun|androgynous|adj
+feminone|noun|ethinyl estradiol|noun
+femogen|noun|esterified estrogens|noun
+femoral|adj|thigh|noun
+fenfluramine hydrochloride|noun|pondimin|noun
+fenoprofen calcium|noun|nalfon|noun
+fentanyl citrate|noun|sublimaze|noun
+feosol|noun|ferrous sulfate|noun
+fer-in-sol|noun|ferrous sulfate|noun
+fergon|noun|ferrous gluconate|noun
+fermental|adj|enzyme|noun
+fermentation|noun|zymogenic|adj
+ferrocholinate|noun|chel-iron|noun
+ferrocholinate|noun|ferrolip|noun
+ferrolip|noun|ferrocholinate|noun
+ferrous fumarate|noun|fumiron|noun
+ferrous fumarate|noun|ircon|noun
+ferrous gluconate|noun|fergon|noun
+ferrous gluconate|noun|gluco-ferrum|noun
+ferrous gluconate|noun|nionate|noun
+ferrous sulfate|noun|feosol|noun
+ferrous sulfate|noun|fer-in-sol|noun
+ferrous sulfate|noun|fesotyme|noun
+ferrous sulfate|noun|mol-iron|noun
+fesotyme|noun|ferrous sulfate|noun
+fever|noun|febrile|adj
+fever|noun|pyrectic|adj
+fever|noun|pyretic|adj
+fibrinogen|noun|parenogen|noun
+fibrinogenase|noun|thrombin|noun
+fibrinokinase|noun|tissue activator|noun
+fibrinolysin|noun|thrombolysin|noun
+fibrofascitis|noun|fibrositis|noun
+fibromyoma|noun|leiomyoma|noun
+fibromyositis|noun|inomyositis|noun
+fibroneuroma|noun|neurofibroma|noun
+fibrositis|noun|fibrofascitis|noun
+fibrositis|noun|muscular rheumatism|noun
+fibrositis|noun|rheumatoid myositis|noun
+fibula|noun|peroneal|adj
+filter|verb|strain|verb
+finger|noun|digital|adj
+finger cellulitis|noun|felon|noun
+fissure|noun|rictal|adj
+flagyl|noun|metronidazole|noun
+flavoxate hydrochloride|noun|urispas|noun
+flaxedil|noun|gallamine triethiodide|noun
+flexible|adj|flexile|adj
+flexile|adj|flexible|adj
+floraquin|noun|iodoquinol|noun
+floridin|noun|fuller's earth|noun
+florinef|noun|fludrocortisone acetate|noun
+floropryl|noun|isoflurophate|noun
+floxacillin|noun|flucloxacillin|noun
+flu-imune|noun|influenza virus vaccine|noun
+fluax|noun|influenza virus vaccine|noun
+flucloxacillin|noun|floxacillin|noun
+flucort|noun|flumethasone|noun
+flucytosine|noun|ancobon|noun
+fludrocortisone|noun|alflorone|noun
+fludrocortisone acetate|noun|florinef|noun
+flumethasone|noun|flucort|noun
+flumethasone pivalate|noun|locorten|noun
+fluocinolone acetonide|noun|fluonid|noun
+fluocinolone acetonide|noun|synalar|noun
+fluocinolone acetonide|noun|synemol|noun
+fluocinonide|noun|lidex|noun
+fluocinonide|noun|topsyn|noun
+fluogen|noun|influenza virus vaccine|noun
+fluonid|noun|fluocinolone acetonide|noun
+fluorography|noun|photofluorography|noun
+fluoromar|noun|fluroxene|noun
+fluorometholone|noun|oxylone|noun
+fluoroplex|noun|fluorouracil|noun
+fluorouracil|noun|efudex|noun
+fluorouracil|noun|fluoroplex|noun
+fluothane|noun|halothane|noun
+fluoxymesterone|noun|halotestin|noun
+fluoxymesterone|noun|ora-testryl|noun
+fluphenazine hydrochloride|noun|permitil|noun
+fluphenazine hydrochloride|noun|prolixin|noun
+fluprednisolone|noun|alphadrol|noun
+flurandrenolide|noun|cordran|noun
+flurandrenolide|noun|flurandrenolone|noun
+flurandrenolone|noun|flurandrenolide|noun
+flurazepam hydrochloride|noun|dalmane|noun
+flurobate|noun|betamethasone benzoate|noun
+flurothyl|noun|indoklon|noun
+fluroxene|noun|fluoromar|noun
+folic acid|noun|folvite|noun
+folliculin|noun|estrone|noun
+follutein|noun|chorionic gonadotropin|noun
+folvite|noun|folic acid|noun
+food|noun|alimentary|adj
+food|noun|cibarian|adj
+foot|noun|pedal|adj
+force|noun|dynamic|adj
+forearm|noun|cubital|adj
+forebrain|noun|prosencephalon|noun
+forehead|noun|frontal|adj
+forhistal|noun|dimethindene maleate|noun
+form|noun|forme|noun
+formation|noun|morphotic|adj
+forme|noun|form|noun
+formin|noun|methenamine|noun
+formless|adj|pantamorphic|adj
+forthane|noun|methylhexaneamine|noun
+fortuitous|adj|chance|noun
+foudroyant|adj|fulminant|adj
+foundation|noun|fundamental|adj
+fourfold|adj|quadrigeminum|noun
+foveola|noun|faveolus|noun
+freshen|verb|refresh|verb
+frontal|adj|forehead|noun
+fructose|noun|levugen|noun
+fructose|noun|levulose|noun
+fuadin|noun|stibophen|noun
+fugu toxin|noun|tetrodotoxin|noun
+fuller's earth|noun|floridin|noun
+fulminant|adj|foudroyant|adj
+fulvicin|noun|griseofulvin|noun
+fumiron|noun|ferrous fumarate|noun
+fundamental|adj|base|noun
+fundamental|adj|foundation|noun
+fungizone|noun|amphotericin b|noun
+funicle|noun|funiculus|noun
+funiculus|noun|funicle|noun
+fununcular|adj|boil|noun
+furacin|noun|nitrofurazone|noun
+furadantin|noun|nitrofurantoin|noun
+furaspor|noun|nitrofurfuryl methyl ether|noun
+furazolidone|noun|furoxone|noun
+furazolidone|noun|tricofuron|noun
+furosemide|noun|fursemide|noun
+furosemide|noun|lasix|noun
+furoxone|noun|furazolidone|noun
+fursemide|noun|furosemide|noun
+furuncle|noun|boil|noun
+furuncle|noun|furunculus|noun
+furunculus|noun|furuncle|noun
+gag|verb|retch|verb
+gain|verb|acquire|verb
+gain|verb|increase|verb
+gain|verb|obtain|verb
+galactic|adj|milk|noun
+galactitol|noun|dulcitol|noun
+gale|noun|scabies|noun
+gallamine triethiodide|noun|flaxedil|noun
+gamastan|noun|immune human serum globulin|noun
+gamboge|noun|cambogia|noun
+gammacorten|noun|dexamethasone|noun
+gammagee|noun|immune human serum globulin|noun
+gamogenetic|adj|sexual reproduction|noun
+gamulin|noun|immune human serum globulin|noun
+gamulin rh|noun|rh0(d) immune serum globulin|noun
+gangliated|adj|ganglionated|adj
+gangliocytoma|noun|ganglioneuroma|noun
+ganglioglioneuroma|noun|ganglioneuroma|noun
+gangliolytic|adj|ganglioplegic|adj
+ganglionated|adj|gangliated|adj
+ganglioneurofibroma|noun|ganglioneuroma|noun
+ganglioneuroma|noun|gangliocytoma|noun
+ganglioneuroma|noun|ganglioglioneuroma|noun
+ganglioneuroma|noun|ganglioneurofibroma|noun
+ganglioplegic|adj|gangliolytic|adj
+gantanol|noun|sulfamethoxazole|noun
+gantrisin|noun|sulfisoxazole|noun
+garamycin|noun|gentamicin sulfate|noun
+garymicin|noun|gentamicin|noun
+gaseous|adj|gasiform|adj
+gasiform|adj|gaseous|adj
+gastradenitis|noun|gastroadenitis|noun
+gastric|adj|stomach|noun
+gastroadenitis|noun|gastradenitis|noun
+gastrografin|noun|meglumine diatrizoate|noun
+gastroptosis|noun|ventroptosis|noun
+gear|noun|equipment|noun
+gelastic|adj|laughter|noun
+geltabs|noun|ergocalciferol|noun
+gemellary|adj|twin|noun
+gemonil|noun|metharbital|noun
+genal|adj|cheek|noun
+generation|noun|genesial|adj
+generation|noun|genesic|adj
+genesial|adj|generation|noun
+genesic|adj|generation|noun
+genetic|adj|birth|noun
+genetic|adj|origin|noun
+genetic|adj|reproduction|noun
+genial|adj|chin|noun
+genian|adj|chin|noun
+genicular|adj|knee|noun
+genital|adj|reproduction|noun
+genitocrural|adj|genitofemoral|adj
+genitofemoral|adj|genitocrural|adj
+gentamicin|noun|garymicin|noun
+gentamicin sulfate|noun|garamycin|noun
+gentran|noun|dextran 70|noun
+geopen|noun|carbenicillin disodium|noun
+germinate|verb|pullulate|verb
+gerontal|adj|old age|noun
+gid|noun|sturdy|noun
+giddiness|noun|dizziness|noun
+gingivalgia|noun|ulalgia|noun
+ginglyform|adj|ginglymoid|adj
+ginglymoid|adj|ginglyform|adj
+gitaligin|noun|gitalin|noun
+gitalin|noun|gitaligin|noun
+gland|noun|adenic|adj
+gland|noun|adenous|adj
+globus pallidum|noun|pallidal|adj
+glossal|adj|tongue|noun
+glottic|adj|tongue|noun
+gluceptate|noun|glucoheptonate|noun
+gluco-ferrum|noun|ferrous gluconate|noun
+glucoheptonate|noun|gluceptate|noun
+glutamic acid hydrochloride|noun|acidulin|noun
+glutaral|noun|glutaraldehyde|noun
+glutaraldehyde|noun|cidex|noun
+glutaraldehyde|noun|glutaral|noun
+gluteal|adj|buttock|noun
+gluteal|adj|buttocks|noun
+glutethimide|noun|doriden|noun
+glyceryl trinitrate|noun|nitroglycerin|noun
+glycobiarsol|noun|broxolin|noun
+glycobiarsol|noun|milibis|noun
+glycoclastic|adj|glycolytic|adj
+glycolytic|adj|glycoclastic|adj
+glycopyrrolate|noun|robinul|noun
+glyoxal|noun|ethanedial|noun
+glytheonate|noun|theophylline sodium glycinate|noun
+goiter|noun|struma|noun
+gold sodium thiomalate|noun|myochrysine|noun
+gonorrhea|noun|clap|noun
+gout|noun|arthritic|adj
+gout|noun|urate thesaurismosis|noun
+granular conjunctivitis|noun|trachoma|noun
+granulocytic sarcoma|noun|chloroma|noun
+granulosis virus|noun|baculovirus|noun
+great toe|noun|hallucal|adj
+grifulvin|noun|griseofulvin|noun
+grippal|adj|influenza|noun
+grippe|noun|influenza|noun
+gris-peg|noun|griseofulvin|noun
+grisactin|noun|griseofulvin|noun
+griseofulvin|noun|fulvicin|noun
+griseofulvin|noun|grifulvin|noun
+griseofulvin|noun|gris-peg|noun
+griseofulvin|noun|grisactin|noun
+groin|noun|inquinal|adj
+guaifenesin|noun|robitussin|noun
+guaithylline|noun|eclabron|noun
+guanethidine sulfate|noun|ismelin|noun
+guinea worm disease|noun|dracunculiasis|noun
+gun cotton|noun|pyroxylin|noun
+guncotton|noun|pyroxylin|noun
+gustatory|adj|taste|noun
+gutti|noun|cambogia|noun
+guttural|adj|throat|noun
+gynecic|adj|woman|noun
+gynergen|noun|ergotamine tartrate|noun
+gynorest|noun|dydrogesterone|noun
+hair|noun|pilar|adj
+hair|noun|pilary|adj
+halcinonide|noun|halog|noun
+haldol|noun|haloperidol|noun
+haldrone|noun|paramethasone acetate|noun
+hallucal|adj|great toe|noun
+hallucinogenetic|adj|hallucinogenic|adj
+hallucinogenic|adj|hallucinogenetic|adj
+halog|noun|halcinonide|noun
+haloperidol|noun|haldol|noun
+haloprogin|noun|halotex|noun
+halotestin|noun|fluoxymesterone|noun
+halotex|noun|haloprogin|noun
+halothane|noun|fluothane|noun
+hamarthritis|noun|holarthritis|noun
+hand|noun|manual|adj
+harden|verb|sclerose|verb
+harmless|adj|innocuous|adj
+harmonyl|noun|deserpidine|noun
+head|noun|cephalic|adj
+hearing|noun|audile|adj
+heartburn|noun|brash|adj
+heartburn|noun|pyrosis|noun
+heat|noun|thermal|adj
+heat|noun|thermic|adj
+hedonic|adj|pleasure|noun
+hedulin|noun|phenindione|noun
+helminthagogue|adj|anthelmintic|adj
+helminthous|adj|worm|noun
+hemafacient|adj|hematopoietic|adj
+hemal|adj|blood|noun
+hemal|adj|blood vessel|noun
+hemangioendothelioma|noun|angioendothelioma|noun
+hemangioendotheliosarcoma|noun|hemangiosarcoma|noun
+hemangiosarcoma|noun|hemangioendotheliosarcoma|noun
+hematal|adj|blood|noun
+hematal|adj|blood vessel|noun
+hemathermal|adj|homoiothermic|adj
+hemathermous|adj|homoiothermic|adj
+hematic|adj|blood|noun
+hematocryal|adj|poikilothermic|adj
+hematolysis|noun|hemolysis|noun
+hematonephrosis|noun|hemonephrosis|noun
+hematopoietic|adj|hemafacient|adj
+hematopoietic|adj|hemopoietic|adj
+hematopoietic|adj|sanguifacient|adj
+hematopoietic|adj|sanguinopoietic|adj
+hematothermal|adj|homoiothermic|adj
+hemiamaurosis|noun|hemianopia|noun
+hemianopia|noun|hemiamaurosis|noun
+hemic|adj|blood|noun
+hemiparalysis|noun|hemiplegia|noun
+hemiplegia|noun|hemiparalysis|noun
+hemizygotic|adj|hemizygous|adj
+hemizygous|adj|hemizygotic|adj
+hemochromatosis|noun|iron storage disease|noun
+hemolysis|noun|hematolysis|noun
+hemonephrosis|noun|hematonephrosis|noun
+hemopoietic|adj|hematopoietic|adj
+hemorrhage|noun|staxis|noun
+hemorrhagenic|adj|hemorrhagiparous|adj
+hemorrhagiparous|adj|hemorrhagenic|adj
+hemorrhoidal|adj|mariscal|adj
+hemostatic|adj|hemostyptic|adj
+hemostyptic|adj|hemostatic|adj
+heparin sodium|noun|lipo-hepin|noun
+heparin sodium|noun|panheprin|noun
+hepatic|adj|liver|noun
+hepatic capsulitis|noun|perihepatitis|noun
+hepatocellular|adj|liver cell|noun
+hepatopneumonic|adj|hepatopulmonary|adj
+hepatopulmonary|adj|hepatopneumonic|adj
+hepicebrin|noun|hexavitamin|noun
+heptanoate|noun|enanthate|noun
+hereditary deforming chondrodysplasia|noun|enchondromatosis|noun
+heredoluetic|adj|syphilis|noun
+heroin|noun|diacetylmorphine|noun
+herplex|noun|idoxuridine|noun
+hetacillin|noun|versapen|noun
+heterosis|noun|hybrid vigor|noun
+heterotopia|noun|heterotopy|noun
+heterotopy|noun|heterotopia|noun
+heterotransplant|noun|xenograft|noun
+heterozygotic|adj|heterozygous|adj
+heterozygous|adj|heterozygotic|adj
+hetrazan|noun|diethylcarbamazine citrate|noun
+hexa-betalin|noun|pyridoxine hydrochloride|noun
+hexadimethrine bromide|noun|polybrene|noun
+hexadrol|noun|dexamethasone|noun
+hexafluorenium bromide|noun|mylaxen|noun
+hexamethonium chloride|noun|methium|noun
+hexanicotol|noun|inositol niacinate|noun
+hexavibex|noun|pyridoxine hydrochloride|noun
+hexavitamin|noun|hepicebrin|noun
+hexetidine|noun|sterisil|noun
+hexobarbital|noun|enhexymal|noun
+hexobarbital|noun|evipal|noun
+hexobarbital|noun|sombulex|noun
+hexocyclium methylsulfate|noun|tral|noun
+hexylcaine hydrochloride|noun|cyclaine|noun
+hexylresorcinol|noun|s. t. 37|noun
+hiccup|noun|singultus|noun
+hidrotic|adj|sweating|noun
+hiemal|adj|winter|noun
+hiprex|noun|methenamine hippurate|noun
+hispril|noun|diphenylpyraline hydrochloride|noun
+histadyl|noun|methapyrilene|noun
+histalog|noun|betazole|noun
+histaspan|noun|chlorpheniramine maleate|noun
+histic|adj|tissue|noun
+histionic|adj|tissue|noun
+holarthritis|noun|hamarthritis|noun
+holocaine|noun|phenacaine hydrochloride|noun
+homapin|noun|homatropine methylbromide|noun
+homatropine methylbromide|noun|homapin|noun
+homatropine methylbromide|noun|malcotran|noun
+homatropine methylbromide|noun|mesopin|noun
+hominal|adj|human being|noun
+hominal|adj|man|noun
+homo-tet|noun|tetanus immune human globulin|noun
+homocyclic|adj|isocyclic|adj
+homogenic|adj|homozygous|adj
+homoiothermic|adj|hemathermal|adj
+homoiothermic|adj|hemathermous|adj
+homoiothermic|adj|hematothermal|adj
+homoiothermic|adj|homothermic|adj
+homothermic|adj|homoiothermic|adj
+homotonic|adj|isotonic|adj
+homozygous|adj|homogenic|adj
+hoose|noun|husk|noun
+hoose|noun|parasitic bronchitis|noun
+hoose|noun|verminous bronchitis|noun
+hormonogenic|adj|hormonopoietic|adj
+hormonopoietic|adj|hormonogenic|adj
+horse|noun|equine|adj
+hospital|noun|nosocomial|adj
+hu-tet|noun|tetanus immune human globulin|noun
+human being|noun|hominal|adj
+human chorionic gonadotropin|noun|a.p.l.|noun
+human plasma protein fraction|noun|plasmanate|noun
+humatin|noun|paromomycin sulfate|noun
+humorsol|noun|demecarium bromide|noun
+husk|noun|hoose|noun
+hyal|adj|hyoid|adj
+hyaluronidase for injection|noun|hyazyme|noun
+hyaluronidase for injection|noun|wydase|noun
+hyazyme|noun|hyaluronidase for injection|noun
+hybenzate|noun|o-(4-hydroxybenzoyl)benzoate|noun
+hybrid vigor|noun|heterosis|noun
+hyclate|noun|monohydrochloride hemiethanolate hemihydrate|noun
+hycodan|noun|hydrocodone bitartrate|noun
+hydatoid|adj|aqueous humor|noun
+hydeltra|noun|prednisolone|noun
+hydralazine|noun|apresoline|noun
+hydramnios|noun|polyhydramnios|noun
+hydrase|noun|hydratase|noun
+hydratase|noun|hydrase|noun
+hydrea|noun|hydroxyurea|noun
+hydrencephalus|noun|hydrocephalus|noun
+hydrencephaly|noun|hydrocephalus|noun
+hydrocephalus|noun|hydrencephalus|noun
+hydrocephalus|noun|hydrencephaly|noun
+hydrochlorothiazide|noun|esidrix|noun
+hydrochlorothiazide|noun|hydrodiuril|noun
+hydrochlorothiazide|noun|oretic|noun
+hydrocodone bitartrate|noun|dicodid|noun
+hydrocodone bitartrate|noun|hycodan|noun
+hydrocortamate|noun|magnacort|noun
+hydrocortisone|noun|cort-dome|noun
+hydrocortisone|noun|cortef|noun
+hydrocortisone|noun|cortenema|noun
+hydrocortisone|noun|cortril|noun
+hydrocortisone|noun|eldecort|noun
+hydrocortisone|noun|hydrocortone|noun
+hydrocortisone|noun|optef|noun
+hydrocortisone sodium succinate|noun|solu-cortef|noun
+hydrocortone|noun|hydrocortisone|noun
+hydrodiuril|noun|hydrochlorothiazide|noun
+hydroflumethiazide|noun|saluron|noun
+hydrogenate|verb|hydrogenize|verb
+hydrogenize|verb|hydrogenate|verb
+hydrolose|noun|methylcellulose|noun
+hydrometry|noun|areometric|adj
+hydromorphone hydrochloride|noun|dilaudid|noun
+hydromox|noun|quinethazone|noun
+hydronol|noun|isosorbide|noun
+hydrophilic|adj|hydrophilous|adj
+hydrophilous|adj|hydrophilic|adj
+hydrophobic|adj|rabies|noun
+hydroquinone|noun|eldopaque|noun
+hydroquinone|noun|eldoquin|noun
+hydrothorax|noun|serothorax|noun
+hydroxyamphetamine hydrobromide|noun|paredrine|noun
+hydroxychloroquine sulfate|noun|plaquenil|noun
+hydroxydione sodium|noun|viadril|noun
+hydroxyprogesterone caproate|noun|delalutin|noun
+hydroxytetracycline|noun|oxytetracycline|noun
+hydroxyurea|noun|hydrea|noun
+hydroxyzine|noun|vistaril|noun
+hydroxyzine hydrochloride|noun|atarax|noun
+hygienic|adj|diasostic|adj
+hygric|adj|moisture|noun
+hygroton|noun|chlorthalidone|noun
+hykinone|noun|menadione sodium bisulfite|noun
+hyoid|adj|hyal|adj
+hyoscine|noun|scopolamine|noun
+hyoscyamine|noun|cystospaz|noun
+hypalgesia|noun|hypalgia|noun
+hypalgia|noun|hypalgesia|noun
+hyper-tet|noun|tetanus immune human globulin|noun
+hyperalgesia|noun|hyperalgia|noun
+hyperalgia|noun|hyperalgesia|noun
+hyperaphic|adj|tactile hyperesthesia|noun
+hypercalcemia|noun|calcemia|noun
+hypercapnia|noun|hypercarbia|noun
+hypercarbia|noun|hypercapnia|noun
+hypercementosis|noun|cementum hyperplasia|noun
+hyperdiploid|adj|polyploid|adj
+hyperdiploidy|noun|polyploidy|noun
+hyperkinesia|noun|hyperkinesis|noun
+hyperkinesis|noun|hyperkinesia|noun
+hypermetropia|noun|hyperopia|noun
+hyperopia|noun|farsightedness|noun
+hyperopia|noun|hypermetropia|noun
+hyperopic|adj|farsighted|adj
+hyperoxaluria|noun|oxaluria|noun
+hypersplenia|noun|hypersplenism|noun
+hypersplenism|noun|hypersplenia|noun
+hyperstat|noun|diazoxide|noun
+hypertensin|noun|angiotensin amide|noun
+hypertensinogen|noun|angiotensinogen|noun
+hypertrophic arthritis|noun|osteoarthritis|noun
+hypertussis|noun|pertussis immune human globulin|noun
+hyphylline|noun|dyphylline|noun
+hypnic|adj|sleep|noun
+hypoblastic|adj|entodermic|adj
+hypodermatic|adj|hypodermic|adj
+hypodermic|adj|hypodermatic|adj
+hypokalemia|noun|hypopotassemia|noun
+hypokalemic|adj|hypopotassemic|adj
+hypopotassemia|noun|hypokalemia|noun
+hypopotassemic|adj|hypokalemic|adj
+hyprho-d|noun|rh0(d) immune serum globulin|noun
+hysteroptosis|noun|metroptosis|noun
+hytakerol|noun|dihydrotachysterol|noun
+hyzyd|noun|isoniazid|noun
+ibuprofen|noun|motrin|noun
+ichthammol|noun|ichthyol|noun
+ichthyol|noun|ichthammol|noun
+ictal|adj|stroke|noun
+idiocratic|adj|idiosyncratic|adj
+idiosyncratic|adj|idiocratic|adj
+idoxuridine|noun|dendrid|noun
+idoxuridine|noun|herplex|noun
+idoxuridine|noun|stoxil|noun
+ileocolic|adj|coloileal|adj
+iletin|noun|insulin|noun
+ilidar|noun|azapetine phosphate|noun
+ilopan|noun|dexpanthenol|noun
+ilosone|noun|erythromycin estolate|noun
+ilotycin|noun|erythromycin|noun
+ilozyme|noun|pancrelipase|noun
+imidamine|noun|antazoline|noun
+imipramine hydrochloride|noun|presamine|noun
+imipramine hydrochloride|noun|tofranil|noun
+immu-g|noun|immune globulin|noun
+immune globulin|noun|immu-g|noun
+immune human serum globulin|noun|gamastan|noun
+immune human serum globulin|noun|gammagee|noun
+immune human serum globulin|noun|gamulin|noun
+immunodepression|noun|immunosuppression|noun
+immunoelectrophoresis|noun|counterimmunoelectrophoresis|noun
+immunofluorescence|noun|direct immunofluorescence|noun
+immunosuppressant|noun|immunosuppressive|adj
+immunosuppression|noun|immunodepression|noun
+immunosuppressive|adj|immunosuppressant|noun
+imodium|noun|loperamide hydrochloride|noun
+imparidigitate|adj|perissodactylous|adj
+imuran|noun|azathioprine|noun
+inapsine|noun|droperidol|noun
+inclinatio|noun|inclination|noun
+inclination|noun|inclinatio|noun
+inclination|noun|incline|noun
+incline|noun|inclination|noun
+increase|verb|gain|verb
+indenization|noun|innidiation|noun
+indent|verb|pit|verb
+inderal|noun|propranolol hydrochloride|noun
+indocin|noun|indomethacin|noun
+indocyanine green|noun|cardio-green|noun
+indocyanine green|noun|cg|noun
+indoklon|noun|flurothyl|noun
+indomethacin|noun|indocin|noun
+infaust|adj|unfavorable|adj
+infectious bulbar paralysis|noun|pseudorabies|noun
+infectiousness|noun|infectivity|noun
+infectivity|noun|infectiousness|noun
+inflammatory|adj|phlogotic|adj
+influenza|noun|epidemic bronchitis|noun
+influenza|noun|grippal|adj
+influenza|noun|grippe|noun
+influenza virus vaccine|noun|flu-imune|noun
+influenza virus vaccine|noun|fluax|noun
+influenza virus vaccine|noun|fluogen|noun
+influenza virus vaccine|noun|zonomune|noun
+infrared|adj|ultra-red|adj
+infrasonic|adj|subsonic|adj
+inh|noun|isoniazid|noun
+inhibit|verb|arrest|verb
+inhibit|verb|restrain|verb
+inhibit|verb|retard|verb
+iniac|adj|inial|adj
+inial|adj|iniac|adj
+injectio|noun|injection|noun
+injection|noun|injectio|noun
+innidiation|noun|colonization|noun
+innidiation|noun|indenization|noun
+innocuous|adj|harmless|adj
+inomyositis|noun|fibromyositis|noun
+inositol niacinate|noun|hexanicotol|noun
+inositol niacinate|noun|linodil|noun
+inquinal|adj|groin|noun
+insulin|noun|iletin|noun
+intal|noun|cromolyn sodium|noun
+intellect|noun|noetic|adj
+interatrial|adj|interauricular|adj
+interauricular|adj|interatrial|adj
+intercartilaginous|adj|interchondral|adj
+intercerebral|adj|interhemicerebral|adj
+intercerebral|adj|interhemispheric|adj
+interchondral|adj|intercartilaginous|adj
+interhemicerebral|adj|intercerebral|adj
+interhemispheric|adj|intercerebral|adj
+intern|noun|interne|noun
+interne|noun|intern|noun
+intestinal calculus|noun|enterolith|noun
+intocostrin|noun|tubocurarine chloride|noun
+intrachondral|adj|endochondral|adj
+intrachondrial|adj|endochondral|adj
+intraosseous|adj|intraosteal|adj
+intraosteal|adj|intraosseous|adj
+intrarachidian|adj|intraspinal|adj
+intraspinal|adj|intrarachidian|adj
+intraspinal|adj|intravertebral|adj
+intrathoracic|adj|endothoracic|adj
+intratracheal|adj|endotracheal|adj
+intravertebral|adj|intraspinal|adj
+intropin|noun|dopamine hydrochloride|noun
+introsusception|noun|intussusception|noun
+intussusception|noun|introsusception|noun
+inversine|noun|mecamylamine hydrochloride|noun
+involute|verb|regress|verb
+iobenzamic acid|noun|osbil|noun
+iocetamic acid|noun|cholebrine|noun
+iodinated glycerol|noun|organidin|noun
+iodipamide|noun|cholografin|noun
+iodized oil|noun|lipiodol|noun
+iodochlorhydroxyquin|noun|entero-vioform|noun
+iodochlorhydroxyquin|noun|vioform|noun
+iodopyracet|noun|diodrast|noun
+iodoquinol|noun|diiodohydroxyquin|noun
+iodoquinol|noun|diodoquin|noun
+iodoquinol|noun|floraquin|noun
+iodoquinol|noun|yodoxin|noun
+ionamin|noun|phentermine|noun
+ionic medication|noun|iontophoresis|noun
+iontophoresis|noun|ionic medication|noun
+iopanoic acid|noun|telepaque|noun
+iophendylate|noun|pantopaque|noun
+iothalamate meglumine|noun|conray|noun
+iothalamate meglumine|noun|cysto-conray|noun
+iothiouracil|noun|itrumil|noun
+ipral|noun|probarbital|noun
+ircon|noun|ferrous fumarate|noun
+iridescent virus|noun|iridovirus|noun
+iridovirus|noun|iridescent virus|noun
+iron sorbitex|noun|jectofer|noun
+iron storage disease|noun|hemochromatosis|noun
+isethionate|noun|2-hydroxyethanesulfonate|noun
+ismelin|noun|guanethidine sulfate|noun
+isocaloric|adj|equicaloric|adj
+isocarboxazid|noun|marplan|noun
+isochromatic|adj|isochroous|adj
+isochroous|adj|isochromatic|adj
+isocrin|noun|oxyphenisatin acetate|noun
+isocyclic|adj|homocyclic|adj
+isoflurophate|noun|floropryl|noun
+isogeneic|adj|syngeneic|adj
+isograft|noun|isotransplant|noun
+isometheptene|noun|octin|noun
+isoniazid|noun|hyzyd|noun
+isoniazid|noun|inh|noun
+isoniazid|noun|niconyl|noun
+isoniazid|noun|nicozide|noun
+isoniazid|noun|nydrazid|noun
+isoniazid|noun|rimifon|noun
+isopaque|noun|metrizoate sodium|noun
+isophrin|noun|phenylephrine hydrochloride|noun
+isopregnenone|noun|dydrogesterone|noun
+isoprenaline|noun|isoproterenol|noun
+isopropamide iodide|noun|darbid|noun
+isopropylarterenol|noun|isoproterenol|noun
+isoproterenol|noun|aludrine|noun
+isoproterenol|noun|isoprenaline|noun
+isoproterenol|noun|isopropylarterenol|noun
+isoproterenol|noun|isuprel|noun
+isoproterenol|noun|norisodrine|noun
+isordil|noun|isosorbide dinitrate|noun
+isosorbide|noun|hydronol|noun
+isosorbide dinitrate|noun|isordil|noun
+isosorbide dinitrate|noun|sorbitrate|noun
+isotonic|adj|homotonic|adj
+isotransplant|noun|isograft|noun
+isoxsuprine hydrochloride|noun|vasodilan|noun
+isuprel|noun|isoproterenol|noun
+itrumil|noun|iothiouracil|noun
+jectofer|noun|iron sorbitex|noun
+jefron|noun|polyferoxe|noun
+joint|noun|arthral|adj
+joint|noun|articular|adj
+jugal|adj|cheek|noun
+jugular|adj|neck|noun
+juxtaposition|noun|apposition|noun
+kafocin|noun|cephaloglycin|noun
+kanamycin|noun|kantrex|noun
+kantrex|noun|kanamycin|noun
+kaochlor|noun|potassium chloride|noun
+kaon|noun|potassium gluconate|noun
+kappadione|noun|menadiol sodium diphosphate|noun
+kay ciel|noun|potassium chloride|noun
+kayexalate|noun|sodium polystyrene sulfonate|noun
+keflex|noun|cephalexin|noun
+keflin|noun|cephalothin sodium|noun
+kefzol|noun|cefazolin sodium|noun
+kelene|noun|ethyl chloride|noun
+kemadrin|noun|procyclidine hydrochloride|noun
+kenacort|noun|triamcinolone|noun
+kenalog|noun|triamcinolone acetonide|noun
+keratic|adj|cornea|noun
+kernicterus|noun|nuclear jaundice|noun
+ketaject|noun|ketamine hydrochloride|noun
+ketalar|noun|ketamine hydrochloride|noun
+ketamine hydrochloride|noun|ketaject|noun
+ketamine hydrochloride|noun|ketalar|noun
+kidney|noun|nephric|adj
+kidney|noun|nephritic|adj
+kidney|noun|renal|adj
+kinase|noun|phosphokinase|noun
+kinesalgia|noun|kinesialgia|noun
+kinesialgia|noun|kinesalgia|noun
+kinesthesia|noun|kinesthesis|noun
+kinesthesis|noun|kinesthesia|noun
+kinetic|adj|motion|noun
+kinetographic|adj|motorgraphic|adj
+kitasamycin|noun|leucomycin|noun
+knead|verb|malaxate|verb
+knee|noun|genicular|adj
+kolantyl|noun|alumina and magnesia|noun
+konakion|noun|phytonadione|noun
+konakion|noun|vitamin k1|noun
+kuru|noun|laughing disease|noun
+kutrol|noun|urogastrone|noun
+kwell|noun|lindane|noun
+kynex|noun|sulfamethoxypyridazine|noun
+l-mandelonitrile-<beta>-glucuronic acid|noun|laetrile|noun
+lab|noun|rennin|noun
+labial|adj|lip|noun
+labiocervical|adj|cervicolabial|adj
+lacrimal|adj|tear|noun
+lacteal|adj|milk|noun
+lactic|adj|milk|noun
+lactulose|noun|duphalac|noun
+lacus|noun|lake|noun
+laetrile|noun|l-mandelonitrile-<beta>-glucuronic acid|noun
+lake|noun|lacus|noun
+lana|noun|wool|noun
+lanatoside c|noun|cedilanid|noun
+lanoxin|noun|digoxin|noun
+lanugo|noun|down|noun
+largon|noun|propiomazine hydrochloride|noun
+larodopa|noun|levodopa|noun
+larotid|noun|amoxicillin|noun
+lasix|noun|furosemide|noun
+laughing disease|noun|kuru|noun
+laughter|noun|gelastic|adj
+lavema|noun|oxyphenisatin|noun
+lazar|adj|leprosy|noun
+lead|noun|plumbic|adj
+lead|noun|saturnine|adj
+lecithin|noun|phosphatidyl choline|noun
+lecithin|noun|phosphatidylcholine|noun
+ledercillin|noun|penicillin g procaine|noun
+left|noun|sinistral|adj
+leg|noun|crural|adj
+leiomyoma|noun|fibromyoma|noun
+lenetran|noun|mephenoxalone|noun
+lens|noun|lenticular|adj
+lenticular|adj|crystalline lens|noun
+lenticular|adj|lens|noun
+lentitis|noun|phakitis|noun
+lepidic|adj|scale|noun
+lepidic|adj|scales|noun
+leprosy|noun|lazar|adj
+leritine|noun|anileridine|noun
+letter|noun|levothyroxine sodium|noun
+leucitis|noun|scleritis|noun
+leucomycin|noun|kitasamycin|noun
+leukeran|noun|chlorambucil|noun
+leukocytic sarcoma|noun|leukosarcoma|noun
+leukokeratosis|noun|leukoplakia|noun
+leukoplakia|noun|leukokeratosis|noun
+leukosarcoma|noun|leukocytic sarcoma|noun
+levallorphan tartrate|noun|lorfan|noun
+levo-dromoran|noun|levorphanol tartrate|noun
+levodopa|noun|dopar|noun
+levodopa|noun|larodopa|noun
+levogyral|adj|levorotatory|adj
+levoid|noun|levothyroxine sodium|noun
+levomepromazine|noun|methotrimeprazine|noun
+levonordefrin|noun|neo-cobefrin|noun
+levophed|noun|norepinephrine bitartrate|noun
+levoprome|noun|methotrimeprazine|noun
+levopropoxyphene napsylate|noun|novrad|noun
+levorotatory|adj|levogyral|adj
+levorphanol tartrate|noun|levo-dromoran|noun
+levothyroxine sodium|noun|letter|noun
+levothyroxine sodium|noun|levoid|noun
+levothyroxine sodium|noun|synthroid|noun
+levugen|noun|fructose|noun
+levulose|noun|fructose|noun
+librium|noun|chlordiazepoxide hydrochloride|noun
+lida-mantle|noun|lidocaine|noun
+lidex|noun|fluocinonide|noun
+lidocaine|noun|lida-mantle|noun
+lidocaine|noun|lignocaine|noun
+lidocaine|noun|xylocaine|noun
+lienal|adj|spleen|noun
+lienitis|noun|splenitis|noun
+lienopancreatic|adj|splenopancreatic|adj
+life|noun|biotic|adj
+life|noun|zoetic|adj
+light|noun|photic|adj
+light|noun|photoesthetic|adj
+lignocaine|noun|lidocaine|noun
+lime|noun|calcic|adj
+liminal|adj|threshold|noun
+linbic|adj|margin|noun
+lincocin|noun|lincomycin hydrochloride|noun
+lincomycin hydrochloride|noun|lincocin|noun
+lindane|noun|kwell|noun
+lingual|adj|tongue|noun
+linguocervical|adj|cervicolingual|adj
+linodil|noun|inositol niacinate|noun
+lioresal|noun|baclofen|noun
+liothrix|noun|euthroid|noun
+liothyronine sodium|noun|cytomel|noun
+liotrix|noun|thyrolar|noun
+lip|noun|labial|adj
+lipiodol|noun|iodized oil|noun
+lipo-hepin|noun|heparin sodium|noun
+lipo-lutin|noun|progesterone|noun
+lipoclastic|adj|lipolytic|adj
+lipogenic|adj|steatogenous|adj
+lipoid thesaurismosis|noun|lipoidosis|noun
+lipoidosis|noun|lipoid thesaurismosis|noun
+lipolytic|adj|lipoclastic|adj
+lipoma|noun|fatty tumor|noun
+lipoxidase|noun|lipoxygenase|noun
+lipoxygenase|noun|lipoxidase|noun
+liquaemin|noun|sodium heparin|noun
+liquamar|noun|phenprocoumon|noun
+liquiprin|noun|acetaminophen|noun
+lisacort|noun|prednisone|noun
+listeriosis|noun|circling disease|noun
+lithane|noun|lithium carbonate|noun
+lithiasis|noun|calculosis|noun
+lithium carbonate|noun|eskalith|noun
+lithium carbonate|noun|lithane|noun
+litholapaxy|noun|lithotripsy|noun
+lithotripsy|noun|litholapaxy|noun
+lithous|adj|calculus|noun
+live oral poliovirus vaccine|noun|orimune|noun
+liver|noun|hepatic|adj
+liver cell|noun|hepatocellular|adj
+livor|noun|discoloration|noun
+lixaminol|noun|aminophylline|noun
+lobular pneumonia|noun|bronchopneumonia|noun
+local intracutaneous edema|noun|urticaria|noun
+locorten|noun|flumethasone pivalate|noun
+loperamide hydrochloride|noun|imodium|noun
+lopressor|noun|metoprolol tartrate|noun
+lorfan|noun|levallorphan tartrate|noun
+loridine|noun|cephaloridine|noun
+lotioblanc|noun|white lotion|noun
+lotrimin|noun|clotrimazole|noun
+lotusate|noun|talbutal|noun
+louse|noun|pedicular|adj
+loxaprine succinate|noun|loxitane|noun
+loxitane|noun|loxaprine succinate|noun
+lues|noun|syphilis|noun
+luetic|adj|syphilitic|adj
+luetic|noun|syphilitic|noun
+lumbago|noun|lumbar myalgia|noun
+lumbar myalgia|noun|lumbago|noun
+luminal|noun|phenobarbital|noun
+lunar|adj|moon|noun
+lunar|adj|silver|noun
+lung|noun|pneumal|adj
+lung|noun|pneumonic|adj
+lung|noun|pulmonary|adj
+lung|noun|pulmonic|adj
+luride|noun|sodium fluoride|noun
+lutrexin|noun|lututrin|noun
+lutromone|noun|progesterone|noun
+lututrin|noun|lutrexin|noun
+lycine|noun|betaine|noun
+lymphangeitis|noun|lymphangitis|noun
+lymphangiectasia|noun|lymphangiectasis|noun
+lymphangiectasis|noun|lymphangiectasia|noun
+lymphangiitis|noun|lymphangitis|noun
+lymphangitis|noun|angioleucitis|noun
+lymphangitis|noun|angioleukitis|noun
+lymphangitis|noun|angiolymphitis|noun
+lymphangitis|noun|lymphangeitis|noun
+lymphangitis|noun|lymphangiitis|noun
+lymphapheresis|noun|lymphocytapheresis|noun
+lymphocytapheresis|noun|lymphapheresis|noun
+lynoral|noun|ethinyl estradiol|noun
+lypressin|noun|diapid|noun
+lysergic acid diethylamide|noun|lysergide|noun
+lysergide|noun|lysergic acid diethylamide|noun
+lysodren|noun|mitotane|noun
+lysogenicity|noun|lysogeny|noun
+lysogeny|noun|lysogenicity|noun
+lysozyme|noun|muramidase|noun
+macrodantin|noun|nitrofurantoin|noun
+mafenide|noun|sulfamylon|noun
+magaldrate|noun|riopan|noun
+magan|noun|magnesium salicylate|noun
+magnacort|noun|hydrocortamate|noun
+magnesium salicylate|noun|magan|noun
+maize|noun|zeistic|adj
+mal|noun|disease|noun
+mal comitial|noun|epilepsy|noun
+malar|adj|cheek|noun
+malar|adj|cheek bone|noun
+malaria|noun|malarial fever|noun
+malaria|noun|paludal fever|noun
+malaria|noun|palustral|adj
+malarial fever|noun|malaria|noun
+malaxate|verb|knead|verb
+malcotran|noun|homatropine methylbromide|noun
+malfunction|noun|dysfunction|noun
+malignant synovioma|noun|synoviosarcoma|noun
+mamilla|noun|mammilla|noun
+mamillary|adj|nipple|noun
+mammalgia|noun|mastalgia|noun
+mammary|adj|breast|noun
+mammilla|noun|mamilla|noun
+mammitis|noun|mastitis|noun
+man|noun|hominal|adj
+mandelamine|noun|methenamine mandelate|noun
+mandrake root|noun|podophyllum|noun
+mannitol|noun|osmitrol|noun
+mannitol hexanitrate|noun|maxitate|noun
+manual|adj|hand|noun
+maolate|noun|chlorphenesin carbamate|noun
+marantic|adj|marasmic|adj
+marasmic|adj|marantic|adj
+marcaine|noun|bupivacaine hydrochloride|noun
+marezine|noun|cyclizine hydrochloride|noun
+margin|noun|linbic|adj
+mariscal|adj|hemorrhoidal|adj
+marplan|noun|isocarboxazid|noun
+marrow|noun|medullary|adj
+marsh|noun|paludal|adj
+marsh|noun|palustral|adj
+mastalgia|noun|mammalgia|noun
+masterone|noun|diomostanolone propionate|noun
+mastitis|noun|mammitis|noun
+mater|noun|mother|noun
+maternal|adj|mother|noun
+matulane|noun|procarbazine hydrochloride|noun
+maturate|verb|suppurate|verb
+matutinal|adj|morning|noun
+maxibolin|noun|ethylestrenol|noun
+maxilla|noun|upper jaw|noun
+maxipen|noun|phenethicillin potassium|noun
+maxitate|noun|mannitol hexanitrate|noun
+mazindol|noun|sanorex|noun
+meal|noun|prandial|adj
+mebaral|noun|mephobarbital|noun
+mebutamate|noun|capla|noun
+mecamylamine hydrochloride|noun|inversine|noun
+mechlorethamine hydrochloride|noun|mustargen|noun
+meclizine hydrochloride|noun|bonine|noun
+mecocephalic|adj|dolichocephalic|adj
+medial|adj|middle|noun
+medial necrosis|noun|medionecrosis|noun
+mediastinal emphysema|noun|pneumomediastinum|noun
+medicamentous|adj|drug|noun
+medicus|noun|physician|noun
+mediocarpal|adj|midcarpal|adj
+medioccipital|adj|midoccipital|adj
+medionecrosis|noun|medial necrosis|noun
+medrol|noun|methylprednisolone|noun
+medroxyprogesterone acetate|noun|depo-provera|noun
+medroxyprogesterone acetate|noun|provera|noun
+medulla oblongata|noun|bulbar|adj
+medullary|adj|marrow|noun
+medullated|adj|myelinated|adj
+medulloencephalic|adj|myeloencephalic|adj
+mefenamic acid|noun|ponstel|noun
+megace|noun|megestrol acetate|noun
+megacephalous|adj|megalocephalic|adj
+megalocephalic|adj|megacephalous|adj
+megestrol acetate|noun|megace|noun
+megimide|noun|bemegride|noun
+meglumine diatrizoate|noun|gastrografin|noun
+meglumine diatrizoate injection|noun|cardiografin|noun
+megrim|noun|migraine|noun
+meibomianitis|noun|meibomitis|noun
+meibomitis|noun|meibomianitis|noun
+melasma|noun|chloasma|noun
+melitose|noun|melitriose|noun
+melitose|noun|raffinose|noun
+melitriose|noun|melitose|noun
+mellaril|noun|thioridazine hydrochloride|noun
+melphalan|noun|alkeran|noun
+memory|noun|mnemonic|adj
+menadiol sodium diphosphate|noun|kappadione|noun
+menadiol sodium diphosphate|noun|synkayvite|noun
+menadione sodium bisulfite|noun|hykinone|noun
+menagen|noun|estrone|noun
+menest|noun|esterified estrogens|noun
+menformon|noun|estrone|noun
+meningism|noun|meningismus|noun
+meningismus|noun|meningism|noun
+meningocerebritis|noun|meningoencephalitis|noun
+meningoencephalitis|noun|cerebromeningitis|noun
+meningoencephalitis|noun|encephalomeningitis|noun
+meningoencephalitis|noun|meningocerebritis|noun
+menorrhalgia|noun|dysmenorrhea|noun
+menses|noun|catamenial|adj
+menstruation|noun|catamenial|adj
+mensual|adj|monthly|adj
+mental|adj|mind|noun
+mental healing|noun|psychotherapy|noun
+meonine|noun|racemethionine|noun
+mepazine|noun|pacatal|noun
+mepenzolate bromide|noun|cantil|noun
+meperidine hydrochloride|noun|demerol|noun
+mephenesin|noun|dioloxol|noun
+mephenesin|noun|myanesin|noun
+mephenesin|noun|oranixon|noun
+mephenesin|noun|tolserol|noun
+mephenoxalone|noun|lenetran|noun
+mephentermine|noun|wyamine|noun
+mephenytoin|noun|mesantoin|noun
+mephobarbital|noun|mebaral|noun
+mephyton|noun|phytonadione|noun
+mephyton|noun|vitamin k1|noun
+mepivacaine hydrochloride|noun|carbocaine|noun
+meprane|noun|promethestrol dipropionate|noun
+meprednisone|noun|betapar|noun
+meprobamate|noun|equanil|noun
+meprobamate|noun|meprospan|noun
+meprobamate|noun|meprotabs|noun
+meprobamate|noun|miltown|noun
+meprospan|noun|meprobamate|noun
+meprotabs|noun|meprobamate|noun
+meralluride|noun|mercuhydrin|noun
+merbromin|noun|mercurochrome|noun
+mercaptomerin sodium|noun|thiomerin|noun
+mercaptopurine|noun|purinethol|noun
+mercuhydrin|noun|meralluride|noun
+mercuramide|noun|mersalyl|noun
+mercurochrome|noun|merbromin|noun
+mercurophylline|noun|mercuzanthin|noun
+mercurous chloride|noun|calomel|noun
+mercuzanthin|noun|mercurophylline|noun
+merethoxylline|noun|dicurin|noun
+merphenyl|noun|phenylmercuric compounds|noun
+mersalyl|noun|mercuramide|noun
+mersalyl|noun|salyrgan|noun
+merthiolate|noun|thimerosal|noun
+mesantoin|noun|mephenytoin|noun
+mesaraic|adj|mesenteric|adj
+mesaticephalic|adj|mesocephalic|adj
+mesencephalon|noun|midbrain|noun
+mesenteric|adj|mesaraic|adj
+mesocarpal|adj|midcarpal|adj
+mesocephalic|adj|mesaticephalic|adj
+mesognathic|adj|mesognathous|adj
+mesognathous|adj|mesognathic|adj
+mesopin|noun|homatropine methylbromide|noun
+mesoridazine besylate|noun|serentil|noun
+mesotarsal|adj|midtarsal|adj
+mestinon|noun|pyridostigmine bromide|noun
+mesylate|noun|methanesulfonate|noun
+metahydrin|noun|trichlormethiazide|noun
+metamine|noun|trolnitrate phosphate|noun
+metamucil|noun|psyllium hydrophilic mucilloid|noun
+metandren|noun|methyltestosterone|noun
+metaphedrin|noun|nitromersol and ephedrine|noun
+metaphen|noun|nitromersol|noun
+metaprel|noun|metaproterenol sulfate|noun
+metaproterenol sulfate|noun|alupent|noun
+metaproterenol sulfate|noun|metaprel|noun
+metaraminol|noun|aramine|noun
+metaxalone|noun|skelaxin|noun
+metepencephalon|noun|myelencephalon|noun
+methacycline hydrochloride|noun|rondomycin|noun
+methadone hydrochloride|noun|dolophine|noun
+methallenestril|noun|vallestril|noun
+methamphetamine|noun|amphedroxyn|noun
+methamphetamine|noun|desoxyephedrine|noun
+methamphetamine hydrochloride|noun|desoxyn|noun
+methamphetamine hydrochloride|noun|dexoval|noun
+methamphetamine hydrochloride|noun|drinalfa|noun
+methamphetamine hydrochloride|noun|norodin|noun
+methamphetamine hydrochloride|noun|semoxydrine|noun
+methamphetamine hydrochloride|noun|syndrox|noun
+methandriol|noun|stenediol|noun
+methandrostenolone|noun|dianabol|noun
+methanesulfonate|noun|mesylate|noun
+methanol|noun|methyl alcohol|noun
+methanol|noun|wood alcohol|noun
+methantheline bromide|noun|banthine|noun
+methapyrilene|noun|histadyl|noun
+methapyrilene|noun|semikon|noun
+methapyrilene|noun|thenylene|noun
+methaqualone|noun|quaalude|noun
+methaqualone hydrochloride|noun|parest|noun
+metharbital|noun|gemonil|noun
+methazolamine|noun|neptazane|noun
+methdilazine|noun|tacaryl|noun
+methenamine|noun|formin|noun
+methenamine|noun|uritone|noun
+methenamine|noun|urotropin|noun
+methenamine hippurate|noun|hiprex|noun
+methenamine hippurate|noun|urex|noun
+methenamine mandelate|noun|mandelamine|noun
+methergine|noun|methylergonovine maleate|noun
+methimazole|noun|tapazole|noun
+methimazole|noun|thiamazole|noun
+methiodal sodium|noun|skiodan|noun
+methium|noun|hexamethonium chloride|noun
+methixene hydrochloride|noun|trest|noun
+methocarbamol|noun|robaxin|noun
+methocel|noun|methylcellulose|noun
+methohexital sodium|noun|brevital|noun
+methotrimeprazine|noun|levomepromazine|noun
+methotrimeprazine|noun|levoprome|noun
+methoxamine hydrochloride|noun|vasoxyl|noun
+methoxsalen|noun|8-methoxypsoralen|noun
+methoxsalen|noun|oxsoralen|noun
+methoxsalen|noun|xanthotoxin|noun
+methoxyflurane|noun|penthrane|noun
+methoxyphenamine|noun|orthoxine|noun
+methscopolamine bromide|noun|pamine|noun
+methsuximide|noun|celontin|noun
+methyclothiazide|noun|aquatensen|noun
+methyclothiazide|noun|enduron|noun
+methyl alcohol|noun|methanol|noun
+methylatropine nitrate|noun|metropine|noun
+methylbenzethonium chloride|noun|diaparene|noun
+methylcellulose|noun|cologel|noun
+methylcellulose|noun|hydrolose|noun
+methylcellulose|noun|methocel|noun
+methyldopa|noun|aldomet|noun
+methylergonovine maleate|noun|methergine|noun
+methylhexaneamine|noun|forthane|noun
+methylphenidate hydrochloride|noun|ritalin|noun
+methylprednisolone|noun|medrol|noun
+methyltestosterone|noun|metandren|noun
+methyprylon|noun|noludar|noun
+methysergide maleate|noun|sansert|noun
+meticortelone|noun|prednisolone|noun
+meticorten|noun|prednisone|noun
+metocurine iodide|noun|metubine|noun
+metol|noun|ch3nhc6h4oh.h2so4|noun
+metol|noun|n-methyl-p-aminophenol sulfate|noun
+metolazone|noun|zaroxolyn|noun
+metopirone|noun|metyrapone|noun
+metoprolol tartrate|noun|lopressor|noun
+metrazol|noun|pentylenetetrazol|noun
+metreton|noun|prednisolone sodium phosphate|noun
+metrifonate|noun|trichlorfon|noun
+metrizamide|noun|amipaque|noun
+metrizoate sodium|noun|isopaque|noun
+metronidazole|noun|flagyl|noun
+metropathic|adj|uterine disorder|noun
+metropine|noun|methylatropine nitrate|noun
+metroptosis|noun|hysteroptosis|noun
+metubine|noun|metocurine iodide|noun
+metycaine|noun|piperocaine|noun
+metyrapone|noun|metopirone|noun
+micatin|noun|miconazole nitrate|noun
+miconazole nitrate|noun|micatin|noun
+miconazole nitrate|noun|monistat|noun
+microfluorometry|noun|cytophotometry|noun
+microscler|adj|dolichomorphic|adj
+midbrain|noun|mesencephalon|noun
+midcarpal|adj|mediocarpal|adj
+midcarpal|adj|mesocarpal|adj
+middle|noun|medial|adj
+midicel|noun|sulfamethoxypyridazine|noun
+midoccipital|adj|medioccipital|adj
+midtarsal|adj|mesotarsal|adj
+migraine|noun|blind headache|noun
+migraine|noun|megrim|noun
+migraine|noun|sick headache|noun
+mikedimide|noun|bemegride|noun
+milibis|noun|glycobiarsol|noun
+milk|noun|galactic|adj
+milk|noun|lacteal|adj
+milk|noun|lactic|adj
+milontin|noun|phensuximide|noun
+miltown|noun|meprobamate|noun
+mimetic|adj|mimic|adj
+mimic|adj|mimetic|adj
+mincard|noun|aminometradine|noun
+mind|noun|mental|adj
+mind|noun|phrenic|adj
+mind|noun|psychic|adj
+mineral oil|noun|blandlube|noun
+mini-lix|noun|aminophylline|noun
+minify|verb|diminish|verb
+minocin|noun|minocycline hydrochloride|noun
+minocycline hydrochloride|noun|minocin|noun
+minocycline hydrochloride|noun|vectrin|noun
+mintezol|noun|thiabendazole|noun
+miochol|noun|acetylcholine chloride|noun
+miradon|noun|anisindione|noun
+mithracin|noun|mithramycin|noun
+mithramycin|noun|mithracin|noun
+mitigate|verb|moderate|verb
+mitomycin|noun|mutamycin|noun
+mitotane|noun|lysodren|noun
+mnemic|adj|mnemonic|adj
+mnemonic|adj|memory|noun
+mnemonic|adj|mnemic|adj
+moban|noun|molindone hydrochloride|noun
+moderate|verb|mitigate|verb
+moderil|noun|rescinnamine|noun
+moisture|noun|hygric|adj
+mol-iron|noun|ferrous sulfate|noun
+molindone hydrochloride|noun|moban|noun
+monarthric|adj|monarticular|adj
+monarthric|adj|monoarticular|adj
+monarticular|adj|monarthric|adj
+monaural|adj|uniaural|adj
+monistat|noun|miconazole nitrate|noun
+monoarticular|adj|monarthric|adj
+monobacillary|adj|monobacterial|adj
+monobacterial|adj|monobacillary|adj
+monobenzone|noun|benoquin|noun
+monodral bromide|noun|penthienate bromide|noun
+monogerminal|adj|monozygotic|adj
+monohydrochloride hemiethanolate hemihydrate|noun|hyclate|noun
+monomania|noun|monopsychosis|noun
+mononuclear leukocytosis|noun|mononucleosis|noun
+mononucleosis|noun|mononuclear leukocytosis|noun
+monopolar|adj|monoterminal|adj
+monopsychosis|noun|monomania|noun
+monoterminal|adj|monopolar|adj
+monoterminal|adj|uniterminal|adj
+monozygotic|adj|monogerminal|adj
+monozygotic|adj|monozygous|adj
+monozygous|adj|monozygotic|adj
+monthly|adj|mensual|adj
+moon|noun|lunar|adj
+mornidine|noun|pipamazine|noun
+morning|noun|matutinal|adj
+morphina|noun|morphine|noun
+morphine|noun|morphina|noun
+morphotic|adj|formation|noun
+mother|noun|mater|noun
+mother|noun|maternal|adj
+motion|noun|kinetic|adj
+motorgraphic|adj|kinetographic|adj
+motrin|noun|ibuprofen|noun
+mouth|noun|oral|adj
+mouth|noun|stomatic|adj
+mucomyst|noun|acetylcysteine|noun
+mucous edema|noun|myxedema|noun
+mucus|noun|pituitous|adj
+multicentric|adj|polycentric|adj
+multicystic|adj|polycystic|adj
+multiple myositis|noun|polymyositis|noun
+multiple neuritis|noun|polyneuritis|noun
+multiple serositis|noun|polyserositis|noun
+multisynaptic|adj|polysynaptic|adj
+mumps|noun|epidemic parotitis|noun
+muramidase|noun|lysozyme|noun
+murel|noun|valethamate bromide|noun
+muscular rheumatism|noun|fibrositis|noun
+muscular weakness|noun|myasthenic|adj
+mustargen|noun|mechlorethamine hydrochloride|noun
+mutafacient|adj|mutagenic|adj
+mutagenic|adj|mutafacient|adj
+mutamycin|noun|mitomycin|noun
+myalgia|noun|myosalgia|noun
+myambutol|noun|ethambutol hydrochloride|noun
+myanesin|noun|mephenesin|noun
+myasthenic|adj|muscular weakness|noun
+mycifradin|noun|neomycin sulfate|noun
+mycodermatitis|noun|candidiasis|noun
+mycostatin|noun|nystatin|noun
+mydriacyl|noun|tropicamide|noun
+myelencephalon|noun|metepencephalon|noun
+myelinated|adj|medullated|adj
+myeloencephalic|adj|medulloencephalic|adj
+mylaxen|noun|hexafluorenium bromide|noun
+myleran|noun|busulfan|noun
+mylicon|noun|simethicone|noun
+myocardiac|adj|myocardial|adj
+myocardial|adj|myocardiac|adj
+myochrysine|noun|gold sodium thiomalate|noun
+myopia|noun|nearsightedness|noun
+myopic|adj|nearsighted|adj
+myosalgia|noun|myalgia|noun
+myositis|noun|sarcitis|noun
+mysoline|noun|primidone|noun
+mytelase|noun|ambenonium chloride|noun
+myxadenoma|noun|myxoadenoma|noun
+myxedema|noun|mucous edema|noun
+myxedema|noun|solid edema|noun
+myxoadenoma|noun|myxadenoma|noun
+n-acetylglycinate|noun|aceturate|noun
+n-methyl-p-aminophenol sulfate|noun|metol|noun
+nacton|noun|poldine methylsulfate|noun
+nadide|noun|enzopride|noun
+naepaine|noun|amylcaine hydrochloride|noun
+naepaine|noun|amylsine hydrochloride|noun
+nafcillin sodium|noun|unipen|noun
+nail|noun|paronychial|adj
+nail|noun|ungual|adj
+nalfon|noun|fenoprofen calcium|noun
+nalidixic acid|noun|neggram|noun
+nalline|noun|nalorphine|noun
+nalorphine|noun|nalline|noun
+naloxone hydrochloride|noun|narcan|noun
+nandrolone decanoate|noun|deca-durabolin|noun
+nandrolone phenpropionate|noun|durabolin|noun
+naphazoline|noun|privine|noun
+naphazoline hydrochloride|noun|albalon|noun
+naprosyn|noun|naproxen|noun
+naproxen|noun|naprosyn|noun
+napsylate|noun|2-naphthalenesulfonate|noun
+naqua|noun|trichlormethiazide|noun
+narcan|noun|naloxone hydrochloride|noun
+nardil|noun|phenelzine sulfate|noun
+narone|noun|dipyrone|noun
+nasal|adj|nose|noun
+nasopharyngeal|adj|epipharyngeal|adj
+nasopharyngeal|adj|rhinopharyngeal|adj
+nasopharyngitis|noun|epipharyngitis|noun
+nasopharynx|noun|epipharynx|noun
+natal|adj|birth|noun
+natolone|noun|pregnenolone|noun
+naturetin|noun|bendroflumethiazide|noun
+navane|noun|thiothixene|noun
+nearsighted|adj|myopic|adj
+nearsightedness|noun|myopia|noun
+nebcin|noun|tobramycin sulfate|noun
+nebs|noun|acetaminophen|noun
+neck|noun|cervical|adj
+neck|noun|jugular|adj
+necrobacillosis|noun|bacillary necrosis|noun
+necrotic osteitis|noun|osteomyelitis|noun
+necrotizing vasculitis|noun|polyarteritis|noun
+neencephalon|noun|neoencephalon|noun
+negatan|noun|negatol|noun
+negatol|noun|negatan|noun
+neggram|noun|nalidixic acid|noun
+nema|noun|tetrachloroethylene|noun
+nembutal|noun|sodium pentobarbital|noun
+nemic|adj|roundworms|noun
+neo-antergan|noun|pyrilamine maleate|noun
+neo-calglucon|noun|calcium glubionate|noun
+neo-cobefrin|noun|levonordefrin|noun
+neo-hombreol|noun|testosterone propionate|noun
+neo-synephrine|noun|phenylephrine hydrochloride|noun
+neobiotic|noun|neomycin sulfate|noun
+neoencephalon|noun|neencephalon|noun
+neohetramine|noun|thonzylamine hydrochloride|noun
+neoloid|noun|castor oil|noun
+neomycin sulfate|noun|mycifradin|noun
+neomycin sulfate|noun|neobiotic|noun
+neostigmine|noun|prostigmin|noun
+neothylline|noun|dyphylline|noun
+neotrizine|noun|trisulfapyrinidenes|noun
+nephric|adj|kidney|noun
+nephritic|adj|kidney|noun
+nephrosclerosis|noun|vascular nephritis|noun
+nephrosis|noun|degenerative nephritis|noun
+neptazane|noun|methazolamine|noun
+nerve|noun|neural|adj
+nervous system|noun|neurologic|adj
+nesacaine|noun|chloroprocaine hydrochloride|noun
+net|noun|reticular|adj
+neural|adj|nerve|noun
+neurilemmitis|noun|neurolemmitis|noun
+neurinoma|noun|schwannoma|noun
+neurofibroma|noun|fibroneuroma|noun
+neurolemmitis|noun|neurilemmitis|noun
+neuroleptic|adj|antipsychotic|adj
+neurologic|adj|nervous system|noun
+neuromuscular|adj|neuromyal|adj
+neuromyal|adj|neuromuscular|adj
+neurophilic|adj|neurotropic|adj
+neurosplanchnic|adj|neurovisceral|adj
+neurotropic|adj|neurophilic|adj
+neurovisceral|adj|neurosplanchnic|adj
+neutra-phos-k|noun|potassium phosphate|noun
+nevocytic|adj|nevus cell|noun
+nevus cell|noun|nevocytic|adj
+niacin|noun|antipellagra factor|noun
+niacin|noun|nicotinic acid|noun
+niacin|noun|pellagra-preventive factor|noun
+nialamide|noun|niamid|noun
+niamid|noun|nialamide|noun
+nicalex|noun|aluminum nicotinate|noun
+niconyl|noun|isoniazid|noun
+nicotinic acid|noun|niacin|noun
+nicotinyl alcohol|noun|roniacol|noun
+nicozide|noun|isoniazid|noun
+night|noun|nocturnal|adj
+nikethamide|noun|coramine|noun
+nilevar|noun|norethandrolone|noun
+ninhydrin|noun|triketohydrindene hydrate|noun
+ninhydrin reagent|noun|triketohydrindene hydrate|noun
+nionate|noun|ferrous gluconate|noun
+nipple|noun|mamillary|adj
+nipple|noun|papillary|adj
+nipride|noun|sodium nitroprusside|noun
+nisentil|noun|alphaprodine|noun
+nitrocellulose|noun|pyroxylin|noun
+nitrofurantoin|noun|cyantin|noun
+nitrofurantoin|noun|furadantin|noun
+nitrofurantoin|noun|macrodantin|noun
+nitrofurazone|noun|furacin|noun
+nitrofurfuryl methyl ether|noun|furaspor|noun
+nitroglycerin|noun|glyceryl trinitrate|noun
+nitroglycerin|noun|nitroglyn|noun
+nitroglycerin|noun|nitrol|noun
+nitroglycerin|noun|nitrostat|noun
+nitroglycerin|noun|nitrovas|noun
+nitroglycerin|noun|trinitrin|noun
+nitroglyn|noun|nitroglycerin|noun
+nitrol|noun|nitroglycerin|noun
+nitromersol|noun|metaphen|noun
+nitromersol and ephedrine|noun|metaphedrin|noun
+nitrostat|noun|nitroglycerin|noun
+nitrovas|noun|nitroglycerin|noun
+noctambulic|adj|sleep walking|noun
+noctambulic|adj|somnambulism|noun
+noctec|noun|chloral hydrate|noun
+nocturnal|adj|night|noun
+noetic|adj|cognition|noun
+noetic|adj|intellect|noun
+noludar|noun|methyprylon|noun
+nolvadex|noun|tamoxifen|noun
+nonchromaffin paraganglioma|noun|chemodectoma|noun
+nonmedullated|adj|unmyelinated|adj
+nonmyelinated|adj|unmyelinated|adj
+nonparous|adj|nulliparous|adj
+noradrenalin|noun|norepinephrine|noun
+norepinephrine|noun|noradrenalin|noun
+norepinephrine bitartrate|noun|levophed|noun
+norethandrolone|noun|nilevar|noun
+norethindrone|noun|norethisterone|noun
+norethindrone|noun|norlutin|noun
+norethindrone acetate|noun|norlutate|noun
+norethisterone|noun|norethindrone|noun
+norflex|noun|orphenadrine citrate|noun
+norgestrel|noun|ovrette|noun
+norisodrine|noun|isoproterenol|noun
+norlutate|noun|norethindrone acetate|noun
+norlutin|noun|norethindrone|noun
+normocytin|noun|vitamin b12|noun
+norodin|noun|methamphetamine hydrochloride|noun
+norpace|noun|disopyramide phosphate|noun
+norpramin|noun|desipramine hydrochloride|noun
+nortriptyline hydrochloride|noun|aventyl|noun
+nose|noun|nasal|adj
+nose|noun|rhinal|adj
+nosocomial|adj|hospital|noun
+nosogenic|adj|pathogenic|adj
+nostyn|noun|ectylurea|noun
+novaldin|noun|dipyrone|noun
+novobiocin|noun|albamycin|noun
+novobiocin|noun|cathomycin|noun
+novocain|noun|procaine hydrochloride|noun
+novrad|noun|levopropoxyphene napsylate|noun
+nuclear jaundice|noun|kernicterus|noun
+nulliparous|adj|nonparous|adj
+numorphan|noun|oxymorphone hydrochloride|noun
+nupercainal|noun|dibucaine|noun
+nupercaine|noun|dibucaine|noun
+nutrition|noun|threptic|adj
+nutrition|noun|trophic|adj
+nydrazid|noun|isoniazid|noun
+nylidrin hydrochloride|noun|arlidin|noun
+nystagmiform|adj|nystagmoid|adj
+nystagmoid|adj|nystagmiform|adj
+nystatin|noun|mycostatin|noun
+o-(4-hydroxybenzoyl)benzoate|noun|hybenzate|noun
+obstruct|verb|embarrass|verb
+obtain|verb|gain|verb
+occlusal|adj|closure|noun
+octin|noun|isometheptene|noun
+ocular|adj|eye|noun
+oculogyric|adj|ophthalmogyric|adj
+odontalgia|noun|dentalgia|noun
+odontalgic|adj|toothache|noun
+odontic|adj|tooth|noun
+oestrous|adj|estrous|adj
+ogen|noun|piperazine estrone sulfate|noun
+oil|noun|oleum|noun
+ointment|noun|unguentum|noun
+olamine|noun|ethanolamine|noun
+old age|noun|gerontal|adj
+old age|noun|senile|adj
+olefiant gas|noun|ethylene|noun
+oleum|noun|oil|noun
+oligosynaptic|adj|paucisynaptic|adj
+omentitis|noun|epiploitis|noun
+omnipen|noun|ampicillin|noun
+omphalic|adj|umbilicus|noun
+oncotic|adj|swelling|noun
+oncovin|noun|vincristine sulfate|noun
+onychomycosis|noun|tinea unguium|noun
+onychophagia|noun|onychophagy|noun
+onychophagy|noun|onychophagia|noun
+oogenesis|noun|ovogenesis|noun
+oogenetic|adj|ovigenetic|adj
+oogenic|adj|ovigenic|adj
+oogenic|adj|ovigenous|adj
+oophoralgia|noun|ovarialgia|noun
+oophorectomy|noun|ovariectomy|noun
+oophoritis|noun|ovaritis|noun
+operculitis|noun|pericoronitis|noun
+ophidic|adj|snake|noun
+ophthaine|noun|proparacaine hydrochloride|noun
+ophthalmic|adj|eye|noun
+ophthalmogyric|adj|oculogyric|adj
+ophthalmoptosis|noun|exophthalmos|noun
+ophthetic|noun|proparacaine hydrochloride|noun
+ophthochlor|noun|chloramphenicol|noun
+opium|noun|thebaic|adj
+optef|noun|hydrocortisone|noun
+optic|adj|eye|noun
+optical|adj|vision|noun
+ora-testryl|noun|fluoxymesterone|noun
+orabilex|noun|bunamiodyl|noun
+oral|adj|mouth|noun
+oranixon|noun|mephenesin|noun
+orchialgia|noun|didymalgia|noun
+orchialgia|noun|orchidalgia|noun
+orchialgia|noun|orchioneuralgia|noun
+orchidalgia|noun|orchialgia|noun
+orchidectomy|noun|orchiectomy|noun
+orchidic|adj|testis|noun
+orchiectomy|noun|orchidectomy|noun
+orchioneuralgia|noun|orchialgia|noun
+orchitis|noun|didymitis|noun
+orchitis|noun|testitis|noun
+ordure|noun|excrement|noun
+oretic|noun|hydrochlorothiazide|noun
+oreton|noun|testosterone propionate|noun
+organella|noun|organelle|noun
+organelle|noun|organella|noun
+organic chemistry|noun|vitochemical|adj
+organidin|noun|iodinated glycerol|noun
+organophilic|adj|organotropic|adj
+organotropic|adj|organophilic|adj
+origin|noun|genetic|adj
+orimune|noun|live oral poliovirus vaccine|noun
+orinase|noun|tolbutamide|noun
+orphenadrine citrate|noun|norflex|noun
+orphenadrine hydrochloride|noun|disipal|noun
+orthoxine|noun|methoxyphenamine|noun
+os pubis|noun|pectineal|adj
+osbil|noun|iobenzamic acid|noun
+oscheal|adj|scrotum|noun
+oscitate|verb|yawn|verb
+osmitrol|noun|mannitol|noun
+ostalgia|noun|ostealgia|noun
+ostealgia|noun|ostalgia|noun
+ostensin|noun|trimethidinium methosulfate|noun
+osteoarthritis|noun|degenerative arthritis|noun
+osteoarthritis|noun|degenerative joint disease|noun
+osteoarthritis|noun|hypertrophic arthritis|noun
+osteoblastoma|noun|osteogenic fibroma|noun
+osteocartilaginous exostosis|noun|osteochondroma|noun
+osteochondroma|noun|chondrosteoma|noun
+osteochondroma|noun|osteocartilaginous exostosis|noun
+osteogenic fibroma|noun|osteoblastoma|noun
+osteomyelitis|noun|carious osteitis|noun
+osteomyelitis|noun|necrotic osteitis|noun
+osteoperiostitis|noun|periostosteitis|noun
+osteopetrosis|noun|osteosclerosis fragilis|noun
+osteosclerosis fragilis|noun|osteopetrosis|noun
+osteotympanic|adj|craniotympanic|adj
+otalgic|adj|earache|noun
+otic|adj|ear|noun
+otogenic|adj|otogenous|adj
+otogenous|adj|otogenic|adj
+otor|adj|ear|noun
+otrivin|noun|xylometazoline hydrochloride|noun
+oulonitis|noun|pulpitis|noun
+ovarialgia|noun|oophoralgia|noun
+ovariectomy|noun|oophorectomy|noun
+ovaritis|noun|oophoritis|noun
+ovigenetic|adj|oogenetic|adj
+ovigenic|adj|oogenic|adj
+ovigenous|adj|oogenic|adj
+ovine|adj|sheep|noun
+ovogenesis|noun|oogenesis|noun
+ovrette|noun|norgestrel|noun
+oxacillin sodium|noun|bactocill|noun
+oxacillin sodium|noun|prostaphlin|noun
+oxaine|noun|oxethazaine|noun
+oxalid|noun|oxyphenbutazone|noun
+oxaluria|noun|hyperoxaluria|noun
+oxazepam|noun|serax|noun
+oxethazaine|noun|oxaine|noun
+oxidized cellulose|noun|oxycel|noun
+oxolinic acid|noun|utibid|noun
+oxpentifylline|noun|pentoxifylline|noun
+oxsoralen|noun|methoxsalen|noun
+oxtriphylline|noun|choledyl|noun
+oxybutynin hydrochloride|noun|ditropan|noun
+oxycel|noun|oxidized cellulose|noun
+oxychlorosene|noun|clorpactin xcb|noun
+oxylone|noun|fluorometholone|noun
+oxymetazoline hydrochloride|noun|afrin|noun
+oxymetholone|noun|adroyd|noun
+oxymetholone|noun|anadrol|noun
+oxymorphone hydrochloride|noun|numorphan|noun
+oxyneurine|noun|betaine|noun
+oxyphenbutazone|noun|oxalid|noun
+oxyphenbutazone|noun|tandearil|noun
+oxyphencyclimine hydrochloride|noun|daricon|noun
+oxyphenisatin|noun|lavema|noun
+oxyphenisatin acetate|noun|isocrin|noun
+oxyphenisatin acetate|noun|prulet|noun
+oxyphenonium|noun|antrenyl|noun
+oxytetracycline|noun|hydroxytetracycline|noun
+oxytetracycline|noun|terramycin|noun
+oxytocin|noun|pitocin|noun
+p-chlorobenzesulfonate|noun|closylate|noun
+p-toluenesulfonate|noun|tosylate|noun
+pabanol|noun|aminobenzoic acid|noun
+pacatal|noun|mepazine|noun
+pagitane|noun|cycrimine hydrochloride|noun
+pain|noun|torminal|adj
+paleencephalon|noun|paleoencephalon|noun
+paleoencephalon|noun|paleencephalon|noun
+pallesthetic|adj|palmesthetic|adj
+palliate|verb|relieve|verb
+pallidal|adj|globus pallidum|noun
+palm|noun|thenal|adj
+palm|noun|thenar|adj
+palmesthetic|adj|pallesthetic|adj
+palpate|verb|feel|verb
+palpebral|adj|eyelid|noun
+palpebralis|adj|eyelid|noun
+palpebritis|noun|blepharitis|noun
+palsy|noun|paralysis|noun
+paludal|adj|marsh|noun
+paludal fever|noun|malaria|noun
+paludrine|noun|proguanil hydrochloride|noun
+palustral|adj|malaria|noun
+palustral|adj|marsh|noun
+pamine|noun|methscopolamine bromide|noun
+pamisyl|noun|aminosalicylic acid|noun
+pamoate|noun|4,4-methylenebis[3-hydroxy-2-naphthoate]|noun
+pancrealgia|noun|pancreatalgia|noun
+pancreatalgia|noun|pancrealgia|noun
+pancreatic dornase|noun|dornavac|noun
+pancreatin|noun|diastase vera|noun
+pancreatin|noun|panteric|noun
+pancreatin|noun|viokase|noun
+pancreatogenic|adj|pancreatogenous|adj
+pancreatogenous|adj|pancreatogenic|adj
+pancrelipase|noun|cotazym|noun
+pancrelipase|noun|ilozyme|noun
+pancuronium bromide|noun|pavulon|noun
+panheprin|noun|heparin sodium|noun
+panmycin|noun|tetracycline|noun
+pantamorphic|adj|formless|adj
+panteric|noun|pancreatin|noun
+panthodic|adj|pollodic|adj
+pantholin|noun|calcium pantothenate|noun
+pantopaque|noun|iophendylate|noun
+panwarfin|noun|warfarin sodium|noun
+papaverine hydrochloride|noun|vasal|noun
+papillary|adj|nipple|noun
+papilloma virus|noun|papillomavirus|noun
+papillomavirus|noun|papilloma virus|noun
+papyraceous|adj|chartaceous|adj
+para-aminosalicylic acid|noun|rezipas|noun
+paracoccidioidal granuloma|noun|paracoccidioidomycosis|noun
+paracoccidioidomycosis|noun|almeida's disease|noun
+paracoccidioidomycosis|noun|paracoccidioidal granuloma|noun
+paradentitis|noun|periodontitis|noun
+paradentium|noun|periodontium|noun
+paradione|noun|paramethadione|noun
+paraflex|noun|chlorzoxazone|noun
+parahepatitis|noun|perihepatitis|noun
+paral|noun|paraldehyde|noun
+paraldehyde|noun|paral|noun
+paralysis|noun|palsy|noun
+paramedian|adj|paramesial|adj
+paramesial|adj|paramedian|adj
+paramethadione|noun|paradione|noun
+paramethasone acetate|noun|haldrone|noun
+parametritis|noun|pelvic cellulitis|noun
+paranephric|adj|adrenal gland|noun
+paraprostatitis|noun|extraprostatitis|noun
+parasal|noun|aminosalicylic acid|noun
+parasitic bronchitis|noun|hoose|noun
+paratriptic|adj|chafing|noun
+paratuberculosis|noun|perituberculosis|noun
+paredrine|noun|hydroxyamphetamine hydrobromide|noun
+parenogen|noun|fibrinogen|noun
+parest|noun|methaqualone hydrochloride|noun
+pargyline hydrochloride|noun|eutonyl|noun
+parnate|noun|tranylcypromine sulfate|noun
+parodontitis|noun|periodontitis|noun
+paromomycin sulfate|noun|humatin|noun
+paronychia|noun|perionychia|noun
+paronychial|adj|nail|noun
+parpanit|noun|caramiphen hydrochloride|noun
+parrot disease|noun|psittacosis|noun
+parsidol|noun|ethopropazine hydrochloride|noun
+parturient|adj|childbirth|noun
+parvovirus|noun|picodnavirus|noun
+pasta|noun|paste|noun
+paste|noun|pasta|noun
+patella|noun|rotular|adj
+pathetic|adj|trochlear nerve|noun
+pathilon|noun|tridihexethyl chloride|noun
+pathocil|noun|dicloxacillin sodium|noun
+pathogenic|adj|nosogenic|adj
+pathognomonic|adj|pathognostic|adj
+pathognostic|adj|pathognomonic|adj
+patulin|noun|clavacin|noun
+patulin|noun|penicidin|noun
+paucisynaptic|adj|oligosynaptic|adj
+paveril|noun|dioxyline|noun
+pavulon|noun|pancuronium bromide|noun
+pectinase|noun|polygalacturonase|noun
+pectineal|adj|os pubis|noun
+pectoral|adj|breast|noun
+pectoral|adj|chest|noun
+pedal|adj|foot|noun
+pediaflor|noun|sodium fluoride|noun
+pediamycin|noun|erythromycin ethylsuccinate|noun
+pedicular|adj|louse|noun
+peganone|noun|ethotoin|noun
+peliosis|noun|purpura|noun
+pellagra-preventive factor|noun|niacin|noun
+pellant|adj|depurative|adj
+pellate|verb|repel|verb
+pellucid|adj|translucent|adj
+pelvic cellulitis|noun|parametritis|noun
+pen-vee|noun|penicillin v|noun
+penbritin|noun|ampicillin|noun
+penial|adj|penile|adj
+penicidin|noun|patulin|noun
+penicillamine|noun|cuprimine|noun
+penicillin g benzathine|noun|bicillin|noun
+penicillin g potassium|noun|pentids|noun
+penicillin g procaine|noun|abbocillin-dc|noun
+penicillin g procaine|noun|crysticillin|noun
+penicillin g procaine|noun|duracillin|noun
+penicillin g procaine|noun|ledercillin|noun
+penicillin g procaine|noun|wycillin|noun
+penicillin v|noun|pen-vee|noun
+penicillin v|noun|v-cillin|noun
+penicillin v potassium|noun|betapen-vk|noun
+penicillin v potassium|noun|compocillin-vk|noun
+penicillin v potassium|noun|uticillin vk|noun
+penicillin v potassium|noun|veetids|noun
+penile|adj|penial|adj
+penis|noun|phallic|adj
+pentaerythritol chloral|noun|petrichloral|adj
+pentaerythritol tetranitrate|noun|pentritol|noun
+pentaerythritol tetranitrate|noun|peritrate|noun
+pentaerythritol trinitrate|noun|pentryate|noun
+pentagastrin|noun|peptavlon|noun
+pentazocine|noun|talwin|noun
+penthienate bromide|noun|monodral bromide|noun
+penthrane|noun|methoxyflurane|noun
+pentids|noun|penicillin g potassium|noun
+pentobarbital|noun|pentobarbitone|noun
+pentobarbitone|noun|pentobarbital|noun
+pentolinium tartrate|noun|ansolysen|noun
+pentothal|noun|thiopental|noun
+pentoxifylline|noun|oxpentifylline|noun
+pentritol|noun|pentaerythritol tetranitrate|noun
+pentryate|noun|pentaerythritol trinitrate|noun
+pentylenetetrazol|noun|metrazol|noun
+peptavlon|noun|pentagastrin|noun
+peptic|adj|digestion|noun
+perandren|noun|testosterone|noun
+perazil|noun|chlorcyclizine hydrochloride|noun
+percorten|noun|desoxycorticosterone|noun
+periactin|noun|cyproheptadine hydrochloride|noun
+periangiocholitis|noun|pericholangitis|noun
+pericaliceal|adj|pericalyceal|adj
+pericalyceal|adj|pericaliceal|adj
+pericardiac|adj|pericardial|adj
+pericardial|adj|pericardiac|adj
+pericardial sac|noun|pericardium|noun
+pericardium|noun|pericardial sac|noun
+pericemental|adj|periodontal ligament|noun
+pericementitis|noun|periodontitis|noun
+pericholangitis|noun|periangiocholitis|noun
+periclor|noun|petrichloral|noun
+pericolpitis|noun|perivaginitis|noun
+pericoronitis|noun|operculitis|noun
+peridental|adj|periodontal|adj
+perihepatitis|noun|hepatic capsulitis|noun
+perihepatitis|noun|parahepatitis|noun
+periodontal|adj|peridental|adj
+periodontal ligament|noun|pericemental|adj
+periodontitis|noun|cementoperiostitis|noun
+periodontitis|noun|paradentitis|noun
+periodontitis|noun|parodontitis|noun
+periodontitis|noun|pericementitis|noun
+periodontium|noun|paradentium|noun
+perionychia|noun|paronychia|noun
+perioophoritis|noun|perioothecitis|noun
+perioophoritis|noun|periovaritis|noun
+perioothecitis|noun|perioophoritis|noun
+periosteomedullitis|noun|periostomedullitis|noun
+periostitis|noun|cortical osteitis|noun
+periostomedullitis|noun|periosteomedullitis|noun
+periostosteitis|noun|osteoperiostitis|noun
+periovaritis|noun|perioophoritis|noun
+peripneumonia|noun|peripneumonitis|noun
+peripneumonitis|noun|peripneumonia|noun
+periproctitis|noun|perirectitis|noun
+perirectitis|noun|periproctitis|noun
+perissodactylous|adj|imparidigitate|adj
+peristalsis|noun|enterocinetic|adj
+peritendinitis|noun|tenosynovitis|noun
+peritenonitis|noun|tenosynovitis|noun
+peritenontitis|noun|tenosynovitis|noun
+perithyreoiditis|noun|perithyroiditis|noun
+perithyroiditis|noun|perithyreoiditis|noun
+peritrate|noun|pentaerythritol tetranitrate|noun
+perituberculosis|noun|paratuberculosis|noun
+perivaginitis|noun|pericolpitis|noun
+permeable|adj|pervious|adj
+permitil|noun|fluphenazine hydrochloride|noun
+peroneal|adj|fibula|noun
+perphenazine|noun|trilafon|noun
+persantine|noun|dipyridamole|noun
+pertofrane|noun|desipramine hydrochloride|noun
+pertussis immune human globulin|noun|hypertussis|noun
+pervious|adj|permeable|adj
+petrichloral|adj|pentaerythritol chloral|noun
+petrichloral|noun|periclor|noun
+petrolatum|noun|petroleum jelly|noun
+petroleum jelly|noun|petrolatum|noun
+peyote|noun|peyotl|noun
+peyotl|noun|peyote|noun
+phacoiditis|noun|phakitis|noun
+phage|noun|bacteriophage|noun
+phagocytolytic|adj|phagolytic|adj
+phagolytic|adj|phagocytolytic|adj
+phakitis|noun|crystallitis|noun
+phakitis|noun|crystalloiditis|noun
+phakitis|noun|lentitis|noun
+phakitis|noun|phacoiditis|noun
+phallic|adj|penis|noun
+phanodorn|noun|cyclobarbital|noun
+pharmaceutical|adj|drug|noun
+pharmatceutic|adj|drug|noun
+phe-mer-nite|noun|phenylmercuric nitrate|noun
+phemerol|noun|benzethonium|noun
+phenacaine hydrochloride|noun|holocaine|noun
+phenacemide|noun|phenurone|noun
+phenaglycodol|noun|ultran|noun
+phenazocine|noun|prinadol|noun
+phenazone|noun|antipyrine|noun
+phenazopyridine hydrochloride|noun|pyridium|noun
+phenbenzamine|noun|antergan|noun
+phenelzine sulfate|noun|nardil|noun
+phenergan|noun|promethazine hydrochloride|noun
+phenethicillin potassium|noun|maxipen|noun
+phenformin hydrochloride|noun|dbi|noun
+phenindamine tartrate|noun|thephorin|noun
+phenindione|noun|danilone|noun
+phenindione|noun|hedulin|noun
+phenindione|noun|phenylindanedione|noun
+phenobarbital|noun|eskabarb|noun
+phenobarbital|noun|luminal|noun
+phenobarbital|noun|phenobarbitone|noun
+phenobarbital|noun|phenylethylbarbituric acid|noun
+phenobarbitone|noun|phenobarbital|noun
+phenol red|noun|phenolsulfonphthalein|noun
+phenolax|noun|phenolphthalein|noun
+phenolphthalein|noun|phenolax|noun
+phenolsulfonphthalein|noun|phenol red|noun
+phenoxene|noun|chlorphenoxamine hydrochloride|noun
+phenoxybenzamine hydrochloride|noun|dibenzyline|noun
+phenprocoumon|noun|liquamar|noun
+phenpropionate|noun|3-phenylpropionate|noun
+phensuximide|noun|milontin|noun
+phentermine|noun|ionamin|noun
+phentolamine|noun|regitine|noun
+phenurone|noun|phenacemide|noun
+phenylbutazone|noun|azolid|noun
+phenylbutazone|noun|butazolidin|noun
+phenylephrine hydrochloride|noun|isophrin|noun
+phenylephrine hydrochloride|noun|neo-synephrine|noun
+phenylethylbarbituric acid|noun|phenobarbital|noun
+phenylindanedione|noun|phenindione|noun
+phenylmercuric compounds|noun|merphenyl|noun
+phenylmercuric nitrate|noun|phe-mer-nite|noun
+phenylpropanolamine hydrochloride|noun|propadrine|noun
+phenylthiocarbamide|noun|phenylthiourea|noun
+phenylthiourea|noun|phenylthiocarbamide|noun
+phenyltoloxamine|noun|bristamin|noun
+phenytoin|noun|dilantin|noun
+phenytoin|noun|diphenylhydantoin|noun
+phlebography|noun|venography|noun
+phlebosclerosis|noun|productive phlebitis|noun
+phlebosclerosis|noun|proliferative endophlebitis|noun
+phlebosclerosis|noun|venosclerosis|noun
+phlebosclerosis|noun|venous sclerosis|noun
+phlebotomize|verb|bleed|verb
+phlebotomy|noun|venesection|noun
+phlogotic|adj|inflammatory|adj
+phlorhizin|noun|phloridzin|noun
+phlorhizin|noun|phlorizin|noun
+phloridzin|noun|phlorhizin|noun
+phlorizin|noun|phlorhizin|noun
+phonal|adj|voice|noun
+phonic|adj|voice|noun
+phosphatide|noun|phospholipid|noun
+phosphatidyl choline|noun|lecithin|noun
+phosphatidylcholine|noun|lecithin|noun
+phosphocreatine|noun|creatine phosphate|noun
+phosphokinase|noun|kinase|noun
+phospholine|noun|echothiophate iodide|noun
+phospholipid|noun|phosphatide|noun
+phosphonecrosis|noun|phossy jaw|noun
+phosphorated|adj|phosphoretted|adj
+phosphorated|adj|phosphuretted|adj
+phosphoretted|adj|phosphorated|adj
+phosphovitellin|noun|phosvitin|noun
+phosphuretted|adj|phosphorated|adj
+phossy jaw|noun|phosphonecrosis|noun
+phosvitin|noun|phosphovitellin|noun
+photic|adj|light|noun
+photoesthetic|adj|light|noun
+photofluorography|noun|fluorography|noun
+photomyoclonic|adj|photomyogenic|adj
+photomyogenic|adj|photomyoclonic|adj
+phrenic|adj|diaphragm|noun
+phrenic|adj|mind|noun
+phthalylsulfathiazole|noun|sulfathalidine|noun
+phthisicky|adj|asthmatic|adj
+phthisiogenetic|adj|phthisiogenic|adj
+phthisiogenic|adj|phthisiogenetic|adj
+phylloquinone|noun|phytonadione|noun
+phylogenesis|noun|phylogeny|noun
+phylogeny|noun|phylogenesis|noun
+physician|noun|medicus|noun
+physostigmine salicylate|noun|antilirium|noun
+phytonadione|noun|aquamephyton|noun
+phytonadione|noun|konakion|noun
+phytonadione|noun|mephyton|noun
+phytonadione|noun|phylloquinone|noun
+pial|adj|piamatral|adj
+piamatral|adj|pial|adj
+picodnavirus|noun|parvovirus|noun
+piedra|noun|tinea nodosa|noun
+pilar|adj|hair|noun
+pilary|adj|hair|noun
+pill|noun|pilula|noun
+pilula|noun|pill|noun
+pima|noun|potassium iodide|noun
+piminodine esylate|noun|alvodine|noun
+pinta|noun|azul|noun
+pinta|noun|carate|noun
+pipamazine|noun|mornidine|noun
+pipanol|noun|trihexyphenidyl hydrochloride|noun
+pipenzolate methylbromide|noun|piptal|noun
+piperacetazine|noun|quide|noun
+piperazine|noun|pipizan|noun
+piperazine estrone sulfate|noun|ogen|noun
+piperiodolate hydrochloride|noun|dactil|noun
+piperocaine|noun|metycaine|noun
+pipizan|noun|piperazine|noun
+pipobroman|noun|vercyte|noun
+piptal|noun|pipenzolate methylbromide|noun
+piracaps|noun|tetracycline hydrochloride|noun
+pit|verb|indent|verb
+pitocin|noun|oxytocin|noun
+pitressin|noun|vasopressin injection|noun
+pituitous|adj|mucus|noun
+pituitrin|noun|posterior pituitary injection|noun
+pivalate|noun|trimethylacetate|noun
+placidyl|noun|ethchlorvynol|noun
+planorbid|adj|snail|noun
+plant|noun|botanic|adj
+plant|noun|vegetal|adj
+plaquenil|noun|hydroxychloroquine sulfate|noun
+plasma cell tumor|noun|plasmacytoma|noun
+plasmacytoma|noun|plasma cell tumor|noun
+plasmanate|noun|human plasma protein fraction|noun
+platelet|noun|blood platelet|noun
+plateletpheresis|noun|thrombocytapheresis|noun
+platinum diamminodichloride|noun|cisplatin|noun
+pleasure|noun|hedonic|adj
+pleomastic|adj|polymastic|adj
+pleurisy|noun|pleuritis|noun
+pleuritic pneumonia|noun|pleuropneumonia|noun
+pleuritis|noun|pleurisy|noun
+pleurogenic|adj|pleurogenous|adj
+pleurogenous|adj|pleurogenic|adj
+pleuropneumonia|noun|pleuritic pneumonia|noun
+plumbic|adj|lead|noun
+pneumal|adj|lung|noun
+pneumoenteritis|noun|pneumonoenteritis|noun
+pneumomediastinum|noun|mediastinal emphysema|noun
+pneumonic|adj|lung|noun
+pneumonoenteritis|noun|pneumoenteritis|noun
+pneumonopleuritis|noun|pneumopleuritis|noun
+pneumopleuritis|noun|pneumonopleuritis|noun
+podiatrist|noun|chiropodist|noun
+podiatry|noun|chiropody|noun
+podophyllum|noun|mandrake root|noun
+poikilothermic|adj|hematocryal|adj
+poison|noun|toxic|adj
+polaramine|noun|dexchlorpheniramine maleate|noun
+poldine methylsulfate|noun|nacton|noun
+policeman's disease|noun|tarsalgia|noun
+poliencephalitis|noun|polioencephalitis|noun
+poliencephalomyelitis|noun|polioencephalomyelitis|noun
+polio|noun|poliomyelitis|noun
+polioencephalitis|noun|poliencephalitis|noun
+polioencephalomyelitis|noun|poliencephalomyelitis|noun
+polioencephalomyelitis|noun|poliomyeloencephalitis|noun
+poliomyelitis|noun|polio|noun
+poliomyeloencephalitis|noun|polioencephalomyelitis|noun
+pollakisuria|noun|pollakiuria|noun
+pollakiuria|noun|pollakisuria|noun
+pollodic|adj|panthodic|adj
+poloxalkol|noun|polykol|noun
+polyamine-methylene resin|noun|resinat|noun
+polyarteritis|noun|necrotizing vasculitis|noun
+polybrene|noun|hexadimethrine bromide|noun
+polycentric|adj|multicentric|adj
+polycillin|noun|ampicillin|noun
+polycycline|noun|tetracycline|noun
+polycystic|adj|multicystic|adj
+polyferoxe|noun|jefron|noun
+polygalacturonase|noun|pectinase|noun
+polyhydramnios|noun|hydramnios|noun
+polykol|noun|poloxalkol|noun
+polymastic|adj|pleomastic|adj
+polymox|noun|amoxicillin|noun
+polymyositis|noun|multiple myositis|noun
+polymyxin b sulfate|noun|aerosporin|noun
+polyneuritis|noun|disseminated neuritis|noun
+polyneuritis|noun|multiple neuritis|noun
+polyoma virus|noun|polyomavirus|noun
+polyomavirus|noun|polyoma virus|noun
+polyploid|adj|hyperdiploid|adj
+polyploidy|noun|hyperdiploidy|noun
+polyserositis|noun|multiple serositis|noun
+polysorbate|noun|tween|noun
+polysynaptic|adj|multisynaptic|adj
+polytef|noun|polytetrafluoroethylene|noun
+polytef|noun|teflon|noun
+polytetrafluoroethylene|noun|polytef|noun
+polytetrafluoroethylene|noun|teflon|noun
+polythiazide|noun|renese|noun
+polyvinylpyrrolidone|noun|povidone|noun
+ponderal|adj|weight|noun
+pondimin|noun|fenfluramine hydrochloride|noun
+pons|noun|varolian|adj
+ponstel|noun|mefenamic acid|noun
+pontic|noun|dummy tooth|noun
+pontocaine|noun|tetracaine|noun
+porcine|adj|swine|noun
+portal vein|noun|pylic|adj
+posologic|adj|dose|noun
+post|noun|dowel|noun
+postcecal|adj|retrocecal|adj
+posterior pituitary injection|noun|pituitrin|noun
+postesophageal|adj|retroesophageal|adj
+postmalarial|adj|postpaludal|adj
+postpaludal|adj|postmalarial|adj
+postpuberal|adj|postpubertal|adj
+postpubertal|adj|postpuberal|adj
+postpubertal|adj|postpubescent|adj
+postpubescent|adj|postpubertal|adj
+potassium chloride|noun|kaochlor|noun
+potassium chloride|noun|kay ciel|noun
+potassium gluconate|noun|kaon|noun
+potassium iodide|noun|pima|noun
+potassium phosphate|noun|neutra-phos-k|noun
+potassium triplex|noun|randall's solution|noun
+povan|noun|pyrvinium pamoate|noun
+povidone|noun|polyvinylpyrrolidone|noun
+povidone-iodine|noun|betadine|noun
+pralidoxime|noun|2-pam|noun
+pralidoxime|noun|protopam|noun
+pramoxine|noun|tronothane|noun
+prandial|adj|meal|noun
+prantal|noun|diphemanil methylsulfate|noun
+precancerous|adj|premalignant|adj
+prednisolone|noun|delta-cortef|noun
+prednisolone|noun|hydeltra|noun
+prednisolone|noun|meticortelone|noun
+prednisolone|noun|sterane|noun
+prednisolone|noun|ulacort|noun
+prednisolone sodium phosphate|noun|metreton|noun
+prednisone|noun|deltasone|noun
+prednisone|noun|deltra|noun
+prednisone|noun|lisacort|noun
+prednisone|noun|meticorten|noun
+pregnancy|noun|cyophoric|adj
+pregneninolone|noun|ethisterone|noun
+pregnenolone|noun|natolone|noun
+prehypophyseal|adj|prehypophysial|adj
+prehypophysial|adj|prehypophyseal|adj
+premalignant|adj|precancerous|adj
+premarin|noun|conjugated estrogen|noun
+premarin|noun|conjugated estrogens|noun
+premature beat|noun|extrasystole|noun
+premenarchal|adj|premenarcheal|adj
+premenarcheal|adj|premenarchal|adj
+prephthisis|noun|pretuberculosis|noun
+prepuberal|adj|prepubertal|adj
+prepubertal|adj|prepuberal|adj
+prepubertal|adj|prepubescent|adj
+prepubescent|adj|prepubertal|adj
+presamine|noun|imipramine hydrochloride|noun
+pretuberculosis|noun|prephthisis|noun
+prilocaine hydrochloride|noun|citanest|noun
+primidone|noun|desoxyphenobarbital|noun
+primidone|noun|mysoline|noun
+primitive gut|noun|archenteron|noun
+primordium|noun|anlage|noun
+prinadol|noun|phenazocine|noun
+principen|noun|ampicillin|noun
+priscoline|noun|tolazoline|noun
+prism|noun|prisma|noun
+prisma|noun|prism|noun
+privine|noun|naphazoline|noun
+pro-banthine|noun|propantheline bromide|noun
+proband|noun|propositus|noun
+probarbital|noun|ipral|noun
+probenecid|noun|benemid|noun
+procainamide hydrochloride|noun|pronestyl|noun
+procaine hydrochloride|noun|novocain|noun
+procarbazine hydrochloride|noun|matulane|noun
+prochlorperazine maleate|noun|compazine|noun
+proctalgia|noun|rectalgia|noun
+proctitis|noun|rectitis|noun
+proctocolitis|noun|coloproctitis|noun
+procyclidine hydrochloride|noun|kemadrin|noun
+prodroma|noun|prodrome|noun
+prodrome|noun|prodroma|noun
+productive phlebitis|noun|phlebosclerosis|noun
+proencephalon|noun|prosencephalon|noun
+progesterone|noun|corpus luteum hormone|noun
+progesterone|noun|lipo-lutin|noun
+progesterone|noun|lutromone|noun
+progesterone|noun|proluton|noun
+prognathic|adj|prognathous|adj
+prognathous|adj|prognathic|adj
+proguanil hydrochloride|noun|paludrine|noun
+progynon|noun|estradiol|noun
+projectile|noun|ballistic|adj
+proketazine|noun|carphenazine maleate|noun
+proliferative endophlebitis|noun|phlebosclerosis|noun
+prolific|adj|uberous|adj
+prolixin|noun|fluphenazine hydrochloride|noun
+proloid|noun|thyroglobulin|noun
+proluton|noun|progesterone|noun
+promazine hydrochloride|noun|sparine|noun
+promethazine hydrochloride|noun|phenergan|noun
+promethestrol dipropionate|noun|meprane|noun
+promoxolane|noun|dimethylane|noun
+pronephros|noun|protonephros|noun
+pronestyl|noun|procainamide hydrochloride|noun
+propadrine|noun|phenylpropanolamine hydrochloride|noun
+propagation|noun|reproduction|noun
+propantheline bromide|noun|pro-banthine|noun
+proparacaine hydrochloride|noun|alcaine|noun
+proparacaine hydrochloride|noun|ophthaine|noun
+proparacaine hydrochloride|noun|ophthetic|noun
+prophylactic|adj|synteretic|adj
+propiolactone|noun|betaprone|noun
+propiomazine hydrochloride|noun|largon|noun
+propionate lauryl sulfate|noun|estolate|noun
+propositus|noun|proband|noun
+propoxycaine hydrochloride|noun|blockain|noun
+propoxyphene hydrochloride|noun|darvon|noun
+propranolol hydrochloride|noun|inderal|noun
+propyliodone|noun|dionosil|noun
+prosencephalon|noun|forebrain|noun
+prosencephalon|noun|proencephalon|noun
+prosopagic|adj|trigeminal neuralgia|noun
+prosopoplegic|adj|facial paralysis|noun
+prostaglandin e2|noun|dinoprostone|noun
+prostaphlin|noun|oxacillin sodium|noun
+prostigmin|noun|neostigmine|noun
+prostin e2|noun|dinoprostone|noun
+prostin f2 alpha|noun|dinoprost tromethamine|noun
+protalba|noun|protoveratrine a|noun
+protectant|adj|protective|adj
+protective|adj|protectant|adj
+prothrombinase|noun|thromboplastin|noun
+protokylol hydrochloride|noun|caytine|noun
+protokylol hydrochloride|noun|ventaire|noun
+protonephros|noun|pronephros|noun
+protopam|noun|pralidoxime|noun
+protoveratrine a|noun|protalba|noun
+protriptyline hydrochloride|noun|vivactil|noun
+provera|noun|medroxyprogesterone acetate|noun
+prulet|noun|oxyphenisatin acetate|noun
+pseudankylosis|noun|pseudoankylosis|noun
+pseudoankylosis|noun|pseudankylosis|noun
+pseudocholinesterase|noun|cholinesterase|noun
+pseudoephedrine hydrochloride|noun|sudafed|noun
+pseudoparalysis|noun|false paralysis|noun
+pseudopod|noun|pseudopodium|noun
+pseudopodium|noun|pseudopod|noun
+pseudorabies|noun|infectious bulbar paralysis|noun
+psittacosis|noun|parrot disease|noun
+psychiatrics|noun|psychiatry|noun
+psychiatry|noun|psychiatrics|noun
+psychic|adj|mind|noun
+psychosensorial|adj|psychosensory|adj
+psychosensory|adj|psychosensorial|adj
+psychotherapy|noun|mental healing|noun
+psychrophilic|adj|crymophilic|adj
+psychrophilic|adj|cryophilic|adj
+psyllium hydrophilic mucilloid|noun|metamucil|noun
+puberal|adj|pubertal|adj
+pubertal|adj|puberal|adj
+puerile|adj|childhood|noun
+pullulate|verb|germinate|verb
+pulmonal|adj|pulmonary|adj
+pulmonary|adj|lung|noun
+pulmonary|adj|pulmonal|adj
+pulmonic|adj|lung|noun
+pulp|noun|pulpa|noun
+pulpa|noun|pulp|noun
+pulpitis|noun|endodontitis|noun
+pulpitis|noun|oulonitis|noun
+pulse|noun|pulsus|noun
+pulse|noun|sphygmic|adj
+pulsus|noun|pulse|noun
+purify|verb|depurate|verb
+purinethol|noun|mercaptopurine|noun
+purodigin|noun|crystalline digitoxin|noun
+purpura|noun|peliosis|noun
+purpuriferous|adj|purpuriparous|adj
+purpuriparous|adj|purpuriferous|adj
+pustula|noun|pustule|noun
+pustule|noun|pustula|noun
+putrescine|noun|tetramethylenediamine|noun
+pygal|adj|buttock|noun
+pygal|adj|buttocks|noun
+pyknomorphic|adj|pyknomorphous|adj
+pyknomorphous|adj|pyknomorphic|adj
+pylic|adj|portal vein|noun
+pyloristenosis|noun|pylorostenosis|noun
+pylorostenosis|noun|pyloristenosis|noun
+pyopen|noun|carbenicillin disodium|noun
+pyramidon|noun|aminopyrine|noun
+pyrantel pamoate|noun|antiminth|noun
+pyrazinamide|noun|aldinamide|noun
+pyrectic|adj|fever|noun
+pyretic|adj|fever|noun
+pyribenzamine|noun|tripelennamine|noun
+pyridium|noun|phenazopyridine hydrochloride|noun
+pyridostigmine bromide|noun|mestinon|noun
+pyridoxine hydrochloride|noun|hexa-betalin|noun
+pyridoxine hydrochloride|noun|hexavibex|noun
+pyrilamine maleate|noun|neo-antergan|noun
+pyrimethamine|noun|daraprim|noun
+pyronil|noun|pyrrobutamine|noun
+pyrosis|noun|heartburn|noun
+pyroxylin|noun|collodion cotton|noun
+pyroxylin|noun|gun cotton|noun
+pyroxylin|noun|guncotton|noun
+pyroxylin|noun|nitrocellulose|noun
+pyrrobutamine|noun|pyronil|noun
+pyrvinium pamoate|noun|povan|noun
+quaalude|noun|methaqualone|noun
+quadramoid|noun|trisulfapyrimidines|noun
+quadridigitate|adj|tetradactylous|adj
+quadrigeminum|noun|fourfold|adj
+quarzan|noun|clidinium bromide|noun
+quelicin|noun|succinylcholine|noun
+questran|noun|cholestyramine resin|noun
+quide|noun|piperacetazine|noun
+quinacrine hydrochloride|noun|atabrine|noun
+quinalbarbitone|noun|secobarbital|noun
+quinethazone|noun|hydromox|noun
+quinidex|noun|quinidine sulfate|noun
+quinidine polygalacturonate|noun|cardioquin|noun
+quinidine sulfate|noun|quinidex|noun
+quinidine sulfate|noun|quinora|noun
+quinora|noun|quinidine sulfate|noun
+quotane|noun|dimethisoquin hydrochloride|noun
+rabies|noun|hydrophobic|adj
+racemethionine|noun|meonine|noun
+rachial|adj|rachidial|adj
+rachidial|adj|rachial|adj
+rachidial|adj|spine|noun
+rachidian|adj|spine|noun
+rachitic|adj|rickets|noun
+radiation dermatitis|noun|radiodermatitis|noun
+radiation neuritis|noun|radioneuritis|noun
+radicular|adj|root|noun
+radiculomeningomyelitis|noun|rhizomeningomyelitis|noun
+radioautography|noun|autoradiography|noun
+radiodermatitis|noun|radiation dermatitis|noun
+radiodermatitis|noun|radioepidermitis|noun
+radiodermatitis|noun|radioepithelitis|noun
+radiodermatitis|noun|roentgen-ray dermatitis|noun
+radiodermatitis|noun|x-ray dermatitis|noun
+radioepidermitis|noun|radiodermatitis|noun
+radioepithelitis|noun|radiodermatitis|noun
+radioneuritis|noun|radiation neuritis|noun
+radiosensitiveness|noun|radiosensitivity|noun
+radiosensitivity|noun|radiosensitiveness|noun
+raffinose|noun|melitose|noun
+rag-sorter's disease|noun|anthrax|noun
+ramal|adj|branch|noun
+randall's solution|noun|potassium triplex|noun
+ranula|noun|sublingual cyst|noun
+rau-sed|noun|reserpine|noun
+rauserpa|noun|rauwolfia serpentina|noun
+rauwiloid|noun|alseroxylon|noun
+rauwolfia serpentina|noun|rauserpa|noun
+reabsorb|verb|resorb|verb
+reactrol|noun|clemizole hydrochloride|noun
+rectalgia|noun|proctalgia|noun
+rectitis|noun|proctitis|noun
+rectocolitis|noun|coloproctitis|noun
+rectules|noun|chloral hydrate|noun
+red neuralgia|noun|erythromelalgia|noun
+redisol|noun|vitamin b12|noun
+redness|noun|rubeosis|noun
+refine|verb|depurate|verb
+refresh|verb|freshen|verb
+regitine|noun|phentolamine|noun
+regress|verb|involute|verb
+relaxin|noun|cervilaxin|noun
+relieve|verb|palliate|verb
+remove|verb|ablate|verb
+renal|adj|kidney|noun
+renculus|noun|reniculus|noun
+renese|noun|polythiazide|noun
+reniculus|noun|renculus|noun
+rennin|noun|chymosin|noun
+rennin|noun|lab|noun
+renoquid|noun|sulfacytine|noun
+repel|verb|pellate|verb
+repoise|noun|butaperazine|noun
+reproduction|noun|genetic|adj
+reproduction|noun|genital|adj
+reproduction|noun|propagation|noun
+rescinnamine|noun|moderil|noun
+reserpine|noun|rau-sed|noun
+reserpine|noun|reserpoid|noun
+reserpine|noun|sandril|noun
+reserpine|noun|serfin|noun
+reserpine|noun|serpasil|noun
+reserpoid|noun|reserpine|noun
+resinat|noun|polyamine-methylene resin|noun
+resorb|verb|reabsorb|verb
+resorcinol monoacetate|noun|euresol|noun
+restrain|verb|inhibit|verb
+retard|verb|inhibit|verb
+retch|verb|gag|verb
+reticular|adj|net|noun
+reticular|adj|reticulated|adj
+reticulated|adj|reticular|adj
+retin-a|noun|tretinoin|noun
+retrocecal|adj|postcecal|adj
+retroesophageal|adj|postesophageal|adj
+revulsant|adj|revulsive|adj
+revulsive|adj|revulsant|adj
+rezipas|noun|para-aminosalicylic acid|noun
+rh0(d) immune serum globulin|noun|gamulin rh|noun
+rh0(d) immune serum globulin|noun|hyprho-d|noun
+rhabditiform|adj|rhabdoid|adj
+rhabdoid|adj|rhabditiform|adj
+rhabdomyosarcoma|noun|rhabdosarcoma|noun
+rhabdosarcoma|noun|rhabdomyosarcoma|noun
+rheomacrodex|noun|dextran 40|noun
+rheumatoid myositis|noun|fibrositis|noun
+rhinal|adj|nose|noun
+rhinopharyngeal|adj|nasopharyngeal|adj
+rhinovirus|noun|coryza virus|noun
+rhizomeningomyelitis|noun|radiculomeningomyelitis|noun
+rho (d) immune globulin|noun|rhogam|noun
+rhogam|noun|rho (d) immune globulin|noun
+rib|noun|costal|adj
+riboflavin|noun|vitamin g|noun
+rice disease|noun|beriberi|noun
+rickets|noun|rachitic|adj
+rictal|adj|fissure|noun
+rifadin|noun|rifampin|noun
+rifampin|noun|rifadin|noun
+rifampin|noun|rimactane|noun
+rimactane|noun|rifampin|noun
+rimifon|noun|isoniazid|noun
+riopan|noun|magaldrate|noun
+ritalin|noun|methylphenidate hydrochloride|noun
+robalate|noun|dihydroxyaluminum aminoacetate|noun
+robaxin|noun|methocarbamol|noun
+robinul|noun|glycopyrrolate|noun
+robitussin|noun|guaifenesin|noun
+roentgen-ray dermatitis|noun|radiodermatitis|noun
+rolitetracycline|noun|velacycline|noun
+romilar|noun|dextromethorphan hydrobromide|noun
+rondomycin|noun|methacycline hydrochloride|noun
+roniacol|noun|nicotinyl alcohol|noun
+root|noun|radicular|adj
+rotate|verb|twist|verb
+rotoxamine tartrate|noun|twiston|noun
+rotular|adj|patella|noun
+roundworms|noun|nemic|adj
+rubeosis|noun|redness|noun
+russell's viper venom|noun|stypven|noun
+s. t. 37|noun|hexylresorcinol|noun
+saburral|adj|sordes|noun
+saccharose|noun|sucrose|noun
+saff|noun|safflower oil|noun
+safflor|noun|safflower oil|noun
+safflower oil|noun|saff|noun
+safflower oil|noun|safflor|noun
+sal|noun|salt|noun
+salazosulfapyridine|noun|sulfasalazine|noun
+salicylazosulfapyridine|noun|sulfasalazine|noun
+saliva|noun|sialic|adj
+saliva|noun|sialine|adj
+salivary gland virus|noun|cytomegalovirus|noun
+salmon calcitonin|noun|calcimar|noun
+salt|noun|sal|noun
+saluron|noun|hydroflumethiazide|noun
+salyrgan|noun|mersalyl|noun
+sandril|noun|reserpine|noun
+sanguifacient|adj|hematopoietic|adj
+sanguineous|adj|blood|noun
+sanguineous|adj|sanguinous|adj
+sanguinopoietic|adj|hematopoietic|adj
+sanguinous|adj|sanguineous|adj
+sanorex|noun|mazindol|noun
+sansert|noun|methysergide maleate|noun
+sarcitis|noun|myositis|noun
+saturnine|adj|lead|noun
+scabies|noun|gale|noun
+scale|noun|lepidic|adj
+scales|noun|lepidic|adj
+scaphocephalic|adj|cymbocephalic|adj
+scaphocephalic|adj|cymbocephalous|adj
+scarlatinal|adj|scarlet fever|noun
+scarlet fever|noun|scarlatinal|adj
+scatologic|adj|feces|noun
+schistosoma|noun|bilharzial|adj
+schistosomacidal|adj|schistosomicidal|adj
+schistosomiasis|noun|bilharziasis|noun
+schistosomicidal|adj|schistosomacidal|adj
+schwannoma|noun|neurinoma|noun
+sciatic neuralgia|noun|sciatica|noun
+sciatic neuritis|noun|sciatica|noun
+sciatica|noun|sciatic neuralgia|noun
+sciatica|noun|sciatic neuritis|noun
+scleritis|noun|leucitis|noun
+scleritis|noun|sclerotitis|noun
+sclerochoroiditis|noun|scleroticochoroiditis|noun
+scleroderma|noun|dermatosclerosis|noun
+sclerogenic|adj|sclerogenous|adj
+sclerogenous|adj|sclerogenic|adj
+sclerose|verb|harden|verb
+scleroticochoroiditis|noun|sclerochoroiditis|noun
+sclerotitis|noun|scleritis|noun
+scopolamine|noun|hyoscine|noun
+scorbutic|adj|scurvy|noun
+scorbutus|noun|scurvy|noun
+scrotum|noun|oscheal|adj
+scurvy|noun|scorbutic|adj
+scurvy|noun|scorbutus|noun
+secobarbital|noun|quinalbarbitone|noun
+secobarbital|noun|seconal|noun
+seconal|noun|secobarbital|noun
+seed|noun|seminal|adj
+selection|noun|apolegamic|adj
+selenium sulfide|noun|selsun|noun
+selenium sulfide|noun|selsun blue|noun
+self-consciousness|noun|autopsychic|adj
+selsun|noun|selenium sulfide|noun
+selsun blue|noun|selenium sulfide|noun
+semen|noun|spermatic|adj
+semikon|noun|methapyrilene|noun
+seminal|adj|seed|noun
+seminoma|noun|spermatocytoma|noun
+seminoma|noun|spermocytoma|noun
+semoxydrine|noun|methamphetamine hydrochloride|noun
+senile|adj|old age|noun
+senna|noun|senokot|noun
+senna|noun|x-prep|noun
+senokot|noun|senna|noun
+sensation|noun|esthetic|adj
+serangitis|noun|cavernitis|noun
+serax|noun|oxazepam|noun
+serenium|noun|ethoxazene hydrochloride|noun
+serentil|noun|mesoridazine besylate|noun
+serfin|noun|reserpine|noun
+seromucoid|noun|seromucous|adj
+seromucous|adj|seromucoid|noun
+seromycin|noun|cycloserine|noun
+serothorax|noun|hydrothorax|noun
+serotonin|noun|5-hydroxytryptamine|noun
+serpasil|noun|reserpine|noun
+sexual intercourse|noun|coitus|noun
+sexual reproduction|noun|gamogenetic|adj
+sheep|noun|ovine|adj
+shin|noun|cnemial|adj
+shiver|verb|tremble|verb
+sialadenitis|noun|sialoadenitis|noun
+sialic|adj|saliva|noun
+sialine|adj|saliva|noun
+sialoadenitis|noun|sialadenitis|noun
+sialoangiitis|noun|sialoductitis|noun
+sialoductitis|noun|sialoangiitis|noun
+sick headache|noun|migraine|noun
+sickle cell|noun|drepanocytic|adj
+siderophilin|noun|transferrin|noun
+silain|noun|simethicone|noun
+silica|noun|silicon dioxide|noun
+silicon dioxide|noun|silica|noun
+silicote|noun|dimethicone|noun
+silvadene|noun|silver sulfadiazine|noun
+silvatic|adj|wood|noun
+silver|noun|argyric|adj
+silver|noun|lunar|adj
+silver sulfadiazine|noun|silvadene|noun
+simethicone|noun|mylicon|noun
+simethicone|noun|silain|noun
+sinaxar|noun|styramate|noun
+sinequan|noun|doxepin hydrochloride|noun
+singoserp|noun|syrosingopine|noun
+singultus|noun|hiccup|noun
+sinistral|adj|left|noun
+sinoatrial|adj|sinuatrial|adj
+sintrom|noun|acenocoumarol|noun
+sinuatrial|adj|sinoatrial|adj
+sitosterol|noun|cytellin|noun
+skelaxin|noun|metaxalone|noun
+skin|noun|cutaneous|adj
+skin|noun|dermal|adj
+skiodan|noun|methiodal sodium|noun
+sleep|noun|hypnic|adj
+sleep walking|noun|noctambulic|adj
+small intestine|noun|enteral|adj
+smallpox|noun|variola|noun
+smallpox|noun|variolar|adj
+smallpox|noun|variolous|adj
+smallpox vaccine|noun|dryvax|noun
+snail|noun|planorbid|adj
+snake|noun|ophidic|adj
+sodium butabarbital|noun|butisol sodium|noun
+sodium fluoride|noun|luride|noun
+sodium fluoride|noun|pediaflor|noun
+sodium heparin|noun|liquaemin|noun
+sodium iothalamate|noun|angio-conray|noun
+sodium methicillin|noun|celbenin|noun
+sodium methicillin|noun|dimocillin|noun
+sodium methicillin|noun|staphcillin|noun
+sodium nitroprusside|noun|nipride|noun
+sodium pentobarbital|noun|nembutal|noun
+sodium polystyrene sulfonate|noun|kayexalate|noun
+sodium thiamylal|noun|surital|noun
+sodium warfarin|noun|coumadin|noun
+soft chancre|noun|chancroid|noun
+solapsone|noun|sulphetrone|noun
+solar|adj|sun|noun
+solganal|noun|aurothioglucose|noun
+solid edema|noun|myxedema|noun
+solu-cortef|noun|hydrocortisone sodium succinate|noun
+soluble|adj|solvable|adj
+solvable|adj|soluble|adj
+soma|noun|carisoprodol|noun
+somal|adj|somatic|adj
+somatic|adj|somal|adj
+somatomedin|noun|sulfation factor|noun
+somatostatin|noun|somatotropin release inhibiting hormone|noun
+somatotropin release inhibiting hormone|noun|somatostatin|noun
+sombulex|noun|hexobarbital|noun
+somnambulism|noun|noctambulic|adj
+somnos|noun|chloral hydrate|noun
+sonilyn|noun|sulfachlorpyridazine|noun
+sonographic|adj|ultrasonographic|adj
+sonography|noun|ultrasonography|noun
+sorbitrate|noun|isosorbide dinitrate|noun
+sordes|noun|saburral|adj
+sound|noun|acoustic|adj
+sparine|noun|promazine hydrochloride|noun
+spectinomycin hydrochloride|noun|trobicin|noun
+spermatic|adj|semen|noun
+spermatocidal|adj|spermicidal|adj
+spermatocytoma|noun|seminoma|noun
+spermatogonium|noun|spermospore|noun
+spermicidal|adj|spermatocidal|adj
+spermocytoma|noun|seminoma|noun
+spermolysin|noun|spermotoxin|noun
+spermospore|noun|spermatogonium|noun
+spermotoxin|noun|spermolysin|noun
+sphenomalar|adj|sphenozygomatic|adj
+sphenozygomatic|adj|sphenomalar|adj
+sphygmic|adj|pulse|noun
+spicule|noun|spiculum|noun
+spiculum|noun|spicule|noun
+spine|noun|rachidial|adj
+spine|noun|rachidian|adj
+spinipetal|adj|spinopetal|adj
+spinocortical|adj|corticospinal|adj
+spinopetal|adj|spinipetal|adj
+spinotectal|adj|tectospinal|adj
+spironolactone|noun|aldactone|noun
+splanchnic|adj|viscus|noun
+splanchnoptosis|noun|visceroptosis|noun
+spleen|noun|lienal|adj
+splenitis|noun|lienitis|noun
+splenopancreatic|adj|lienopancreatic|adj
+spondylolisthesis|noun|spondyloptosis|noun
+spondyloptosis|noun|spondylolisthesis|noun
+spondylous|adj|vertebra|noun
+spring|noun|vernal|adj
+squamoparietal|adj|squamosoparietal|adj
+squamosal|adj|squamous|adj
+squamosoparietal|adj|squamoparietal|adj
+squamous|adj|squamosal|adj
+staining|noun|tinctorial|adj
+stamen|noun|androecium|noun
+stanozolol|noun|winstrol|noun
+staphcillin|noun|sodium methicillin|noun
+staphyline|adj|uvula|noun
+staphylinus|adj|uvula|noun
+star|noun|stella|noun
+staxis|noun|hemorrhage|noun
+stearin|noun|tristearin|noun
+steatogenous|adj|lipogenic|adj
+steclin|noun|tetracycline|noun
+stelazine|noun|trifluoperazine hydrochloride|noun
+stella|noun|star|noun
+stenediol|noun|methandriol|noun
+sterane|noun|prednisolone|noun
+stercoraceous|adj|stercoral|adj
+stercoral|adj|stercoraceous|adj
+sterisil|noun|hexetidine|noun
+sternoclavicular|adj|sternocleidal|adj
+sternocleidal|adj|sternoclavicular|adj
+sternum|noun|xiphoid bone|noun
+stibophen|noun|fuadin|noun
+stilbestrol|noun|diethylstilbestrol|noun
+stilphostrol|noun|diethylstilbestrol diphosphate|noun
+stomach|noun|gastric|adj
+stomalgia|noun|stomatalgia|noun
+stomatalgia|noun|stomalgia|noun
+stomatic|adj|mouth|noun
+stoxil|noun|idoxuridine|noun
+strain|verb|filter|verb
+strangle|verb|choke|verb
+streptokinase-streptodornase|noun|varidase|noun
+striatran|noun|emylcamate|noun
+strobila|noun|strobilus|noun
+strobilus|noun|strobila|noun
+stroke|noun|ictal|adj
+strongyloidiasis|noun|strongyloidosis|noun
+strongyloidosis|noun|strongyloidiasis|noun
+struma|noun|goiter|noun
+strumiprival|adj|strumiprivous|adj
+strumiprivous|adj|strumiprival|adj
+stun|verb|daze|verb
+stupor|noun|carotic|adj
+sturdy|noun|gid|noun
+sty|noun|stye|noun
+stye|noun|sty|noun
+stylohyal|adj|stylohyoid|adj
+stylohyoid|adj|stylohyal|adj
+stypven|noun|russell's viper venom|noun
+styramate|noun|sinaxar|noun
+styrene|noun|styrol|noun
+styrol|noun|styrene|noun
+subabdominoperitoneal|adj|subperitoneal|adj
+subcostal|adj|subcostalis|noun
+subcostalis|noun|subcostal|adj
+subglossal|adj|sublingual|adj
+subicular|adj|uncinate gyrus|noun
+sublimaze|noun|fentanyl citrate|noun
+sublingual|adj|subglossal|adj
+sublingual cyst|noun|ranula|noun
+subperitoneal|adj|subabdominoperitoneal|adj
+subperitoneal|adj|subperitoneoabdominal|adj
+subperitoneoabdominal|adj|subperitoneal|adj
+subsonic|adj|infrasonic|adj
+succinous|adj|amber|noun
+succinylcholine|noun|quelicin|noun
+succinylcholine|noun|sucostrin|noun
+succinylcholine chloride|noun|anectine|noun
+succinylcholine chloride|noun|sux-cert|noun
+succinylsulfathiazole|noun|sulfasuxidine|noun
+sucostrin|noun|succinylcholine|noun
+sucrose|noun|saccharose|noun
+sudafed|noun|pseudoephedrine hydrochloride|noun
+suet|noun|tallow|noun
+suffocation|noun|asphyxiation|noun
+sul-spansion|noun|sulfaethidole|noun
+sulamyd|noun|sulfacetamide|noun
+sulfacetamide|noun|sulamyd|noun
+sulfacetamide sodium|noun|bleph|noun
+sulfachlorpyridazine|noun|sonilyn|noun
+sulfacytine|noun|renoquid|noun
+sulfadiazine|noun|eskadiazine|noun
+sulfadimidine|noun|sulfamethazine|noun
+sulfaethidole|noun|sul-spansion|noun
+sulfafurazole|noun|sulfisoxazole|noun
+sulfameter|noun|sulla|noun
+sulfamethazine|noun|sulfadimidine|noun
+sulfamethazine|noun|sulfamezathine|noun
+sulfamethizole|noun|thiosulfil|noun
+sulfamethoxazole|noun|gantanol|noun
+sulfamethoxypyridazine|noun|kynex|noun
+sulfamethoxypyridazine|noun|midicel|noun
+sulfamezathine|noun|sulfamethazine|noun
+sulfamylon|noun|mafenide|noun
+sulfapyridine|noun|dagenan|noun
+sulfasalazine|noun|azulfidine|noun
+sulfasalazine|noun|salazosulfapyridine|noun
+sulfasalazine|noun|salicylazosulfapyridine|noun
+sulfasuxidine|noun|succinylsulfathiazole|noun
+sulfathalidine|noun|phthalylsulfathiazole|noun
+sulfation factor|noun|somatomedin|noun
+sulfide|noun|sulfuret|verb
+sulfinpyrazone|noun|anturane|noun
+sulfisomidine|noun|elkosin|noun
+sulfisoxazole|noun|gantrisin|noun
+sulfisoxazole|noun|sulfafurazole|noun
+sulfobromophthalein sodium|noun|bromsulphalein|noun
+sulfose|noun|trisulfapyrimidines|noun
+sulfoxone sodium|noun|diasone|noun
+sulfur|noun|thionic|adj
+sulfuret|verb|sulfide|noun
+sulisobenzone|noun|uval|noun
+sulla|noun|sulfameter|noun
+sulphetrone|noun|solapsone|noun
+summer|noun|estival|adj
+sumycin|noun|tetracycline hydrochloride|noun
+sun|noun|solar|adj
+sundare|noun|cinoxate|noun
+superciliary|adj|eyebrow|noun
+suppurate|verb|maturate|verb
+suprarenin|noun|epinephrine|noun
+suprasellar cyst|noun|craniopharyngioma|noun
+sural|adj|calf|noun
+suramin sodium|noun|antrypol|noun
+surfacaine|noun|cyclomethycaine|noun
+surfak|noun|docusate calcium|noun
+surital|noun|sodium thiamylal|noun
+sus-phrine|noun|epinephrine|noun
+sux-cert|noun|succinylcholine chloride|noun
+sweating|noun|hidrotic|adj
+sweeten|verb|edulcorate|verb
+swelling|noun|oncotic|adj
+swine|noun|porcine|adj
+swoon|noun|syncope|noun
+sylvan|adj|wood|noun
+symmetrel|noun|amantadine hydrochloride|noun
+sympathetic|adj|sympathic|adj
+sympathic|adj|sympathetic|adj
+sympathicoblastoma|noun|sympathicogonioma|noun
+sympathicoblastoma|noun|sympathogonioma|noun
+sympathicogonioma|noun|sympathicoblastoma|noun
+sympathogonioma|noun|sympathicoblastoma|noun
+symptomatic|adj|endeictic|adj
+synalar|noun|fluocinolone acetonide|noun
+synaphymenitis|noun|conjunctivitis|noun
+syncope|noun|faint|noun
+syncope|noun|swoon|noun
+syncurine|noun|decamethonium bromide|noun
+syndesmosis|noun|synneurosis|noun
+syndrox|noun|methamphetamine hydrochloride|noun
+synemol|noun|fluocinolone acetonide|noun
+syngeneic|adj|isogeneic|adj
+synkayvite|noun|menadiol sodium diphosphate|noun
+synneurosis|noun|syndesmosis|noun
+synophylate|noun|theophylline sodium glycinate|noun
+synovial sarcoma|noun|synoviosarcoma|noun
+synoviosarcoma|noun|malignant synovioma|noun
+synoviosarcoma|noun|synovial sarcoma|noun
+synovitis|noun|arthromeningitis|noun
+synteretic|adj|prophylactic|adj
+synthetic oxytocin|noun|syntocinon|noun
+synthetic vitamin d2|noun|deltalin|noun
+synthroid|noun|levothyroxine sodium|noun
+syntocinon|noun|synthetic oxytocin|noun
+syntropan|noun|amprotropine phosphate|noun
+syphilis|noun|heredoluetic|adj
+syphilis|noun|lues|noun
+syphilitic|adj|luetic|adj
+syphilitic|adj|syphilous|adj
+syphilitic|noun|luetic|noun
+syphilous|adj|syphilitic|adj
+syringoadenoma|noun|syringocystadenoma|noun
+syringocystadenoma|noun|syringoadenoma|noun
+syringomyelitis|noun|cavitary myelitis|noun
+syrosingopine|noun|singoserp|noun
+sytobex|noun|cyanocobalamin|noun
+tacaryl|noun|methdilazine|noun
+tace|noun|chlorotrianisene|noun
+tactile|adj|touch|noun
+tactile hyperesthesia|noun|hyperaphic|adj
+tactilogical|adj|touch|noun
+tactual|adj|touch|noun
+tagamet|noun|cimetidine|noun
+tail|noun|caudalis|adj
+talbutal|noun|lotusate|noun
+talc|noun|talcum|noun
+talcum|noun|talc|noun
+talipedic|adj|clubfooted|adj
+tallow|noun|suet|noun
+talwin|noun|pentazocine|noun
+tamoxifen|noun|nolvadex|noun
+tandearil|noun|oxyphenbutazone|noun
+tao|noun|troleandomycin|noun
+tapazole|noun|methimazole|noun
+taractan|noun|chlorprothixene|noun
+tarsalgia|noun|policeman's disease|noun
+tartarated|adj|tartarized|adj
+tartarized|adj|tartarated|adj
+taste|noun|gustatory|adj
+tea|noun|thea|noun
+tear|noun|lacrimal|adj
+tebutate|noun|tertiary butyl acetate|noun
+technic|noun|technique|noun
+technique|noun|technic|noun
+tectospinal|adj|spinotectal|adj
+teflon|noun|polytef|noun
+teflon|noun|polytetrafluoroethylene|noun
+tegopen|noun|cloxacillin sodium|noun
+tegretol|noun|carbamazepine|noun
+telangiectatic fibroma|noun|angiofibroma|noun
+teldrin|noun|chlorpheniramine maleate|noun
+telencephal|adj|telencephalon|noun
+telencephalon|noun|telencephal|adj
+telepaque|noun|iopanoic acid|noun
+telluric|adj|earth|noun
+temaril|noun|trimeprazine tartrate|noun
+temporal|adj|time|noun
+temporomalar|adj|temporozygomatic|adj
+temporozygomatic|adj|temporomalar|adj
+tempra|noun|acetaminophen|noun
+tendinitis|noun|tendonitis|noun
+tendinitis|noun|tenositis|noun
+tendonitis|noun|tendinitis|noun
+tendosynovitis|noun|tenosynovitis|noun
+tendovaginitis|noun|tenosynitis|noun
+tenontolemmitis|noun|tenosynovitis|noun
+tenositis|noun|tendinitis|noun
+tenosynitis|noun|tendovaginitis|noun
+tenosynovitis|noun|peritendinitis|noun
+tenosynovitis|noun|peritenonitis|noun
+tenosynovitis|noun|peritenontitis|noun
+tenosynovitis|noun|tendosynovitis|noun
+tenosynovitis|noun|tenontolemmitis|noun
+tensilon|noun|edrophonium chloride|noun
+tenuate|noun|diethylpropion hydrochloride|noun
+tepanil|noun|diethylpropion hydrochloride|noun
+teratoid tumor|noun|teratoma|noun
+teratoma|noun|dysembryoma|noun
+teratoma|noun|teratoid tumor|noun
+terbutaline sulfate|noun|brethine|noun
+terbutaline sulfate|noun|bricanyl|noun
+tergal|adj|back|noun
+terminal|adj|end|noun
+terminate|verb|expire|verb
+terpin hydrate|noun|terpinol|noun
+terpinol|noun|terpin hydrate|noun
+terra merita|noun|turmeric|noun
+terramycin|noun|oxytetracycline|noun
+tertiary butyl acetate|noun|tebutate|noun
+teslac|noun|testolactone|noun
+tessalon|noun|benzonatate|noun
+test|noun|docimastic|adj
+testiculus|noun|testis|noun
+testis|noun|orchidic|adj
+testis|noun|testiculus|noun
+testitis|noun|orchitis|noun
+testolactone|noun|teslac|noun
+testosterone|noun|depo-testosterone|noun
+testosterone|noun|perandren|noun
+testosterone|noun|testryl|noun
+testosterone enanthate|noun|delatestryl|noun
+testosterone propionate|noun|neo-hombreol|noun
+testosterone propionate|noun|oreton|noun
+testryl|noun|testosterone|noun
+tetanus immune human globulin|noun|homo-tet|noun
+tetanus immune human globulin|noun|hu-tet|noun
+tetanus immune human globulin|noun|hyper-tet|noun
+tetrabromofluorescein|noun|eosin|noun
+tetracaine|noun|pontocaine|noun
+tetrachloroethylene|noun|nema|noun
+tetracycline|noun|achromycin|noun
+tetracycline|noun|panmycin|noun
+tetracycline|noun|polycycline|noun
+tetracycline|noun|steclin|noun
+tetracycline|noun|tetracyn|noun
+tetracycline hydrochloride|noun|bristacycline|noun
+tetracycline hydrochloride|noun|piracaps|noun
+tetracycline hydrochloride|noun|sumycin|noun
+tetracycline hydrochloride|noun|topicycline|noun
+tetracyn|noun|tetracycline|noun
+tetradactylous|adj|quadridigitate|adj
+tetraethylammonium chloride|noun|etamon|noun
+tetraethylthiuram disulfide|noun|disulfiram|noun
+tetrahydrozoline hydrochloride|noun|tyzine|noun
+tetrahydrozoline hydrochloride|noun|visine|noun
+tetramethylenediamine|noun|putrescine|noun
+tetrodotoxin|noun|fugu toxin|noun
+thalassanemia|noun|thalassemia|noun
+thalassemia|noun|thalassanemia|noun
+thanatophidial|adj|venomous snake|noun
+thea|noun|tea|noun
+thebaic|adj|opium|noun
+theelin|noun|estrone|noun
+thenal|adj|palm|noun
+thenar|adj|palm|noun
+thenylene|noun|methapyrilene|noun
+theoglycinate|noun|theophylline sodium glycinate|noun
+theophylline|noun|elixophyllin|noun
+theophylline sodium glycinate|noun|glytheonate|noun
+theophylline sodium glycinate|noun|synophylate|noun
+theophylline sodium glycinate|noun|theoglycinate|noun
+thephorin|noun|phenindamine tartrate|noun
+thermal|adj|heat|noun
+thermic|adj|heat|noun
+thermotropic|adj|caloritropic|adj
+thiabendazole|noun|mintezol|noun
+thiamazole|noun|methimazole|noun
+thiamine hydrochloride|noun|betaxin|noun
+thiazide|noun|benzothiadiazine|noun
+thiethylperazine|noun|torecan|noun
+thigh|noun|femoral|adj
+thimerosal|noun|merthiolate|noun
+thimerosal|noun|thiomersalate|noun
+thiomerin|noun|mercaptomerin sodium|noun
+thiomersalate|noun|thimerosal|noun
+thioneine|noun|ergothioneine|noun
+thionic|adj|sulfur|noun
+thiopental|noun|pentothal|noun
+thiopental|noun|thiopentone|noun
+thiopentone|noun|thiopental|noun
+thiopropazate dihydrochloride|noun|dartal|noun
+thioridazine hydrochloride|noun|mellaril|noun
+thiosulfil|noun|sulfamethizole|noun
+thiothixene|noun|navane|noun
+thiphenamil hydrochloride|noun|trocinate|noun
+thonzylamine hydrochloride|noun|neohetramine|noun
+thoracic|adj|chest|noun
+thorazine|noun|chlorpromazine hydrochloride|noun
+threptic|adj|nutrition|noun
+threshold|noun|liminal|adj
+throat|noun|guttural|adj
+thrombase|noun|thrombin|noun
+thrombin|noun|fibrinogenase|noun
+thrombin|noun|thrombase|noun
+thromboclastic|adj|thrombolytic|adj
+thrombocytapheresis|noun|plateletpheresis|noun
+thrombocytopenia|noun|thrombopenia|noun
+thrombolysin|noun|fibrinolysin|noun
+thrombolytic|adj|thromboclastic|adj
+thrombopenia|noun|thrombocytopenia|noun
+thromboplastin|noun|prothrombinase|noun
+thymus|noun|thymus gland|noun
+thymus gland|noun|thymus|noun
+thyrar|noun|thyroid (def. 3)|noun
+thyreoitis|noun|thyroiditis|noun
+thyrocalcitonin|noun|calcitonin|noun
+thyrodesmic|adj|thyrotropic|adj
+thyrogenic|adj|thyrogenous|adj
+thyrogenous|adj|thyrogenic|adj
+thyroglobulin|noun|proloid|noun
+thyroid (def. 3)|noun|thyrar|noun
+thyroiditis|noun|thyreoitis|noun
+thyrolar|noun|liotrix|noun
+thyrotropic|adj|thyrodesmic|adj
+thyrotropin|noun|thytropar|noun
+thytropar|noun|thyrotropin|noun
+tibiofibular|adj|tibioperoneal|adj
+tibioperoneal|adj|tibiofibular|adj
+ticar|noun|ticarcillin disodium|noun
+ticarcillin disodium|noun|ticar|noun
+ticrynafen|noun|tienilic acid|noun
+tienilic acid|noun|ticrynafen|noun
+tigan|noun|trimethobenzamide hydrochloride|noun
+time|noun|temporal|adj
+tinactin|noun|tolnaftate|noun
+tinctorial|adj|dyeing|noun
+tinctorial|adj|staining|noun
+tinctura|noun|tincture|noun
+tincture|noun|tinctura|noun
+tindal|noun|acetophenazine maleate|noun
+tinea nodosa|noun|piedra|noun
+tinea unguium|noun|onychomycosis|noun
+tissue|noun|histic|adj
+tissue|noun|histionic|adj
+tissue activator|noun|fibrinokinase|noun
+to touch|verb|abut|verb
+tobramycin sulfate|noun|nebcin|noun
+toclase|noun|carbetapentane citrate|noun
+tofranil|noun|imipramine hydrochloride|noun
+tolazamide|noun|tolinase|noun
+tolazoline|noun|priscoline|noun
+tolbutamide|noun|orinase|noun
+tolectin|noun|tolmetin sodium|noun
+tolerance|noun|toleration|noun
+toleration|noun|tolerance|noun
+tolinase|noun|tolazamide|noun
+tolmetin sodium|noun|tolectin|noun
+tolnaftate|noun|tinactin|noun
+tolonium|noun|blutene|noun
+tolserol|noun|mephenesin|noun
+toluene|noun|toluol|noun
+toluol|noun|toluene|noun
+tongue|noun|glossal|adj
+tongue|noun|glottic|adj
+tongue|noun|lingual|adj
+tonsil|noun|amygdaline|adj
+tooth|noun|dental|adj
+tooth|noun|odontic|adj
+toothache|noun|odontalgic|adj
+topalgia|noun|topoalgia|noun
+topicort|noun|desoximetasone|noun
+topicycline|noun|tetracycline hydrochloride|noun
+topoalgia|noun|topalgia|noun
+topsyn|noun|fluocinonide|noun
+torecan|noun|thiethylperazine|noun
+torminal|adj|pain|noun
+torticollis|noun|wryneck|noun
+torulosis|noun|cryptococcosis|noun
+tosylate|noun|p-toluenesulfonate|noun
+totacillin|noun|ampicillin|noun
+touch|noun|tactile|adj
+touch|noun|tactilogical|adj
+touch|noun|tactual|adj
+tour|noun|turn|noun
+toxic|adj|poison|noun
+toxicogenic|adj|toxigenic|adj
+toxigenic|adj|toxicogenic|adj
+tracheitis|noun|trachitis|noun
+trachelitis|noun|cervicitis|noun
+trachitis|noun|tracheitis|noun
+trachoma|noun|granular conjunctivitis|noun
+train|verb|condition|verb
+tral|noun|hexocyclium methylsulfate|noun
+trancopal|noun|chlormezanone|noun
+transferrin|noun|siderophilin|noun
+translucent|adj|pellucid|adj
+transversocostal|adj|costotransverse|adj
+tranxene|noun|clorazepate dipotassium|noun
+tranylcypromine sulfate|noun|parnate|noun
+trapeziform|adj|trapezoid|adj
+trapezoid|adj|trapeziform|adj
+trasentine|noun|adiphenine hydrochloride|noun
+tree|noun|arboreal|adj
+tremble|verb|shiver|verb
+tremin|noun|trihexyphenidyl hydrochloride|noun
+trepan|verb|trephine|verb
+trephine|verb|trepan|verb
+trest|noun|methixene hydrochloride|noun
+tretinoin|noun|retin-a|noun
+triacetin|noun|enzactin|noun
+triacetyloleandomycin|noun|troleandomycin|noun
+triamcinolone|noun|kenacort|noun
+triamcinolone acetonide|noun|aristogel|noun
+triamcinolone acetonide|noun|kenalog|noun
+triamcinolone hexacetonide|noun|aristospan|noun
+triamterene|noun|dyrenium|noun
+tribromoethanol|noun|avertin|noun
+triburon|noun|triclobisonium chloride|noun
+trichinelliasis|noun|trichinosis|noun
+trichiniasis|noun|trichinosis|noun
+trichinosis|noun|trichinelliasis|noun
+trichinosis|noun|trichiniasis|noun
+trichinosis|noun|trichinous polymyositis|noun
+trichinous polymyositis|noun|trichinosis|noun
+trichlorfon|noun|metrifonate|noun
+trichlormethiazide|noun|metahydrin|noun
+trichlormethiazide|noun|naqua|noun
+trichloroethylene|noun|ethinyl trichloride|noun
+trichloroethylene|noun|trilene|noun
+trichocephaliasis|noun|trichuriasis|noun
+trichuriasis|noun|trichocephaliasis|noun
+triclobisonium chloride|noun|triburon|noun
+triclofos sodium|noun|triclos|noun
+triclos|noun|triclofos sodium|noun
+tricofuron|noun|furazolidone|noun
+tricoloid|noun|tricyclamol chloride|noun
+tricyclamol chloride|noun|elorine|noun
+tricyclamol chloride|noun|tricoloid|noun
+tridesilon|noun|desonide|noun
+tridihexethyl chloride|noun|pathilon|noun
+tridione|noun|trimethadione|noun
+trifluoperazine hydrochloride|noun|stelazine|noun
+trifluperidol|noun|triperidol|noun
+triflupromazine|noun|vesprin|noun
+trigeminal neuralgia|noun|prosopagic|adj
+trihexyphenidyl|noun|artane|noun
+trihexyphenidyl hydrochloride|noun|pipanol|noun
+trihexyphenidyl hydrochloride|noun|tremin|noun
+triketohydrindene hydrate|noun|ninhydrin|noun
+triketohydrindene hydrate|noun|ninhydrin reagent|noun
+trilafon|noun|perphenazine|noun
+trilene|noun|trichloroethylene|noun
+trilisate|noun|choline magnesium trisalicylate|noun
+trimeprazine tartrate|noun|temaril|noun
+trimethadione|noun|tridione|noun
+trimethaphan camsylate|noun|arfonad|noun
+trimethidinium methosulfate|noun|ostensin|noun
+trimethobenzamide hydrochloride|noun|tigan|noun
+trimethylacetate|noun|pivalate|noun
+trinitrin|noun|nitroglycerin|noun
+trioxsalen|noun|trisoralen|noun
+tripelennamine|noun|pyribenzamine|noun
+triperidol|noun|trifluperidol|noun
+triprolidine hydrochloride|noun|actidil|noun
+trisoralen|noun|trioxsalen|noun
+tristearin|noun|stearin|noun
+trisulfapyrimidines|noun|quadramoid|noun
+trisulfapyrimidines|noun|sulfose|noun
+trisulfapyrinidenes|noun|neotrizine|noun
+trobicin|noun|spectinomycin hydrochloride|noun
+trochlear nerve|noun|pathetic|adj
+trocinate|noun|thiphenamil hydrochloride|noun
+troleandomycin|noun|cyclamycin|noun
+troleandomycin|noun|tao|noun
+troleandomycin|noun|triacetyloleandomycin|noun
+trolnitrate phosphate|noun|metamine|noun
+trominal|adj|colic|noun
+tronothane|noun|pramoxine|noun
+trophedema|noun|trophoedema|noun
+trophic|adj|nutrition|noun
+trophoedema|noun|trophedema|noun
+tropicamide|noun|mydriacyl|noun
+trypanocidal|adj|trypanosomicidal|adj
+trypanosomicidal|adj|trypanocidal|adj
+tuamine|noun|tuaminoheptane|noun
+tuaminoheptane|noun|tuamine|noun
+tubadil|noun|tubocurarine chloride|noun
+tubarine|noun|tubocurarine chloride|noun
+tubocurarine chloride|noun|intocostrin|noun
+tubocurarine chloride|noun|tubadil|noun
+tubocurarine chloride|noun|tubarine|noun
+tularemia|noun|deer fly disease|noun
+tungsten|noun|wolfram|noun
+turmeric|noun|terra merita|noun
+turn|noun|tour|noun
+tussal|adj|cough|noun
+tussive|adj|cough|noun
+tween|noun|polysorbate|noun
+twin|noun|gemellary|adj
+twist|verb|rotate|verb
+twiston|noun|rotoxamine tartrate|noun
+tylenol|noun|acetaminophen|noun
+typhlenteritis|noun|cecitis|noun
+typhloenteritis|noun|cecitis|noun
+typhloptosis|noun|cecoptosis|noun
+typhloteritis|noun|cecitis|noun
+tyropanoate sodium|noun|bilopaque|noun
+tyzine|noun|tetrahydrozoline hydrochloride|noun
+uberous|adj|prolific|adj
+ulacort|noun|prednisolone|noun
+ulalgia|noun|gingivalgia|noun
+ulcer|noun|ulcus|noun
+ulcus|noun|ulcer|noun
+ulna|noun|cubital|adj
+ulo|noun|chlophedianol hydrochloride|noun
+ultimisternal|adj|xiphoid process|noun
+ultra-red|adj|infrared|adj
+ultramicroscopic|adj|ultravisible|adj
+ultran|noun|phenaglycodol|noun
+ultrasonographic|adj|sonographic|adj
+ultrasonography|noun|sonography|noun
+ultravisible|adj|ultramicroscopic|adj
+umbilicus|noun|omphalic|adj
+uncinate gyrus|noun|subicular|adj
+undulant fever|noun|brucellosis|noun
+unfavorable|adj|infaust|adj
+ungual|adj|nail|noun
+unguentum|noun|ointment|noun
+uniaural|adj|monaural|adj
+unipen|noun|nafcillin sodium|noun
+uniterminal|adj|monoterminal|adj
+universe|noun|cosmic|adj
+unload|verb|deplete|verb
+unmyelinated|adj|nonmedullated|adj
+unmyelinated|adj|nonmyelinated|adj
+upper jaw|noun|maxilla|noun
+upsiloid|adj|ypsiliform|adj
+urate thesaurismosis|noun|gout|noun
+urea|noun|aquacare|noun
+urea|noun|ureaphil|noun
+urea|noun|urevert|noun
+ureaphil|noun|urea|noun
+urecholine|noun|bethanechol chloride|noun
+uretal|adj|ureteral|adj
+ureteral|adj|uretal|adj
+urethan|noun|ethyl carbamate|noun
+urevert|noun|urea|noun
+urex|noun|methenamine hippurate|noun
+urinative|adj|diuretic|adj
+urispas|noun|flavoxate hydrochloride|noun
+uritone|noun|methenamine|noun
+urogastrone|noun|kutrol|noun
+urotropin|noun|methenamine|noun
+urticaria|noun|local intracutaneous edema|noun
+uterine disorder|noun|metropathic|adj
+utibid|noun|oxolinic acid|noun
+uticillin vk|noun|penicillin v potassium|noun
+utterance|noun|articulatory|adj
+uval|noun|sulisobenzone|noun
+uvula|noun|staphyline|adj
+uvula|noun|staphylinus|adj
+uvulaptosis|noun|uvuloptosis|noun
+uvuloptosis|noun|uvulaptosis|noun
+v-cillin|noun|penicillin v|noun
+vaccinial|adj|cowpox|noun
+vagosplanchnic|adj|vagosympathetic|adj
+vagosympathetic|adj|vagosplanchnic|adj
+valadol|noun|acetaminophen|noun
+valethamate bromide|noun|murel|noun
+valisone|noun|betamethasone valerate|noun
+valium|noun|diazepam|noun
+vallestril|noun|methallenestril|noun
+valmid|noun|ethinamate|noun
+valpin|noun|anisotropine methylbromide|noun
+vancocin|noun|vancomycin hydrochloride|noun
+vancomycin hydrochloride|noun|vancocin|noun
+vanogel|noun|aluminum hydroxide gel|noun
+variable|adj|variate|adj
+variate|adj|variable|adj
+varicella|noun|chickenpox|noun
+varidase|noun|streptokinase-streptodornase|noun
+variola|noun|smallpox|noun
+variola minor|noun|alastrimic|adj
+variolar|adj|smallpox|noun
+variolous|adj|smallpox|noun
+varolian|adj|pons|noun
+vasal|adj|vessel|noun
+vasal|noun|papaverine hydrochloride|noun
+vascular|adj|blood vessel|noun
+vascular nephritis|noun|nephrosclerosis|noun
+vascular nutrition|noun|angiotrophic|adj
+vascular sclerosis|noun|arteriosclerosis|noun
+vasodilan|noun|isoxsuprine hydrochloride|noun
+vasopressin|noun|beta-hypophamine|noun
+vasopressin injection|noun|pitressin|noun
+vasoxyl|noun|methoxamine hydrochloride|noun
+vectrin|noun|minocycline hydrochloride|noun
+veetids|noun|penicillin v potassium|noun
+vegetal|adj|plant|noun
+velacycline|noun|rolitetracycline|noun
+velamentous|adj|veliform|adj
+velban|noun|vinblastine sulfate|noun
+veliform|adj|velamentous|adj
+velosef|noun|cephradine|noun
+venesection|noun|phlebotomy|noun
+venography|noun|phlebography|noun
+venomous snake|noun|thanatophidial|adj
+venosclerosis|noun|phlebosclerosis|noun
+venous sclerosis|noun|phlebosclerosis|noun
+ventaire|noun|protokylol hydrochloride|noun
+ventral|adj|belly|noun
+ventroptosis|noun|gastroptosis|noun
+veracillin|noun|dicloxacillin sodium|noun
+verbal|adj|word|noun
+vercyte|noun|pipobroman|noun
+veriloid|noun|alkavervir|noun
+verminal|adj|worm|noun
+verminous bronchitis|noun|hoose|noun
+vernal|adj|spring|noun
+versapen|noun|hetacillin|noun
+vertebra|noun|spondylous|adj
+vertebrarterial|adj|vertebroarterial|adj
+vertebroarterial|adj|vertebrarterial|adj
+vesical|adj|bladder|noun
+vesicular bronchiolitis|noun|bronchopneumonia|noun
+vesperal|adj|evening|noun
+vesprin|noun|triflupromazine|noun
+vessel|noun|vasal|adj
+viadril|noun|hydroxydione sodium|noun
+vibesate|noun|aeroplast|noun
+vibramycin|noun|doxycycline|noun
+vinactane|noun|viomycin|noun
+vinbarbital|noun|delvinal|noun
+vinblastine sulfate|noun|velban|noun
+vincristine sulfate|noun|oncovin|noun
+vinegar|noun|acetic|adj
+vinethene|noun|vinyl ether|noun
+vinic|adj|wine|noun
+vinous|adj|wine|noun
+vinyl ether|noun|vinethene|noun
+viocin|noun|viomycin sulfate|noun
+vioform|noun|iodochlorhydroxyquin|noun
+viokase|noun|pancreatin|noun
+viomycin|noun|vinactane|noun
+viomycin sulfate|noun|viocin|noun
+viricidal|adj|virucidal|adj
+virucidal|adj|viricidal|adj
+visceroptosis|noun|splanchnoptosis|noun
+viscus|noun|splanchnic|adj
+visine|noun|tetrahydrozoline hydrochloride|noun
+vision|noun|optical|adj
+vistaril|noun|hydroxyzine|noun
+vitamin a|noun|acon|noun
+vitamin b12|noun|bevidox|noun
+vitamin b12|noun|docibin|noun
+vitamin b12|noun|ducobee|noun
+vitamin b12|noun|normocytin|noun
+vitamin b12|noun|redisol|noun
+vitamin c|noun|cevalin|noun
+vitamin c|noun|cevex|noun
+vitamin d2|noun|ertron|noun
+vitamin e|noun|ephynal|noun
+vitamin g|noun|riboflavin|noun
+vitamin h|noun|biotin|noun
+vitamin k1|noun|konakion|noun
+vitamin k1|noun|mephyton|noun
+vitellary|adj|yolk|noun
+vitelline|adj|yolk|noun
+vitochemical|adj|organic chemistry|noun
+vivactil|noun|protriptyline hydrochloride|noun
+vocal|adj|voice|noun
+voice|noun|phonal|adj
+voice|noun|phonic|adj
+voice|noun|vocal|adj
+voice|noun|vox|noun
+volitional|adj|will|noun
+vomitive|adj|emetic|adj
+vomitive|noun|emetic|noun
+vontrol|noun|diphenidol|noun
+voranil|noun|clortermine hydrochloride|noun
+vox|noun|voice|noun
+vulnerate|verb|wound|verb
+warfarin sodium|noun|panwarfin|noun
+water thesaurismosis|noun|edema|noun
+weep|verb|cry|verb
+weeping dermatitis|noun|eczema|noun
+weight|noun|ponderal|adj
+white lotion|noun|lotioblanc|noun
+will|noun|volitional|adj
+wine|noun|vinic|adj
+wine|noun|vinous|adj
+wing|noun|alar|adj
+winstrol|noun|stanozolol|noun
+winter|noun|hiemal|adj
+wolfram|noun|tungsten|noun
+woman|noun|gynecic|adj
+wood|noun|silvatic|adj
+wood|noun|sylvan|adj
+wood alcohol|noun|methanol|noun
+wool|noun|lana|noun
+word|noun|verbal|adj
+worm|noun|helminthous|adj
+worm|noun|verminal|adj
+wound|verb|vulnerate|verb
+wrist|noun|carpal|adj
+wryneck|noun|torticollis|noun
+wyamine|noun|mephentermine|noun
+wycillin|noun|penicillin g procaine|noun
+wydase|noun|hyaluronidase for injection|noun
+x-prep|noun|senna|noun
+x-ray dermatitis|noun|radiodermatitis|noun
+xanthotoxin|noun|methoxsalen|noun
+xenograft|noun|heterotransplant|noun
+xerography|noun|xeroradiography|noun
+xeroradiography|noun|xerography|noun
+xiphoid bone|noun|sternum|noun
+xiphoid process|noun|ultimisternal|adj
+xylocaine|noun|lidocaine|noun
+xylometazoline hydrochloride|noun|otrivin|noun
+yawn|verb|oscitate|verb
+yodoxin|noun|iodoquinol|noun
+yolk|noun|vitellary|adj
+yolk|noun|vitelline|adj
+youth|noun|ephebic|adj
+ypsiliform|adj|upsiloid|adj
+zactane|noun|ethoheptazine citrate|noun
+zarontin|noun|ethosuximide|noun
+zaroxolyn|noun|metolazone|noun
+zeistic|adj|maize|noun
+zephiran|noun|benzalkonium|noun
+zoetic|adj|life|noun
+zoic|adj|animal life|noun
+zonomune|noun|influenza virus vaccine|noun
+zoodynamic|adj|animal physiology|noun
+zyloprim|noun|allopurinol|noun
+zymogenic|adj|fermentation|noun
