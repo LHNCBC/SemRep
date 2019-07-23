@@ -6,7 +6,7 @@ These files must be located in the same directory and the command must be run fr
 
 perl ../profiler.pl comp cardiac_325.cdx.old:D cardiac_325.cdx.new:D
 
-The same program can also be used to evaluate a SemRep output file. In this case, the second file is the gold standard file. The gold standard file is expected to be in simple output format. (NOTE: As of 01/10/2009, conversion of the gold standard files to this format is not complete, therefore, evaluation may not work as expected.) To evaluate a file, the command to use is:
+The same program can also be used to evaluate a SemRep output file. In this case, the second file is the gold standard file. The gold standard file is expected to be in simple output format. To evaluate a file, the command to use is:
 
 perl profiler.pl eval $file1:$file1_format $gs_file:$gs_format
 
