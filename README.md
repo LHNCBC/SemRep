@@ -36,7 +36,7 @@ By default, SemRep uses and is optimized for 2006AA release. UMLS data and hiera
 
 ## Getting UMLS Data Files
 
-The UMLS Lexicon, Metathesaurus and hierarchy data files can be downloaded from [ftp://lhcftp.nlm.nih.gov/Open-Access-Datasets/SKR/SemRep/dist](ftp://lhcftp.nlm.nih.gov/Open-Access-Datasets/SKR/SemRep/dist). 
+The UMLS Lexicon, Metathesaurus and hierarchy data files can be downloaded from <a href="ftp://lhcftp.nlm.nih.gov/Open-Access-Datasets/SKR/SemRep/dist">ftp://lhcftp.nlm.nih.gov/Open-Access-Datasets/SKR/SemRep/dist</a>. 
  
 Use the following command to extract the UMLS SPECIALIST Lexicon and Metathesaurus. For the current release, available years are 06 and 18. You can download and use both, or select an appropriate year. 
 
@@ -60,7 +60,7 @@ To find out where your java installation is located type the following at comman
 
 To set the environment variable JAVA_HOME:
 
-If the command above returns /usr/local/jre1.6.0/bin/java, then JAVA_HOME should be set to /usr/local/jre1.6.0/.
+If the command above returns `/usr/local/jre1.6.0/bin/java`, then JAVA_HOME should be set to `/usr/local/jre1.6.0/`.
 
 For example: 
 - In C Shell (csh or tcsh), use `% setenv JAVA_HOME /usr/local/jre1.6.0`.
@@ -77,7 +77,7 @@ You also need to add the bin directory to your program path (<SemRep's parent di
 Run the installation script as follows:
 
 NOTE: If you are only interested in using a single UMLS dataset (2006, or 2018), you can  save on space requirements by only downloading and installing the relevant dataset and 
-changing the line in install.sh 
+changing the line in `install.sh` 
 
 `AVAILABLE_DATA="2006 2018"`
 
@@ -92,7 +92,7 @@ to
 
 An example of a successful installation looks as follows:
 
-````cd public_semrep
+````cd SemRep
 bin/install.sh
 
 Enter basedir of SemRep installation [/rhome/kilicogluh/SemRep]
@@ -289,14 +289,14 @@ tagset_gene.l
 tagset_gene.lr
 wordset_gene.stop
 DB
-/rhome/kilicogluh/public_semrep/DATA/ENTREZGENE/HUMAN_SYMBOL
-/rhome/kilicogluh/public_semrep/DATA/ENTREZGENE/HUMAN_ALIAS
-/rhome/kilicogluh/public_semrep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2006AA_1
-/rhome/kilicogluh/public_semrep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2006AA_2
-/rhome/kilicogluh/public_semrep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2006AA_3
-/rhome/kilicogluh/public_semrep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2006AA_3
-/rhome/kilicogluh/public_semrep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2006AA_4
-/rhome/kilicogluh/public_semrep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2018AA_1
+/rhome/kilicogluh/SemRep/DATA/ENTREZGENE/HUMAN_SYMBOL
+/rhome/kilicogluh/SemRep/DATA/ENTREZGENE/HUMAN_ALIAS
+/rhome/kilicogluh/SemRep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2006AA_1
+/rhome/kilicogluh/SemRep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2006AA_2
+/rhome/kilicogluh/SemRep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2006AA_3
+/rhome/kilicogluh/SemRep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2006AA_3
+/rhome/kilicogluh/SemRep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2006AA_4
+/rhome/kilicogluh/SemRep/DATA/UMLS_HIERARCHY/hrel-UMLS_btree.2018AA_1
 ./bin/install.sh ended Fri Feb 15 17:28:33 EST 2018
 Public MetaMap basedir: /rhome/kilicogluh/public_mm
 Public SemRep basedir: /rhome/kilicogluh/SemRep
@@ -326,7 +326,7 @@ The output should look something like this:
 ```
 
 
-#### Invoking SemRep
+### Invoking SemRep
 
 If there are no errors starting the WSD and Tagger servers then SemRep can be run as follows:
 
