@@ -323,7 +323,7 @@ The output should look something like this:
 16105 pts/0    Sl     0:00 /usr/local/jdk1.6.0_01/bin/java -Xmx2g -Dserver.config...
 16158 pts/0    R+     0:00 grep java
 21914 pts/0    Sl     0:02 /usr/bin/gij -Djava.version=1.6.0 -Djava.home=/usr/lib/...
-```
+````
 
 
 ### Invoking SemRep
