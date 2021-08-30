@@ -36,7 +36,7 @@ By default, SemRep uses and is optimized for 2006AA release. UMLS data and hiera
 
 ## Getting UMLS Data Files
 
-The UMLS Lexicon, Metathesaurus and hierarchy data files can be downloaded from <a href="ftp://lhcftp.nlm.nih.gov/Open-Access-Datasets/SKR/SemRep/dist">ftp://lhcftp.nlm.nih.gov/Open-Access-Datasets/SKR/SemRep/dist</a>. 
+The UMLS Lexicon, Metathesaurus and hierarchy data files can be downloaded from <a href="https://lhncbc.nlm.nih.gov/ii/tools/SemRep_SemMedDB_SKR/SemRep_download.html">fhttps://lhncbc.nlm.nih.gov/ii/tools/SemRep_SemMedDB_SKR/SemRep_download.html</a>. 
  
 Use the following command to extract the UMLS SPECIALIST Lexicon and Metathesaurus. For the current release, available years are 06 and 18. You can download and use both, or select an appropriate year. 
 
@@ -356,7 +356,7 @@ Otherwise, the script will simply print out DIFFS OK messages.
 
 ### Questions
 
-If you have problems then send an email to [halil.kilicoglu@gmail.com](mailto:halil.kilicoglu@gmail.com).
+If you have problems, send an email to [halil.kilicoglu@gmail.com](mailto:halil.kilicoglu@gmail.com).
 
 ### Using SemRep
 
