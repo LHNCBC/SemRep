@@ -2,7 +2,7 @@
 
 ## Introduction
 
-SemRep is a program that extracts semantic predications (subject-relation-object triples) from biomedical free text. For a detailed description of SemRep, see the article [The interaction of domain knowledge and linguistic structure in natural language processing: interpreting hypernymic propositions in biomedical text](https://www.sciencedirect.com/science/article/pii/S1532046403001175).  This guide is designed to help install SemRep on the Linux operating system.
+SemRep is a program that extracts semantic predications (subject-relation-object triples) from biomedical free text. For a detailed description of SemRep, see the article [Broad-coverage biomedical relation extraction with SemRep](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/s12859-020-3517-7).  This guide is designed to help install SemRep on the Linux operating system.
 
 ## Prerequisites
 
