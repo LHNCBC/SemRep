@@ -1,3 +1,8 @@
+> [!WARNING]
+> This repository has been archived and is no longer maintained.  
+> The code is provided for historical reference and may contain unpatched or unknown vulnerabilities.  
+> It should not be used in production systems.
+
 # Installing and Running the Public Version of SemRep
 
 ## Introduction
@@ -364,4 +369,4 @@ For more information on running SemRep and its options, see these references:
 - [Semrep v1.8 options](doc/SemRep.v1.8_Options.txt)
 - [Full-fielded output format description](doc/SemRep_full_fielded_output.pdf)
 - [XML output description](doc/SemRep.v1.8_XML_output_desc.txt)
-
+
